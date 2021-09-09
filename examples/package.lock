@@ -1,0 +1,5 @@
+prefixes:
+  certificate_roots: ..
+packages:
+  ..:
+    path: ..
