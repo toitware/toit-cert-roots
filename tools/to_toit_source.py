@@ -11,10 +11,6 @@ arany_re = re.compile("^NETLOCK_ARANY")
 begin_re = re.compile("^-----BEGIN")
 end_re = re.compile("^-----END")
 
-capitalize = string.maketrans(
-    "abcdefghijklmnopqrstuvwxyz -.",
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZ___")
-
 printing = False
 name = None
 all_certs = []
@@ -35,19 +31,24 @@ for line in fileinput.input():
     line = line.strip()
     captures = label_re.search(line)
     if captures != None:
-        name = string.translate(captures.group(1), capitalize)
-        if arany_re.match(name):
+        upper_case = captures.group(1).maketrans(
+            "abcdefghijklmnopqrstuvwxyz -.",
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZ___")
+        name = captures.group(1).translate(upper_case)
+        if arany_re.match(name) != None:
             name = "NETLOCK_ARANY"
         name = re.sub('_+', "_", name)
     if begin_re.match(line):
         printing = True
-        print("%s ::= net.Certificate.parse \"\"\"\\" % (name))
+        print("%s_TEXT_ ::= \"\"\"\\" % (name))
         all_certs.append(name)
     if printing:
         print(line)
     if end_re.match(line):
         printing = False
         print("\"\"\"")
+        print("")
+        print("%s ::= net.Certificate.parse %s_TEXT_" % (name, name))
         print("")
 
 print("")
@@ -58,7 +59,7 @@ print("  before they can be used as the --root_certificates argument")
 print("*/")
 print("ALL ::= {")
 for cert in all_certs:
-    print("  \"%s\": %s," % (cert, cert))
-print "}"
+    print("  \"%s\": %s_TEXT_," % (cert, cert))
+print("}")
 
 
