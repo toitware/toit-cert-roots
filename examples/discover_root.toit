@@ -18,7 +18,7 @@ import certificate_roots
 HOST ::= "www.bbc.com"  // Replace with the host you want to connect to.
 URL ::= "/"             // Replace with the URL part after the domain.
 
-NETWORK_INTERFACE ::= net.open
+network_interface ::= net.open
 found_one_that_worked := false
 
 main:
@@ -43,7 +43,7 @@ binary_split names/List certs/List -> none:
   print "."
 
   exception := catch:
-    tcp := NETWORK_INTERFACE.tcp_connect HOST 443
+    tcp := network_interface.tcp_connect HOST 443
     socket := tls.Socket.client tcp
       --server_name=HOST
       --root_certificates=certs

@@ -13,7 +13,8 @@ end_re = re.compile("^-----END")
 
 printing = False
 name = None
-all_certs = []
+mixed_case_name = None
+all_certs = {}
 
 print("/// Root certificates, automatically extracted from Mozilla's NSS")
 print("")
@@ -26,28 +27,33 @@ print("// file, You can obtain one at http://mozilla.org/MPL/2.0/.")
 print("")
 print("import net.x509 as net")
 print("")
+print("import .get_root")
+print("export get_root_from_exception")
+print("")
 
 for line in fileinput.input():
     line = line.strip()
     captures = label_re.search(line)
     if captures != None:
-        upper_case = captures.group(1).maketrans(
+        mixed_case_name = captures.group(1)
+        upper_case = mixed_case_name.maketrans(
             "abcdefghijklmnopqrstuvwxyz -.",
             "ABCDEFGHIJKLMNOPQRSTUVWXYZ___")
-        name = captures.group(1).translate(upper_case)
+        name = mixed_case_name.translate(upper_case)
         if arany_re.match(name) != None:
             name = "NETLOCK_ARANY"
         name = re.sub('_+', "_", name)
     if begin_re.match(line):
         printing = True
         print("%s_TEXT_ ::= \"\"\"\\" % (name))
-        all_certs.append(name)
+        all_certs[mixed_case_name] = name
     if printing:
         print(line)
     if end_re.match(line):
         printing = False
         print("\"\"\"")
         print("")
+        print("/// %s." % (mixed_case_name))
         print("%s ::= net.Certificate.parse %s_TEXT_" % (name, name))
         print("")
 
@@ -58,8 +64,9 @@ print("The text forms must be parsed with net.Certificate.parse")
 print("  before they can be used as the --root_certificates argument")
 print("*/")
 print("ALL ::= {")
-for cert in all_certs:
-    print("  \"%s\": %s_TEXT_," % (cert, cert))
+for name in all_certs:
+    cert = all_certs[name]
+    print("  \"%s\": %s_TEXT_," % (name, cert))
 print("}")
 
 
