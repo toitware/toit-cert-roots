@@ -18,7 +18,7 @@ import certificate_roots
 HOST ::= "www.yahoo.com"  // Replace with the host you want to connect to.
 URL ::= "/"               // Replace with the URL part after the domain.
 
-NETWORK_INTERFACE ::= net.open
+network_interface ::= net.open
 
 main:
   exception := try_with_root certificate_roots.GLOBALSIGN_ROOT_CA
@@ -31,7 +31,7 @@ main:
 
 try_with_root cert/net.Certificate -> string?:
   exception := catch:
-    tcp := NETWORK_INTERFACE.tcp_connect HOST 443
+    tcp := network_interface.tcp_connect HOST 443
     socket := tls.Socket.client tcp
       --server_name=HOST
       --root_certificates=[cert]
