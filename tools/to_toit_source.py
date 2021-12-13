@@ -66,13 +66,19 @@ print("*/")
 print("MAP ::= {")
 for name in all_certs:
     cert = all_certs[name]
-    print("  \"%s\": %s_TEXT_," % (name, cert))
+    if "TUNTRUST" not in cert:
+      print("  \"%s\": %s_TEXT_," % (name, cert))
 print("}")
 print("")
 print("/**")
 print("All the trusted roots in the collection.  If you are running")
 print("  on a non-embedded platform with plenty of memory you can just")
 print("  use them all.")
+print("#Note")
+print("The TunTrust cert is only intended for .tn domains, but")
+print("  currently we do not support this restriction in our TLS code,")
+print("  therefore it is currently omitted here, and in $MAP, but is")
+print("  available on an opt-in basis.")
 print("#Examples")
 print("```")
 print("  socket := tls.Socket.client tcp")
@@ -83,5 +89,6 @@ print("*/")
 print("ALL ::= [")
 for name in all_certs:
     cert = all_certs[name]
-    print("  %s," % (cert))
+    if "TUNTRUST" not in cert:
+      print("  %s," % (cert))
 print("]")
