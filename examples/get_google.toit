@@ -15,8 +15,8 @@ main:
   tcp := network_interface.tcp_connect host 443
 
   socket := tls.Socket.client tcp
-    --server_name=host
-    --root_certificates=[certificate_roots.GLOBALSIGN_ROOT_CA_R2]
+      --server_name=host
+      --root_certificates=certificate_roots.ALL
 
   connection := http.Connection socket host
   request := connection.new_request "GET" "/"
