@@ -63,10 +63,25 @@ print("A map from certificate name to certificate in text form.")
 print("The text forms must be parsed with net.Certificate.parse")
 print("  before they can be used as the --root_certificates argument")
 print("*/")
-print("ALL ::= {")
+print("MAP ::= {")
 for name in all_certs:
     cert = all_certs[name]
     print("  \"%s\": %s_TEXT_," % (name, cert))
 print("}")
-
-
+print("")
+print("/**")
+print("All the trusted roots in the collection.  If you are running")
+print("  on a non-embedded platform with plenty of memory you can just")
+print("  use them all.")
+print("#Examples")
+print("```")
+print("  socket := tls.Socket.client tcp")
+print("    --server_name=host")
+print("    --root_certificates=certificate_roots.ALL")
+print("```")
+print("*/")
+print("ALL ::= [")
+for name in all_certs:
+    cert = all_certs[name]
+    print("  %s," % (cert))
+print("]")

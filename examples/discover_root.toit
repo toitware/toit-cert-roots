@@ -25,7 +25,7 @@ main:
   names := []
   cert_texts := []
 
-  certificate_roots.ALL.do: | name cert |
+  certificate_roots.MAP.do: | name cert |
     names.add name
     cert_texts.add cert
 

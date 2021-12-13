@@ -31,7 +31,7 @@ get_root_from_exception exception/string -> net.Certificate?:
     cn_end_index = exception[cn_index..].index_of "'"
   if cn_end_index == -1: return null
   common_name := exception[cn_index..][..cn_end_index]
-  cert_text := ALL.get(common_name)
+  cert_text := MAP.get(common_name)
   if cert_text == null: return null
   print "Found cert $common_name"
   return net.Certificate.parse cert_text
