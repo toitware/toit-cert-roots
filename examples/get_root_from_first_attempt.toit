@@ -33,8 +33,8 @@ try_with_root cert/net.Certificate -> string?:
   exception := catch:
     tcp := network_interface.tcp_connect HOST 443
     socket := tls.Socket.client tcp
-      --server_name=HOST
-      --root_certificates=[cert]
+        --server_name=HOST
+        --root_certificates=[cert]
 
     connection := http.Connection socket HOST
     try:

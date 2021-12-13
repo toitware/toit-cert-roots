@@ -45,8 +45,8 @@ binary_split names/List certs/List -> none:
   exception := catch:
     tcp := network_interface.tcp_connect HOST 443
     socket := tls.Socket.client tcp
-      --server_name=HOST
-      --root_certificates=certs
+        --server_name=HOST
+        --root_certificates=certs
 
     connection := http.Connection socket HOST
     try:
