@@ -1,5 +1,10 @@
 prefixes:
   certificate_roots: ..
+  http: pkg-http
 packages:
   ..:
     path: ..
+  pkg-http:
+    url: github.com/toitlang/pkg-http
+    version: 1.6.0
+    hash: e5c8e9eb6f435b6c5d1aaaf72a26cb45d030a173

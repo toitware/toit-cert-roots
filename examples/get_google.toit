@@ -12,18 +12,16 @@ main:
   network_interface := net.open
 
   host := "www.google.com"
-  tcp := network_interface.tcp_connect host 443
-
-  socket := tls.Socket.client tcp
-      --server_name=host
-      --root_certificates=[certificate_roots.GLOBALSIGN_ROOT_CA_R2, certificate_roots.GLOBALSIGN_ROOT_CA]
-
-  connection := http.Connection socket host
-  request := connection.new_request "GET" "/"
-  response := request.send
+  root_certificates := [
+    certificate_roots.GLOBALSIGN_ROOT_CA_R2,
+    certificate_roots.GLOBALSIGN_ROOT_CA,
+  ]
+  client := http.Client.tls network_interface
+      --root_certificates=root_certificates
+  response := client.get host "/"
 
   bytes := 0
-  while data := response.read:
+  while data := response.body.read:
     bytes += data.size
 
   print "Read $bytes bytes from https://$host/"

@@ -16,7 +16,7 @@ import tls
 import certificate_roots
 
 HOST ::= "www.bbc.com"  // Replace with the host you want to connect to.
-URL ::= "/"             // Replace with the URL part after the domain.
+PATH ::= "/"            // Replace with the path part after the domain.
 
 network_interface ::= net.open
 found_one_that_worked := false
@@ -43,17 +43,11 @@ binary_split names/List certs/List -> none:
   print "."
 
   exception := catch:
-    tcp := network_interface.tcp_connect HOST 443
-    socket := tls.Socket.client tcp
-        --server_name=HOST
-        --root_certificates=certs
-
-    connection := http.Connection socket HOST
-    try:
-      request := connection.new_request "GET" URL
-      response := request.send
-    finally:
-      connection.close
+    client := http.Client.tls network_interface --root_certificates=certs
+    response := client.get HOST PATH
+    // Drain the response.
+    while response.body.read:
+      null  // Do nothing.
 
   if exception:
     if exception.to_string.starts_with "Site relies on unknown root":
@@ -61,7 +55,7 @@ binary_split names/List certs/List -> none:
     throw exception
 
   if names.size == 1:
-    print "Successful connection to https://$HOST$URL with $names[0]"
+    print "Successful connection to https://$HOST$PATH with $names[0]"
     found_one_that_worked = true
     return
 

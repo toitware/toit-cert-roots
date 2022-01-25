@@ -1,0 +1,6 @@
+dependencies:
+  certificate_roots:
+    path: ..
+  http:
+    url: github.com/toitlang/pkg-http
+    version: ^1.6.0

@@ -16,7 +16,7 @@ import tls
 import certificate_roots
 
 HOST ::= "www.yahoo.com"  // Replace with the host you want to connect to.
-URL ::= "/"               // Replace with the URL part after the domain.
+PATH ::= "/"              // Replace with the path part after the domain.
 
 network_interface ::= net.open
 
@@ -31,20 +31,11 @@ main:
 
 try_with_root cert/net.Certificate -> string?:
   exception := catch:
-    tcp := network_interface.tcp_connect HOST 443
-    socket := tls.Socket.client tcp
-        --server_name=HOST
-        --root_certificates=[cert]
-
-    connection := http.Connection socket HOST
-    try:
-      request := connection.new_request "GET" URL
-      response := request.send
-      bytes := 0
-      while data := response.read:
-        bytes += data.size
-      print "Read $bytes bytes from https://$HOST$URL"
-    finally:
-      connection.close
+    client := http.Client.tls network_interface --root_certificates=[cert]
+    response := client.get HOST PATH
+    bytes := 0
+    while data := response.body.read:
+      bytes += data.size
+    print "Read $bytes bytes from https://$HOST$PATH"
 
   return exception
