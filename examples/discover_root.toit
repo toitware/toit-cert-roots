@@ -45,9 +45,8 @@ binary_split names/List certs/List -> none:
   exception := catch:
     client := http.Client.tls network_interface --root_certificates=certs
     response := client.get HOST PATH
-    // Drain the response.
-    while response.body.read:
-      null  // Do nothing.
+    // TODO(florian): Don't reach into private variables of response.
+    response.connection_.close
 
   if exception:
     if exception.to_string.starts_with "Site relies on unknown root":
