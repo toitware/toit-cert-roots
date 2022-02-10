@@ -15,7 +15,7 @@ import http
 import tls
 import certificate_roots
 
-HOST ::= "www.bbc.com"  // Replace with the host you want to connect to.
+HOST ::= "ecc256.badssl.com"  // Replace with the host you want to connect to.
 PATH ::= "/"            // Replace with the path part after the domain.
 
 network_interface ::= net.open
@@ -50,6 +50,8 @@ binary_split names/List certs/List -> none:
 
   if exception:
     if exception.to_string.starts_with "Site relies on unknown root":
+      return
+    if exception.to_string.starts_with "X509 - Certificate verification failed":
       return
     throw exception
 
