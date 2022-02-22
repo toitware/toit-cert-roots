@@ -4389,6 +4389,7 @@ MAP ::= {
   "vTrus Root CA": VTRUS_ROOT_CA_TEXT_,
   "ISRG Root X2": ISRG_ROOT_X2_TEXT_,
   "HiPKI Root CA - G1": HIPKI_ROOT_CA_G1_TEXT_,
+  "AAA Certificate Services": COMODO_AAA_SERVICES_ROOT_TEXT_,
 }
 
 /**
