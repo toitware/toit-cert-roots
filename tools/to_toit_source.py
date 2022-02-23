@@ -68,6 +68,7 @@ for name in all_certs:
     cert = all_certs[name]
     if "TUNTRUST" not in cert:
       print("  \"%s\": %s_TEXT_," % (name, cert))
+print("  \"AAA Certificate Services\": COMODO_AAA_SERVICES_ROOT_TEXT_,")
 print("}")
 print("")
 print("/**")
