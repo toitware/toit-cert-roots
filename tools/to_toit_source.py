@@ -7,12 +7,14 @@ import re
 import string
 
 label_re = re.compile("^# Label: \"(.*)\"$")
+fingerprint_re = re.compile("^# SHA256 Fingerprint: (.*)$")
 arany_re = re.compile("^NETLOCK_ARANY")
 begin_re = re.compile("^-----BEGIN")
 end_re = re.compile("^-----END")
 
 printing = False
 name = None
+fingerprint = None
 mixed_case_name = None
 all_certs = {}
 
@@ -33,6 +35,9 @@ print("")
 
 for line in fileinput.input():
     line = line.strip()
+    captures = fingerprint_re.search(line)
+    if captures != None:
+        fingerprint = captures.group(1)
     captures = label_re.search(line)
     if captures != None:
         mixed_case_name = captures.group(1)
@@ -53,7 +58,12 @@ for line in fileinput.input():
         printing = False
         print("\"\"\"")
         print("")
-        print("/// %s." % (mixed_case_name))
+        print("/**")
+        print("%s." % (mixed_case_name))
+        if fingerprint != None:
+          print("SHA256 fingerprint: %s" % (fingerprint))
+        fingerprint = None
+        print("*/")
         print("%s ::= net.Certificate.parse %s_TEXT_" % (name, name))
         print("")
 

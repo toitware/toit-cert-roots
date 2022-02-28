@@ -38,7 +38,7 @@ HMUfpIBvFSDJ3gyICh3WZlXi/EjJKSZp4A==
 
 /**
 GlobalSign Root CA.
-Deprecated.  This certificate has expired.
+SHA256 fingerprint: eb:d4:10:40:e4:bb:3e:c7:42:c9:e3:81:d3:1e:f2:a4:1a:48:b6:68:5c:96:e7:ce:f3:c1:df:6c:d4:33:1c:99
 */
 GLOBALSIGN_ROOT_CA ::= net.Certificate.parse GLOBALSIGN_ROOT_CA_TEXT_
 
@@ -67,7 +67,10 @@ TBj0/VLZjmmx6BEP3ojY+x1J96relc8geMJgEtslQIxq/H5COEBkEveegeGTLg==
 -----END CERTIFICATE-----
 """
 
-/// GlobalSign Root CA - R2.
+/**
+GlobalSign Root CA - R2.
+Deprecated.  This certificate has expired.
+*/
 GLOBALSIGN_ROOT_CA_R2 ::= net.Certificate.parse GLOBALSIGN_ROOT_CA_R2_TEXT_
 
 ENTRUST_NET_PREMIUM_2048_SECURE_SERVER_CA_TEXT_ ::= """\
@@ -98,7 +101,10 @@ fF6adulZkMV8gzURZVE=
 -----END CERTIFICATE-----
 """
 
-/// Entrust.net Premium 2048 Secure Server CA.
+/**
+Entrust.net Premium 2048 Secure Server CA.
+SHA256 fingerprint: 6d:c4:71:72:e0:1c:bc:b0:bf:62:58:0d:89:5f:e2:b8:ac:9a:d4:f8:73:80:1e:0c:10:b9:c8:37:d2:1e:b1:77
+*/
 ENTRUST_NET_PREMIUM_2048_SECURE_SERVER_CA ::= net.Certificate.parse ENTRUST_NET_PREMIUM_2048_SECURE_SERVER_CA_TEXT_
 
 BALTIMORE_CYBERTRUST_ROOT_TEXT_ ::= """\
@@ -125,7 +131,10 @@ R9I4LtD+gdwyah617jzV/OeBHRnDJELqYzmp
 -----END CERTIFICATE-----
 """
 
-/// Baltimore CyberTrust Root.
+/**
+Baltimore CyberTrust Root.
+SHA256 fingerprint: 16:af:57:a9:f6:76:b0:ab:12:60:95:aa:5e:ba:de:f2:2a:b3:11:19:d6:44:ac:95:cd:4b:93:db:f3:f2:6a:eb
+*/
 BALTIMORE_CYBERTRUST_ROOT ::= net.Certificate.parse BALTIMORE_CYBERTRUST_ROOT_TEXT_
 
 ENTRUST_ROOT_CERTIFICATION_AUTHORITY_TEXT_ ::= """\
@@ -158,7 +167,10 @@ eu6FSqdQgPCnXEqULl8FmTxSQeDNtGPPAUO6nIPcj2A781q0tHuu2guQOHXvgR1m
 -----END CERTIFICATE-----
 """
 
-/// Entrust Root Certification Authority.
+/**
+Entrust Root Certification Authority.
+SHA256 fingerprint: 73:c1:76:43:4f:1b:c6:d5:ad:f4:5b:0e:76:e7:27:28:7c:8d:e5:76:16:c1:e6:e6:14:1a:2b:2c:bc:7d:8e:4c
+*/
 ENTRUST_ROOT_CERTIFICATION_AUTHORITY ::= net.Certificate.parse ENTRUST_ROOT_CERTIFICATION_AUTHORITY_TEXT_
 
 COMODO_AAA_SERVICES_ROOT_TEXT_ ::= """\
@@ -189,7 +201,10 @@ smPi9WIsgtRqAEFQ8TmDn5XpNpaYbg==
 -----END CERTIFICATE-----
 """
 
-/// Comodo AAA Services root.
+/**
+Comodo AAA Services root.
+SHA256 fingerprint: d7:a7:a0:fb:5d:7e:27:31:d7:71:e9:48:4e:bc:de:f7:1d:5f:0c:3e:0a:29:48:78:2b:c8:3e:e0:ea:69:9e:f4
+*/
 COMODO_AAA_SERVICES_ROOT ::= net.Certificate.parse COMODO_AAA_SERVICES_ROOT_TEXT_
 
 QUOVADIS_ROOT_CA_2_TEXT_ ::= """\
@@ -228,7 +243,10 @@ ohEUGW6yhhtoPkg3Goi3XZZenMfvJ2II4pEZXNLxId26F0KCl3GBUzGpn/Z9Yr9y
 -----END CERTIFICATE-----
 """
 
-/// QuoVadis Root CA 2.
+/**
+QuoVadis Root CA 2.
+SHA256 fingerprint: 85:a0:dd:7d:d7:20:ad:b7:ff:05:f8:3d:54:2b:20:9d:c7:ff:45:28:f7:d6:77:b1:83:89:fe:a5:e5:c4:9e:86
+*/
 QUOVADIS_ROOT_CA_2 ::= net.Certificate.parse QUOVADIS_ROOT_CA_2_TEXT_
 
 QUOVADIS_ROOT_CA_3_TEXT_ ::= """\
@@ -272,7 +290,10 @@ mJlglFwjz1onl14LBQaTNx47aTbrqZ5hHY8y2o4M1nQ+ewkk2gF3R8Q7zTSMmfXK
 -----END CERTIFICATE-----
 """
 
-/// QuoVadis Root CA 3.
+/**
+QuoVadis Root CA 3.
+SHA256 fingerprint: 18:f1:fc:7f:20:5d:f8:ad:dd:eb:7f:e0:07:dd:57:e3:af:37:5a:9c:4d:8d:73:54:6b:f4:f1:fe:d1:e1:8d:35
+*/
 QUOVADIS_ROOT_CA_3 ::= net.Certificate.parse QUOVADIS_ROOT_CA_3_TEXT_
 
 SECURITY_COMMUNICATION_ROOT_CA_TEXT_ ::= """\
@@ -298,7 +319,10 @@ RSflMMFe8toTyyVCUZVHA4xsIcx0Qu1T/zOLjw9XARYvz6buyXAiFL39vmwLAw==
 -----END CERTIFICATE-----
 """
 
-/// Security Communication Root CA.
+/**
+Security Communication Root CA.
+SHA256 fingerprint: e7:5e:72:ed:9f:56:0e:ec:6e:b4:80:00:73:a4:3f:c3:ad:19:19:5a:39:22:82:01:78:95:97:4a:99:02:6b:6c
+*/
 SECURITY_COMMUNICATION_ROOT_CA ::= net.Certificate.parse SECURITY_COMMUNICATION_ROOT_CA_TEXT_
 
 XRAMP_GLOBAL_CA_ROOT_TEXT_ ::= """\
@@ -329,7 +353,10 @@ O+7ETPTsJ3xCwnR8gooJybQDJbw=
 -----END CERTIFICATE-----
 """
 
-/// XRamp Global CA Root.
+/**
+XRamp Global CA Root.
+SHA256 fingerprint: ce:cd:dc:90:50:99:d8:da:df:c5:b1:d2:09:b7:37:cb:e2:c1:8c:fb:2c:10:c0:ff:0b:cf:0d:32:86:fc:1a:a2
+*/
 XRAMP_GLOBAL_CA_ROOT ::= net.Certificate.parse XRAMP_GLOBAL_CA_ROOT_TEXT_
 
 GO_DADDY_CLASS_2_CA_TEXT_ ::= """\
@@ -359,7 +386,10 @@ ReYNnyicsbkqWletNw+vHX/bvZ8=
 -----END CERTIFICATE-----
 """
 
-/// Go Daddy Class 2 CA.
+/**
+Go Daddy Class 2 CA.
+SHA256 fingerprint: c3:84:6b:f2:4b:9e:93:ca:64:27:4c:0e:c6:7c:1e:cc:5e:02:4f:fc:ac:d2:d7:40:19:35:0e:81:fe:54:6a:e4
+*/
 GO_DADDY_CLASS_2_CA ::= net.Certificate.parse GO_DADDY_CLASS_2_CA_TEXT_
 
 STARFIELD_CLASS_2_CA_TEXT_ ::= """\
@@ -389,7 +419,10 @@ WQPJIrSPnNVeKtelttQKbfi3QBFGmh95DmK/D5fs4C8fF5Q=
 -----END CERTIFICATE-----
 """
 
-/// Starfield Class 2 CA.
+/**
+Starfield Class 2 CA.
+SHA256 fingerprint: 14:65:fa:20:53:97:b8:76:fa:a6:f0:a9:95:8e:55:90:e4:0f:cc:7f:aa:4f:b7:c2:c8:67:75:21:fb:5f:b6:58
+*/
 STARFIELD_CLASS_2_CA ::= net.Certificate.parse STARFIELD_CLASS_2_CA_TEXT_
 
 DIGICERT_ASSURED_ID_ROOT_CA_TEXT_ ::= """\
@@ -417,7 +450,10 @@ H2sMNgcWfzd8qVttevESRmCD1ycEvkvOl77DZypoEd+A5wwzZr8TDRRu838fYxAe
 -----END CERTIFICATE-----
 """
 
-/// DigiCert Assured ID Root CA.
+/**
+DigiCert Assured ID Root CA.
+SHA256 fingerprint: 3e:90:99:b5:01:5e:8f:48:6c:00:bc:ea:9d:11:1e:e7:21:fa:ba:35:5a:89:bc:f1:df:69:56:1e:3d:c6:32:5c
+*/
 DIGICERT_ASSURED_ID_ROOT_CA ::= net.Certificate.parse DIGICERT_ASSURED_ID_ROOT_CA_TEXT_
 
 DIGICERT_GLOBAL_ROOT_CA_TEXT_ ::= """\
@@ -445,7 +481,10 @@ CAUw7C29C79Fv1C5qfPrmAESrciIxpg0X40KPMbp1ZWVbd4=
 -----END CERTIFICATE-----
 """
 
-/// DigiCert Global Root CA.
+/**
+DigiCert Global Root CA.
+SHA256 fingerprint: 43:48:a0:e9:44:4c:78:cb:26:5e:05:8d:5e:89:44:b4:d8:4f:96:62:bd:26:db:25:7f:89:34:a4:43:c7:01:61
+*/
 DIGICERT_GLOBAL_ROOT_CA ::= net.Certificate.parse DIGICERT_GLOBAL_ROOT_CA_TEXT_
 
 DIGICERT_HIGH_ASSURANCE_EV_ROOT_CA_TEXT_ ::= """\
@@ -474,7 +513,10 @@ vEsXCS+0yx5DaMkHJ8HSXPfqIbloEpw8nL+e/IBcm2PN7EeqJSdnoDfzAIJ9VNep
 -----END CERTIFICATE-----
 """
 
-/// DigiCert High Assurance EV Root CA.
+/**
+DigiCert High Assurance EV Root CA.
+SHA256 fingerprint: 74:31:e5:f4:c3:c1:ce:46:90:77:4f:0b:61:e0:54:40:88:3b:a9:a0:1e:d0:0b:a6:ab:d7:80:6e:d3:b1:18:cf
+*/
 DIGICERT_HIGH_ASSURANCE_EV_ROOT_CA ::= net.Certificate.parse DIGICERT_HIGH_ASSURANCE_EV_ROOT_CA_TEXT_
 
 DST_ROOT_CA_X3_TEXT_ ::= """\
@@ -543,7 +585,10 @@ Qc8Bsem4yWb02ybzOqR08kkkW8mw0FfB+j564ZfJ
 -----END CERTIFICATE-----
 """
 
-/// SwissSign Gold CA - G2.
+/**
+SwissSign Gold CA - G2.
+SHA256 fingerprint: 62:dd:0b:e9:b9:f5:0a:16:3e:a0:f8:e7:5c:05:3b:1e:ca:57:ea:55:c8:68:8f:64:7c:68:81:f2:c8:35:7b:95
+*/
 SWISSSIGN_GOLD_CA_G2 ::= net.Certificate.parse SWISSSIGN_GOLD_CA_G2_TEXT_
 
 SWISSSIGN_SILVER_CA_G2_TEXT_ ::= """\
@@ -582,7 +627,10 @@ tGMU0gYqZ4yD9c7qB9iaah7s5Aq7KkzrCWA5zspi2C5u
 -----END CERTIFICATE-----
 """
 
-/// SwissSign Silver CA - G2.
+/**
+SwissSign Silver CA - G2.
+SHA256 fingerprint: be:6c:4d:a2:bb:b9:ba:59:b6:f3:93:97:68:37:42:46:c3:c0:05:99:3f:a9:8f:02:0d:1d:ed:be:d4:8a:81:d5
+*/
 SWISSSIGN_SILVER_CA_G2 ::= net.Certificate.parse SWISSSIGN_SILVER_CA_G2_TEXT_
 
 SECURETRUST_CA_TEXT_ ::= """\
@@ -610,7 +658,10 @@ CPyI6a6Lf+Ew9Dd+/cYy2i2eRDAwbO4H3tI0/NL/QPZL9GZGBlSm8jIKYyYwa5vR
 -----END CERTIFICATE-----
 """
 
-/// SecureTrust CA.
+/**
+SecureTrust CA.
+SHA256 fingerprint: f1:c1:b5:0a:e5:a2:0d:d8:03:0e:c9:f6:bc:24:82:3d:d3:67:b5:25:57:59:b4:e7:1b:61:fc:e9:f7:37:5d:73
+*/
 SECURETRUST_CA ::= net.Certificate.parse SECURETRUST_CA_TEXT_
 
 SECURE_GLOBAL_CA_TEXT_ ::= """\
@@ -638,7 +689,10 @@ f8LDmBxrThaA63p4ZUWiABqvDA1VZDRIuJK58bRQKfJPIx/abKwfROHdI3hRW8cW
 -----END CERTIFICATE-----
 """
 
-/// Secure Global CA.
+/**
+Secure Global CA.
+SHA256 fingerprint: 42:00:f5:04:3a:c8:59:0e:bb:52:7d:20:9e:d1:50:30:29:fb:cb:d4:1c:a1:b5:06:ec:27:f1:5a:de:7d:ac:69
+*/
 SECURE_GLOBAL_CA ::= net.Certificate.parse SECURE_GLOBAL_CA_TEXT_
 
 COMODO_CERTIFICATION_AUTHORITY_TEXT_ ::= """\
@@ -669,7 +723,10 @@ ZQ==
 -----END CERTIFICATE-----
 """
 
-/// COMODO Certification Authority.
+/**
+COMODO Certification Authority.
+SHA256 fingerprint: 0c:2c:d6:3d:f7:80:6f:a3:99:ed:e8:09:11:6b:57:5b:f8:79:89:f0:65:18:f9:80:8c:86:05:03:17:8b:af:66
+*/
 COMODO_CERTIFICATION_AUTHORITY ::= net.Certificate.parse COMODO_CERTIFICATION_AUTHORITY_TEXT_
 
 NETWORK_SOLUTIONS_CERTIFICATE_AUTHORITY_TEXT_ ::= """\
@@ -698,7 +755,10 @@ pGxlaKFJdlxDydi8NmdspZS11My5vWo1ViHe2MPr+8ukYEywVaCge1ey
 -----END CERTIFICATE-----
 """
 
-/// Network Solutions Certificate Authority.
+/**
+Network Solutions Certificate Authority.
+SHA256 fingerprint: 15:f0:ba:00:a3:ac:7a:f3:ac:88:4c:07:2b:10:11:a0:77:bd:77:c0:97:f4:01:64:b2:f8:59:8a:bd:83:86:0c
+*/
 NETWORK_SOLUTIONS_CERTIFICATE_AUTHORITY ::= net.Certificate.parse NETWORK_SOLUTIONS_CERTIFICATE_AUTHORITY_TEXT_
 
 COMODO_ECC_CERTIFICATION_AUTHORITY_TEXT_ ::= """\
@@ -720,7 +780,10 @@ GDeAU/7dIOA1mjbRxwG55tzd8/8dLDoWV9mSOdY=
 -----END CERTIFICATE-----
 """
 
-/// COMODO ECC Certification Authority.
+/**
+COMODO ECC Certification Authority.
+SHA256 fingerprint: 17:93:92:7a:06:14:54:97:89:ad:ce:2f:8f:34:f7:f0:b6:6d:0f:3a:e3:a3:b8:4d:21:ec:15:db:ba:4f:ad:c7
+*/
 COMODO_ECC_CERTIFICATION_AUTHORITY ::= net.Certificate.parse COMODO_ECC_CERTIFICATION_AUTHORITY_TEXT_
 
 CERTIGNA_TEXT_ ::= """\
@@ -748,7 +811,10 @@ WyH8EZE0vkHve52Xdf+XlcCWWC/qu0bXu+TZLg==
 -----END CERTIFICATE-----
 """
 
-/// Certigna.
+/**
+Certigna.
+SHA256 fingerprint: e3:b6:a2:db:2e:d7:ce:48:84:2f:7a:c5:32:41:c7:b7:1d:54:14:4b:fb:40:c1:1f:3f:1d:0b:42:f5:ee:a1:2d
+*/
 CERTIGNA ::= net.Certificate.parse CERTIGNA_TEXT_
 
 CYBERTRUST_GLOBAL_ROOT_TEXT_ ::= """\
@@ -818,7 +884,10 @@ hNQ+IIX3Sj0rnP0qCglN6oH4EZw=
 -----END CERTIFICATE-----
 """
 
-/// ePKI Root Certification Authority.
+/**
+ePKI Root Certification Authority.
+SHA256 fingerprint: c0:a6:f4:dc:63:a2:4b:fd:cf:54:ef:2a:6a:08:2a:0a:72:de:35:80:3e:2f:f5:ff:52:7a:e5:d8:72:06:df:d5
+*/
 EPKI_ROOT_CERTIFICATION_AUTHORITY ::= net.Certificate.parse EPKI_ROOT_CERTIFICATION_AUTHORITY_TEXT_
 
 CERTSIGN_ROOT_CA_TEXT_ ::= """\
@@ -844,7 +913,10 @@ i/nDhDwTqn6Sm1dTk/pwwpEOMfmbZ13pljheX7NzTogVZ96edhBiIL5VaZVDADlN
 -----END CERTIFICATE-----
 """
 
-/// certSIGN ROOT CA.
+/**
+certSIGN ROOT CA.
+SHA256 fingerprint: ea:a9:62:c4:fa:4a:6b:af:eb:e4:15:19:6d:35:1c:cd:88:8d:4f:53:f3:fa:8a:e6:d7:c4:66:a9:4e:60:42:bb
+*/
 CERTSIGN_ROOT_CA ::= net.Certificate.parse CERTSIGN_ROOT_CA_TEXT_
 
 NETLOCK_ARANY_TEXT_ ::= """\
@@ -874,7 +946,10 @@ XjG4Kvte9nHfRCaexOYNkbQudZWAUWpLMKawYqGT8ZvYzsRjdT9ZR7E=
 -----END CERTIFICATE-----
 """
 
-/// NetLock Arany (Class Gold) Főtanúsítvány.
+/**
+NetLock Arany (Class Gold) Főtanúsítvány.
+SHA256 fingerprint: 6c:61:da:c3:a2:de:f0:31:50:6b:e0:36:d2:a6:fe:40:19:94:fb:d1:3d:f9:c8:d4:66:59:92:74:c4:46:ec:98
+*/
 NETLOCK_ARANY ::= net.Certificate.parse NETLOCK_ARANY_TEXT_
 
 HONGKONG_POST_ROOT_CA_1_TEXT_ ::= """\
@@ -900,7 +975,10 @@ AmvZWg==
 -----END CERTIFICATE-----
 """
 
-/// Hongkong Post Root CA 1.
+/**
+Hongkong Post Root CA 1.
+SHA256 fingerprint: f9:e6:7d:33:6c:51:00:2a:c0:54:c6:32:02:2d:66:dd:a2:e7:e3:ff:f1:0a:d0:61:ed:31:d8:bb:b4:10:cf:b2
+*/
 HONGKONG_POST_ROOT_CA_1 ::= net.Certificate.parse HONGKONG_POST_ROOT_CA_1_TEXT_
 
 SECURESIGN_ROOTCA11_TEXT_ ::= """\
@@ -927,7 +1005,10 @@ QSdJQO7e5iNEOdyhIta6A/I=
 -----END CERTIFICATE-----
 """
 
-/// SecureSign RootCA11.
+/**
+SecureSign RootCA11.
+SHA256 fingerprint: bf:0f:ee:fb:9e:3a:58:1a:d5:f9:e9:db:75:89:98:57:43:d2:61:08:5c:4d:31:4f:6f:5d:72:59:aa:42:16:12
+*/
 SECURESIGN_ROOTCA11 ::= net.Certificate.parse SECURESIGN_ROOTCA11_TEXT_
 
 MICROSEC_E_SZIGNO_ROOT_CA_2009_TEXT_ ::= """\
@@ -957,7 +1038,10 @@ HMN1Rq41Bab2XD0h7lbwyYIiLXpUq3DDfSJlgnCW
 -----END CERTIFICATE-----
 """
 
-/// Microsec e-Szigno Root CA 2009.
+/**
+Microsec e-Szigno Root CA 2009.
+SHA256 fingerprint: 3c:5f:81:fe:a5:fa:b8:2c:64:bf:a2:ea:ec:af:cd:e8:e0:77:fc:86:20:a7:ca:e5:37:16:3d:f3:6e:db:f3:78
+*/
 MICROSEC_E_SZIGNO_ROOT_CA_2009 ::= net.Certificate.parse MICROSEC_E_SZIGNO_ROOT_CA_2009_TEXT_
 
 GLOBALSIGN_ROOT_CA_R3_TEXT_ ::= """\
@@ -984,7 +1068,10 @@ WD9f
 -----END CERTIFICATE-----
 """
 
-/// GlobalSign Root CA - R3.
+/**
+GlobalSign Root CA - R3.
+SHA256 fingerprint: cb:b5:22:d7:b7:f1:27:ad:6a:01:13:86:5b:df:1c:d4:10:2e:7d:07:59:af:63:5a:7c:f4:72:0d:c9:63:c5:3b
+*/
 GLOBALSIGN_ROOT_CA_R3 ::= net.Certificate.parse GLOBALSIGN_ROOT_CA_R3_TEXT_
 
 AUTORIDAD_DE_CERTIFICACION_FIRMAPROFESIONAL_CIF_A62634068_TEXT_ ::= """\
@@ -1025,7 +1112,10 @@ jLMi6Et8Vcad+qMUu2WFbm5PEn4KPJ2V
 -----END CERTIFICATE-----
 """
 
-/// Autoridad de Certificacion Firmaprofesional CIF A62634068.
+/**
+Autoridad de Certificacion Firmaprofesional CIF A62634068.
+SHA256 fingerprint: 04:04:80:28:bf:1f:28:64:d4:8f:9a:d4:d8:32:94:36:6a:82:88:56:55:3f:3b:14:30:3f:90:14:7f:5d:40:ef
+*/
 AUTORIDAD_DE_CERTIFICACION_FIRMAPROFESIONAL_CIF_A62634068 ::= net.Certificate.parse AUTORIDAD_DE_CERTIFICACION_FIRMAPROFESIONAL_CIF_A62634068_TEXT_
 
 IZENPE_COM_TEXT_ ::= """\
@@ -1065,7 +1155,10 @@ QyYBNWNgVYkDOnXYukrZVP/u3oDYLdE41V4tC5h9Pmzb/CaIxw==
 -----END CERTIFICATE-----
 """
 
-/// Izenpe.com.
+/**
+Izenpe.com.
+SHA256 fingerprint: 25:30:cc:8e:98:32:15:02:ba:d9:6f:9b:1f:ba:1b:09:9e:2d:29:9e:0f:45:48:bb:91:4f:36:3b:c0:d4:53:1f
+*/
 IZENPE_COM ::= net.Certificate.parse IZENPE_COM_TEXT_
 
 GO_DADDY_ROOT_CERTIFICATE_AUTHORITY_G2_TEXT_ ::= """\
@@ -1094,7 +1187,10 @@ LPAvTK33sefOT6jEm0pUBsV/fdUID+Ic/n4XuKxe9tQWskMJDE32p2u0mYRlynqI
 -----END CERTIFICATE-----
 """
 
-/// Go Daddy Root Certificate Authority - G2.
+/**
+Go Daddy Root Certificate Authority - G2.
+SHA256 fingerprint: 45:14:0b:32:47:eb:9c:c8:c5:b4:f0:d7:b5:30:91:f7:32:92:08:9e:6e:5a:63:e2:74:9d:d3:ac:a9:19:8e:da
+*/
 GO_DADDY_ROOT_CERTIFICATE_AUTHORITY_G2 ::= net.Certificate.parse GO_DADDY_ROOT_CERTIFICATE_AUTHORITY_G2_TEXT_
 
 STARFIELD_ROOT_CERTIFICATE_AUTHORITY_G2_TEXT_ ::= """\
@@ -1123,7 +1219,10 @@ mMpYjn0q7pBZc2T5NnReJaH1ZgUufzkVqSr7UIuOhWn0
 -----END CERTIFICATE-----
 """
 
-/// Starfield Root Certificate Authority - G2.
+/**
+Starfield Root Certificate Authority - G2.
+SHA256 fingerprint: 2c:e1:cb:0b:f9:d2:f9:e1:02:99:3f:be:21:51:52:c3:b2:dd:0c:ab:de:1c:68:e5:31:9b:83:91:54:db:b7:f5
+*/
 STARFIELD_ROOT_CERTIFICATE_AUTHORITY_G2 ::= net.Certificate.parse STARFIELD_ROOT_CERTIFICATE_AUTHORITY_G2_TEXT_
 
 STARFIELD_SERVICES_ROOT_CERTIFICATE_AUTHORITY_G2_TEXT_ ::= """\
@@ -1153,7 +1252,10 @@ sSi6
 -----END CERTIFICATE-----
 """
 
-/// Starfield Services Root Certificate Authority - G2.
+/**
+Starfield Services Root Certificate Authority - G2.
+SHA256 fingerprint: 56:8d:69:05:a2:c8:87:08:a4:b3:02:51:90:ed:cf:ed:b1:97:4a:60:6a:13:c6:e5:29:0f:cb:2a:e6:3e:da:b5
+*/
 STARFIELD_SERVICES_ROOT_CERTIFICATE_AUTHORITY_G2 ::= net.Certificate.parse STARFIELD_SERVICES_ROOT_CERTIFICATE_AUTHORITY_G2_TEXT_
 
 AFFIRMTRUST_COMMERCIAL_TEXT_ ::= """\
@@ -1179,7 +1281,10 @@ nlpOZbWUrhvfKbAW8b8Angc6F2S1BLUjIZkKlTuXfO8=
 -----END CERTIFICATE-----
 """
 
-/// AffirmTrust Commercial.
+/**
+AffirmTrust Commercial.
+SHA256 fingerprint: 03:76:ab:1d:54:c5:f9:80:3c:e4:b2:e2:01:a0:ee:7e:ef:7b:57:b6:36:e8:a9:3c:9b:8d:48:60:c9:6f:5f:a7
+*/
 AFFIRMTRUST_COMMERCIAL ::= net.Certificate.parse AFFIRMTRUST_COMMERCIAL_TEXT_
 
 AFFIRMTRUST_NETWORKING_TEXT_ ::= """\
@@ -1205,7 +1310,10 @@ x3evZKiT3/Zpg4Jg8klCNO1aAFSFHBY2kgxc+qatv9s=
 -----END CERTIFICATE-----
 """
 
-/// AffirmTrust Networking.
+/**
+AffirmTrust Networking.
+SHA256 fingerprint: 0a:81:ec:5a:92:97:77:f1:45:90:4a:f3:8d:5d:50:9f:66:b5:e2:c5:8f:cd:b5:31:05:8b:0e:17:f3:f0:b4:1b
+*/
 AFFIRMTRUST_NETWORKING ::= net.Certificate.parse AFFIRMTRUST_NETWORKING_TEXT_
 
 AFFIRMTRUST_PREMIUM_TEXT_ ::= """\
@@ -1242,7 +1350,10 @@ KeC2uAloGRwYQw==
 -----END CERTIFICATE-----
 """
 
-/// AffirmTrust Premium.
+/**
+AffirmTrust Premium.
+SHA256 fingerprint: 70:a7:3f:7f:37:6b:60:07:42:48:90:45:34:b1:14:82:d5:bf:0e:69:8e:cc:49:8d:f5:25:77:eb:f2:e9:3b:9a
+*/
 AFFIRMTRUST_PREMIUM ::= net.Certificate.parse AFFIRMTRUST_PREMIUM_TEXT_
 
 AFFIRMTRUST_PREMIUM_ECC_TEXT_ ::= """\
@@ -1261,7 +1372,10 @@ flc9nF9Ca/UHLbXwgpP5WW+uZPpY5Yse42O+tYHNbwKMeQ==
 -----END CERTIFICATE-----
 """
 
-/// AffirmTrust Premium ECC.
+/**
+AffirmTrust Premium ECC.
+SHA256 fingerprint: bd:71:fd:f6:da:97:e4:cf:62:d1:64:7a:dd:25:81:b0:7d:79:ad:f8:39:7e:b4:ec:ba:9c:5e:84:88:82:14:23
+*/
 AFFIRMTRUST_PREMIUM_ECC ::= net.Certificate.parse AFFIRMTRUST_PREMIUM_ECC_TEXT_
 
 CERTUM_TRUSTED_NETWORK_CA_TEXT_ ::= """\
@@ -1289,7 +1403,10 @@ VoNzcOSGGtIxQbovvi0TWnZvTuhOgQ4/WwMioBK+ZlgRSssDxLQqKi2WF+A5VLxI
 -----END CERTIFICATE-----
 """
 
-/// Certum Trusted Network CA.
+/**
+Certum Trusted Network CA.
+SHA256 fingerprint: 5c:58:46:8d:55:f5:8e:49:7e:74:39:82:d2:b5:00:10:b6:d1:65:37:4a:cf:83:a7:d4:a3:2d:b7:68:c4:40:8e
+*/
 CERTUM_TRUSTED_NETWORK_CA ::= net.Certificate.parse CERTUM_TRUSTED_NETWORK_CA_TEXT_
 
 TWCA_ROOT_CERTIFICATION_AUTHORITY_TEXT_ ::= """\
@@ -1316,7 +1433,10 @@ YiesZSLX0zzG5Y6yU8xJzrww/nsOM5D77dIUkR8Hrw==
 -----END CERTIFICATE-----
 """
 
-/// TWCA Root Certification Authority.
+/**
+TWCA Root Certification Authority.
+SHA256 fingerprint: bf:d8:8f:e1:10:1c:41:ae:3e:80:1b:f8:be:56:35:0e:e9:ba:d1:a6:b9:bd:51:5e:dc:5c:6d:5b:87:11:ac:44
+*/
 TWCA_ROOT_CERTIFICATION_AUTHORITY ::= net.Certificate.parse TWCA_ROOT_CERTIFICATION_AUTHORITY_TEXT_
 
 SECURITY_COMMUNICATION_ROOTCA2_TEXT_ ::= """\
@@ -1343,7 +1463,10 @@ SjnRBUkLp7Y3gaVdjKozXoEofKd9J+sAro03
 -----END CERTIFICATE-----
 """
 
-/// Security Communication RootCA2.
+/**
+Security Communication RootCA2.
+SHA256 fingerprint: 51:3b:2c:ec:b8:10:d4:cd:e5:dd:85:39:1a:df:c6:c2:dd:60:d8:7b:b7:36:d2:b5:21:48:4a:a4:7a:0e:be:f6
+*/
 SECURITY_COMMUNICATION_ROOTCA2 ::= net.Certificate.parse SECURITY_COMMUNICATION_ROOTCA2_TEXT_
 
 EC_ACC_TEXT_ ::= """\
@@ -1380,7 +1503,10 @@ nJ2lYJU6Un/10asIbvPuW/mIPX64b24D5EI=
 -----END CERTIFICATE-----
 """
 
-/// EC-ACC.
+/**
+EC-ACC.
+SHA256 fingerprint: 88:49:7f:01:60:2f:31:54:24:6a:e2:8c:4d:5a:ef:10:f1:d8:7e:bb:76:62:6f:4a:e0:b7:f9:5b:a7:96:87:99
+*/
 EC_ACC ::= net.Certificate.parse EC_ACC_TEXT_
 
 HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2011_TEXT_ ::= """\
@@ -1411,7 +1537,10 @@ l7WdmplNsDz4SgCbZN2fOUvRJ9e4
 -----END CERTIFICATE-----
 """
 
-/// Hellenic Academic and Research Institutions RootCA 2011.
+/**
+Hellenic Academic and Research Institutions RootCA 2011.
+SHA256 fingerprint: bc:10:4f:15:a4:8b:e7:09:dc:a5:42:a7:e1:d4:b9:df:6f:05:45:27:e8:02:ea:a9:2d:59:54:44:25:8a:fe:71
+*/
 HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2011 ::= net.Certificate.parse HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2011_TEXT_
 
 ACTALIS_AUTHENTICATION_ROOT_CA_TEXT_ ::= """\
@@ -1450,7 +1579,10 @@ LnPqZih4zR0Uv6CPLy64Lo7yFIrM6bV8+2ydDKXhlg==
 -----END CERTIFICATE-----
 """
 
-/// Actalis Authentication Root CA.
+/**
+Actalis Authentication Root CA.
+SHA256 fingerprint: 55:92:60:84:ec:96:3a:64:b9:6e:2a:be:01:ce:0b:a8:6a:64:fb:fe:bc:c7:aa:b5:af:c1:55:b3:7f:d7:60:66
+*/
 ACTALIS_AUTHENTICATION_ROOT_CA ::= net.Certificate.parse ACTALIS_AUTHENTICATION_ROOT_CA_TEXT_
 
 BUYPASS_CLASS_2_ROOT_CA_TEXT_ ::= """\
@@ -1487,7 +1619,10 @@ Y11aWOIv4x3kqdbQCtCev9eBCfHJxyYNrJgWVqA=
 -----END CERTIFICATE-----
 """
 
-/// Buypass Class 2 Root CA.
+/**
+Buypass Class 2 Root CA.
+SHA256 fingerprint: 9a:11:40:25:19:7c:5b:b9:5d:94:e6:3d:55:cd:43:79:08:47:b6:46:b2:3c:df:11:ad:a4:a0:0e:ff:15:fb:48
+*/
 BUYPASS_CLASS_2_ROOT_CA ::= net.Certificate.parse BUYPASS_CLASS_2_ROOT_CA_TEXT_
 
 BUYPASS_CLASS_3_ROOT_CA_TEXT_ ::= """\
@@ -1524,7 +1659,10 @@ u79leNKGef9JOxqDDPDeeOzI8k1MGt6CKfjBWtrt7uYnXuhF0J0cUahoq0Tj0Itq
 -----END CERTIFICATE-----
 """
 
-/// Buypass Class 3 Root CA.
+/**
+Buypass Class 3 Root CA.
+SHA256 fingerprint: ed:f7:eb:bc:a2:7a:2a:38:4d:38:7b:7d:40:10:c6:66:e2:ed:b4:84:3e:4c:29:b4:ae:1d:5b:93:32:e6:b2:4d
+*/
 BUYPASS_CLASS_3_ROOT_CA ::= net.Certificate.parse BUYPASS_CLASS_3_ROOT_CA_TEXT_
 
 T_TELESEC_GLOBALROOT_CLASS_3_TEXT_ ::= """\
@@ -1553,7 +1691,10 @@ TpPDpFQUWw==
 -----END CERTIFICATE-----
 """
 
-/// T-TeleSec GlobalRoot Class 3.
+/**
+T-TeleSec GlobalRoot Class 3.
+SHA256 fingerprint: fd:73:da:d3:1c:64:4f:f1:b4:3b:ef:0c:cd:da:96:71:0b:9c:d9:87:5e:ca:7e:31:70:7a:f3:e9:6d:52:2b:bd
+*/
 T_TELESEC_GLOBALROOT_CLASS_3 ::= net.Certificate.parse T_TELESEC_GLOBALROOT_CLASS_3_TEXT_
 
 D_TRUST_ROOT_CLASS_3_CA_2_2009_TEXT_ ::= """\
@@ -1584,7 +1725,10 @@ Johw1+qRzT65ysCQblrGXnRl11z+o+I=
 -----END CERTIFICATE-----
 """
 
-/// D-TRUST Root Class 3 CA 2 2009.
+/**
+D-TRUST Root Class 3 CA 2 2009.
+SHA256 fingerprint: 49:e7:a4:42:ac:f0:ea:62:87:05:00:54:b5:25:64:b6:50:e4:f4:9e:42:e3:48:d6:aa:38:e0:39:e9:57:b1:c1
+*/
 D_TRUST_ROOT_CLASS_3_CA_2_2009 ::= net.Certificate.parse D_TRUST_ROOT_CLASS_3_CA_2_2009_TEXT_
 
 D_TRUST_ROOT_CLASS_3_CA_2_EV_2009_TEXT_ ::= """\
@@ -1615,7 +1759,10 @@ KVwvvoFBuYz/6n1gBp7N1z3TLqMVvKjmJuVvw9y4AyHqnxbxLFS1
 -----END CERTIFICATE-----
 """
 
-/// D-TRUST Root Class 3 CA 2 EV 2009.
+/**
+D-TRUST Root Class 3 CA 2 EV 2009.
+SHA256 fingerprint: ee:c5:49:6b:98:8c:e9:86:25:b9:34:09:2e:ec:29:08:be:d0:b0:f3:16:c2:d4:73:0c:84:ea:f1:f3:d3:48:81
+*/
 D_TRUST_ROOT_CLASS_3_CA_2_EV_2009 ::= net.Certificate.parse D_TRUST_ROOT_CLASS_3_CA_2_EV_2009_TEXT_
 
 CA_DISIG_ROOT_R2_TEXT_ ::= """\
@@ -1652,7 +1799,10 @@ L4ysEr3vQCj8KWefshNPZiTEUxnpHikV7+ZtsH8tZ/3zbBt1RqPlShfppNcL
 -----END CERTIFICATE-----
 """
 
-/// CA Disig Root R2.
+/**
+CA Disig Root R2.
+SHA256 fingerprint: e2:3d:4a:03:6d:7b:70:e9:f5:95:b1:42:20:79:d2:b9:1e:df:bb:1f:b6:51:a0:63:3e:aa:8a:9d:c5:f8:07:03
+*/
 CA_DISIG_ROOT_R2 ::= net.Certificate.parse CA_DISIG_ROOT_R2_TEXT_
 
 ACCVRAIZ1_TEXT_ ::= """\
@@ -1702,7 +1852,10 @@ pPVWQxaZLPSkVrQ0uGE3ycJYgBugl6H8WY3pEfbRD0tVNEYqi4Y7
 -----END CERTIFICATE-----
 """
 
-/// ACCVRAIZ1.
+/**
+ACCVRAIZ1.
+SHA256 fingerprint: 9a:6e:c0:12:e1:a7:da:9d:be:34:19:4d:47:8a:d7:c0:db:18:22:fb:07:1d:f1:29:81:49:6e:d1:04:38:41:13
+*/
 ACCVRAIZ1 ::= net.Certificate.parse ACCVRAIZ1_TEXT_
 
 TWCA_GLOBAL_ROOT_CA_TEXT_ ::= """\
@@ -1739,7 +1892,10 @@ KwbQBM0=
 -----END CERTIFICATE-----
 """
 
-/// TWCA Global Root CA.
+/**
+TWCA Global Root CA.
+SHA256 fingerprint: 59:76:90:07:f7:68:5d:0f:cd:50:87:2f:9f:95:d5:75:5a:5b:2b:45:7d:81:f3:69:2b:61:0a:98:67:2f:0e:1b
+*/
 TWCA_GLOBAL_ROOT_CA ::= net.Certificate.parse TWCA_GLOBAL_ROOT_CA_TEXT_
 
 TELIASONERA_ROOT_CA_V1_TEXT_ ::= """\
@@ -1775,7 +1931,10 @@ SK236thZiNSQvxaz2emsWWFUyBy6ysHK4bkgTI86k4mloMy/0/Z1pHWWbVY=
 -----END CERTIFICATE-----
 """
 
-/// TeliaSonera Root CA v1.
+/**
+TeliaSonera Root CA v1.
+SHA256 fingerprint: dd:69:36:fe:21:f8:f0:77:c1:23:a1:a5:21:c1:22:24:f7:22:55:b7:3e:03:a7:26:06:93:e8:a2:4b:0f:a3:89
+*/
 TELIASONERA_ROOT_CA_V1 ::= net.Certificate.parse TELIASONERA_ROOT_CA_V1_TEXT_
 
 E_TUGRA_CERTIFICATION_AUTHORITY_TEXT_ ::= """\
@@ -1817,7 +1976,10 @@ NL/+I5c30jn6PQ0GC7TbO6Orb1wdtn7os4I07QZcJA==
 -----END CERTIFICATE-----
 """
 
-/// E-Tugra Certification Authority.
+/**
+E-Tugra Certification Authority.
+SHA256 fingerprint: b0:bf:d5:2b:b0:d7:d9:bd:92:bf:5d:4d:c1:3d:a2:55:c0:2c:54:2f:37:83:65:ea:89:39:11:f5:5e:55:f2:3c
+*/
 E_TUGRA_CERTIFICATION_AUTHORITY ::= net.Certificate.parse E_TUGRA_CERTIFICATION_AUTHORITY_TEXT_
 
 T_TELESEC_GLOBALROOT_CLASS_2_TEXT_ ::= """\
@@ -1846,7 +2008,10 @@ BSeOE6Fuwg==
 -----END CERTIFICATE-----
 """
 
-/// T-TeleSec GlobalRoot Class 2.
+/**
+T-TeleSec GlobalRoot Class 2.
+SHA256 fingerprint: 91:e2:f5:78:8d:58:10:eb:a7:ba:58:73:7d:e1:54:8a:8e:ca:cd:01:45:98:bc:0b:14:3e:04:1b:17:05:25:52
+*/
 T_TELESEC_GLOBALROOT_CLASS_2 ::= net.Certificate.parse T_TELESEC_GLOBALROOT_CLASS_2_TEXT_
 
 ATOS_TRUSTEDROOT_2011_TEXT_ ::= """\
@@ -1873,7 +2038,10 @@ KrcYPqcZ2Qt9sTdBQrC6YB3y/gkRsPCHe6ed
 -----END CERTIFICATE-----
 """
 
-/// Atos TrustedRoot 2011.
+/**
+Atos TrustedRoot 2011.
+SHA256 fingerprint: f3:56:be:a2:44:b7:a9:1e:b3:5d:53:ca:9a:d7:86:4a:ce:01:8e:2d:35:d5:f8:f9:6d:df:68:a6:f4:1a:a4:74
+*/
 ATOS_TRUSTEDROOT_2011 ::= net.Certificate.parse ATOS_TRUSTEDROOT_2011_TEXT_
 
 QUOVADIS_ROOT_CA_1_G3_TEXT_ ::= """\
@@ -1910,7 +2078,10 @@ nh8GKjwStIsPm6Ik8KaN1nrgS7ZklmOVhMJKzRwuJIczYOXD
 -----END CERTIFICATE-----
 """
 
-/// QuoVadis Root CA 1 G3.
+/**
+QuoVadis Root CA 1 G3.
+SHA256 fingerprint: 8a:86:6f:d1:b2:76:b5:7e:57:8e:92:1c:65:82:8a:2b:ed:58:e9:f2:f2:88:05:41:34:b7:f1:f4:bf:c9:cc:74
+*/
 QUOVADIS_ROOT_CA_1_G3 ::= net.Certificate.parse QUOVADIS_ROOT_CA_1_G3_TEXT_
 
 QUOVADIS_ROOT_CA_2_G3_TEXT_ ::= """\
@@ -1947,7 +2118,10 @@ WSr2Rz0ZiC3oheGe7IUIarFsNMkd7EgrO3jtZsSOeWmD3n+M
 -----END CERTIFICATE-----
 """
 
-/// QuoVadis Root CA 2 G3.
+/**
+QuoVadis Root CA 2 G3.
+SHA256 fingerprint: 8f:e4:fb:0a:f9:3a:4d:0d:67:db:0b:eb:b2:3e:37:c7:1b:f3:25:dc:bc:dd:24:0e:a0:4d:af:58:b4:7e:18:40
+*/
 QUOVADIS_ROOT_CA_2_G3 ::= net.Certificate.parse QUOVADIS_ROOT_CA_2_G3_TEXT_
 
 QUOVADIS_ROOT_CA_3_G3_TEXT_ ::= """\
@@ -1984,7 +2158,10 @@ ywaZWWDYWGWVjUTR939+J399roD1B0y2PpxxVJkES/1Y+Zj0
 -----END CERTIFICATE-----
 """
 
-/// QuoVadis Root CA 3 G3.
+/**
+QuoVadis Root CA 3 G3.
+SHA256 fingerprint: 88:ef:81:de:20:2e:b0:18:45:2e:43:f8:64:72:5c:ea:5f:bd:1f:c2:d9:d2:05:73:07:09:c5:d8:b8:69:0f:46
+*/
 QUOVADIS_ROOT_CA_3_G3 ::= net.Certificate.parse QUOVADIS_ROOT_CA_3_G3_TEXT_
 
 DIGICERT_ASSURED_ID_ROOT_G2_TEXT_ ::= """\
@@ -2012,7 +2189,10 @@ IhNzbM8m9Yop5w==
 -----END CERTIFICATE-----
 """
 
-/// DigiCert Assured ID Root G2.
+/**
+DigiCert Assured ID Root G2.
+SHA256 fingerprint: 7d:05:eb:b6:82:33:9f:8c:94:51:ee:09:4e:eb:fe:fa:79:53:a1:14:ed:b2:f4:49:49:45:2f:ab:7d:2f:c1:85
+*/
 DIGICERT_ASSURED_ID_ROOT_G2 ::= net.Certificate.parse DIGICERT_ASSURED_ID_ROOT_G2_TEXT_
 
 DIGICERT_ASSURED_ID_ROOT_G3_TEXT_ ::= """\
@@ -2033,7 +2213,10 @@ JjZ91eQ0hjkCMHw2U/Aw5WJjOpnitqM7mzT6HtoQknFekROn3aRukswy1vUhZscv
 -----END CERTIFICATE-----
 """
 
-/// DigiCert Assured ID Root G3.
+/**
+DigiCert Assured ID Root G3.
+SHA256 fingerprint: 7e:37:cb:8b:4c:47:09:0c:ab:36:55:1b:a6:f4:5d:b8:40:68:0f:ba:16:6a:95:2d:b1:00:71:7f:43:05:3f:c2
+*/
 DIGICERT_ASSURED_ID_ROOT_G3 ::= net.Certificate.parse DIGICERT_ASSURED_ID_ROOT_G3_TEXT_
 
 DIGICERT_GLOBAL_ROOT_G2_TEXT_ ::= """\
@@ -2061,7 +2244,10 @@ MrY=
 -----END CERTIFICATE-----
 """
 
-/// DigiCert Global Root G2.
+/**
+DigiCert Global Root G2.
+SHA256 fingerprint: cb:3c:cb:b7:60:31:e5:e0:13:8f:8d:d3:9a:23:f9:de:47:ff:c3:5e:43:c1:14:4c:ea:27:d4:6a:5a:b1:cb:5f
+*/
 DIGICERT_GLOBAL_ROOT_G2 ::= net.Certificate.parse DIGICERT_GLOBAL_ROOT_G2_TEXT_
 
 DIGICERT_GLOBAL_ROOT_G3_TEXT_ ::= """\
@@ -2082,7 +2268,10 @@ sycX
 -----END CERTIFICATE-----
 """
 
-/// DigiCert Global Root G3.
+/**
+DigiCert Global Root G3.
+SHA256 fingerprint: 31:ad:66:48:f8:10:41:38:c7:38:f3:9e:a4:32:01:33:39:3e:3a:18:cc:02:29:6e:f9:7c:2a:c9:ef:67:31:d0
+*/
 DIGICERT_GLOBAL_ROOT_G3 ::= net.Certificate.parse DIGICERT_GLOBAL_ROOT_G3_TEXT_
 
 DIGICERT_TRUSTED_ROOT_G4_TEXT_ ::= """\
@@ -2120,7 +2309,10 @@ gKDWHrO8Dw9TdSmq6hN35N6MgSGtBxBHEa2HPQfRdbzP82Z+
 -----END CERTIFICATE-----
 """
 
-/// DigiCert Trusted Root G4.
+/**
+DigiCert Trusted Root G4.
+SHA256 fingerprint: 55:2f:7b:dc:f1:a7:af:9e:6c:e6:72:01:7f:4f:12:ab:f7:72:40:c7:8e:76:1a:c2:03:d1:d9:d2:0a:c8:99:88
+*/
 DIGICERT_TRUSTED_ROOT_G4 ::= net.Certificate.parse DIGICERT_TRUSTED_ROOT_G4_TEXT_
 
 COMODO_RSA_CERTIFICATION_AUTHORITY_TEXT_ ::= """\
@@ -2160,7 +2352,10 @@ NVOFBkpdn627G190
 -----END CERTIFICATE-----
 """
 
-/// COMODO RSA Certification Authority.
+/**
+COMODO RSA Certification Authority.
+SHA256 fingerprint: 52:f0:e1:c4:e5:8e:c6:29:29:1b:60:31:7f:07:46:71:b8:5d:7e:a8:0d:5b:07:27:34:63:53:4b:32:b4:02:34
+*/
 COMODO_RSA_CERTIFICATION_AUTHORITY ::= net.Certificate.parse COMODO_RSA_CERTIFICATION_AUTHORITY_TEXT_
 
 USERTRUST_RSA_CERTIFICATION_AUTHORITY_TEXT_ ::= """\
@@ -2200,7 +2395,10 @@ jjxDah2nGN59PRbxYvnKkKj9
 -----END CERTIFICATE-----
 """
 
-/// USERTrust RSA Certification Authority.
+/**
+USERTrust RSA Certification Authority.
+SHA256 fingerprint: e7:93:c9:b0:2f:d8:aa:13:e2:1c:31:22:8a:cc:b0:81:19:64:3b:74:9c:89:89:64:b1:74:6d:46:c3:d4:cb:d2
+*/
 USERTRUST_RSA_CERTIFICATION_AUTHORITY ::= net.Certificate.parse USERTRUST_RSA_CERTIFICATION_AUTHORITY_TEXT_
 
 USERTRUST_ECC_CERTIFICATION_AUTHORITY_TEXT_ ::= """\
@@ -2222,7 +2420,10 @@ RNZu9YO6bVi9JNlWSOrvxKJGgYhqOkbRqZtNyWHa0V1Xahg=
 -----END CERTIFICATE-----
 """
 
-/// USERTrust ECC Certification Authority.
+/**
+USERTrust ECC Certification Authority.
+SHA256 fingerprint: 4f:f4:60:d5:4b:9c:86:da:bf:bc:fc:57:12:e0:40:0d:2b:ed:3f:bc:4d:4f:bd:aa:86:e0:6a:dc:d2:a9:ad:7a
+*/
 USERTRUST_ECC_CERTIFICATION_AUTHORITY ::= net.Certificate.parse USERTRUST_ECC_CERTIFICATION_AUTHORITY_TEXT_
 
 GLOBALSIGN_ECC_ROOT_CA_R4_TEXT_ ::= """\
@@ -2244,6 +2445,7 @@ ewv4n4Q=
 /**
 GlobalSign ECC Root CA - R4.
 Deprecated.  This certificate has expired.
+SHA256 fingerprint: b0:85:d7:0b:96:4f:19:1a:73:e4:af:0d:54:ae:7a:0e:07:aa:fd:af:9b:71:dd:08:62:13:8a:b7:32:5a:24:a2
 */
 GLOBALSIGN_ECC_ROOT_CA_R4 ::= net.Certificate.parse GLOBALSIGN_ECC_ROOT_CA_R4_TEXT_
 
@@ -2264,7 +2466,10 @@ xwy8p2Fp8fc74SrL+SvzZpA3
 -----END CERTIFICATE-----
 """
 
-/// GlobalSign ECC Root CA - R5.
+/**
+GlobalSign ECC Root CA - R5.
+SHA256 fingerprint: 17:9f:bc:14:8a:3d:d0:0f:d2:4e:a1:34:58:cc:43:bf:a7:f5:9c:81:82:d7:83:a5:13:f6:eb:ec:10:0c:89:24
+*/
 GLOBALSIGN_ECC_ROOT_CA_R5 ::= net.Certificate.parse GLOBALSIGN_ECC_ROOT_CA_R5_TEXT_
 
 STAAT_DER_NEDERLANDEN_EV_ROOT_CA_TEXT_ ::= """\
@@ -2302,7 +2507,10 @@ FVdMpEbB4IMeDExNH08GGeL5qPQ6gqGyeUN51q1veieQA6TqJIc/2b3Z6fJfUEkc
 -----END CERTIFICATE-----
 """
 
-/// Staat der Nederlanden EV Root CA.
+/**
+Staat der Nederlanden EV Root CA.
+SHA256 fingerprint: 4d:24:91:41:4c:fe:95:67:46:ec:4c:ef:a6:cf:6f:72:e2:8a:13:29:43:2f:9d:8a:90:7a:c4:cb:5d:ad:c1:5a
+*/
 STAAT_DER_NEDERLANDEN_EV_ROOT_CA ::= net.Certificate.parse STAAT_DER_NEDERLANDEN_EV_ROOT_CA_TEXT_
 
 IDENTRUST_COMMERCIAL_ROOT_CA_1_TEXT_ ::= """\
@@ -2339,7 +2547,10 @@ mUlO+KWA2yUPHGNiiskzZ2s8EIPGrd6ozRaOjfAHN3Gf8qv8QfXBi+wAN10J5U6A
 -----END CERTIFICATE-----
 """
 
-/// IdenTrust Commercial Root CA 1.
+/**
+IdenTrust Commercial Root CA 1.
+SHA256 fingerprint: 5d:56:49:9b:e4:d2:e0:8b:cf:ca:d0:8a:3e:38:72:3d:50:50:3b:de:70:69:48:e4:2f:55:60:30:19:e5:28:ae
+*/
 IDENTRUST_COMMERCIAL_ROOT_CA_1 ::= net.Certificate.parse IDENTRUST_COMMERCIAL_ROOT_CA_1_TEXT_
 
 IDENTRUST_PUBLIC_SECTOR_ROOT_CA_1_TEXT_ ::= """\
@@ -2376,7 +2587,10 @@ GaQdp/lLQzfcaFpPz+vCZHTetBXZ9FRUGi8c15dxVJCO2SCdUyt/q4/i6jC8UDfv
 -----END CERTIFICATE-----
 """
 
-/// IdenTrust Public Sector Root CA 1.
+/**
+IdenTrust Public Sector Root CA 1.
+SHA256 fingerprint: 30:d0:89:5a:9a:44:8a:26:20:91:63:55:22:d1:f5:20:10:b5:86:7a:ca:e1:2c:78:ef:95:8f:d4:f4:38:9f:2f
+*/
 IDENTRUST_PUBLIC_SECTOR_ROOT_CA_1 ::= net.Certificate.parse IDENTRUST_PUBLIC_SECTOR_ROOT_CA_1_TEXT_
 
 ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G2_TEXT_ ::= """\
@@ -2407,7 +2621,10 @@ VHOkc8KT/1EQrBVUAdj8BbGJoX90g5pJ19xOe4pIb4tF9g==
 -----END CERTIFICATE-----
 """
 
-/// Entrust Root Certification Authority - G2.
+/**
+Entrust Root Certification Authority - G2.
+SHA256 fingerprint: 43:df:57:74:b0:3e:7f:ef:5f:e4:0d:93:1a:7b:ed:f1:bb:2e:6b:42:73:8c:4e:6d:38:41:10:3d:3a:a7:f3:39
+*/
 ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G2 ::= net.Certificate.parse ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G2_TEXT_
 
 ENTRUST_ROOT_CERTIFICATION_AUTHORITY_EC1_TEXT_ ::= """\
@@ -2431,7 +2648,10 @@ hTcGtXsI/esni0qU+eH6p44mCOh8kmhtc9hvJqwhAriZtyZBWyVgrtBIGu4G
 -----END CERTIFICATE-----
 """
 
-/// Entrust Root Certification Authority - EC1.
+/**
+Entrust Root Certification Authority - EC1.
+SHA256 fingerprint: 02:ed:0e:b2:8c:14:da:45:16:5c:56:67:91:70:0d:64:51:d7:fb:56:f0:b2:ab:1d:3b:8e:b0:70:e5:6e:df:f5
+*/
 ENTRUST_ROOT_CERTIFICATION_AUTHORITY_EC1 ::= net.Certificate.parse ENTRUST_ROOT_CERTIFICATION_AUTHORITY_EC1_TEXT_
 
 CFCA_EV_ROOT_TEXT_ ::= """\
@@ -2469,7 +2689,10 @@ AAoACxGV2lZFA4gKn2fQ1XmxqI1AbQ3CekD6819kR5LLU7m7Wc5P/dAVUwHY3+vZ
 -----END CERTIFICATE-----
 """
 
-/// CFCA EV ROOT.
+/**
+CFCA EV ROOT.
+SHA256 fingerprint: 5c:c3:d7:8e:4e:1d:5e:45:54:7a:04:e6:87:3e:64:f9:0c:f9:53:6d:1c:cc:2e:f8:00:f3:55:c4:c5:fd:70:fd
+*/
 CFCA_EV_ROOT ::= net.Certificate.parse CFCA_EV_ROOT_TEXT_
 
 OISTE_WISEKEY_GLOBAL_ROOT_GB_CA_TEXT_ ::= """\
@@ -2497,7 +2720,10 @@ Nc1MaRVUGpCY3useX8p3x8uOPUNpnJpY0CQ73xtAln41rYHHTnG6iBM=
 -----END CERTIFICATE-----
 """
 
-/// OISTE WISeKey Global Root GB CA.
+/**
+OISTE WISeKey Global Root GB CA.
+SHA256 fingerprint: 6b:9c:08:e8:6e:b0:f7:67:cf:ad:65:cd:98:b6:21:49:e5:49:4a:67:f5:84:5e:7b:d1:ed:01:9f:27:b8:6b:d6
+*/
 OISTE_WISEKEY_GLOBAL_ROOT_GB_CA ::= net.Certificate.parse OISTE_WISEKEY_GLOBAL_ROOT_GB_CA_TEXT_
 
 SZAFIR_ROOT_CA2_TEXT_ ::= """\
@@ -2524,7 +2750,10 @@ LvWpCz/UXeHPhJ/iGcJfitYgHuNztw==
 -----END CERTIFICATE-----
 """
 
-/// SZAFIR ROOT CA2.
+/**
+SZAFIR ROOT CA2.
+SHA256 fingerprint: a1:33:9d:33:28:1a:0b:56:e5:57:d3:d3:2b:1c:e7:f9:36:7e:b0:94:bd:5f:a7:2a:7e:50:04:c8:de:d7:ca:fe
+*/
 SZAFIR_ROOT_CA2 ::= net.Certificate.parse SZAFIR_ROOT_CA2_TEXT_
 
 CERTUM_TRUSTED_NETWORK_CA_2_TEXT_ ::= """\
@@ -2564,7 +2793,10 @@ DrW5viSP
 -----END CERTIFICATE-----
 """
 
-/// Certum Trusted Network CA 2.
+/**
+Certum Trusted Network CA 2.
+SHA256 fingerprint: b6:76:f2:ed:da:e8:77:5c:d3:6c:b0:f6:3c:d1:d4:60:39:61:f4:9e:62:65:ba:01:3a:2f:03:07:b6:d0:b8:04
+*/
 CERTUM_TRUSTED_NETWORK_CA_2 ::= net.Certificate.parse CERTUM_TRUSTED_NETWORK_CA_2_TEXT_
 
 HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2015_TEXT_ ::= """\
@@ -2605,7 +2837,10 @@ vm9qp/UsQu0yrbYhnr68
 -----END CERTIFICATE-----
 """
 
-/// Hellenic Academic and Research Institutions RootCA 2015.
+/**
+Hellenic Academic and Research Institutions RootCA 2015.
+SHA256 fingerprint: a0:40:92:9a:02:ce:53:b4:ac:f4:f2:ff:c6:98:1c:e4:49:6f:75:5e:6d:45:fe:0b:2a:69:2b:cd:52:52:3f:36
+*/
 HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2015 ::= net.Certificate.parse HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2015_TEXT_
 
 HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ECC_ROOTCA_2015_TEXT_ ::= """\
@@ -2628,7 +2863,10 @@ TUwJCA3sS61kFyjndc5FZXIhF8siQQ6ME5g4mlRtm8rifOoCWCKR
 -----END CERTIFICATE-----
 """
 
-/// Hellenic Academic and Research Institutions ECC RootCA 2015.
+/**
+Hellenic Academic and Research Institutions ECC RootCA 2015.
+SHA256 fingerprint: 44:b5:45:aa:8a:25:e6:5a:73:ca:15:dc:27:fc:36:d2:4c:1c:b9:95:3a:06:65:39:b1:15:82:dc:48:7b:48:33
+*/
 HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ECC_ROOTCA_2015 ::= net.Certificate.parse HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ECC_ROOTCA_2015_TEXT_
 
 ISRG_ROOT_X1_TEXT_ ::= """\
@@ -2665,7 +2903,10 @@ emyPxgcYxn/eR44/KJ4EBs+lVDR3veyJm+kXQ99b21/+jh5Xos1AnX5iItreGCc=
 -----END CERTIFICATE-----
 """
 
-/// ISRG Root X1.
+/**
+ISRG Root X1.
+SHA256 fingerprint: 96:bc:ec:06:26:49:76:f3:74:60:77:9a:cf:28:c5:a7:cf:e8:a3:c0:aa:e1:1a:8f:fc:ee:05:c0:bd:df:08:c6
+*/
 ISRG_ROOT_X1 ::= net.Certificate.parse ISRG_ROOT_X1_TEXT_
 
 AC_RAIZ_FNMT_RCM_TEXT_ ::= """\
@@ -2703,7 +2944,10 @@ uu8wd+RU4riEmViAqhOLUTpPSPaLtrM=
 -----END CERTIFICATE-----
 """
 
-/// AC RAIZ FNMT-RCM.
+/**
+AC RAIZ FNMT-RCM.
+SHA256 fingerprint: eb:c5:57:0c:29:01:8c:4d:67:b1:aa:12:7b:af:12:f7:03:b4:61:1e:bc:17:b7:da:b5:57:38:94:17:9b:93:fa
+*/
 AC_RAIZ_FNMT_RCM ::= net.Certificate.parse AC_RAIZ_FNMT_RCM_TEXT_
 
 AMAZON_ROOT_CA_1_TEXT_ ::= """\
@@ -2729,7 +2973,10 @@ rqXRfboQnoZsG4q5WTP468SQvvG5
 -----END CERTIFICATE-----
 """
 
-/// Amazon Root CA 1.
+/**
+Amazon Root CA 1.
+SHA256 fingerprint: 8e:cd:e6:88:4f:3d:87:b1:12:5b:a3:1a:c3:fc:b1:3d:70:16:de:7f:57:cc:90:4f:e1:cb:97:c6:ae:98:19:6e
+*/
 AMAZON_ROOT_CA_1 ::= net.Certificate.parse AMAZON_ROOT_CA_1_TEXT_
 
 AMAZON_ROOT_CA_2_TEXT_ ::= """\
@@ -2766,7 +3013,10 @@ n749sSmvZ6ES8lgQGVMDMBu4Gon2nL2XA46jCfMdiyHxtN/kHNGfZQIG6lzWE7OE
 -----END CERTIFICATE-----
 """
 
-/// Amazon Root CA 2.
+/**
+Amazon Root CA 2.
+SHA256 fingerprint: 1b:a5:b2:aa:8c:65:40:1a:82:96:01:18:f8:0b:ec:4f:62:30:4d:83:ce:c4:71:3a:19:c3:9c:01:1e:a4:6d:b4
+*/
 AMAZON_ROOT_CA_2 ::= net.Certificate.parse AMAZON_ROOT_CA_2_TEXT_
 
 AMAZON_ROOT_CA_3_TEXT_ ::= """\
@@ -2784,7 +3034,10 @@ YyRIHN8wfdVoOw==
 -----END CERTIFICATE-----
 """
 
-/// Amazon Root CA 3.
+/**
+Amazon Root CA 3.
+SHA256 fingerprint: 18:ce:6c:fe:7b:f1:4e:60:b2:e3:47:b8:df:e8:68:cb:31:d0:2e:bb:3a:da:27:15:69:f5:03:43:b4:6d:b3:a4
+*/
 AMAZON_ROOT_CA_3 ::= net.Certificate.parse AMAZON_ROOT_CA_3_TEXT_
 
 AMAZON_ROOT_CA_4_TEXT_ ::= """\
@@ -2803,7 +3056,10 @@ CkcO8DdZEv8tmZQoTipPNU0zWgIxAOp1AE47xDqUEpHJWEadIRNyp4iciuRMStuW
 -----END CERTIFICATE-----
 """
 
-/// Amazon Root CA 4.
+/**
+Amazon Root CA 4.
+SHA256 fingerprint: e3:5d:28:41:9e:d0:20:25:cf:a6:90:38:cd:62:39:62:45:8d:a5:c6:95:fb:de:a3:c2:2b:0b:fb:25:89:70:92
+*/
 AMAZON_ROOT_CA_4 ::= net.Certificate.parse AMAZON_ROOT_CA_4_TEXT_
 
 TUBITAK_KAMU_SM_SSL_KOK_SERTIFIKASI_SURUM_1_TEXT_ ::= """\
@@ -2835,7 +3091,10 @@ lo3Ptv0AnVoUmr8CRPXBwp8iXqIPoeM=
 -----END CERTIFICATE-----
 """
 
-/// TUBITAK Kamu SM SSL Kok Sertifikasi - Surum 1.
+/**
+TUBITAK Kamu SM SSL Kok Sertifikasi - Surum 1.
+SHA256 fingerprint: 46:ed:c3:68:90:46:d5:3a:45:3f:b3:10:4a:b8:0d:ca:ec:65:8b:26:60:ea:16:29:dd:7e:86:79:90:64:87:16
+*/
 TUBITAK_KAMU_SM_SSL_KOK_SERTIFIKASI_SURUM_1 ::= net.Certificate.parse TUBITAK_KAMU_SM_SSL_KOK_SERTIFIKASI_SURUM_1_TEXT_
 
 GDCA_TRUSTAUTH_R5_ROOT_TEXT_ ::= """\
@@ -2873,7 +3132,10 @@ MTd61X8kreS8/f3MboPoDKi3QWwH3b08hpcv0g==
 -----END CERTIFICATE-----
 """
 
-/// GDCA TrustAUTH R5 ROOT.
+/**
+GDCA TrustAUTH R5 ROOT.
+SHA256 fingerprint: bf:ff:8f:d0:44:33:48:7d:6a:8a:a6:0c:1a:29:76:7a:9f:c2:bb:b0:5e:42:0f:71:3a:13:b9:92:89:1d:38:93
+*/
 GDCA_TRUSTAUTH_R5_ROOT ::= net.Certificate.parse GDCA_TRUSTAUTH_R5_ROOT_TEXT_
 
 TRUSTCOR_ROOTCERT_CA_1_TEXT_ ::= """\
@@ -2904,7 +3166,10 @@ zl/HHk484IkzlQsPpTLWPFp5LBk=
 -----END CERTIFICATE-----
 """
 
-/// TrustCor RootCert CA-1.
+/**
+TrustCor RootCert CA-1.
+SHA256 fingerprint: d4:0e:9c:86:cd:8f:e4:68:c1:77:69:59:f4:9e:a7:74:fa:54:86:84:b6:c4:06:f3:90:92:61:f4:dc:e2:57:5c
+*/
 TRUSTCOR_ROOTCERT_CA_1 ::= net.Certificate.parse TRUSTCOR_ROOTCERT_CA_1_TEXT_
 
 TRUSTCOR_ROOTCERT_CA_2_TEXT_ ::= """\
@@ -2946,7 +3211,10 @@ As8e5ZTZ845b2EzwnexhF7sUMlQMAimTHpKG9n/v55IFDlndmQguLvqcAFLTxWYp
 -----END CERTIFICATE-----
 """
 
-/// TrustCor RootCert CA-2.
+/**
+TrustCor RootCert CA-2.
+SHA256 fingerprint: 07:53:e9:40:37:8c:1b:d5:e3:83:6e:39:5d:ae:a5:cb:83:9e:50:46:f1:bd:0e:ae:19:51:cf:10:fe:c7:c9:65
+*/
 TRUSTCOR_ROOTCERT_CA_2 ::= net.Certificate.parse TRUSTCOR_ROOTCERT_CA_2_TEXT_
 
 TRUSTCOR_ECA_1_TEXT_ ::= """\
@@ -2977,7 +3245,10 @@ tJ/X5g==
 -----END CERTIFICATE-----
 """
 
-/// TrustCor ECA-1.
+/**
+TrustCor ECA-1.
+SHA256 fingerprint: 5a:88:5d:b1:9c:01:d9:12:c5:75:93:88:93:8c:af:bb:df:03:1a:b2:d4:8e:91:ee:15:58:9b:42:97:1d:03:9c
+*/
 TRUSTCOR_ECA_1 ::= net.Certificate.parse TRUSTCOR_ECA_1_TEXT_
 
 SSL_COM_ROOT_CERTIFICATION_AUTHORITY_RSA_TEXT_ ::= """\
@@ -3017,7 +3288,10 @@ Ic2wBlX7Jz9TkHCpBB5XJ7k=
 -----END CERTIFICATE-----
 """
 
-/// SSL.com Root Certification Authority RSA.
+/**
+SSL.com Root Certification Authority RSA.
+SHA256 fingerprint: 85:66:6a:56:2e:e0:be:5c:e9:25:c1:d8:89:0a:6f:76:a8:7e:c1:6d:4d:7d:5f:29:ea:74:19:cf:20:12:3b:69
+*/
 SSL_COM_ROOT_CERTIFICATION_AUTHORITY_RSA ::= net.Certificate.parse SSL_COM_ROOT_CERTIFICATION_AUTHORITY_RSA_TEXT_
 
 SSL_COM_ROOT_CERTIFICATION_AUTHORITY_ECC_TEXT_ ::= """\
@@ -3039,7 +3313,10 @@ gA0z5Wajs6O7pdWLjwkspl1+4vAHCGht0nxpbl/f5Wpl
 -----END CERTIFICATE-----
 """
 
-/// SSL.com Root Certification Authority ECC.
+/**
+SSL.com Root Certification Authority ECC.
+SHA256 fingerprint: 34:17:bb:06:cc:60:07:da:1b:96:1c:92:0b:8a:b4:ce:3f:ad:82:0e:4a:a3:0b:9a:cb:c4:a7:4e:bd:ce:bc:65
+*/
 SSL_COM_ROOT_CERTIFICATION_AUTHORITY_ECC ::= net.Certificate.parse SSL_COM_ROOT_CERTIFICATION_AUTHORITY_ECC_TEXT_
 
 SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_RSA_R2_TEXT_ ::= """\
@@ -3079,7 +3356,10 @@ mKVx01QT2WDz9UtmT/rx7iASjbSsV7FFY6GsdqnC+w==
 -----END CERTIFICATE-----
 """
 
-/// SSL.com EV Root Certification Authority RSA R2.
+/**
+SSL.com EV Root Certification Authority RSA R2.
+SHA256 fingerprint: 2e:7b:f1:6c:c2:24:85:a7:bb:e2:aa:86:96:75:07:61:b0:ae:39:be:3b:2f:e9:d0:cc:6d:4e:f7:34:91:42:5c
+*/
 SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_RSA_R2 ::= net.Certificate.parse SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_RSA_R2_TEXT_
 
 SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_ECC_TEXT_ ::= """\
@@ -3101,7 +3381,10 @@ h5Mmm7I1HrrW9zzRHM76JTymGoEVW/MSD2zuZYrJh6j5B+BimoxcSg==
 -----END CERTIFICATE-----
 """
 
-/// SSL.com EV Root Certification Authority ECC.
+/**
+SSL.com EV Root Certification Authority ECC.
+SHA256 fingerprint: 22:a2:c1:f7:bd:ed:70:4c:c1:e7:01:b5:f4:08:c3:10:88:0f:e9:56:b5:de:2a:4a:44:f9:9c:87:3a:25:a7:c8
+*/
 SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_ECC ::= net.Certificate.parse SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_ECC_TEXT_
 
 GLOBALSIGN_ROOT_CA_R6_TEXT_ ::= """\
@@ -3139,7 +3422,10 @@ JJUEeKgDu+6B5dpffItKoZB0JaezPkvILFa9x8jvOOJckvB595yEunQtYQEgfn7R
 -----END CERTIFICATE-----
 """
 
-/// GlobalSign Root CA - R6.
+/**
+GlobalSign Root CA - R6.
+SHA256 fingerprint: 2c:ab:ea:fe:37:d0:6c:a2:2a:ba:73:91:c0:03:3d:25:98:29:52:c4:53:64:73:49:76:3a:3a:b5:ad:6c:cf:69
+*/
 GLOBALSIGN_ROOT_CA_R6 ::= net.Certificate.parse GLOBALSIGN_ROOT_CA_R6_TEXT_
 
 OISTE_WISEKEY_GLOBAL_ROOT_GC_CA_TEXT_ ::= """\
@@ -3160,7 +3446,10 @@ Mgj/mkkCtojeFK9dbJlxjRo/i9fgojaGHAeCOnZT/cKi7e97sIBPWA9LUzm9
 -----END CERTIFICATE-----
 """
 
-/// OISTE WISeKey Global Root GC CA.
+/**
+OISTE WISeKey Global Root GC CA.
+SHA256 fingerprint: 85:60:f9:1c:36:24:da:ba:95:70:b5:fe:a0:db:e3:6f:f1:1a:83:23:be:94:86:85:4f:b3:f3:4a:55:71:19:8d
+*/
 OISTE_WISEKEY_GLOBAL_ROOT_GC_CA ::= net.Certificate.parse OISTE_WISEKEY_GLOBAL_ROOT_GC_CA_TEXT_
 
 GTS_ROOT_R1_TEXT_ ::= """\
@@ -3199,7 +3488,7 @@ E3PYJ/HQcu51OyLemGhmW/HGY0dVHLqlCFF1pkgl
 
 /**
 GTS Root R1.
-Deprecated.  This certificate has expired.
+SHA256 fingerprint: d9:47:43:2a:bd:e7:b7:fa:90:fc:2e:6b:59:10:1b:12:80:e0:e1:c7:e4:e4:0f:a3:c6:88:7f:ff:57:a7:f4:cf
 */
 GTS_ROOT_R1 ::= net.Certificate.parse GTS_ROOT_R1_TEXT_
 
@@ -3239,7 +3528,7 @@ yOd/xCxgXS/Dr55FBcOEArf9LAhST4Ldo/DUhgkC
 
 /**
 GTS Root R2.
-Deprecated.  This certificate has expired.
+SHA256 fingerprint: 8d:25:cd:97:22:9d:bf:70:35:6b:da:4e:b3:cc:73:40:31:e2:4c:f0:0f:af:cf:d3:2d:c7:6e:b5:84:1c:7e:a8
 */
 GTS_ROOT_R2 ::= net.Certificate.parse GTS_ROOT_R2_TEXT_
 
@@ -3261,7 +3550,7 @@ njWSdIUlUfUk7GRSJFClH9voy8l27OyCbvWFGFPouOOaKaqW04MjyaR7YbPMAuhd
 
 /**
 GTS Root R3.
-Deprecated.  This certificate has expired.
+SHA256 fingerprint: 34:d8:a7:3e:e2:08:d9:bc:db:0d:95:65:20:93:4b:4e:40:e6:94:82:59:6e:8b:6f:73:c8:42:6b:01:0a:6f:48
 */
 GTS_ROOT_R3 ::= net.Certificate.parse GTS_ROOT_R3_TEXT_
 
@@ -3281,7 +3570,10 @@ sbqjYAuG7ZoIapVon+Kz4ZNkfF6Tpt95LY2F45TPI11xzPKwTdb+mciUqXWi4w==
 -----END CERTIFICATE-----
 """
 
-/// GTS Root R4.
+/**
+GTS Root R4.
+SHA256 fingerprint: 34:9d:fa:40:58:c5:e2:63:12:3b:39:8a:e7:95:57:3c:4e:13:13:c8:3f:e6:8f:93:55:6c:d5:e8:03:1b:3c:7d
+*/
 GTS_ROOT_R4 ::= net.Certificate.parse GTS_ROOT_R4_TEXT_
 
 UCA_GLOBAL_G2_ROOT_TEXT_ ::= """\
@@ -3318,7 +3610,10 @@ UB+K+wb1whnw0A==
 -----END CERTIFICATE-----
 """
 
-/// UCA Global G2 Root.
+/**
+UCA Global G2 Root.
+SHA256 fingerprint: 9b:ea:11:c9:76:fe:01:47:64:c1:be:56:a6:f9:14:b5:a5:60:31:7a:bd:99:88:39:33:82:e5:16:1a:a0:49:3c
+*/
 UCA_GLOBAL_G2_ROOT ::= net.Certificate.parse UCA_GLOBAL_G2_ROOT_TEXT_
 
 UCA_EXTENDED_VALIDATION_ROOT_TEXT_ ::= """\
@@ -3355,7 +3650,10 @@ fjKaiJUINlK73nZfdklJrX+9ZSCyycErdhh2n1ax
 -----END CERTIFICATE-----
 """
 
-/// UCA Extended Validation Root.
+/**
+UCA Extended Validation Root.
+SHA256 fingerprint: d4:3a:f9:b3:54:73:75:5c:96:84:fc:06:d7:d8:cb:70:ee:5c:28:e7:73:fb:29:4e:b4:1e:e7:17:22:92:4d:24
+*/
 UCA_EXTENDED_VALIDATION_ROOT ::= net.Certificate.parse UCA_EXTENDED_VALIDATION_ROOT_TEXT_
 
 CERTIGNA_ROOT_CA_TEXT_ ::= """\
@@ -3397,7 +3695,10 @@ jWZSaX5LaAzHHjcng6WMxwLkFM1JAbBzs/3GkDpv0mztO+7skb6iQ12LAEpmJURw
 -----END CERTIFICATE-----
 """
 
-/// Certigna Root CA.
+/**
+Certigna Root CA.
+SHA256 fingerprint: d4:8d:3d:23:ee:db:50:a4:59:e5:51:97:60:1c:27:77:4b:9d:7b:18:c9:4d:5a:05:95:11:a1:02:50:b9:31:68
+*/
 CERTIGNA_ROOT_CA ::= net.Certificate.parse CERTIGNA_ROOT_CA_TEXT_
 
 EMSIGN_ROOT_CA_G1_TEXT_ ::= """\
@@ -3425,7 +3726,10 @@ iN66zB+Afko=
 -----END CERTIFICATE-----
 """
 
-/// emSign Root CA - G1.
+/**
+emSign Root CA - G1.
+SHA256 fingerprint: 40:f6:af:03:46:a9:9a:a1:cd:1d:55:5a:4e:9c:ce:62:c7:f9:63:46:03:ee:40:66:15:83:3d:c8:c8:d0:03:67
+*/
 EMSIGN_ROOT_CA_G1 ::= net.Certificate.parse EMSIGN_ROOT_CA_G1_TEXT_
 
 EMSIGN_ECC_ROOT_CA_G3_TEXT_ ::= """\
@@ -3446,7 +3750,10 @@ CUfvO6wIBHxcmbHtRwfSAjEAnbpV/KlK6O3t5nYBQnvI+GDZjVGLVTv7jHvrZQnD
 -----END CERTIFICATE-----
 """
 
-/// emSign ECC Root CA - G3.
+/**
+emSign ECC Root CA - G3.
+SHA256 fingerprint: 86:a1:ec:ba:08:9c:4a:8d:3b:be:27:34:c6:12:ba:34:1d:81:3e:04:3c:f9:e8:a8:62:cd:5c:57:a3:6b:be:6b
+*/
 EMSIGN_ECC_ROOT_CA_G3 ::= net.Certificate.parse EMSIGN_ECC_ROOT_CA_G3_TEXT_
 
 EMSIGN_ROOT_CA_C1_TEXT_ ::= """\
@@ -3473,7 +3780,10 @@ WXzhriKi4gp6D/piq1JM4fHfyr6DDUI=
 -----END CERTIFICATE-----
 """
 
-/// emSign Root CA - C1.
+/**
+emSign Root CA - C1.
+SHA256 fingerprint: 12:56:09:aa:30:1d:a0:a2:49:b9:7a:82:39:cb:6a:34:21:6f:44:dc:ac:9f:39:54:b1:42:92:f2:e8:c8:60:8f
+*/
 EMSIGN_ROOT_CA_C1 ::= net.Certificate.parse EMSIGN_ROOT_CA_C1_TEXT_
 
 EMSIGN_ECC_ROOT_CA_C3_TEXT_ ::= """\
@@ -3493,7 +3803,10 @@ Af8EBTADAQH/MAoGCCqGSM49BAMDA2gAMGUCMQC02C8Cif22TGK6Q04ThHK1rt0c
 -----END CERTIFICATE-----
 """
 
-/// emSign ECC Root CA - C3.
+/**
+emSign ECC Root CA - C3.
+SHA256 fingerprint: bc:4d:80:9b:15:18:9d:78:db:3e:1d:8c:f4:f9:72:6a:79:5d:a1:64:3c:a5:f1:35:8e:1d:db:0e:dc:0d:7e:b3
+*/
 EMSIGN_ECC_ROOT_CA_C3 ::= net.Certificate.parse EMSIGN_ECC_ROOT_CA_C3_TEXT_
 
 HONGKONG_POST_ROOT_CA_3_TEXT_ ::= """\
@@ -3533,7 +3846,10 @@ mpv0
 -----END CERTIFICATE-----
 """
 
-/// Hongkong Post Root CA 3.
+/**
+Hongkong Post Root CA 3.
+SHA256 fingerprint: 5a:2f:c0:3f:0c:83:b0:90:bb:fa:40:60:4b:09:88:44:6c:76:36:18:3d:f9:84:6e:17:10:1a:44:7f:b8:ef:d6
+*/
 HONGKONG_POST_ROOT_CA_3 ::= net.Certificate.parse HONGKONG_POST_ROOT_CA_3_TEXT_
 
 ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G4_TEXT_ ::= """\
@@ -3575,7 +3891,10 @@ n/PIjhs4ViFqUZPTkcpG2om3PVODLAgfi49T3f+sHw==
 -----END CERTIFICATE-----
 """
 
-/// Entrust Root Certification Authority - G4.
+/**
+Entrust Root Certification Authority - G4.
+SHA256 fingerprint: db:35:17:d1:f6:73:2a:2d:5a:b9:7c:53:3e:c7:07:79:ee:32:70:a6:2f:b4:ac:42:38:37:24:60:e6:f0:1e:88
+*/
 ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G4 ::= net.Certificate.parse ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G4_TEXT_
 
 MICROSOFT_ECC_ROOT_CERTIFICATE_AUTHORITY_2017_TEXT_ ::= """\
@@ -3596,7 +3915,10 @@ iudQZsIxtzm6uBoiB078a1QWIP8rtedMDE2mT3M=
 -----END CERTIFICATE-----
 """
 
-/// Microsoft ECC Root Certificate Authority 2017.
+/**
+Microsoft ECC Root Certificate Authority 2017.
+SHA256 fingerprint: 35:8d:f3:9d:76:4a:f9:e1:b7:66:e9:c9:72:df:35:2e:e1:5c:fa:c2:27:af:6a:d1:d7:0e:8e:4a:6e:dc:ba:02
+*/
 MICROSOFT_ECC_ROOT_CERTIFICATE_AUTHORITY_2017 ::= net.Certificate.parse MICROSOFT_ECC_ROOT_CERTIFICATE_AUTHORITY_2017_TEXT_
 
 MICROSOFT_RSA_ROOT_CERTIFICATE_AUTHORITY_2017_TEXT_ ::= """\
@@ -3635,7 +3957,10 @@ RA+GsCyRxj3qrg+E
 -----END CERTIFICATE-----
 """
 
-/// Microsoft RSA Root Certificate Authority 2017.
+/**
+Microsoft RSA Root Certificate Authority 2017.
+SHA256 fingerprint: c7:41:f7:0f:4b:2a:8d:88:bf:2e:71:c1:41:22:ef:53:ef:10:eb:a0:cf:a5:e6:4c:fa:20:f4:18:85:30:73:e0
+*/
 MICROSOFT_RSA_ROOT_CERTIFICATE_AUTHORITY_2017 ::= net.Certificate.parse MICROSOFT_RSA_ROOT_CERTIFICATE_AUTHORITY_2017_TEXT_
 
 E_SZIGNO_ROOT_CA_2017_TEXT_ ::= """\
@@ -3656,7 +3981,10 @@ jbjcI4qKDdQvfepz7L9NbKgCIQDLpbQS+ue16M9+k/zzNY9vTlp8tLxOsvxyqltZ
 -----END CERTIFICATE-----
 """
 
-/// e-Szigno Root CA 2017.
+/**
+e-Szigno Root CA 2017.
+SHA256 fingerprint: be:b0:0b:30:83:9b:9b:c3:2c:32:e4:44:79:05:95:06:41:f2:64:21:b1:5e:d0:89:19:8b:51:8a:e2:ea:1b:99
+*/
 E_SZIGNO_ROOT_CA_2017 ::= net.Certificate.parse E_SZIGNO_ROOT_CA_2017_TEXT_
 
 CERTSIGN_ROOT_CA_G2_TEXT_ ::= """\
@@ -3693,7 +4021,10 @@ QRBdJ3NghVdJIgc=
 -----END CERTIFICATE-----
 """
 
-/// certSIGN Root CA G2.
+/**
+certSIGN Root CA G2.
+SHA256 fingerprint: 65:7c:fe:2f:a7:3f:aa:38:46:25:71:f3:32:a2:36:3a:46:fc:e7:02:09:51:71:07:02:cd:fb:b6:ee:da:33:05
+*/
 CERTSIGN_ROOT_CA_G2 ::= net.Certificate.parse CERTSIGN_ROOT_CA_G2_TEXT_
 
 TRUSTWAVE_GLOBAL_CERTIFICATION_AUTHORITY_TEXT_ ::= """\
@@ -3733,7 +4064,10 @@ yeC2nOnOcXHebD8WpHk=
 -----END CERTIFICATE-----
 """
 
-/// Trustwave Global Certification Authority.
+/**
+Trustwave Global Certification Authority.
+SHA256 fingerprint: 97:55:20:15:f5:dd:fc:3c:87:88:c0:06:94:45:55:40:88:94:45:00:84:f1:00:86:70:86:bc:1a:2b:b5:8d:c8
+*/
 TRUSTWAVE_GLOBAL_CERTIFICATION_AUTHORITY ::= net.Certificate.parse TRUSTWAVE_GLOBAL_CERTIFICATION_AUTHORITY_TEXT_
 
 TRUSTWAVE_GLOBAL_ECC_P256_CERTIFICATION_AUTHORITY_TEXT_ ::= """\
@@ -3754,7 +4088,10 @@ DDcCIC0mA6AFvWvR9lz4ZcyGbbOcNEhjhAnFjXca4syc4XR7
 -----END CERTIFICATE-----
 """
 
-/// Trustwave Global ECC P256 Certification Authority.
+/**
+Trustwave Global ECC P256 Certification Authority.
+SHA256 fingerprint: 94:5b:bc:82:5e:a5:54:f4:89:d1:fd:51:a7:3d:df:2e:a6:24:ac:70:19:a0:52:05:22:5c:22:a7:8c:cf:a8:b4
+*/
 TRUSTWAVE_GLOBAL_ECC_P256_CERTIFICATION_AUTHORITY ::= net.Certificate.parse TRUSTWAVE_GLOBAL_ECC_P256_CERTIFICATION_AUTHORITY_TEXT_
 
 TRUSTWAVE_GLOBAL_ECC_P384_CERTIFICATION_AUTHORITY_TEXT_ ::= """\
@@ -3777,7 +4114,10 @@ Sw==
 -----END CERTIFICATE-----
 """
 
-/// Trustwave Global ECC P384 Certification Authority.
+/**
+Trustwave Global ECC P384 Certification Authority.
+SHA256 fingerprint: 55:90:38:59:c8:c0:c3:eb:b8:75:9e:ce:4e:25:57:22:5f:f5:75:8b:bd:38:eb:d4:82:76:60:1e:1b:d5:80:97
+*/
 TRUSTWAVE_GLOBAL_ECC_P384_CERTIFICATION_AUTHORITY ::= net.Certificate.parse TRUSTWAVE_GLOBAL_ECC_P384_CERTIFICATION_AUTHORITY_TEXT_
 
 NAVER_GLOBAL_ROOT_CERTIFICATION_AUTHORITY_TEXT_ ::= """\
@@ -3816,7 +4156,10 @@ dh2ajcQGjTa3FPOdVGm3jjzVpG2Tgbet9r1ke8LJaDmgkpzNNIaRkPpkUZ3+/uul
 -----END CERTIFICATE-----
 """
 
-/// NAVER Global Root Certification Authority.
+/**
+NAVER Global Root Certification Authority.
+SHA256 fingerprint: 88:f4:38:dc:f8:ff:d1:fa:8f:42:91:15:ff:e5:f8:2a:e1:e0:6e:0c:70:c3:75:fa:ad:71:7b:34:a4:9e:72:65
+*/
 NAVER_GLOBAL_ROOT_CERTIFICATION_AUTHORITY ::= net.Certificate.parse NAVER_GLOBAL_ROOT_CERTIFICATION_AUTHORITY_TEXT_
 
 AC_RAIZ_FNMT_RCM_SERVIDORES_SEGUROS_TEXT_ ::= """\
@@ -3838,7 +4181,10 @@ v+c=
 -----END CERTIFICATE-----
 """
 
-/// AC RAIZ FNMT-RCM SERVIDORES SEGUROS.
+/**
+AC RAIZ FNMT-RCM SERVIDORES SEGUROS.
+SHA256 fingerprint: 55:41:53:b1:3d:2c:f9:dd:b7:53:bf:be:1a:4e:0a:e0:8d:0a:a4:18:70:58:fe:60:a2:b8:62:b2:e4:b8:7b:cb
+*/
 AC_RAIZ_FNMT_RCM_SERVIDORES_SEGUROS ::= net.Certificate.parse AC_RAIZ_FNMT_RCM_SERVIDORES_SEGUROS_TEXT_
 
 GLOBALSIGN_ROOT_R46_TEXT_ ::= """\
@@ -3875,7 +4221,10 @@ vouXsXgxT7PntgMTzlSdriVZzH81Xwj3QEUxeCp6
 -----END CERTIFICATE-----
 """
 
-/// GlobalSign Root R46.
+/**
+GlobalSign Root R46.
+SHA256 fingerprint: 4f:a3:12:6d:8d:3a:11:d1:c4:85:5a:4f:80:7c:ba:d6:cf:91:9d:3a:5a:88:b0:3b:ea:2c:63:72:d9:3c:40:c9
+*/
 GLOBALSIGN_ROOT_R46 ::= net.Certificate.parse GLOBALSIGN_ROOT_R46_TEXT_
 
 GLOBALSIGN_ROOT_E46_TEXT_ ::= """\
@@ -3894,7 +4243,10 @@ DgQWBBQxCpCPtsad0kRLgLWi5h+xEk8blTAKBggqhkjOPQQDAwNoADBlAjEA31SQ
 -----END CERTIFICATE-----
 """
 
-/// GlobalSign Root E46.
+/**
+GlobalSign Root E46.
+SHA256 fingerprint: cb:b9:c4:4d:84:b8:04:3e:10:50:ea:31:a6:9f:51:49:55:d7:bf:d2:e2:c6:b4:93:01:01:9a:d6:1d:9f:50:58
+*/
 GLOBALSIGN_ROOT_E46 ::= net.Certificate.parse GLOBALSIGN_ROOT_E46_TEXT_
 
 GLOBALTRUST_2020_TEXT_ ::= """\
@@ -3932,7 +4284,10 @@ qfrQA71yN2BWHzZ8vTmR9W0Nv3vXkg==
 -----END CERTIFICATE-----
 """
 
-/// GLOBALTRUST 2020.
+/**
+GLOBALTRUST 2020.
+SHA256 fingerprint: 9a:29:6a:51:82:d1:d4:51:a2:e3:7f:43:9b:74:da:af:a2:67:52:33:29:f9:0f:9a:0d:20:07:c3:34:e2:3c:9a
+*/
 GLOBALTRUST_2020 ::= net.Certificate.parse GLOBALTRUST_2020_TEXT_
 
 ANF_SECURE_SERVER_ROOT_CA_TEXT_ ::= """\
@@ -3972,7 +4327,10 @@ tt7VMVgWglvquxl1AnMaykgaIZOQCo6ThKd9OyMYkomgjaw=
 -----END CERTIFICATE-----
 """
 
-/// ANF Secure Server Root CA.
+/**
+ANF Secure Server Root CA.
+SHA256 fingerprint: fb:8f:ec:75:91:69:b9:10:6b:1e:51:16:44:c6:18:c5:13:04:37:3f:6c:06:43:08:8d:8b:ef:fd:1b:99:75:99
+*/
 ANF_SECURE_SERVER_ROOT_CA ::= net.Certificate.parse ANF_SECURE_SERVER_ROOT_CA_TEXT_
 
 CERTUM_EC_384_CA_TEXT_ ::= """\
@@ -3993,7 +4351,10 @@ nvuRlydd3LBbMHHOXjgaatkl5+r3YZJW+OraNsKHZZYuciUvf9/DE8k=
 -----END CERTIFICATE-----
 """
 
-/// Certum EC-384 CA.
+/**
+Certum EC-384 CA.
+SHA256 fingerprint: 6b:32:80:85:62:53:18:aa:50:d1:73:c9:8d:8b:da:09:d5:7e:27:41:3d:11:4c:f7:87:a0:f5:d0:6c:03:0c:f6
+*/
 CERTUM_EC_384_CA ::= net.Certificate.parse CERTUM_EC_384_CA_TEXT_
 
 CERTUM_TRUSTED_ROOT_CA_TEXT_ ::= """\
@@ -4032,7 +4393,10 @@ E2Efv4WstK2tBZQIgx51F9NxO5NQI1mg7TyRVJ12AMXDuDjb
 -----END CERTIFICATE-----
 """
 
-/// Certum Trusted Root CA.
+/**
+Certum Trusted Root CA.
+SHA256 fingerprint: fe:76:96:57:38:55:77:3e:37:a9:5e:7a:d4:d9:cc:96:c3:01:57:c1:5d:31:76:5b:a9:b1:57:04:e1:ae:78:fd
+*/
 CERTUM_TRUSTED_ROOT_CA ::= net.Certificate.parse CERTUM_TRUSTED_ROOT_CA_TEXT_
 
 TUNTRUST_ROOT_CA_TEXT_ ::= """\
@@ -4071,7 +4435,10 @@ d9qDRIueVSjAi1jTkD5OGwDxFa2DK5o=
 -----END CERTIFICATE-----
 """
 
-/// TunTrust Root CA.
+/**
+TunTrust Root CA.
+SHA256 fingerprint: 2e:44:10:2a:b5:8c:b8:54:19:45:1c:8e:19:d9:ac:f3:66:2c:af:bc:61:4b:6a:53:96:0a:30:f7:d0:e2:eb:41
+*/
 TUNTRUST_ROOT_CA ::= net.Certificate.parse TUNTRUST_ROOT_CA_TEXT_
 
 HARICA_TLS_RSA_ROOT_CA_2021_TEXT_ ::= """\
@@ -4110,7 +4477,10 @@ xw/ogM4cKGR0GQjTQuPOAF1/sdwTsOEFy9EgqoZ0njnnkf3/W9b3raYvAwtt41dU
 -----END CERTIFICATE-----
 """
 
-/// HARICA TLS RSA Root CA 2021.
+/**
+HARICA TLS RSA Root CA 2021.
+SHA256 fingerprint: d9:5d:0e:8e:da:79:52:5b:f9:be:b1:1b:14:d2:10:0d:32:94:98:5f:0c:62:d9:fa:bd:9c:d9:99:ec:cb:7b:1d
+*/
 HARICA_TLS_RSA_ROOT_CA_2021 ::= net.Certificate.parse HARICA_TLS_RSA_ROOT_CA_2021_TEXT_
 
 HARICA_TLS_ECC_ROOT_CA_2021_TEXT_ ::= """\
@@ -4131,7 +4501,10 @@ nxS2PFOiTAZpffpskcYqSUXm7LcT4Tps
 -----END CERTIFICATE-----
 """
 
-/// HARICA TLS ECC Root CA 2021.
+/**
+HARICA TLS ECC Root CA 2021.
+SHA256 fingerprint: 3f:99:cc:47:4a:cf:ce:4d:fe:d5:87:94:66:5e:47:8d:15:47:73:9f:2e:78:0f:1b:b4:ca:9b:13:30:97:d4:01
+*/
 HARICA_TLS_ECC_ROOT_CA_2021 ::= net.Certificate.parse HARICA_TLS_ECC_ROOT_CA_2021_TEXT_
 
 VTRUS_ECC_ROOT_CA_TEXT_ ::= """\
@@ -4151,7 +4524,10 @@ GJTO
 -----END CERTIFICATE-----
 """
 
-/// vTrus ECC Root CA.
+/**
+vTrus ECC Root CA.
+SHA256 fingerprint: 30:fb:ba:2c:32:23:8e:2a:98:54:7a:f9:79:31:e5:50:42:8b:9b:3f:1c:8e:eb:66:33:dc:fa:86:c5:b2:7d:d3
+*/
 VTRUS_ECC_ROOT_CA ::= net.Certificate.parse VTRUS_ECC_ROOT_CA_TEXT_
 
 VTRUS_ROOT_CA_TEXT_ ::= """\
@@ -4188,7 +4564,10 @@ sBxXVsFy6K2ir40zSbofitzmdHxghm+Hl3s=
 -----END CERTIFICATE-----
 """
 
-/// vTrus Root CA.
+/**
+vTrus Root CA.
+SHA256 fingerprint: 8a:71:de:65:59:33:6f:42:6c:26:e5:38:80:d0:0d:88:a1:8d:a4:c6:a9:1f:0d:cb:61:94:e2:06:c5:c9:63:87
+*/
 VTRUS_ROOT_CA ::= net.Certificate.parse VTRUS_ROOT_CA_TEXT_
 
 ISRG_ROOT_X2_TEXT_ ::= """\
@@ -4208,7 +4587,10 @@ tL4ndQavEi51mI38AjEAi/V3bNTIZargCyzuFJ0nN6T5U6VR5CmD1/iQMVtCnwr1
 -----END CERTIFICATE-----
 """
 
-/// ISRG Root X2.
+/**
+ISRG Root X2.
+SHA256 fingerprint: 69:72:9b:8e:15:a8:6e:fc:17:7a:57:af:b7:17:1d:fc:64:ad:d2:8c:2f:ca:8c:f1:50:7e:34:45:3c:cb:14:70
+*/
 ISRG_ROOT_X2 ::= net.Certificate.parse ISRG_ROOT_X2_TEXT_
 
 HIPKI_ROOT_CA_G1_TEXT_ ::= """\
@@ -4245,7 +4627,10 @@ YDksswBVLuT1sw5XxJFBAJw/6KXf6vb/yPCtbVKoF6ubYfwSUTXkJf2vqmqGOQ==
 -----END CERTIFICATE-----
 """
 
-/// HiPKI Root CA - G1.
+/**
+HiPKI Root CA - G1.
+SHA256 fingerprint: f0:15:ce:3c:c2:39:bf:ef:06:4b:e9:f1:d2:c4:17:e1:a0:26:4a:0a:94:be:1f:0c:8d:12:18:64:eb:69:49:cc
+*/
 HIPKI_ROOT_CA_G1 ::= net.Certificate.parse HIPKI_ROOT_CA_G1_TEXT_
 
 
