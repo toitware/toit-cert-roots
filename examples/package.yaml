@@ -3,4 +3,4 @@ dependencies:
     path: ..
   http:
     url: github.com/toitlang/pkg-http
-    version: ^1.8.1
+    version: ^1.9.1
