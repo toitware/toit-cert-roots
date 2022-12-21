@@ -10,7 +10,6 @@
 import net.x509 as net
 
 import .get_root
-import .utils
 export get_root_from_exception
 
 GLOBALSIGN_ROOT_CA_TEXT_ ::= """\
