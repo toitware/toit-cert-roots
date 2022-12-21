@@ -31,9 +31,9 @@ class Cert:
       while chunk_size < data.size - i and (byte_array_encode_ data[i..i + chunk_size + 1]).size <= 78:
         chunk_size++
       section := data[i..i + chunk_size]
-      line_unpadded := byte_array_encode_ section
+      extra := 78 - (byte_array_encode_ section).size
       print
-          byte_array_encode_ section --extra=(78 - line_unpadded.size)
+          byte_array_encode_ section --extra=(extra > 4 ? 0 : extra)
       i += chunk_size
     print "]\n"
     print ""
