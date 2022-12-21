@@ -3,9 +3,10 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import bitmap show blit
+import encoding.base64
 import host.file
 import host.directory
-import tr show Tr
+import tr show Translator
 
 LABEL       ::= "# Label: \""
 FINGERPRINT ::= "# SHA256 Fingerprint: "
@@ -13,13 +14,37 @@ ARANY_START ::= "NETLOCK_ARANY"
 BEGIN       ::= "-----BEGIN"
 END         ::= "-----END"
 
+class Cert:
+  mixed_case_name /string
+  name/string  // Toit-ified const name.
+  sha_fingerprint /string?  // SHA256 Fingerprint
+  data /ByteArray  // DER-encoded raw data.
+
+  constructor .mixed_case_name .name .sha_fingerprint .data:
+
+  print_on_stdout -> none:
+    print "$(name)_TEXT_ ::= \"\"\"\\"
+    print "-----BEGIN CERTIFICATE-----"
+    encoded := (base64.encode data)
+    List.chunk_up 0 encoded.size 64: | from to |
+      print encoded[from..to]
+    print "-----END CERTIFICATE-----"
+    print "\"\"\""
+    print ""
+    print "/**"
+    print "$(mixed_case_name)."
+    if sha_fingerprint != null:
+      print "SHA256 fingerprint: $sha_fingerprint"
+    print "*/"
+    print "$name ::= net.Certificate.parse $(name)_TEXT_"
+    print ""
+
 main args/List:
-  printing := false
+  in_cert_data := false
   name := null
   fingerprint := null
   mixed_case_name := null
-  all_certs := {:}  // Mapping from name in the input to Toit constant.
-  cert_bodies := {:}  // Mapping from name in the input to code.
+  all_certs := {:}  // Mapping from name in the input to Cert object.
   cert_code := []
 
   print "/// Root certificates, automatically extracted from Mozilla's NSS"
@@ -38,8 +63,8 @@ main args/List:
   print "export get_root_from_exception"
   print ""
 
-  tr := Tr "a-z .-" "A-Z_"
-  squeeze := Tr --squeeze "_" "_"
+  tr := Translator "a-z .-" "A-Z_"
+  squeeze := Translator --squeeze "_" "_"
 
   (file.read_content args[0]).to_string.trim.split "\n": | line |
     line = line.trim
@@ -55,29 +80,25 @@ main args/List:
         name = "NETLOCK_ARANY"
       name = squeeze.tr name
     if line.starts_with BEGIN:
-      printing = true
-      cert_code.add "$(name)_TEXT_ ::= \"\"\"\\"
-      all_certs[mixed_case_name] = name
-    if printing:
-      cert_code.add line
-    if line.starts_with END:
-      printing = false
-      cert_code.add "\"\"\""
-      cert_code.add ""
-      cert_code.add "/**"
-      cert_code.add "$(mixed_case_name)."
-      if fingerprint != null:
-        cert_code.add "SHA256 fingerprint: $fingerprint"
+      in_cert_data = true
+    else if line.starts_with END:
+      data := base64.decode (cert_code.join "")
+      all_certs[mixed_case_name] =
+          Cert
+              mixed_case_name
+              name
+              fingerprint
+              data
       fingerprint = null
-      cert_code.add "*/"
-      cert_code.add "$name ::= net.Certificate.parse $(name)_TEXT_"
-      cert_code.add ""
-      cert_bodies[mixed_case_name] = cert_code.join "\n"
+      in_cert_data = false
       cert_code = []
+    else if in_cert_data:
+      cert_code.add line
 
   legacy_order := []
-  all_certs.do: | mixed_case_name name |
-    if not name.starts_with "GTS_ROOT_R" and name != "GLOBALSIGN_ECC_ROOT_CA_R4":
+  all_certs.do: | mixed_case_name cert |
+    constant_name := cert.name
+    if not constant_name.starts_with "GTS_ROOT_R" and constant_name != "GLOBALSIGN_ECC_ROOT_CA_R4":
       if mixed_case_name == "GlobalSign ECC Root CA - R5":
         legacy_order.add "GlobalSign ECC Root CA - R4"
       else if mixed_case_name == "UCA Global G2 Root":
@@ -86,7 +107,8 @@ main args/List:
       legacy_order.add mixed_case_name
 
   legacy_order.do: | mixed_case_name |
-    print cert_bodies[mixed_case_name]
+    cert/Cert := all_certs[mixed_case_name]
+    cert.print_on_stdout
 
   print ""
   print "/**"
@@ -96,9 +118,9 @@ main args/List:
   print "*/"
   print "MAP ::= {"
   legacy_order.do: | mixed_case_name |
-    constant_name := all_certs[mixed_case_name]
-    if not constant_name.contains "TUNTRUST":
-      print "  \"$mixed_case_name\": $(constant_name)_TEXT_,"
+    cert := all_certs[mixed_case_name]
+    if not cert.name.contains "TUNTRUST":
+      print "  \"$mixed_case_name\": $(cert.name)_TEXT_,"
   print "  \"AAA Certificate Services\": COMODO_AAA_SERVICES_ROOT_TEXT_,"
   print "}"
   print ""
@@ -120,7 +142,7 @@ main args/List:
   print "*/"
   print "ALL ::= ["
   legacy_order.do: | mixed_case_name |
-    constant_name := all_certs[mixed_case_name]
-    if not constant_name.contains "TUNTRUST":
-      print "  $constant_name,"
+    cert := all_certs[mixed_case_name]
+    if not cert.name.contains "TUNTRUST":
+      print "  $cert.name,"
   print "]"
