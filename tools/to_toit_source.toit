@@ -59,7 +59,6 @@ main args/List:
   print "import net.x509 as net"
   print ""
   print "import .get_root"
-  print "import .utils"
   print "export get_root_from_exception"
   print ""
 

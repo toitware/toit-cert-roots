@@ -1,0 +1,3 @@
+dependencies:
+  certificate_roots:
+    path: ..
