@@ -8,4 +8,6 @@ packages:
     version: 1.8.1
     hash: 7f0cc4280065fb18ee09d3803f12180cec852d32
   pkg-tr:
-    path: ../../../toitlang/pkg-tr
+    url: github.com/toitlang/pkg-tr
+    version: 1.0.0
+    hash: 9e077a90e1c6a58688cecfdfefe9c4b0bfb9179d

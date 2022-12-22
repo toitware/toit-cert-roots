@@ -3,4 +3,5 @@ dependencies:
     url: github.com/toitlang/pkg-host
     version: ^1.8.1
   tr:
-    path: ../../../toitlang/pkg-tr
+    url: github.com/toitlang/pkg-tr
+    version: ^1.0.0
