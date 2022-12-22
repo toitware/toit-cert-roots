@@ -7,4817 +7,9076 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+import encoding.base64
 import net.x509 as net
 
 import .get_root
 export get_root_from_exception
 
-GLOBALSIGN_ROOT_CA_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIDdTCCAl2gAwIBAgILBAAAAAABFUtaw5QwDQYJKoZIhvcNAQEFBQAwVzELMAkG
-A1UEBhMCQkUxGTAXBgNVBAoTEEdsb2JhbFNpZ24gbnYtc2ExEDAOBgNVBAsTB1Jv
-b3QgQ0ExGzAZBgNVBAMTEkdsb2JhbFNpZ24gUm9vdCBDQTAeFw05ODA5MDExMjAw
-MDBaFw0yODAxMjgxMjAwMDBaMFcxCzAJBgNVBAYTAkJFMRkwFwYDVQQKExBHbG9i
-YWxTaWduIG52LXNhMRAwDgYDVQQLEwdSb290IENBMRswGQYDVQQDExJHbG9iYWxT
-aWduIFJvb3QgQ0EwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDaDuaZ
-jc6j40+Kfvvxi4Mla+pIH/EqsLmVEQS98GPR4mdmzxzdzxtIK+6NiY6arymAZavp
-xy0Sy6scTHAHoT0KMM0VjU/43dSMUBUc71DuxC73/OlS8pF94G3VNTCOXkNz8kHp
-1Wrjsok6Vjk4bwY8iGlbKk3Fp1S4bInMm/k8yuX9ifUSPJJ4ltbcdG6TRGHRjcdG
-snUOhugZitVtbNV4FpWi6cgKOOvyJBNPc1STE4U6G7weNLWLBYy5d4ux2x8gkasJ
-U26Qzns3dLlwR5EiUWMWea6xrkEmCMgZK9FGqkjWZCrXgzT/LCrBbBlDSgeF59N8
-9iFo7+ryUp9/k5DPAgMBAAGjQjBAMA4GA1UdDwEB/wQEAwIBBjAPBgNVHRMBAf8E
-BTADAQH/MB0GA1UdDgQWBBRge2YaRQ2XyolQL30EzTSo//z9SzANBgkqhkiG9w0B
-AQUFAAOCAQEA1nPnfE920I2/7LqivjTFKDK1fPxsnCwrvQmeU79rXqoRSLblCKOz
-yj1hTdNGCbM+w6DjY1Ub8rrvrTnhQ7k4o+YviiY776BQVvnGCv04zcQLcFGUl5gE
-38NflNUVyRRBnMRddWQVDf9VMOyGj/8N7yy5Y0b2qvzfvGn9LhJIZJrglfCm7ymP
-AbEVtQwdpf5pLGkkeB6zpxxxYu7KyJesF12KwvhHhm4qxFYxldBniYUr+WymXUad
-DKqC5JlR3XC321Y9YeRq4VzW9v493kHMB65jUr9TU/Qr6cf9tveCX4XSQRjbgbME
-HMUfpIBvFSDJ3gyICh3WZlXi/EjJKSZp4A==
------END CERTIFICATE-----
-"""
+GLOBALSIGN_ROOT_CA_BYTES_ ::= #[
+    '0',0x82,3,'u','0',0x82,2,']',160,3,2,1,2,2,11,4,0,0,0,0,1,21,'K','Z',195,
+    0x94,'0',13,6,9,'*',134,'H',134,247,13,1,1,5,5,0,'0','W','1',11,'0',9,6,3,
+    'U',4,6,19,2,'B','E','1',25,'0',23,6,3,'U',4,10,19,16,'G','l','o','b','a',
+    'l','S','i','g','n',' ','n','v','-','s','a','1',16,'0',14,6,3,'U',4,11,19,
+    7,'R','o','o','t',' ','C','A','1',27,'0',25,6,3,'U',4,3,19,18,'G','l','o',
+    'b','a','l','S','i','g','n',' ','R','o','o','t',' ','C','A','0',30,23,0xd,
+    '9','8','0','9','0','1','1','2','0','0','0','0','Z',23,13,'2','8','0','1',
+    '2','8','1','2','0','0','0','0','Z','0','W','1',11,'0',9,6,3,'U',4,6,19,2,
+    'B','E','1',25,'0',23,6,3,'U',4,0xa,19,16,'G','l','o','b','a','l','S','i',
+    'g','n',' ','n','v','-','s','a','1',0x10,'0',14,6,3,'U',4,11,19,7,'R','o',
+    'o','t',' ','C','A','1',0x1b,'0',25,6,3,'U',4,3,19,18,'G','l','o','b','a',
+    'l','S','i','g','n',' ','R','o','o','t',' ','C','A','0',0x82,1,'"','0',13,
+    6,9,'*',0x86,'H',134,247,13,1,1,1,5,0,3,130,1,15,0,'0',130,1,10,2,130,1,1,
+    0,0xda,14,230,153,141,206,163,227,'O',138,'~',251,241,139,131,'%','k',234,
+    'H',0x1f,0xf1,'*',176,185,149,17,4,189,240,'c',209,226,'g','f',207,28,221,
+    207,27,'H','+',238,141,137,142,154,175,')',128,'e',171,233,199,'-',18,203,
+    0xab,28,'L','p',7,161,'=',10,'0',205,21,141,'O',248,221,212,140,'P',21,28,
+    0xef,'P',0xee,196,'.',247,252,233,'R',242,145,'}',224,'m',213,'5','0',142,
+    '^','C','s',242,'A',233,213,'j',227,178,137,':','V','9','8','o',6,'<',136,
+    'i','[','*','M',0xc5,0xa7,'T',184,'l',137,204,155,249,'<',202,229,253,137,
+    0xf5,0x12,'<',146,'x',150,214,220,'t','n',147,'D','a',209,141,199,'F',178,
+    'u',0x0e,134,232,25,138,213,'m','l',213,'x',22,149,162,233,200,10,'8',235,
+    242,'$',19,'O','s','T',147,19,133,':',27,188,30,'4',181,139,5,140,185,'w',
+    0x8b,177,219,31,' ',145,171,9,'S','n',144,206,'{','7','t',185,'p','G',145,
+    '"','Q','c',0x16,'y',174,177,174,'A','&',8,200,25,'+',209,'F',170,'H',214,
+    'd','*',0xd7,131,'4',255,',','*',193,'l',25,'C','J',7,133,231,211,'|',246,
+    '!','h',239,234,242,'R',159,127,147,144,207,2,3,1,0,1,163,'B','0','@','0',
+    14,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',15,6,3,'U',29,19,1,1,255,4,5,'0',
+    0x03,1,1,255,'0',29,6,3,'U',29,14,4,22,4,20,'`','{','f',26,'E',13,151,202,
+    0x89,'P','/','}',4,205,'4',168,255,252,253,'K','0',13,6,9,'*',134,'H',134,
+    0xf7,13,1,1,5,5,0,3,130,1,1,0,214,'s',231,'|','O','v',208,141,191,236,186,
+    162,190,'4',197,'(','2',181,'|',252,'l',156,',','+',189,9,158,'S',191,'k',
+    '^',0xaa,0x11,'H',182,229,8,163,179,202,'=','a','M',211,'F',9,179,'>',195,
+    0xa0,0xe3,'c','U',27,0xf2,186,239,173,'9',225,'C',185,'8',163,230,'/',138,
+    '&',';',239,160,'P','V',249,198,10,253,'8',205,196,11,'p','Q',148,151,152,
+    4,223,195,'_',148,213,21,201,20,'A',156,196,']','u','d',21,13,255,'U','0',
+    236,134,143,255,13,239,',',185,'c','F',246,170,252,223,188,'i',253,'.',18,
+    'H','d',0x9a,0xe0,0x95,240,166,239,')',143,1,177,21,181,12,29,165,254,'i',
+    ',','i','$','x',30,0xb3,167,28,'q','b',238,202,200,151,172,23,']',138,194,
+    0xf8,'G',0x86,'n','*',196,'V','1',149,208,'g',137,133,'+',249,'l',166,']',
+    'F',157,12,170,130,228,153,'Q',221,'p',183,219,'V','=','a',228,'j',225,92,
+    214,246,254,'=',222,'A',204,7,174,'c','R',191,'S','S',244,'+',233,199,253,
+    182,247,130,'_',133,210,'A',24,219,129,179,4,28,197,31,164,128,'o',21,' ',
+    201,222,12,136,10,29,214,'f','U',226,252,'H',201,')','&','i',224,
+]
+
 
 /**
 GlobalSign Root CA.
 SHA256 fingerprint: eb:d4:10:40:e4:bb:3e:c7:42:c9:e3:81:d3:1e:f2:a4:1a:48:b6:68:5c:96:e7:ce:f3:c1:df:6c:d4:33:1c:99
 */
-GLOBALSIGN_ROOT_CA ::= net.Certificate.parse GLOBALSIGN_ROOT_CA_TEXT_
+GLOBALSIGN_ROOT_CA ::= parse_ GLOBALSIGN_ROOT_CA_BYTES_
 
-GLOBALSIGN_ROOT_CA_R2_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIDujCCAqKgAwIBAgILBAAAAAABD4Ym5g0wDQYJKoZIhvcNAQEFBQAwTDEgMB4G
-A1UECxMXR2xvYmFsU2lnbiBSb290IENBIC0gUjIxEzARBgNVBAoTCkdsb2JhbFNp
-Z24xEzARBgNVBAMTCkdsb2JhbFNpZ24wHhcNMDYxMjE1MDgwMDAwWhcNMjExMjE1
-MDgwMDAwWjBMMSAwHgYDVQQLExdHbG9iYWxTaWduIFJvb3QgQ0EgLSBSMjETMBEG
-A1UEChMKR2xvYmFsU2lnbjETMBEGA1UEAxMKR2xvYmFsU2lnbjCCASIwDQYJKoZI
-hvcNAQEBBQADggEPADCCAQoCggEBAKbPJA6+Lm8omUVCxKs+IVSbC9N/hHD6ErPL
-v4dfxn+G07IwXNb9rfF73OX4YJYJkhD10FPe+3t+c4isUoh7SqbKSaZeqKeMWhG8
-eoLrvozps6yWJQeXSpkqBy+0Hne/ig+1AnwblrjFuTosvNYSuetZfeLQBoZfXklq
-tTleiDTsvHgMCJiEbKjNS7SgfQx5TfC4LcshytVsW33hoCmEofnTlEnLJGKRILzd
-C9XZzPnqJworc5HGnRusyMvo4KD0L5CLTfuwNhv2GXqF4G3yYROIXJ/gkwpRl4pa
-zq+r1feqCapgvdzZX99yqWATXgAByUr6P6TqBwMhAo6CygPCm48CAwEAAaOBnDCB
-mTAOBgNVHQ8BAf8EBAMCAQYwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUm+IH
-V2ccHsBqBt5ZtJot39wZhi4wNgYDVR0fBC8wLTAroCmgJ4YlaHR0cDovL2NybC5n
-bG9iYWxzaWduLm5ldC9yb290LXIyLmNybDAfBgNVHSMEGDAWgBSb4gdXZxwewGoG
-3lm0mi3f3BmGLjANBgkqhkiG9w0BAQUFAAOCAQEAmYFThxxol4aR7OBKuEQLq4Gs
-J0/WwbgcQ3izDJr86iw8bmEbTUsp9Z8FHSbBuOmDAGJFtqkIk7mpM0sYmsL4h4hO
-291xNBrBVNpGP+DTKqttVCL1OmLNIG+6KYnX3ZHu01yiPqFbQfXf5WRDLenVOavS
-ot+3i9DAgBkcRcAtjOj4LaR0VknFBbVPFd5uRHg5h6h+u/N5GJG79G+dwfCMNYxd
-AfvDbbnvRG15RjF+Cv6pgsH/76tuIMRQyV+dTZsXjAzlAcmgQWpzU/qlULRuJQ/7
-TBj0/VLZjmmx6BEP3ojY+x1J96relc8geMJgEtslQIxq/H5COEBkEveegeGTLg==
------END CERTIFICATE-----
-"""
+GLOBALSIGN_ROOT_CA_R2_BYTES_ ::= #[
+    '0',0x82,3,0xba,'0',130,2,162,160,3,2,1,2,2,11,4,0,0,0,0,1,15,134,'&',230,
+    13,'0',13,6,9,'*',134,'H',134,247,13,1,1,5,5,0,'0','L','1',' ','0',30,6,3,
+    'U',0x04,11,19,23,'G','l','o','b','a','l','S','i','g','n',' ','R','o','o',
+    't',' ','C','A',' ','-',' ','R','2','1',19,'0',17,6,3,'U',4,0xa,19,10,'G',
+    'l','o','b','a','l','S','i','g','n','1',0x13,'0',17,6,3,'U',4,3,19,10,'G',
+    'l','o','b','a','l','S','i','g','n','0',30,23,0xd,'0','6','1','2','1','5',
+    '0','8','0','0','0','0','Z',23,13,'2','1','1','2','1','5','0','8','0','0',
+    '0','0','Z','0','L','1',' ','0',30,6,3,'U',4,11,19,23,'G','l','o','b','a',
+    'l','S','i','g','n',' ','R','o','o','t',' ','C','A',' ','-',' ','R','2',
+    '1',19,'0',17,6,3,'U',4,0xa,19,10,'G','l','o','b','a','l','S','i','g','n',
+    '1',0x13,'0',17,6,3,'U',4,3,19,10,'G','l','o','b','a','l','S','i','g','n',
+    '0',0x82,0x1,'"','0',13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,1,15,0,
+    '0',0x82,1,0xa,2,130,1,1,0,166,207,'$',14,190,'.','o','(',153,'E','B',196,
+    171,'>','!','T',155,11,211,127,132,'p',250,18,179,203,191,135,'_',198,127,
+    0x86,0xd3,178,'0',92,214,253,173,241,'{',220,229,248,'`',150,9,146,16,245,
+    0xd0,'S',0xde,251,'{','~','s',136,172,'R',136,'{','J',166,202,'I',166,'^',
+    0xa8,167,140,'Z',17,188,'z',130,235,190,140,233,179,172,150,'%',7,151,'J',
+    0x99,'*',7,'/',180,30,'w',191,138,15,181,2,'|',27,150,184,197,185,':',',',
+    0xbc,214,18,185,235,'Y','}',226,208,6,134,'_','^','I','j',181,'9','^',136,
+    '4',0xec,0xbc,'x',12,8,152,132,'l',168,205,'K',180,160,'}',12,'y','M',240,
+    0xb8,'-',0xcb,'!',202,213,'l','[','}',225,160,')',132,161,249,211,148,'I',
+    0xcb,'$','b',145,' ',188,221,11,213,217,204,249,234,39,10,'+','s',145,198,
+    0x9d,27,172,200,203,232,224,160,244,'/',144,139,'M',251,176,'6',27,246,25,
+    'z',0x85,224,'m',242,'a',19,136,92,159,224,147,10,'Q',151,138,'Z',206,175,
+    0xab,213,247,170,9,170,'`',189,220,217,'_',223,'r',169,'`',19,'^',0,1,201,
+    'J',250,'?',164,234,7,3,'!',2,142,130,202,3,194,155,143,2,3,1,0,1,163,129,
+    0x9c,'0',0x81,153,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',15,6,3,'U',
+    29,19,1,1,0xff,4,5,'0',3,1,1,255,'0',29,6,3,'U',29,14,4,22,4,20,155,226,7,
+    'W','g',28,30,0xc0,'j',6,222,'Y',180,154,'-',223,220,25,134,'.','0','6',6,
+    3,'U',29,31,4,'/','0','-','0','+',0xa0,')',160,39,134,'%','h','t','t','p',
+    ':','/','/','c','r','l','.','g','l','o','b','a','l','s','i','g','n','.',
+    'n','e','t','/','r','o','o','t','-','r','2','.','c','r','l','0',0x1f,6,3,
+    'U',0x1d,'#',4,24,'0',22,128,20,155,226,7,'W','g',28,30,192,'j',6,222,'Y',
+    0xb4,154,'-',223,220,25,134,'.','0',13,6,9,'*',134,'H',134,247,13,1,1,5,5,
+    0x0,3,130,1,1,0,153,129,'S',135,28,'h',151,134,145,236,224,'J',184,'D',11,
+    0xab,129,172,39,'O',214,193,184,28,'C','x',179,12,154,252,234,',','<','n',
+    'a',0x1b,'M','K',')',245,159,5,29,'&',193,184,233,131,0,'b','E',182,169,8,
+    147,185,169,'3','K',24,154,194,248,135,136,'N',219,221,'q','4',26,193,'T',
+    0xda,'F','?',0xe0,211,'*',171,'m','T','"',245,':','b',205,' ','o',186,')',
+    0x89,0xd7,0xdd,145,238,211,92,162,'>',161,'[','A',245,223,229,'d','C','-',
+    233,213,'9',171,210,162,223,183,139,208,192,128,25,28,'E',192,'-',140,232,
+    0xf8,'-',164,'t','V','I',197,5,181,'O',21,222,'n','D','x','9',135,168,'~',
+    0xbb,243,'y',24,145,187,244,'o',157,193,240,140,'5',140,']',1,251,195,'m',
+    0xb9,0xef,'D','m','y','F','1','~',0xa,254,169,130,193,255,239,171,'n',' ',
+    0xc4,'P',0xc9,'_',157,'M',155,23,140,12,229,1,201,160,'A','j','s','S',250,
+    0xa5,'P',0xb4,'n','%',15,251,'L',24,244,253,'R',217,142,'i',177,232,17,15,
+    222,136,216,251,29,'I',247,170,222,149,207,' ','x',194,'`',18,219,'%','@',
+    140,'j',252,'~','B','8','@','d',18,247,158,129,225,147,'.',
+]
+
 
 /**
 GlobalSign Root CA - R2.
 Deprecated.  This certificate has expired.
 */
-GLOBALSIGN_ROOT_CA_R2 ::= net.Certificate.parse GLOBALSIGN_ROOT_CA_R2_TEXT_
+GLOBALSIGN_ROOT_CA_R2 ::= parse_ GLOBALSIGN_ROOT_CA_R2_BYTES_
 
-ENTRUST_NET_PREMIUM_2048_SECURE_SERVER_CA_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIEKjCCAxKgAwIBAgIEOGPe+DANBgkqhkiG9w0BAQUFADCBtDEUMBIGA1UEChML
-RW50cnVzdC5uZXQxQDA+BgNVBAsUN3d3dy5lbnRydXN0Lm5ldC9DUFNfMjA0OCBp
-bmNvcnAuIGJ5IHJlZi4gKGxpbWl0cyBsaWFiLikxJTAjBgNVBAsTHChjKSAxOTk5
-IEVudHJ1c3QubmV0IExpbWl0ZWQxMzAxBgNVBAMTKkVudHJ1c3QubmV0IENlcnRp
-ZmljYXRpb24gQXV0aG9yaXR5ICgyMDQ4KTAeFw05OTEyMjQxNzUwNTFaFw0yOTA3
-MjQxNDE1MTJaMIG0MRQwEgYDVQQKEwtFbnRydXN0Lm5ldDFAMD4GA1UECxQ3d3d3
-LmVudHJ1c3QubmV0L0NQU18yMDQ4IGluY29ycC4gYnkgcmVmLiAobGltaXRzIGxp
-YWIuKTElMCMGA1UECxMcKGMpIDE5OTkgRW50cnVzdC5uZXQgTGltaXRlZDEzMDEG
-A1UEAxMqRW50cnVzdC5uZXQgQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkgKDIwNDgp
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArU1LqRKGsuqjIAcVFmQq
-K0vRvwtKTY7tgHalZ7d4QMBzQshowNtTK91euHaYNZOLGp18EzoOH1u3Hs/lJBQe
-sYGpjX24zGtLA/ECDNyrpUAkAH90lKGdCCmziAv1h3edVc3kw37XamSrhRSGlVuX
-MlBvPci6Zgzj/L24ScF2iUkZ/cCovYmjZy/Gn7xxGWC4LeksyZB2ZnuU4q941mVT
-XTzWnLLPKQP5L6RQstRIzgUyVYr9smRMDuSYB3Xbf9+5CFVghTAp+XtIpGmG4zU/
-HoZdenoVve8AjhUiVBcAkCaTvA5JaJG/+EfTnZVCwQ5N328mz8MYIWJmQ3DW1cAH
-4QIDAQABo0IwQDAOBgNVHQ8BAf8EBAMCAQYwDwYDVR0TAQH/BAUwAwEB/zAdBgNV
-HQ4EFgQUVeSB0RGAvtiJuQijMfmhJAkWuXAwDQYJKoZIhvcNAQEFBQADggEBADub
-j1abMOdTmXx6eadNl9cZlZD7Bh/KM3xGY4+WZiT6QBshJ8rmcnPyT/4xmf3IDExo
-U8aAghOY+rat2l098c5u9hURlIIM7j+VrxGrD9cv3h8Dj1csHsm7mhpElesYT6Yf
-zX1XEC+bBAlahLVu2B064dae0Wx5XnkcFMXj0EyTO2U87d89vqbllRrDtRnDvV5b
-u/8j72gZyxKTJ1wDLW8w0B62GqzeWvfRqqgnpv55gcR5mTNXuhKwqeBCbJPKVt7+
-bYQLCIt+jerXmCHG8+c8eS9enNFMFY3h7CI3zJpDC5fcgJCNs2ebb0gIFVbPv/Er
-fF6adulZkMV8gzURZVE=
------END CERTIFICATE-----
-"""
+ENTRUST_NET_PREMIUM_2048_SECURE_SERVER_CA_BYTES_ ::= #[
+    '0',130,4,'*','0',130,3,18,160,3,2,1,2,2,4,'8','c',222,248,'0',13,6,9,'*',
+    134,'H',134,247,13,1,1,5,5,0,'0',129,180,'1',20,'0',18,6,3,'U',4,10,19,11,
+    'E','n','t','r','u','s','t','.','n','e','t','1','@','0','>',6,3,'U',4,0xb,
+    0x14,'7','w','w','w','.','e','n','t','r','u','s','t','.','n','e','t','/',
+    'C','P','S','_','2','0','4','8',' ','i','n','c','o','r','p','.',' ','b',
+    'y',' ','r','e','f','.',' ','(','l','i','m','i','t','s',' ','l','i','a',
+    'b','.',')','1','%','0','#',0x06,3,'U',4,11,19,28,'(','c',')',' ','1','9',
+    '9','9',' ','E','n','t','r','u','s','t','.','n','e','t',' ','L','i','m',
+    'i','t','e','d','1','3','0','1',0x06,3,'U',4,3,19,'*','E','n','t','r','u',
+    's','t','.','n','e','t',' ','C','e','r','t','i','f','i','c','a','t','i',
+    'o','n',' ','A','u','t','h','o','r','i','t','y',' ','(','2','0','4','8',
+    ')','0',0x1e,23,13,'9','9','1','2','2','4','1','7','5','0','5','1','Z',23,
+    13,'2','9','0','7','2','4','1','4','1','5','1','2','Z','0',129,180,'1',20,
+    '0',18,6,3,'U',4,10,19,11,'E','n','t','r','u','s','t','.','n','e','t','1',
+    '@','0','>',0x6,3,'U',4,11,20,'7','w','w','w','.','e','n','t','r','u','s',
+    't','.','n','e','t','/','C','P','S','_','2','0','4','8',' ','i','n','c',
+    'o','r','p','.',' ','b','y',' ','r','e','f','.',' ','(','l','i','m','i',
+    't','s',' ','l','i','a','b','.',')','1','%','0','#',0x06,3,'U',4,11,19,28,
+    '(','c',')',' ','1','9','9','9',' ','E','n','t','r','u','s','t','.','n',
+    'e','t',' ','L','i','m','i','t','e','d','1','3','0','1',0x06,3,'U',4,3,19,
+    '*','E','n','t','r','u','s','t','.','n','e','t',' ','C','e','r','t','i',
+    'f','i','c','a','t','i','o','n',' ','A','u','t','h','o','r','i','t','y',
+    ' ','(','2','0','4','8',')','0',0x82,1,'"','0',13,6,9,'*',134,'H',134,247,
+    13,1,1,1,5,0,3,130,1,15,0,'0',130,1,10,2,130,1,1,0,173,'M','K',169,18,134,
+    0xb2,0xea,0xa3,' ',7,21,22,'d','*','+','K',209,191,11,'J','M',142,237,128,
+    'v',0xa5,'g',0xb7,'x','@',192,'s','B',200,'h',192,219,'S','+',221,'^',184,
+    'v',0x98,'5',147,139,26,157,'|',19,':',14,31,'[',183,30,207,229,'$',20,30,
+    0xb1,129,169,141,'}',184,204,'k','K',3,241,2,12,220,171,165,'@','$',0,127,
+    't',0x94,161,157,8,')',179,136,11,245,135,'w',157,'U',205,228,195,'~',215,
+    'j','d',171,133,20,134,149,'[',151,'2','P','o','=',200,186,'f',12,227,252,
+    0xbd,0xb8,'I',0xc1,'v',137,'I',25,253,192,168,189,137,163,'g','/',198,159,
+    0xbc,'q',0x19,'`',184,'-',233,',',201,144,'v','f','{',148,226,175,'x',214,
+    'e','S',']','<',0xd6,0x9c,178,207,')',3,249,'/',164,'P',178,212,'H',206,5,
+    '2','U',0x8a,0xfd,0xb2,'d','L',14,228,152,7,'u',219,127,223,185,8,'U','`',
+    133,'0',')',249,'{','H',164,'i',134,227,'5','?',30,134,']','z','z',21,189,
+    0xef,0,142,21,'"','T',23,0,144,'&',147,188,14,'I','h',145,191,248,'G',211,
+    157,149,'B',193,14,'M',223,'o','&',207,195,24,'!','b','f','C','p',214,213,
+    0xc0,7,225,2,3,1,0,1,163,'B','0','@','0',14,6,3,'U',29,15,1,1,255,4,4,3,2,
+    1,6,'0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',29,6,3,'U',29,14,4,
+    22,4,20,'U',228,129,209,17,128,190,216,137,185,8,163,'1',249,161,'$',9,22,
+    0xb9,'p','0',0xd,6,9,'*',134,'H',134,247,13,1,1,5,5,0,3,130,1,1,0,';',155,
+    0x8f,'V',155,'0',231,'S',153,'|','z','y',167,'M',151,215,25,149,144,251,6,
+    31,0xca,'3','|','F','c',143,150,'f','$',250,'@',27,'!',39,202,230,'r','s',
+    242,'O',254,'1',153,253,200,12,'L','h','S',198,128,130,19,152,250,182,173,
+    0xda,']','=',0xf1,0xce,'n',246,21,17,148,130,12,238,'?',149,175,17,171,15,
+    0xd7,'/',222,31,3,143,'W',',',30,201,187,154,26,'D',149,235,24,'O',166,31,
+    205,'}','W',16,'/',155,4,9,'Z',132,181,'n',216,29,':',225,214,158,209,'l',
+    'y','^','y',28,20,197,227,208,'L',147,';','e','<',237,223,'=',190,166,229,
+    149,26,195,181,25,195,189,'^','[',187,255,'#',239,'h',25,203,18,147,39,92,
+    0x03,'-','o','0',208,30,182,26,172,222,'Z',247,209,170,168,39,166,254,'y',
+    0x81,0xc4,'y',0x99,'3','W',186,18,176,169,224,'B','l',147,202,'V',222,254,
+    'm',0x84,11,8,139,'~',141,234,215,152,'!',198,243,231,'<','y','/','^',156,
+    209,'L',21,141,225,236,'"','7',204,154,'C',11,151,220,128,144,141,179,'g',
+    0x9b,'o','H',8,21,'V',207,191,241,'+','|','^',154,'v',233,'Y',144,197,'|',
+    131,'5',17,'e','Q',
+]
+
 
 /**
 Entrust.net Premium 2048 Secure Server CA.
 SHA256 fingerprint: 6d:c4:71:72:e0:1c:bc:b0:bf:62:58:0d:89:5f:e2:b8:ac:9a:d4:f8:73:80:1e:0c:10:b9:c8:37:d2:1e:b1:77
 */
-ENTRUST_NET_PREMIUM_2048_SECURE_SERVER_CA ::= net.Certificate.parse ENTRUST_NET_PREMIUM_2048_SECURE_SERVER_CA_TEXT_
+ENTRUST_NET_PREMIUM_2048_SECURE_SERVER_CA ::= parse_ ENTRUST_NET_PREMIUM_2048_SECURE_SERVER_CA_BYTES_
 
-BALTIMORE_CYBERTRUST_ROOT_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIDdzCCAl+gAwIBAgIEAgAAuTANBgkqhkiG9w0BAQUFADBaMQswCQYDVQQGEwJJ
-RTESMBAGA1UEChMJQmFsdGltb3JlMRMwEQYDVQQLEwpDeWJlclRydXN0MSIwIAYD
-VQQDExlCYWx0aW1vcmUgQ3liZXJUcnVzdCBSb290MB4XDTAwMDUxMjE4NDYwMFoX
-DTI1MDUxMjIzNTkwMFowWjELMAkGA1UEBhMCSUUxEjAQBgNVBAoTCUJhbHRpbW9y
-ZTETMBEGA1UECxMKQ3liZXJUcnVzdDEiMCAGA1UEAxMZQmFsdGltb3JlIEN5YmVy
-VHJ1c3QgUm9vdDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAKMEuyKr
-mD1X6CZymrV51Cni4eiVgLGw41uOKymaZN+hXe2wCQVt2yguzmKiYv60iNoS6zjr
-IZ3AQSsBUnuId9Mcj8e6uYi1agnnc+gRQKfRzMpijS3ljwumUNKoUMMo6vWrJYeK
-mpYcqWe4PwzV9/lSEy/CG9VwcPCPwBLKBsua4dnKM3p31vjsufFoREJIE9LAwqSu
-XmD+tqYF/LTdB1kC1FkYmGP1pWPgkAx9XbIGevOF6uvUA65ehD5f/xXtabz5OTZy
-dc93Uk3zyZAsuT3lySNTPx8kmCFcB5kpvcY67Oduhjprl3RjM71oGDHweI12v/ye
-jl0qhqdNkNwnGjkCAwEAAaNFMEMwHQYDVR0OBBYEFOWdWTCCR1jMrPoIVDaGezq1
-BE3wMBIGA1UdEwEB/wQIMAYBAf8CAQMwDgYDVR0PAQH/BAQDAgEGMA0GCSqGSIb3
-DQEBBQUAA4IBAQCFDF2O5G9RaEIFoN27TyclhAO992T9Ldcw46QQF+vaKSm2eT92
-9hkTI7gQCvlYpNRhcL0EYWoSihfVCr3FvDB81ukMJY2GQE/szKN+OMY3EU/t3Wgx
-jkzSswF07r51XgdIGn9w/xZchMB5hbgF/X++ZRGjD8ACtPhSNzkE1akxehi/oCr0
-Epn3o0WC4zxe9Z2etciefC7IpJ5OCBRLbf1wbWsaY71k5h+3zvDyny67G7fyUIhz
-ksLi4xaNmjICq44Y3ekQEe5+NauQrz4wlHrQMz2nZQ/1/I6eYs9HRCwBXbsdtTLS
-R9I4LtD+gdwyah617jzV/OeBHRnDJELqYzmp
------END CERTIFICATE-----
-"""
+BALTIMORE_CYBERTRUST_ROOT_BYTES_ ::= #[
+    '0',0x82,3,'w','0',130,2,'_',160,3,2,1,2,2,4,2,0,0,185,'0',13,6,9,'*',134,
+    'H',0x86,0xf7,0xd,1,1,5,5,0,'0','Z','1',11,'0',9,6,3,'U',4,6,19,2,'I','E',
+    '1',0x12,'0',16,6,3,'U',4,10,19,9,'B','a','l','t','i','m','o','r','e','1',
+    19,'0',17,6,3,'U',4,0xb,19,10,'C','y','b','e','r','T','r','u','s','t','1',
+    '"','0',' ',6,3,'U',4,3,19,25,'B','a','l','t','i','m','o','r','e',' ','C',
+    'y','b','e','r','T','r','u','s','t',' ','R','o','o','t','0',30,23,0xd,'0',
+    '0','0','5','1','2','1','8','4','6','0','0','Z',23,13,'2','5','0','5','1',
+    '2','2','3','5','9','0','0','Z','0','Z','1',11,'0',9,6,3,'U',4,6,19,2,'I',
+    'E','1',0x12,'0',16,6,3,'U',4,10,19,9,'B','a','l','t','i','m','o','r','e',
+    '1',19,'0',17,6,3,'U',4,0xb,19,10,'C','y','b','e','r','T','r','u','s','t',
+    '1','"','0',' ',6,3,'U',4,3,19,25,'B','a','l','t','i','m','o','r','e',' ',
+    'C','y','b','e','r','T','r','u','s','t',' ','R','o','o','t','0',130,1,'"',
+    '0',0x0d,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,1,15,0,'0',130,1,10,2,
+    0x82,1,1,0,0xa3,4,187,'"',171,152,'=','W',232,'&','r',154,181,'y',212,')',
+    0xe2,0xe1,232,149,128,177,176,227,'[',142,'+',')',154,'d',223,161,']',237,
+    0xb0,0x9,5,'m',219,'(','.',206,'b',162,'b',254,180,136,218,18,235,'8',235,
+    '!',0x9d,192,'A','+',1,'R','{',136,'w',211,28,143,199,186,185,136,181,'j',
+    0x9,231,'s',232,17,'@',167,209,204,202,'b',141,'-',229,143,11,166,'P',210,
+    168,'P',195,'(',234,245,171,'%',135,138,154,150,28,169,'g',184,'?',12,213,
+    0xf7,0xf9,'R',19,'/',0xc2,27,213,'p','p',240,143,192,18,202,6,203,154,225,
+    0xd9,0xca,'3','z','w',0xd6,248,236,185,241,'h','D','B','H',19,210,192,194,
+    0xa4,174,'^','`',254,182,166,5,252,180,221,7,'Y',2,212,'Y',24,152,'c',245,
+    0xa5,'c',0xe0,0x90,12,'}',']',178,6,'z',243,133,234,235,212,3,174,'^',132,
+    '>','_',0xff,0x15,237,'i',188,249,'9','6','r','u',207,'w','R','M',243,201,
+    0x90,',',0xb9,'=',229,201,'#','S','?',31,'$',152,'!',92,7,153,')',189,198,
+    ':',0xec,0xe7,'n',0x86,':','k',151,'t','c','3',189,'h',24,'1',240,'x',141,
+    'v',0xbf,0xfc,158,142,']','*',134,167,'M',144,220,39,26,'9',2,3,1,0,1,163,
+    'E','0','C','0',0x1d,6,3,'U',29,0xe,4,22,4,20,229,157,'Y','0',130,'G','X',
+    0xcc,172,250,8,'T','6',134,'{',':',181,4,'M',240,'0',18,6,3,'U',29,19,1,1,
+    0xff,4,8,'0',6,1,1,255,2,1,3,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',
+    0x0d,6,9,'*',0x86,'H',134,247,13,1,1,5,5,0,3,130,1,1,0,133,12,']',142,228,
+    'o','Q','h','B',0x05,160,221,187,'O',39,'%',132,3,189,247,'d',253,'-',215,
+    '0',227,164,16,23,235,218,')',')',182,'y','?','v',246,25,19,'#',184,16,10,
+    0xf9,'X',0xa4,0xd4,'a','p',189,4,'a','j',18,138,23,213,10,189,197,188,'0',
+    '|',214,233,12,'%',141,134,'@','O',236,204,163,'~','8',198,'7',17,'O',237,
+    221,'h','1',142,'L',210,179,1,'t',238,190,'u','^',7,'H',26,127,'p',255,22,
+    92,0x84,192,'y',133,184,5,253,127,190,'e',17,163,15,192,2,180,248,'R','7',
+    '9',0x4,213,169,'1','z',24,191,160,'*',244,18,153,247,163,'E',130,227,'<',
+    '^',0xf5,157,158,181,200,158,'|','.',200,164,158,'N',8,20,'K','m',253,'p',
+    'm','k',26,'c',0xbd,'d',230,31,183,206,240,242,159,'.',187,27,183,242,'P',
+    136,'s',146,194,226,227,22,141,154,'2',2,171,142,24,221,233,16,17,238,'~',
+    '5',0xab,0x90,0xaf,'>','0',148,'z',208,'3','=',167,'e',15,245,252,142,158,
+    'b',0xcf,'G','D',',',1,']',187,29,181,'2',210,'G',210,'8','.',208,254,129,
+    0xdc,'2','j',30,181,238,'<',213,252,231,129,29,25,195,'$','B',234,'c','9',
+    169,
+]
+
 
 /**
 Baltimore CyberTrust Root.
 SHA256 fingerprint: 16:af:57:a9:f6:76:b0:ab:12:60:95:aa:5e:ba:de:f2:2a:b3:11:19:d6:44:ac:95:cd:4b:93:db:f3:f2:6a:eb
 */
-BALTIMORE_CYBERTRUST_ROOT ::= net.Certificate.parse BALTIMORE_CYBERTRUST_ROOT_TEXT_
+BALTIMORE_CYBERTRUST_ROOT ::= parse_ BALTIMORE_CYBERTRUST_ROOT_BYTES_
 
-ENTRUST_ROOT_CERTIFICATION_AUTHORITY_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIEkTCCA3mgAwIBAgIERWtQVDANBgkqhkiG9w0BAQUFADCBsDELMAkGA1UEBhMC
-VVMxFjAUBgNVBAoTDUVudHJ1c3QsIEluYy4xOTA3BgNVBAsTMHd3dy5lbnRydXN0
-Lm5ldC9DUFMgaXMgaW5jb3Jwb3JhdGVkIGJ5IHJlZmVyZW5jZTEfMB0GA1UECxMW
-KGMpIDIwMDYgRW50cnVzdCwgSW5jLjEtMCsGA1UEAxMkRW50cnVzdCBSb290IENl
-cnRpZmljYXRpb24gQXV0aG9yaXR5MB4XDTA2MTEyNzIwMjM0MloXDTI2MTEyNzIw
-NTM0MlowgbAxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1FbnRydXN0LCBJbmMuMTkw
-NwYDVQQLEzB3d3cuZW50cnVzdC5uZXQvQ1BTIGlzIGluY29ycG9yYXRlZCBieSBy
-ZWZlcmVuY2UxHzAdBgNVBAsTFihjKSAyMDA2IEVudHJ1c3QsIEluYy4xLTArBgNV
-BAMTJEVudHJ1c3QgUm9vdCBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0eTCCASIwDQYJ
-KoZIhvcNAQEBBQADggEPADCCAQoCggEBALaVtkNC+sZtKm9I35RMOVcF7sN5EUFo
-Nu3s/poBj6E4KPz3EEZmLk0eGrEaTsbRwJWIsMn/MYszA9u3g3s+IIRe7bJWKKf4
-4LlAcTfFy0cOlypowCKVYhXbR9n10Cv/gkvJrT7eTNuQgFA/CYqEAOwwCj0Yzfv9
-KlmaI5UXLEWeH25DeW0MXJj+SKfFI0dcXv1u5x609mhF0YaDW6KKjbHjKYD+JXGI
-rb68j6xSlkuqUY3kEzEZ6E5Nn9uss2rVvDlUccp6en+Q3X0dgNmBu1kmwhH+5pPi
-94DkZfs0Nw4pgHBNrziGLp5/V6+eF67rHMsoIV+2HNjnogQi+dPa2MsCAwEAAaOB
-sDCBrTAOBgNVHQ8BAf8EBAMCAQYwDwYDVR0TAQH/BAUwAwEB/zArBgNVHRAEJDAi
-gA8yMDA2MTEyNzIwMjM0MlqBDzIwMjYxMTI3MjA1MzQyWjAfBgNVHSMEGDAWgBRo
-kORnpKZTgMeGZqTx90tD+4S9bTAdBgNVHQ4EFgQUaJDkZ6SmU4DHhmak8fdLQ/uE
-vW0wHQYJKoZIhvZ9B0EABBAwDhsIVjcuMTo0LjADAgSQMA0GCSqGSIb3DQEBBQUA
-A4IBAQCT1DCw1wMgKtD5Y+iRDAUgqV8ZyntyTtSx29CW+1RaGSwMCPeyvIWonX9t
-O1KzKtvn1ISMY/YPyyYBkVBs9F8U4pN0wBOeMDpQ47RgxRzwIkSNcUesyBrJ6Zua
-AGAT/3B+XxFNSRuzFVJ7yVTav52Vr2ua2J7p8eRDjeIRRDq/r72DQnNSi6q7pynP
-9WQcCk3RvKqsnyrQ/39/2n3qse0wJcGE2jTSW3iDVuycNsMm4hH2Z0kdkquM++v/
-eu6FSqdQgPCnXEqULl8FmTxSQeDNtGPPAUO6nIPcj2A781q0tHuu2guQOHXvgR1m
-0vdXcDazv/wor3ElhVsT/h5/WrQ8
------END CERTIFICATE-----
-"""
+ENTRUST_ROOT_CERTIFICATION_AUTHORITY_BYTES_ ::= #[
+    '0',0x82,0x4,145,'0',130,3,'y',160,3,2,1,2,2,4,'E','k','P','T','0',13,6,9,
+    '*',0x86,'H',134,247,13,1,1,5,5,0,'0',129,176,'1',11,'0',9,6,3,'U',4,6,19,
+    0x02,'U','S','1',22,'0',20,6,3,'U',4,10,19,13,'E','n','t','r','u','s','t',
+    ',',' ','I','n','c','.','1','9','0','7',0x6,3,'U',4,11,19,'0','w','w','w',
+    '.','e','n','t','r','u','s','t','.','n','e','t','/','C','P','S',' ','i',
+    's',' ','i','n','c','o','r','p','o','r','a','t','e','d',' ','b','y',' ',
+    'r','e','f','e','r','e','n','c','e','1',31,'0',29,6,3,'U',4,0xb,19,22,'(',
+    'c',')',' ','2','0','0','6',' ','E','n','t','r','u','s','t',',',' ','I',
+    'n','c','.','1','-','0','+',0x06,3,'U',4,3,19,'$','E','n','t','r','u','s',
+    't',' ','R','o','o','t',' ','C','e','r','t','i','f','i','c','a','t','i',
+    'o','n',' ','A','u','t','h','o','r','i','t','y','0',30,23,0xd,'0','6','1',
+    '1','2','7','2','0','2','3','4','2','Z',23,13,'2','6','1','1','2','7','2',
+    '0','5','3','4','2','Z','0',129,176,'1',11,'0',9,6,3,'U',4,6,19,2,'U','S',
+    '1',22,'0',20,6,3,'U',4,0xa,19,13,'E','n','t','r','u','s','t',',',' ','I',
+    'n','c','.','1','9','0','7',0x6,3,'U',4,11,19,'0','w','w','w','.','e','n',
+    't','r','u','s','t','.','n','e','t','/','C','P','S',' ','i','s',' ','i',
+    'n','c','o','r','p','o','r','a','t','e','d',' ','b','y',' ','r','e','f',
+    'e','r','e','n','c','e','1',31,'0',29,6,3,'U',4,0xb,19,22,'(','c',')',' ',
+    '2','0','0','6',' ','E','n','t','r','u','s','t',',',' ','I','n','c','.',
+    '1','-','0','+',0x06,3,'U',4,3,19,'$','E','n','t','r','u','s','t',' ','R',
+    'o','o','t',' ','C','e','r','t','i','f','i','c','a','t','i','o','n',' ',
+    'A','u','t','h','o','r','i','t','y','0',0x82,1,'"','0',13,6,9,'*',134,'H',
+    0x86,0xf7,0xd,1,1,1,5,0,3,130,1,15,0,'0',130,1,10,2,130,1,1,0,182,149,182,
+    'C','B',0xfa,198,'m','*','o','H',223,148,'L','9','W',5,238,195,'y',17,'A',
+    'h','6',0xed,0xec,254,154,1,143,161,'8','(',252,247,16,'F','f','.','M',30,
+    0x1a,177,26,'N',198,209,192,149,136,176,201,255,'1',139,'3',3,219,183,131,
+    '{','>',' ',0x84,'^',0xed,178,'V','(',167,248,224,185,'@','q','7',197,203,
+    'G',14,151,'*','h',192,'"',149,'b',21,219,'G',217,245,208,'+',255,130,'K',
+    201,173,'>',222,'L',219,144,128,'P','?',9,138,132,0,236,'0',10,'=',24,205,
+    0xfb,0xfd,'*','Y',154,'#',149,23,',','E',158,31,'n','C','y','m',12,92,152,
+    254,'H',167,197,'#','G',92,'^',253,'n',231,30,180,246,'h','E',209,134,131,
+    '[',0xa2,0x8a,141,177,227,')',128,254,'%','q',136,173,190,188,143,172,'R',
+    150,'K',170,'Q',141,228,19,'1',25,232,'N','M',159,219,172,179,'j',213,188,
+    '9','T','q',202,'z','z',127,144,221,'}',29,128,217,129,187,'Y','&',194,17,
+    0xfe,0xe6,0x93,226,247,128,228,'e',251,'4','7',14,')',128,'p','M',175,'8',
+    0x86,'.',158,127,'W',175,158,23,174,235,28,203,'(','!','_',182,28,216,231,
+    0xa2,4,'"',249,211,218,216,203,2,3,1,0,1,163,129,176,'0',129,173,'0',14,6,
+    3,'U',29,0xf,1,1,255,4,4,3,2,1,6,'0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,
+    1,0xff,'0','+',6,3,'U',29,16,4,'$','0','"',128,15,'2','0','0','6','1','1',
+    '2','7','2','0','2','3','4','2','Z',0x81,0x0f,'2','0','2','6','1','1','2',
+    '7','2','0','5','3','4','2','Z','0',31,6,3,'U',29,'#',4,24,'0',22,0x80,20,
+    'h',0x90,0xe4,'g',164,166,'S',128,199,134,'f',164,241,247,'K','C',251,132,
+    0xbd,'m','0',0x1d,6,3,'U',29,14,4,22,4,20,'h',144,228,'g',164,166,'S',128,
+    0xc7,0x86,'f',0xa4,241,247,'K','C',251,132,189,'m','0',29,6,9,'*',134,'H',
+    0x86,246,'}',7,'A',0,4,16,'0',14,27,8,'V','7','.','1',':','4','.','0',3,2,
+    4,144,'0',13,6,9,'*',134,'H',134,247,13,1,1,5,5,0,3,130,1,1,0,147,212,'0',
+    176,215,3,' ','*',208,249,'c',232,145,12,5,' ',169,'_',25,202,'{','r','N',
+    0xd4,0xb1,219,208,150,251,'T','Z',25,',',12,8,247,178,188,133,168,157,127,
+    'm',';','R',0xb3,'*',219,231,212,132,140,'c',246,15,203,'&',1,145,'P','l',
+    0xf4,'_',20,226,147,'t',192,19,158,'0',':','P',227,180,'`',197,28,240,'"',
+    'D',0x8d,'q','G',0xac,0xc8,26,201,233,155,154,0,'`',19,255,'p','~','_',17,
+    'M','I',27,179,21,'R','{',201,'T',218,191,157,149,175,'k',154,216,158,233,
+    0xf1,0xe4,'C',0x8d,226,17,'D',':',191,175,189,131,'B','s','R',139,170,187,
+    167,')',207,245,'d',28,10,'M',209,188,170,172,159,'*',208,255,127,127,218,
+    '}',0xea,0xb1,237,'0','%',193,132,218,'4',210,'[','x',131,'V',236,156,'6',
+    195,'&',226,17,246,'g','I',29,146,171,140,251,235,255,'z',238,133,'J',167,
+    'P',0x80,240,167,92,'J',148,'.','_',5,153,'<','R','A',224,205,180,'c',207,
+    1,'C',0xba,156,131,220,143,'`',';',243,'Z',180,180,'{',174,218,11,144,'8',
+    'u',0xef,0x81,29,'f',0xd2,247,'W','p','6',179,191,252,'(',175,'q','%',133,
+    '[',19,254,30,127,'Z',180,'<',
+]
+
 
 /**
 Entrust Root Certification Authority.
 SHA256 fingerprint: 73:c1:76:43:4f:1b:c6:d5:ad:f4:5b:0e:76:e7:27:28:7c:8d:e5:76:16:c1:e6:e6:14:1a:2b:2c:bc:7d:8e:4c
 */
-ENTRUST_ROOT_CERTIFICATION_AUTHORITY ::= net.Certificate.parse ENTRUST_ROOT_CERTIFICATION_AUTHORITY_TEXT_
+ENTRUST_ROOT_CERTIFICATION_AUTHORITY ::= parse_ ENTRUST_ROOT_CERTIFICATION_AUTHORITY_BYTES_
 
-COMODO_AAA_SERVICES_ROOT_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIEMjCCAxqgAwIBAgIBATANBgkqhkiG9w0BAQUFADB7MQswCQYDVQQGEwJHQjEb
-MBkGA1UECAwSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHDAdTYWxmb3JkMRow
-GAYDVQQKDBFDb21vZG8gQ0EgTGltaXRlZDEhMB8GA1UEAwwYQUFBIENlcnRpZmlj
-YXRlIFNlcnZpY2VzMB4XDTA0MDEwMTAwMDAwMFoXDTI4MTIzMTIzNTk1OVowezEL
-MAkGA1UEBhMCR0IxGzAZBgNVBAgMEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UE
-BwwHU2FsZm9yZDEaMBgGA1UECgwRQ29tb2RvIENBIExpbWl0ZWQxITAfBgNVBAMM
-GEFBQSBDZXJ0aWZpY2F0ZSBTZXJ2aWNlczCCASIwDQYJKoZIhvcNAQEBBQADggEP
-ADCCAQoCggEBAL5AnfRu4ep2hxxNRUSOvkbIgwadwSr+GB+O5AL686tdUIoWMQua
-BtDFcCLNSS1UY8y2bmhGC1Pqy0wkwLxyTurxFa70VJoSCsN6sjNg4tqJVfMiWPPe
-3M/vg4aijJRPn2jymJBGhCfHdr/jzDUsi14HZGWCwEiwqJH5YZ92IFCokcdmtet4
-YgNW8IoaE+oxox6gmf049vYnMlhvB/VruPsUK6+3qszWY19zjNoFmag4qMsXeDZR
-rOme9Hg6jc8P2ULimAyrL58OAd7vn5lJ8S3frHRNG5i1R8XlKdH5kBjHYpy+g8cm
-ez6KJcfA3Z3mNWgQIJ2P2N7Sw4ScDV7oL8kCAwEAAaOBwDCBvTAdBgNVHQ4EFgQU
-oBEKIz6W8Qfs4q8p74Klf9AwpLQwDgYDVR0PAQH/BAQDAgEGMA8GA1UdEwEB/wQF
-MAMBAf8wewYDVR0fBHQwcjA4oDagNIYyaHR0cDovL2NybC5jb21vZG9jYS5jb20v
-QUFBQ2VydGlmaWNhdGVTZXJ2aWNlcy5jcmwwNqA0oDKGMGh0dHA6Ly9jcmwuY29t
-b2RvLm5ldC9BQUFDZXJ0aWZpY2F0ZVNlcnZpY2VzLmNybDANBgkqhkiG9w0BAQUF
-AAOCAQEACFb8AvCb6P+k+tZ7xkSAzk/ExfYAWMymtrwUSWgEdujm7l3sAg9g1o1Q
-GE8mTgHj5rCl7r+8dFRBv/38ErjHT1r0iWAFf2C3BUrz9vHCv8S5dIa2LX1rzNLz
-Rt0vxuBqw8M0Ayx9lt1awg6nCpnBBYurDC/zXDrPbDdVCYfeU0BsWO/8tqtlbgT2
-G9w84FoVxp7Z8VlIMCFlA2zs6SFz7JsDoeA3raAVGI/6ugLOpyypEBMs1OUIJqsi
-l2D4kF501KKaU73yqWjgom7C12yxow+ev+to51byrvLjKzg6CYG1a4XXvi3tPxq3
-smPi9WIsgtRqAEFQ8TmDn5XpNpaYbg==
------END CERTIFICATE-----
-"""
+COMODO_AAA_SERVICES_ROOT_BYTES_ ::= #[
+    '0',0x82,4,'2','0',0x82,3,26,160,3,2,1,2,2,1,1,'0',13,6,9,'*',134,'H',134,
+    247,13,1,1,5,5,0,'0','{','1',11,'0',9,6,3,'U',4,6,19,2,'G','B','1',27,'0',
+    25,6,3,'U',4,8,0xc,18,'G','r','e','a','t','e','r',' ','M','a','n','c','h',
+    'e','s','t','e','r','1',0x10,'0',0xe,6,3,'U',4,7,12,7,'S','a','l','f','o',
+    'r','d','1',26,'0',24,6,3,'U',4,0xa,12,17,'C','o','m','o','d','o',' ','C',
+    'A',' ','L','i','m','i','t','e','d','1','!','0',31,6,3,'U',4,3,0xc,24,'A',
+    'A','A',' ','C','e','r','t','i','f','i','c','a','t','e',' ','S','e','r',
+    'v','i','c','e','s','0',30,23,0xd,'0','4','0','1','0','1','0','0','0','0',
+    '0','0','Z',23,13,'2','8','1','2','3','1','2','3','5','9','5','9','Z','0',
+    '{','1',11,'0',9,6,3,'U',4,6,19,2,'G','B','1',27,'0',25,6,3,'U',4,8,12,18,
+    'G','r','e','a','t','e','r',' ','M','a','n','c','h','e','s','t','e','r',
+    '1',16,'0',0xe,6,3,'U',4,7,12,7,'S','a','l','f','o','r','d','1',26,'0',24,
+    0x06,3,'U',4,10,12,17,'C','o','m','o','d','o',' ','C','A',' ','L','i','m',
+    'i','t','e','d','1','!','0',31,6,3,'U',4,3,0xc,24,'A','A','A',' ','C','e',
+    'r','t','i','f','i','c','a','t','e',' ','S','e','r','v','i','c','e','s',
+    '0',0x82,0x1,'"','0',13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,1,15,0,
+    '0',0x82,1,0xa,2,130,1,1,0,190,'@',157,244,'n',225,234,'v',135,28,'M','E',
+    'D',142,190,'F',200,131,6,157,193,'*',254,24,31,142,228,2,250,243,171,']',
+    'P',0x8a,22,'1',0xb,154,6,208,197,'p','"',205,'I','-','T','c',204,182,'n',
+    'h','F',11,'S',234,203,'L','$',192,188,'r','N',234,241,21,174,244,'T',154,
+    18,10,195,'z',178,'3','`',226,218,137,'U',243,'"','X',243,222,220,207,239,
+    0x83,0x86,0xa2,140,148,'O',159,'h',242,152,144,'F',132,39,199,'v',191,227,
+    204,'5',',',139,'^',7,'d','e',130,192,'H',176,168,145,249,'a',159,'v',' ',
+    'P',0xa8,0x91,0xc7,'f',181,235,'x','b',3,'V',240,138,26,19,234,'1',163,30,
+    0xa0,0x99,253,'8',246,246,39,'2','X','o',7,245,'k',184,251,20,'+',175,183,
+    0xaa,204,214,'c','_','s',140,218,5,153,168,'8',168,203,23,'x','6','Q',172,
+    0xe9,0x9e,0xf4,'x',':',141,207,15,217,'B',226,152,12,171,'/',159,14,1,222,
+    0xef,0x9f,0x99,'I',241,'-',223,172,'t','M',27,152,181,'G',197,229,')',209,
+    0xf9,0x90,24,0xc7,'b',156,190,131,199,'&','{','>',138,'%',199,192,221,157,
+    230,'5','h',16,' ',157,143,216,222,210,195,132,156,13,'^',232,'/',201,2,3,
+    0x01,0,1,163,129,192,'0',129,189,'0',29,6,3,'U',29,14,4,22,4,20,160,17,10,
+    '#','>',0x96,241,7,236,226,175,')',239,130,165,127,208,'0',164,180,'0',14,
+    6,3,'U',29,0xf,1,1,255,4,4,3,2,1,6,'0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,
+    0x1,1,255,'0','{',6,3,'U',29,31,4,'t','0','r','0','8',160,'6',160,'4',134,
+    '2','h','t','t','p',':','/','/','c','r','l','.','c','o','m','o','d','o',
+    'c','a','.','c','o','m','/','A','A','A','C','e','r','t','i','f','i','c',
+    'a','t','e','S','e','r','v','i','c','e','s','.','c','r','l','0','6',0xa0,
+    '4',0xa0,'2',0x86,'0','h','t','t','p',':','/','/','c','r','l','.','c','o',
+    'm','o','d','o','.','n','e','t','/','A','A','A','C','e','r','t','i','f',
+    'i','c','a','t','e','S','e','r','v','i','c','e','s','.','c','r','l','0',
+    0x0d,6,9,'*',134,'H',134,247,13,1,1,5,5,0,3,130,1,1,0,8,'V',252,2,240,155,
+    232,255,164,250,214,'{',198,'D',128,206,'O',196,197,246,0,'X',204,166,182,
+    0xbc,20,'I','h',4,'v',232,230,238,']',236,2,15,'`',214,141,'P',24,'O','&',
+    'N',1,0xe3,230,176,165,238,191,188,'t','T','A',191,253,252,18,184,199,'O',
+    'Z',0xf4,0x89,'`',5,127,'`',183,5,'J',243,246,241,194,191,196,185,'t',134,
+    182,'-','}','k',204,210,243,'F',221,'/',198,224,'j',195,195,'4',3,',','}',
+    150,221,'Z',194,14,167,10,153,193,5,139,171,12,'/',243,92,':',207,'l','7',
+    'U',0x09,135,222,'S','@','l','X',239,252,182,171,'e','n',4,246,27,220,'<',
+    0xe0,'Z',21,198,158,217,241,'Y','H','0','!','e',3,'l',236,233,'!','s',236,
+    0x9b,3,0xa1,224,'7',173,160,21,24,143,250,186,2,206,167,',',169,16,19,',',
+    212,229,8,'&',171,'"',151,'`',248,144,'^','t',212,162,154,'S',189,242,169,
+    'h',0xe0,0xa2,'n',0xc2,215,'l',177,163,15,158,191,235,'h',231,'V',242,174,
+    0xf2,227,'+','8',':',9,129,181,'k',133,215,190,'-',237,'?',26,183,178,'c',
+    226,245,'b',',',130,212,'j',0,'A','P',241,'9',131,159,149,233,'6',150,152,
+    'n',
+]
+
 
 /**
 Comodo AAA Services root.
 SHA256 fingerprint: d7:a7:a0:fb:5d:7e:27:31:d7:71:e9:48:4e:bc:de:f7:1d:5f:0c:3e:0a:29:48:78:2b:c8:3e:e0:ea:69:9e:f4
 */
-COMODO_AAA_SERVICES_ROOT ::= net.Certificate.parse COMODO_AAA_SERVICES_ROOT_TEXT_
+COMODO_AAA_SERVICES_ROOT ::= parse_ COMODO_AAA_SERVICES_ROOT_BYTES_
 
-QUOVADIS_ROOT_CA_2_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIFtzCCA5+gAwIBAgICBQkwDQYJKoZIhvcNAQEFBQAwRTELMAkGA1UEBhMCQk0x
-GTAXBgNVBAoTEFF1b1ZhZGlzIExpbWl0ZWQxGzAZBgNVBAMTElF1b1ZhZGlzIFJv
-b3QgQ0EgMjAeFw0wNjExMjQxODI3MDBaFw0zMTExMjQxODIzMzNaMEUxCzAJBgNV
-BAYTAkJNMRkwFwYDVQQKExBRdW9WYWRpcyBMaW1pdGVkMRswGQYDVQQDExJRdW9W
-YWRpcyBSb290IENBIDIwggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQCa
-GMpLlA0ALa8DKYrwD4HIrkwZhR0In6spRIXzL4GtMh6QRr+jhiYaHv5+HBg6XJxg
-Fyo6dIMzMH1hVBHL7avg5tKifvVrbxi3Cgst/ek+7wrGsxDp3MJGF/hd/aTa/55J
-WpzmM+Yklvc/ulsrHHo1wtZn/qtmUIttKGAr79dgw8eTvI02kfN/+NsRE8Scd3bB
-rrcCaoF6qUWD4gXmuVbBlDePSHFjIuwXZQeVikvfj8ZaCuWw419eaxGrDPmF60Tp
-+ARz8un+XJiM9XOva7R+zdRcAitMOeGylZUtQofX1bOQQ7dsE/He3fbE+Ik/0XX1
-ksOR1YqI0JDs3G3eicJlcZaLDQP9nL9bFqyS2+r+eXyt66/3FsvbzSUr5R/7mp/i
-Ucw6UwxI5g69ybR2BlLmEROFcmMDBOAENisgGQLodKcftslWZvB1JdxnwQ5hYIiz
-PtGo/KPaHbDRsSNU30R2be1B2MGyIrZTHN81Hdyhdyox5C315eXbyOD/5YDXC2Og
-/zOhD7osFRXql7PSorW+8oyWHhqPHWykYTe5hnMz15eWniN9gqRMgeKh0bpnX5UH
-oycR7hYQe7xFSkyyBNKr79X9DFHOUGoIMfmR2gyPZFwDwzqLID9ujWc9Otb+fVuI
-yV77zGHcizN300QyNQliBJIWENieJ0f7OyHj+OsdWwIDAQABo4GwMIGtMA8GA1Ud
-EwEB/wQFMAMBAf8wCwYDVR0PBAQDAgEGMB0GA1UdDgQWBBQahGK8SEwzJQTU7tD2
-A8QZRtGUazBuBgNVHSMEZzBlgBQahGK8SEwzJQTU7tD2A8QZRtGUa6FJpEcwRTEL
-MAkGA1UEBhMCQk0xGTAXBgNVBAoTEFF1b1ZhZGlzIExpbWl0ZWQxGzAZBgNVBAMT
-ElF1b1ZhZGlzIFJvb3QgQ0EgMoICBQkwDQYJKoZIhvcNAQEFBQADggIBAD4KFk2f
-BluornFdLwUvZ+YTRYPENvbzwCYMDbVHZF34tHLJRqUDGCdViXh9duqWNIAXINzn
-g/iN/Ae42l9NLmeyhP3ZRPx3UIHmfLTJDQtyU/h2BwdBR5YM++CCJpNVjP4iH2Bl
-fF/nJrP3MpCYUNQ3cVX2kiF495V5+vgtJodmVjB3pjd4M1IQWK4/YY7yarHvGH5K
-WWPKjaJW1acvvFYfzznB4vsKqBUsfU16Y8Zsl0Q80m/DShcK+JDSV6IZUaUtl0Ha
-B0+pUNqQjZRG4T7wlP0QADj1O+hA4bRuVhogzG9Yje0uRY/W6ZM/57Es3zrWIozc
-hLsib9D45MY56QSIPMO661V6bYCZJPVsAfv4l7CUW+v90m/xd2gNNWQjrLhVoQPR
-TUIZ3Ph1WVaj+ahJefivDrkRoHy3au000LYmYjgahwz46P0u05B/B5EqHdZ+XIWD
-mbA4CD/pXvk1B+TJYm5Xf6dQlfe6yJvmjqIBxdZmv3lh8zwc4bmCXF2gw+nYSL0Z
-ohEUGW6yhhtoPkg3Goi3XZZenMfvJ2II4pEZXNLxId26F0KCl3GBUzGpn/Z9Yr9y
-4aOTHcyKJloJONDO1w2AFrR4pTqHTI2KpdVGl/IsELm8VCLAAVBpQ570su9t+Oza
-8eOx79+Rj1QqCyXBJhnEUhAFZdWCEOrCMc0u
------END CERTIFICATE-----
-"""
+QUOVADIS_ROOT_CA_2_BYTES_ ::= #[
+    '0',0x82,0x5,183,'0',130,3,159,160,3,2,1,2,2,2,5,9,'0',13,6,9,'*',134,'H',
+    134,247,13,1,1,5,5,0,'0','E','1',11,'0',9,6,3,'U',4,6,19,2,'B','M','1',25,
+    '0',23,6,3,'U',4,10,19,16,'Q','u','o','V','a','d','i','s',' ','L','i','m',
+    'i','t','e','d','1',0x1b,'0',25,6,3,'U',4,3,19,18,'Q','u','o','V','a','d',
+    'i','s',' ','R','o','o','t',' ','C','A',' ','2','0',30,23,0xd,'0','6','1',
+    '1','2','4','1','8','2','7','0','0','Z',23,13,'3','1','1','1','2','4','1',
+    '8','2','3','3','3','Z','0','E','1',11,'0',9,6,3,'U',4,6,19,2,'B','M','1',
+    25,'0',23,6,3,'U',4,0xa,19,16,'Q','u','o','V','a','d','i','s',' ','L','i',
+    'm','i','t','e','d','1',0x1b,'0',25,6,3,'U',4,3,19,18,'Q','u','o','V','a',
+    'd','i','s',' ','R','o','o','t',' ','C','A',' ','2','0',0x82,2,'"','0',13,
+    6,9,'*',0x86,'H',134,247,13,1,1,1,5,0,3,130,2,15,0,'0',130,2,10,2,130,2,1,
+    0,154,24,202,'K',148,13,0,'-',175,3,')',138,240,15,129,200,174,'L',25,133,
+    0x1d,8,159,171,')','D',133,243,'/',129,173,'2',30,144,'F',191,163,134,'&',
+    26,30,254,'~',28,24,':',92,156,'`',23,'*',':','t',131,'3','0','}','a','T',
+    0x11,203,237,171,224,230,210,162,'~',245,'k','o',24,183,10,11,'-',253,233,
+    '>',0xef,10,198,179,16,233,220,194,'F',23,248,']',253,164,218,255,158,'I',
+    'Z',0x9c,0xe6,'3',0xe6,'$',150,247,'?',186,'[','+',28,'z','5',194,214,'g',
+    0xfe,0xab,'f','P',139,'m','(','`','+',239,215,'`',195,199,147,188,141,'6',
+    0x91,0xf3,127,248,219,17,19,196,156,'w','v',193,174,183,2,'j',129,'z',169,
+    'E',0x83,0xe2,5,0xe6,185,'V',193,148,'7',143,'H','q','c','"',236,23,'e',7,
+    0x95,138,'K',223,143,198,'Z',10,229,176,227,'_','^','k',17,171,12,249,133,
+    0xeb,'D',233,248,4,'s',242,233,254,92,152,140,245,'s',175,'k',180,'~',205,
+    0xd4,92,2,'+','L','9',225,178,149,149,'-','B',135,215,213,179,144,'C',183,
+    'l',0x13,0xf1,222,221,246,196,248,137,'?',209,'u',245,146,195,145,213,138,
+    0x88,208,144,236,220,'m',222,137,194,'e','q',150,139,13,3,253,156,191,'[',
+    22,172,146,219,234,254,'y','|',173,235,175,247,22,203,219,205,'%','+',229,
+    0x1f,0xfb,154,159,226,'Q',204,':','S',12,'H',230,14,189,201,180,'v',6,'R',
+    0xe6,17,19,0x85,'r','c',3,4,224,4,'6','+',' ',25,2,232,'t',167,31,182,201,
+    'V','f',0xf0,'u','%',0xdc,'g',0xc1,14,'a','`',136,179,'>',209,168,252,163,
+    0xda,0x1d,176,209,177,'#','T',223,'D','v','m',237,'A',216,193,178,'"',182,
+    'S',28,223,'5',29,220,161,'w','*','1',228,'-',245,229,229,219,200,224,255,
+    0xe5,0x80,215,11,'c',160,255,'3',161,15,186,',',21,21,234,151,179,210,162,
+    0xb5,190,242,140,150,30,26,143,29,'l',164,'a','7',185,134,'s','3',215,151,
+    0x96,0x9e,'#','}',130,164,'L',129,226,161,209,186,'g','_',149,7,163,39,17,
+    0xee,0x16,16,'{',188,'E','J','L',178,4,210,171,239,213,253,12,'Q',206,'P',
+    'j',8,'1',249,145,218,12,143,'d',92,3,195,':',139,' ','?','n',141,'g','=',
+    ':',0xd6,0xfe,'}','[',136,201,'^',251,204,'a',220,139,'3','w',211,'D','2',
+    '5',9,'b',4,146,22,16,216,158,39,'G',251,';','!',227,248,235,29,'[',2,3,1,
+    0x00,1,163,129,176,'0',129,173,'0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,
+    0xff,'0',0x0b,6,3,'U',29,15,4,4,3,2,1,6,'0',29,6,3,'U',29,14,4,22,4,20,26,
+    0x84,'b',0xbc,'H','L','3','%',4,0xd4,238,208,246,3,196,25,'F',209,148,'k',
+    '0','n',0x06,3,'U',29,'#',4,'g','0','e',128,20,26,132,'b',188,'H','L','3',
+    '%',0x04,212,238,208,246,3,196,25,'F',209,148,'k',161,'I',164,'G','0','E',
+    '1',0x0b,'0',9,6,3,'U',4,6,19,2,'B','M','1',25,'0',23,6,3,'U',4,0xa,19,16,
+    'Q','u','o','V','a','d','i','s',' ','L','i','m','i','t','e','d','1',0x1b,
+    '0',25,6,3,'U',4,3,19,18,'Q','u','o','V','a','d','i','s',' ','R','o','o',
+    't',' ','C','A',' ','2',130,2,5,9,'0',13,6,9,'*',134,'H',134,247,13,1,1,5,
+    5,0,3,130,2,1,0,'>',10,22,'M',159,6,'[',168,174,'q',']','/',5,'/','g',230,
+    19,'E',0x83,196,'6',246,243,192,'&',12,13,181,'G','d',']',248,180,'r',201,
+    'F',0xa5,0x3,24,39,'U',137,'x','}','v',234,150,'4',128,23,' ',220,231,131,
+    248,141,252,7,184,218,'_','M','.','g',178,132,253,217,'D',252,'w','P',129,
+    0xe6,'|',180,201,13,11,'r','S',248,'v',7,7,'A','G',150,12,251,224,130,'&',
+    0x93,'U',0x8c,0xfe,'"',31,'`','e','|','_',231,'&',179,247,'2',144,152,'P',
+    0xd4,'7','q','U',0xf6,146,'!','x',247,149,'y',250,248,'-','&',135,'f','V',
+    '0','w',166,'7','x','3','R',16,'X',174,'?','a',142,242,'j',177,239,24,'~',
+    'J','Y','c',202,141,162,'V',213,167,'/',188,'V',31,207,'9',193,226,251,10,
+    0xa8,21,',','}','M','z','c',198,'l',151,'D','<',210,'o',195,'J',23,10,248,
+    0x90,210,'W',162,25,'Q',165,'-',151,'A',218,7,'O',169,'P',218,144,141,148,
+    'F',0xe1,'>',0xf0,148,253,16,0,'8',245,';',232,'@',225,180,'n','V',26,' ',
+    0xcc,'o','X',0x8d,237,'.','E',143,214,233,147,'?',231,177,',',223,':',214,
+    '"',140,220,132,187,'"','o',208,248,228,198,'9',233,4,136,'<',195,186,235,
+    'U','z','m',128,153,'$',245,'l',1,251,248,151,176,148,'[',235,253,210,'o',
+    0xf1,'w','h',0xd,'5','d','#',172,184,'U',161,3,209,'M','B',25,220,248,'u',
+    'Y','V',163,249,168,'I','y',248,175,14,185,17,160,'|',183,'j',237,'4',208,
+    0xb6,'&','b','8',0x1a,135,12,248,232,253,'.',211,144,127,7,145,'*',29,214,
+    '~',0x5c,0x85,131,153,176,'8',8,'?',233,'^',249,'5',7,228,201,'b','n','W',
+    127,167,'P',149,247,186,200,155,230,142,162,1,197,214,'f',191,'y','a',243,
+    '<',28,225,185,130,92,']',160,195,233,216,'H',189,25,162,17,20,25,'n',178,
+    0x86,0x1b,'h','>','H','7',26,136,183,']',150,'^',156,199,239,39,'b',8,226,
+    0x91,25,92,210,241,'!',221,186,23,'B',130,151,'q',129,'S','1',169,159,246,
+    '}','b',0xbf,'r',0xe1,163,147,29,204,138,'&','Z',9,'8',208,206,215,13,128,
+    22,180,'x',165,':',135,'L',141,138,165,213,'F',151,242,',',16,185,188,'T',
+    '"',192,1,'P','i','C',158,244,178,239,'m',248,236,218,241,227,177,239,223,
+    145,143,'T','*',11,'%',193,'&',25,196,'R',16,5,'e',213,130,16,234,194,'1',
+    205,'.',
+]
+
 
 /**
 QuoVadis Root CA 2.
 SHA256 fingerprint: 85:a0:dd:7d:d7:20:ad:b7:ff:05:f8:3d:54:2b:20:9d:c7:ff:45:28:f7:d6:77:b1:83:89:fe:a5:e5:c4:9e:86
 */
-QUOVADIS_ROOT_CA_2 ::= net.Certificate.parse QUOVADIS_ROOT_CA_2_TEXT_
+QUOVADIS_ROOT_CA_2 ::= parse_ QUOVADIS_ROOT_CA_2_BYTES_
 
-QUOVADIS_ROOT_CA_3_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIGnTCCBIWgAwIBAgICBcYwDQYJKoZIhvcNAQEFBQAwRTELMAkGA1UEBhMCQk0x
-GTAXBgNVBAoTEFF1b1ZhZGlzIExpbWl0ZWQxGzAZBgNVBAMTElF1b1ZhZGlzIFJv
-b3QgQ0EgMzAeFw0wNjExMjQxOTExMjNaFw0zMTExMjQxOTA2NDRaMEUxCzAJBgNV
-BAYTAkJNMRkwFwYDVQQKExBRdW9WYWRpcyBMaW1pdGVkMRswGQYDVQQDExJRdW9W
-YWRpcyBSb290IENBIDMwggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQDM
-V0IWVJzmmNPTTe7+7cefQzlKZbPoFog02w1ZkXTPkrgEQK0CSzGrvI2RaNggDhoB
-4hp7Thdd4oq3P5kazethq8Jlph+3t723j/z9cI8LoGe+AaJZz3HmDyl2/7FWeUUr
-H556VOijKTVopAFPD6QuN+8bv+OPEKhyq1hX51SGyMnzW9os2l2ObjyjPtr7guXd
-8lyyBTNvijbO0BNO/79KDDRMpsMhvVAEVeuxu537RR5kFd5VAYwCdrXLoT9Cabwv
-vWhDFlaJKjdhkf2mrk7AyxRllDdLkgbvBNDInIjbC3uBr7E9KsRlOni27tyAsdLT
-mZw67mtaa7ONt9XOnMK+pUsvFrGeaDsGb659n/je7Mwpp5ijJUMv7/FfJuGITfhe
-btfZFG4ZM2mnO4SJk8RTVROhUXhA+LjJou57ulJCg54U7QVSWllWp5f8nT8KKdjc
-T5EOE7zelaTfi5m+rJsziO+1ga8bxiJTyPbH7pcUsMV8eFLI8M5ud2CEpukqdiDt
-WAEXMJPpGovgc2PZapKUSU60rUqFxKMiMPwJ7Wgic6aIDFUhWMXhOp8q3crhkODZ
-c6tsgLjoC2SToJyMGf+z0gzskSaHirOi4XCPLArlzW1oUevaPwV/izLmE1xr/l9A
-4iLItLRkT9a6fUg+qGkM17uGcclzuD87nSVL2v9A6wIDAQABo4IBlTCCAZEwDwYD
-VR0TAQH/BAUwAwEB/zCB4QYDVR0gBIHZMIHWMIHTBgkrBgEEAb5YAAMwgcUwgZMG
-CCsGAQUFBwICMIGGGoGDQW55IHVzZSBvZiB0aGlzIENlcnRpZmljYXRlIGNvbnN0
-aXR1dGVzIGFjY2VwdGFuY2Ugb2YgdGhlIFF1b1ZhZGlzIFJvb3QgQ0EgMyBDZXJ0
-aWZpY2F0ZSBQb2xpY3kgLyBDZXJ0aWZpY2F0aW9uIFByYWN0aWNlIFN0YXRlbWVu
-dC4wLQYIKwYBBQUHAgEWIWh0dHA6Ly93d3cucXVvdmFkaXNnbG9iYWwuY29tL2Nw
-czALBgNVHQ8EBAMCAQYwHQYDVR0OBBYEFPLAE+CCQz777i9nMpY1XNu4ywLQMG4G
-A1UdIwRnMGWAFPLAE+CCQz777i9nMpY1XNu4ywLQoUmkRzBFMQswCQYDVQQGEwJC
-TTEZMBcGA1UEChMQUXVvVmFkaXMgTGltaXRlZDEbMBkGA1UEAxMSUXVvVmFkaXMg
-Um9vdCBDQSAzggIFxjANBgkqhkiG9w0BAQUFAAOCAgEAT62gLEz6wPJv92ZVqyM0
-7ucp2sNbtrCD2dDQ4iH782CnO11gUyeim/YIIirnv6By5ZwkajGxkHon24QRiSem
-d1o417+shvzuXYO8BsbRd2sPbSQvS3pspweWyuOEn62Iix2rFo1bZhfZFvSLgNLd
-+LJ2w/w4E6oM3kJpK27zPOuAJ9v1pkQNn1pVWQvVDVJIxa6f8i+AxeoyUDUSly7B
-4f/xI4hROJ/yZlZ25w9Rl6VSDE1JUZU2Pb+iSwwQHYaZTKrzchGT5Or2m9qoXadN
-t54CrnMAyNojA+j56hl0YgCUyyIgvpSnWbWCar6ZeXqp8kokUvd0/bpO5qgdAm6x
-DYBEwa7TIzdfu4V8K5Iu6H6li92Z4b8nby1dqnuH/grdS/yO9SbkbnBCbjPsMZ57
-k8HkyWkaPcBrTiJt7qtYTcbQQcEr6k8Sh17rRdhs9ZgC06DYVYoGmRmioHfRMJ6s
-zHXug/WwYjnPbFfiTNKRCw51KBuav/0aQ/HKd/s7j2G4aSgWQgRecCocIdiP4b0j
-Wy10QJLZYxkNc91pvGJHvOB0K7Lrfb5BG7XARsWhIstfTsEokt4YutUqKLsRixeT
-mJlglFwjz1onl14LBQaTNx47aTbrqZ5hHY8y2o4M1nQ+ewkk2gF3R8Q7zTSMmfXK
-4SVhM7JZG+Ju1zdXtg2pEto=
------END CERTIFICATE-----
-"""
+QUOVADIS_ROOT_CA_3_BYTES_ ::= #[
+    '0',0x82,6,157,'0',130,4,133,160,3,2,1,2,2,2,5,198,'0',13,6,9,'*',134,'H',
+    134,247,13,1,1,5,5,0,'0','E','1',11,'0',9,6,3,'U',4,6,19,2,'B','M','1',25,
+    '0',23,6,3,'U',4,10,19,16,'Q','u','o','V','a','d','i','s',' ','L','i','m',
+    'i','t','e','d','1',0x1b,'0',25,6,3,'U',4,3,19,18,'Q','u','o','V','a','d',
+    'i','s',' ','R','o','o','t',' ','C','A',' ','3','0',30,23,0xd,'0','6','1',
+    '1','2','4','1','9','1','1','2','3','Z',23,13,'3','1','1','1','2','4','1',
+    '9','0','6','4','4','Z','0','E','1',11,'0',9,6,3,'U',4,6,19,2,'B','M','1',
+    25,'0',23,6,3,'U',4,0xa,19,16,'Q','u','o','V','a','d','i','s',' ','L','i',
+    'm','i','t','e','d','1',0x1b,'0',25,6,3,'U',4,3,19,18,'Q','u','o','V','a',
+    'd','i','s',' ','R','o','o','t',' ','C','A',' ','3','0',0x82,2,'"','0',13,
+    6,9,'*',0x86,'H',134,247,13,1,1,1,5,0,3,130,2,15,0,'0',130,2,10,2,130,2,1,
+    0,0xcc,'W','B',22,'T',156,230,152,211,211,'M',238,254,237,199,159,'C','9',
+    'J','e',179,232,22,136,'4',219,13,'Y',145,'t',207,146,184,4,'@',173,2,'K',
+    '1',171,188,141,145,'h',216,' ',14,26,1,226,26,'{','N',23,']',226,138,183,
+    '?',153,26,205,235,'a',171,194,'e',166,31,183,183,189,183,143,252,253,'p',
+    0x8f,0xb,160,'g',190,1,162,'Y',207,'q',230,15,')','v',255,177,'V','y','E',
+    '+',0x1f,0x9e,'z','T',232,163,')','5','h',164,1,'O',15,164,'.','7',239,27,
+    0xbf,0xe3,0x8f,16,168,'r',171,'X','W',231,'T',134,200,201,243,'[',218,',',
+    0xda,']',142,'n','<',163,'>',218,251,130,229,221,242,92,178,5,'3','o',138,
+    '6',0xce,0xd0,19,'N',255,191,'J',12,'4','L',166,195,'!',189,'P',4,'U',235,
+    177,187,157,251,'E',30,'d',21,222,'U',1,140,2,'v',181,203,161,'?','B','i',
+    188,'/',189,'h','C',22,'V',137,'*','7','a',145,253,166,174,'N',192,203,20,
+    'e',0x94,'7','K',0x92,6,0xef,4,208,200,156,136,219,11,'{',129,175,177,'=',
+    '*',0xc4,'e',':','x',0xb6,238,220,128,177,210,211,153,156,':',238,'k','Z',
+    'k',0xb3,141,183,213,206,156,194,190,165,'K','/',22,177,158,'h',';',6,'o',
+    0xae,'}',0x9f,248,222,236,204,')',167,152,163,'%','C','/',239,241,'_','&',
+    225,136,'M',248,'^','n',215,217,20,'n',25,'3','i',167,';',132,137,147,196,
+    'S','U',19,161,'Q','x','@',248,184,201,162,238,'{',186,'R','B',131,158,20,
+    0xed,0x5,'R','Z','Y','V',167,151,252,157,'?',10,')',216,220,'O',145,14,19,
+    0xbc,0xde,0x95,164,223,139,153,190,172,155,'3',136,239,181,129,175,27,198,
+    '"','S',0xc8,0xf6,0xc7,238,151,20,176,197,'|','x','R',200,240,206,'n','w',
+    '`',0x84,0xa6,233,'*','v',' ',237,'X',1,23,'0',147,233,26,139,224,'s','c',
+    217,'j',146,148,'I','N',180,173,'J',133,196,163,'"','0',252,9,237,'h','"',
+    's',0xa6,0x88,0xc,'U','!','X',197,225,':',159,'*',221,202,225,144,224,217,
+    's',0xab,'l',128,184,232,11,'d',147,160,156,140,25,255,179,210,12,236,145,
+    '&',0x87,138,179,162,225,'p',143,',',10,229,205,'m','h','Q',235,218,'?',5,
+    127,139,'2',230,19,92,'k',254,'_','@',226,'"',200,180,180,'d','O',214,186,
+    '}','H','>',0xa8,'i',0x0c,215,187,134,'q',201,'s',184,'?',';',157,'%','K',
+    0xda,0xff,'@',235,2,3,1,0,1,163,130,1,149,'0',130,1,145,'0',15,6,3,'U',29,
+    19,1,1,255,4,5,'0',3,1,1,255,'0',129,225,6,3,'U',29,' ',4,129,217,'0',129,
+    0xd6,'0',0x81,211,6,9,'+',6,1,4,1,190,'X',0,3,'0',129,197,'0',129,147,6,8,
+    '+',6,1,5,5,7,2,2,'0',0x81,134,26,129,131,'A','n','y',' ','u','s','e',' ',
+    'o','f',' ','t','h','i','s',' ','C','e','r','t','i','f','i','c','a','t',
+    'e',' ','c','o','n','s','t','i','t','u','t','e','s',' ','a','c','c','e',
+    'p','t','a','n','c','e',' ','o','f',' ','t','h','e',' ','Q','u','o','V',
+    'a','d','i','s',' ','R','o','o','t',' ','C','A',' ','3',' ','C','e','r',
+    't','i','f','i','c','a','t','e',' ','P','o','l','i','c','y',' ','/',' ',
+    'C','e','r','t','i','f','i','c','a','t','i','o','n',' ','P','r','a','c',
+    't','i','c','e',' ','S','t','a','t','e','m','e','n','t','.','0','-',0x6,8,
+    '+',6,1,5,5,7,2,1,22,'!','h','t','t','p',':','/','/','w','w','w','.','q',
+    'u','o','v','a','d','i','s','g','l','o','b','a','l','.','c','o','m','/',
+    'c','p','s','0',0xb,6,3,'U',29,15,4,4,3,2,1,6,'0',29,6,3,'U',29,14,4,22,4,
+    20,0xf2,192,19,224,130,'C','>',251,238,'/','g','2',150,'5',92,219,184,203,
+    2,0xd0,'0','n',6,3,'U',29,'#',4,'g','0','e',128,20,242,192,19,224,130,'C',
+    '>',0xfb,238,'/','g','2',150,'5',92,219,184,203,2,208,161,'I',164,'G','0',
+    'E','1',0x0b,'0',9,6,3,'U',4,6,19,2,'B','M','1',25,'0',23,6,3,'U',4,10,19,
+    16,'Q','u','o','V','a','d','i','s',' ','L','i','m','i','t','e','d','1',27,
+    '0',25,6,3,'U',4,3,19,18,'Q','u','o','V','a','d','i','s',' ','R','o','o',
+    't',' ','C','A',' ','3',130,2,5,198,'0',13,6,9,'*',134,'H',134,247,13,1,1,
+    5,5,0,3,130,2,1,0,'O',173,160,',','L',250,192,242,'o',247,'f','U',171,'#',
+    '4',0xee,0xe7,')',218,195,'[',182,176,131,217,208,208,226,'!',251,243,'`',
+    0xa7,';',']','`','S',39,162,155,246,8,'"','*',231,191,160,'r',229,156,'$',
+    'j','1',0xb1,144,'z',39,219,132,17,137,39,166,'w','Z','8',215,191,172,134,
+    0xfc,0xee,']',0x83,188,6,198,209,'w','k',15,'m','$','/','K','z','l',167,7,
+    0x96,0xca,227,132,159,173,136,139,29,171,22,141,'[','f',23,217,22,244,139,
+    128,210,221,248,178,'v',195,252,'8',19,170,12,222,'B','i','+','n',243,'<',
+    0xeb,0x80,39,219,245,166,'D',13,159,'Z','U','Y',11,213,13,'R','H',197,174,
+    0x9f,0xf2,'/',0x80,197,234,'2','P','5',18,151,'.',193,225,255,241,'#',136,
+    'Q','8',159,242,'f','V','v',231,15,'Q',151,165,'R',12,'M','I','Q',149,'6',
+    '=',0xbf,0xa2,'K',12,16,29,134,153,'L',170,243,'r',17,147,228,234,246,155,
+    0xda,168,']',167,'M',183,158,2,174,'s',0,200,218,'#',3,232,249,234,25,'t',
+    'b',0,148,203,'"',' ',190,148,167,'Y',181,130,'j',190,153,'y','z',169,242,
+    'J','$','R',0xf7,'t',0xfd,186,'N',230,168,29,2,'n',177,13,128,'D',193,174,
+    0xd3,'#','7','_',0xbb,133,'|','+',146,'.',232,'~',165,139,221,153,225,191,
+    39,'o','-',']',170,'{',135,254,10,221,'K',252,142,245,'&',228,'n','p','B',
+    'n','3',0xec,'1',0x9e,'{',0x93,193,228,201,'i',26,'=',192,'k','N','"','m',
+    0xee,0xab,'X','M',0xc6,208,'A',193,'+',234,'O',18,135,'^',235,'E',216,'l',
+    0xf5,0x98,2,0xd3,160,216,'U',138,6,153,25,162,160,'w',209,'0',158,172,204,
+    'u',0xee,131,245,176,'b','9',207,'l','W',226,'L',210,145,11,14,'u','(',27,
+    0x9a,0xbf,253,26,'C',241,202,'w',251,';',143,'a',184,'i','(',22,'B',4,'^',
+    'p','*',28,'!',0xd8,143,225,189,'#','[','-','t','@',146,217,'c',25,13,'s',
+    0xdd,'i',0xbc,'b','G',0xbc,224,'t','+',178,235,'}',190,'A',27,181,192,'F',
+    0xc5,161,'"',203,'_','N',193,'(',146,222,24,186,213,'*','(',187,17,139,23,
+    0x93,0x98,153,'`',148,92,'#',207,'Z',39,151,'^',11,5,6,147,'7',30,';','i',
+    '6',235,169,158,'a',29,143,'2',218,142,12,214,'t','>','{',9,'$',218,1,'w',
+    'G',0xc4,';',0xcd,'4',0x8c,153,245,202,225,'%','a','3',178,'Y',27,226,'n',
+    215,'7','W',182,13,169,18,218,
+]
+
 
 /**
 QuoVadis Root CA 3.
 SHA256 fingerprint: 18:f1:fc:7f:20:5d:f8:ad:dd:eb:7f:e0:07:dd:57:e3:af:37:5a:9c:4d:8d:73:54:6b:f4:f1:fe:d1:e1:8d:35
 */
-QUOVADIS_ROOT_CA_3 ::= net.Certificate.parse QUOVADIS_ROOT_CA_3_TEXT_
+QUOVADIS_ROOT_CA_3 ::= parse_ QUOVADIS_ROOT_CA_3_BYTES_
 
-SECURITY_COMMUNICATION_ROOT_CA_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIDWjCCAkKgAwIBAgIBADANBgkqhkiG9w0BAQUFADBQMQswCQYDVQQGEwJKUDEY
-MBYGA1UEChMPU0VDT00gVHJ1c3QubmV0MScwJQYDVQQLEx5TZWN1cml0eSBDb21t
-dW5pY2F0aW9uIFJvb3RDQTEwHhcNMDMwOTMwMDQyMDQ5WhcNMjMwOTMwMDQyMDQ5
-WjBQMQswCQYDVQQGEwJKUDEYMBYGA1UEChMPU0VDT00gVHJ1c3QubmV0MScwJQYD
-VQQLEx5TZWN1cml0eSBDb21tdW5pY2F0aW9uIFJvb3RDQTEwggEiMA0GCSqGSIb3
-DQEBAQUAA4IBDwAwggEKAoIBAQCzs/5/022x7xZ8V6UMbXaKL0u/ZPtM7orw8yl8
-9f/uKuDp6bpbZCKamm8sOiZpUQWZJtzVHGpxxpp9Hp3dfGzGjGdnSj74cbAZJ6kJ
-DKaVv0uMDPpVmDvY6CKhS3E4eayXkmmziX7qIWgGmBSWh9JhNrxtJ1aeV+7AwFb9
-Ms+k2Y7CI9eNqPPYJayX5HA49LY6tJ07lyZDo6G8SVlyTCMwhwFY9k6+HGhWZq/N
-QV3Is00qVUarH9oe4kA92819uZKAnDfdDJZkndwi92SL32HeFZRSFaB9UslLqCHJ
-xrHty8OVYNEP8Ktw+N/LTX7s1vqr2b1/VPKl6Xn62dZ2JChzAgMBAAGjPzA9MB0G
-A1UdDgQWBBSgc0mZaNyFW2XjmygvV5+9M7wHSDALBgNVHQ8EBAMCAQYwDwYDVR0T
-AQH/BAUwAwEB/zANBgkqhkiG9w0BAQUFAAOCAQEAaECpqLvkT115swW1F7NgE+vG
-kl3g0dNq/vu+m22/xwVtWSDEHPC32oRYAmP6SBbvT6UL90qY8j+eG61Ha2POCEfr
-Uj94nK9NrvjVT8+amCoQQTlSxN3Zmw7vkwGusi7KaEIkQmywszo+zenaSMQVy+n5
-Bw+SUEmK3TGXX8npN6o7WWWXlDLJs58+OmJYxUmtYg5xpTKqL8aJdkNAExNnPaJU
-JRDL8Try2frbSVa7pv6nQTXD4IhhyYjH3zYQIphZ6rBK+1YWc26sTfcioU+tHXot
-RSflMMFe8toTyyVCUZVHA4xsIcx0Qu1T/zOLjw9XARYvz6buyXAiFL39vmwLAw==
------END CERTIFICATE-----
-"""
+SECURITY_COMMUNICATION_ROOT_CA_BYTES_ ::= #[
+    '0',0x82,3,'Z','0',130,2,'B',160,3,2,1,2,2,1,0,'0',13,6,9,'*',134,'H',134,
+    247,13,1,1,5,5,0,'0','P','1',11,'0',9,6,3,'U',4,6,19,2,'J','P','1',24,'0',
+    22,6,3,'U',4,10,19,15,'S','E','C','O','M',' ','T','r','u','s','t','.','n',
+    'e','t','1',39,'0','%',6,3,'U',4,11,19,30,'S','e','c','u','r','i','t','y',
+    ' ','C','o','m','m','u','n','i','c','a','t','i','o','n',' ','R','o','o',
+    't','C','A','1','0',30,23,0xd,'0','3','0','9','3','0','0','4','2','0','4',
+    '9','Z',23,13,'2','3','0','9','3','0','0','4','2','0','4','9','Z','0','P',
+    '1',0x0b,'0',9,6,3,'U',4,6,19,2,'J','P','1',24,'0',22,6,3,'U',4,0xa,19,15,
+    'S','E','C','O','M',' ','T','r','u','s','t','.','n','e','t','1',0x27,'0',
+    '%',0x06,3,'U',4,11,19,30,'S','e','c','u','r','i','t','y',' ','C','o','m',
+    'm','u','n','i','c','a','t','i','o','n',' ','R','o','o','t','C','A','1',
+    '0',0x82,0x1,'"','0',13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,1,15,0,
+    '0',0x82,1,0xa,2,130,1,1,0,179,179,254,127,211,'m',177,239,22,'|','W',165,
+    0x0c,'m','v',0x8a,'/','K',191,'d',251,'L',238,138,240,243,')','|',245,255,
+    238,'*',224,233,233,186,'[','d','"',154,154,'o',',',':','&','i','Q',5,153,
+    '&',220,213,28,'j','q',198,154,'}',30,157,221,'|','l',198,140,'g','g','J',
+    '>',248,'q',176,25,39,169,9,12,166,149,191,'K',140,12,250,'U',152,';',216,
+    232,'"',161,'K','q','8','y',172,151,146,'i',179,137,'~',234,'!','h',6,152,
+    20,150,135,210,'a','6',188,'m',39,'V',158,'W',238,192,192,'V',253,'2',207,
+    0xa4,0xd9,142,194,'#',215,141,168,243,216,'%',172,151,228,'p','8',244,182,
+    ':',180,157,';',151,'&','C',163,161,188,'I','Y','r','L','#','0',135,1,'X',
+    246,'N',190,28,'h','V','f',175,205,'A',']',200,179,'M','*','U','F',171,31,
+    218,30,226,'@','=',219,205,'}',185,146,128,156,'7',221,12,150,'d',157,220,
+    '"',247,'d',139,223,'a',222,21,148,'R',21,160,'}','R',201,'K',168,'!',201,
+    0xc6,0xb1,0xed,203,195,149,'`',209,15,240,171,'p',248,223,203,'M','~',236,
+    214,250,171,217,189,127,'T',242,165,233,'y',250,217,214,'v','$','(','s',2,
+    0x03,1,0,1,163,'?','0','=','0',29,6,3,'U',29,14,4,22,4,20,160,'s','I',153,
+    'h',0xdc,133,'[','e',227,155,'(','/','W',159,189,'3',188,7,'H','0',11,6,3,
+    'U',29,0xf,4,4,3,2,1,6,'0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',
+    0x0d,6,9,'*',134,'H',134,247,13,1,1,5,5,0,3,130,1,1,0,'h','@',169,168,187,
+    0xe4,'O',']','y',0xb3,5,181,23,179,'`',19,235,198,146,']',224,209,211,'j',
+    0xfe,0xfb,0xbe,155,'m',191,199,5,'m','Y',' ',196,28,240,183,218,132,'X',2,
+    'c',0xfa,'H',22,239,'O',165,11,247,'J',152,242,'?',158,27,173,'G','k','c',
+    0xce,8,'G',235,'R','?','x',156,175,'M',174,248,213,'O',207,154,152,'*',16,
+    'A','9','R',0xc4,221,217,155,14,239,147,1,174,178,'.',202,'h','B','$','B',
+    'l',0xb0,0xb3,':','>',205,233,218,'H',196,21,203,233,249,7,15,146,'P','I',
+    0x8a,0xdd,'1',151,'_',201,233,'7',170,';','Y','e',151,148,'2',201,179,159,
+    '>',':','b','X',0xc5,'I',0xad,'b',0xe,'q',165,'2',170,'/',198,137,'v','C',
+    '@',19,19,'g','=',0xa2,'T','%',16,203,241,':',242,217,250,219,'I','V',187,
+    0xa6,0xfe,0xa7,'A','5',195,224,136,'a',201,136,199,223,'6',16,'"',152,'Y',
+    234,176,'J',251,'V',22,'s','n',172,'M',247,'"',161,'O',173,29,'z','-','E',
+    0x27,229,'0',193,'^',242,218,19,203,'%','B','Q',149,'G',3,140,'l','!',204,
+    't','B',0xed,'S',0xff,'3',139,143,15,'W',1,22,'/',207,166,238,201,'p','"',
+    20,189,253,190,'l',11,3,
+]
+
 
 /**
 Security Communication Root CA.
 SHA256 fingerprint: e7:5e:72:ed:9f:56:0e:ec:6e:b4:80:00:73:a4:3f:c3:ad:19:19:5a:39:22:82:01:78:95:97:4a:99:02:6b:6c
 */
-SECURITY_COMMUNICATION_ROOT_CA ::= net.Certificate.parse SECURITY_COMMUNICATION_ROOT_CA_TEXT_
+SECURITY_COMMUNICATION_ROOT_CA ::= parse_ SECURITY_COMMUNICATION_ROOT_CA_BYTES_
 
-XRAMP_GLOBAL_CA_ROOT_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIEMDCCAxigAwIBAgIQUJRs7Bjq1ZxN1ZfvdY+grTANBgkqhkiG9w0BAQUFADCB
-gjELMAkGA1UEBhMCVVMxHjAcBgNVBAsTFXd3dy54cmFtcHNlY3VyaXR5LmNvbTEk
-MCIGA1UEChMbWFJhbXAgU2VjdXJpdHkgU2VydmljZXMgSW5jMS0wKwYDVQQDEyRY
-UmFtcCBHbG9iYWwgQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkwHhcNMDQxMTAxMTcx
-NDA0WhcNMzUwMTAxMDUzNzE5WjCBgjELMAkGA1UEBhMCVVMxHjAcBgNVBAsTFXd3
-dy54cmFtcHNlY3VyaXR5LmNvbTEkMCIGA1UEChMbWFJhbXAgU2VjdXJpdHkgU2Vy
-dmljZXMgSW5jMS0wKwYDVQQDEyRYUmFtcCBHbG9iYWwgQ2VydGlmaWNhdGlvbiBB
-dXRob3JpdHkwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCYJB69FbS6
-38eMpSe2OAtp87ZOqCwuIR1cRN8hXX4jdP5efrRKt6atH67gBhbim1vZZ3RrXYCP
-KZ2GG9mcDZhtdhAoWORlsH9KmHmf4MMxfoArtYzAQDsRhtDLooY2YKTVMIJt2W7Q
-DxIEM5dfT2Fa8OT5kavnHTu86M/0ay00fOJIYRyO82FEzG+gSqmUsE3a56k0enI4
-qEHMPJQRfevIpoy3hsvKMzvZPTeL+3o+hiznc9cKV6xkmxnr9A8ECIqsAxcZZPRa
-JSKNNCyy9mgdEm3Tih4U2sSPpuIjhdV6Db1q4Ons7Be7QhtnqiXtRYMh/MHJfNVi
-PvryxS3T/dRlAgMBAAGjgZ8wgZwwEwYJKwYBBAGCNxQCBAYeBABDAEEwCwYDVR0P
-BAQDAgGGMA8GA1UdEwEB/wQFMAMBAf8wHQYDVR0OBBYEFMZPoj0GY4QJnM5i5ASs
-jVy16bYbMDYGA1UdHwQvMC0wK6ApoCeGJWh0dHA6Ly9jcmwueHJhbXBzZWN1cml0
-eS5jb20vWEdDQS5jcmwwEAYJKwYBBAGCNxUBBAMCAQEwDQYJKoZIhvcNAQEFBQAD
-ggEBAJEVOQMBG2f7Shz5CmBbodpNl2L5JFMn14JkTpAuw0kbK5rc/Kh4ZzXxHfAR
-vbdI4xD2Dd8/0sm2qlWkSLoC295ZLhVbO50WfUfXN+pfTXYSNrsf16GBBEYgoyxt
-qZ4Bfj8pzgCT3/3JknOJiWSe5yvkHJEs0rnOfc5vMZnT5r7SHpDwCRR5XCOrTdLa
-IR9NmXmd4c8nnxCbHIgNsIpkQTG4DmyQJKSbXHGPurt+HBvbaoAPIbzp26a3QPSy
-i6mx5O+aGtA9aZnuqCij4Tyz8LIRnM98QObd50N9otg6tamN8jSZxNQQ4Qb9CYQQ
-O+7ETPTsJ3xCwnR8gooJybQDJbw=
------END CERTIFICATE-----
-"""
+XRAMP_GLOBAL_CA_ROOT_BYTES_ ::= #[
+    '0',0x82,0x4,'0','0',130,3,24,160,3,2,1,2,2,16,'P',148,'l',236,24,234,213,
+    156,'M',213,151,239,'u',143,160,173,'0',13,6,9,'*',134,'H',134,247,13,1,1,
+    5,5,0,'0',129,130,'1',11,'0',9,6,3,'U',4,6,19,2,'U','S','1',30,'0',28,6,3,
+    'U',0x04,11,19,21,'w','w','w','.','x','r','a','m','p','s','e','c','u','r',
+    'i','t','y','.','c','o','m','1','$','0','"',0x06,3,'U',4,10,19,27,'X','R',
+    'a','m','p',' ','S','e','c','u','r','i','t','y',' ','S','e','r','v','i',
+    'c','e','s',' ','I','n','c','1','-','0','+',0x06,3,'U',4,3,19,'$','X','R',
+    'a','m','p',' ','G','l','o','b','a','l',' ','C','e','r','t','i','f','i',
+    'c','a','t','i','o','n',' ','A','u','t','h','o','r','i','t','y','0',30,23,
+    0xd,'0','4','1','1','0','1','1','7','1','4','0','4','Z',23,13,'3','5','0',
+    '1','0','1','0','5','3','7','1','9','Z','0',0x81,130,'1',11,'0',9,6,3,'U',
+    4,6,19,2,'U','S','1',30,'0',28,6,3,'U',4,11,19,21,'w','w','w','.','x','r',
+    'a','m','p','s','e','c','u','r','i','t','y','.','c','o','m','1','$','0',
+    '"',0x06,3,'U',4,10,19,27,'X','R','a','m','p',' ','S','e','c','u','r','i',
+    't','y',' ','S','e','r','v','i','c','e','s',' ','I','n','c','1','-','0',
+    '+',0x06,3,'U',4,3,19,'$','X','R','a','m','p',' ','G','l','o','b','a','l',
+    ' ','C','e','r','t','i','f','i','c','a','t','i','o','n',' ','A','u','t',
+    'h','o','r','i','t','y','0',130,1,'"','0',13,6,9,'*',134,'H',134,247,13,1,
+    0x1,1,5,0,3,130,1,15,0,'0',130,1,10,2,130,1,1,0,152,'$',30,189,21,180,186,
+    0xdf,0xc7,140,165,39,182,'8',11,'i',243,182,'N',168,',','.','!',29,92,'D',
+    0xdf,'!',']','~','#','t',0xfe,'^','~',180,'J',183,166,173,31,174,224,6,22,
+    226,155,'[',217,'g','t','k',']',128,143,')',157,134,27,217,156,13,152,'m',
+    'v',0x10,'(','X',0xe4,'e',176,127,'J',152,'y',159,224,195,'1','~',128,'+',
+    0xb5,0x8c,0xc0,'@',';',17,134,208,203,162,134,'6','`',164,213,'0',130,'m',
+    0xd9,'n',0xd0,0xf,18,4,'3',151,'_','O','a','Z',240,228,249,145,171,231,29,
+    ';',0xbc,0xe8,0xcf,244,'k','-','4','|',226,'H','a',28,142,243,'a','D',204,
+    'o',0xa0,'J',0xa9,148,176,'M',218,231,169,'4','z','r','8',168,'A',204,'<',
+    0x94,0x11,'}',235,200,166,140,183,134,203,202,'3',';',217,'=','7',139,251,
+    'z','>',0x86,',',231,'s',215,10,'W',172,'d',155,25,235,244,15,4,8,138,172,
+    3,23,25,'d',0xf4,'Z','%','"',141,'4',',',178,246,'h',29,18,'m',211,138,30,
+    20,0xda,196,143,166,226,'#',133,213,'z',13,189,'j',224,233,236,236,23,187,
+    'B',0x1b,'g',0xaa,'%',237,'E',131,'!',252,193,201,'|',213,'b','>',250,242,
+    0xc5,'-',211,253,212,'e',2,3,1,0,1,163,129,159,'0',129,156,'0',19,6,9,'+',
+    6,1,4,1,0x82,'7',20,2,4,6,30,4,0,'C',0,'A','0',11,6,3,'U',29,15,4,4,3,2,1,
+    134,'0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',29,6,3,'U',29,14,4,
+    22,4,20,0xc6,'O',162,'=',6,'c',132,9,156,206,'b',228,4,172,141,92,181,233,
+    182,27,'0','6',6,3,'U',29,31,4,'/','0','-','0','+',160,')',160,39,134,'%',
+    'h','t','t','p',':','/','/','c','r','l','.','x','r','a','m','p','s','e',
+    'c','u','r','i','t','y','.','c','o','m','/','X','G','C','A','.','c','r',
+    'l','0',16,6,9,'+',6,1,4,1,0x82,'7',21,1,4,3,2,1,1,'0',13,6,9,'*',134,'H',
+    0x86,247,13,1,1,5,5,0,3,130,1,1,0,145,21,'9',3,1,27,'g',251,'J',28,249,10,
+    '`','[',0xa1,0xda,'M',0x97,'b',249,'$','S',39,215,130,'d','N',144,'.',195,
+    'I',0x1b,'+',154,220,252,168,'x','g','5',241,29,240,17,189,183,'H',227,16,
+    0xf6,0xd,223,'?',210,201,182,170,'U',164,'H',186,2,219,222,'Y','.',21,'[',
+    ';',0x9d,0x16,'}','G',215,'7',234,'_','M','v',18,'6',187,31,215,161,129,4,
+    'F',' ',0xa3,',','m',0xa9,158,1,'~','?',')',206,0,147,223,253,201,146,'s',
+    0x89,0x89,'d',0x9e,231,'+',228,28,145,',',210,185,206,'}',206,'o','1',153,
+    211,230,190,210,30,144,240,9,20,'y',92,'#',171,'M',210,218,'!',31,'M',153,
+    'y',0x9d,0xe1,0xcf,39,159,16,155,28,136,13,176,138,'d','A','1',184,14,'l',
+    0x90,'$',0xa4,155,92,'q',143,186,187,'~',28,27,219,'j',128,15,'!',188,233,
+    0xdb,0xa6,0xb7,'@',244,178,139,169,177,228,239,154,26,208,'=','i',153,238,
+    0xa8,'(',0xa3,0xe1,'<',179,240,178,17,156,207,'|','@',230,221,231,'C','}',
+    162,216,':',181,169,141,242,'4',153,196,212,16,225,6,253,9,132,16,';',238,
+    196,'L',244,236,39,'|','B',194,'t','|',130,138,9,201,180,3,'%',188,
+]
+
 
 /**
 XRamp Global CA Root.
 SHA256 fingerprint: ce:cd:dc:90:50:99:d8:da:df:c5:b1:d2:09:b7:37:cb:e2:c1:8c:fb:2c:10:c0:ff:0b:cf:0d:32:86:fc:1a:a2
 */
-XRAMP_GLOBAL_CA_ROOT ::= net.Certificate.parse XRAMP_GLOBAL_CA_ROOT_TEXT_
+XRAMP_GLOBAL_CA_ROOT ::= parse_ XRAMP_GLOBAL_CA_ROOT_BYTES_
 
-GO_DADDY_CLASS_2_CA_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIEADCCAuigAwIBAgIBADANBgkqhkiG9w0BAQUFADBjMQswCQYDVQQGEwJVUzEh
-MB8GA1UEChMYVGhlIEdvIERhZGR5IEdyb3VwLCBJbmMuMTEwLwYDVQQLEyhHbyBE
-YWRkeSBDbGFzcyAyIENlcnRpZmljYXRpb24gQXV0aG9yaXR5MB4XDTA0MDYyOTE3
-MDYyMFoXDTM0MDYyOTE3MDYyMFowYzELMAkGA1UEBhMCVVMxITAfBgNVBAoTGFRo
-ZSBHbyBEYWRkeSBHcm91cCwgSW5jLjExMC8GA1UECxMoR28gRGFkZHkgQ2xhc3Mg
-MiBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0eTCCASAwDQYJKoZIhvcNAQEBBQADggEN
-ADCCAQgCggEBAN6d1+pXGEmhW+vXX0iG6r7d/+TvZxz0ZWizV3GgXne77ZtJ6XCA
-PVYYYwhv2vLM0D9/AlQiVBDYsoHUwHU9S3/Hd8M+eKsaA7Ugay9qK7HFiH7Eux6w
-wdhFJ2+qN1j3hybX2C32qRe3H3I2TqYXP2WYktsqbl2i/ojgC95/5Y0V4evLOtXi
-EqITLdiOr18SPaAIBQi2XKVlOARFmR6jYGB0xUGlcmIbYsUfb18aQr4CUWWoriMY
-avx4A6lNf4DD+qta/KFApMoZFv6yyO9ecw3ud72a9nmYvLEHZ6IVDd2gWMZEewo+
-YihfukEHU1jPEX44dMX4/7VpkI+EdOqXG68CAQOjgcAwgb0wHQYDVR0OBBYEFNLE
-sNKR1EwRcbNhyz2h/t2oatTjMIGNBgNVHSMEgYUwgYKAFNLEsNKR1EwRcbNhyz2h
-/t2oatTjoWekZTBjMQswCQYDVQQGEwJVUzEhMB8GA1UEChMYVGhlIEdvIERhZGR5
-IEdyb3VwLCBJbmMuMTEwLwYDVQQLEyhHbyBEYWRkeSBDbGFzcyAyIENlcnRpZmlj
-YXRpb24gQXV0aG9yaXR5ggEAMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQEFBQAD
-ggEBADJL87LKPpH8EsahB4yOd6AzBhRckB4Y9wimPQoZ+YeAEW5p5JYXMP80kWNy
-OO7MHAGjHZQopDH2esRU1/blMVgDoszOYtuURXO1v0XJJLXVggKtI3lpjbi2Tc7P
-TMozI+gciKqdi0FuFskg5YmezTvacPd+mSYgFFQlq25zheabIZ0KbIIOqPjCDPoQ
-HmyW74cNxA9hi63ugyuV+I6ShHI56yDqg+2DzZduCLzrTia2cyvk0/ZM/iZx4mER
-dEr/VxqHD3VILs9RaRegAhJhldXRQLIQTO7ErBBDpqWeCtWVYpoNz4iCxTIM5Cuf
-ReYNnyicsbkqWletNw+vHX/bvZ8=
------END CERTIFICATE-----
-"""
+GO_DADDY_CLASS_2_CA_BYTES_ ::= #[
+    '0',0x82,0x4,0,'0',130,2,232,160,3,2,1,2,2,1,0,'0',13,6,9,'*',134,'H',134,
+    0xf7,0x0d,1,1,5,5,0,'0','c','1',11,'0',9,6,3,'U',4,6,19,2,'U','S','1','!',
+    '0',31,6,3,'U',4,10,19,24,'T','h','e',' ','G','o',' ','D','a','d','d','y',
+    ' ','G','r','o','u','p',',',' ','I','n','c','.','1','1','0','/',6,3,'U',4,
+    11,19,'(','G','o',' ','D','a','d','d','y',' ','C','l','a','s','s',' ','2',
+    ' ','C','e','r','t','i','f','i','c','a','t','i','o','n',' ','A','u','t',
+    'h','o','r','i','t','y','0',30,23,0xd,'0','4','0','6','2','9','1','7','0',
+    '6','2','0','Z',23,13,'3','4','0','6','2','9','1','7','0','6','2','0','Z',
+    '0','c','1',11,'0',9,6,3,'U',4,6,19,2,'U','S','1','!','0',31,6,3,'U',4,10,
+    19,24,'T','h','e',' ','G','o',' ','D','a','d','d','y',' ','G','r','o','u',
+    'p',',',' ','I','n','c','.','1','1','0','/',0x6,3,'U',4,11,19,'(','G','o',
+    ' ','D','a','d','d','y',' ','C','l','a','s','s',' ','2',' ','C','e','r',
+    't','i','f','i','c','a','t','i','o','n',' ','A','u','t','h','o','r','i',
+    't','y','0',130,1,' ','0',13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,1,
+    0x0d,0,'0',130,1,8,2,130,1,1,0,222,157,215,234,'W',24,'I',161,'[',235,215,
+    '_','H',0x86,0xea,0xbe,221,255,228,239,'g',28,244,'e','h',179,'W','q',160,
+    '^','w',0xbb,237,155,'I',233,'p',128,'=','V',24,'c',8,'o',218,242,204,208,
+    '?',0x7f,2,'T','"','T',16,216,178,129,212,192,'u','=','K',127,199,'w',195,
+    '>','x',0xab,26,3,0xb5,' ','k','/','j','+',177,197,136,'~',196,187,30,176,
+    0xc1,216,'E',39,'o',170,'7','X',247,135,'&',215,216,'-',246,169,23,183,31,
+    'r','6','N',166,23,'?','e',152,146,219,'*','n',']',162,254,136,224,11,222,
+    0x7f,0xe5,141,21,225,235,203,':',213,226,18,162,19,'-',216,142,175,'_',18,
+    '=',160,8,5,8,182,92,165,'e','8',4,'E',153,30,163,'`','`','t',197,'A',165,
+    'r','b',27,'b',197,31,'o','_',26,'B',190,2,'Q','e',168,174,'#',24,'j',252,
+    'x',0x3,169,'M',127,128,195,250,171,'Z',252,161,'@',164,202,25,22,254,178,
+    0xc8,0xef,'^','s',0xd,238,'w',189,154,246,'y',152,188,177,7,'g',162,21,13,
+    0xdd,0xa0,'X',198,'D','{',10,'>','b','(','_',186,'A',7,'S','X',207,17,'~',
+    '8','t',0xc5,248,255,181,'i',144,143,132,'t',234,151,27,175,2,1,3,163,129,
+    0xc0,'0',0x81,0xbd,'0',29,6,3,'U',29,14,4,22,4,20,210,196,176,210,145,212,
+    'L',0x11,'q',0xb3,'a',203,'=',161,254,221,168,'j',212,227,'0',129,141,6,3,
+    'U',0x1d,'#',4,0x81,133,'0',129,130,128,20,210,196,176,210,145,212,'L',17,
+    'q',0xb3,'a',0xcb,'=',161,254,221,168,'j',212,227,161,'g',164,'e','0','c',
+    '1',0x0b,'0',9,6,3,'U',4,6,19,2,'U','S','1','!','0',31,6,3,'U',4,10,19,24,
+    'T','h','e',' ','G','o',' ','D','a','d','d','y',' ','G','r','o','u','p',
+    ',',' ','I','n','c','.','1','1','0','/',0x6,3,'U',4,11,19,'(','G','o',' ',
+    'D','a','d','d','y',' ','C','l','a','s','s',' ','2',' ','C','e','r','t',
+    'i','f','i','c','a','t','i','o','n',' ','A','u','t','h','o','r','i','t',
+    'y',130,1,0,'0',12,6,3,'U',29,19,4,5,'0',3,1,1,255,'0',13,6,9,'*',134,'H',
+    0x86,0xf7,13,1,1,5,5,0,3,130,1,1,0,'2','K',243,178,202,'>',145,252,18,198,
+    0xa1,7,0x8c,142,'w',160,'3',6,20,92,144,30,24,247,8,166,'=',10,25,249,135,
+    128,17,'n','i',228,150,23,'0',255,'4',145,'c','r','8',238,204,28,1,163,29,
+    148,'(',164,'1',246,'z',196,'T',215,246,229,'1','X',3,162,204,206,'b',219,
+    148,'E','s',181,191,'E',201,'$',181,213,130,2,173,'#','y','i',141,184,182,
+    'M',206,207,'L',202,'3','#',232,28,136,170,157,139,'A','n',22,201,' ',229,
+    0x89,0x9e,0xcd,';',218,'p',247,'~',153,'&',' ',20,'T','%',171,'n','s',133,
+    230,155,'!',157,10,'l',130,14,168,248,194,12,250,16,30,'l',150,239,135,13,
+    0xc4,0x0f,'a',139,173,238,131,'+',149,248,142,146,132,'r','9',235,' ',234,
+    131,237,131,205,151,'n',8,188,235,'N','&',182,'s','+',228,211,246,'L',254,
+    '&','q',0xe2,'a',17,'t','J',0xff,'W',26,135,15,'u','H','.',207,'Q','i',23,
+    160,2,18,'a',149,213,209,'@',178,16,'L',238,196,172,16,'C',166,165,158,10,
+    0xd5,149,'b',154,13,207,136,130,197,'2',12,228,'+',159,'E',230,13,159,'(',
+    156,177,185,'*','Z','W',173,'7',15,175,29,127,219,189,159,
+]
+
 
 /**
 Go Daddy Class 2 CA.
 SHA256 fingerprint: c3:84:6b:f2:4b:9e:93:ca:64:27:4c:0e:c6:7c:1e:cc:5e:02:4f:fc:ac:d2:d7:40:19:35:0e:81:fe:54:6a:e4
 */
-GO_DADDY_CLASS_2_CA ::= net.Certificate.parse GO_DADDY_CLASS_2_CA_TEXT_
+GO_DADDY_CLASS_2_CA ::= parse_ GO_DADDY_CLASS_2_CA_BYTES_
 
-STARFIELD_CLASS_2_CA_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIEDzCCAvegAwIBAgIBADANBgkqhkiG9w0BAQUFADBoMQswCQYDVQQGEwJVUzEl
-MCMGA1UEChMcU3RhcmZpZWxkIFRlY2hub2xvZ2llcywgSW5jLjEyMDAGA1UECxMp
-U3RhcmZpZWxkIENsYXNzIDIgQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkwHhcNMDQw
-NjI5MTczOTE2WhcNMzQwNjI5MTczOTE2WjBoMQswCQYDVQQGEwJVUzElMCMGA1UE
-ChMcU3RhcmZpZWxkIFRlY2hub2xvZ2llcywgSW5jLjEyMDAGA1UECxMpU3RhcmZp
-ZWxkIENsYXNzIDIgQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkwggEgMA0GCSqGSIb3
-DQEBAQUAA4IBDQAwggEIAoIBAQC3Msj+6XGmBIWtDBFk385N78gDGIc/oav7PKaf
-8MOh2tTYbitTkPskpD6E8J7oX+zlJ0T1KKY/e97gKvDIr1MvnsoFAZMej2YcOadN
-+lq2cwQlZut3f+dZxkqZJRRU6ybH838Z1TBwj6+wRir/resp7defqgSHo9T5iaU0
-X9tDkYI22WY8sbi5gv2cOj4QyDvvBmVmepsZGD3/cVE8MC5fvj13c7JdBmzDI1aa
-K4UmkhynArPkPw2vCHmCuDY96pzTNbO8acr1zJ3o/WSNF4Azbl5KXZnJHoe0nRrA
-1W4TNSNe35tfPe/W93bC6j67eA0cQmdrBNj41tpvi/JEoAGrAgEDo4HFMIHCMB0G
-A1UdDgQWBBS/X7fRzt0fhvRbVazc1xDCDqmI5zCBkgYDVR0jBIGKMIGHgBS/X7fR
-zt0fhvRbVazc1xDCDqmI56FspGowaDELMAkGA1UEBhMCVVMxJTAjBgNVBAoTHFN0
-YXJmaWVsZCBUZWNobm9sb2dpZXMsIEluYy4xMjAwBgNVBAsTKVN0YXJmaWVsZCBD
-bGFzcyAyIENlcnRpZmljYXRpb24gQXV0aG9yaXR5ggEAMAwGA1UdEwQFMAMBAf8w
-DQYJKoZIhvcNAQEFBQADggEBAAWdP4id0ckaVaGsafPzWdqbAYcaT1epoXkJKtv3
-L7IezMdeatiDh6GX70k1PncGQVhiv45YuApnP+yz3SFmH8lU+nLMPUxA2IGvd56D
-eruix/U0F47ZEUD0/CwqTRV/p2JdLiXTAAsgGh1o+Re49L2L7ShZ3U0WixeDyLJl
-xy16paq8U4Zt3VekyvggQQto8PT7dL5WXXp59fkdheMtlb71cZBDzI0fmgAKhynp
-VSJYACPq4xJDKVtHCN2MQWplBqjlIapBtJUhlbl90TSrE9atvNziPTnNvT51cKEY
-WQPJIrSPnNVeKtelttQKbfi3QBFGmh95DmK/D5fs4C8fF5Q=
------END CERTIFICATE-----
-"""
+STARFIELD_CLASS_2_CA_BYTES_ ::= #[
+    '0',0x82,4,0xf,'0',130,2,247,160,3,2,1,2,2,1,0,'0',13,6,9,'*',134,'H',134,
+    0xf7,0x0d,1,1,5,5,0,'0','h','1',11,'0',9,6,3,'U',4,6,19,2,'U','S','1','%',
+    '0','#',0x06,3,'U',4,10,19,28,'S','t','a','r','f','i','e','l','d',' ','T',
+    'e','c','h','n','o','l','o','g','i','e','s',',',' ','I','n','c','.','1',
+    '2','0','0',0x6,3,'U',4,11,19,')','S','t','a','r','f','i','e','l','d',' ',
+    'C','l','a','s','s',' ','2',' ','C','e','r','t','i','f','i','c','a','t',
+    'i','o','n',' ','A','u','t','h','o','r','i','t','y','0',30,23,0xd,'0','4',
+    '0','6','2','9','1','7','3','9','1','6','Z',23,13,'3','4','0','6','2','9',
+    '1','7','3','9','1','6','Z','0','h','1',11,'0',9,6,3,'U',4,6,19,2,'U','S',
+    '1','%','0','#',0x06,3,'U',4,10,19,28,'S','t','a','r','f','i','e','l','d',
+    ' ','T','e','c','h','n','o','l','o','g','i','e','s',',',' ','I','n','c',
+    '.','1','2','0','0',0x6,3,'U',4,11,19,')','S','t','a','r','f','i','e','l',
+    'd',' ','C','l','a','s','s',' ','2',' ','C','e','r','t','i','f','i','c',
+    'a','t','i','o','n',' ','A','u','t','h','o','r','i','t','y','0',130,1,' ',
+    '0',0x0d,6,9,'*',0x86,'H',134,247,13,1,1,1,5,0,3,130,1,13,0,'0',130,1,8,2,
+    130,1,1,0,183,'2',200,254,233,'q',166,4,133,173,12,17,'d',223,206,'M',239,
+    0xc8,3,24,135,'?',161,171,251,'<',166,159,240,195,161,218,212,216,'n','+',
+    'S',0x90,0xfb,'$',0xa4,'>',132,240,158,232,'_',236,229,39,'D',245,'(',166,
+    '?','{',222,224,'*',240,200,175,'S','/',158,202,5,1,147,30,143,'f',28,'9',
+    0xa7,'M',250,'Z',182,'s',4,'%','f',235,'w',127,231,'Y',198,'J',153,'%',20,
+    'T',0xeb,'&',0xc7,0xf3,127,25,213,'0','p',143,175,176,'F','*',255,173,235,
+    ')',237,215,159,170,4,135,163,212,249,137,165,'4','_',219,'C',145,130,'6',
+    0xd9,'f','<',177,184,185,130,253,156,':','>',16,200,';',239,6,'e','f','z',
+    0x9b,25,24,'=',0xff,'q','Q','<','0','.','_',190,'=','w','s',178,']',6,'l',
+    195,'#','V',154,'+',133,'&',146,28,167,2,179,228,'?',13,175,8,'y',130,184,
+    '6','=',0xea,0x9c,0xd3,'5',179,188,'i',202,245,204,157,232,253,'d',141,23,
+    0x80,'3','n','^','J',']',153,201,30,135,180,157,26,192,213,'n',19,'5','#',
+    '^',223,155,'_','=',239,214,247,'v',194,234,'>',187,'x',13,28,'B','g','k',
+    4,216,248,214,218,'o',139,242,'D',160,1,171,2,1,3,163,129,197,'0',129,194,
+    '0',29,6,3,'U',29,14,4,22,4,20,191,'_',183,209,206,221,31,134,244,'[','U',
+    0xac,0xdc,0xd7,16,194,14,169,136,231,'0',129,146,6,3,'U',29,'#',4,129,138,
+    '0',129,135,128,20,191,'_',183,209,206,221,31,134,244,'[','U',172,220,215,
+    16,194,14,169,136,231,161,'l',164,'j','0','h','1',11,'0',9,6,3,'U',4,6,19,
+    2,'U','S','1','%','0','#',6,3,'U',4,0xa,19,28,'S','t','a','r','f','i','e',
+    'l','d',' ','T','e','c','h','n','o','l','o','g','i','e','s',',',' ','I',
+    'n','c','.','1','2','0','0',0x6,3,'U',4,11,19,')','S','t','a','r','f','i',
+    'e','l','d',' ','C','l','a','s','s',' ','2',' ','C','e','r','t','i','f',
+    'i','c','a','t','i','o','n',' ','A','u','t','h','o','r','i','t','y',130,1,
+    0x0,'0',12,6,3,'U',29,19,4,5,'0',3,1,1,255,'0',13,6,9,'*',134,'H',134,247,
+    13,1,1,5,5,0,3,130,1,1,0,5,157,'?',136,157,209,201,26,'U',161,172,'i',243,
+    243,'Y',218,155,1,135,26,'O','W',169,161,'y',9,'*',219,247,'/',178,30,204,
+    199,'^','j',216,131,135,161,151,239,'I','5','>','w',6,'A','X','b',191,142,
+    'X',184,10,'g','?',236,179,221,'!','f',31,201,'T',250,'r',204,'=','L','@',
+    216,129,175,'w',158,131,'z',187,162,199,245,'4',23,142,217,17,'@',244,252,
+    ',','*','M',21,0x7f,167,'b',']','.','%',211,0,11,' ',26,29,'h',249,23,184,
+    244,189,139,237,'(','Y',221,'M',22,139,23,131,200,178,'e',199,'-','z',165,
+    0xaa,0xbc,'S',0x86,'m',221,'W',164,202,248,' ','A',11,'h',240,244,251,'t',
+    0xbe,'V',']','z','y',0xf5,0xf9,29,133,227,'-',149,190,245,'q',144,'C',204,
+    0x8d,31,154,0,10,135,')',233,'U','"','X',0,'#',234,227,18,'C',')','[','G',
+    0x8,221,140,'A','j','e',6,168,229,'!',170,'A',180,149,'!',149,185,'}',209,
+    '4',0xab,19,0xd6,173,188,220,226,'=','9',205,189,'>','u','p',161,24,'Y',3,
+    201,'"',180,143,156,213,'^','*',215,165,182,212,10,'m',248,183,'@',17,'F',
+    154,31,'y',14,'b',191,15,151,236,224,'/',31,23,148,
+]
+
 
 /**
 Starfield Class 2 CA.
 SHA256 fingerprint: 14:65:fa:20:53:97:b8:76:fa:a6:f0:a9:95:8e:55:90:e4:0f:cc:7f:aa:4f:b7:c2:c8:67:75:21:fb:5f:b6:58
 */
-STARFIELD_CLASS_2_CA ::= net.Certificate.parse STARFIELD_CLASS_2_CA_TEXT_
+STARFIELD_CLASS_2_CA ::= parse_ STARFIELD_CLASS_2_CA_BYTES_
 
-DIGICERT_ASSURED_ID_ROOT_CA_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIDtzCCAp+gAwIBAgIQDOfg5RfYRv6P5WD8G/AwOTANBgkqhkiG9w0BAQUFADBl
-MQswCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3
-d3cuZGlnaWNlcnQuY29tMSQwIgYDVQQDExtEaWdpQ2VydCBBc3N1cmVkIElEIFJv
-b3QgQ0EwHhcNMDYxMTEwMDAwMDAwWhcNMzExMTEwMDAwMDAwWjBlMQswCQYDVQQG
-EwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3d3cuZGlnaWNl
-cnQuY29tMSQwIgYDVQQDExtEaWdpQ2VydCBBc3N1cmVkIElEIFJvb3QgQ0EwggEi
-MA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCtDhXO5EOAXLGH87dg+XESpa7c
-JpSIqvTO9SA5KFhgDPiA2qkVlTJhPLWxKISKityfCgyDF3qPkKyK53lTXDGEKvYP
-mDI2dsze3Tyoou9q+yHyUmHfnyDXH+Kx2f4YZNISW1/5WBg1vEfNoTb5a3/UsDg+
-wRvDjDPZ2C8Y/igPs6eD1sNuRMBhNZYW/lmci3Zt1/GiSw0r/wty2p5g0I6QNcZ4
-VYcgoc/lbQrISXwxmDNsIumH0DJaoroTghHtORedmTpyoeb6pNnVFzF1roV9Iq4/
-AUaG9ih5yLHa5FcXxH4cDrC0kqZWs72yl+2qp/C3xag/lRbQ/6GW6whfGHdPAgMB
-AAGjYzBhMA4GA1UdDwEB/wQEAwIBhjAPBgNVHRMBAf8EBTADAQH/MB0GA1UdDgQW
-BBRF66Kv9JLLgjEtUYunpyGd823IDzAfBgNVHSMEGDAWgBRF66Kv9JLLgjEtUYun
-pyGd823IDzANBgkqhkiG9w0BAQUFAAOCAQEAog683+Lt8ONyc3pklL/3cmbYMuRC
-dWKuh+vy1dneVrOfzM4UKLkNl2BcEkxY5NM9g0lFWJc1aRqoR+pWxnmrEthngYTf
-fwk8lOa4JiwgvT2zKIn3X/8i4peEH+ll74fg38FnSbNd67IJKusm7Xi+fT8r87cm
-NW1fiQG2SVufAQWbqz0lwcy2f8Lxb4bG+mRo64EtlOtCt/qMHt1i8b5QZ7dsvfPx
-H2sMNgcWfzd8qVttevESRmCD1ycEvkvOl77DZypoEd+A5wwzZr8TDRRu838fYxAe
-+o0bJW1sj6W3YQGx0qMmoRBxna3iw/nDmVG3KwcIzi7mULKn+gpFL6Lw8g==
------END CERTIFICATE-----
-"""
+DIGICERT_ASSURED_ID_ROOT_CA_BYTES_ ::= #[
+    '0',0x82,0x3,183,'0',130,2,159,160,3,2,1,2,2,16,12,231,224,229,23,216,'F',
+    0xfe,143,229,'`',252,27,240,'0','9','0',13,6,9,'*',134,'H',134,247,13,1,1,
+    5,5,0,'0','e','1',11,'0',9,6,3,'U',4,6,19,2,'U','S','1',21,'0',19,6,3,'U',
+    4,0xa,19,12,'D','i','g','i','C','e','r','t',' ','I','n','c','1',25,'0',23,
+    0x06,3,'U',4,11,19,16,'w','w','w','.','d','i','g','i','c','e','r','t','.',
+    'c','o','m','1','$','0','"',6,3,'U',4,3,19,27,'D','i','g','i','C','e','r',
+    't',' ','A','s','s','u','r','e','d',' ','I','D',' ','R','o','o','t',' ',
+    'C','A','0',30,23,0xd,'0','6','1','1','1','0','0','0','0','0','0','0','Z',
+    23,0xd,'3','1','1','1','1','0','0','0','0','0','0','0','Z','0','e','1',11,
+    '0',0x9,6,3,'U',4,6,19,2,'U','S','1',21,'0',19,6,3,'U',4,10,19,12,'D','i',
+    'g','i','C','e','r','t',' ','I','n','c','1',25,'0',23,6,3,'U',4,0xb,19,16,
+    'w','w','w','.','d','i','g','i','c','e','r','t','.','c','o','m','1','$',
+    '0','"',6,3,'U',4,3,19,27,'D','i','g','i','C','e','r','t',' ','A','s','s',
+    'u','r','e','d',' ','I','D',' ','R','o','o','t',' ','C','A','0',130,1,'"',
+    '0',0x0d,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,1,15,0,'0',130,1,10,2,
+    130,1,1,0,173,14,21,206,228,'C',128,92,177,135,243,183,'`',249,'q',18,165,
+    0xae,0xdc,'&',0x94,136,170,244,206,245,' ','9','(','X','`',12,248,128,218,
+    0xa9,21,0x95,'2','a','<',181,177,'(',132,138,138,220,159,10,12,131,23,'z',
+    143,144,172,138,231,'y','S',92,'1',132,'*',246,15,152,'2','6','v',204,222,
+    0xdd,'<',0xa8,0xa2,239,'j',251,'!',242,'R','a',223,159,' ',215,31,226,177,
+    0xd9,254,24,'d',210,18,'[','_',249,'X',24,'5',188,'G',205,161,'6',249,'k',
+    0x7f,212,176,'8','>',193,27,195,140,'3',217,216,'/',24,254,'(',15,179,167,
+    0x83,0xd6,0xc3,'n','D',192,'a','5',150,22,254,'Y',156,139,'v','m',215,241,
+    162,'K',13,'+',255,11,'r',218,158,'`',208,142,144,'5',198,'x','U',135,' ',
+    0xa1,0xcf,0xe5,'m',10,200,'I','|','1',152,'3','l','"',233,135,208,'2','Z',
+    0xa2,0xba,19,130,17,237,'9',23,157,153,':','r',161,230,250,164,217,213,23,
+    '1','u',174,133,'}','"',174,'?',1,'F',134,246,'(','y',200,177,218,228,'W',
+    23,0xc4,'~',28,14,176,180,146,166,'V',179,189,178,151,237,170,167,240,183,
+    197,168,'?',149,22,208,255,161,150,235,8,'_',24,'w','O',2,3,1,0,1,163,'c',
+    '0','a','0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,134,'0',15,6,3,'U',29,19,1,
+    0x01,255,4,5,'0',3,1,1,255,'0',29,6,3,'U',29,14,4,22,4,20,'E',235,162,175,
+    244,146,203,130,'1','-','Q',139,167,167,'!',157,243,'m',200,15,'0',31,6,3,
+    'U',29,'#',4,24,'0',22,128,20,'E',235,162,175,244,146,203,130,'1','-','Q',
+    0x8b,167,167,'!',157,243,'m',200,15,'0',13,6,9,'*',134,'H',134,247,13,1,1,
+    5,5,0,3,0x82,1,1,0,162,14,188,223,226,237,240,227,'r','s','z','d',148,191,
+    0xf7,'r','f',0xd8,'2',228,'B','u','b',174,135,235,242,213,217,222,'V',179,
+    0x9f,0xcc,206,20,'(',185,13,151,'`',92,18,'L','X',228,211,'=',131,'I','E',
+    'X',151,'5','i',26,168,'G',234,'V',198,'y',171,18,216,'g',129,132,223,127,
+    9,'<',148,230,184,'&',',',' ',189,'=',179,'(',137,247,'_',255,'"',226,151,
+    0x84,31,233,'e',239,135,224,223,193,'g','I',179,']',235,178,9,'*',235,'&',
+    237,'x',190,'}','?','+',243,183,'&','5','m','_',137,1,182,'I','[',159,1,5,
+    0x9b,0xab,'=','%',193,204,182,127,194,241,'o',134,198,250,'d','h',235,129,
+    '-',0x94,0xeb,'B',0xb7,250,140,30,221,'b',241,190,'P','g',183,'l',189,243,
+    241,31,'k',12,'6',7,22,127,'7','|',169,'[','m','z',241,18,'F','`',131,215,
+    39,4,190,'K',206,151,190,195,'g','*','h',17,223,128,231,12,'3','f',191,19,
+    0x0d,20,'n',243,127,31,'c',16,30,250,141,27,'%','m','l',143,165,183,'a',1,
+    0xb1,0xd2,0xa3,'&',161,16,'q',157,173,226,195,249,195,153,'Q',183,'+',7,8,
+    206,'.',230,'P',178,167,250,10,'E','/',162,240,242,
+]
+
 
 /**
 DigiCert Assured ID Root CA.
 SHA256 fingerprint: 3e:90:99:b5:01:5e:8f:48:6c:00:bc:ea:9d:11:1e:e7:21:fa:ba:35:5a:89:bc:f1:df:69:56:1e:3d:c6:32:5c
 */
-DIGICERT_ASSURED_ID_ROOT_CA ::= net.Certificate.parse DIGICERT_ASSURED_ID_ROOT_CA_TEXT_
+DIGICERT_ASSURED_ID_ROOT_CA ::= parse_ DIGICERT_ASSURED_ID_ROOT_CA_BYTES_
 
-DIGICERT_GLOBAL_ROOT_CA_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIDrzCCApegAwIBAgIQCDvgVpBCRrGhdWrJWZHHSjANBgkqhkiG9w0BAQUFADBh
-MQswCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3
-d3cuZGlnaWNlcnQuY29tMSAwHgYDVQQDExdEaWdpQ2VydCBHbG9iYWwgUm9vdCBD
-QTAeFw0wNjExMTAwMDAwMDBaFw0zMTExMTAwMDAwMDBaMGExCzAJBgNVBAYTAlVT
-MRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5j
-b20xIDAeBgNVBAMTF0RpZ2lDZXJ0IEdsb2JhbCBSb290IENBMIIBIjANBgkqhkiG
-9w0BAQEFAAOCAQ8AMIIBCgKCAQEA4jvhEXLeqKTTo1eqUKKPC3eQyaKl7hLOllsB
-CSDMAZOnTjC3U/dDxGkAV53ijSLdhwZAAIEJzs4bg7/fzTtxRuLWZscFs3YnFo97
-nh6Vfe63SKMI2tavegw5BmV/Sl0fvBf4q77uKNd0f3p4mVmFaG5cIzJLv07A6Fpt
-43C/dxC//AH2hdmoRBBYMql1GNXRor5H4idq9Joz+EkIYIvUX7Q6hL+hqkpMfT7P
-T19sdl6gSzeRntwi5m3OFBqOasv+zbMUZBfHWymeMr/y7vrTC0LUq7dBMtoM1O/4
-gdW7jVg/tRvoSSiicNoxBN33shbyTApOB6jtSj1etX+jkMOvJwIDAQABo2MwYTAO
-BgNVHQ8BAf8EBAMCAYYwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUA95QNVbR
-TLtm8KPiGxvDl7I90VUwHwYDVR0jBBgwFoAUA95QNVbRTLtm8KPiGxvDl7I90VUw
-DQYJKoZIhvcNAQEFBQADggEBAMucN6pIExIK+t1EnE9SsPTfrgT1eXkIoyQY/Esr
-hMAtudXH/vTBH1jLuG2cenTnmCmrEbXjcKChzUyImZOMkXDiqw8cvpOp/2PV5Adg
-06O/nVsJ8dWO41P0jmP6P6fbtGbfYmbW0W5BjfIttep3Sp+dWOIrWcBAI+0tKIJF
-PnlUkiaY4IBIqDfv8NZ5YBberOgOzW6sRBc4L0na4UU+Krk2U886UAb3LujEV0ls
-YSEY1QSteDwsOoBrp+uvFRTp2InBuThs4pFsiv9kuXclVzDAGySj4dzp30d8tbQk
-CAUw7C29C79Fv1C5qfPrmAESrciIxpg0X40KPMbp1ZWVbd4=
------END CERTIFICATE-----
-"""
+DIGICERT_GLOBAL_ROOT_CA_BYTES_ ::= #[
+    '0',0x82,0x3,175,'0',130,2,151,160,3,2,1,2,2,16,8,';',224,'V',144,'B','F',
+    177,161,'u','j',201,'Y',145,199,'J','0',13,6,9,'*',134,'H',134,247,13,1,1,
+    5,5,0,'0','a','1',11,'0',9,6,3,'U',4,6,19,2,'U','S','1',21,'0',19,6,3,'U',
+    4,0xa,19,12,'D','i','g','i','C','e','r','t',' ','I','n','c','1',25,'0',23,
+    0x06,3,'U',4,11,19,16,'w','w','w','.','d','i','g','i','c','e','r','t','.',
+    'c','o','m','1',' ','0',30,6,3,'U',4,3,19,23,'D','i','g','i','C','e','r',
+    't',' ','G','l','o','b','a','l',' ','R','o','o','t',' ','C','A','0',30,23,
+    0xd,'0','6','1','1','1','0','0','0','0','0','0','0','Z',23,13,'3','1','1',
+    '1','1','0','0','0','0','0','0','0','Z','0','a','1',0xb,'0',9,6,3,'U',4,6,
+    19,2,'U','S','1',21,'0',19,6,3,'U',4,10,19,12,'D','i','g','i','C','e','r',
+    't',' ','I','n','c','1',25,'0',23,6,3,'U',4,0xb,19,16,'w','w','w','.','d',
+    'i','g','i','c','e','r','t','.','c','o','m','1',' ','0',30,6,3,'U',4,3,19,
+    0x17,'D','i','g','i','C','e','r','t',' ','G','l','o','b','a','l',' ','R',
+    'o','o','t',' ','C','A','0',130,1,'"','0',13,6,9,'*',134,'H',134,247,13,1,
+    1,1,5,0,3,0x82,1,15,0,'0',130,1,10,2,130,1,1,0,226,';',225,17,'r',222,168,
+    164,211,163,'W',170,'P',162,143,11,'w',144,201,162,165,238,18,206,150,'[',
+    0x1,9,' ',204,1,147,167,'N','0',183,'S',247,'C',196,'i',0,'W',157,226,141,
+    '"',0xdd,135,6,'@',0,129,9,206,206,27,131,191,223,205,';','q','F',226,214,
+    'f',0xc7,5,179,'v',39,22,143,'{',158,30,149,'}',238,183,'H',163,8,218,214,
+    0xaf,'z',0x0c,'9',6,'e',127,'J',']',31,188,23,248,171,190,238,'(',215,'t',
+    0x7f,'z','x',0x99,'Y',0x85,'h','n',92,'#','2','K',191,'N',192,232,'Z','m',
+    0xe3,'p',0xbf,'w',16,0xbf,252,1,246,133,217,168,'D',16,'X','2',169,'u',24,
+    0xd5,209,162,190,'G',226,39,'j',244,154,'3',248,'I',8,'`',139,212,'_',180,
+    ':',0x84,0xbf,161,170,'J','L','}','>',207,'O','_','l','v','^',160,'K','7',
+    0x91,0x9e,220,'"',230,'m',206,20,26,142,'j',203,254,205,179,20,'d',23,199,
+    '[',')',158,'2',191,242,238,250,211,11,'B',212,171,183,'A','2',218,12,212,
+    0xef,248,129,213,187,141,'X','?',181,27,232,'I','(',162,'p',218,'1',4,221,
+    0xf7,0xb2,22,242,'L',10,'N',7,168,237,'J','=','^',181,127,163,144,195,175,
+    0x27,2,3,1,0,1,163,'c','0','a','0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,134,
+    '0',0xf,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',29,6,3,'U',29,14,4,22,
+    4,20,3,0xde,'P','5','V',209,'L',187,'f',240,163,226,27,27,195,151,178,'=',
+    0xd1,'U','0',0x1f,6,3,'U',29,'#',4,24,'0',22,128,20,3,222,'P','5','V',209,
+    'L',0xbb,'f',240,163,226,27,27,195,151,178,'=',209,'U','0',13,6,9,'*',134,
+    'H',134,247,13,1,1,5,5,0,3,130,1,1,0,203,156,'7',170,'H',19,18,10,250,221,
+    'D',0x9c,'O','R',0xb0,0xf4,223,174,4,245,'y','y',8,163,'$',24,252,'K','+',
+    0x84,0xc0,'-',0xb9,213,199,254,244,193,31,'X',203,184,'m',156,'z','t',231,
+    0x98,')',0xab,17,0xb5,227,'p',160,161,205,'L',136,153,147,140,145,'p',226,
+    171,15,28,190,147,169,255,'c',213,228,7,'`',211,163,191,157,'[',9,241,213,
+    0x8e,0xe3,'S',244,142,'c',250,'?',167,219,180,'f',223,'b','f',214,209,'n',
+    'A',0x8d,0xf2,'-',181,234,'w','J',159,157,'X',226,'+','Y',192,'@','#',237,
+    '-','(',0x82,'E','>','y','T',0x92,'&',152,224,128,'H',168,'7',239,240,214,
+    'y','`',22,0xde,172,232,14,205,'n',172,'D',23,'8','/','I',218,225,'E','>',
+    '*',0xb9,'6','S',207,':','P',6,247,'.',232,196,'W','I','l','a','!',24,213,
+    0x4,173,'x','<',',',':',128,'k',167,235,175,21,20,233,216,137,193,185,'8',
+    'l',0xe2,0x91,'l',0x8a,255,'d',185,'w','%','W','0',192,27,'$',163,225,220,
+    0xe9,0xdf,'G','|',0xb5,180,'$',8,5,'0',236,'-',189,11,191,'E',191,'P',185,
+    0xa9,0xf3,235,152,1,18,173,200,136,198,152,'4','_',141,10,'<',198,233,213,
+    149,149,'m',222,
+]
+
 
 /**
 DigiCert Global Root CA.
 SHA256 fingerprint: 43:48:a0:e9:44:4c:78:cb:26:5e:05:8d:5e:89:44:b4:d8:4f:96:62:bd:26:db:25:7f:89:34:a4:43:c7:01:61
 */
-DIGICERT_GLOBAL_ROOT_CA ::= net.Certificate.parse DIGICERT_GLOBAL_ROOT_CA_TEXT_
+DIGICERT_GLOBAL_ROOT_CA ::= parse_ DIGICERT_GLOBAL_ROOT_CA_BYTES_
 
-DIGICERT_HIGH_ASSURANCE_EV_ROOT_CA_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIDxTCCAq2gAwIBAgIQAqxcJmoLQJuPC3nyrkYldzANBgkqhkiG9w0BAQUFADBs
-MQswCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3
-d3cuZGlnaWNlcnQuY29tMSswKQYDVQQDEyJEaWdpQ2VydCBIaWdoIEFzc3VyYW5j
-ZSBFViBSb290IENBMB4XDTA2MTExMDAwMDAwMFoXDTMxMTExMDAwMDAwMFowbDEL
-MAkGA1UEBhMCVVMxFTATBgNVBAoTDERpZ2lDZXJ0IEluYzEZMBcGA1UECxMQd3d3
-LmRpZ2ljZXJ0LmNvbTErMCkGA1UEAxMiRGlnaUNlcnQgSGlnaCBBc3N1cmFuY2Ug
-RVYgUm9vdCBDQTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMbM5XPm
-+9S75S0tMqbf5YE/yc0lSbZxKsPVlDRnogocsF9ppkCxxLeyj9CYpKlBWTrT3JTW
-PNt0OKRKzE0lgvdKpVMSOO7zSW1xkX5jtqumX8OkhPhPYlG++MXs2ziS4wblCJEM
-xChBVfvLWokVfnHoNb9Ncgk9vjo4UFt3MRuNs8ckRZqnrG0AFFoEt7oT61EKmEFB
-Ik5lYYeBQVCmeVyJ3hlKV9Uu5l0cUyx+mM0aBhakaHPQNAQTXKFx01p8VdteZOE3
-hzBWBOURtCmAEvF5OYiiAhF8J2a3iLd48soKqDirCmTCv2ZdlYTBoSUeh10aUAsg
-EsxBu24LUTi4S8sCAwEAAaNjMGEwDgYDVR0PAQH/BAQDAgGGMA8GA1UdEwEB/wQF
-MAMBAf8wHQYDVR0OBBYEFLE+w2kD+L9HAdSYJhoIAu9jZCvDMB8GA1UdIwQYMBaA
-FLE+w2kD+L9HAdSYJhoIAu9jZCvDMA0GCSqGSIb3DQEBBQUAA4IBAQAcGgaX3Nec
-nzyIZgYIVyHbIUf4KmeqvxgydkAQV8GK83rZEWWONfqe/EW1ntlMMUu4kehDLI6z
-eM7b41N5cdblIZQB2lWHmiRk9opmzN6cN82oNLFpmyPInngiK3BD41VHMWEZ71jF
-hS9OMPagMRYjyOfiZRYzy78aG6A9+MpeizGLYAiJLQwGXFK3xPkKmNEVX58Svnw2
-Yzi9RKR/5CYrCsSXaQ3pjOLAEFe4yHYSkVXySGnYvCoCWw9E1CAx2/S6cCZdkGCe
-vEsXCS+0yx5DaMkHJ8HSXPfqIbloEpw8nL+e/IBcm2PN7EeqJSdnoDfzAIJ9VNep
-+OkuE6N36B9K
------END CERTIFICATE-----
-"""
+DIGICERT_HIGH_ASSURANCE_EV_ROOT_CA_BYTES_ ::= #[
+    '0',0x82,3,197,'0',130,2,173,160,3,2,1,2,2,16,2,172,92,'&','j',11,'@',155,
+    0x8f,11,'y',242,174,'F','%','w','0',13,6,9,'*',134,'H',134,247,13,1,1,5,5,
+    0x0,'0','l','1',11,'0',9,6,3,'U',4,6,19,2,'U','S','1',21,'0',19,6,3,'U',4,
+    0xa,19,12,'D','i','g','i','C','e','r','t',' ','I','n','c','1',25,'0',23,6,
+    3,'U',4,0xb,19,16,'w','w','w','.','d','i','g','i','c','e','r','t','.','c',
+    'o','m','1','+','0',')',0x06,3,'U',4,3,19,'"','D','i','g','i','C','e','r',
+    't',' ','H','i','g','h',' ','A','s','s','u','r','a','n','c','e',' ','E',
+    'V',' ','R','o','o','t',' ','C','A','0',30,23,0xd,'0','6','1','1','1','0',
+    '0','0','0','0','0','0','Z',23,13,'3','1','1','1','1','0','0','0','0','0',
+    '0','0','Z','0','l','1',11,'0',9,6,3,'U',4,6,19,2,'U','S','1',21,'0',19,6,
+    0x3,'U',4,10,19,12,'D','i','g','i','C','e','r','t',' ','I','n','c','1',25,
+    '0',23,6,3,'U',4,11,19,16,'w','w','w','.','d','i','g','i','c','e','r','t',
+    '.','c','o','m','1','+','0',')',0x06,3,'U',4,3,19,'"','D','i','g','i','C',
+    'e','r','t',' ','H','i','g','h',' ','A','s','s','u','r','a','n','c','e',
+    ' ','E','V',' ','R','o','o','t',' ','C','A','0',0x82,1,'"','0',13,6,9,'*',
+    0x86,'H',0x86,0xf7,13,1,1,1,5,0,3,130,1,15,0,'0',130,1,10,2,130,1,1,0,198,
+    0xcc,0xe5,'s',230,251,212,187,229,'-','-','2',166,223,229,129,'?',201,205,
+    '%','I',182,'q','*',195,213,148,'4','g',162,10,28,176,'_','i',166,'@',177,
+    0xc4,0xb7,178,143,208,152,164,169,'A','Y',':',211,220,148,214,'<',219,'t',
+    '8',0xa4,'J',0xcc,'M','%',0x82,247,'J',165,'S',18,'8',238,243,'I','m','q',
+    0x91,'~','c',0xb6,171,166,'_',195,164,132,248,'O','b','Q',190,248,197,236,
+    219,'8',146,227,6,229,8,145,12,196,'(','A','U',251,203,'Z',137,21,'~','q',
+    0xe8,'5',191,'M','r',9,'=',190,':','8','P','[','w','1',27,141,179,199,'$',
+    'E',0x9a,167,172,'m',0,20,'Z',4,183,186,19,235,'Q',10,152,'A','A','"','N',
+    'e','a',0x87,129,'A','P',166,'y',92,137,222,25,'J','W',213,'.',230,']',28,
+    'S',',','~',0x98,0xcd,26,6,22,164,'h','s',208,'4',4,19,92,161,'q',211,'Z',
+    '|','U',0xdb,'^','d',0xe1,'7',135,'0','V',4,229,17,180,')',128,18,241,'y',
+    '9',136,162,2,17,'|',39,'f',183,136,183,'x',242,202,10,168,'8',171,10,'d',
+    0xc2,0xbf,'f',']',149,132,193,161,'%',30,135,']',26,'P',11,' ',18,204,'A',
+    0xbb,'n',0xb,'Q','8',184,'K',203,2,3,1,0,1,163,'c','0','a','0',14,6,3,'U',
+    0x1d,0xf,1,1,255,4,4,3,2,1,134,'0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,
+    0xff,'0',0x1d,6,3,'U',29,14,4,22,4,20,177,'>',195,'i',3,248,191,'G',1,212,
+    0x98,'&',26,8,2,239,'c','d','+',195,'0',31,6,3,'U',29,'#',4,24,'0',22,128,
+    20,177,'>',195,'i',3,248,191,'G',1,212,152,'&',26,8,2,239,'c','d','+',195,
+    '0',0x0d,6,9,'*',134,'H',134,247,13,1,1,5,5,0,3,130,1,1,0,28,26,6,151,220,
+    0xd7,0x9c,0x9f,'<',136,'f',6,8,'W','!',219,'!','G',248,'*','g',170,191,24,
+    '2','v','@',16,'W',193,138,243,'z',217,17,'e',142,'5',250,158,252,'E',181,
+    0x9e,0xd9,'L','1','K',184,145,232,'C',',',142,179,'x',206,219,227,'S','y',
+    'q',214,229,'!',148,1,218,'U',135,154,'$','d',246,138,'f',204,222,156,'7',
+    0xcd,0xa8,'4',177,'i',155,'#',200,158,'x','"','+','p','C',227,'U','G','1',
+    'a',25,0xef,'X',197,133,'/','N','0',246,160,'1',22,'#',200,231,226,'e',22,
+    '3',0xcb,0xbf,26,27,160,'=',248,202,'^',139,'1',139,'`',8,137,'-',12,6,92,
+    'R',0xb7,196,249,10,152,209,21,'_',159,18,190,'|','6','c','8',189,'D',164,
+    0x7f,0xe4,'&','+',10,196,151,'i',13,233,140,226,192,16,'W',184,200,'v',18,
+    0x91,'U',242,'H','i',216,188,'*',2,'[',15,'D',212,' ','1',219,244,186,'p',
+    '&',']',0x90,'`',158,188,'K',23,9,'/',180,203,30,'C','h',201,7,39,193,210,
+    92,0xf7,234,'!',185,'h',18,156,'<',156,191,158,252,128,92,155,'c',205,236,
+    'G',0xaa,'%',39,'g',0xa0,'7',243,0,130,'}','T',215,169,248,233,'.',19,163,
+    'w',232,31,'J',
+]
+
 
 /**
 DigiCert High Assurance EV Root CA.
 SHA256 fingerprint: 74:31:e5:f4:c3:c1:ce:46:90:77:4f:0b:61:e0:54:40:88:3b:a9:a0:1e:d0:0b:a6:ab:d7:80:6e:d3:b1:18:cf
 */
-DIGICERT_HIGH_ASSURANCE_EV_ROOT_CA ::= net.Certificate.parse DIGICERT_HIGH_ASSURANCE_EV_ROOT_CA_TEXT_
+DIGICERT_HIGH_ASSURANCE_EV_ROOT_CA ::= parse_ DIGICERT_HIGH_ASSURANCE_EV_ROOT_CA_BYTES_
 
-DST_ROOT_CA_X3_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIDSjCCAjKgAwIBAgIQRK+wgNajJ7qJMDmGLvhAazANBgkqhkiG9w0BAQUFADA/
-MSQwIgYDVQQKExtEaWdpdGFsIFNpZ25hdHVyZSBUcnVzdCBDby4xFzAVBgNVBAMT
-DkRTVCBSb290IENBIFgzMB4XDTAwMDkzMDIxMTIxOVoXDTIxMDkzMDE0MDExNVow
-PzEkMCIGA1UEChMbRGlnaXRhbCBTaWduYXR1cmUgVHJ1c3QgQ28uMRcwFQYDVQQD
-Ew5EU1QgUm9vdCBDQSBYMzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEB
-AN+v6ZdQCINXtMxiZfaQguzH0yxrMMpb7NnDfcdAwRgUi+DoM3ZJKuM/IUmTrE4O
-rz5Iy2Xu/NMhD2XSKtkyj4zl93ewEnu1lcCJo6m67XMuegwGMoOifooUMM0RoOEq
-OLl5CjH9UL2AZd+3UWODyOKIYepLYYHsUmu5ouJLGiifSKOeDNoJjj4XLh7dIN9b
-xiqKqy69cK3FCxolkHRyxXtqqzTWMIn/5WgTe1QLyNau7Fqckh49ZLOMxt+/yUFw
-7BZy1SbsOFU5Q9D8/RhcQPGX69Wam40dutolucbY38EVAjqr2m7xPi71XAicPNaD
-aeQQmxkqtilX4+U9m5/wAl0CAwEAAaNCMEAwDwYDVR0TAQH/BAUwAwEB/zAOBgNV
-HQ8BAf8EBAMCAQYwHQYDVR0OBBYEFMSnsaR7LHH62+FLkHX/xBVghYkQMA0GCSqG
-SIb3DQEBBQUAA4IBAQCjGiybFwBcqR7uKGY3Or+Dxz9LwwmglSBd49lZRNI+DT69
-ikugdB/OEIKcdBodfpga3csTS7MgROSR6cz8faXbauX+5v3gTt23ADq1cEmv8uXr
-AvHRAosZy5Q6XkjEGB5YGV8eAlrwDPGxrancWYaLbumR9YbK+rlmM6pZW87ipxZz
-R8srzJmwN0jP41ZL9c8PDHIyh8bwRLtTcm1D9SZImlJnt1ir/md2cXjbDaJWFBM5
-JDGFoqgCWjBH4d1QB7wCCZAA62RjYJsWvIjJEubSfZGL+T0yjWW06XyxV3bqxbYo
-Ob8VZRzI9neWagqNdwvYkQsEjgfbKbYK7p2CNTUQ
------END CERTIFICATE-----
-"""
+DST_ROOT_CA_X3_BYTES_ ::= #[
+    '0',0x82,3,'J','0',0x82,2,'2',160,3,2,1,2,2,16,'D',175,176,128,214,163,39,
+    186,137,'0','9',134,'.',248,'@','k','0',13,6,9,'*',134,'H',134,247,13,1,1,
+    5,5,0,'0','?','1','$','0','"',6,3,'U',4,0xa,19,27,'D','i','g','i','t','a',
+    'l',' ','S','i','g','n','a','t','u','r','e',' ','T','r','u','s','t',' ',
+    'C','o','.','1',0x17,'0',21,6,3,'U',4,3,19,14,'D','S','T',' ','R','o','o',
+    't',' ','C','A',' ','X','3','0',30,23,0xd,'0','0','0','9','3','0','2','1',
+    '1','2','1','9','Z',23,13,'2','1','0','9','3','0','1','4','0','1','1','5',
+    'Z','0','?','1','$','0','"',0x06,3,'U',4,10,19,27,'D','i','g','i','t','a',
+    'l',' ','S','i','g','n','a','t','u','r','e',' ','T','r','u','s','t',' ',
+    'C','o','.','1',0x17,'0',21,6,3,'U',4,3,19,14,'D','S','T',' ','R','o','o',
+    't',' ','C','A',' ','X','3','0',0x82,1,'"','0',13,6,9,'*',134,'H',134,247,
+    0xd,1,1,1,5,0,3,130,1,15,0,'0',130,1,10,2,130,1,1,0,223,175,233,151,'P',8,
+    0x83,'W',0xb4,204,'b','e',246,144,130,236,199,211,',','k','0',202,'[',236,
+    217,195,'}',199,'@',193,24,20,139,224,232,'3','v','I','*',227,'?','!','I',
+    147,172,'N',14,175,'>','H',203,'e',238,252,211,'!',15,'e',210,'*',217,'2',
+    0x8f,0x8c,0xe5,247,'w',176,18,'{',181,149,192,137,163,169,186,237,'s','.',
+    'z',12,6,'2',131,162,'~',138,20,'0',205,17,160,225,'*','8',185,'y',10,'1',
+    0xfd,'P',0xbd,128,'e',223,183,'Q','c',131,200,226,136,'a',234,'K','a',129,
+    0xec,'R','k',0xb9,0xa2,226,'K',26,'(',159,'H',163,158,12,218,9,142,'>',23,
+    '.',30,0xdd,' ',223,'[',198,'*',138,171,'.',189,'p',173,197,11,26,'%',144,
+    't','r',197,'{','j',171,'4',214,'0',137,255,229,'h',19,'{','T',11,200,214,
+    174,236,'Z',156,146,30,'=','d',179,140,198,223,191,201,'A','p',236,22,'r',
+    213,'&',236,'8','U','9','C',208,252,253,24,92,'@',241,151,235,213,154,155,
+    0x8d,29,0xba,218,'%',185,198,216,223,193,21,2,':',171,218,'n',241,'>','.',
+    0xf5,0x5c,8,156,'<',214,131,'i',228,16,155,25,'*',182,')','W',227,229,'=',
+    0x9b,159,240,2,']',2,3,1,0,1,163,'B','0','@','0',15,6,3,'U',29,19,1,1,255,
+    4,5,'0',3,1,1,255,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',29,6,3,'U',
+    0x1d,14,4,22,4,20,196,167,177,164,'{',',','q',250,219,225,'K',144,'u',255,
+    196,21,'`',133,137,16,'0',13,6,9,'*',134,'H',134,247,13,1,1,5,5,0,3,130,1,
+    1,0,163,26,',',155,23,0,92,169,30,238,'(','f','7',':',191,131,199,'?','K',
+    0xc3,9,160,149,' ',']',227,217,'Y','D',210,'>',13,'>',189,138,'K',160,'t',
+    31,206,16,130,156,'t',26,29,'~',152,26,221,203,19,'K',179,' ','D',228,145,
+    233,204,252,'}',165,219,'j',229,254,230,253,224,'N',221,183,0,':',181,'p',
+    'I',0xaf,242,229,235,2,241,209,2,139,25,203,148,':','^','H',196,24,30,'X',
+    0x19,'_',30,2,'Z',0xf0,12,241,177,173,169,220,'Y',134,139,'n',233,145,245,
+    0x86,0xca,0xfa,185,'f','3',170,'Y','[',206,226,167,22,'s','G',203,'+',204,
+    153,176,'7','H',207,227,'V','K',245,207,15,12,'r','2',135,198,240,'D',187,
+    'S','r','m','C',0xf5,'&','H',0x9a,'R','g',183,'X',171,254,'g','v','q','x',
+    0xdb,13,162,'V',20,19,'9','$','1',133,162,168,2,'Z','0','G',225,221,'P',7,
+    0xbc,2,9,0x90,0,235,'d','c','`',155,22,188,136,201,18,230,210,'}',145,139,
+    0xf9,'=','2',0x8d,'e',0xb4,233,'|',177,'W','v',234,197,182,'(','9',191,21,
+    'e',0x1c,200,246,'w',150,'j',10,141,'w',11,216,145,11,4,142,7,219,')',182,
+    10,238,157,130,'5','5',16,
+]
+
 
 /**
-DST Root CA X3
+DST Root CA X3.
 Deprecated.  This certificate has expired.  Usually the replacement
   is $ISRG_ROOT_X1.
 */
-DST_ROOT_CA_X3 ::= net.Certificate.parse DST_ROOT_CA_X3_TEXT_
+DST_ROOT_CA_X3 ::= parse_ DST_ROOT_CA_X3_BYTES_
 
-SWISSSIGN_GOLD_CA_G2_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIFujCCA6KgAwIBAgIJALtAHEP1Xk+wMA0GCSqGSIb3DQEBBQUAMEUxCzAJBgNV
-BAYTAkNIMRUwEwYDVQQKEwxTd2lzc1NpZ24gQUcxHzAdBgNVBAMTFlN3aXNzU2ln
-biBHb2xkIENBIC0gRzIwHhcNMDYxMDI1MDgzMDM1WhcNMzYxMDI1MDgzMDM1WjBF
-MQswCQYDVQQGEwJDSDEVMBMGA1UEChMMU3dpc3NTaWduIEFHMR8wHQYDVQQDExZT
-d2lzc1NpZ24gR29sZCBDQSAtIEcyMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIIC
-CgKCAgEAr+TufoskDhJuqVAtFkQ7kpJcyrhdhJJCEyq8ZVeCQD5XJM1QiyUqt2/8
-76LQwB8CJEoTlo8jE+YoWACjR8cGp4QjK7u9lit/VcyLwVcfDmJlD909Vopz2q5+
-bbqBHH5CjCA12UNNhPqE21Is8w4ndwtrvxEvcnifLtg+5hg3Wipy+dpikJKVyh+c
-6bM8K8vzARO/Ws/BtQpgvd21mWRTuKCWs2/iJneRjOBiEAKfNA+k1ZIzUd6+jbqE
-emA8atufK+ze3gE/bk3lUIbLtK/tREDFylqM2tIrfKjuvqblCqoOpd8FUrdVxyJd
-MmqXl2MT28nbeTZ7hTpKxVKJ+STnnXepgv9VHKVxaSvRAiTysybUa9oEVeXBCsdt
-MDeQKuSeFDNeFhdVxVu1yzSJkvGdJo+hB9TGsnhQ2wwMC3wLjEHXuendjIj3o02y
-MszYF9rNt85mndT9Xv+9lz4pded+p2JYryU0pUHHPbwNUMoDAw8IWh+Vc3hiv69y
-FGkOpeUDDniOJihC8AcLYiAQZzlG+qkDzAQ4embvIIO1jEpWjpEA/I5cgt6IoMPi
-aG59je883WX0XaxR7ySArqpWl2/5rX3aYT+YdzylkbYcjCbaZaIJbcHiVOO5ykxM
-gI93e2CaHt+28kgeDrpOVG2Y4OGiGqJ3UM/EY5LsRxmd6+ZrzsECAwEAAaOBrDCB
-qTAOBgNVHQ8BAf8EBAMCAQYwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUWyV7
-lqRlUX64OfPAeGZe6Drn8O4wHwYDVR0jBBgwFoAUWyV7lqRlUX64OfPAeGZe6Drn
-8O4wRgYDVR0gBD8wPTA7BglghXQBWQECAQEwLjAsBggrBgEFBQcCARYgaHR0cDov
-L3JlcG9zaXRvcnkuc3dpc3NzaWduLmNvbS8wDQYJKoZIhvcNAQEFBQADggIBACe6
-45R88a7A3hfm5djV9VSwg/S7zV4Fe0+fdWavPOhWfvxyeDgD2StiGwC5+OlgzczO
-UYrHUDFu4Up+GC9pWbY9ZIEr44OE5iKHjn3g7gKZYbge9LgriBIWhMIxkziWMaa5
-O1M/wySTVltpkuzFwbs4AOPsF6m43Md8AYOfMke6UiI0HTJ6CVanfCU2qT1L2sCC
-bwq7EsiHSycR+R4tx5M/nttfJmtS2S6K8RTGRI0Vqbe/vd6mGu6uLftIdxf+u+yv
-GPUqUfA5hJeVbG4bwyvEdGB5JbAKJ9/fXtI5z0V9QkvfsywexcZdylU6oJxpmo/a
-77KwPJ+HbBIrZXAVUjEaJM9vMSNQH4xPjyPDdEFjHFWoFN0+4FFQz/EbMFYOkrCC
-hdiDyyJkvC24JdVUorgG6q2SpCSgwYa1ShNqR88uC1aVVMvOmttqtKay20EIhid3
-92qgQmwLOM7XdVAyksLfKzAiSNDVQTglXaTpXZ/GlHXQRf0wl0OPkKsKx4ZzYEpp
-Ld6leNcG2mqeSz53OiATIgHQv2ieY2BrNU0LbbqhPcCT4H8js1WtciVORvnSFu+w
-ZMEBnunKoGqYDs/YYPIvSbjkQuE4NRb0yG5P94FW6LqjviOvrv1vA+ACOzB2+htt
-Qc8Bsem4yWb02ybzOqR08kkkW8mw0FfB+j564ZfJ
------END CERTIFICATE-----
-"""
+SWISSSIGN_GOLD_CA_G2_BYTES_ ::= #[
+    '0',0x82,5,186,'0',130,3,162,160,3,2,1,2,2,9,0,187,'@',28,'C',245,'^','O',
+    0xb0,'0',13,6,9,'*',134,'H',134,247,13,1,1,5,5,0,'0','E','1',11,'0',9,6,3,
+    'U',4,6,19,2,'C','H','1',21,'0',19,6,3,'U',4,10,19,12,'S','w','i','s','s',
+    'S','i','g','n',' ','A','G','1',0x1f,'0',29,6,3,'U',4,3,19,22,'S','w','i',
+    's','s','S','i','g','n',' ','G','o','l','d',' ','C','A',' ','-',' ','G',
+    '2','0',0x1e,23,13,'0','6','1','0','2','5','0','8','3','0','3','5','Z',23,
+    13,'3','6','1','0','2','5','0','8','3','0','3','5','Z','0','E','1',11,'0',
+    0x9,6,3,'U',4,6,19,2,'C','H','1',21,'0',19,6,3,'U',4,10,19,12,'S','w','i',
+    's','s','S','i','g','n',' ','A','G','1',0x1f,'0',29,6,3,'U',4,3,19,22,'S',
+    'w','i','s','s','S','i','g','n',' ','G','o','l','d',' ','C','A',' ','-',
+    ' ','G','2','0',0x82,2,'"','0',0xd,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,
+    130,2,15,0,'0',130,2,10,2,130,2,1,0,175,228,238,'~',139,'$',14,18,'n',169,
+    'P','-',22,'D',';',0x92,146,92,202,184,']',132,146,'B',19,'*',188,'e','W',
+    0x82,'@','>','W','$',205,'P',139,'%','*',183,'o',252,239,162,208,192,31,2,
+    '$','J',19,150,143,'#',19,230,'(','X',0,163,'G',199,6,167,132,'#','+',187,
+    0xbd,150,'+',127,'U',204,139,193,'W',31,14,'b','e',15,221,'=','V',138,'s',
+    0xda,0xae,'~','m',0xba,129,28,'~','B',140,' ','5',217,'C','M',132,250,132,
+    0xdb,'R',',',0xf3,14,39,'w',11,'k',191,17,'/','r','x',159,'.',216,'>',230,
+    24,'7','Z','*','r',249,218,'b',144,146,149,202,31,156,233,179,'<','+',203,
+    0xf3,1,19,0xbf,'Z',207,193,181,10,'`',189,221,181,153,'d','S',184,160,150,
+    0xb3,'o',0xe2,'&','w',145,140,224,'b',16,2,159,'4',15,164,213,146,'3','Q',
+    222,190,141,186,132,'z','`','<','j',219,159,'+',236,222,222,1,'?','n','M',
+    0xe5,'P',0x86,203,180,175,237,'D','@',197,202,'Z',140,218,210,'+','|',168,
+    0xee,0xbe,166,229,10,170,14,165,223,5,'R',183,'U',199,'"',']','2','j',151,
+    0x97,'c',0x13,219,201,219,'y','6','{',133,':','J',197,'R',137,249,'$',231,
+    0x9d,'w',169,130,255,'U',28,165,'q','i','+',209,2,'$',242,179,'&',212,'k',
+    218,4,'U',229,193,10,199,'m','0','7',144,'*',228,158,20,'3','^',22,23,'U',
+    197,'[',181,203,'4',137,146,241,157,'&',143,161,7,212,198,178,'x','P',219,
+    0x0c,12,11,'|',11,140,'A',215,185,233,221,140,136,247,163,'M',178,'2',204,
+    0xd8,0x17,218,205,183,206,'f',157,212,253,'^',255,189,151,'>',')','u',231,
+    '~',0xa7,'b','X',0xaf,'%','4',165,'A',199,'=',188,13,'P',202,3,3,15,8,'Z',
+    31,149,'s','x','b',191,175,'r',20,'i',14,165,229,3,14,'x',142,'&','(','B',
+    0xf0,7,0xb,'b',' ',16,'g','9','F',250,169,3,204,4,'8','z','f',239,' ',131,
+    0xb5,140,'J','V',142,145,0,252,142,92,130,222,136,160,195,226,'h','n','}',
+    0x8d,0xef,'<',221,'e',244,']',172,'Q',239,'$',128,174,170,'V',151,'o',249,
+    0xad,'}',218,'a','?',152,'w','<',165,145,182,28,140,'&',218,'e',162,9,'m',
+    0xc1,0xe2,'T',0xe3,185,202,'L','L',128,143,'w','{','`',154,30,223,182,242,
+    'H',30,0xe,186,'N','T','m',152,224,225,162,26,162,'w','P',207,196,'c',146,
+    0xec,'G',25,157,235,230,'k',206,193,2,3,1,0,1,163,129,172,'0',129,169,'0',
+    14,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',15,6,3,'U',29,19,1,1,255,4,5,'0',
+    3,1,1,0xff,'0',29,6,3,'U',29,14,4,22,4,20,'[','%','{',150,164,'e','Q','~',
+    0xb8,'9',0xf3,192,'x','f','^',232,':',231,240,238,'0',31,6,3,'U',29,'#',4,
+    24,'0',22,0x80,20,'[','%','{',150,164,'e','Q','~',184,'9',243,192,'x','f',
+    '^',0xe8,':',231,240,238,'0','F',6,3,'U',29,' ',4,'?','0','=','0',';',6,9,
+    '`',0x85,'t',0x1,'Y',1,2,1,1,'0','.','0',',',6,8,'+',6,1,5,5,7,2,1,22,' ',
+    'h','t','t','p',':','/','/','r','e','p','o','s','i','t','o','r','y','.',
+    's','w','i','s','s','s','i','g','n','.','c','o','m','/','0',0x0d,6,9,'*',
+    0x86,'H',0x86,247,13,1,1,5,5,0,3,130,2,1,0,39,186,227,148,'|',241,174,192,
+    0xde,23,230,229,216,213,245,'T',176,131,244,187,205,'^',5,'{','O',159,'u',
+    'f',0xaf,'<',0xe8,'V','~',0xfc,'r','x','8',3,217,'+','b',27,0,185,248,233,
+    '`',0xcd,0xcc,0xce,'Q',138,199,'P','1','n',225,'J','~',24,'/','i','Y',182,
+    '=','d',0x81,'+',227,131,132,230,'"',135,142,'}',224,238,2,153,'a',184,30,
+    244,184,'+',136,18,22,132,194,'1',147,'8',150,'1',166,185,';','S','?',195,
+    '$',0x93,'V','[','i',146,236,197,193,187,'8',0,227,236,23,169,184,220,199,
+    '|',0x01,131,159,'2','G',186,'R','"','4',29,'2','z',9,'V',167,'|','%','6',
+    0xa9,'=','K',0xda,0xc0,130,'o',10,187,18,200,135,'K',39,17,249,30,'-',199,
+    147,'?',158,219,'_','&','k','R',217,'.',138,241,20,198,'D',141,21,169,183,
+    0xbf,189,222,166,26,238,174,'-',251,'H','w',23,254,187,236,175,24,245,'*',
+    'Q',0xf0,'9',132,151,149,'l','n',27,195,'+',196,'t','`','y','%',176,10,39,
+    0xdf,0xdf,'^',0xd2,'9',207,'E','}','B','K',223,179,',',30,197,198,']',202,
+    'U',':',0xa0,0x9c,'i',0x9a,143,218,239,178,176,'<',159,135,'l',18,'+','e',
+    'p',21,'R','1',26,'$',0xcf,'o','1','#','P',31,140,'O',143,'#',195,'t','A',
+    'c',0x1c,'U',168,20,221,'>',224,'Q','P',207,241,27,'0','V',14,146,176,130,
+    133,216,131,203,'"','d',188,'-',184,'%',213,'T',162,184,6,234,173,146,164,
+    '$',160,193,134,181,'J',19,'j','G',207,'.',11,'V',149,'T',203,206,154,219,
+    'j',0xb4,0xa6,178,219,'A',8,134,39,'w',247,'j',160,'B','l',11,'8',206,215,
+    'u','P','2',0x92,0xc2,223,'+','0','"','H',208,213,'A','8','%',']',164,233,
+    ']',0x9f,0xc6,0x94,'u',208,'E',253,'0',151,'C',143,144,171,10,199,134,'s',
+    '`','J','i','-',0xde,165,'x',215,6,218,'j',158,'K','>','w',':',' ',19,'"',
+    1,0xd0,191,'h',158,'c','`','k','5','M',11,'m',186,161,'=',192,147,224,127,
+    '#',0xb3,'U',173,'r','%','N','F',249,210,22,239,176,'d',193,1,158,233,202,
+    160,'j',152,14,207,216,'`',242,'/','I',184,228,'B',225,'8','5',22,244,200,
+    'n','O',0xf7,0x81,'V',232,186,163,190,'#',175,174,253,'o',3,224,2,';','0',
+    'v',0xfa,27,'m','A',207,1,177,233,184,201,'f',244,219,'&',243,':',164,'t',
+    242,'I','$','[',201,176,208,'W',193,250,'>','z',225,151,201,
+]
+
 
 /**
 SwissSign Gold CA - G2.
 SHA256 fingerprint: 62:dd:0b:e9:b9:f5:0a:16:3e:a0:f8:e7:5c:05:3b:1e:ca:57:ea:55:c8:68:8f:64:7c:68:81:f2:c8:35:7b:95
 */
-SWISSSIGN_GOLD_CA_G2 ::= net.Certificate.parse SWISSSIGN_GOLD_CA_G2_TEXT_
+SWISSSIGN_GOLD_CA_G2 ::= parse_ SWISSSIGN_GOLD_CA_G2_BYTES_
 
-SWISSSIGN_SILVER_CA_G2_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIFvTCCA6WgAwIBAgIITxvUL1S7L0swDQYJKoZIhvcNAQEFBQAwRzELMAkGA1UE
-BhMCQ0gxFTATBgNVBAoTDFN3aXNzU2lnbiBBRzEhMB8GA1UEAxMYU3dpc3NTaWdu
-IFNpbHZlciBDQSAtIEcyMB4XDTA2MTAyNTA4MzI0NloXDTM2MTAyNTA4MzI0Nlow
-RzELMAkGA1UEBhMCQ0gxFTATBgNVBAoTDFN3aXNzU2lnbiBBRzEhMB8GA1UEAxMY
-U3dpc3NTaWduIFNpbHZlciBDQSAtIEcyMIICIjANBgkqhkiG9w0BAQEFAAOCAg8A
-MIICCgKCAgEAxPGHf9N4Mfc4yfjDmUO8x/e8N+dOcbpLj6VzHVxumK4DV644N0Mv
-Fz0fyM5oEMF4rhkDKxD6LHmD9ui5aLlV8gREpzn5/ASLHvGiTSf5YXu6t+WiE7br
-YT7QbNHm+/pe7R20nqA1W6GSy/BJkv6FCgU+5tkL4k+73JU3/JHpMjUi0R86TieF
-nbAVlDLaYQ1HTWBCrpJH6INaUFjpiou5XaHc3ZlKHzZnu0jkg7Y360g6rw9njxcH
-6ATK72oxh9TAtvmUcXtnZLi2kUpCe2UuMGoM9ZDulebyzYLs2aFK7PayS+VFheZt
-eJMELpyCbTapxDFkH4aDCyr0NQp4yVXPQbBH6TCfmb5hqAaEuSh6XzjZG6k4sIN/
-c8HDO0gqgg8hm7jMqDXDhBuDsz6+pJVpATqJAHgE2cn0mRmrVn5bi4Y5FZGkECwJ
-MoBgs5PAKrYYC51+jUnyEEp/+dVGLxmSo5mnJqy7jDzmDrxHB9xzUfFwZC8I+bRH
-HTBsROopN4WSaGa8gzj+ezku01DwH/teYLappvonQfGbGHLy9YR0SslnxFSuSGTf
-jNFusB3hB48IHpmccelM2KX3RxIfdNFRnobzwqIjQAtz20um53MGjMGg6cFZrEb6
-5i/4z3GcRm25xBWNOHkDRUjvxF3XCO6HOSKGsg0PWEP3calILv3q1h8CAwEAAaOB
-rDCBqTAOBgNVHQ8BAf8EBAMCAQYwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQU
-F6DNweRBtjpbO8tFnb0cwpj6hlgwHwYDVR0jBBgwFoAUF6DNweRBtjpbO8tFnb0c
-wpj6hlgwRgYDVR0gBD8wPTA7BglghXQBWQEDAQEwLjAsBggrBgEFBQcCARYgaHR0
-cDovL3JlcG9zaXRvcnkuc3dpc3NzaWduLmNvbS8wDQYJKoZIhvcNAQEFBQADggIB
-AHPGgeAn0i0P4JUw4ppBf1AsX19iYamGamkYDHRJ1l2E6kFSGG9YrVBWIGrGvShp
-WJHckRE1qTodvBqlYJ7YH39FkWnZfrt4csEGDyrOj4VwYaygzQu4OSlWhDJOhrs9
-xCrZ1x9y7v5RoSJBsXECYxqCsGKrXlcSH9/L3XWgwF15kIwb4FDm3jH+mHtwX6WQ
-2K34ArZv02DdQEsixT2tOnqfGhpHkXkzuoLcMmkDlm4fS/Bx/uNncqCxv1yL5PqZ
-IseEuRuNI5c/7SXgz2W79WEE790eslpBIlqhn10s6FvJbakMDHiqYMZWjwFaDGi8
-aRl5xB9+lwW/xekkUV7U1UtT7dkjWjYDZaPBA61BMPNGG4WQr2W11bHkFlt4dR2X
-em1ZqSqPe97Dh4kQmUlzeMg9vVE1dCrV8X5pGyq7O70luJpaPXJhkGaH7gzWTdQR
-dAtq/gsD/KNVV4n+SsuuWxcFyPKNIzFTONItaj+CuY0IavdeQXRuwxF+B6wpYJE/
-OMpXEA29MC/HpeZBoNquBYeaoKRlbEwJDIm6uNO5wJOKMPqN5ZprFQFOZ6raYlY+
-hAhm0sQ2fac+EPyI4NSA5QC9qvNOBqN6avlicuMJT+ubDgEj8Z+7fNzcbBGXJbLy
-tGMU0gYqZ4yD9c7qB9iaah7s5Aq7KkzrCWA5zspi2C5u
------END CERTIFICATE-----
-"""
+SWISSSIGN_SILVER_CA_G2_BYTES_ ::= #[
+    '0',0x82,0x5,189,'0',130,3,165,160,3,2,1,2,2,8,'O',27,212,'/','T',187,'/',
+    'K','0',0xd,6,9,'*',134,'H',134,247,13,1,1,5,5,0,'0','G','1',11,'0',9,6,3,
+    'U',4,6,19,2,'C','H','1',21,'0',19,6,3,'U',4,10,19,12,'S','w','i','s','s',
+    'S','i','g','n',' ','A','G','1','!','0',31,6,3,'U',4,3,19,24,'S','w','i',
+    's','s','S','i','g','n',' ','S','i','l','v','e','r',' ','C','A',' ','-',
+    ' ','G','2','0',30,23,0xd,'0','6','1','0','2','5','0','8','3','2','4','6',
+    'Z',23,13,'3','6','1','0','2','5','0','8','3','2','4','6','Z','0','G','1',
+    0x0b,'0',9,6,3,'U',4,6,19,2,'C','H','1',21,'0',19,6,3,'U',4,0xa,19,12,'S',
+    'w','i','s','s','S','i','g','n',' ','A','G','1','!','0',31,6,3,'U',4,3,19,
+    0x18,'S','w','i','s','s','S','i','g','n',' ','S','i','l','v','e','r',' ',
+    'C','A',' ','-',' ','G','2','0',0x82,2,'"','0',13,6,9,'*',134,'H',134,247,
+    0x0d,1,1,1,5,0,3,0x82,2,15,0,'0',130,2,10,2,130,2,1,0,196,241,135,127,211,
+    'x','1',0xf7,'8',0xc9,248,195,153,'C',188,199,247,188,'7',231,'N','q',186,
+    'K',143,165,'s',29,92,'n',152,174,3,'W',174,'8','7','C','/',23,'=',31,200,
+    0xce,'h',0x10,193,'x',174,25,3,'+',16,250,',','y',131,246,232,185,'h',185,
+    'U',242,4,'D',167,'9',249,252,4,139,30,241,162,'M',39,249,'a','{',186,183,
+    229,162,19,182,235,'a','>',208,'l',209,230,251,250,'^',237,29,180,158,160,
+    '5','[',0xa1,0x92,203,240,'I',146,254,133,10,5,'>',230,217,11,226,'O',187,
+    0xdc,149,'7',252,145,233,'2','5','"',209,31,':','N',39,133,157,176,21,148,
+    '2',0xda,'a',0x0d,'G','M','`','B',174,146,'G',232,131,'Z','P','X',233,138,
+    0x8b,0xb9,']',0xa1,220,221,153,'J',31,'6','g',187,'H',228,131,182,'7',235,
+    'H',':',175,15,'g',143,23,7,232,4,202,239,'j','1',135,212,192,182,249,148,
+    'q','{','g','d',0xb8,0xb6,0x91,'J','B','{','e','.','0','j',12,245,144,238,
+    0x95,0xe6,242,205,130,236,217,161,'J',236,246,178,'K',229,'E',133,230,'m',
+    'x',0x93,4,'.',0x9c,130,'m','6',169,196,'1','d',31,134,131,11,'*',244,'5',
+    0xa,'x',201,'U',207,'A',176,'G',233,'0',159,153,190,'a',168,6,132,185,'(',
+    'z','_','8',217,27,169,'8',176,131,127,'s',193,195,';','H','*',130,15,'!',
+    0x9b,0xb8,0xcc,168,'5',195,132,27,131,179,'>',190,164,149,'i',1,':',137,0,
+    'x',4,0xd9,201,244,153,25,171,'V','~','[',139,134,'9',21,145,164,16,',',9,
+    '2',0x80,'`',179,147,192,'*',182,24,11,157,'~',141,'I',242,16,'J',127,249,
+    0xd5,'F','/',25,0x92,163,153,167,'&',172,187,140,'<',230,14,188,'G',7,220,
+    's','Q',0xf1,'p','d','/',8,249,180,'G',29,'0','l','D',234,')','7',133,146,
+    'h','f',0xbc,0x83,'8',0xfe,'{','9','.',211,'P',240,31,251,'^','`',182,169,
+    166,250,39,'A',241,155,24,'r',242,245,132,'t','J',201,'g',196,'T',174,'H',
+    'd',223,140,209,'n',176,29,225,7,143,8,30,153,156,'q',233,'L',216,165,247,
+    'G',18,31,'t',0xd1,'Q',158,134,243,194,162,'#','@',11,'s',219,'K',166,231,
+    's',6,140,193,160,233,193,'Y',172,'F',250,230,'/',248,207,'q',156,'F','m',
+    0xb9,0xc4,21,0x8d,'8','y',3,'E','H',239,196,']',215,8,238,135,'9','"',134,
+    0xb2,0x0d,15,'X','C',247,'q',169,'H','.',253,234,214,31,2,3,1,0,1,163,129,
+    0xac,'0',0x81,169,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',15,6,3,'U',
+    29,19,1,1,255,4,5,'0',3,1,1,255,'0',29,6,3,'U',29,14,4,22,4,20,23,160,205,
+    193,228,'A',182,':','[',';',203,'E',157,189,28,194,152,250,134,'X','0',31,
+    6,3,'U',29,'#',4,24,'0',22,0x80,20,23,160,205,193,228,'A',182,':','[',';',
+    0xcb,'E',0x9d,189,28,194,152,250,134,'X','0','F',6,3,'U',29,' ',4,'?','0',
+    '=','0',';',6,9,'`',133,'t',1,'Y',1,3,1,1,'0','.','0',',',6,8,'+',6,1,5,5,
+    7,2,1,22,' ','h','t','t','p',':','/','/','r','e','p','o','s','i','t','o',
+    'r','y','.','s','w','i','s','s','s','i','g','n','.','c','o','m','/','0',
+    0x0d,6,9,'*',0x86,'H',134,247,13,1,1,5,5,0,3,130,2,1,0,'s',198,129,224,39,
+    0xd2,'-',0x0f,224,149,'0',226,154,'A',127,'P',',','_','_','b','a',169,134,
+    'j','i',24,0xc,'t','I',214,']',132,234,'A','R',24,'o','X',173,'P','V',' ',
+    'j',0xc6,189,'(','i','X',145,220,145,17,'5',169,':',29,188,26,165,'`',158,
+    0xd8,31,0x7f,'E',145,'i',217,'~',187,'x','r',193,6,15,'*',206,143,133,'p',
+    'a',0xac,0xa0,0xcd,11,184,'9',')','V',132,'2','N',134,187,'=',196,'*',217,
+    0xd7,31,'r',0xee,254,'Q',161,'"','A',177,'q',2,'c',26,130,176,'b',171,'^',
+    'W',18,31,0xdf,203,221,'u',160,192,']','y',144,140,27,224,'P',230,222,'1',
+    254,152,'{','p','_',165,144,216,173,248,2,182,'o',211,'`',221,'@','K','"',
+    0xc5,'=',0xad,':','z',159,26,26,'G',145,'y','3',186,130,220,'2','i',3,150,
+    'n',31,'K',240,'q',254,227,'g','r',160,177,191,92,139,228,250,153,'"',199,
+    0x84,0xb9,27,141,'#',151,'?',237,'%',224,207,'e',187,245,'a',4,239,221,30,
+    178,'Z','A','"','Z',161,159,']',',',232,'[',201,'m',169,12,12,'x',170,'`',
+    0xc6,'V',143,1,'Z',12,'h',188,'i',25,'y',196,31,'~',151,5,191,197,233,'$',
+    'Q','^',0xd4,0xd5,'K','S',237,217,'#','Z','6',3,'e',163,193,3,173,'A','0',
+    0xf3,'F',27,133,144,175,'e',181,213,177,228,22,'[','x','u',29,151,'z','m',
+    'Y',0xa9,'*',0x8f,'{',0xde,195,135,137,16,153,'I','s','x',200,'=',189,'Q',
+    '5','t','*',0xd5,0xf1,'~','i',27,'*',0xbb,';',189,'%',184,154,'Z','=','r',
+    'a',144,'f',135,238,12,214,'M',212,17,'t',11,'j',254,11,3,252,163,'U','W',
+    0x89,254,'J',203,174,'[',23,5,200,242,141,'#','1','S','8',210,'-','j','?',
+    0x82,0xb9,0x8d,8,'j',247,'^','A','t','n',195,17,'~',7,172,')','`',145,'?',
+    '8',0xca,'W',16,0xd,189,'0','/',199,165,230,'A',160,218,174,5,135,154,160,
+    0xa4,'e','l','L',9,12,137,186,184,211,185,192,147,138,'0',250,141,229,154,
+    'k',21,1,'N','g',170,218,'b','V','>',132,8,'f',210,196,'6','}',167,'>',16,
+    252,136,224,212,128,229,0,189,170,243,'N',6,163,'z','j',249,'b','r',227,9,
+    'O',0xeb,0x9b,14,1,'#',241,159,187,'|',220,220,'l',17,151,'%',178,242,180,
+    'c',20,0xd2,6,'*','g',140,131,245,206,234,7,216,154,'j',30,236,228,10,187,
+    '*','L',235,9,'`','9',206,202,'b',216,'.','n',
+]
+
 
 /**
 SwissSign Silver CA - G2.
 SHA256 fingerprint: be:6c:4d:a2:bb:b9:ba:59:b6:f3:93:97:68:37:42:46:c3:c0:05:99:3f:a9:8f:02:0d:1d:ed:be:d4:8a:81:d5
 */
-SWISSSIGN_SILVER_CA_G2 ::= net.Certificate.parse SWISSSIGN_SILVER_CA_G2_TEXT_
+SWISSSIGN_SILVER_CA_G2 ::= parse_ SWISSSIGN_SILVER_CA_G2_BYTES_
 
-SECURETRUST_CA_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIDuDCCAqCgAwIBAgIQDPCOXAgWpa1Cf/DrJxhZ0DANBgkqhkiG9w0BAQUFADBI
-MQswCQYDVQQGEwJVUzEgMB4GA1UEChMXU2VjdXJlVHJ1c3QgQ29ycG9yYXRpb24x
-FzAVBgNVBAMTDlNlY3VyZVRydXN0IENBMB4XDTA2MTEwNzE5MzExOFoXDTI5MTIz
-MTE5NDA1NVowSDELMAkGA1UEBhMCVVMxIDAeBgNVBAoTF1NlY3VyZVRydXN0IENv
-cnBvcmF0aW9uMRcwFQYDVQQDEw5TZWN1cmVUcnVzdCBDQTCCASIwDQYJKoZIhvcN
-AQEBBQADggEPADCCAQoCggEBAKukgeWVzfX2FI7CT8rU4niVWJxB4Q2ZQCQXOZEz
-Zum+4YOvYlyJ0fwkW2Gz4BERQRwdbvC4u/jep4G6pkjGnx29vo6pQT64lO0pGtSO
-0gMdA+9tDWccV9cGrcrI9f4Or2YlSASWC12juhbDCE/RRvgUXPLIXgGZbf2IzIao
-wW8xQmxSPmjL8xk037uHGFaAJsTQ3MBv396gwpEWoGQRS0S8Hvbn+mPeZqx2pHGj
-7DaUaHp3pLHnDi+BeuK1cobvomuL8A/b01k/unK8RCSc43Oz969XL0Imnal0ugBS
-8kvNU3xHCzaFDmapCJcWNFfBZveA4+1wVMeT4C4oFVmHursCAwEAAaOBnTCBmjAT
-BgkrBgEEAYI3FAIEBh4EAEMAQTALBgNVHQ8EBAMCAYYwDwYDVR0TAQH/BAUwAwEB
-/zAdBgNVHQ4EFgQUQjK2FvoE/f5dS3rD/fdMQB1aQ68wNAYDVR0fBC0wKzApoCeg
-JYYjaHR0cDovL2NybC5zZWN1cmV0cnVzdC5jb20vU1RDQS5jcmwwEAYJKwYBBAGC
-NxUBBAMCAQAwDQYJKoZIhvcNAQEFBQADggEBADDtT0rhWDpSclu1pqNlGKa7UTt3
-6Z3q059c4EVlew3KW+JwULKUBRSuSceNQQcSc5R+DCMh/bwQf2AQWnL1mA6s7Ll/
-3XpvXdMc9P+IBWlCqQVxyLesJugutIxq/3HcuLHfmbx8IVQr5Fiiu1cprp6poxkm
-D5kuCLDv/WnPmRoJjeOnnyvJNjR7JLN4TJUXpAYmHrZkUjZfYGfZnMUFdAvnZyPS
-CPyI6a6Lf+Ew9Dd+/cYy2i2eRDAwbO4H3tI0/NL/QPZL9GZGBlSm8jIKYyYwa5vR
-3ItHuuG51WLQoqD0ZwV4KWMabwTW+MZMo5qxN7SN5ShLHZ4swrhovO0C7jE=
------END CERTIFICATE-----
-"""
+SECURETRUST_CA_BYTES_ ::= #[
+    '0',0x82,3,0xb8,'0',130,2,160,160,3,2,1,2,2,16,12,240,142,92,8,22,165,173,
+    'B',127,240,235,39,24,'Y',208,'0',13,6,9,'*',134,'H',134,247,13,1,1,5,5,0,
+    '0','H','1',11,'0',9,6,3,'U',4,6,19,2,'U','S','1',' ','0',30,6,3,'U',4,10,
+    19,23,'S','e','c','u','r','e','T','r','u','s','t',' ','C','o','r','p','o',
+    'r','a','t','i','o','n','1',0x17,'0',21,6,3,'U',4,3,19,14,'S','e','c','u',
+    'r','e','T','r','u','s','t',' ','C','A','0',30,23,0xd,'0','6','1','1','0',
+    '7','1','9','3','1','1','8','Z',23,13,'2','9','1','2','3','1','1','9','4',
+    '0','5','5','Z','0','H','1',11,'0',9,6,3,'U',4,6,19,2,'U','S','1',' ','0',
+    30,6,3,'U',4,10,19,23,'S','e','c','u','r','e','T','r','u','s','t',' ','C',
+    'o','r','p','o','r','a','t','i','o','n','1',0x17,'0',21,6,3,'U',4,3,19,14,
+    'S','e','c','u','r','e','T','r','u','s','t',' ','C','A','0',130,1,'"','0',
+    13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,1,15,0,'0',130,1,10,2,130,1,
+    0x01,0,171,164,129,229,149,205,245,246,20,142,194,'O',202,212,226,'x',149,
+    'X',156,'A',225,13,153,'@','$',23,'9',145,'3','f',233,190,225,131,175,'b',
+    0x5c,0x89,209,252,'$','[','a',179,224,17,17,'A',28,29,'n',240,184,187,248,
+    0xde,0xa7,0x81,186,166,'H',198,159,29,189,190,142,169,'A','>',184,148,237,
+    ')',26,212,142,210,3,29,3,239,'m',13,'g',28,'W',215,6,173,202,200,245,254,
+    0x0e,0xaf,'f','%','H',4,150,11,']',163,186,22,195,8,'O',209,'F',248,20,92,
+    242,200,'^',1,153,'m',253,136,204,134,168,193,'o','1','B','l','R','>','h',
+    203,243,25,'4',223,187,135,24,'V',128,'&',196,208,220,192,'o',223,222,160,
+    0xc2,145,22,160,'d',17,'K','D',188,30,246,231,250,'c',222,'f',172,'v',164,
+    'q',0xa3,0xec,'6',0x94,'h','z','w',164,177,231,14,'/',129,'z',226,181,'r',
+    0x86,0xef,0xa2,'k',139,240,15,219,211,'Y','?',186,'r',188,'D','$',156,227,
+    's',179,247,175,'W','/','B','&',157,169,'t',186,0,'R',242,'K',205,'S','|',
+    'G',0x0b,'6',0x85,14,'f',169,8,151,22,'4','W',193,'f',247,128,227,237,'p',
+    'T',0xc7,147,224,'.','(',21,'Y',135,186,187,2,3,1,0,1,163,129,157,'0',129,
+    0x9a,'0',19,6,9,'+',6,1,4,1,0x82,'7',20,2,4,6,30,4,0,'C',0,'A','0',11,6,3,
+    'U',0x1d,0xf,4,4,3,2,1,134,'0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,
+    '0',0x1d,6,3,'U',29,14,4,22,4,20,'B','2',182,22,250,4,253,254,']','K','z',
+    0xc3,0xfd,0xf7,'L','@',29,'Z','C',175,'0','4',6,3,'U',29,31,4,'-','0','+',
+    '0',')',0xa0,0x27,160,'%',134,'#','h','t','t','p',':','/','/','c','r','l',
+    '.','s','e','c','u','r','e','t','r','u','s','t','.','c','o','m','/','S',
+    'T','C','A','.','c','r','l','0',16,6,9,'+',6,1,4,1,130,'7',21,1,4,3,2,1,0,
+    '0',0x0d,6,9,'*',134,'H',134,247,13,1,1,5,5,0,3,130,1,1,0,'0',237,'O','J',
+    0xe1,'X',':','R','r','[',0xb5,0xa6,163,'e',24,166,187,'Q',';','w',233,157,
+    0xea,0xd3,0x9f,92,224,'E','e','{',13,202,'[',226,'p','P',178,148,5,20,174,
+    'I',199,141,'A',7,18,'s',148,'~',12,'#','!',253,188,16,127,'`',16,'Z','r',
+    0xf5,0x98,14,172,236,185,127,221,'z','o',']',211,28,244,255,136,5,'i','B',
+    169,5,'q',200,183,172,'&',232,'.',180,140,'j',255,'q',220,184,177,223,153,
+    188,'|','!','T','+',228,'X',162,187,'W',')',174,158,169,163,25,'&',15,153,
+    '.',0x08,176,239,253,'i',207,153,26,9,141,227,167,159,'+',201,'6','4','{',
+    '$',0xb3,'x','L',0x95,23,164,6,'&',30,182,'d','R','6','_','`','g',217,156,
+    0xc5,0x5,'t',11,231,'g','#',210,8,252,136,233,174,139,127,225,'0',244,'7',
+    '~',253,198,'2',218,'-',158,'D','0','0','l',238,7,222,210,'4',252,210,255,
+    '@',0xf6,'K',244,'f','F',6,'T',166,242,'2',10,'c','&','0','k',155,209,220,
+    0x8b,'G',0xba,0xe1,185,213,'b',208,162,160,244,'g',5,'x',')','c',26,'o',4,
+    0xd6,0xf8,0xc6,'L',163,154,177,'7',180,141,229,'(','K',29,158,',',194,184,
+    'h',188,237,2,238,'1',
+]
+
 
 /**
 SecureTrust CA.
 SHA256 fingerprint: f1:c1:b5:0a:e5:a2:0d:d8:03:0e:c9:f6:bc:24:82:3d:d3:67:b5:25:57:59:b4:e7:1b:61:fc:e9:f7:37:5d:73
 */
-SECURETRUST_CA ::= net.Certificate.parse SECURETRUST_CA_TEXT_
+SECURETRUST_CA ::= parse_ SECURETRUST_CA_BYTES_
 
-SECURE_GLOBAL_CA_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIDvDCCAqSgAwIBAgIQB1YipOjUiolN9BPI8PjqpTANBgkqhkiG9w0BAQUFADBK
-MQswCQYDVQQGEwJVUzEgMB4GA1UEChMXU2VjdXJlVHJ1c3QgQ29ycG9yYXRpb24x
-GTAXBgNVBAMTEFNlY3VyZSBHbG9iYWwgQ0EwHhcNMDYxMTA3MTk0MjI4WhcNMjkx
-MjMxMTk1MjA2WjBKMQswCQYDVQQGEwJVUzEgMB4GA1UEChMXU2VjdXJlVHJ1c3Qg
-Q29ycG9yYXRpb24xGTAXBgNVBAMTEFNlY3VyZSBHbG9iYWwgQ0EwggEiMA0GCSqG
-SIb3DQEBAQUAA4IBDwAwggEKAoIBAQCvNS7YrGxVaQZx5RNoJLNP2MwhR/jxYDiJ
-iQPpvepeRlMJ3Fz1Wuj3RSoC6zFh1ykzTM7HfAo3fg+6MpjhHZevj8fcyTiW89sa
-/FHtaMbQbqR8JNGuQsiWUGMu4P51/pinX0kuleM5M2SOHqRfkNJnPLLZ/kG5VacJ
-jnIFHovdRIWCQtBJwB1g8NEXLJXr9qXBkqPFwqcIYA1gBBCWeZ4WNOaptvolRTnI
-HmX5k/Wq8VLcmZg9pYYaDDUz+kulBAYVHDGA76oYa8J719rO+TMg1fW9ajMtgQT7
-sFzUnKPiXB3jqUJ1XnvUd+85VLrJChgbEplJL4hL/VBi0XPnj3pDAgMBAAGjgZ0w
-gZowEwYJKwYBBAGCNxQCBAYeBABDAEEwCwYDVR0PBAQDAgGGMA8GA1UdEwEB/wQF
-MAMBAf8wHQYDVR0OBBYEFK9EBMJBfkiD2045AuzshHrmzsmkMDQGA1UdHwQtMCsw
-KaAnoCWGI2h0dHA6Ly9jcmwuc2VjdXJldHJ1c3QuY29tL1NHQ0EuY3JsMBAGCSsG
-AQQBgjcVAQQDAgEAMA0GCSqGSIb3DQEBBQUAA4IBAQBjGghAfaReUw132HquHw0L
-URYD7xh8yOOvaliTFGCRsoTciE6+OYo68+aCiV0BN7OrJKQVDpI1WkpEXk5X+nXO
-H0jOZvQ8QCaSmGwb7iRGDBezUqXbpZGRzzfTb+cnCDpOGR86p1hcF895P4vkp9Mm
-I50mD1hp/Ed+stCNi5O/KU9DaXR2Z0vPB4zmAve14bRDtUstFJ/53CYNv6ZHdAbY
-iNE6KTCEztI5gGIbqMdXSbxqVVFnFUq+NQfk1XWYN3kwFNspnWzFacxHVaIw98xc
-f8LDmBxrThaA63p4ZUWiABqvDA1VZDRIuJK58bRQKfJPIx/abKwfROHdI3hRW8cW
------END CERTIFICATE-----
-"""
+SECURE_GLOBAL_CA_BYTES_ ::= #[
+    '0',0x82,0x3,188,'0',130,2,164,160,3,2,1,2,2,16,7,'V','"',164,232,212,138,
+    0x89,'M',244,19,200,240,248,234,165,'0',13,6,9,'*',134,'H',134,247,13,1,1,
+    0x05,5,0,'0','J','1',11,'0',9,6,3,'U',4,6,19,2,'U','S','1',' ','0',30,6,3,
+    'U',0x04,10,19,23,'S','e','c','u','r','e','T','r','u','s','t',' ','C','o',
+    'r','p','o','r','a','t','i','o','n','1',0x19,'0',23,6,3,'U',4,3,19,16,'S',
+    'e','c','u','r','e',' ','G','l','o','b','a','l',' ','C','A','0',30,23,0xd,
+    '0','6','1','1','0','7','1','9','4','2','2','8','Z',23,13,'2','9','1','2',
+    '3','1','1','9','5','2','0','6','Z','0','J','1',11,'0',9,6,3,'U',4,6,19,2,
+    'U','S','1',' ','0',30,6,3,'U',4,10,19,23,'S','e','c','u','r','e','T','r',
+    'u','s','t',' ','C','o','r','p','o','r','a','t','i','o','n','1',25,'0',23,
+    6,3,'U',4,3,19,16,'S','e','c','u','r','e',' ','G','l','o','b','a','l',' ',
+    'C','A','0',130,1,'"','0',13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,1,
+    0x0f,0,'0',130,1,10,2,130,1,1,0,175,'5','.',216,172,'l','U','i',6,'q',229,
+    19,'h','$',0xb3,'O',216,204,'!','G',248,241,'`','8',137,137,3,233,189,234,
+    '^','F','S',0x09,220,92,245,'Z',232,247,'E','*',2,235,'1','a',215,')','3',
+    'L',0xce,199,'|',10,'7','~',15,186,'2',152,225,29,151,175,143,199,220,201,
+    '8',0x96,0xf3,0xdb,26,252,'Q',237,'h',198,208,'n',164,'|','$',209,174,'B',
+    0xc8,0x96,'P','c','.',224,254,'u',254,152,167,'_','I','.',149,227,'9','3',
+    'd',0x8e,30,164,'_',144,210,'g','<',178,217,254,'A',185,'U',167,9,142,'r',
+    0x05,30,139,221,'D',133,130,'B',208,'I',192,29,'`',240,209,23,',',149,235,
+    0xf6,165,193,146,163,197,194,167,8,'`',13,'`',4,16,150,'y',158,22,'4',230,
+    0xa9,0xb6,0xfa,'%','E','9',200,30,'e',249,147,245,170,241,'R',220,153,152,
+    '=',0xa5,0x86,26,0xc,'5','3',250,'K',165,4,6,21,28,'1',128,239,170,24,'k',
+    0xc2,'{',215,218,206,249,'3',' ',213,245,189,'j','3','-',129,4,251,176,92,
+    212,156,163,226,92,29,227,169,'B','u','^','{',212,'w',239,'9','T',186,201,
+    10,24,27,18,153,'I','/',136,'K',253,'P','b',209,'s',231,143,'z','C',2,3,1,
+    0,1,0xa3,129,157,'0',129,154,'0',19,6,9,'+',6,1,4,1,130,'7',20,2,4,6,30,4,
+    0x0,'C',0,'A','0',11,6,3,'U',29,15,4,4,3,2,1,134,'0',15,6,3,'U',29,19,1,1,
+    0xff,0x4,5,'0',3,1,1,255,'0',29,6,3,'U',29,14,4,22,4,20,175,'D',4,194,'A',
+    '~','H',131,219,'N','9',2,236,236,132,'z',230,206,201,164,'0','4',6,3,'U',
+    0x1d,31,4,'-','0','+','0',')',0xa0,39,160,'%',134,'#','h','t','t','p',':',
+    '/','/','c','r','l','.','s','e','c','u','r','e','t','r','u','s','t','.',
+    'c','o','m','/','S','G','C','A','.','c','r','l','0',0x10,6,9,'+',6,1,4,1,
+    0x82,'7',21,1,4,3,2,1,0,'0',13,6,9,'*',134,'H',134,247,13,1,1,5,5,0,3,130,
+    0x1,1,0,'c',26,8,'@','}',164,'^','S',13,'w',216,'z',174,31,13,11,'Q',22,3,
+    239,24,'|',200,227,175,'j','X',147,20,'`',145,178,132,220,136,'N',190,'9',
+    0x8a,':',0xf3,230,130,137,']',1,'7',179,171,'$',164,21,14,146,'5','Z','J',
+    'D','^','N','W',250,'u',206,31,'H',206,'f',244,'<','@','&',146,152,'l',27,
+    0xee,'$','F',0x0c,23,179,'R',165,219,165,145,145,207,'7',211,'o',231,39,8,
+    ':','N',0x19,31,':',167,'X',92,23,207,'y','?',139,228,167,211,'&','#',157,
+    '&',0x0f,'X','i',0xfc,'G','~',178,208,141,139,147,191,')','O','C','i','t',
+    'v','g','K',0xcf,0x7,140,230,2,247,181,225,180,'C',181,'K','-',20,159,249,
+    0xdc,'&',13,191,166,'G','t',6,216,136,209,':',')','0',132,206,210,'9',128,
+    'b',0x1b,168,199,'W','I',188,'j','U','Q','g',21,'J',190,'5',7,228,213,'u',
+    152,'7','y','0',20,219,')',157,'l',197,'i',204,'G','U',162,'0',247,204,92,
+    0x7f,194,195,152,28,'k','N',22,128,235,'z','x','e','E',162,0,26,175,12,13,
+    'U','d','4','H',184,146,185,241,180,'P',')',242,'O','#',31,218,'l',172,31,
+    'D',225,221,'#','x','Q','[',199,22,
+]
+
 
 /**
 Secure Global CA.
 SHA256 fingerprint: 42:00:f5:04:3a:c8:59:0e:bb:52:7d:20:9e:d1:50:30:29:fb:cb:d4:1c:a1:b5:06:ec:27:f1:5a:de:7d:ac:69
 */
-SECURE_GLOBAL_CA ::= net.Certificate.parse SECURE_GLOBAL_CA_TEXT_
+SECURE_GLOBAL_CA ::= parse_ SECURE_GLOBAL_CA_BYTES_
 
-COMODO_CERTIFICATION_AUTHORITY_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIEHTCCAwWgAwIBAgIQToEtioJl4AsC7j41AkblPTANBgkqhkiG9w0BAQUFADCB
-gTELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4G
-A1UEBxMHU2FsZm9yZDEaMBgGA1UEChMRQ09NT0RPIENBIExpbWl0ZWQxJzAlBgNV
-BAMTHkNPTU9ETyBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0eTAeFw0wNjEyMDEwMDAw
-MDBaFw0yOTEyMzEyMzU5NTlaMIGBMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3Jl
-YXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRowGAYDVQQKExFDT01P
-RE8gQ0EgTGltaXRlZDEnMCUGA1UEAxMeQ09NT0RPIENlcnRpZmljYXRpb24gQXV0
-aG9yaXR5MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0ECLi3LjkRv3
-UcEbVASY06m/weaKXTuH+7uIzg3jLz8GlvCiKVCZrts7oVewdFFxze1CkU1B/qnI
-2GqGd0S7WWaXUF601CxwRM/aN5VCaTwwxHGzUvAhTaHYujl8HJ6jJJ3ygxaYqhZ8
-Q5sVW7euNJH+1GImGEaaP+vB+fGQV+useg2L23IwambV4EajcNxo2f8ESIl33rXp
-+2dtQem8Ob0y2WIC8bGoPW43nOIv4tOiJovGuFVDiOEjPqXSJDlqR6sA1KGzqSX+
-DT+nHbrTUcELpNqsOO9VUCQFZUaTNE8tja3G1CEZ0o7KBWFxB3NH5YoZEr0ETc5O
-nKVIrLsm9wIDAQABo4GOMIGLMB0GA1UdDgQWBBQLWOWLxkwVN6RAqTCpIb5HNlpW
-/zAOBgNVHQ8BAf8EBAMCAQYwDwYDVR0TAQH/BAUwAwEB/zBJBgNVHR8EQjBAMD6g
-PKA6hjhodHRwOi8vY3JsLmNvbW9kb2NhLmNvbS9DT01PRE9DZXJ0aWZpY2F0aW9u
-QXV0aG9yaXR5LmNybDANBgkqhkiG9w0BAQUFAAOCAQEAPpiem/Yb6dc5t3iuHXIY
-SdOH5EOC6z/JqvWote9VfCFSZfnVDeFs9D6Mk3ORLgLETgdxb8CPOGEIqB6BCsAv
-IC9Bi5HcSEW88cbeunZrM8gALTFGTO3nnc+IlP8zwFboJIYmuNg4ON8qa90SzMc/
-RxdMosIGlgnW2/4/PEZB31jiVg88O8EckzXZOFKs7sjsLjBOlDW0JB9LeGna8gI4
-zJVSk/BwJVmcIGfE7vmLV2H0knZ9P4SNVbfo5azV8fUZVqZa+5Acr5Pr5RzUZ5dd
-BA6+C4OmF4O5MBKgxTMVBbkN+8cFduPYSo38NBejxiEovjBFMR7HeL5YYTisO+IB
-ZQ==
------END CERTIFICATE-----
-"""
+COMODO_CERTIFICATION_AUTHORITY_BYTES_ ::= #[
+    '0',0x82,4,29,'0',130,3,5,160,3,2,1,2,2,16,'N',129,'-',138,130,'e',224,11,
+    0x2,238,'>','5',2,'F',229,'=','0',13,6,9,'*',134,'H',134,247,13,1,1,5,5,0,
+    '0',129,129,'1',11,'0',9,6,3,'U',4,6,19,2,'G','B','1',27,'0',25,6,3,'U',4,
+    0x8,19,18,'G','r','e','a','t','e','r',' ','M','a','n','c','h','e','s','t',
+    'e','r','1',16,'0',14,6,3,'U',4,7,19,7,'S','a','l','f','o','r','d','1',26,
+    '0',24,6,3,'U',4,10,19,17,'C','O','M','O','D','O',' ','C','A',' ','L','i',
+    'm','i','t','e','d','1',39,'0','%',6,3,'U',4,3,19,30,'C','O','M','O','D',
+    'O',' ','C','e','r','t','i','f','i','c','a','t','i','o','n',' ','A','u',
+    't','h','o','r','i','t','y','0',30,23,0xd,'0','6','1','2','0','1','0','0',
+    '0','0','0','0','Z',23,13,'2','9','1','2','3','1','2','3','5','9','5','9',
+    'Z','0',0x81,0x81,'1',11,'0',9,6,3,'U',4,6,19,2,'G','B','1',27,'0',25,6,3,
+    'U',4,8,19,18,'G','r','e','a','t','e','r',' ','M','a','n','c','h','e','s',
+    't','e','r','1',0x10,'0',0xe,6,3,'U',4,7,19,7,'S','a','l','f','o','r','d',
+    '1',26,'0',24,6,3,'U',4,0xa,19,17,'C','O','M','O','D','O',' ','C','A',' ',
+    'L','i','m','i','t','e','d','1',39,'0','%',6,3,'U',4,3,19,30,'C','O','M',
+    'O','D','O',' ','C','e','r','t','i','f','i','c','a','t','i','o','n',' ',
+    'A','u','t','h','o','r','i','t','y','0',0x82,1,'"','0',13,6,9,'*',134,'H',
+    0x86,0xf7,0xd,1,1,1,5,0,3,130,1,15,0,'0',130,1,10,2,130,1,1,0,208,'@',139,
+    0x8b,'r',0xe3,145,27,247,'Q',193,27,'T',4,152,211,169,191,193,230,138,']',
+    ';',0x87,251,187,136,206,13,227,'/','?',6,150,240,162,')','P',153,174,219,
+    ';',0xa1,'W',0xb0,'t','Q','q',205,237,'B',145,'M','A',254,169,200,216,'j',
+    0x86,'w','D',0xbb,'Y','f',151,'P','^',180,212,',','p','D',207,218,'7',149,
+    'B','i','<','0',0xc4,'q',0xb3,'R',0xf0,'!','M',161,216,186,'9','|',28,158,
+    0xa3,'$',157,242,131,22,152,170,22,'|','C',155,21,'[',183,174,'4',145,254,
+    212,'b','&',24,'F',154,'?',235,193,249,241,144,'W',235,172,'z',13,139,219,
+    'r','0','j','f',213,224,'F',163,'p',220,'h',217,255,4,'H',137,'w',222,181,
+    233,251,'g','m','A',233,188,'9',189,'2',217,'b',2,241,177,168,'=','n','7',
+    0x9c,0xe2,'/',226,211,162,'&',139,198,184,'U','C',136,225,'#','>',165,210,
+    '$','9','j','G',0xab,0,0xd4,161,179,169,'%',254,13,'?',167,29,186,211,'Q',
+    0xc1,11,164,218,172,'8',239,'U','P','$',5,'e','F',147,'4','O','-',141,173,
+    0xc6,0xd4,'!',25,0xd2,142,202,5,'a','q',7,'s','G',229,138,25,18,189,4,'M',
+    206,'N',156,165,'H',172,187,'&',247,2,3,1,0,1,163,129,142,'0',129,139,'0',
+    29,6,3,'U',29,0xe,4,22,4,20,11,'X',229,139,198,'L',21,'7',164,'@',169,'0',
+    0xa9,'!',190,'G','6','Z','V',255,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,
+    '0',0x0f,6,3,'U',29,19,1,1,0xff,4,5,'0',3,1,1,255,'0','I',6,3,'U',29,31,4,
+    'B','0','@','0','>',0xa0,'<',0xa0,':',134,'8','h','t','t','p',':','/','/',
+    'c','r','l','.','c','o','m','o','d','o','c','a','.','c','o','m','/','C',
+    'O','M','O','D','O','C','e','r','t','i','f','i','c','a','t','i','o','n',
+    'A','u','t','h','o','r','i','t','y','.','c','r','l','0',0x0d,6,9,'*',0x86,
+    'H',0x86,0xf7,13,1,1,5,5,0,3,130,1,1,0,'>',152,158,155,246,27,233,215,'9',
+    183,'x',174,29,'r',24,'I',211,135,228,'C',130,235,'?',201,170,245,168,181,
+    0xef,'U','|','!','R','e',249,213,13,225,'l',244,'>',140,147,'s',145,'.',2,
+    196,'N',7,'q','o',192,143,'8','a',8,168,30,129,10,192,'/',' ','/','A',139,
+    145,220,'H','E',188,241,198,222,186,'v','k','3',200,0,'-','1','F','L',237,
+    0xe7,0x9d,207,136,148,255,'3',192,'V',232,'$',134,'&',184,216,'8','8',223,
+    '*','k',221,18,204,199,'?','G',23,'L',162,194,6,150,9,214,219,254,'?','<',
+    'F','A',223,'X',226,'V',15,'<',';',193,28,147,'5',217,'8','R',172,238,200,
+    0xec,'.','0','N',148,'5',180,'$',31,'K','x','i',218,242,2,'8',204,149,'R',
+    0x93,0xf0,'p','%','Y',156,' ','g',196,238,249,139,'W','a',244,146,'v','}',
+    '?',132,141,'U',183,232,229,172,213,241,245,25,'V',166,'Z',251,144,28,175,
+    0x93,235,229,28,212,'g',151,']',4,14,190,11,131,166,23,131,185,'0',18,160,
+    0xc5,'3',21,5,185,13,251,199,5,'v',227,216,'J',141,252,'4',23,163,198,'!',
+    '(',190,'0','E','1',30,199,'x',190,'X','a','8',172,';',226,1,'e',
+]
+
 
 /**
 COMODO Certification Authority.
 SHA256 fingerprint: 0c:2c:d6:3d:f7:80:6f:a3:99:ed:e8:09:11:6b:57:5b:f8:79:89:f0:65:18:f9:80:8c:86:05:03:17:8b:af:66
 */
-COMODO_CERTIFICATION_AUTHORITY ::= net.Certificate.parse COMODO_CERTIFICATION_AUTHORITY_TEXT_
+COMODO_CERTIFICATION_AUTHORITY ::= parse_ COMODO_CERTIFICATION_AUTHORITY_BYTES_
 
-NETWORK_SOLUTIONS_CERTIFICATE_AUTHORITY_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIID5jCCAs6gAwIBAgIQV8szb8JcFuZHFhfjkDFo4DANBgkqhkiG9w0BAQUFADBi
-MQswCQYDVQQGEwJVUzEhMB8GA1UEChMYTmV0d29yayBTb2x1dGlvbnMgTC5MLkMu
-MTAwLgYDVQQDEydOZXR3b3JrIFNvbHV0aW9ucyBDZXJ0aWZpY2F0ZSBBdXRob3Jp
-dHkwHhcNMDYxMjAxMDAwMDAwWhcNMjkxMjMxMjM1OTU5WjBiMQswCQYDVQQGEwJV
-UzEhMB8GA1UEChMYTmV0d29yayBTb2x1dGlvbnMgTC5MLkMuMTAwLgYDVQQDEydO
-ZXR3b3JrIFNvbHV0aW9ucyBDZXJ0aWZpY2F0ZSBBdXRob3JpdHkwggEiMA0GCSqG
-SIb3DQEBAQUAA4IBDwAwggEKAoIBAQDkvH6SMG3G2I4rC7xGzuAnlt7e+foS0zwz
-c7MEL7xxjOWftiJgPl9dzgn/ggwbmlFQGiaJ3dVhXRncEg8tCqJDXRfQNJIg6nPP
-OCwGJgl6cvf6UDL4wpPTaaIjzkGxzOTVHzbRijr4jGPiFFlp7Q3Tf2vouAPlT2rl
-mGNpSAW+Lv8ztumXWWn4Zxmuk2GWRBXTcrA/vGp97Eh/jcOrqnErU2lBUzS1sLnF
-BgrEsEX1QV1uiUV7PTsmjHTC5dLRfbIR1PtYMiKagMnc/Qzpf14Dl847ABSHJ3A4
-qY5usyd2mFHgBeMhqxrVhSI8KbWaFsWAqPS7azCPL0YCorEMIuDTAgMBAAGjgZcw
-gZQwHQYDVR0OBBYEFCEwyfsA106Y2oeqKtCnLrFAMadMMA4GA1UdDwEB/wQEAwIB
-BjAPBgNVHRMBAf8EBTADAQH/MFIGA1UdHwRLMEkwR6BFoEOGQWh0dHA6Ly9jcmwu
-bmV0c29sc3NsLmNvbS9OZXR3b3JrU29sdXRpb25zQ2VydGlmaWNhdGVBdXRob3Jp
-dHkuY3JsMA0GCSqGSIb3DQEBBQUAA4IBAQC7rkvnt1frf6ott3NHhWrB5KUd5Oc8
-6fRZZXe1eltajSU24HqXLjjAV2CDmAaDn7l2em5Q4LqILPxFzBiwmZVRDuwduIj/
-h1AcgsLj4DKAv6ALR8jDMe+ZZzKATxcheQxpXN5eNK4CtSbqUN9/GGUsyfJj4akH
-/nxxH2szJGoeBfcFaMBqEssuXmHLrijTfsK0ZpEmXzwuJF/LWA/rKOyvEZbz3Htv
-wKeI8lN3s2Berq4o2jUsbzRF0ybh3uxbTydrFny9RAQYgrOJeRcQcT16ohZO9QHN
-pGxlaKFJdlxDydi8NmdspZS11My5vWo1ViHe2MPr+8ukYEywVaCge1ey
------END CERTIFICATE-----
-"""
+NETWORK_SOLUTIONS_CERTIFICATE_AUTHORITY_BYTES_ ::= #[
+    '0',0x82,0x3,230,'0',130,2,206,160,3,2,1,2,2,16,'W',203,'3','o',194,92,22,
+    230,'G',22,23,227,144,'1','h',224,'0',13,6,9,'*',134,'H',134,247,13,1,1,5,
+    5,0,'0','b','1',0xb,'0',9,6,3,'U',4,6,19,2,'U','S','1','!','0',31,6,3,'U',
+    0x04,10,19,24,'N','e','t','w','o','r','k',' ','S','o','l','u','t','i','o',
+    'n','s',' ','L','.','L','.','C','.','1','0','0','.',6,3,'U',4,3,19,39,'N',
+    'e','t','w','o','r','k',' ','S','o','l','u','t','i','o','n','s',' ','C',
+    'e','r','t','i','f','i','c','a','t','e',' ','A','u','t','h','o','r','i',
+    't','y','0',30,23,0xd,'0','6','1','2','0','1','0','0','0','0','0','0','Z',
+    23,0xd,'2','9','1','2','3','1','2','3','5','9','5','9','Z','0','b','1',11,
+    '0',9,6,3,'U',4,6,19,2,'U','S','1','!','0',31,6,3,'U',4,0xa,19,24,'N','e',
+    't','w','o','r','k',' ','S','o','l','u','t','i','o','n','s',' ','L','.',
+    'L','.','C','.','1','0','0','.',6,3,'U',4,3,19,39,'N','e','t','w','o','r',
+    'k',' ','S','o','l','u','t','i','o','n','s',' ','C','e','r','t','i','f',
+    'i','c','a','t','e',' ','A','u','t','h','o','r','i','t','y','0',130,1,'"',
+    '0',0x0d,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,1,15,0,'0',130,1,10,2,
+    0x82,1,1,0,0xe4,188,'~',146,'0','m',198,216,142,'+',11,188,'F',206,224,39,
+    0x96,222,222,249,250,18,211,'<','3','s',179,4,'/',188,'q',140,229,159,182,
+    '"','`','>','_',']',0xce,0x9,255,130,12,27,154,'Q','P',26,'&',137,221,213,
+    'a',']',0x19,0xdc,18,15,'-',10,162,'C',']',23,208,'4',146,' ',234,'s',207,
+    '8',',',0x6,'&',9,'z','r',247,250,'P','2',248,194,147,211,'i',162,'#',206,
+    'A',0xb1,204,228,213,31,'6',209,138,':',248,140,'c',226,20,'Y','i',237,13,
+    0xd3,0x7f,'k',232,184,3,229,'O','j',229,152,'c','i','H',5,190,'.',255,'3',
+    182,233,151,'Y','i',248,'g',25,174,147,'a',150,'D',21,211,'r',176,'?',188,
+    'j','}',0xec,'H',0x7f,141,195,171,170,'q','+','S','i','A','S','4',181,176,
+    0xb9,197,6,10,196,176,'E',245,'A',']','n',137,'E','{','=',';','&',140,'t',
+    194,229,210,209,'}',178,17,212,251,'X','2','"',154,128,201,220,253,12,233,
+    0x7f,'^',3,151,206,';',0,20,135,39,'p','8',169,142,'n',179,39,'v',152,'Q',
+    0xe0,5,0xe3,'!',171,26,213,133,'"','<',')',181,154,22,197,128,168,244,187,
+    'k','0',0x8f,'/','F',0x2,162,177,12,'"',224,211,2,3,1,0,1,163,129,151,'0',
+    0x81,148,'0',29,6,3,'U',29,14,4,22,4,20,'!','0',201,251,0,215,'N',152,218,
+    0x87,170,'*',208,167,'.',177,'@','1',167,'L','0',14,6,3,'U',29,15,1,1,255,
+    0x04,4,3,2,1,6,'0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0','R',6,3,
+    'U',0x1d,31,4,'K','0','I','0','G',160,'E',160,'C',134,'A','h','t','t','p',
+    ':','/','/','c','r','l','.','n','e','t','s','o','l','s','s','l','.','c',
+    'o','m','/','N','e','t','w','o','r','k','S','o','l','u','t','i','o','n',
+    's','C','e','r','t','i','f','i','c','a','t','e','A','u','t','h','o','r',
+    'i','t','y','.','c','r','l','0',13,6,9,'*',134,'H',134,247,13,1,1,5,5,0,3,
+    130,1,1,0,187,174,'K',231,183,'W',235,127,170,'-',183,'s','G',133,'j',193,
+    0xe4,0xa5,29,0xe4,231,'<',233,244,'Y','e','w',181,'z','[','Z',141,'%','6',
+    224,'z',151,'.','8',192,'W','`',131,152,6,131,159,185,'v','z','n','P',224,
+    0xba,136,',',252,'E',204,24,176,153,149,'Q',14,236,29,184,136,255,135,'P',
+    28,130,194,227,224,'2',128,191,160,11,'G',200,195,'1',239,153,'g','2',128,
+    'O',23,'!','y',12,'i',92,222,'^','4',174,2,181,'&',234,'P',223,127,24,'e',
+    ',',0xc9,0xf2,'c',225,169,7,254,'|','q',31,'k','3','$','j',30,5,247,5,'h',
+    0xc0,'j',0x12,203,'.','^','a',203,174,'(',211,'~',194,180,'f',145,'&','_',
+    '<','.','$','_',203,'X',15,235,'(',236,175,17,150,243,220,'{','o',192,167,
+    0x88,0xf2,'S','w',179,'`','^',174,174,'(',218,'5',',','o','4','E',211,'&',
+    0xe1,222,236,'[','O',39,'k',22,'|',189,'D',4,24,130,179,137,'y',23,16,'q',
+    '=','z',0xa2,22,'N',0xf5,1,205,164,'l','e','h',161,'I','v',92,'C',201,216,
+    0xbc,'6','g','l',0xa5,148,181,212,204,185,189,'j','5','V','!',222,216,195,
+    235,251,203,164,'`','L',176,'U',160,160,'{','W',178,
+]
+
 
 /**
 Network Solutions Certificate Authority.
 SHA256 fingerprint: 15:f0:ba:00:a3:ac:7a:f3:ac:88:4c:07:2b:10:11:a0:77:bd:77:c0:97:f4:01:64:b2:f8:59:8a:bd:83:86:0c
 */
-NETWORK_SOLUTIONS_CERTIFICATE_AUTHORITY ::= net.Certificate.parse NETWORK_SOLUTIONS_CERTIFICATE_AUTHORITY_TEXT_
+NETWORK_SOLUTIONS_CERTIFICATE_AUTHORITY ::= parse_ NETWORK_SOLUTIONS_CERTIFICATE_AUTHORITY_BYTES_
 
-COMODO_ECC_CERTIFICATION_AUTHORITY_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIICiTCCAg+gAwIBAgIQH0evqmIAcFBUTAGem2OZKjAKBggqhkjOPQQDAzCBhTEL
-MAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UE
-BxMHU2FsZm9yZDEaMBgGA1UEChMRQ09NT0RPIENBIExpbWl0ZWQxKzApBgNVBAMT
-IkNPTU9ETyBFQ0MgQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkwHhcNMDgwMzA2MDAw
-MDAwWhcNMzgwMTE4MjM1OTU5WjCBhTELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdy
-ZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgGA1UEChMRQ09N
-T0RPIENBIExpbWl0ZWQxKzApBgNVBAMTIkNPTU9ETyBFQ0MgQ2VydGlmaWNhdGlv
-biBBdXRob3JpdHkwdjAQBgcqhkjOPQIBBgUrgQQAIgNiAAQDR3svdcmCFYX7deSR
-FtSrYpn1PlILBs5BAH+X4QokPB0BBO490o0JlwzgdeT6+3eKKvUDYEs2ixYjFq0J
-cfRK9ChQtP6IHG4/bC8vCVlbpVsLM5niwz2J+Wos77LTBumjQjBAMB0GA1UdDgQW
-BBR1cacZSBm8nZ3qQUfflMRId5nTeTAOBgNVHQ8BAf8EBAMCAQYwDwYDVR0TAQH/
-BAUwAwEB/zAKBggqhkjOPQQDAwNoADBlAjEA7wNbeqy3eApyt4jf/7VGFAkK+qDm
-fQjGGoe9GKhzvSbKYAydzpmfz1wPMOG+FDHqAjAU9JM8SaczepBGR7NjfRObTrdv
-GDeAU/7dIOA1mjbRxwG55tzd8/8dLDoWV9mSOdY=
------END CERTIFICATE-----
-"""
+COMODO_ECC_CERTIFICATION_AUTHORITY_BYTES_ ::= #[
+    '0',0x82,2,137,'0',130,2,15,160,3,2,1,2,2,16,31,'G',175,170,'b',0,'p','P',
+    'T','L',0x01,158,155,'c',153,'*','0',10,6,8,'*',134,'H',206,'=',4,3,3,'0',
+    0x81,0x85,'1',11,'0',9,6,3,'U',4,6,19,2,'G','B','1',27,'0',25,6,3,'U',4,8,
+    19,18,'G','r','e','a','t','e','r',' ','M','a','n','c','h','e','s','t','e',
+    'r','1',16,'0',14,6,3,'U',4,7,19,7,'S','a','l','f','o','r','d','1',26,'0',
+    24,6,3,'U',4,10,19,17,'C','O','M','O','D','O',' ','C','A',' ','L','i','m',
+    'i','t','e','d','1','+','0',')',0x06,3,'U',4,3,19,'"','C','O','M','O','D',
+    'O',' ','E','C','C',' ','C','e','r','t','i','f','i','c','a','t','i','o',
+    'n',' ','A','u','t','h','o','r','i','t','y','0',30,23,0xd,'0','8','0','3',
+    '0','6','0','0','0','0','0','0','Z',23,13,'3','8','0','1','1','8','2','3',
+    '5','9','5','9','Z','0',129,133,'1',11,'0',9,6,3,'U',4,6,19,2,'G','B','1',
+    0x1b,'0',25,6,3,'U',4,8,19,18,'G','r','e','a','t','e','r',' ','M','a','n',
+    'c','h','e','s','t','e','r','1',0x10,'0',0xe,6,3,'U',4,7,19,7,'S','a','l',
+    'f','o','r','d','1',26,'0',24,6,3,'U',4,0xa,19,17,'C','O','M','O','D','O',
+    ' ','C','A',' ','L','i','m','i','t','e','d','1','+','0',')',0x6,3,'U',4,3,
+    0x13,'"','C','O','M','O','D','O',' ','E','C','C',' ','C','e','r','t','i',
+    'f','i','c','a','t','i','o','n',' ','A','u','t','h','o','r','i','t','y',
+    '0','v','0',16,6,7,'*',0x86,'H',206,'=',2,1,6,5,'+',129,4,0,'"',3,'b',0,4,
+    0x3,'G','{','/','u',201,130,21,133,251,'u',228,145,22,212,171,'b',153,245,
+    '>','R',0x0b,6,0xce,'A',0,127,151,225,10,'$','<',29,1,4,238,'=',210,141,9,
+    0x97,0x0c,224,'u',228,250,251,'w',138,'*',245,3,'`','K','6',139,22,'#',22,
+    0xad,0x9,'q',244,'J',244,'(','P',180,254,136,28,'n','?','l','/','/',9,'Y',
+    '[',0xa5,'[',11,'3',153,226,195,'=',137,249,'j',',',239,178,211,6,233,163,
+    'B','0','@','0',29,6,3,'U',29,0xe,4,22,4,20,'u','q',167,25,'H',25,188,157,
+    0x9d,234,'A','G',223,148,196,'H','w',153,211,'y','0',14,6,3,'U',29,15,1,1,
+    255,4,4,3,2,1,6,'0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',10,6,8,
+    '*',0x86,'H',0xce,'=',4,3,3,3,'h',0,'0','e',2,'1',0,239,3,'[','z',172,183,
+    'x',0x0a,'r',183,136,223,255,181,'F',20,9,10,250,160,230,'}',8,198,26,135,
+    0xbd,24,0xa8,'s',189,'&',202,'`',12,157,206,153,159,207,92,15,'0',225,190,
+    0x14,'1',234,2,'0',20,244,147,'<','I',167,'3','z',144,'F','G',179,'c','}',
+    0x13,155,'N',183,'o',24,'7',128,'S',254,221,' ',224,'5',154,'6',209,199,1,
+    185,230,220,221,243,255,29,',',':',22,'W',217,146,'9',214,
+]
+
 
 /**
 COMODO ECC Certification Authority.
 SHA256 fingerprint: 17:93:92:7a:06:14:54:97:89:ad:ce:2f:8f:34:f7:f0:b6:6d:0f:3a:e3:a3:b8:4d:21:ec:15:db:ba:4f:ad:c7
 */
-COMODO_ECC_CERTIFICATION_AUTHORITY ::= net.Certificate.parse COMODO_ECC_CERTIFICATION_AUTHORITY_TEXT_
+COMODO_ECC_CERTIFICATION_AUTHORITY ::= parse_ COMODO_ECC_CERTIFICATION_AUTHORITY_BYTES_
 
-CERTIGNA_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIDqDCCApCgAwIBAgIJAP7c4wEPyUj/MA0GCSqGSIb3DQEBBQUAMDQxCzAJBgNV
-BAYTAkZSMRIwEAYDVQQKDAlEaGlteW90aXMxETAPBgNVBAMMCENlcnRpZ25hMB4X
-DTA3MDYyOTE1MTMwNVoXDTI3MDYyOTE1MTMwNVowNDELMAkGA1UEBhMCRlIxEjAQ
-BgNVBAoMCURoaW15b3RpczERMA8GA1UEAwwIQ2VydGlnbmEwggEiMA0GCSqGSIb3
-DQEBAQUAA4IBDwAwggEKAoIBAQDIaPHJ1tazNHUmgh7stL7qXOEm7RFHYeGifBZ4
-QCHkYJ5ayGPhxLGWkv8YbWkj4Sti993iNi+RB7lIzw7sebYs5zRLcAglozyHGxny
-gQcPOJAZ0xH+hrTy0V4eHpbNgGzOOzGTtvKg0KmVEn2lmsxryIRWijOp5yIVUxbw
-zBfsV1/pogqYCd7jX5xv3EjjhQsVWqa6n6xI4wmy9/Qy3l40vhx4XUJbzg4ij02Q
-130yGLMLLGq/jj8UEYkgDncUtT2UCIf3JR7VsmAA7G8qKCVuKj4YYxclPz5EIBb2
-JsglrgVKtOdjLPOMFlN+XPsRGgjBRmKfIrjxwo1p3Po6WAbfAgMBAAGjgbwwgbkw
-DwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUGu3+QTmQtCRZvgHyUtVF9lo53BEw
-ZAYDVR0jBF0wW4AUGu3+QTmQtCRZvgHyUtVF9lo53BGhOKQ2MDQxCzAJBgNVBAYT
-AkZSMRIwEAYDVQQKDAlEaGlteW90aXMxETAPBgNVBAMMCENlcnRpZ25hggkA/tzj
-AQ/JSP8wDgYDVR0PAQH/BAQDAgEGMBEGCWCGSAGG+EIBAQQEAwIABzANBgkqhkiG
-9w0BAQUFAAOCAQEAhQMeknH2Qq/ho2Ge6/PAD/Kl1NqV5ta+aDY9fm4fTIrv0Q8h
-bV6lUmPOEvjvKtpv6zf+EwLHyzs+ImvaYS5/1HI93TDhHkxAGYwP15zRgzB7mFnc
-fca5DClMoTOi62c6ZYTTluLtdkVwj7Ur3vkj1kluPBS1xp81HlDQwY9qcEQCYsuu
-HWhBp6pX6FOqB9IG9tUUBguRA3UsbHK1YZWaDYu5Def131TN3ubY1gkIl2PlwS6w
-t0QmwCbAr1UwnjvVNioZBPRcHv/PLLf/0P2HQBHVESO7SMAhqaQoLf0V+LBOK/Qw
-WyH8EZE0vkHve52Xdf+XlcCWWC/qu0bXu+TZLg==
------END CERTIFICATE-----
-"""
+CERTIGNA_BYTES_ ::= #[
+    '0',0x82,0x3,168,'0',130,2,144,160,3,2,1,2,2,9,0,254,220,227,1,15,201,'H',
+    0xff,'0',13,6,9,'*',134,'H',134,247,13,1,1,5,5,0,'0','4','1',11,'0',9,6,3,
+    'U',4,6,19,2,'F','R','1',18,'0',16,6,3,'U',4,0xa,12,9,'D','h','i','m','y',
+    'o','t','i','s','1',0x11,'0',0xf,6,3,'U',4,3,12,8,'C','e','r','t','i','g',
+    'n','a','0',30,23,0xd,'0','7','0','6','2','9','1','5','1','3','0','5','Z',
+    23,0xd,'2','7','0','6','2','9','1','5','1','3','0','5','Z','0','4','1',11,
+    '0',0x09,6,3,'U',4,6,19,2,'F','R','1',18,'0',16,6,3,'U',4,10,12,9,'D','h',
+    'i','m','y','o','t','i','s','1',0x11,'0',0xf,6,3,'U',4,3,12,8,'C','e','r',
+    't','i','g','n','a','0',130,1,'"','0',13,6,9,'*',134,'H',134,247,13,1,1,1,
+    5,0,3,130,1,15,0,'0',130,1,10,2,130,1,1,0,200,'h',241,201,214,214,179,'4',
+    'u','&',0x82,30,0xec,180,190,234,92,225,'&',237,17,'G','a',225,162,'|',22,
+    'x','@','!',0xe4,'`',0x9e,'Z',0xc8,'c',225,196,177,150,146,255,24,'m','i',
+    '#',0xe1,'+','b',247,221,226,'6','/',145,7,185,'H',207,14,236,'y',182,',',
+    0xe7,'4','K','p',0x8,'%',163,'<',135,27,25,242,129,7,15,'8',144,25,211,17,
+    254,134,180,242,209,'^',30,30,150,205,128,'l',206,';','1',147,182,242,160,
+    208,169,149,18,'}',165,154,204,'k',200,132,'V',138,'3',169,231,'"',21,'S',
+    0x16,0xf0,204,23,236,'W','_',233,162,10,152,9,222,227,'_',156,'o',220,'H',
+    0xe3,0x85,11,21,'Z',166,186,159,172,'H',227,9,178,247,244,'2',222,'^','4',
+    0xbe,28,'x',']','B','[',0xce,14,'"',143,'M',144,215,'}','2',24,179,11,',',
+    'j',0xbf,142,'?',20,17,137,' ',14,'w',20,181,'=',148,8,135,247,'%',30,213,
+    0xb2,'`',0,0xec,'o','*','(','%','n','*','>',24,'c',23,'%','?','>','D',' ',
+    22,246,'&',200,'%',174,5,'J',180,231,'c',',',243,140,22,'S','~',92,251,17,
+    26,8,0xc1,'F','b',159,'"',184,241,194,141,'i',220,250,':','X',6,223,2,3,1,
+    0x00,1,163,129,188,'0',129,185,'0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,
+    255,'0',29,6,3,'U',29,14,4,22,4,20,26,237,254,'A','9',144,180,'$','Y',190,
+    1,242,'R',213,'E',246,'Z','9',220,17,'0','d',6,3,'U',29,'#',4,']','0','[',
+    0x80,20,26,0xed,254,'A','9',144,180,'$','Y',190,1,242,'R',213,'E',246,'Z',
+    '9',0xdc,17,161,'8',164,'6','0','4','1',11,'0',9,6,3,'U',4,6,19,2,'F','R',
+    '1',0x12,'0',16,6,3,'U',4,10,12,9,'D','h','i','m','y','o','t','i','s','1',
+    0x11,'0',0xf,6,3,'U',4,3,12,8,'C','e','r','t','i','g','n','a',130,9,0,254,
+    0xdc,227,1,15,201,'H',255,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',17,
+    6,9,'`',0x86,'H',1,134,248,'B',1,1,4,4,3,2,0,7,'0',13,6,9,'*',134,'H',134,
+    247,13,1,1,5,5,0,3,130,1,1,0,133,3,30,146,'q',246,'B',175,225,163,'a',158,
+    235,243,192,15,242,165,212,218,149,230,214,190,'h','6','=','~','n',31,'L',
+    138,239,209,15,'!','m','^',165,'R','c',206,18,248,239,'*',218,'o',235,'7',
+    0xfe,19,2,199,203,';','>','"','k',218,'a','.',127,212,'r','=',221,'0',225,
+    0x1e,'L','@',25,140,15,215,156,209,131,'0','{',152,'Y',220,'}',198,185,12,
+    ')','L',0xa1,'3',0xa2,235,'g',':','e',132,211,150,226,237,'v','E','p',143,
+    181,'+',222,249,'#',214,'I','n','<',20,181,198,159,'5',30,'P',208,193,143,
+    'j','p','D',2,'b',0xcb,174,29,'h','A',167,170,'W',232,'S',170,7,210,6,246,
+    0xd5,20,6,0xb,145,3,'u',',','l','r',181,'a',149,154,13,139,185,13,231,245,
+    0xdf,'T',0xcd,222,230,216,214,9,8,151,'c',229,193,'.',176,183,'D','&',192,
+    '&',0xc0,0xaf,'U','0',0x9e,';',213,'6','*',25,4,244,92,30,255,207,',',183,
+    0xff,208,253,135,'@',17,213,17,'#',187,'H',192,'!',169,164,'(','-',253,21,
+    0xf8,0xb0,'N','+',0xf4,'0','[','!',252,17,145,'4',190,'A',239,'{',157,151,
+    'u',255,151,149,192,150,'X','/',234,187,'F',215,187,228,217,'.',
+]
+
 
 /**
 Certigna.
 SHA256 fingerprint: e3:b6:a2:db:2e:d7:ce:48:84:2f:7a:c5:32:41:c7:b7:1d:54:14:4b:fb:40:c1:1f:3f:1d:0b:42:f5:ee:a1:2d
 */
-CERTIGNA ::= net.Certificate.parse CERTIGNA_TEXT_
+CERTIGNA ::= parse_ CERTIGNA_BYTES_
 
-CYBERTRUST_GLOBAL_ROOT_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIDoTCCAomgAwIBAgILBAAAAAABD4WqLUgwDQYJKoZIhvcNAQEFBQAwOzEYMBYG
-A1UEChMPQ3liZXJ0cnVzdCwgSW5jMR8wHQYDVQQDExZDeWJlcnRydXN0IEdsb2Jh
-bCBSb290MB4XDTA2MTIxNTA4MDAwMFoXDTIxMTIxNTA4MDAwMFowOzEYMBYGA1UE
-ChMPQ3liZXJ0cnVzdCwgSW5jMR8wHQYDVQQDExZDeWJlcnRydXN0IEdsb2JhbCBS
-b290MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA+Mi8vRRQZhP/8NN5
-7CPytxrHjoXxEnOmGaoQ25yiZXRadz5RfVb23CO21O1fWLE3TdVJDm71aofW0ozS
-J8bi/zafmGWgE07GKmSb1ZASzxQG9Dvj1Ci+6A74q05IlG2OlTEQXO2iLb3VOm2y
-HLtgwEZLAfVJrn5GitB0jaEMAs7u/OePuGtm839EAL9mJRQr3RAwHQeWP032a7iP
-t3sMpTjr3kfb1V05/Iin89cqdPHoWqI7n1C6poxFNcJQZZXcY4Lv3b93TZxiyWNz
-FtApD0mpSPCzqrdsxacwOUBdrsTiXSZT8M4cIwhhqJQZugRiQOwfOHB3EgZxpzAY
-XSUnpQIDAQABo4GlMIGiMA4GA1UdDwEB/wQEAwIBBjAPBgNVHRMBAf8EBTADAQH/
-MB0GA1UdDgQWBBS2CHsNesysIEyGVjJez6tuhS1wVzA/BgNVHR8EODA2MDSgMqAw
-hi5odHRwOi8vd3d3Mi5wdWJsaWMtdHJ1c3QuY29tL2NybC9jdC9jdHJvb3QuY3Js
-MB8GA1UdIwQYMBaAFLYIew16zKwgTIZWMl7Pq26FLXBXMA0GCSqGSIb3DQEBBQUA
-A4IBAQBW7wojoFROlZfJ+InaRcHUowAl9B8Tq7ejhVhpwjCt2BWKLePJzYFa+HMj
-Wqd8BfP9IjsO0QbE2zZMcwSO5bAi5MXzLqXZI+O4Tkogp24CJJ8iYGd7ix1yCcUx
-XOl5n4BHPa2hCwcUPUf/A2kaDAtE52Mlp3+yybh2hO0j9n0Hq0V+09+zv+mKts2o
-omcrUtW3ZfA5TGOgkXmTUg9U3YO7n9GPp1Nzw8v/MOx8BLjYRB+TX3EJIrduPuoc
-A06dGiBh+4E37F78CkWr1+cXVdCg6mCbpvbjjFspwgZgFJ0tl0ypkxWdYcQBX0jW
-WL1WMRJOEcgh4LMRkWXbtKaIOM5V
------END CERTIFICATE-----
-"""
+CYBERTRUST_GLOBAL_ROOT_BYTES_ ::= #[
+    '0',0x82,3,0xa1,'0',130,2,137,160,3,2,1,2,2,11,4,0,0,0,0,1,15,133,170,'-',
+    'H','0',13,6,9,'*',134,'H',134,247,13,1,1,5,5,0,'0',';','1',24,'0',22,6,3,
+    'U',0x04,10,19,15,'C','y','b','e','r','t','r','u','s','t',',',' ','I','n',
+    'c','1',0x1f,'0',29,6,3,'U',4,3,19,22,'C','y','b','e','r','t','r','u','s',
+    't',' ','G','l','o','b','a','l',' ','R','o','o','t','0',30,23,0xd,'0','6',
+    '1','2','1','5','0','8','0','0','0','0','Z',23,13,'2','1','1','2','1','5',
+    '0','8','0','0','0','0','Z','0',';','1',24,'0',22,6,3,'U',4,0xa,19,15,'C',
+    'y','b','e','r','t','r','u','s','t',',',' ','I','n','c','1',31,'0',29,6,3,
+    'U',4,3,19,22,'C','y','b','e','r','t','r','u','s','t',' ','G','l','o','b',
+    'a','l',' ','R','o','o','t','0',0x82,1,'"','0',13,6,9,'*',134,'H',134,247,
+    13,1,1,1,5,0,3,130,1,15,0,'0',130,1,10,2,130,1,1,0,248,200,188,189,20,'P',
+    'f',0x13,255,240,211,'y',236,'#',242,183,26,199,142,133,241,18,'s',166,25,
+    0xaa,0x10,219,156,162,'e','t','Z','w','>','Q','}','V',246,220,'#',182,212,
+    237,'_','X',177,'7','M',213,'I',14,'n',245,'j',135,214,210,140,210,39,198,
+    0xe2,0xff,'6',0x9f,152,'e',160,19,'N',198,'*','d',155,213,144,18,207,20,6,
+    0xf4,';',227,212,'(',190,232,14,248,171,'N','H',148,'m',142,149,'1',16,92,
+    0xed,162,'-',189,213,':','m',178,28,187,'`',192,'F','K',1,245,'I',174,'~',
+    'F',0x8a,208,'t',141,161,12,2,206,238,252,231,143,184,'k','f',243,127,'D',
+    0,0xbf,'f','%',20,'+',221,16,'0',29,7,150,'?','M',246,'k',184,143,183,'{',
+    0x0c,0xa5,'8',235,222,'G',219,213,']','9',252,136,167,243,215,'*','t',241,
+    0xe8,'Z',0xa2,';',159,'P',186,166,140,'E','5',194,'P','e',149,220,'c',130,
+    239,221,191,'w','M',156,'b',201,'c','s',22,208,')',15,'I',169,'H',240,179,
+    0xaa,0xb7,'l',0xc5,167,'0','9','@',']',174,196,226,']','&','S',240,206,28,
+    '#',8,'a',168,148,25,186,4,'b','@',236,31,'8','p','w',18,6,'q',167,'0',24,
+    ']','%',39,165,2,3,1,0,1,163,129,165,'0',129,162,'0',14,6,3,'U',29,15,1,1,
+    255,4,4,3,2,1,6,'0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',29,6,3,
+    'U',29,0xe,4,22,4,20,182,8,'{',13,'z',204,172,' ','L',134,'V','2','^',207,
+    0xab,'n',0x85,'-','p','W','0','?',6,3,'U',29,31,4,'8','0','6','0','4',160,
+    '2',0xa0,'0',0x86,'.','h','t','t','p',':','/','/','w','w','w','2','.','p',
+    'u','b','l','i','c','-','t','r','u','s','t','.','c','o','m','/','c','r',
+    'l','/','c','t','/','c','t','r','o','o','t','.','c','r','l','0',0x1f,6,3,
+    'U',0x1d,'#',4,24,'0',22,0x80,20,182,8,'{',13,'z',204,172,' ','L',134,'V',
+    '2','^',207,171,'n',133,'-','p','W','0',13,6,9,'*',134,'H',134,247,13,1,1,
+    5,5,0,3,0x82,1,1,0,'V',239,10,'#',160,'T','N',149,151,201,248,137,218,'E',
+    0xc1,0xd4,0xa3,0,'%',244,31,19,171,183,163,133,'X','i',194,'0',173,216,21,
+    0x8a,'-',227,201,205,129,'Z',248,'s','#','Z',167,'|',5,243,253,'"',';',14,
+    0xd1,6,0xc4,219,'6','L','s',4,142,229,176,'"',228,197,243,'.',165,217,'#',
+    0xe3,0xb8,'N','J',' ',0xa7,'n',2,'$',159,'"','`','g','{',139,29,'r',9,197,
+    '1',92,233,'y',159,128,'G','=',173,161,11,7,20,'=','G',255,3,'i',26,12,11,
+    'D',231,'c','%',167,127,178,201,184,'v',132,237,'#',246,'}',7,171,'E','~',
+    0xd3,0xdf,179,191,233,138,182,205,168,162,'g','+','R',213,183,'e',240,'9',
+    'L','c',0xa0,0x91,'y',0x93,'R',15,'T',221,131,187,159,209,143,167,'S','s',
+    0xc3,0xcb,0xff,'0',236,'|',4,184,216,'D',31,147,'_','q',9,'"',183,'n','>',
+    234,28,3,'N',157,26,' ','a',251,129,'7',236,'^',252,10,'E',171,215,231,23,
+    'U',0xd0,160,234,'`',155,166,246,227,140,'[',')',194,6,'`',20,157,'-',151,
+    'L',0xa9,0x93,21,0x9d,'a',196,1,'_','H',214,'X',189,'V','1',18,'N',17,200,
+    '!',224,179,17,145,'e',219,180,166,136,'8',206,'U',
+]
+
 
 /**
-Cybertrust Global Root
+Cybertrust Global Root.
 Deprecated.  This certificate has expired.
 */
-CYBERTRUST_GLOBAL_ROOT ::= net.Certificate.parse CYBERTRUST_GLOBAL_ROOT_TEXT_
+CYBERTRUST_GLOBAL_ROOT ::= parse_ CYBERTRUST_GLOBAL_ROOT_BYTES_
 
-EPKI_ROOT_CERTIFICATION_AUTHORITY_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIFsDCCA5igAwIBAgIQFci9ZUdcr7iXAF7kBtK8nTANBgkqhkiG9w0BAQUFADBe
-MQswCQYDVQQGEwJUVzEjMCEGA1UECgwaQ2h1bmdod2EgVGVsZWNvbSBDby4sIEx0
-ZC4xKjAoBgNVBAsMIWVQS0kgUm9vdCBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0eTAe
-Fw0wNDEyMjAwMjMxMjdaFw0zNDEyMjAwMjMxMjdaMF4xCzAJBgNVBAYTAlRXMSMw
-IQYDVQQKDBpDaHVuZ2h3YSBUZWxlY29tIENvLiwgTHRkLjEqMCgGA1UECwwhZVBL
-SSBSb290IENlcnRpZmljYXRpb24gQXV0aG9yaXR5MIICIjANBgkqhkiG9w0BAQEF
-AAOCAg8AMIICCgKCAgEA4SUP7o3biDN1Z82tH306Tm2d0y8U82N0ywEhajfqhFAH
-SyZbCUNsIZ5qyNUD9WBpj8zwIuQf5/dqIjG3LBXy4P4AakP/h2XGtRrBp0xtInAh
-ijHyl3SJCRImHJ7K2RKilTza6We/CKBk49ZCt0Xvl/T29de1ShUCWH2YWEtgvM3X
-DZoTM1PRYfl61dd4s5oz9wCGzh1NlDivqOx4UXCKXBCDUSH3ET00hl7lSM2XgYI1
-TBnsZfZrxQWh7kcT1rMhJ5QQCtkkO7q+RBNGMD+XPNjX12ruOzjjK9SXDrkb5wdJ
-fzcq+Xd4z1TtW0ado4AOkUPB1ltfFLqfpo0kR0BZv3I4sjZsN/+Z0V0OWQqraffA
-sgRFelQArr5T9rXn4fg8ozHSqf4hUmTFpmfwdQcGlBSBVcYn5AGPF8Fqcde+S/uU
-WH1+ETOxQvdibBjWzwloPn9s9h6PYq2lY9sJpx8iQkEeb5mKPtf5P0B6ebClAZLS
-nT0IFaUQAS2zMnaolQ2zepr7BxB4EW/hj8e6DyUadCrlHJhBmd8hh+iVBmoKs2pH
-dmX2Os+PYhcZewoozRrSgx4hxyy/vv9haLdnG7t4TY3OZ+XkwY63I2binZB1NJip
-NiuKmpS5nezMirH4JYlcWrYvjB9teSSnUmjDhDXiZo1jDiVN1Rmy5nk3pyKdVDEC
-AwEAAaNqMGgwHQYDVR0OBBYEFB4M97Zn8uGSJglFwFU5Lnc/QkqiMAwGA1UdEwQF
-MAMBAf8wOQYEZyoHAAQxMC8wLQIBADAJBgUrDgMCGgUAMAcGBWcqAwAABBRFsMLH
-ClZ87lt4DJX5GFPBphzYEDANBgkqhkiG9w0BAQUFAAOCAgEACbODU1kBPpVJufGB
-uvl2ICO1J2B01GqZNF5sAFPZn/KmsSQHRGoqxqWOeBLoR9lYGxMqXnmbnwoqZ6Yl
-PwZpVnPDimZI+ymBV3QGypzqKOg4ZyYr8dW1P2WT+DZdjo2NQCCHGervJ8A9tDkP
-JXtoUHRVnAxZfVo9QZQlUgjgRywVMRnVvwdVxrsStZf0X4OFunHB2WyBEXYKCrC/
-gpf36j36+uwtqSiUO1bd0lEursC9CBWMd1I0ltabrNMdjmEPNXubrjlpC2JgQCA2
-j6/7Nu4tCEoduL+bXPjqpRugc6bY+G7gMwRfaKonh+3ZwZCc7b3jajWvY9+rGNm6
-5ulK6lCKD2GTHuItGeIwlDWSXQ62B68ZgI9HkFFLLk3dheLSClIKF5r8GrBQAuUB
-o2M3IUxExJtRmREOc5wGj1QupyheRDmHVi03vYVElOEMSyycw5KFNGHLD7ibSkNS
-/jQ6fbjpKdx2qcgw+BRxgMYeNkh0IkFch4LoGHGLQYlE535YW6i4jRPpp2zDR+2z
-Gp1iro2C6pSe3VkQw63d4k3jMdXH7OjysP6SHhYKGvzZ8/gntsm+HbRsZJB/9OTE
-W9c3rkIO3aQab3yIVMUWbuF6aC74Or8NpDyJO3inTmODBCEIZ43ygknQW/2xzQ+D
-hNQ+IIX3Sj0rnP0qCglN6oH4EZw=
------END CERTIFICATE-----
-"""
+EPKI_ROOT_CERTIFICATION_AUTHORITY_BYTES_ ::= #[
+    '0',0x82,0x5,176,'0',130,3,152,160,3,2,1,2,2,16,21,200,189,'e','G',92,175,
+    184,151,0,'^',228,6,210,188,157,'0',13,6,9,'*',134,'H',134,247,13,1,1,5,5,
+    0,'0','^','1',11,'0',9,6,3,'U',4,6,19,2,'T','W','1','#','0','!',6,3,'U',4,
+    0xa,12,26,'C','h','u','n','g','h','w','a',' ','T','e','l','e','c','o','m',
+    ' ','C','o','.',',',' ','L','t','d','.','1','*','0','(',0x6,3,'U',4,11,12,
+    '!','e','P','K','I',' ','R','o','o','t',' ','C','e','r','t','i','f','i',
+    'c','a','t','i','o','n',' ','A','u','t','h','o','r','i','t','y','0',30,23,
+    0xd,'0','4','1','2','2','0','0','2','3','1','2','7','Z',23,13,'3','4','1',
+    '2','2','0','0','2','3','1','2','7','Z','0','^','1',0xb,'0',9,6,3,'U',4,6,
+    0x13,2,'T','W','1','#','0','!',6,3,'U',4,10,12,26,'C','h','u','n','g','h',
+    'w','a',' ','T','e','l','e','c','o','m',' ','C','o','.',',',' ','L','t',
+    'd','.','1','*','0','(',0x6,3,'U',4,11,12,'!','e','P','K','I',' ','R','o',
+    'o','t',' ','C','e','r','t','i','f','i','c','a','t','i','o','n',' ','A',
+    'u','t','h','o','r','i','t','y','0',0x82,2,'"','0',13,6,9,'*',134,'H',134,
+    247,13,1,1,1,5,0,3,130,2,15,0,'0',130,2,10,2,130,2,1,0,225,'%',15,238,141,
+    219,136,'3','u','g',205,173,31,'}',':','N','m',157,211,'/',20,243,'c','t',
+    203,1,'!','j','7',234,132,'P',7,'K','&','[',9,'C','l','!',158,'j',200,213,
+    0x3,245,'`','i',143,204,240,'"',228,31,231,247,'j','"','1',183,',',21,242,
+    0xe0,254,0,'j','C',255,135,'e',198,181,26,193,167,'L','m','"','p','!',138,
+    '1',0xf2,0x97,'t',0x89,9,18,'&',28,158,202,217,18,162,149,'<',218,233,'g',
+    0xbf,0x8,160,'d',227,214,'B',183,'E',239,151,244,246,245,215,181,'J',21,2,
+    'X','}',152,'X','K','`',188,205,215,13,154,19,'3','S',209,'a',249,'z',213,
+    0xd7,'x',179,154,'3',247,0,134,206,29,'M',148,'8',175,168,236,'x','Q','p',
+    0x8a,92,16,131,'Q','!',247,17,'=','4',134,'^',229,'H',205,151,129,130,'5',
+    'L',25,0xec,'e',246,'k',197,5,161,238,'G',19,214,179,'!',39,148,16,10,217,
+    '$',';',0xba,0xbe,'D',19,'F','0','?',0x97,'<',216,215,215,'j',238,';','8',
+    0xe3,'+',0xd4,151,14,185,27,231,7,'I',127,'7','*',249,'w','x',207,'T',237,
+    '[','F',157,163,128,14,145,'C',193,214,'[','_',20,186,159,166,141,'$','G',
+    '@','Y',191,'r','8',178,'6','l','7',255,153,209,']',14,'Y',10,171,'i',247,
+    0xc0,0xb2,4,'E','z','T',0,174,190,'S',246,181,231,225,248,'<',163,'1',210,
+    0xa9,0xfe,'!','R','d',197,166,'g',240,'u',7,6,148,20,129,'U',198,39,228,1,
+    143,23,193,'j','q',215,190,'K',251,148,'X','}','~',17,'3',177,'B',247,'b',
+    'l',24,0xd6,207,9,'h','>',127,'l',246,30,143,'b',173,165,'c',219,9,167,31,
+    '"','B','A',30,'o',0x99,138,'>',215,249,'?','@','z','y',176,165,1,146,210,
+    157,'=',8,21,165,16,1,'-',179,'2','v',168,149,13,179,'z',154,251,7,16,'x',
+    0x11,'o',225,143,199,186,15,'%',26,'t','*',229,28,152,'A',153,223,'!',135,
+    232,149,6,'j',10,179,'j','G','v','e',246,':',207,143,'b',23,25,'{',10,'(',
+    0xcd,26,210,131,30,'!',199,',',191,190,255,'a','h',183,'g',27,187,'x','M',
+    0x8d,0xce,'g',229,228,193,142,183,'#','f',226,157,144,'u','4',152,169,'6',
+    '+',138,154,148,185,157,236,204,138,177,248,'%',137,92,'Z',182,'/',140,31,
+    'm','y','$',167,'R','h',195,132,'5',226,'f',141,'c',14,'%','M',213,25,178,
+    0xe6,'y','7',167,'"',157,'T','1',2,3,1,0,1,163,'j','0','h','0',29,6,3,'U',
+    0x1d,14,4,22,4,20,30,12,247,182,'g',242,225,146,'&',9,'E',192,'U','9','.',
+    'w','?','B','J',0xa2,'0',0x0c,6,3,'U',29,19,4,5,'0',3,1,1,255,'0','9',6,4,
+    'g','*',7,0,4,'1','0','/','0','-',2,1,0,'0',9,6,5,'+',14,3,2,26,5,0,'0',7,
+    6,5,'g','*',3,0,0,4,20,'E',0xb0,194,199,10,'V','|',238,'[','x',12,149,249,
+    0x18,'S',0xc1,166,28,216,16,'0',13,6,9,'*',134,'H',134,247,13,1,1,5,5,0,3,
+    130,2,1,0,9,179,131,'S','Y',1,'>',149,'I',185,241,129,186,249,'v',' ','#',
+    0xb5,0x27,'`','t',212,'j',153,'4','^','l',0,'S',217,159,242,166,177,'$',7,
+    'D','j','*',0xc6,165,142,'x',18,232,'G',217,'X',27,19,'*','^','y',155,159,
+    0xa,'*','g',166,'%','?',6,'i','V','s',195,138,'f','H',251,')',129,'W','t',
+    6,202,156,234,'(',232,'8','g','&','+',241,213,181,'?','e',147,248,'6',']',
+    0x8e,141,141,'@',' ',135,25,234,239,39,192,'=',180,'9',15,'%','{','h','P',
+    't','U',0x9c,0x0c,'Y','}','Z','=','A',148,'%','R',8,224,'G',',',21,'1',25,
+    0xd5,191,7,'U',198,187,18,181,151,244,'_',131,133,186,'q',193,217,'l',129,
+    17,'v',0xa,10,176,191,130,151,247,234,'=',250,250,236,'-',169,'(',148,';',
+    'V',0xdd,210,'Q','.',174,192,189,8,21,140,'w','R','4',150,214,155,172,211,
+    29,0x8e,'a',15,'5','{',155,174,'9','i',11,'b','`','@',' ','6',143,175,251,
+    '6',0xee,'-',0x8,'J',29,184,191,155,92,248,234,165,27,160,'s',166,216,248,
+    'n',0xe0,'3',4,'_','h',170,39,135,237,217,193,144,156,237,189,227,'j','5',
+    0xaf,'c',223,171,24,217,186,230,233,'J',234,'P',138,15,'a',147,30,226,'-',
+    0x19,0xe2,'0',148,'5',146,']',14,182,7,175,25,128,143,'G',144,'Q','K','.',
+    'M',0xdd,0x85,226,210,10,'R',10,23,154,252,26,176,'P',2,229,1,163,'c','7',
+    '!','L','D',0xc4,0x9b,'Q',153,17,14,'s',156,6,143,'T','.',167,'(','^','D',
+    '9',0x87,'V','-','7',0xbd,0x85,'D',148,225,12,'K',',',156,195,146,133,'4',
+    'a',0xcb,0x0f,184,155,'J','C','R',254,'4',':','}',184,233,')',220,'v',169,
+    0xc8,'0',0xf8,20,'q',128,198,30,'6','H','t','"','A',92,135,130,232,24,'q',
+    0x8b,'A',0x89,'D',0xe7,'~','X','[',168,184,141,19,233,167,'l',195,'G',237,
+    179,26,157,'b',174,141,130,234,148,158,221,'Y',16,195,173,221,226,'M',227,
+    '1',0xd5,0xc7,0xec,232,242,176,254,146,30,22,10,26,252,217,243,248,39,182,
+    201,190,29,180,'l','d',144,127,244,228,196,'[',215,'7',174,'B',14,221,164,
+    26,'o','|',0x88,'T',197,22,'n',225,'z','h','.',248,':',191,13,164,'<',137,
+    ';','x',0xa7,'N','c',0x83,4,'!',8,'g',141,242,130,'I',208,'[',253,177,205,
+    0x0f,131,132,212,'>',' ',133,247,'J','=','+',156,253,'*',10,9,'M',234,129,
+    248,17,156,
+]
+
 
 /**
 ePKI Root Certification Authority.
 SHA256 fingerprint: c0:a6:f4:dc:63:a2:4b:fd:cf:54:ef:2a:6a:08:2a:0a:72:de:35:80:3e:2f:f5:ff:52:7a:e5:d8:72:06:df:d5
 */
-EPKI_ROOT_CERTIFICATION_AUTHORITY ::= net.Certificate.parse EPKI_ROOT_CERTIFICATION_AUTHORITY_TEXT_
+EPKI_ROOT_CERTIFICATION_AUTHORITY ::= parse_ EPKI_ROOT_CERTIFICATION_AUTHORITY_BYTES_
 
-CERTSIGN_ROOT_CA_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIDODCCAiCgAwIBAgIGIAYFFnACMA0GCSqGSIb3DQEBBQUAMDsxCzAJBgNVBAYT
-AlJPMREwDwYDVQQKEwhjZXJ0U0lHTjEZMBcGA1UECxMQY2VydFNJR04gUk9PVCBD
-QTAeFw0wNjA3MDQxNzIwMDRaFw0zMTA3MDQxNzIwMDRaMDsxCzAJBgNVBAYTAlJP
-MREwDwYDVQQKEwhjZXJ0U0lHTjEZMBcGA1UECxMQY2VydFNJR04gUk9PVCBDQTCC
-ASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALczuX7IJUqOtdu0KBuqV5Do
-0SLTZLrTk+jUrIZhQGpgV2hUhE28alQCBf/fm5oqrl0Hj0rDKH/v+yv6efHHrfAQ
-UySQi2bJqIirr1qjAOm+ukbuW3N7LBeCgV5iLKECZbO9xSsAfsT8AzNXDe3i+s5d
-RdY4zTW2ssHQnIFKquSyAVwdj1+ZxLGt24gh65AIgoDzMKND5pCCrlUoSe1b16kQ
-OA7+j0xbm0bqQfWwCHTD0IgztnzXdN/chNFDDnU5oSVAKOp4yw4sLjmdjItuFhwv
-JoIQ4uNllAoEwF73XVv4EOLQunpL+943AAAaWyjj0pxzPjKHmKHJUS/X3qwzs08C
-AwEAAaNCMEAwDwYDVR0TAQH/BAUwAwEB/zAOBgNVHQ8BAf8EBAMCAcYwHQYDVR0O
-BBYEFOCMm9slSbPxfIbWskKHC9BroNnkMA0GCSqGSIb3DQEBBQUAA4IBAQA+0hyJ
-LjX8+HXd5n9liPRyTMks1zJO890ZeUe9jjtbkw9QSSQTaxQGcu8J06Gh40CEyecY
-MnQ8SG4Pn0vU9x7Tk4ZkVJdjclDVVc/6IJMCopvDI5NOFlV2oHB5bc0hH88vLbwZ
-44gx+FkagQnIl6Z0x2DEW8xXjrJ1/RsCCdtZb3KTafcxQdaIOL+Hsr0Wefmq5L6I
-Jd1hJyMctTEHBDa0GpC9oHRxUIltvBTjD4au8as+x6AJzKNI0eDbZOeStc+vckNw
-i/nDhDwTqn6Sm1dTk/pwwpEOMfmbZ13pljheX7NzTogVZ96edhBiIL5VaZVDADlN
-9u6wWk5JRFRYX0KD
------END CERTIFICATE-----
-"""
+CERTSIGN_ROOT_CA_BYTES_ ::= #[
+    '0',0x82,3,'8','0',0x82,2,' ',160,3,2,1,2,2,6,' ',6,5,22,'p',2,'0',13,6,9,
+    '*',0x86,'H',0x86,0xf7,13,1,1,5,5,0,'0',';','1',11,'0',9,6,3,'U',4,6,19,2,
+    'R','O','1',0x11,'0',15,6,3,'U',4,10,19,8,'c','e','r','t','S','I','G','N',
+    '1',25,'0',23,6,3,'U',4,0xb,19,16,'c','e','r','t','S','I','G','N',' ','R',
+    'O','O','T',' ','C','A','0',30,23,0xd,'0','6','0','7','0','4','1','7','2',
+    '0','0','4','Z',23,13,'3','1','0','7','0','4','1','7','2','0','0','4','Z',
+    '0',';','1',0xb,'0',9,6,3,'U',4,6,19,2,'R','O','1',17,'0',15,6,3,'U',4,10,
+    19,8,'c','e','r','t','S','I','G','N','1',25,'0',23,6,3,'U',4,11,19,16,'c',
+    'e','r','t','S','I','G','N',' ','R','O','O','T',' ','C','A','0',130,1,'"',
+    '0',0x0d,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,1,15,0,'0',130,1,10,2,
+    0x82,1,1,0,183,'3',185,'~',200,'%','J',142,181,219,180,'(',27,170,'W',144,
+    0xe8,0xd1,'"',211,'d',186,211,147,232,212,172,134,'a','@','j','`','W','h',
+    'T',132,'M',188,'j','T',2,5,255,223,155,154,'*',174,']',7,143,'J',195,'(',
+    0x7f,0xef,0xfb,'+',250,'y',241,199,173,240,16,'S','$',144,139,'f',201,168,
+    0x88,171,175,'Z',163,0,233,190,186,'F',238,'[','s','{',',',23,130,129,'^',
+    'b',',',0xa1,2,'e',179,189,197,'+',0,'~',196,252,3,'3','W',13,237,226,250,
+    0xce,']','E',214,'8',205,'5',182,178,193,208,156,129,'J',170,228,178,1,92,
+    29,0x8f,'_',153,196,177,173,219,136,'!',235,144,8,130,128,243,'0',163,'C',
+    230,144,130,174,'U','(','I',237,'[',215,169,16,'8',14,254,143,'L','[',155,
+    'F',234,'A',245,176,8,'t',195,208,136,'3',182,'|',215,'t',223,220,132,209,
+    'C',14,'u','9',161,'%','@','(',234,'x',203,14,',','.','9',157,140,139,'n',
+    22,28,'/','&',0x82,16,226,227,'e',148,10,4,192,'^',247,']','[',248,16,226,
+    0xd0,0xba,'z','K',0xfb,222,'7',0,0,26,'[','(',227,210,156,'s','>','2',135,
+    152,161,201,'Q','/',215,222,172,'3',179,'O',2,3,1,0,1,163,'B','0','@','0',
+    15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',14,6,3,'U',29,15,1,1,255,4,
+    0x04,3,2,1,198,'0',29,6,3,'U',29,14,4,22,4,20,224,140,155,219,'%','I',179,
+    241,'|',134,214,178,'B',135,11,208,'k',160,217,228,'0',13,6,9,'*',134,'H',
+    0x86,0xf7,13,1,1,5,5,0,3,130,1,1,0,'>',210,28,137,'.','5',252,248,'u',221,
+    0xe6,0x7f,'e',0x88,244,'r','L',201,',',215,'2','N',243,221,25,'y','G',189,
+    0x8e,';','[',147,15,'P','I','$',19,'k',20,6,'r',239,9,211,161,161,227,'@',
+    0x84,201,231,24,'2','t','<','H','n',15,159,'K',212,247,30,211,147,134,'d',
+    'T',0x97,'c','r','P',213,'U',207,250,' ',147,2,162,155,195,'#',147,'N',22,
+    'U','v',160,'p','y','m',205,'!',31,207,'/','-',188,25,227,136,'1',248,'Y',
+    0x1a,129,9,200,151,166,'t',199,'`',196,'[',204,'W',142,178,'u',253,27,2,9,
+    0xdb,'Y','o','r',0x93,'i',0xf7,'1','A',214,136,'8',191,135,178,189,22,'y',
+    0xf9,170,228,190,136,'%',221,'a',39,'#',28,181,'1',7,4,'6',180,26,144,189,
+    0xa0,'t','q','P',0x89,'m',188,20,227,15,134,174,241,171,'>',199,160,9,204,
+    0xa3,'H',0xd1,224,219,'d',231,146,181,207,175,'r','C','p',139,249,195,132,
+    '<',19,170,'~',146,155,'W','S',147,250,'p',194,145,14,'1',249,155,'g',']',
+    233,150,'8','^','_',179,'s','N',136,21,'g',222,158,'v',16,'b',' ',190,'U',
+    'i',0x95,'C',0x00,'9','M',246,238,176,'Z','N','I','D','T','X','_','B',131,
+]
+
 
 /**
 certSIGN ROOT CA.
 SHA256 fingerprint: ea:a9:62:c4:fa:4a:6b:af:eb:e4:15:19:6d:35:1c:cd:88:8d:4f:53:f3:fa:8a:e6:d7:c4:66:a9:4e:60:42:bb
 */
-CERTSIGN_ROOT_CA ::= net.Certificate.parse CERTSIGN_ROOT_CA_TEXT_
+CERTSIGN_ROOT_CA ::= parse_ CERTSIGN_ROOT_CA_BYTES_
 
-NETLOCK_ARANY_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIEFTCCAv2gAwIBAgIGSUEs5AAQMA0GCSqGSIb3DQEBCwUAMIGnMQswCQYDVQQG
-EwJIVTERMA8GA1UEBwwIQnVkYXBlc3QxFTATBgNVBAoMDE5ldExvY2sgS2Z0LjE3
-MDUGA1UECwwuVGFuw7pzw610dsOhbnlraWFkw7NrIChDZXJ0aWZpY2F0aW9uIFNl
-cnZpY2VzKTE1MDMGA1UEAwwsTmV0TG9jayBBcmFueSAoQ2xhc3MgR29sZCkgRsWR
-dGFuw7pzw610dsOhbnkwHhcNMDgxMjExMTUwODIxWhcNMjgxMjA2MTUwODIxWjCB
-pzELMAkGA1UEBhMCSFUxETAPBgNVBAcMCEJ1ZGFwZXN0MRUwEwYDVQQKDAxOZXRM
-b2NrIEtmdC4xNzA1BgNVBAsMLlRhbsO6c8OtdHbDoW55a2lhZMOzayAoQ2VydGlm
-aWNhdGlvbiBTZXJ2aWNlcykxNTAzBgNVBAMMLE5ldExvY2sgQXJhbnkgKENsYXNz
-IEdvbGQpIEbFkXRhbsO6c8OtdHbDoW55MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8A
-MIIBCgKCAQEAxCRec75LbRTDofTjl5Bu0jBFHjzuZ9lk4BqKf8owyoPjIMHj9DrT
-lF8afFttvzBPhCf2nx9JvMaZCpDyD/V/Q4Q3Y1GLeqVw/HpYzY6b7cNGbIRwXdrz
-AZAj/E4wqX7hJ2Pn7WQ8oLjJM2P+FpD/sLj916jAwJRDC7bVWaaeVtAkH3B5r9s5
-VA1lddkVQZQBr17s9o3x/61k/iCa11zr/qYfCGSji3ZVrR47KGAuhyXoqq8fxmRG
-ILdwfzzeSNuWU7c5d+Qa4scWhHaXWy+7GRWF+GmF9ZmnqfI0p6m2pgP8b4Y9VHx2
-BJtr+UBdADTHLpl1neWIA6pN+APSQnbAGwIDAKiLo0UwQzASBgNVHRMBAf8ECDAG
-AQH/AgEEMA4GA1UdDwEB/wQEAwIBBjAdBgNVHQ4EFgQUzPpnk/C2uNClwB7zU/2M
-U9+D15YwDQYJKoZIhvcNAQELBQADggEBAKt/7hwWqZw8UQCgwBEIBaeZ5m8BiFRh
-bvG5GK1Krf6BQCOUL/t1fC8oS2IkgYIL9WHxHG64YTjrgfpioTtaYtOUZcTh5m2C
-+C8lcLIhJsFyUR+MLMOEkMNaj7rP9KdlpeuY0fsFskZ1FSNqb4VjMIDw1Z4fKRzC
-bLBQWV2QWzuoDTDPv31/zvGdg73JRm4gpvlhUbohL3u+pRVjodSVh/GeufOJ8z2F
-uLjbvrW5KfnaNwUASZQDhETnv0Mxz3WLJdH0pmT1kvarBes96aULNmLazAZfNou2
-XjG4Kvte9nHfRCaexOYNkbQudZWAUWpLMKawYqGT8ZvYzsRjdT9ZR7E=
------END CERTIFICATE-----
-"""
+NETLOCK_ARANY_BYTES_ ::= #[
+    '0',0x82,4,21,'0',130,2,253,160,3,2,1,2,2,6,'I','A',',',228,0,16,'0',13,6,
+    9,'*',0x86,'H',134,247,13,1,1,11,5,0,'0',129,167,'1',11,'0',9,6,3,'U',4,6,
+    0x13,2,'H','U','1',17,'0',15,6,3,'U',4,7,12,8,'B','u','d','a','p','e','s',
+    't','1',21,'0',19,6,3,'U',4,0xa,12,12,'N','e','t','L','o','c','k',' ','K',
+    'f','t','.','1','7','0','5',0x6,3,'U',4,11,12,'.','T','a','n',195,186,'s',
+    0xc3,0xad,'t','v',195,161,'n','y','k','i','a','d',195,179,'k',' ','(','C',
+    'e','r','t','i','f','i','c','a','t','i','o','n',' ','S','e','r','v','i',
+    'c','e','s',')','1','5','0','3',0x06,3,'U',4,3,12,',','N','e','t','L','o',
+    'c','k',' ','A','r','a','n','y',' ','(','C','l','a','s','s',' ','G','o',
+    'l','d',')',' ','F',0xc5,0x91,'t','a','n',195,186,'s',195,173,'t','v',195,
+    0xa1,'n','y','0',30,23,13,'0','8','1','2','1','1','1','5','0','8','2','1',
+    'Z',23,13,'2','8','1','2','0','6','1','5','0','8','2','1','Z','0',129,167,
+    '1',0xb,'0',9,6,3,'U',4,6,19,2,'H','U','1',17,'0',15,6,3,'U',4,7,12,8,'B',
+    'u','d','a','p','e','s','t','1',21,'0',19,6,3,'U',4,0xa,12,12,'N','e','t',
+    'L','o','c','k',' ','K','f','t','.','1','7','0','5',0x6,3,'U',4,11,12,'.',
+    'T','a','n',0xc3,0xba,'s',195,173,'t','v',195,161,'n','y','k','i','a','d',
+    0xc3,0xb3,'k',' ','(','C','e','r','t','i','f','i','c','a','t','i','o','n',
+    ' ','S','e','r','v','i','c','e','s',')','1','5','0','3',0x06,3,'U',4,3,12,
+    ',','N','e','t','L','o','c','k',' ','A','r','a','n','y',' ','(','C','l',
+    'a','s','s',' ','G','o','l','d',')',' ','F',0xc5,0x91,'t','a','n',195,186,
+    's',0xc3,173,'t','v',195,161,'n','y','0',130,1,'"','0',13,6,9,'*',134,'H',
+    0x86,0xf7,0xd,1,1,1,5,0,3,130,1,15,0,'0',130,1,10,2,130,1,1,0,196,'$','^',
+    's',190,'K','m',20,195,161,244,227,151,144,'n',210,'0','E',30,'<',238,'g',
+    0xd9,'d',0xe0,26,0x8a,127,202,'0',202,131,227,' ',193,227,244,':',211,148,
+    '_',0x1a,'|','[','m',191,'0','O',132,39,246,159,31,'I',188,198,153,10,144,
+    0xf2,0x0f,245,127,'C',132,'7','c','Q',139,'z',165,'p',252,'z','X',205,142,
+    155,237,195,'F','l',132,'p',']',218,243,1,144,'#',252,'N','0',169,'~',225,
+    39,'c',231,237,'d','<',160,184,201,'3','c',254,22,144,255,176,184,253,215,
+    168,192,192,148,'C',11,182,213,'Y',166,158,'V',208,'$',31,'p','y',175,219,
+    '9','T',0x0d,'e','u',217,21,'A',148,1,175,'^',236,246,141,241,255,173,'d',
+    0xfe,' ',0x9a,0xd7,92,235,254,166,31,8,'d',163,139,'v','U',173,30,';','(',
+    '`','.',0x87,'%',0xe8,0xaa,175,31,198,'d','F',' ',183,'p',127,'<',222,'H',
+    0xdb,0x96,'S',183,'9','w',228,26,226,199,22,132,'v',151,'[','/',187,25,21,
+    133,248,'i',133,245,153,167,169,242,'4',167,169,182,166,3,252,'o',134,'=',
+    'T','|','v',4,155,'k',249,'@',']',0,'4',199,'.',153,'u',157,229,136,3,170,
+    'M',248,3,210,'B','v',192,27,2,3,0,168,139,163,'E','0','C','0',18,6,3,'U',
+    29,19,1,1,0xff,4,8,'0',6,1,1,255,2,1,4,'0',14,6,3,'U',29,15,1,1,255,4,4,3,
+    2,1,6,'0',29,6,3,'U',29,0xe,4,22,4,20,204,250,'g',147,240,182,184,208,165,
+    192,30,243,'S',253,140,'S',223,131,215,150,'0',13,6,9,'*',134,'H',134,247,
+    0xd,1,1,11,5,0,3,130,1,1,0,171,127,238,28,22,169,156,'<','Q',0,160,192,17,
+    8,5,0xa7,153,230,'o',1,136,'T','a','n',241,185,24,173,'J',173,254,129,'@',
+    '#',148,'/',251,'u','|','/','(','K','b','$',129,130,11,245,'a',241,28,'n',
+    0xb8,'a','8',0xeb,129,250,'b',161,';','Z','b',211,148,'e',196,225,230,'m',
+    0x82,0xf8,'/','%','p',0xb2,'!','&',193,'r','Q',31,140,',',195,132,144,195,
+    'Z',0x8f,186,207,244,167,'e',165,235,152,209,251,5,178,'F','u',21,'#','j',
+    'o',133,'c','0',128,240,213,158,31,')',28,194,'l',176,'P','Y',']',144,'[',
+    ';',0xa8,0x0d,'0',207,191,'}',127,206,241,157,131,189,201,'F','n',' ',166,
+    0xf9,'a','Q',0xba,'!','/','{',0xbe,165,21,'c',161,212,149,135,241,158,185,
+    243,137,243,'=',133,184,184,219,190,181,185,')',249,218,'7',5,0,'I',148,3,
+    132,'D',231,191,'C','1',207,'u',139,'%',209,244,166,'d',245,146,246,171,5,
+    0xeb,'=',233,165,11,'6','b',218,204,6,'_','6',139,182,'^','1',184,'*',251,
+    '^',0xf6,'q',0xdf,'D','&',0x9e,196,230,13,145,180,'.','u',149,128,'Q','j',
+    'K','0',0xa6,0xb0,'b',161,147,241,155,216,206,196,'c','u','?','Y','G',177,
+]
+
 
 /**
 NetLock Arany (Class Gold) Főtanúsítvány.
 SHA256 fingerprint: 6c:61:da:c3:a2:de:f0:31:50:6b:e0:36:d2:a6:fe:40:19:94:fb:d1:3d:f9:c8:d4:66:59:92:74:c4:46:ec:98
 */
-NETLOCK_ARANY ::= net.Certificate.parse NETLOCK_ARANY_TEXT_
+NETLOCK_ARANY ::= parse_ NETLOCK_ARANY_BYTES_
 
-HONGKONG_POST_ROOT_CA_1_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIDMDCCAhigAwIBAgICA+gwDQYJKoZIhvcNAQEFBQAwRzELMAkGA1UEBhMCSEsx
-FjAUBgNVBAoTDUhvbmdrb25nIFBvc3QxIDAeBgNVBAMTF0hvbmdrb25nIFBvc3Qg
-Um9vdCBDQSAxMB4XDTAzMDUxNTA1MTMxNFoXDTIzMDUxNTA0NTIyOVowRzELMAkG
-A1UEBhMCSEsxFjAUBgNVBAoTDUhvbmdrb25nIFBvc3QxIDAeBgNVBAMTF0hvbmdr
-b25nIFBvc3QgUm9vdCBDQSAxMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
-AQEArP84tulmAknjorThkPlAj3n54r15/gK97iSSHSL22oVyaf7XPwnU3ZG1ApzQ
-jVrhVcNQhrkpJsLj2aDxaQMoIIBFIi1WpztUlVYiWR8o3x8gPW2iNr4joLFutbEn
-PzlTCeqrauh0ssJlXI6/fMN4hM2eFvz1Lk8gKgifd/PFHsSaUmYeSF7jEAaPIpjh
-ZY4bXSNmO7ilMlHIhqqhqZ5/dpTCpmy3QfDVyAY45tQM4vM7TG1QjMSDJ8EThFk9
-nnV0ttgCXjqQesBCNnLsak3c78QA3xMYV18meMjWCnl3v/evt3a5pQuEF10Q6m/h
-q5URX208o1xNg1vysxmKgIsLhwIDAQABoyYwJDASBgNVHRMBAf8ECDAGAQH/AgED
-MA4GA1UdDwEB/wQEAwIBxjANBgkqhkiG9w0BAQUFAAOCAQEADkbVPK7ih9legYsC
-mEEIjEy82tvuJxuC52pF7BaLT4Wg87JwvVqWuspube5Gi27nKi6Wsxkz67SfqLI3
-7piol7Yutmcn1KZJ/RyTZXaeQi/cImyaT/JaFTmxcdcrUehtHJjA2Sr0oYJ71clB
-oiMBdDhViw+5LmeiIAQ32pwL0xch4I+XeTRvhEgCIDMb5jREn5Fw9IBehEPCKdJs
-EhTkYY2sEJCehFC78JZvRZ+K88psT/oROhUVRsPNH4NbLUES7VBnQRM9IauUiqpO
-fMGx+6fWtScvl6tu4B3i0RwsH0Ti/L6RoZz71ilTc4afU9hDDl3WY4JxHYB0yvbi
-AmvZWg==
------END CERTIFICATE-----
-"""
+HONGKONG_POST_ROOT_CA_1_BYTES_ ::= #[
+    '0',0x82,3,'0','0',0x82,2,24,160,3,2,1,2,2,2,3,232,'0',13,6,9,'*',134,'H',
+    134,247,13,1,1,5,5,0,'0','G','1',11,'0',9,6,3,'U',4,6,19,2,'H','K','1',22,
+    '0',20,6,3,'U',4,10,19,13,'H','o','n','g','k','o','n','g',' ','P','o','s',
+    't','1',' ','0',30,6,3,'U',4,3,19,23,'H','o','n','g','k','o','n','g',' ',
+    'P','o','s','t',' ','R','o','o','t',' ','C','A',' ','1','0',30,23,0xd,'0',
+    '3','0','5','1','5','0','5','1','3','1','4','Z',23,13,'2','3','0','5','1',
+    '5','0','4','5','2','2','9','Z','0','G','1',11,'0',9,6,3,'U',4,6,19,2,'H',
+    'K','1',22,'0',20,6,3,'U',4,0xa,19,13,'H','o','n','g','k','o','n','g',' ',
+    'P','o','s','t','1',' ','0',30,6,3,'U',4,3,19,23,'H','o','n','g','k','o',
+    'n','g',' ','P','o','s','t',' ','R','o','o','t',' ','C','A',' ','1','0',
+    0x82,0x1,'"','0',13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,1,15,0,'0',
+    0x82,0x1,10,2,130,1,1,0,172,255,'8',182,233,'f',2,'I',227,162,180,225,144,
+    0xf9,'@',143,'y',249,226,189,'y',254,2,189,238,'$',146,29,'"',246,218,133,
+    'r','i',0xfe,0xd7,'?',9,212,221,145,181,2,156,208,141,'Z',225,'U',195,'P',
+    134,185,')','&',194,227,217,160,241,'i',3,'(',' ',128,'E','"','-','V',167,
+    ';','T',149,'V','"','Y',31,'(',223,31,' ','=','m',162,'6',190,'#',160,177,
+    'n',0xb5,0xb1,39,'?','9','S',9,234,171,'j',232,'t',178,194,'e',92,142,191,
+    '|',0xc3,'x',0x84,205,158,22,252,245,'.','O',' ','*',8,159,'w',243,197,30,
+    0xc4,0x9a,'R','f',30,'H','^',0xe3,16,6,143,'"',152,225,'e',142,27,']','#',
+    'f',';',0xb8,0xa5,'2','Q',200,134,170,161,169,158,127,'v',148,194,166,'l',
+    0xb7,'A',240,213,200,6,'8',230,212,12,226,243,';','L','m','P',140,196,131,
+    0x27,193,19,132,'Y','=',158,'u','t',182,216,2,'^',':',144,'z',192,'B','6',
+    'r',0xec,'j','M',0xdc,0xef,196,0,223,19,24,'W','_','&','x',200,214,10,'y',
+    'w',0xbf,0xf7,175,183,'v',185,165,11,132,23,']',16,234,'o',225,171,149,17,
+    '_','m','<',0xa3,0x5c,'M',131,'[',242,179,25,138,128,139,11,135,2,3,1,0,1,
+    0xa3,'&','0','$','0',18,6,3,'U',29,19,1,1,255,4,8,'0',6,1,1,255,2,1,3,'0',
+    0xe,6,3,'U',29,15,1,1,255,4,4,3,2,1,198,'0',13,6,9,'*',134,'H',134,247,13,
+    0x01,1,5,5,0,3,130,1,1,0,14,'F',213,'<',174,226,135,217,'^',129,139,2,152,
+    'A',0x08,140,'L',188,218,219,238,39,27,130,231,'j','E',236,22,139,'O',133,
+    0xa0,0xf3,178,'p',189,'Z',150,186,202,'n','m',238,'F',139,'n',231,'*','.',
+    150,179,25,'3',235,180,159,168,178,'7',238,152,168,151,182,'.',182,'g',39,
+    212,166,'I',253,28,147,'e','v',158,'B','/',220,'"','l',154,'O',242,'Z',21,
+    '9',0xb1,'q',0xd7,'+','Q',0xe8,'m',28,152,192,217,'*',244,161,130,'{',213,
+    201,'A',162,'#',1,'t','8','U',139,15,185,'.','g',162,' ',4,'7',218,156,11,
+    0xd3,23,'!',0xe0,143,151,'y','4','o',132,'H',2,' ','3',27,230,'4','D',159,
+    0x91,'p',244,128,'^',132,'C',194,')',210,'l',18,20,228,'a',141,172,16,144,
+    0x9e,132,'P',187,240,150,'o','E',159,138,243,202,'l','O',250,17,':',21,21,
+    'F',0xc3,205,31,131,'[','-','A',18,237,'P','g','A',19,'=','!',171,148,138,
+    0xaa,'N','|',193,177,251,167,214,181,39,'/',151,171,'n',224,29,226,209,28,
+    ',',0x1f,'D',0xe2,252,190,145,161,156,251,214,')','S','s',134,159,'S',216,
+    'C',14,']',214,'c',130,'q',29,128,'t',202,246,226,2,'k',217,'Z',
+]
+
 
 /**
 Hongkong Post Root CA 1.
 SHA256 fingerprint: f9:e6:7d:33:6c:51:00:2a:c0:54:c6:32:02:2d:66:dd:a2:e7:e3:ff:f1:0a:d0:61:ed:31:d8:bb:b4:10:cf:b2
 */
-HONGKONG_POST_ROOT_CA_1 ::= net.Certificate.parse HONGKONG_POST_ROOT_CA_1_TEXT_
+HONGKONG_POST_ROOT_CA_1 ::= parse_ HONGKONG_POST_ROOT_CA_1_BYTES_
 
-SECURESIGN_ROOTCA11_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIDbTCCAlWgAwIBAgIBATANBgkqhkiG9w0BAQUFADBYMQswCQYDVQQGEwJKUDEr
-MCkGA1UEChMiSmFwYW4gQ2VydGlmaWNhdGlvbiBTZXJ2aWNlcywgSW5jLjEcMBoG
-A1UEAxMTU2VjdXJlU2lnbiBSb290Q0ExMTAeFw0wOTA0MDgwNDU2NDdaFw0yOTA0
-MDgwNDU2NDdaMFgxCzAJBgNVBAYTAkpQMSswKQYDVQQKEyJKYXBhbiBDZXJ0aWZp
-Y2F0aW9uIFNlcnZpY2VzLCBJbmMuMRwwGgYDVQQDExNTZWN1cmVTaWduIFJvb3RD
-QTExMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA/XeqpRyQBTvLTJsz
-i1oURaTnkBbR31fSIRCkF/3frNYfp+TbfPfs37gD2pRY/V1yfIw/XwFndBWW4wI8
-h9uuywGOwvNmxoVF9ALGOrVisq/6nL+k5tSAMJjzDbaTj6nU2DbysPyKyiyhFTOV
-MdrAG/LuYpmGYz+/3ZMqg6h2uRMft85OQoWPIucuGvKVCbIFtUROd6EgvanyTgp9
-UK31BQ1FT0Zx/Sg+U/sE2C3XZR1KG/rPO7AxmjVuyIsG0wCR8pQIZUyxNAYAeoni
-8McDWc/V1uinMrPmmECGxc0nEovMe863ETxiYAcjPitAbpSACW22s293bzUIUPsC
-h8U+iQIDAQABo0IwQDAdBgNVHQ4EFgQUW/hNT7KlhtQ60vFjmqC+CfZXt94wDgYD
-VR0PAQH/BAQDAgEGMA8GA1UdEwEB/wQFMAMBAf8wDQYJKoZIhvcNAQEFBQADggEB
-AKChOBZmLqdWHyGcBvod7bkixTgm2E5P7KN/ed5GIaGHd48HCJqypMWvDzKYC3xm
-KbabfSVSSUOrTC4rbnpwrxYO4wJs+0LmGJ1F2FXI6Dvd5+H0LgscNFxsWEr7jIhQ
-X5Ucv+2rIrVls4W6ng+4reV6G4pQOh29Dbx7VFALuUKvVaAYga1lme++5Jy/xIWr
-QbJUb9wlze144o4MjQlJ3WN7WmmWAiGovVJZ6X01y8hSyn+B/tlr0/cR7SXf+Of5
-pPpyl4RTDaXQMhhRdlkUbA/r7F+AjHVDg8OFmP9Mni0N5HeDk061lgeLKBObjBmN
-QSdJQO7e5iNEOdyhIta6A/I=
------END CERTIFICATE-----
-"""
+SECURESIGN_ROOTCA11_BYTES_ ::= #[
+    '0',0x82,3,'m','0',130,2,'U',160,3,2,1,2,2,1,1,'0',13,6,9,'*',134,'H',134,
+    0xf7,0x0d,1,1,5,5,0,'0','X','1',11,'0',9,6,3,'U',4,6,19,2,'J','P','1','+',
+    '0',')',0x6,3,'U',4,10,19,'"','J','a','p','a','n',' ','C','e','r','t','i',
+    'f','i','c','a','t','i','o','n',' ','S','e','r','v','i','c','e','s',',',
+    ' ','I','n','c','.','1',0x1c,'0',26,6,3,'U',4,3,19,19,'S','e','c','u','r',
+    'e','S','i','g','n',' ','R','o','o','t','C','A','1','1','0',30,23,0xd,'0',
+    '9','0','4','0','8','0','4','5','6','4','7','Z',23,13,'2','9','0','4','0',
+    '8','0','4','5','6','4','7','Z','0','X','1',11,'0',9,6,3,'U',4,6,19,2,'J',
+    'P','1','+','0',')',0x6,3,'U',4,10,19,'"','J','a','p','a','n',' ','C','e',
+    'r','t','i','f','i','c','a','t','i','o','n',' ','S','e','r','v','i','c',
+    'e','s',',',' ','I','n','c','.','1',0x1c,'0',26,6,3,'U',4,3,19,19,'S','e',
+    'c','u','r','e','S','i','g','n',' ','R','o','o','t','C','A','1','1','0',
+    0x82,0x1,'"','0',13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,1,15,0,'0',
+    130,1,10,2,130,1,1,0,253,'w',170,165,28,144,5,';',203,'L',155,'3',139,'Z',
+    0x14,'E',0xa4,231,144,22,209,223,'W',210,'!',16,164,23,253,223,172,214,31,
+    167,228,219,'|',247,236,223,184,3,218,148,'X',253,']','r','|',140,'?','_',
+    1,'g','t',21,0x96,227,2,'<',135,219,174,203,1,142,194,243,'f',198,133,'E',
+    0xf4,2,198,':',181,'b',178,175,250,156,191,164,230,212,128,'0',152,243,13,
+    0xb6,0x93,0x8f,169,212,216,'6',242,176,252,138,202,',',161,21,'3',149,'1',
+    218,192,27,242,238,'b',153,134,'c','?',191,221,147,'*',131,168,'v',185,19,
+    31,183,206,'N','B',133,143,'"',231,'.',26,242,149,9,178,5,181,'D','N','w',
+    0xa1,' ',0xbd,169,242,'N',10,'}','P',173,245,5,13,'E','O','F','q',253,'(',
+    '>','S',0xfb,4,0xd8,'-',215,'e',29,'J',27,250,207,';',176,'1',154,'5','n',
+    0xc8,0x8b,6,211,0,145,242,148,8,'e','L',177,'4',6,0,'z',137,226,240,199,3,
+    'Y',207,213,214,232,167,'2',179,230,152,'@',134,197,205,39,18,139,204,'{',
+    0xce,0xb7,17,'<','b','`',7,'#','>','+','@','n',0x94,128,9,'m',182,179,'o',
+    'w','o','5',8,'P',0xfb,2,135,197,'>',137,2,3,1,0,1,163,'B','0','@','0',29,
+    0x6,3,'U',29,14,4,22,4,20,'[',248,'M','O',178,165,134,212,':',210,241,'c',
+    0x9a,0xa0,0xbe,9,246,'W',183,222,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,
+    '0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',13,6,9,'*',134,'H',134,
+    0xf7,13,1,1,5,5,0,3,130,1,1,0,160,161,'8',22,'f','.',167,'V',31,'!',156,6,
+    0xfa,0x1d,237,185,'"',197,'8','&',216,'N','O',236,163,127,'y',222,'F','!',
+    161,135,'w',143,7,8,154,178,164,197,175,15,'2',152,11,'|','f',')',182,155,
+    '}','%','R','I','C',0xab,'L','.','+','n','z','p',0xaf,22,14,227,2,'l',251,
+    'B',0xe6,24,0x9d,'E',216,'U',200,232,';',221,231,225,244,'.',11,28,'4',92,
+    'l','X','J',0xfb,0x8c,0x88,'P','_',149,28,191,237,171,'"',181,'e',179,133,
+    0xba,0x9e,0xf,184,173,229,'z',27,138,'P',':',29,189,13,188,'{','T','P',11,
+    0xb9,'B',0xaf,'U',0xa0,24,129,173,'e',153,239,190,228,156,191,196,133,171,
+    'A',0xb2,'T','o',220,'%',205,237,'x',226,142,12,141,9,'I',221,'c','{','Z',
+    'i',150,2,'!',168,189,'R','Y',233,'}','5',203,200,'R',202,127,129,254,217,
+    'k',211,247,17,237,'%',223,248,231,249,164,250,'r',151,132,'S',13,165,208,
+    '2',24,'Q','v','Y',20,'l',0xf,235,236,'_',128,140,'u','C',131,195,133,152,
+    0xff,'L',0x9e,'-',0xd,228,'w',131,147,'N',181,150,7,139,'(',19,155,140,25,
+    141,'A',39,'I','@',238,222,230,'#','D','9',220,161,'"',214,186,3,242,
+]
+
 
 /**
 SecureSign RootCA11.
 SHA256 fingerprint: bf:0f:ee:fb:9e:3a:58:1a:d5:f9:e9:db:75:89:98:57:43:d2:61:08:5c:4d:31:4f:6f:5d:72:59:aa:42:16:12
 */
-SECURESIGN_ROOTCA11 ::= net.Certificate.parse SECURESIGN_ROOTCA11_TEXT_
+SECURESIGN_ROOTCA11 ::= parse_ SECURESIGN_ROOTCA11_BYTES_
 
-MICROSEC_E_SZIGNO_ROOT_CA_2009_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIECjCCAvKgAwIBAgIJAMJ+QwRORz8ZMA0GCSqGSIb3DQEBCwUAMIGCMQswCQYD
-VQQGEwJIVTERMA8GA1UEBwwIQnVkYXBlc3QxFjAUBgNVBAoMDU1pY3Jvc2VjIEx0
-ZC4xJzAlBgNVBAMMHk1pY3Jvc2VjIGUtU3ppZ25vIFJvb3QgQ0EgMjAwOTEfMB0G
-CSqGSIb3DQEJARYQaW5mb0BlLXN6aWduby5odTAeFw0wOTA2MTYxMTMwMThaFw0y
-OTEyMzAxMTMwMThaMIGCMQswCQYDVQQGEwJIVTERMA8GA1UEBwwIQnVkYXBlc3Qx
-FjAUBgNVBAoMDU1pY3Jvc2VjIEx0ZC4xJzAlBgNVBAMMHk1pY3Jvc2VjIGUtU3pp
-Z25vIFJvb3QgQ0EgMjAwOTEfMB0GCSqGSIb3DQEJARYQaW5mb0BlLXN6aWduby5o
-dTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAOn4j/NjrdqG2KfgQvvP
-kd6mJviZpWNwrZuuyjNAfW2WbqEORO7hE52UQlKavXWFdCyoDh2Tthi3jCyoz/tc
-cbna7P7ofo/kLx2yqHWH2Leh5TvPmUpG0IMZfcChEhyVbUr02MelTTMuhTlAdX4U
-fIASmFDHQWe4oIBhVKZsTh/gnQ4H6cm6M+f+wFUoLAKApxn1ntxVUwOXewdI/5n7
-N4okxFnMUBBjjqqpGrCEGob5X7uxUG6k0QrM1XF+H6cbfPVTbiJfyyvm1HxdrtbC
-xkzlBQHZ7Vf8wSN5/PrIJIOV87VqUQHQd9bpEqH5GoP7ghu5sJf0dgYzQ0mg/wu1
-+rUCAwEAAaOBgDB+MA8GA1UdEwEB/wQFMAMBAf8wDgYDVR0PAQH/BAQDAgEGMB0G
-A1UdDgQWBBTLD8bfQkPMPcu1SCOhGnqmKrs0aDAfBgNVHSMEGDAWgBTLD8bfQkPM
-Pcu1SCOhGnqmKrs0aDAbBgNVHREEFDASgRBpbmZvQGUtc3ppZ25vLmh1MA0GCSqG
-SIb3DQEBCwUAA4IBAQDJ0Q5eLtXMs3w+y/w9/w0olZMEyL/azXm4Q5DwpL7v8u8h
-mLzU1F0G9u5C7DBsoKqpyvGvivo/C3NqPuouQH4frlRheesuCDfXI/OMn74dseGk
-ddug4lQUsbocKaQY9hK6ohQU4zE1yED/t+AFdlfBHFny+L/k7SViXITwfn4fs775
-tyERzAMBVnCnEJIeGzSBHq2cGsMEPO0CYdYeBvNfOofyK/FFh+U9rNHHV4S9a67c
-2Pm2G2JwCz02yULyMtd6YebS2z3PyKnJm9zbWETXbzivf3jTo60adbocwTZ8jx5t
-HMN1Rq41Bab2XD0h7lbwyYIiLXpUq3DDfSJlgnCW
------END CERTIFICATE-----
-"""
+MICROSEC_E_SZIGNO_ROOT_CA_2009_BYTES_ ::= #[
+    '0',130,4,10,'0',130,2,242,160,3,2,1,2,2,9,0,194,'~','C',4,'N','G','?',25,
+    '0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,'0',129,130,'1',11,'0',9,6,3,
+    'U',0x4,6,19,2,'H','U','1',17,'0',15,6,3,'U',4,7,12,8,'B','u','d','a','p',
+    'e','s','t','1',22,'0',20,6,3,'U',4,0xa,12,13,'M','i','c','r','o','s','e',
+    'c',' ','L','t','d','.','1',39,'0','%',6,3,'U',4,3,0xc,30,'M','i','c','r',
+    'o','s','e','c',' ','e','-','S','z','i','g','n','o',' ','R','o','o','t',
+    ' ','C','A',' ','2','0','0','9','1',31,'0',29,6,9,'*',0x86,'H',134,247,13,
+    0x1,9,1,22,16,'i','n','f','o','@','e','-','s','z','i','g','n','o','.','h',
+    'u','0',0x1e,23,13,'0','9','0','6','1','6','1','1','3','0','1','8','Z',23,
+    13,'2','9','1','2','3','0','1','1','3','0','1','8','Z','0',129,130,'1',11,
+    '0',9,6,3,'U',4,6,19,2,'H','U','1',17,'0',15,6,3,'U',4,7,12,8,'B','u','d',
+    'a','p','e','s','t','1',22,'0',20,6,3,'U',4,0xa,12,13,'M','i','c','r','o',
+    's','e','c',' ','L','t','d','.','1',39,'0','%',6,3,'U',4,3,0xc,30,'M','i',
+    'c','r','o','s','e','c',' ','e','-','S','z','i','g','n','o',' ','R','o',
+    'o','t',' ','C','A',' ','2','0','0','9','1',31,'0',29,6,9,'*',134,'H',134,
+    0xf7,0x0d,1,9,1,22,16,'i','n','f','o','@','e','-','s','z','i','g','n','o',
+    '.','h','u','0',0x82,1,'"','0',0xd,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,
+    0x82,1,0xf,0,'0',130,1,10,2,130,1,1,0,233,248,143,243,'c',173,218,134,216,
+    0xa7,0xe0,'B',251,207,145,222,166,'&',248,153,165,'c','p',173,155,174,202,
+    '3','@','}','m',150,'n',161,14,'D',238,225,19,157,148,'B','R',154,189,'u',
+    0x85,'t',',',0xa8,14,29,147,182,24,183,140,',',168,207,251,92,'q',185,218,
+    0xec,0xfe,0xe8,'~',143,228,'/',29,178,168,'u',135,216,183,161,229,';',207,
+    0x99,'J','F',208,131,25,'}',192,161,18,28,149,'m','J',244,216,199,165,'M',
+    '3','.',133,'9','@','u','~',20,'|',128,18,152,'P',199,'A','g',184,160,128,
+    'a','T',0xa6,'l','N',31,0xe0,157,14,7,233,201,186,'3',231,254,192,'U','(',
+    ',',2,0x80,167,25,245,158,220,'U','S',3,151,'{',7,'H',255,153,251,'7',138,
+    '$',0xc4,'Y',204,'P',16,'c',142,170,169,26,176,132,26,134,249,'_',187,177,
+    'P','n',0xa4,209,10,204,213,'q','~',31,167,27,'|',245,'S','n','"','_',203,
+    '+',0xe6,0xd4,'|',']',174,214,194,198,'L',229,5,1,217,237,'W',252,193,'#',
+    'y',0xfc,250,200,'$',131,149,243,181,'j','Q',1,208,'w',214,233,18,161,249,
+    0x1a,0x83,251,130,27,185,176,151,244,'v',6,'3','C','I',160,255,11,181,250,
+    0xb5,2,3,1,0,1,163,129,128,'0','~','0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,
+    0x1,1,255,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',29,6,3,'U',29,14,4,
+    22,4,20,203,15,198,223,'B','C',204,'=',203,181,'H','#',161,26,'z',166,'*',
+    0xbb,'4','h','0',31,6,3,'U',29,'#',4,24,'0',22,0x80,20,203,15,198,223,'B',
+    'C',204,'=',203,181,'H','#',161,26,'z',166,'*',187,'4','h','0',27,6,3,'U',
+    29,17,4,20,'0',18,0x81,16,'i','n','f','o','@','e','-','s','z','i','g','n',
+    'o','.','h','u','0',0xd,6,9,'*',134,'H',134,247,13,1,1,11,5,0,3,130,1,1,0,
+    0xc9,0xd1,14,'^','.',213,204,179,'|','>',203,252,'=',255,13,'(',149,147,4,
+    0xc8,0xbf,218,205,'y',184,'C',144,240,164,190,239,242,239,'!',152,188,212,
+    0xd4,']',6,246,238,'B',236,'0','l',160,170,169,202,241,175,138,250,'?',11,
+    's','j','>',0xea,'.','@','~',31,174,'T','a','y',235,'.',8,'7',215,'#',243,
+    0x8c,0x9f,190,29,177,225,164,'u',219,160,226,'T',20,177,186,28,')',164,24,
+    246,18,186,162,20,20,227,'1','5',200,'@',255,183,224,5,'v','W',193,28,'Y',
+    0xf2,248,191,228,237,'%','b',92,132,240,'~','~',31,179,190,249,183,'!',17,
+    0xcc,0x3,1,'V','p',167,16,146,30,27,'4',129,30,173,156,26,195,4,'<',237,2,
+    'a',0xd6,30,6,243,'_',':',135,242,'+',241,'E',135,229,'=',172,209,199,'W',
+    132,189,'k',174,220,216,249,182,27,'b','p',11,'=','6',201,'B',242,'2',215,
+    'z','a',0xe6,0xd2,219,'=',207,200,169,201,155,220,219,'X','D',215,'o','8',
+    0xaf,0x7f,'x',211,163,173,26,'u',186,28,193,'6','|',143,30,'m',28,195,'u',
+    'F',0xae,'5',5,166,246,92,'=','!',238,'V',240,201,130,'"','-','z','T',171,
+    'p',195,'}','"','e',130,'p',150,
+]
+
 
 /**
 Microsec e-Szigno Root CA 2009.
 SHA256 fingerprint: 3c:5f:81:fe:a5:fa:b8:2c:64:bf:a2:ea:ec:af:cd:e8:e0:77:fc:86:20:a7:ca:e5:37:16:3d:f3:6e:db:f3:78
 */
-MICROSEC_E_SZIGNO_ROOT_CA_2009 ::= net.Certificate.parse MICROSEC_E_SZIGNO_ROOT_CA_2009_TEXT_
+MICROSEC_E_SZIGNO_ROOT_CA_2009 ::= parse_ MICROSEC_E_SZIGNO_ROOT_CA_2009_BYTES_
 
-GLOBALSIGN_ROOT_CA_R3_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIDXzCCAkegAwIBAgILBAAAAAABIVhTCKIwDQYJKoZIhvcNAQELBQAwTDEgMB4G
-A1UECxMXR2xvYmFsU2lnbiBSb290IENBIC0gUjMxEzARBgNVBAoTCkdsb2JhbFNp
-Z24xEzARBgNVBAMTCkdsb2JhbFNpZ24wHhcNMDkwMzE4MTAwMDAwWhcNMjkwMzE4
-MTAwMDAwWjBMMSAwHgYDVQQLExdHbG9iYWxTaWduIFJvb3QgQ0EgLSBSMzETMBEG
-A1UEChMKR2xvYmFsU2lnbjETMBEGA1UEAxMKR2xvYmFsU2lnbjCCASIwDQYJKoZI
-hvcNAQEBBQADggEPADCCAQoCggEBAMwldpB5BngiFvXAg7aEyiie/QV2EcWtiHL8
-RgJDx7KKnQRfJMsuS+FggkbhUqsMgUdwbN1k0ev1LKMPgj0MK66X17YUhhB5uzsT
-gHeMCOFJ0mpiLx9e+pZo34knlTifBtc+ycsmWQ1z3rDI6SYOgxXG71uL0gRgykmm
-KPZpO/bLyCiR5Z2KYVc3rHQU3HTgOu5yLy6c+9C7v/U9AOEGM+iCK65TpjoWc4zd
-QQ4gOsC0p6Hpsk+QLjJg6VfLuQSSaGjlOCZgdbKfd/+RFO+uIEn8rUAVSNECMWEZ
-XriX7613t2Saer9fwRPvm2L7DWzgVGkWqQPabumDk3F2xmmFghcCAwEAAaNCMEAw
-DgYDVR0PAQH/BAQDAgEGMA8GA1UdEwEB/wQFMAMBAf8wHQYDVR0OBBYEFI/wS3+o
-LkUkrk1Q+mOai97i3Ru8MA0GCSqGSIb3DQEBCwUAA4IBAQBLQNvAUKr+yAzv95ZU
-RUm7lgAJQayzE4aGKAczymvmdLm6AC2upArT9fHxD4q/c2dKg8dEe3jgr25sbwMp
-jjM5RcOO5LlXbKr8EpbsU8Yt5CRsuZRj+9xTaGdWPoO4zzUhw8lo/s7awlOqzJCK
-6fBdRoyV3XpYKBovHd7NADdBj+1EbddTKJd+82cEHhXXipa0095MJ6RMG3NzdvQX
-mcIfeg7jLQitChws/zyrVQ4PkX4268NXSb7hLi18YIvDQVETI53O9zJrlAGomecs
-Mx86OyXShkDOOyyGeMlhLxS67ttVb9+E7gUJTb0o2HLO02JQZR7rkpeDMdmztcpH
-WD9f
------END CERTIFICATE-----
-"""
+GLOBALSIGN_ROOT_CA_R3_BYTES_ ::= #[
+    '0',0x82,0x3,'_','0',130,2,'G',160,3,2,1,2,2,11,4,0,0,0,0,1,'!','X','S',8,
+    162,'0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,'0','L','1',' ','0',30,6,
+    3,'U',4,0xb,19,23,'G','l','o','b','a','l','S','i','g','n',' ','R','o','o',
+    't',' ','C','A',' ','-',' ','R','3','1',19,'0',17,6,3,'U',4,0xa,19,10,'G',
+    'l','o','b','a','l','S','i','g','n','1',0x13,'0',17,6,3,'U',4,3,19,10,'G',
+    'l','o','b','a','l','S','i','g','n','0',30,23,0xd,'0','9','0','3','1','8',
+    '1','0','0','0','0','0','Z',23,13,'2','9','0','3','1','8','1','0','0','0',
+    '0','0','Z','0','L','1',' ','0',30,6,3,'U',4,11,19,23,'G','l','o','b','a',
+    'l','S','i','g','n',' ','R','o','o','t',' ','C','A',' ','-',' ','R','3',
+    '1',19,'0',17,6,3,'U',4,0xa,19,10,'G','l','o','b','a','l','S','i','g','n',
+    '1',0x13,'0',17,6,3,'U',4,3,19,10,'G','l','o','b','a','l','S','i','g','n',
+    '0',0x82,0x1,'"','0',13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,1,15,0,
+    '0',130,1,10,2,130,1,1,0,204,'%','v',144,'y',6,'x','"',22,245,192,131,182,
+    0x84,0xca,'(',0x9e,253,5,'v',17,197,173,136,'r',252,'F',2,'C',199,178,138,
+    0x9d,4,'_','$',203,'.','K',225,'`',130,'F',225,'R',171,12,129,'G','p','l',
+    0xdd,'d',0xd1,235,245,',',163,15,130,'=',12,'+',174,151,215,182,20,134,16,
+    'y',0xbb,';',19,0x80,'w',140,8,225,'I',210,'j','b','/',31,'^',250,150,'h',
+    0xdf,0x89,39,149,'8',159,6,215,'>',201,203,'&','Y',13,'s',222,176,200,233,
+    '&',0x0e,131,21,198,239,'[',139,210,4,'`',202,'I',166,'(',246,'i',';',246,
+    0xcb,0xc8,'(',0x91,229,157,138,'a','W','7',172,'t',20,220,'t',224,':',238,
+    'r','/','.',0x9c,0xfb,208,187,191,245,'=',0,225,6,'3',232,130,'+',174,'S',
+    166,':',22,'s',140,221,'A',14,' ',':',192,180,167,161,233,178,'O',144,'.',
+    '2','`',233,'W',203,185,4,146,'h','h',229,'8','&','`','u',178,159,'w',255,
+    0x91,0x14,239,174,' ','I',252,173,'@',21,'H',209,2,'1','a',25,'^',184,151,
+    239,173,'w',183,'d',154,'z',191,'_',193,19,239,155,'b',251,13,'l',224,'T',
+    'i',22,169,3,218,'n',233,131,147,'q','v',198,'i',133,130,23,2,3,1,0,1,163,
+    'B','0','@','0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',15,6,3,'U',29,19,
+    1,1,0xff,4,5,'0',3,1,1,255,'0',29,6,3,'U',29,14,4,22,4,20,143,240,'K',127,
+    168,'.','E','$',174,'M','P',250,'c',154,139,222,226,221,27,188,'0',13,6,9,
+    '*',134,'H',134,247,13,1,1,11,5,0,3,130,1,1,0,'K','@',219,192,'P',170,254,
+    0xc8,0xc,239,247,150,'T','E','I',187,150,0,9,'A',172,179,19,134,134,'(',7,
+    '3',0xca,'k',0xe6,'t',185,186,0,'-',174,164,10,211,245,241,241,15,138,191,
+    's','g','J',131,199,'D','{','x',224,175,'n','l','o',3,')',142,'3','9','E',
+    0xc3,0x8e,0xe4,185,'W','l',170,252,18,150,236,'S',198,'-',228,'$','l',185,
+    0x94,'c',0xfb,220,'S','h','g','V','>',131,184,207,'5','!',195,201,'h',254,
+    0xce,0xda,194,'S',170,204,144,138,233,240,']','F',140,149,221,'z','X','(',
+    26,'/',29,222,205,0,'7','A',143,237,'D','m',215,'S','(',151,'~',243,'g',4,
+    0x1e,21,0xd7,138,150,180,211,222,'L',39,164,'L',27,'s','s','v',244,23,153,
+    0xc2,31,'z',0xe,227,'-',8,173,10,28,',',255,'<',171,'U',14,15,145,'~','6',
+    0xeb,0xc3,'W','I',0xbe,225,'.','-','|','`',139,195,'A','Q',19,'#',157,206,
+    0xf7,'2','k',148,1,168,153,231,',','3',31,':',';','%',210,134,'@',206,';',
+    ',',0x86,'x',0xc9,'a','/',20,0xba,238,219,'U','o',223,132,238,5,9,'M',189,
+    '(',0xd8,'r',0xce,0xd3,'b','P','e',30,235,146,151,131,'1',217,179,181,202,
+    'G','X','?','_',
+]
+
 
 /**
 GlobalSign Root CA - R3.
 SHA256 fingerprint: cb:b5:22:d7:b7:f1:27:ad:6a:01:13:86:5b:df:1c:d4:10:2e:7d:07:59:af:63:5a:7c:f4:72:0d:c9:63:c5:3b
 */
-GLOBALSIGN_ROOT_CA_R3 ::= net.Certificate.parse GLOBALSIGN_ROOT_CA_R3_TEXT_
+GLOBALSIGN_ROOT_CA_R3 ::= parse_ GLOBALSIGN_ROOT_CA_R3_BYTES_
 
-AUTORIDAD_DE_CERTIFICACION_FIRMAPROFESIONAL_CIF_A62634068_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIGFDCCA/ygAwIBAgIIU+w77vuySF8wDQYJKoZIhvcNAQEFBQAwUTELMAkGA1UE
-BhMCRVMxQjBABgNVBAMMOUF1dG9yaWRhZCBkZSBDZXJ0aWZpY2FjaW9uIEZpcm1h
-cHJvZmVzaW9uYWwgQ0lGIEE2MjYzNDA2ODAeFw0wOTA1MjAwODM4MTVaFw0zMDEy
-MzEwODM4MTVaMFExCzAJBgNVBAYTAkVTMUIwQAYDVQQDDDlBdXRvcmlkYWQgZGUg
-Q2VydGlmaWNhY2lvbiBGaXJtYXByb2Zlc2lvbmFsIENJRiBBNjI2MzQwNjgwggIi
-MA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQDKlmuO6vj78aI14H9M2uDDUtd9
-thDIAl6zQyrET2qyyhxdKJp4ERppWVevtSBC5IsP5t9bpgOSL/UR5GLXMnE42QQM
-cas9UX4PB99jBVzpv5RvwSmCwLTaUbDBPLutN0pcyvFLNg4kq7/DhHf9qFD0sefG
-L9ItWY16Ck6WaVICqjaY7Pz6FIMMNx/Jkjd/14Et5cS54D40/mf0PmbR0/RAz15i
-NA9wBj4gGFrO93IbJWyTdBSTo3OxDqqHECNZXyAFGUftaI6SEspd/NYrspI8IM/h
-X68gvqB2f3bl7BqGYTM+53u0P6APjqK5am+5hyZvQWyIplD9amML9ZMWGxmPsu2b
-m8mQ9QEM3xk9Dz44I8kvjwzRAv4bVdZO0I08r0+k8/6vKtMFnXkIoctXMbScyJCy
-Z/QYFpM6/EfY0XiWMR+6KwxfXZmtY4laJCB22N/9q06mIqqdXuYnin1oKaPnirja
-EbsXLZmdEyRG98Xi2J+Of8ePdG1asuhy9azuJBCtLxTa/y2aRnFHvkLfuwHb9H/T
-KI8xWVvTyQKmtFLKbpf7Q8UIJm+K9Lv9nyiqDdVF8xM6HdjAeI9BZzwelGSuewvF
-6NkBiDkal4ZkQdU7hwxu+g/GvUgUvzlN1J5Bto+WHWOWk9mVBngxaJ43BjuAiUVh
-OSPHG0SjFeUc+JIwuwIDAQABo4HvMIHsMBIGA1UdEwEB/wQIMAYBAf8CAQEwDgYD
-VR0PAQH/BAQDAgEGMB0GA1UdDgQWBBRlzeurNR4APn7VdMActHNHDhpkLzCBpgYD
-VR0gBIGeMIGbMIGYBgRVHSAAMIGPMC8GCCsGAQUFBwIBFiNodHRwOi8vd3d3LmZp
-cm1hcHJvZmVzaW9uYWwuY29tL2NwczBcBggrBgEFBQcCAjBQHk4AUABhAHMAZQBv
-ACAAZABlACAAbABhACAAQgBvAG4AYQBuAG8AdgBhACAANAA3ACAAQgBhAHIAYwBl
-AGwAbwBuAGEAIAAwADgAMAAxADcwDQYJKoZIhvcNAQEFBQADggIBABd9oPm03cXF
-661LJLWhAqvdpYhKsg9VSytXjDvlMd3+xDLx51tkljYyGOylMnfX40S2wBEqgLk9
-am58m9Ot/MPWo+ZkKXzR4Tgegiv/J2Wv+xYVxC5xhOW1//qkR71kMrv2JYSiJ0L1
-ILDCExARzRAVukKQKtJE4ZYm6zFIEv0q2skGz3QeqUvVhyj5eTSSPi5E6PaPT481
-PyWzOdxjKpBrIF/EUhJOlywqrJ2X3kjyo2bbwtKDlaZmp54lD+kLM5FlClrD2VQS
-3a/DTg4fJl4N3LON7NWBcN7STyQF82xO9UxJZo3R/9ILJUFI/lGExkKvgATP0H5k
-SeTy36LssUzAKh3ntLFlosS88Zj0qnAHY7S42jtM+kAiMFsRpvAFDsYCA0irhpuF
-3dvd6qJ2gHN99ZwExEWN57kci57q13XRcrHedUTnQn3iV2t93Jm8PYMo6oCTjcVM
-ZcFwgbg4/EMxsvYDNEeyrPsiBsse3RdHHF9mudMaotoRsaS8I8nkvof/uZS2+F0g
-StRf571oe2XyFR7SOqkt6dhrJKyXWERHrVkY8SFlcN7ONGCoQPHzPKTDKCOM/icz
-Q0CgFzzr6juwcqajuUpLXhZI9LK8yIySxZ2frHI2vDSANGupi5LAuBft7HZT9SQB
-jLMi6Et8Vcad+qMUu2WFbm5PEn4KPJ2V
------END CERTIFICATE-----
-"""
+AUTORIDAD_DE_CERTIFICACION_FIRMAPROFESIONAL_CIF_A62634068_BYTES_ ::= #[
+    '0',0x82,0x6,20,'0',130,3,252,160,3,2,1,2,2,8,'S',236,';',238,251,178,'H',
+    '_','0',0xd,6,9,'*',134,'H',134,247,13,1,1,5,5,0,'0','Q','1',11,'0',9,6,3,
+    'U',0x4,6,19,2,'E','S','1','B','0','@',6,3,'U',4,3,12,'9','A','u','t','o',
+    'r','i','d','a','d',' ','d','e',' ','C','e','r','t','i','f','i','c','a',
+    'c','i','o','n',' ','F','i','r','m','a','p','r','o','f','e','s','i','o',
+    'n','a','l',' ','C','I','F',' ','A','6','2','6','3','4','0','6','8','0',
+    0x1e,23,0xd,'0','9','0','5','2','0','0','8','3','8','1','5','Z',23,13,'3',
+    '0','1','2','3','1','0','8','3','8','1','5','Z','0','Q','1',0xb,'0',9,6,3,
+    'U',0x4,6,19,2,'E','S','1','B','0','@',6,3,'U',4,3,12,'9','A','u','t','o',
+    'r','i','d','a','d',' ','d','e',' ','C','e','r','t','i','f','i','c','a',
+    'c','i','o','n',' ','F','i','r','m','a','p','r','o','f','e','s','i','o',
+    'n','a','l',' ','C','I','F',' ','A','6','2','6','3','4','0','6','8','0',
+    0x82,0x2,'"','0',13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,2,15,0,'0',
+    0x82,2,10,2,130,2,1,0,202,150,'k',142,234,248,251,241,162,'5',224,127,'L',
+    0xda,224,195,'R',215,'}',182,16,200,2,'^',179,'C','*',196,'O','j',178,202,
+    0x1c,']','(',154,'x',17,26,'i','Y','W',175,181,' ','B',228,139,15,230,223,
+    '[',166,3,146,'/',245,17,228,'b',215,'2','q','8',217,4,12,'q',171,'=','Q',
+    '~',15,7,223,'c',5,92,233,191,148,'o',193,')',130,192,180,218,'Q',176,193,
+    '<',187,173,'7','J',92,202,241,'K','6',14,'$',171,191,195,132,'w',253,168,
+    'P',0xf4,177,231,198,'/',210,'-','Y',141,'z',10,'N',150,'i','R',2,170,'6',
+    0x98,236,252,250,20,131,12,'7',31,201,146,'7',127,215,129,'-',229,196,185,
+    0xe0,'>','4',254,'g',244,'>','f',209,211,244,'@',207,'^','b','4',15,'p',6,
+    '>',' ',0x18,'Z',206,247,'r',27,'%','l',147,'t',20,147,163,'s',177,14,170,
+    0x87,0x10,'#','Y','_',' ',5,25,'G',237,'h',142,146,18,202,']',252,214,'+',
+    0xb2,0x92,'<',' ',0xcf,225,'_',175,' ',190,160,'v',127,'v',229,236,26,134,
+    'a','3','>',0xe7,'{',0xb4,'?',0xa0,15,142,162,185,'j','o',185,135,'&','o',
+    'A','l',0x88,0xa6,'P',253,'j','c',11,245,147,22,27,25,143,178,237,155,155,
+    0xc9,0x90,0xf5,1,12,223,25,'=',15,'>','8','#',201,'/',143,12,209,2,254,27,
+    'U',0xd6,'N',0xd0,141,'<',175,'O',164,243,254,175,'*',211,5,157,'y',8,161,
+    203,'W','1',180,156,200,144,178,'g',244,24,22,147,':',252,'G',216,209,'x',
+    150,'1',31,186,'+',12,'_',']',153,173,'c',137,'Z','$',' ','v',216,223,253,
+    171,'N',166,'"',170,157,'^',230,39,138,'}','h',')',163,231,138,184,218,17,
+    187,23,'-',153,157,19,'$','F',247,197,226,216,159,142,127,199,143,'t','m',
+    'Z',178,232,'r',245,172,238,'$',16,173,'/',20,218,255,'-',154,'F','q','G',
+    0xbe,'B',0xdf,187,1,219,244,127,211,'(',143,'1','Y','[',211,201,2,166,180,
+    'R',0xca,'n',151,251,'C',197,8,'&','o',138,244,187,253,159,'(',170,13,213,
+    'E',0xf3,19,':',29,0xd8,192,'x',143,'A','g','<',30,148,'d',174,'{',11,197,
+    0xe8,0xd9,1,0x88,'9',26,151,134,'d','A',213,';',135,12,'n',250,15,198,189,
+    'H',0x14,191,'9','M',212,158,'A',182,143,150,29,'c',150,147,217,149,6,'x',
+    '1','h',0x9e,'7',0x6,';',128,137,'E','a','9','#',199,27,'D',163,21,229,28,
+    0xf8,146,'0',187,2,3,1,0,1,163,129,239,'0',129,236,'0',18,6,3,'U',29,19,1,
+    0x01,255,4,8,'0',6,1,1,255,2,1,1,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,
+    '0',0x1d,6,3,'U',29,14,4,22,4,20,'e',205,235,171,'5',30,0,'>','~',213,'t',
+    192,28,180,'s','G',14,26,'d','/','0',129,166,6,3,'U',29,' ',4,129,158,'0',
+    0x81,155,'0',129,152,6,4,'U',29,' ',0,'0',129,143,'0','/',6,8,'+',6,1,5,5,
+    7,2,1,22,'#','h','t','t','p',':','/','/','w','w','w','.','f','i','r','m',
+    'a','p','r','o','f','e','s','i','o','n','a','l','.','c','o','m','/','c',
+    'p','s','0',0x5c,6,8,'+',6,1,5,5,7,2,2,'0','P',30,'N',0,'P',0,'a',0,'s',0,
+    'e',0x0,'o',0,' ',0,'d',0,'e',0,' ',0,'l',0,'a',0,' ',0,'B',0,'o',0,'n',0,
+    'a',0x0,'n',0,'o',0,'v',0,'a',0,' ',0,'4',0,'7',0,' ',0,'B',0,'a',0,'r',0,
+    'c',0,'e',0,'l',0,'o',0,'n',0,'a',0,' ',0,'0',0,'8',0,'0',0,'1',0,'7','0',
+    0x0d,6,9,'*',0x86,'H',134,247,13,1,1,5,5,0,3,130,2,1,0,23,'}',160,249,180,
+    0xdd,197,197,235,173,'K','$',181,161,2,171,221,165,136,'J',178,15,'U','K',
+    '+','W',0x8c,';',0xe5,'1',0xdd,254,196,'2',241,231,'[','d',150,'6','2',24,
+    0xec,0xa5,'2','w',0xd7,227,'D',182,192,17,'*',128,185,'=','j','n','|',155,
+    211,173,252,195,214,163,230,'d',')','|',209,225,'8',30,130,'+',255,39,'e',
+    175,251,22,21,196,'.','q',132,229,181,255,250,164,'G',189,'d','2',187,246,
+    '%',132,162,39,'B',245,' ',176,194,19,16,17,205,16,21,186,'B',144,'*',210,
+    'D',0xe1,0x96,'&',235,'1','H',18,253,'*',218,201,6,207,'t',30,169,'K',213,
+    0x87,'(',0xf9,'y','4',146,'>','.','D',232,246,143,'O',143,'5','?','%',179,
+    '9',0xdc,'c','*',0x90,'k',' ','_',0xc4,'R',18,'N',151,',','*',172,157,151,
+    222,'H',242,163,'f',219,194,210,131,149,166,'f',167,158,'%',15,233,11,'3',
+    0x91,'e',0x0a,'Z',195,217,'T',18,221,175,195,'N',14,31,'&','^',13,220,179,
+    141,236,213,129,'p',222,210,'O','$',5,243,'l','N',245,'L','I','f',141,209,
+    0xff,210,11,'%','A','H',254,'Q',132,198,'B',175,128,4,207,208,'~','d','I',
+    0xe4,0xf2,0xdf,162,236,177,'L',192,'*',29,231,180,177,'e',162,196,188,241,
+    0x98,244,170,'p',7,'c',180,184,218,';','L',250,'@','"','0','[',17,166,240,
+    5,0xe,198,2,3,'H',171,134,155,133,221,219,221,234,162,'v',128,'s','}',245,
+    0x9c,4,196,'E',141,231,185,28,139,158,234,215,'u',209,'r',177,222,'u','D',
+    0xe7,'B','}',0xe2,'W','k','}',220,153,188,'=',131,'(',234,128,147,141,197,
+    'L','e',193,'p',129,184,'8',252,'C','1',178,246,3,'4','G',178,172,251,'"',
+    6,0xcb,30,221,23,'G',28,'_','f',185,211,26,162,218,17,177,164,188,'#',201,
+    0xe4,0xbe,135,255,185,148,182,248,']',' ','J',212,'_',231,189,'h','{','e',
+    0xf2,21,30,210,':',169,'-',233,216,'k','$',172,151,'X','D','G',173,'Y',24,
+    0xf1,'!','e','p',0xde,206,'4','`',168,'@',241,243,'<',164,195,'(','#',140,
+    254,39,'3','C','@',160,23,'<',235,234,';',176,'r',166,163,185,'J','K','^',
+    0x16,'H',0xf4,178,188,200,140,146,197,157,159,172,'r','6',188,'4',128,'4',
+    'k',0xa9,139,146,192,184,23,237,236,'v','S',245,'$',1,140,179,'"',232,'K',
+    '|','U',0xc6,157,250,163,20,187,'e',133,'n','n','O',18,'~',10,'<',157,149,
+]
+
 
 /**
 Autoridad de Certificacion Firmaprofesional CIF A62634068.
 SHA256 fingerprint: 04:04:80:28:bf:1f:28:64:d4:8f:9a:d4:d8:32:94:36:6a:82:88:56:55:3f:3b:14:30:3f:90:14:7f:5d:40:ef
 */
-AUTORIDAD_DE_CERTIFICACION_FIRMAPROFESIONAL_CIF_A62634068 ::= net.Certificate.parse AUTORIDAD_DE_CERTIFICACION_FIRMAPROFESIONAL_CIF_A62634068_TEXT_
+AUTORIDAD_DE_CERTIFICACION_FIRMAPROFESIONAL_CIF_A62634068 ::= parse_ AUTORIDAD_DE_CERTIFICACION_FIRMAPROFESIONAL_CIF_A62634068_BYTES_
 
-IZENPE_COM_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIF8TCCA9mgAwIBAgIQALC3WhZIX7/hy/WL1xnmfTANBgkqhkiG9w0BAQsFADA4
-MQswCQYDVQQGEwJFUzEUMBIGA1UECgwLSVpFTlBFIFMuQS4xEzARBgNVBAMMCkl6
-ZW5wZS5jb20wHhcNMDcxMjEzMTMwODI4WhcNMzcxMjEzMDgyNzI1WjA4MQswCQYD
-VQQGEwJFUzEUMBIGA1UECgwLSVpFTlBFIFMuQS4xEzARBgNVBAMMCkl6ZW5wZS5j
-b20wggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQDJ03rKDx6sp4boFmVq
-scIbRTJxldn+EFvMr+eleQGPicPK8lVx93e+d5TzcqQsRNiekpsUOqHnJJAKClaO
-xdgmlOHZSOEtPtoKct2jmRXagaKH9HtuJneJWK3W6wyyQXpzbm3benhB6QiIEn6H
-LmYRY2xU+zydcsC8Lv/Ct90NduM61/e0aL6i9eOBbsFGb12N4E3GVFWJGjMxCrFX
-uaOKmMPsOzTFlUFpfnXCPCDFYbpRR6AgkJOhkEvzTnyFRVSa0QUmQbC1TR0zvsQD
-yCV8wXDbO/QJLVQnSKwv4cSsPsjLkkxTOTcj7NMB+eAJRE1NZMDhDVqHIrytG6P+
-JrUV86f8hBnp7KGItERphIPzidF0BqnMC9bC3ieFUCbKF7jJeodWLBoBHmy+E60Q
-rLUk9TiRodZL2vG70t5HtfG8gfZZa88ZU+mNFctKy6lvROUbQc/hhqfK0GqfvEyN
-BjNaooXlkDWgYlwWTvDjovoDGrQscbNYLN57C9saD+veIR8GdwYDsMnvmfzAuU8L
-hij+0rnq49qlw0dpEuDb8PYZi+17cNcC1u2HGCgsBCRMd+RIihrGO5rUD8r6ddIB
-QFqNeb+Lz0vPqhbBleStTIo+F5HUsWLlguWABKQDfo2/2n+iD5dPDNMN+9fR5XJ+
-HMh3/1uaD7euBUbl8agW7EekFwIDAQABo4H2MIHzMIGwBgNVHREEgagwgaWBD2lu
-Zm9AaXplbnBlLmNvbaSBkTCBjjFHMEUGA1UECgw+SVpFTlBFIFMuQS4gLSBDSUYg
-QTAxMzM3MjYwLVJNZXJjLlZpdG9yaWEtR2FzdGVpeiBUMTA1NSBGNjIgUzgxQzBB
-BgNVBAkMOkF2ZGEgZGVsIE1lZGl0ZXJyYW5lbyBFdG9yYmlkZWEgMTQgLSAwMTAx
-MCBWaXRvcmlhLUdhc3RlaXowDwYDVR0TAQH/BAUwAwEB/zAOBgNVHQ8BAf8EBAMC
-AQYwHQYDVR0OBBYEFB0cZQ6o8iV7tJHP5LGx5r1VdGwFMA0GCSqGSIb3DQEBCwUA
-A4ICAQB4pgwWSp9MiDrAyw6lFn2fuUhfGI8NYjb2zRlrrKvV9pF9rnHzP7MOeIWb
-laQnIUdCSnxIOvVFfLMMjlF4rJUT3sb9fbgakEyrkgPH7UIBzg/YsfqikuFgba56
-awmqxinuaElnMIAkejEWOVt+8Rwu3WwJrfIxwYJOubv5vr8qhT/AQKM6WfxZSzwo
-JNu0FXWuDYi6LnPAvViH5ULy617uHjAimcs30cQhbIHsvm0m5hzkQiCeR7Csg1lw
-LDXWrzY0tM07+DKo7+N4ifuNRSzanLh+QBxh5z6ikixL8s36mLYp//Pye6kfLqCT
-VyvehQP5aTfLnnhqBbTFMXiJ7HqnheG5ezzevh55hM6fcA5ZwjUukCox2eRFekGk
-LhObNA5me0mrZJfQRsN5nXJQY6aYWwa9SG3YOYNw6DXwBdGqvOPbyALqfP2C2sJb
-UjWumDqtujWTI6cfSN01RpiyEGjkpTHCClguGYEQyVB1/OpaFs4R1+7vUIgtYf8/
-QnMFlEPVjjxOAToZpR9GTnfQXeWBIiGH/pR9hNiTrdZoQ0iy2+tzJOeRf1SktoA+
-naM8THLCV8Sg1Mw4J87VBp6iSNnpn86CcDaTmjvfliHjWbcM2pE38P1ZWrOZyGls
-QyYBNWNgVYkDOnXYukrZVP/u3oDYLdE41V4tC5h9Pmzb/CaIxw==
------END CERTIFICATE-----
-"""
+IZENPE_COM_BYTES_ ::= #[
+    '0',130,5,241,'0',130,3,217,160,3,2,1,2,2,16,0,176,183,'Z',22,'H','_',191,
+    225,203,245,139,215,25,230,'}','0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,
+    0x0,'0','8','1',11,'0',9,6,3,'U',4,6,19,2,'E','S','1',20,'0',18,6,3,'U',4,
+    0x0a,0xc,11,'I','Z','E','N','P','E',' ','S','.','A','.','1',19,'0',17,6,3,
+    'U',0x04,3,12,10,'I','z','e','n','p','e','.','c','o','m','0',30,23,13,'0',
+    '7','1','2','1','3','1','3','0','8','2','8','Z',23,13,'3','7','1','2','1',
+    '3','0','8','2','7','2','5','Z','0','8','1',11,'0',9,6,3,'U',4,6,19,2,'E',
+    'S','1',20,'0',18,6,3,'U',4,0xa,12,11,'I','Z','E','N','P','E',' ','S','.',
+    'A','.','1',0x13,'0',17,6,3,'U',4,3,12,10,'I','z','e','n','p','e','.','c',
+    'o','m','0',130,2,'"','0',13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,2,
+    0x0f,0,'0',0x82,2,10,2,130,2,1,0,201,211,'z',202,15,30,172,167,134,232,22,
+    'e','j',0xb1,0xc2,27,'E','2','q',149,217,254,16,'[',204,175,231,165,'y',1,
+    0x8f,0x89,195,202,242,'U','q',247,'w',190,'w',148,243,'r',164,',','D',216,
+    0x9e,146,155,20,':',161,231,'$',144,10,10,'V',142,197,216,'&',148,225,217,
+    'H',225,'-','>',218,10,'r',221,163,153,21,218,129,162,135,244,'{','n','&',
+    'w',0x89,'X',173,214,235,12,178,'A','z','s','n','m',219,'z','x','A',233,8,
+    136,18,'~',135,'.','f',17,'c','l','T',251,'<',157,'r',192,188,'.',255,194,
+    0xb7,0xdd,0xd,'v',227,':',215,247,180,'h',190,162,245,227,129,'n',193,'F',
+    'o',']',141,224,'M',198,'T','U',137,26,'3','1',10,177,'W',185,163,138,152,
+    0xc3,0xec,';','4',197,149,'A','i','~','u',194,'<',' ',197,'a',186,'Q','G',
+    160,' ',144,147,161,144,'K',243,'N','|',133,'E','T',154,209,5,'&','A',176,
+    181,'M',29,'3',190,196,3,200,'%','|',193,'p',219,';',244,9,'-','T',39,'H',
+    172,'/',225,196,172,'>',200,203,146,'L','S','9','7','#',236,211,1,249,224,
+    0x09,'D','M','M','d',192,225,13,'Z',135,'"',188,173,27,163,254,'&',181,21,
+    0xf3,167,252,132,25,233,236,161,136,180,'D','i',132,131,243,137,209,'t',6,
+    169,204,11,214,194,222,39,133,'P','&',202,23,184,201,'z',135,'V',',',26,1,
+    30,'l',0xbe,19,173,16,172,181,'$',245,'8',145,161,214,'K',218,241,187,210,
+    222,'G',181,241,188,129,246,'Y','k',207,25,'S',233,141,21,203,'J',203,169,
+    'o','D',0xe5,27,'A',207,225,134,167,202,208,'j',159,188,'L',141,6,'3','Z',
+    0xa2,0x85,0xe5,144,'5',160,'b',92,22,'N',240,227,162,250,3,26,180,',','q',
+    179,'X',',',222,'{',11,219,26,15,235,222,'!',31,6,'w',6,3,176,201,239,153,
+    252,192,185,'O',11,134,'(',254,210,185,234,227,218,165,195,'G','i',18,224,
+    219,240,246,25,139,237,'{','p',215,2,214,237,135,24,'(',',',4,'$','L','w',
+    0xe4,'H',0x8a,26,198,';',154,212,15,202,250,'u',210,1,'@','Z',141,'y',191,
+    139,207,'K',207,170,22,193,149,228,173,'L',138,'>',23,145,212,177,'b',229,
+    0x82,229,128,4,164,3,'~',141,191,218,127,162,15,151,'O',12,211,13,251,215,
+    0xd1,0xe5,'r','~',28,0xc8,'w',255,'[',154,15,183,174,5,'F',229,241,168,22,
+    0xec,'G',0xa4,23,2,3,1,0,1,163,129,246,'0',129,243,'0',129,176,6,3,'U',29,
+    0x11,4,129,168,'0',129,165,129,15,'i','n','f','o','@','i','z','e','n','p',
+    'e','.','c','o','m',0xa4,129,145,'0',129,142,'1','G','0','E',6,3,'U',4,10,
+    0x0c,'>','I','Z','E','N','P','E',' ','S','.','A','.',' ','-',' ','C','I',
+    'F',' ','A','0','1','3','3','7','2','6','0','-','R','M','e','r','c','.',
+    'V','i','t','o','r','i','a','-','G','a','s','t','e','i','z',' ','T','1',
+    '0','5','5',' ','F','6','2',' ','S','8','1','C','0','A',0x06,3,'U',4,9,12,
+    ':','A','v','d','a',' ','d','e','l',' ','M','e','d','i','t','e','r','r',
+    'a','n','e','o',' ','E','t','o','r','b','i','d','e','a',' ','1','4',' ',
+    '-',' ','0','1','0','1','0',' ','V','i','t','o','r','i','a','-','G','a',
+    's','t','e','i','z','0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',14,
+    0x06,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',29,6,3,'U',29,14,4,22,4,20,29,28,
+    'e',0xe,168,242,'%','{',180,145,207,228,177,177,230,189,'U','t','l',5,'0',
+    0x0d,6,9,'*',0x86,'H',134,247,13,1,1,11,5,0,3,130,2,1,0,'x',166,12,22,'J',
+    0x9f,'L',0x88,':',192,203,14,165,22,'}',159,185,'H','_',24,143,13,'b','6',
+    246,205,25,'k',172,171,213,246,145,'}',174,'q',243,'?',179,14,'x',133,155,
+    149,164,39,'!','G','B','J','|','H',':',245,'E','|',179,12,142,'Q','x',172,
+    0x95,19,222,198,253,'}',184,26,144,'L',171,146,3,199,237,'B',1,206,15,216,
+    177,250,162,146,225,'`','m',174,'z','k',9,170,198,')',238,'h','I','g','0',
+    0x80,'$','z','1',22,'9','[','~',0xf1,28,'.',221,'l',9,173,242,'1',193,130,
+    'N',0xb9,0xbb,249,190,191,'*',133,'?',192,'@',163,':','Y',252,'Y','K','<',
+    '(','$',219,180,21,'u',174,13,136,186,'.','s',192,189,'X',135,229,'B',242,
+    0xeb,'^',0xee,30,'0','"',0x99,203,'7',209,196,'!','l',129,236,190,'m','&',
+    0xe6,0x1c,228,'B',' ',158,'G',176,172,131,'Y','p',',','5',214,175,'6','4',
+    0xb4,0xcd,';',248,'2',168,239,227,'x',137,251,141,'E',',',218,156,184,'~',
+    '@',0x1c,'a',0xe7,'>',162,146,',','K',242,205,250,152,182,')',255,243,242,
+    '{',0xa9,0x1f,'.',160,147,'W','+',222,133,3,249,'i','7',203,158,'x','j',5,
+    0xb4,0xc5,'1','x',0x89,236,'z',167,133,225,185,'{','<',222,190,30,'y',132,
+    206,159,'p',14,'Y',194,'5','.',144,'*','1',217,228,'E','z','A',164,'.',19,
+    0x9b,'4',0x0e,'f','{','I',171,'d',151,208,'F',195,'y',157,'r','P','c',166,
+    0x98,'[',6,0xbd,'H','m',216,'9',131,'p',232,'5',240,5,209,170,188,227,219,
+    200,2,234,'|',253,130,218,194,'[','R','5',174,152,':',173,186,'5',147,'#',
+    0xa7,31,'H',0xdd,'5','F',152,178,16,'h',228,165,'1',194,10,'X','.',25,129,
+    16,0xc9,'P','u',252,234,'Z',22,206,17,215,238,239,'P',136,'-','a',255,'?',
+    'B','s',5,148,'C',213,142,'<','N',1,':',25,165,31,'F','N','w',208,']',229,
+    0x81,'"','!',0x87,254,148,'}',132,216,147,173,214,'h','C','H',178,219,235,
+    's','$',0xe7,0x91,127,'T',164,182,128,'>',157,163,'<','L','r',194,'W',196,
+    0xa0,212,204,'8',39,206,213,6,158,162,'H',217,233,159,206,130,'p','6',147,
+    0x9a,';',0xdf,0x96,'!',227,'Y',183,12,218,145,'7',240,253,'Y','Z',179,153,
+    0xc8,'i','l','C','&',1,'5','c','`','U',0x89,3,':','u',216,186,'J',217,'T',
+    0xff,0xee,0xde,128,216,'-',209,'8',213,'^','-',11,152,'}','>','l',219,252,
+    '&',136,199,
+]
+
 
 /**
 Izenpe.com.
 SHA256 fingerprint: 25:30:cc:8e:98:32:15:02:ba:d9:6f:9b:1f:ba:1b:09:9e:2d:29:9e:0f:45:48:bb:91:4f:36:3b:c0:d4:53:1f
 */
-IZENPE_COM ::= net.Certificate.parse IZENPE_COM_TEXT_
+IZENPE_COM ::= parse_ IZENPE_COM_BYTES_
 
-GO_DADDY_ROOT_CERTIFICATE_AUTHORITY_G2_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIDxTCCAq2gAwIBAgIBADANBgkqhkiG9w0BAQsFADCBgzELMAkGA1UEBhMCVVMx
-EDAOBgNVBAgTB0FyaXpvbmExEzARBgNVBAcTClNjb3R0c2RhbGUxGjAYBgNVBAoT
-EUdvRGFkZHkuY29tLCBJbmMuMTEwLwYDVQQDEyhHbyBEYWRkeSBSb290IENlcnRp
-ZmljYXRlIEF1dGhvcml0eSAtIEcyMB4XDTA5MDkwMTAwMDAwMFoXDTM3MTIzMTIz
-NTk1OVowgYMxCzAJBgNVBAYTAlVTMRAwDgYDVQQIEwdBcml6b25hMRMwEQYDVQQH
-EwpTY290dHNkYWxlMRowGAYDVQQKExFHb0RhZGR5LmNvbSwgSW5jLjExMC8GA1UE
-AxMoR28gRGFkZHkgUm9vdCBDZXJ0aWZpY2F0ZSBBdXRob3JpdHkgLSBHMjCCASIw
-DQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAL9xYgjx+lk09xvJGKP3gElY6SKD
-E6bFIEMBO4Tx5oVJnyfq9oQbTqC023CYxzIBsQU+B07u9PpPL1kwIuerGVZr4oAH
-/PMWdYA5UXvl+TW2dE6pjYIT5LY/qQOD+qK+ihVqf94Lw7YZFAXK6sOoBJQ7Rnwy
-DfMAZiLIjWltNowRGLfTshxgtDj6AozO091GB94KPutdfMh8+7ArU6SSYmlRJQVh
-GkSBjCypQ5Yj36w6gZoOKcUcqeldHraenjAKOc7xiID7S13MMuyFYkMlNAJWJwGR
-tDtwKj9useiciAF9n9T521NtYJ2/LOdYq7hfRvzOxBsDPAnrSTFcaUaz4EcCAwEA
-AaNCMEAwDwYDVR0TAQH/BAUwAwEB/zAOBgNVHQ8BAf8EBAMCAQYwHQYDVR0OBBYE
-FDqahQcQZyi27/a9BUFuIMGU2g/eMA0GCSqGSIb3DQEBCwUAA4IBAQCZ21151fmX
-WWcDYfF+OwYxdS2hII5PZYe096acvNjpL9DbWu7PdIxztDhC2gV7+AJ1uP2lsdeu
-9tfeE8tTEH6KRtGX+rcuKxGrkLAngPnon1rpN5+r5N9ss4UXnT3ZJE95kTXWXwTr
-gIOrmgIttRD02JDHBHNA7XIloKmf7J6raBKZV8aPEjoJpL1E/QYVN8Gb5DKj7Tjo
-2GTzLH4U/ALqn83/B2gX2yKQOC16jdFU8WnjXzPKej17CuPKf1855eJ1usV2GDPO
-LPAvTK33sefOT6jEm0pUBsV/fdUID+Ic/n4XuKxe9tQWskMJDE32p2u0mYRlynqI
-4uJEvlz36hz1
------END CERTIFICATE-----
-"""
+GO_DADDY_ROOT_CERTIFICATE_AUTHORITY_G2_BYTES_ ::= #[
+    '0',0x82,3,197,'0',130,2,173,160,3,2,1,2,2,1,0,'0',13,6,9,'*',134,'H',134,
+    0xf7,0xd,1,1,11,5,0,'0',129,131,'1',11,'0',9,6,3,'U',4,6,19,2,'U','S','1',
+    16,'0',0xe,6,3,'U',4,8,19,7,'A','r','i','z','o','n','a','1',19,'0',17,6,3,
+    'U',0x4,7,19,10,'S','c','o','t','t','s','d','a','l','e','1',26,'0',24,6,3,
+    'U',0x04,10,19,17,'G','o','D','a','d','d','y','.','c','o','m',',',' ','I',
+    'n','c','.','1','1','0','/',0x06,3,'U',4,3,19,'(','G','o',' ','D','a','d',
+    'd','y',' ','R','o','o','t',' ','C','e','r','t','i','f','i','c','a','t',
+    'e',' ','A','u','t','h','o','r','i','t','y',' ','-',' ','G','2','0',30,23,
+    0xd,'0','9','0','9','0','1','0','0','0','0','0','0','Z',23,13,'3','7','1',
+    '2','3','1','2','3','5','9','5','9','Z','0',0x81,131,'1',11,'0',9,6,3,'U',
+    0x4,6,19,2,'U','S','1',16,'0',14,6,3,'U',4,8,19,7,'A','r','i','z','o','n',
+    'a','1',0x13,'0',17,6,3,'U',4,7,19,10,'S','c','o','t','t','s','d','a','l',
+    'e','1',26,'0',24,6,3,'U',4,0xa,19,17,'G','o','D','a','d','d','y','.','c',
+    'o','m',',',' ','I','n','c','.','1','1','0','/',0x06,3,'U',4,3,19,'(','G',
+    'o',' ','D','a','d','d','y',' ','R','o','o','t',' ','C','e','r','t','i',
+    'f','i','c','a','t','e',' ','A','u','t','h','o','r','i','t','y',' ','-',
+    ' ','G','2','0',0x82,1,'"','0',0xd,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,
+    0x82,1,15,0,'0',130,1,10,2,130,1,1,0,191,'q','b',8,241,250,'Y','4',247,27,
+    0xc9,24,0xa3,247,128,'I','X',233,'"',131,19,166,197,' ','C',1,';',132,241,
+    230,133,'I',159,39,234,246,132,27,'N',160,180,219,'p',152,199,'2',1,177,5,
+    '>',0x07,'N',238,244,250,'O','/','Y','0','"',231,171,25,'V','k',226,128,7,
+    252,243,22,'u',128,'9','Q','{',229,249,'5',182,'t','N',169,141,130,19,228,
+    0xb6,'?',0xa9,3,131,250,162,190,138,21,'j',127,222,11,195,182,25,20,5,202,
+    0xea,0xc3,0xa8,4,148,';','F','|','2',13,243,0,'f','"',200,141,'i','m','6',
+    0x8c,17,24,0xb7,211,178,28,'`',180,'8',250,2,140,206,211,221,'F',7,222,10,
+    '>',0xeb,']','|',200,'|',251,176,'+','S',164,146,'b','i','Q','%',5,'a',26,
+    'D',129,140,',',169,'C',150,'#',223,172,':',129,154,14,')',197,28,169,233,
+    ']',30,182,158,158,'0',10,'9',206,241,136,128,251,'K',']',204,'2',236,133,
+    'b','C','%','4',2,'V',39,1,0x91,180,';','p','*','?','n',177,232,156,136,1,
+    '}',0x9f,0xd4,249,219,'S','m','`',157,191,',',231,'X',171,184,'_','F',252,
+    0xce,0xc4,27,3,'<',9,235,'I','1',92,'i','F',179,224,'G',2,3,1,0,1,163,'B',
+    '0','@','0',0xf,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',14,6,3,'U',29,
+    0x0f,1,1,0xff,4,4,3,2,1,6,'0',29,6,3,'U',29,14,4,22,4,20,':',154,133,7,16,
+    'g','(',0xb6,0xef,246,189,5,'A','n',' ',193,148,218,15,222,'0',13,6,9,'*',
+    134,'H',134,247,13,1,1,11,5,0,3,130,1,1,0,153,219,']','y',213,249,151,'Y',
+    'g',0x3,'a',241,'~',';',6,'1','u','-',161,' ',142,'O','e',135,180,247,166,
+    156,188,216,233,'/',208,219,'Z',238,207,'t',140,'s',180,'8','B',218,5,'{',
+    0xf8,2,'u',0xb8,253,165,177,215,174,246,215,222,19,203,'S',16,'~',138,'F',
+    209,151,250,183,'.','+',17,171,144,176,39,128,249,232,159,'Z',233,'7',159,
+    0xab,228,223,'l',179,133,23,157,'=',217,'$','O','y',145,'5',214,'_',4,235,
+    0x80,0x83,0xab,154,2,'-',181,16,244,216,144,199,4,'s','@',237,'r','%',160,
+    0xa9,159,236,158,171,'h',18,153,'W',198,143,18,':',9,164,189,'D',253,6,21,
+    '7',0xc1,155,228,'2',163,237,'8',232,216,'d',243,',','~',20,252,2,234,159,
+    0xcd,255,7,'h',23,219,'"',144,'8','-','z',141,209,'T',241,'i',227,'_','3',
+    202,'z','=','{',10,227,202,127,'_','9',229,226,'u',186,197,'v',24,'3',206,
+    ',',240,'/','L',173,247,177,231,206,'O',168,196,155,'J','T',6,197,127,'}',
+    0xd5,0x8,15,226,28,254,'~',23,184,172,'^',246,212,22,178,'C',9,12,'M',246,
+    0xa7,'k',0xb4,0x99,0x84,'e',202,'z',136,226,226,'D',190,92,247,234,28,245,
+]
+
 
 /**
 Go Daddy Root Certificate Authority - G2.
 SHA256 fingerprint: 45:14:0b:32:47:eb:9c:c8:c5:b4:f0:d7:b5:30:91:f7:32:92:08:9e:6e:5a:63:e2:74:9d:d3:ac:a9:19:8e:da
 */
-GO_DADDY_ROOT_CERTIFICATE_AUTHORITY_G2 ::= net.Certificate.parse GO_DADDY_ROOT_CERTIFICATE_AUTHORITY_G2_TEXT_
+GO_DADDY_ROOT_CERTIFICATE_AUTHORITY_G2 ::= parse_ GO_DADDY_ROOT_CERTIFICATE_AUTHORITY_G2_BYTES_
 
-STARFIELD_ROOT_CERTIFICATE_AUTHORITY_G2_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIID3TCCAsWgAwIBAgIBADANBgkqhkiG9w0BAQsFADCBjzELMAkGA1UEBhMCVVMx
-EDAOBgNVBAgTB0FyaXpvbmExEzARBgNVBAcTClNjb3R0c2RhbGUxJTAjBgNVBAoT
-HFN0YXJmaWVsZCBUZWNobm9sb2dpZXMsIEluYy4xMjAwBgNVBAMTKVN0YXJmaWVs
-ZCBSb290IENlcnRpZmljYXRlIEF1dGhvcml0eSAtIEcyMB4XDTA5MDkwMTAwMDAw
-MFoXDTM3MTIzMTIzNTk1OVowgY8xCzAJBgNVBAYTAlVTMRAwDgYDVQQIEwdBcml6
-b25hMRMwEQYDVQQHEwpTY290dHNkYWxlMSUwIwYDVQQKExxTdGFyZmllbGQgVGVj
-aG5vbG9naWVzLCBJbmMuMTIwMAYDVQQDEylTdGFyZmllbGQgUm9vdCBDZXJ0aWZp
-Y2F0ZSBBdXRob3JpdHkgLSBHMjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoC
-ggEBAL3twQP89o/8ArFvW59I2Z154qK3A2FWGMNHttfKPTUuiUP3oWmb3ooa/RMg
-nLRJdzIpVv257IzdIvpy3Cdhl+72WoTsbhm5iSzchFvVdPtrX8WJpRBSiUZV9Lh1
-HOZ/5FSuS/hVclcCGfgXcVnrHigHdMWdSL5stPSksPNkN3mSwOxGXn/hbVNMYq/N
-Hwtjuzqd+/x5AJhhdM8mgkBj87JyahkNmcrUDnXMN/uLicFZ8WJ/X7NfZTD4p7dN
-dloedl40wOiWVpmKs/B/pM293DIxfJHP4F8R+GuqSVzRmZTRouNjWwl2tVZi4Ut0
-HZbUJtQIBFnQmA4O5t78w+wfkPECAwEAAaNCMEAwDwYDVR0TAQH/BAUwAwEB/zAO
-BgNVHQ8BAf8EBAMCAQYwHQYDVR0OBBYEFHwMMh+n2TB/xH1oo2Kooc6rB1snMA0G
-CSqGSIb3DQEBCwUAA4IBAQARWfolTwNvlJk7mh+ChTnUdgWUXuEok21iXQnCoKjU
-sHU48TRqneSfioYmUeYs0cYtbpUgSpIB7LiKZ3sx4mcujJUDJi5DnUox9g61DLu3
-4jd/IroAow57UvtruzvE03lRTs2Q9GcHGcg8RnoNAX3FWOdt5oUwF5okxBDgBPfg
-8n/Uqgr/Qh037ZTlZFkSIHc40zI+OIF1lnP6aI+xy84fxez6nH7PfrHxBy22/L/K
-pL/QlwVKvOoYKAKQvVR4CSFx09F9HdkWsKlhPdAKACL8x3vLCWRFCztAgfd9fDL1
-mMpYjn0q7pBZc2T5NnReJaH1ZgUufzkVqSr7UIuOhWn0
------END CERTIFICATE-----
-"""
+STARFIELD_ROOT_CERTIFICATE_AUTHORITY_G2_BYTES_ ::= #[
+    '0',0x82,3,221,'0',130,2,197,160,3,2,1,2,2,1,0,'0',13,6,9,'*',134,'H',134,
+    0xf7,0xd,1,1,11,5,0,'0',129,143,'1',11,'0',9,6,3,'U',4,6,19,2,'U','S','1',
+    16,'0',0xe,6,3,'U',4,8,19,7,'A','r','i','z','o','n','a','1',19,'0',17,6,3,
+    'U',4,7,19,10,'S','c','o','t','t','s','d','a','l','e','1','%','0','#',6,3,
+    'U',0x04,10,19,28,'S','t','a','r','f','i','e','l','d',' ','T','e','c','h',
+    'n','o','l','o','g','i','e','s',',',' ','I','n','c','.','1','2','0','0',6,
+    3,'U',4,3,19,')','S','t','a','r','f','i','e','l','d',' ','R','o','o','t',
+    ' ','C','e','r','t','i','f','i','c','a','t','e',' ','A','u','t','h','o',
+    'r','i','t','y',' ','-',' ','G','2','0',30,23,0xd,'0','9','0','9','0','1',
+    '0','0','0','0','0','0','Z',23,13,'3','7','1','2','3','1','2','3','5','9',
+    '5','9','Z','0',0x81,143,'1',11,'0',9,6,3,'U',4,6,19,2,'U','S','1',16,'0',
+    14,6,3,'U',4,8,19,7,'A','r','i','z','o','n','a','1',19,'0',17,6,3,'U',4,7,
+    0x13,10,'S','c','o','t','t','s','d','a','l','e','1','%','0','#',6,3,'U',4,
+    0xa,19,28,'S','t','a','r','f','i','e','l','d',' ','T','e','c','h','n','o',
+    'l','o','g','i','e','s',',',' ','I','n','c','.','1','2','0','0',6,3,'U',4,
+    3,19,')','S','t','a','r','f','i','e','l','d',' ','R','o','o','t',' ','C',
+    'e','r','t','i','f','i','c','a','t','e',' ','A','u','t','h','o','r','i',
+    't','y',' ','-',' ','G','2','0',0x82,1,'"','0',13,6,9,'*',134,'H',134,247,
+    0xd,1,1,1,5,0,3,130,1,15,0,'0',130,1,10,2,130,1,1,0,189,237,193,3,252,246,
+    0x8f,0xfc,2,0xb1,'o','[',159,'H',217,157,'y',226,162,183,3,'a','V',24,195,
+    'G',182,215,202,'=','5','.',137,'C',247,161,'i',155,222,138,26,253,19,' ',
+    0x9c,0xb4,'I','w','2',')','V',0xfd,185,236,140,221,'"',250,'r',220,39,'a',
+    0x97,0xee,0xf6,'Z',132,236,'n',25,185,137,',',220,132,'[',213,'t',251,'k',
+    '_',197,137,165,16,'R',137,'F','U',244,184,'u',28,230,127,228,'T',174,'K',
+    0xf8,'U','r','W',2,25,248,23,'q','Y',235,30,'(',7,'t',197,157,'H',190,'l',
+    0xb4,0xf4,164,176,243,'d','7','y',146,192,236,'F','^',127,225,'m','S','L',
+    'b',0xaf,0xcd,31,11,'c',187,':',157,251,252,'y',0,152,'a','t',207,'&',130,
+    '@','c',0xf3,178,'r','j',25,13,153,202,212,14,'u',204,'7',251,139,137,193,
+    'Y',0xf1,'b',0x7f,'_',0xb3,'_','e','0',248,167,183,'M','v','Z',30,'v','^',
+    '4',0xc0,0xe8,150,'V',153,138,179,240,127,164,205,189,220,'2','1','|',145,
+    0xcf,0xe0,'_',17,248,'k',170,'I',92,209,153,148,209,162,227,'c','[',9,'v',
+    0xb5,'V','b',225,'K','t',29,150,212,'&',212,8,4,'Y',208,152,14,14,230,222,
+    252,195,236,31,144,241,2,3,1,0,1,163,'B','0','@','0',15,6,3,'U',29,19,1,1,
+    255,4,5,'0',3,1,1,255,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',29,6,3,
+    'U',29,14,4,22,4,20,'|',12,'2',31,167,217,'0',127,196,'}','h',163,'b',168,
+    161,206,171,7,'[',39,'0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,3,130,1,
+    1,0,17,'Y',250,'%','O',3,'o',148,153,';',154,31,130,133,'9',212,'v',5,148,
+    '^',225,'(',147,'m','b',']',9,194,160,168,212,176,'u','8',241,'4','j',157,
+    228,159,138,134,'&','Q',230,',',209,198,'-','n',149,' ','J',146,1,236,184,
+    0x8a,'g','{','1',226,'g','.',140,149,3,'&','.','C',157,'J','1',246,14,181,
+    0x0c,187,183,226,'7',127,'"',186,0,163,14,'{','R',251,'k',187,';',196,211,
+    'y','Q','N',205,144,244,'g',7,25,200,'<','F','z',13,1,'}',197,'X',231,'m',
+    230,133,'0',23,154,'$',196,16,224,4,247,224,242,127,212,170,10,255,'B',29,
+    '7',0xed,0x94,0xe5,'d','Y',18,' ','w','8',211,'2','>','8',129,'u',150,'s',
+    0xfa,'h',143,177,203,206,31,197,236,250,156,'~',207,'~',177,241,7,'-',182,
+    0xfc,191,202,164,191,208,151,5,'J',188,234,24,'(',2,144,189,'T','x',9,'!',
+    'q',0xd3,209,'}',29,217,22,176,169,'a','=',208,10,0,'"',252,199,'{',203,9,
+    'd','E',0x0b,';','@',0x81,247,'}','|','2',245,152,202,'X',142,'}','*',238,
+    0x90,'Y','s','d',249,'6','t','^','%',161,245,'f',5,'.',127,'9',21,169,'*',
+    251,'P',139,142,133,'i',244,
+]
+
 
 /**
 Starfield Root Certificate Authority - G2.
 SHA256 fingerprint: 2c:e1:cb:0b:f9:d2:f9:e1:02:99:3f:be:21:51:52:c3:b2:dd:0c:ab:de:1c:68:e5:31:9b:83:91:54:db:b7:f5
 */
-STARFIELD_ROOT_CERTIFICATE_AUTHORITY_G2 ::= net.Certificate.parse STARFIELD_ROOT_CERTIFICATE_AUTHORITY_G2_TEXT_
+STARFIELD_ROOT_CERTIFICATE_AUTHORITY_G2 ::= parse_ STARFIELD_ROOT_CERTIFICATE_AUTHORITY_G2_BYTES_
 
-STARFIELD_SERVICES_ROOT_CERTIFICATE_AUTHORITY_G2_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIID7zCCAtegAwIBAgIBADANBgkqhkiG9w0BAQsFADCBmDELMAkGA1UEBhMCVVMx
-EDAOBgNVBAgTB0FyaXpvbmExEzARBgNVBAcTClNjb3R0c2RhbGUxJTAjBgNVBAoT
-HFN0YXJmaWVsZCBUZWNobm9sb2dpZXMsIEluYy4xOzA5BgNVBAMTMlN0YXJmaWVs
-ZCBTZXJ2aWNlcyBSb290IENlcnRpZmljYXRlIEF1dGhvcml0eSAtIEcyMB4XDTA5
-MDkwMTAwMDAwMFoXDTM3MTIzMTIzNTk1OVowgZgxCzAJBgNVBAYTAlVTMRAwDgYD
-VQQIEwdBcml6b25hMRMwEQYDVQQHEwpTY290dHNkYWxlMSUwIwYDVQQKExxTdGFy
-ZmllbGQgVGVjaG5vbG9naWVzLCBJbmMuMTswOQYDVQQDEzJTdGFyZmllbGQgU2Vy
-dmljZXMgUm9vdCBDZXJ0aWZpY2F0ZSBBdXRob3JpdHkgLSBHMjCCASIwDQYJKoZI
-hvcNAQEBBQADggEPADCCAQoCggEBANUMOsQq+U7i9b4Zl1+OiFOxHz/Lz58gE20p
-OsgPfTz3a3Y4Y9k2YKibXlwAgLIvWX/2h/klQ4bnaRtSmpDhcePYLQ1Ob/bISdm2
-8xpWriu2dBTrz/sm4xq6HZYuajtYlIlHVv8loJNwU4PahHQUw2eeBGg6345AWh1K
-Ts9DkTvnVtYAcMtS7nt9rjrnvDH5RfbCYM8TWQIrgMw0R9+53pBlbQLPLJGmpufe
-hRhJfGZOozptqbXuNC66DQO4M99H67FrjSXZm86B0UVGMpZwh94CDklDhbZsc7tk
-6mFBrMnUVN+HL8cisibMn1lUaJ/8viovxFUcdUBgF4UCVTmLfwUCAwEAAaNCMEAw
-DwYDVR0TAQH/BAUwAwEB/zAOBgNVHQ8BAf8EBAMCAQYwHQYDVR0OBBYEFJxfAN+q
-AdcwKziIorhtSpzyEZGDMA0GCSqGSIb3DQEBCwUAA4IBAQBLNqaEd2ndOxmfZyMI
-bw5hyf2E3F/YNoHN2BtBLZ9g3ccaaNnRbobhiCPPE95Dz+I0swSdHynVv/heyNXB
-ve6SbzJ08pGCL72CQnqtKrcgfU28elUSwhXqvfdqlS5sdJ/PHLTyxQGjhdByPq1z
-qwubdQxtRbeOlKyWN7Wg0I8VRw7j6IPdj/3vQQF3zCepYoUz8jcI73HPdwbeyBkd
-iEDPfUYd/x7H4c7/I9vG+o1VTqkC50cRRj70/b17KSa7qWFiNyi2LSr2EIZkyXCn
-0q23KXB56jzaYyWf/Wi3MOxw+3WKt21gZ7IeyLnp2KhvAotnDU0mV3HaIPzBSlCN
-sSi6
------END CERTIFICATE-----
-"""
+STARFIELD_SERVICES_ROOT_CERTIFICATE_AUTHORITY_G2_BYTES_ ::= #[
+    '0',0x82,3,239,'0',130,2,215,160,3,2,1,2,2,1,0,'0',13,6,9,'*',134,'H',134,
+    0xf7,0xd,1,1,11,5,0,'0',129,152,'1',11,'0',9,6,3,'U',4,6,19,2,'U','S','1',
+    16,'0',0xe,6,3,'U',4,8,19,7,'A','r','i','z','o','n','a','1',19,'0',17,6,3,
+    'U',4,7,19,10,'S','c','o','t','t','s','d','a','l','e','1','%','0','#',6,3,
+    'U',0x04,10,19,28,'S','t','a','r','f','i','e','l','d',' ','T','e','c','h',
+    'n','o','l','o','g','i','e','s',',',' ','I','n','c','.','1',';','0','9',6,
+    3,'U',4,3,19,'2','S','t','a','r','f','i','e','l','d',' ','S','e','r','v',
+    'i','c','e','s',' ','R','o','o','t',' ','C','e','r','t','i','f','i','c',
+    'a','t','e',' ','A','u','t','h','o','r','i','t','y',' ','-',' ','G','2',
+    '0',0x1e,23,0xd,'0','9','0','9','0','1','0','0','0','0','0','0','Z',23,13,
+    '3','7','1','2','3','1','2','3','5','9','5','9','Z','0',0x81,0x98,'1',0xb,
+    '0',9,6,3,'U',4,6,19,2,'U','S','1',16,'0',14,6,3,'U',4,8,19,7,'A','r','i',
+    'z','o','n','a','1',0x13,'0',17,6,3,'U',4,7,19,10,'S','c','o','t','t','s',
+    'd','a','l','e','1','%','0','#',0x06,3,'U',4,10,19,28,'S','t','a','r','f',
+    'i','e','l','d',' ','T','e','c','h','n','o','l','o','g','i','e','s',',',
+    ' ','I','n','c','.','1',';','0','9',0x06,3,'U',4,3,19,'2','S','t','a','r',
+    'f','i','e','l','d',' ','S','e','r','v','i','c','e','s',' ','R','o','o',
+    't',' ','C','e','r','t','i','f','i','c','a','t','e',' ','A','u','t','h',
+    'o','r','i','t','y',' ','-',' ','G','2','0',0x82,1,'"','0',13,6,9,'*',134,
+    'H',134,247,13,1,1,1,5,0,3,130,1,15,0,'0',130,1,10,2,130,1,1,0,213,12,':',
+    196,'*',249,'N',226,245,190,25,151,'_',142,136,'S',177,31,'?',203,207,159,
+    ' ',19,'m',')',':',200,15,'}','<',247,'k','v','8','c',217,'6','`',168,155,
+    '^',0x5c,0,128,178,'/','Y',127,246,135,249,'%','C',134,231,'i',27,'R',154,
+    144,225,'q',227,216,'-',13,'N','o',246,200,'I',217,182,243,26,'V',174,'+',
+    0xb6,'t',20,235,207,251,'&',227,26,186,29,150,'.','j',';','X',148,137,'G',
+    'V',0xff,'%',160,147,'p','S',131,218,132,'t',20,195,'g',158,4,'h',':',223,
+    0x8e,'@','Z',29,'J','N',207,'C',145,';',231,'V',214,0,'p',203,'R',238,'{',
+    '}',0xae,':',231,188,'1',249,'E',246,194,'`',207,19,'Y',2,'+',128,204,'4',
+    'G',0xdf,185,222,144,'e','m',2,207,',',145,166,166,231,222,133,24,'I','|',
+    'f','N',0xa3,':','m',169,181,238,'4','.',186,13,3,184,'3',223,'G',235,177,
+    'k',0x8d,'%',217,155,206,129,209,'E','F','2',150,'p',135,222,2,14,'I','C',
+    0x85,0xb6,'l','s',187,'d',234,'a','A',172,201,212,'T',223,135,'/',199,'"',
+    178,'&',204,159,'Y','T','h',159,252,190,'*','/',196,'U',28,'u','@','`',23,
+    0x85,2,'U','9',139,127,5,2,3,1,0,1,163,'B','0','@','0',15,6,3,'U',29,19,1,
+    1,255,4,5,'0',3,1,1,255,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',29,6,
+    3,'U',29,14,4,22,4,20,156,'_',0,223,170,1,215,'0','+','8',136,162,184,'m',
+    'J',156,242,17,145,131,'0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,3,130,
+    1,1,0,'K','6',166,132,'w','i',221,';',25,159,'g','#',8,'o',14,'a',201,253,
+    132,220,'_',216,'6',129,205,216,27,'A','-',159,'`',221,199,26,'h',217,209,
+    'n',0x86,0xe1,136,'#',207,19,222,'C',207,226,'4',179,4,157,31,')',213,191,
+    0xf8,'^',0xc8,213,193,189,238,146,'o','2','t',242,145,130,'/',189,130,'B',
+    'z',173,'*',183,' ','}','M',188,'z','U',18,194,21,234,189,247,'j',149,'.',
+    'l','t',0x9f,0xcf,28,180,242,197,1,163,133,208,'r','>',173,'s',171,11,155,
+    'u',0xc,'m','E',183,142,148,172,150,'7',181,160,208,143,21,'G',14,227,232,
+    0x83,0xdd,0x8f,253,239,'A',1,'w',204,39,169,'b',133,'3',242,'7',8,239,'q',
+    207,'w',6,222,200,25,29,136,'@',207,'}','F',29,255,30,199,225,206,255,'#',
+    0xdb,198,250,141,'U','N',169,2,231,'G',17,'F','>',244,253,189,'{',')','&',
+    0xbb,0xa9,'a','b','7','(',0xb6,'-','*',246,16,134,'d',201,'p',167,210,173,
+    0xb7,')','p','y',0xea,'<',218,'c','%',159,253,'h',183,'0',236,'p',251,'u',
+    0x8a,0xb7,'m','`','g',178,30,200,185,233,216,168,'o',2,139,'g',13,'M','&',
+    'W','q',218,' ',252,193,'J','P',141,177,'(',186,
+]
+
 
 /**
 Starfield Services Root Certificate Authority - G2.
 SHA256 fingerprint: 56:8d:69:05:a2:c8:87:08:a4:b3:02:51:90:ed:cf:ed:b1:97:4a:60:6a:13:c6:e5:29:0f:cb:2a:e6:3e:da:b5
 */
-STARFIELD_SERVICES_ROOT_CERTIFICATE_AUTHORITY_G2 ::= net.Certificate.parse STARFIELD_SERVICES_ROOT_CERTIFICATE_AUTHORITY_G2_TEXT_
+STARFIELD_SERVICES_ROOT_CERTIFICATE_AUTHORITY_G2 ::= parse_ STARFIELD_SERVICES_ROOT_CERTIFICATE_AUTHORITY_G2_BYTES_
 
-AFFIRMTRUST_COMMERCIAL_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIDTDCCAjSgAwIBAgIId3cGJyapsXwwDQYJKoZIhvcNAQELBQAwRDELMAkGA1UE
-BhMCVVMxFDASBgNVBAoMC0FmZmlybVRydXN0MR8wHQYDVQQDDBZBZmZpcm1UcnVz
-dCBDb21tZXJjaWFsMB4XDTEwMDEyOTE0MDYwNloXDTMwMTIzMTE0MDYwNlowRDEL
-MAkGA1UEBhMCVVMxFDASBgNVBAoMC0FmZmlybVRydXN0MR8wHQYDVQQDDBZBZmZp
-cm1UcnVzdCBDb21tZXJjaWFsMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
-AQEA9htPZwcroRX1BiLLHwGy43NFBkRJLLtJJRTWzsO3qyxPxkEylFf6EqdbDuKP
-Hx6GGaeqtS25Xw2Kwq+FNXkyLbscYjfysVtKPcrNcV/pQr6U6Mje+SJIZMblq8Yr
-ba0F8PrVC8+a5fBQpIs7R6UjW3p6+DM/uO+Zl+MgwdYoic+U+7lF7eNAFxHUdPAL
-MeIrJmqbTFeurCA+ukV6BfO9m2kVrn1OIGPENXY6BwLJN/3HR+7o8XYdcxXyl6S1
-yHp52UKqK39c/s4mT6NmgTWvRLpUHhwwMmWd5jyTXlBOeuM61G7MGvv50jeuJCqr
-VwMiKA1JdX+3KNp1v47j3A55MQIDAQABo0IwQDAdBgNVHQ4EFgQUnZPGU4teyq8/
-nx4P5ZmVvCT2lI8wDwYDVR0TAQH/BAUwAwEB/zAOBgNVHQ8BAf8EBAMCAQYwDQYJ
-KoZIhvcNAQELBQADggEBAFis9AQOzcAN/wr91LoWXym9e2iZWEnStB03TX8nfUYG
-XUPGhi4+c7ImfU+TqbbEKpqrIZcUsd6M06uJFdhrJNTxFq7YpFzUf1GO7RgBsZNj
-vbz4YYCanrHOQnDiqX0GJX0nof5v7LMeJNrjS1UaADs1tDvZ110w/YETifLCBivt
-Z8SOyUOyXGsViQK8YvxO8rUzqrJv0wqiUOP2O+guRMLbZjipM1ZI8W0bM40NjD9g
-N53Tym1+NH4Nn3J2ixufcv1SNUFFApYvHLKac0khsUlHRUe072o0EclNmsxZt9YC
-nlpOZbWUrhvfKbAW8b8Angc6F2S1BLUjIZkKlTuXfO8=
------END CERTIFICATE-----
-"""
+AFFIRMTRUST_COMMERCIAL_BYTES_ ::= #[
+    '0',0x82,3,'L','0',130,2,'4',160,3,2,1,2,2,8,'w','w',6,39,'&',169,177,'|',
+    '0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,'0','D','1',11,'0',9,6,3,'U',
+    4,6,19,2,'U','S','1',20,'0',18,6,3,'U',4,10,12,11,'A','f','f','i','r','m',
+    'T','r','u','s','t','1',0x1f,'0',29,6,3,'U',4,3,12,22,'A','f','f','i','r',
+    'm','T','r','u','s','t',' ','C','o','m','m','e','r','c','i','a','l','0',
+    0x1e,23,0xd,'1','0','0','1','2','9','1','4','0','6','0','6','Z',23,13,'3',
+    '0','1','2','3','1','1','4','0','6','0','6','Z','0','D','1',0xb,'0',9,6,3,
+    'U',4,6,19,2,'U','S','1',20,'0',18,6,3,'U',4,10,12,11,'A','f','f','i','r',
+    'm','T','r','u','s','t','1',0x1f,'0',29,6,3,'U',4,3,12,22,'A','f','f','i',
+    'r','m','T','r','u','s','t',' ','C','o','m','m','e','r','c','i','a','l',
+    '0',0x82,0x1,'"','0',13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,1,15,0,
+    '0',0x82,1,0xa,2,130,1,1,0,246,27,'O','g',7,'+',161,21,245,6,'"',203,31,1,
+    0xb2,227,'s','E',6,'D','I',',',187,'I','%',20,214,206,195,183,171,',','O',
+    0xc6,'A','2',0x94,'W',0xfa,18,167,'[',14,226,143,31,30,134,25,167,170,181,
+    '-',185,'_',13,138,194,175,133,'5','y','2','-',187,28,'b','7',242,177,'[',
+    'J','=',0xca,0xcd,'q','_',233,'B',190,148,232,200,222,249,'"','H','d',198,
+    0xe5,171,198,'+','m',173,5,240,250,213,11,207,154,229,240,'P',164,139,';',
+    'G',0xa5,'#','[','z','z',0xf8,'3','?',184,239,153,151,227,' ',193,214,'(',
+    0x89,207,148,251,185,'E',237,227,'@',23,17,212,'t',240,11,'1',226,'+','&',
+    'j',0x9b,'L','W',174,172,' ','>',186,'E','z',5,243,189,155,'i',21,174,'}',
+    'N',' ','c',0xc4,'5','v',':',0x7,2,201,'7',253,199,'G',238,232,241,'v',29,
+    's',21,242,151,164,181,200,'z','y',217,'B',170,'+',127,92,254,206,'&','O',
+    163,'f',129,'5',175,'D',186,'T',30,28,'0','2','e',157,230,'<',147,'^','P',
+    'N','z',0xe3,':',212,'n',204,26,251,249,210,'7',174,'$','*',171,'W',3,'"',
+    '(',0x0d,'I','u',127,183,'(',218,'u',191,142,227,220,14,'y','1',2,3,1,0,1,
+    0xa3,'B','0','@','0',0x1d,6,3,'U',29,14,4,22,4,20,157,147,198,'S',139,'^',
+    0xca,0xaf,'?',159,30,15,229,153,149,188,'$',246,148,143,'0',15,6,3,'U',29,
+    19,1,1,255,4,5,'0',3,1,1,255,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',
+    13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,3,130,1,1,0,'X',172,244,4,14,205,
+    0xc0,0xd,255,10,253,212,186,22,'_',')',189,'{','h',153,'X','I',210,180,29,
+    '7','M',0x7f,39,'}','F',6,']','C',198,134,'.','>','s',178,'&','}','O',147,
+    169,182,196,'*',154,171,'!',151,20,177,222,140,211,171,137,21,216,'k','$',
+    0xd4,0xf1,22,0xae,216,164,92,212,127,'Q',142,237,24,1,177,147,'c',189,188,
+    0xf8,'a',128,154,158,177,206,'B','p',226,169,'}',6,'%','}',39,161,254,'o',
+    0xec,0xb3,30,'$',218,227,'K','U',26,0,';','5',180,';',217,215,']','0',253,
+    0x81,19,137,242,194,6,'+',237,'g',196,142,201,'C',178,92,'k',21,137,2,188,
+    'b',0xfc,'N',0xf2,0xb5,'3',170,178,'o',211,10,162,'P',227,246,';',232,'.',
+    'D',194,219,'f','8',169,'3','V','H',241,'m',27,'3',141,13,140,'?','`','7',
+    157,211,202,'m','~','4','~',13,159,'r','v',139,27,159,'r',253,'R','5','A',
+    'E',2,0x96,'/',28,178,154,'s','I','!',177,'I','G','E','G',180,239,'j','4',
+    0x11,201,'M',154,204,'Y',183,214,2,158,'Z','N','e',181,148,174,27,223,')',
+    0xb0,0x16,241,191,0,158,7,':',23,'d',181,4,181,'#','!',153,10,149,';',151,
+    '|',239,
+]
+
 
 /**
 AffirmTrust Commercial.
 SHA256 fingerprint: 03:76:ab:1d:54:c5:f9:80:3c:e4:b2:e2:01:a0:ee:7e:ef:7b:57:b6:36:e8:a9:3c:9b:8d:48:60:c9:6f:5f:a7
 */
-AFFIRMTRUST_COMMERCIAL ::= net.Certificate.parse AFFIRMTRUST_COMMERCIAL_TEXT_
+AFFIRMTRUST_COMMERCIAL ::= parse_ AFFIRMTRUST_COMMERCIAL_BYTES_
 
-AFFIRMTRUST_NETWORKING_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIDTDCCAjSgAwIBAgIIfE8EORzUmS0wDQYJKoZIhvcNAQEFBQAwRDELMAkGA1UE
-BhMCVVMxFDASBgNVBAoMC0FmZmlybVRydXN0MR8wHQYDVQQDDBZBZmZpcm1UcnVz
-dCBOZXR3b3JraW5nMB4XDTEwMDEyOTE0MDgyNFoXDTMwMTIzMTE0MDgyNFowRDEL
-MAkGA1UEBhMCVVMxFDASBgNVBAoMC0FmZmlybVRydXN0MR8wHQYDVQQDDBZBZmZp
-cm1UcnVzdCBOZXR3b3JraW5nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
-AQEAtITMMxcua5Rsa2FSoOujz3mUTOWUgJnLVWREZY9nZOIG41w3SfYvm4SEHi3y
-YJ0wTsyEheIszx6e/jarM3c1RNg1lho9Nuh6DtjVR6FqaYvZ/Ls6rnla1fTWcbua
-kCNrmreIdIcMHl+5ni36q1Mr3Lt2PpNMCAiMHqIjHNRqrSK6mQEubWXLviRmVSRL
-QESxG9fhwoXA3hA/Pe24/PHxI1Pcv2WXb9n5QHGNfb2V1M6+oF4nI979ptAmDgAp
-6zxG8D1gvz9Q0twmQVGeFDdCBKNwV6gbh+0t+nvujArjqWaJGctB+d1ENmHP4ndG
-yH329JKBNv3bNPFyfvMMFr20FQIDAQABo0IwQDAdBgNVHQ4EFgQUBx/S55zawm6i
-QLSwelAQUHTEyL0wDwYDVR0TAQH/BAUwAwEB/zAOBgNVHQ8BAf8EBAMCAQYwDQYJ
-KoZIhvcNAQEFBQADggEBAIlXshZ6qML91tmbmzTCnLQyFE2npN/svqe++EPbkTfO
-tDIuUFUaNU52Q3Eg75N3ThVwLofDwR1t3Mu1J9QsVtFSUzpE0nPIxBsFZVpikpzu
-QY0x2+c06lkh1QF612S4ZDnNye2v7UsDSKegmQGA3GWjNq5lWUhPgkvIZfFXHeVZ
-Lgo/bNjR9eUJtGxUAArgFU2HdW23WJZa3W3SAKD0m0i+wzekujbgfIeFlxoVot4u
-olu9rxj5kFDNcFn4J2dHy8egBzp90SxdbBk6ZrV9/ZFvgrG+CJPbFEfxojfHRZ48
-x3evZKiT3/Zpg4Jg8klCNO1aAFSFHBY2kgxc+qatv9s=
------END CERTIFICATE-----
-"""
+AFFIRMTRUST_NETWORKING_BYTES_ ::= #[
+    '0',0x82,3,'L','0',130,2,'4',160,3,2,1,2,2,8,'|','O',4,'9',28,212,153,'-',
+    '0',0xd,6,9,'*',134,'H',134,247,13,1,1,5,5,0,'0','D','1',11,'0',9,6,3,'U',
+    4,6,19,2,'U','S','1',20,'0',18,6,3,'U',4,10,12,11,'A','f','f','i','r','m',
+    'T','r','u','s','t','1',0x1f,'0',29,6,3,'U',4,3,12,22,'A','f','f','i','r',
+    'm','T','r','u','s','t',' ','N','e','t','w','o','r','k','i','n','g','0',
+    0x1e,23,0xd,'1','0','0','1','2','9','1','4','0','8','2','4','Z',23,13,'3',
+    '0','1','2','3','1','1','4','0','8','2','4','Z','0','D','1',0xb,'0',9,6,3,
+    'U',4,6,19,2,'U','S','1',20,'0',18,6,3,'U',4,10,12,11,'A','f','f','i','r',
+    'm','T','r','u','s','t','1',0x1f,'0',29,6,3,'U',4,3,12,22,'A','f','f','i',
+    'r','m','T','r','u','s','t',' ','N','e','t','w','o','r','k','i','n','g',
+    '0',0x82,0x1,'"','0',13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,1,15,0,
+    '0',0x82,1,0xa,2,130,1,1,0,180,132,204,'3',23,'.','k',148,'l','k','a','R',
+    0xa0,0xeb,163,207,'y',148,'L',229,148,128,153,203,'U','d','D','e',143,'g',
+    'd',0xe2,6,0xe3,92,'7','I',246,'/',155,132,132,30,'-',242,'`',157,'0','N',
+    204,132,133,226,',',207,30,158,254,'6',171,'3','w','5','D',216,'5',150,26,
+    '=','6',0xe8,'z',0x0e,216,213,'G',161,'j','i',139,217,252,187,':',174,'y',
+    'Z',213,244,214,'q',187,154,144,'#','k',154,183,136,'t',135,12,30,'_',185,
+    158,'-',250,171,'S','+',220,187,'v','>',147,'L',8,8,140,30,162,'#',28,212,
+    'j',173,'"',186,153,1,'.','m','e',203,190,'$','f','U','$','K','@','D',177,
+    27,215,225,194,133,192,222,16,'?','=',237,184,252,241,241,'#','S',220,191,
+    'e',0x97,'o',0xd9,0xf9,'@','q',141,'}',189,149,212,206,190,160,'^',39,'#',
+    0xde,253,166,208,'&',14,0,')',235,'<','F',240,'=','`',191,'?','P',210,220,
+    '&','A','Q',0x9e,20,'7','B',4,0xa3,'p','W',168,27,135,237,'-',250,'{',238,
+    140,10,227,169,'f',137,25,203,'A',249,221,'D','6','a',207,226,'w','F',200,
+    '}',0xf6,244,146,129,'6',253,219,'4',241,'r','~',243,12,22,189,180,21,2,3,
+    1,0,1,163,'B','0','@','0',29,6,3,'U',29,14,4,22,4,20,7,31,210,231,156,218,
+    0xc2,'n',162,'@',180,176,'z','P',16,'P','t',196,200,189,'0',15,6,3,'U',29,
+    19,1,1,255,4,5,'0',3,1,1,255,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',
+    0x0d,6,9,'*',0x86,'H',134,247,13,1,1,5,5,0,3,130,1,1,0,137,'W',178,22,'z',
+    0xa8,0xc2,0xfd,214,217,155,155,'4',194,156,180,'2',20,'M',167,164,223,236,
+    0xbe,0xa7,0xbe,248,'C',219,145,'7',206,180,'2','.','P','U',26,'5','N','v',
+    'C','q',' ',0xef,147,'w','N',21,'p','.',135,195,193,29,'m',220,203,181,39,
+    0xd4,',','V',209,'R','S',':','D',210,'s',200,196,27,5,'e','Z','b',146,156,
+    238,'A',141,'1',219,231,'4',234,'Y','!',213,1,'z',215,'d',184,'d','9',205,
+    0xc9,0xed,175,237,'K',3,'H',167,160,153,1,128,220,'e',163,'6',174,'e','Y',
+    'H','O',130,'K',200,'e',241,'W',29,229,'Y','.',10,'?','l',216,209,245,229,
+    0x9,180,'l','T',0,10,224,21,'M',135,'u','m',183,'X',150,'Z',221,'m',210,0,
+    160,244,155,'H',190,195,'7',164,186,'6',224,'|',135,133,151,26,21,162,222,
+    '.',162,'[',189,175,24,249,144,'P',205,'p','Y',248,39,'g','G',203,199,160,
+    0x07,':','}',209,',',']','l',25,':','f',181,'}',253,145,'o',130,177,190,8,
+    0x93,0xdb,20,'G',0xf1,162,'7',199,'E',158,'<',199,'w',175,'d',168,147,223,
+    246,'i',131,130,'`',242,'I','B','4',237,'Z',0,'T',133,28,22,'6',146,12,92,
+    250,166,173,191,219,
+]
+
 
 /**
 AffirmTrust Networking.
 SHA256 fingerprint: 0a:81:ec:5a:92:97:77:f1:45:90:4a:f3:8d:5d:50:9f:66:b5:e2:c5:8f:cd:b5:31:05:8b:0e:17:f3:f0:b4:1b
 */
-AFFIRMTRUST_NETWORKING ::= net.Certificate.parse AFFIRMTRUST_NETWORKING_TEXT_
+AFFIRMTRUST_NETWORKING ::= parse_ AFFIRMTRUST_NETWORKING_BYTES_
 
-AFFIRMTRUST_PREMIUM_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIFRjCCAy6gAwIBAgIIbYwURrGmCu4wDQYJKoZIhvcNAQEMBQAwQTELMAkGA1UE
-BhMCVVMxFDASBgNVBAoMC0FmZmlybVRydXN0MRwwGgYDVQQDDBNBZmZpcm1UcnVz
-dCBQcmVtaXVtMB4XDTEwMDEyOTE0MTAzNloXDTQwMTIzMTE0MTAzNlowQTELMAkG
-A1UEBhMCVVMxFDASBgNVBAoMC0FmZmlybVRydXN0MRwwGgYDVQQDDBNBZmZpcm1U
-cnVzdCBQcmVtaXVtMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAxBLf
-qV/+Qd3d9Z+K4/as4Tx4mrzY8H96oDMq3I0gW64tb+eT2TZwamjPjlGjhVtnBKAQ
-JG9dKILBl1fYSCkTtuG+kU3fhQxTGJoeJKJPj/CihQvL9Cl/0qRY7iZNyaqoe5rZ
-+jjeRFcV5fiMyNlI4g0WJx0eyIOFJbe6qlVBzAMiSy2RjYvmia9mx+n/K+k8rNrS
-s8PhaJyJ+HoAVt70VZVs+7pk3WKL3wt3MutizCaam7uqYoNMtAZ6MMgpv+0GTZe5
-HMQxK9VfvFMSF5yZVylmd2EhMQcuJUmdGPLu8ytxjLW6OQdJd/zvLpKQBY0tL3d7
-70O/Nbua2Plzpyzy0FfuKE4mX4+QaAkvuPjcBukumj5Rp9EixAqnOEhss/n/fauG
-V+O61oV4d7pD6kh/9ti+I20ev9E2bFhc8e6kGVQa9QPSdubhjL08s9NIS+LI+H+S
-qHZGnEJlPqQewQcDWkYtuJfzt9WyVSHvutxMAJf7FJUnM7/oQ0dG0giZFmA7mn7S
-5u046uwBHjxIVkkJx0w3AJ6IDsBz4W9m6XJHMD4Q5QsDyZpCAGzFlH5hxIrff4Ia
-C1nEWTJ3s7xgaVY5/bQGeyzWZDbZvUjthB9+pSKPKrhC9IK31FOQeE4tGv2Bb0TX
-OwF0lkLgAOIua+rF7nKsu7/+6qqo+Nz2snmKtmcCAwEAAaNCMEAwHQYDVR0OBBYE
-FJ3AZ6YMItkm9UWrpmVSESfYRaxjMA8GA1UdEwEB/wQFMAMBAf8wDgYDVR0PAQH/
-BAQDAgEGMA0GCSqGSIb3DQEBDAUAA4ICAQCzV00QYk465KzquByvMiPIs0laUZx2
-KI15qldGF9X1Uva3ROgIRL8YhNILgM3FEv0AVQVhh0HctSSePMTYyPtwni94loMg
-Nt58D2kTiKV1NpgIpsbfrM7jWNa3Pt668+s0QNiigfV4Py/VpfzZotReBA4Xrf5B
-8OWycvpEgjNC6C1Y91aMYj+6QrCcDFx+LmUmXFNPALJ4fqENmS2NuB2OosSw/WDQ
-MKSOyARiqcTtNd56l+0OOF6SL5Nwpamcb6d9Ex1+xghIsV5n61EIJenmJWtSKZGc
-0jlzCFfemQa0W50QBuHCAKi4HEoCChTQwUHK+4w1IX2COPKpVJEZNZOUbWo6xbLQ
-u4mGk+ibyQ86p3q4ofB4Rvr8Ny/lioTz3/4E2aFooC8k4gmVBtWVyuEklut89pMF
-u+1z6S3RdTnX5yTb2E5fQ4+e0BQ5v1VwSJlXMbSc7kqYA5YwH2AG7hsj/oFgIxpH
-YoWlzBk0gG+zrBrjn/B7SK3VAdlntqlyk+otZrWyuOQ9PLLvTIzq6we/qzWaVYa8
-GKa1qF60g2xraUDTn9zxw2lrueFtCfTxqlB2Cnp9ehehVZZCmTEJ3WARjQUwfuaO
-RtGdFNrHF+QFlozEJLUbzxQHskD4o55BhrwE0GuWyCqANP2/7waj3VjFhT0+j/6e
-KeC2uAloGRwYQw==
------END CERTIFICATE-----
-"""
+AFFIRMTRUST_PREMIUM_BYTES_ ::= #[
+    '0',130,5,'F','0',130,3,'.',160,3,2,1,2,2,8,'m',140,20,'F',177,166,10,238,
+    '0',13,6,9,'*',134,'H',134,247,13,1,1,12,5,0,'0','A','1',11,'0',9,6,3,'U',
+    4,6,19,2,'U','S','1',20,'0',18,6,3,'U',4,10,12,11,'A','f','f','i','r','m',
+    'T','r','u','s','t','1',0x1c,'0',26,6,3,'U',4,3,12,19,'A','f','f','i','r',
+    'm','T','r','u','s','t',' ','P','r','e','m','i','u','m','0',30,23,0xd,'1',
+    '0','0','1','2','9','1','4','1','0','3','6','Z',23,13,'4','0','1','2','3',
+    '1','1','4','1','0','3','6','Z','0','A','1',11,'0',9,6,3,'U',4,6,19,2,'U',
+    'S','1',20,'0',18,6,3,'U',4,0xa,12,11,'A','f','f','i','r','m','T','r','u',
+    's','t','1',0x1c,'0',26,6,3,'U',4,3,12,19,'A','f','f','i','r','m','T','r',
+    'u','s','t',' ','P','r','e','m','i','u','m','0',0x82,2,'"','0',13,6,9,'*',
+    134,'H',134,247,13,1,1,1,5,0,3,130,2,15,0,'0',130,2,10,2,130,2,1,0,196,18,
+    0xdf,0xa9,'_',254,'A',221,221,245,159,138,227,246,172,225,'<','x',154,188,
+    0xd8,0xf0,127,'z',160,'3','*',220,141,' ','[',174,'-','o',231,147,217,'6',
+    'p','j','h',0xcf,142,'Q',163,133,'[','g',4,160,16,'$','o',']','(',130,193,
+    0x97,'W',0xd8,'H',')',19,182,225,190,145,'M',223,133,12,'S',24,154,30,'$',
+    0xa2,'O',0x8f,0xf0,162,133,11,203,244,')',127,210,164,'X',238,'&','M',201,
+    170,168,'{',154,217,250,'8',222,'D','W',21,229,248,140,200,217,'H',226,13,
+    22,39,29,30,200,131,133,'%',183,186,170,'U','A',204,3,'"','K','-',145,141,
+    0x8b,0xe6,137,175,'f',199,233,255,'+',233,'<',172,218,210,179,195,225,'h',
+    0x9c,137,248,'z',0,'V',222,244,'U',149,'l',251,186,'d',221,'b',139,223,11,
+    'w','2',235,'b',204,'&',154,155,187,170,'b',131,'L',180,6,'z','0',200,')',
+    0xbf,0xed,6,'M',0x97,185,28,196,'1','+',213,'_',188,'S',18,23,156,153,'W',
+    ')','f','w','a','!','1',7,'.','%','I',0x9d,24,242,238,243,'+','q',140,181,
+    0xba,'9',7,'I','w',0xfc,239,'.',146,144,5,141,'-','/','w','{',239,'C',191,
+    '5',0xbb,0x9a,216,249,'s',167,',',242,208,'W',238,'(','N','&','_',143,144,
+    'h',0x09,'/',184,248,220,6,233,'.',154,'>','Q',167,209,'"',196,10,167,'8',
+    'H','l',0xb3,0xf9,255,'}',171,134,'W',227,186,214,133,'x','w',186,'C',234,
+    'H',0x7f,246,216,190,'#','m',30,191,209,'6','l','X',92,241,238,164,25,'T',
+    26,0xf5,3,210,'v',230,225,140,189,'<',179,211,'H','K',226,200,248,127,146,
+    0xa8,'v','F',0x9c,'B','e','>',0xa4,30,193,7,3,'Z','F','-',184,151,243,183,
+    0xd5,0xb2,'U','!',239,186,220,'L',0,151,251,20,149,39,'3',191,232,'C','G',
+    'F',210,8,153,22,'`',';',154,'~',210,230,237,'8',234,236,1,30,'<','H','V',
+    'I',9,199,'L','7',0,158,136,14,192,'s',225,'o','f',233,'r','G','0','>',16,
+    0xe5,11,3,201,154,'B',0,'l',197,148,'~','a',196,138,223,127,130,26,11,'Y',
+    196,'Y','2','w',179,188,'`','i','V','9',253,180,6,'{',',',214,'d','6',217,
+    0xbd,'H',0xed,0x84,31,'~',165,'"',143,'*',184,'B',244,130,183,212,'S',144,
+    'x','N','-',0x1a,0xfd,129,'o','D',215,';',1,'t',150,'B',224,0,226,'.','k',
+    0xea,0xc5,238,'r',172,187,191,254,234,170,168,248,220,246,178,'y',138,182,
+    'g',2,3,1,0,1,0xa3,'B','0','@','0',29,6,3,'U',29,14,4,22,4,20,157,192,'g',
+    166,12,'"',217,'&',245,'E',171,166,'e','R',17,39,216,'E',172,'c','0',15,6,
+    3,'U',29,19,1,1,0xff,4,5,'0',3,1,1,255,'0',14,6,3,'U',29,15,1,1,255,4,4,3,
+    0x02,1,6,'0',13,6,9,'*',134,'H',134,247,13,1,1,12,5,0,3,130,2,1,0,179,'W',
+    'M',16,'b','N',':',228,172,234,184,28,175,'2','#',200,179,'I','Z','Q',156,
+    'v','(',0x8d,'y',0xaa,'W','F',23,213,245,'R',246,183,'D',232,8,'D',191,24,
+    132,210,11,128,205,197,18,253,0,'U',5,'a',135,'A',220,181,'$',158,'<',196,
+    216,200,251,'p',158,'/','x',150,131,' ','6',222,'|',15,'i',19,136,165,'u',
+    '6',152,8,166,198,223,172,206,227,'X',214,183,'>',222,186,243,235,'4','@',
+    0xd8,0xa2,129,245,'x','?','/',213,165,252,217,162,212,'^',4,14,23,173,254,
+    'A',0xf0,0xe5,178,'r',250,'D',130,'3','B',232,'-','X',247,'V',140,'b','?',
+    186,'B',176,156,12,92,'~','.','e','&',92,'S','O',0,178,'x','~',161,13,153,
+    '-',0x8d,184,29,142,162,196,176,253,'`',208,'0',164,142,200,4,'b',169,196,
+    0xed,'5',0xde,'z',0x97,237,14,'8','^',146,'/',147,'p',165,169,156,'o',167,
+    '}',19,29,'~',198,8,'H',177,'^','g',235,'Q',8,'%',233,230,'%','k','R',')',
+    145,156,210,'9','s',8,'W',222,153,6,180,'[',157,16,6,225,194,0,168,184,28,
+    'J',0x2,10,20,208,193,'A',202,251,140,'5','!','}',130,'8',242,169,'T',145,
+    25,'5',147,148,'m','j',':',197,178,208,187,137,134,147,232,155,201,15,':',
+    167,'z',184,161,240,'x','F',250,252,'7','/',229,138,132,243,223,254,4,217,
+    161,'h',160,'/','$',226,9,149,6,213,149,202,225,'$',150,235,'|',246,147,5,
+    0xbb,0xed,'s',233,'-',209,'u','9',215,231,'$',219,216,'N','_','C',143,158,
+    0xd0,20,'9',0xbf,'U','p','H',153,'W','1',180,156,238,'J',152,3,150,'0',31,
+    '`',0x06,238,27,'#',254,129,'`','#',26,'G','b',133,165,204,25,'4',128,'o',
+    0xb3,172,26,227,159,240,'{','H',173,213,1,217,'g',182,169,'r',147,234,'-',
+    'f',181,178,184,228,'=','<',178,239,'L',140,234,235,7,191,171,'5',154,'U',
+    0x86,0xbc,24,0xa6,181,168,'^',180,131,'l','k','i','@',211,159,220,241,195,
+    'i','k',0xb9,0xe1,'m',9,244,241,170,'P','v',10,'z','}','z',23,161,'U',150,
+    'B',0x99,'1',9,221,'`',17,141,5,'0','~',230,142,'F',209,157,20,218,199,23,
+    0xe4,5,0x96,140,196,'$',181,27,207,20,7,178,'@',248,163,158,'A',134,188,4,
+    208,'k',150,200,'*',128,'4',253,191,239,6,163,221,'X',197,133,'=','>',143,
+    254,158,')',224,182,184,9,'h',25,28,24,'C',
+]
+
 
 /**
 AffirmTrust Premium.
 SHA256 fingerprint: 70:a7:3f:7f:37:6b:60:07:42:48:90:45:34:b1:14:82:d5:bf:0e:69:8e:cc:49:8d:f5:25:77:eb:f2:e9:3b:9a
 */
-AFFIRMTRUST_PREMIUM ::= net.Certificate.parse AFFIRMTRUST_PREMIUM_TEXT_
+AFFIRMTRUST_PREMIUM ::= parse_ AFFIRMTRUST_PREMIUM_BYTES_
 
-AFFIRMTRUST_PREMIUM_ECC_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIB/jCCAYWgAwIBAgIIdJclisc/elQwCgYIKoZIzj0EAwMwRTELMAkGA1UEBhMC
-VVMxFDASBgNVBAoMC0FmZmlybVRydXN0MSAwHgYDVQQDDBdBZmZpcm1UcnVzdCBQ
-cmVtaXVtIEVDQzAeFw0xMDAxMjkxNDIwMjRaFw00MDEyMzExNDIwMjRaMEUxCzAJ
-BgNVBAYTAlVTMRQwEgYDVQQKDAtBZmZpcm1UcnVzdDEgMB4GA1UEAwwXQWZmaXJt
-VHJ1c3QgUHJlbWl1bSBFQ0MwdjAQBgcqhkjOPQIBBgUrgQQAIgNiAAQNMF4bFZ0D
-0KF5Nbc6PJJ6yhUczWLznCZcBz3lVPqj1swS6vQUX+iOGasvLkjmrBhDeKzQN8O9
-ss0s5kfiGuZjuD0uL3jET9v0D6RoTFVya5UdThhClXjMNzyR4ptlKymjQjBAMB0G
-A1UdDgQWBBSaryl6wBE1NSZRMADDav5A1a7WPDAPBgNVHRMBAf8EBTADAQH/MA4G
-A1UdDwEB/wQEAwIBBjAKBggqhkjOPQQDAwNnADBkAjAXCfOHiFBar8jAQr9HX/Vs
-aobgxCd05DhT1wV/GzTjxi+zygk8N53X57hG8f2h4nECMEJZh0PUUd+60wkyWs6I
-flc9nF9Ca/UHLbXwgpP5WW+uZPpY5Yse42O+tYHNbwKMeQ==
------END CERTIFICATE-----
-"""
+AFFIRMTRUST_PREMIUM_ECC_BYTES_ ::= #[
+    '0',0x82,1,0xfe,'0',130,1,133,160,3,2,1,2,2,8,'t',151,'%',138,199,'?','z',
+    'T','0',10,6,8,'*',134,'H',206,'=',4,3,3,'0','E','1',11,'0',9,6,3,'U',4,6,
+    19,2,'U','S','1',20,'0',18,6,3,'U',4,10,12,11,'A','f','f','i','r','m','T',
+    'r','u','s','t','1',' ','0',30,6,3,'U',4,3,0xc,23,'A','f','f','i','r','m',
+    'T','r','u','s','t',' ','P','r','e','m','i','u','m',' ','E','C','C','0',
+    0x1e,23,0xd,'1','0','0','1','2','9','1','4','2','0','2','4','Z',23,13,'4',
+    '0','1','2','3','1','1','4','2','0','2','4','Z','0','E','1',0xb,'0',9,6,3,
+    'U',4,6,19,2,'U','S','1',20,'0',18,6,3,'U',4,10,12,11,'A','f','f','i','r',
+    'm','T','r','u','s','t','1',' ','0',30,6,3,'U',4,3,0xc,23,'A','f','f','i',
+    'r','m','T','r','u','s','t',' ','P','r','e','m','i','u','m',' ','E','C',
+    'C','0','v','0',16,6,7,'*',0x86,'H',206,'=',2,1,6,5,'+',129,4,0,'"',3,'b',
+    0,4,0xd,'0','^',27,21,157,3,208,161,'y','5',183,':','<',146,'z',202,21,28,
+    0xcd,'b',0xf3,0x9c,'&',92,7,'=',229,'T',250,163,214,204,18,234,244,20,'_',
+    232,142,25,171,'/','.','H',230,172,24,'C','x',172,208,'7',195,189,178,205,
+    ',',230,'G',226,26,230,'c',184,'=','.','/','x',196,'O',219,244,15,164,'h',
+    'L','U','r','k',149,29,'N',24,'B',149,'x',204,'7','<',145,226,155,'e','+',
+    ')',163,'B','0','@','0',29,6,3,'U',29,14,4,22,4,20,154,175,')','z',192,17,
+    '5','5','&','Q','0',0x0,195,'j',254,'@',213,174,214,'<','0',15,6,3,'U',29,
+    19,1,1,255,4,5,'0',3,1,1,255,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',
+    0x0a,6,8,'*',134,'H',206,'=',4,3,3,3,'g',0,'0','d',2,'0',23,9,243,135,136,
+    'P','Z',0xaf,0xc8,0xc0,'B',191,'G','_',245,'l','j',134,224,196,39,'t',228,
+    '8','S',0xd7,0x5,127,27,'4',227,198,'/',179,202,9,'<','7',157,215,231,184,
+    'F',0xf1,0xfd,161,226,'q',2,'0','B','Y',135,'C',212,'Q',223,186,211,9,'2',
+    'Z',206,136,'~','W','=',156,'_','B','k',245,7,'-',181,240,130,147,249,'Y',
+    'o',174,'d',250,'X',229,139,30,227,'c',190,181,129,205,'o',2,140,'y',
+]
+
 
 /**
 AffirmTrust Premium ECC.
 SHA256 fingerprint: bd:71:fd:f6:da:97:e4:cf:62:d1:64:7a:dd:25:81:b0:7d:79:ad:f8:39:7e:b4:ec:ba:9c:5e:84:88:82:14:23
 */
-AFFIRMTRUST_PREMIUM_ECC ::= net.Certificate.parse AFFIRMTRUST_PREMIUM_ECC_TEXT_
+AFFIRMTRUST_PREMIUM_ECC ::= parse_ AFFIRMTRUST_PREMIUM_ECC_BYTES_
 
-CERTUM_TRUSTED_NETWORK_CA_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIDuzCCAqOgAwIBAgIDBETAMA0GCSqGSIb3DQEBBQUAMH4xCzAJBgNVBAYTAlBM
-MSIwIAYDVQQKExlVbml6ZXRvIFRlY2hub2xvZ2llcyBTLkEuMScwJQYDVQQLEx5D
-ZXJ0dW0gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxIjAgBgNVBAMTGUNlcnR1bSBU
-cnVzdGVkIE5ldHdvcmsgQ0EwHhcNMDgxMDIyMTIwNzM3WhcNMjkxMjMxMTIwNzM3
-WjB+MQswCQYDVQQGEwJQTDEiMCAGA1UEChMZVW5pemV0byBUZWNobm9sb2dpZXMg
-Uy5BLjEnMCUGA1UECxMeQ2VydHVtIENlcnRpZmljYXRpb24gQXV0aG9yaXR5MSIw
-IAYDVQQDExlDZXJ0dW0gVHJ1c3RlZCBOZXR3b3JrIENBMIIBIjANBgkqhkiG9w0B
-AQEFAAOCAQ8AMIIBCgKCAQEA4/t9o3K6wvDJFIf1awFO4W5AB7ptJ11/91sts1rH
-UV+rpDKmYYe2bg+G0jACl/jXaVehGDldamR5xgFZrDwxSjh80gTSSyjoIF87B6LM
-TXPb865Px1bVWqeWifrzq2jUI4ZZJ88JJ7ysbnKDHDBy3+Ci6dLhdHUZvSqeexVU
-BBvXQzmtVSjF4hq79MDkrjhJM8x2hZ85RdKknvISjFH4fOQtf/WsX+sWn7Et0brM
-kUJ3TCXJkDhv2/DM+44el1k+1WBO5gUo7Ul5E0u6SNsv+XLTOcr+H9g0cvW0QM8x
-AcPs3hEtF10fuFDRXhmnad4HMyjKUJX5p1TLVIZQRan5SQIDAQABo0IwQDAPBgNV
-HRMBAf8EBTADAQH/MB0GA1UdDgQWBBQIds3LB/8k9sXN7buQvOKEN0Z19zAOBgNV
-HQ8BAf8EBAMCAQYwDQYJKoZIhvcNAQEFBQADggEBAKaorSLOAT2mo/9i0Eidi15y
-sHhE49wcrwn9I0j6vSrEuVUEtRCjjSfeC4Jj0O7eDDd5QVsisrCaQVymcODU0HfL
-I9MA4GxWL+FpDQ3Zqr8hgVDZBqWo/5U30Kr+4rP1mS1FhIrlQgnXdAIv94nYmem8
-J9RHjboNRhx3zxSkHLmkMcScKHQDNP8zGSal6Q10tz6XxnboJ5ajZt3hrvJBW8qY
-VoNzcOSGGtIxQbovvi0TWnZvTuhOgQ4/WwMioBK+ZlgRSssDxLQqKi2WF+A5VLxI
-03YnnZotBqbJ7DnSq9ufmgsnAjUpsUCV5/nonFWIGUbWtzT1fs45mtk48VH3Tyw=
------END CERTIFICATE-----
-"""
+CERTUM_TRUSTED_NETWORK_CA_BYTES_ ::= #[
+    '0',0x82,3,187,'0',130,2,163,160,3,2,1,2,2,3,4,'D',192,'0',13,6,9,'*',134,
+    'H',0x86,0xf7,0xd,1,1,5,5,0,'0','~','1',11,'0',9,6,3,'U',4,6,19,2,'P','L',
+    '1','"','0',' ',0x06,3,'U',4,10,19,25,'U','n','i','z','e','t','o',' ','T',
+    'e','c','h','n','o','l','o','g','i','e','s',' ','S','.','A','.','1',0x27,
+    '0','%',0x06,3,'U',4,11,19,30,'C','e','r','t','u','m',' ','C','e','r','t',
+    'i','f','i','c','a','t','i','o','n',' ','A','u','t','h','o','r','i','t',
+    'y','1','"','0',' ',6,3,'U',4,3,19,25,'C','e','r','t','u','m',' ','T','r',
+    'u','s','t','e','d',' ','N','e','t','w','o','r','k',' ','C','A','0',30,23,
+    0xd,'0','8','1','0','2','2','1','2','0','7','3','7','Z',23,13,'2','9','1',
+    '2','3','1','1','2','0','7','3','7','Z','0','~','1',0xb,'0',9,6,3,'U',4,6,
+    0x13,2,'P','L','1','"','0',' ',6,3,'U',4,10,19,25,'U','n','i','z','e','t',
+    'o',' ','T','e','c','h','n','o','l','o','g','i','e','s',' ','S','.','A',
+    '.','1',39,'0','%',6,3,'U',4,11,19,30,'C','e','r','t','u','m',' ','C','e',
+    'r','t','i','f','i','c','a','t','i','o','n',' ','A','u','t','h','o','r',
+    'i','t','y','1','"','0',' ',6,3,'U',4,3,19,25,'C','e','r','t','u','m',' ',
+    'T','r','u','s','t','e','d',' ','N','e','t','w','o','r','k',' ','C','A',
+    '0',0x82,0x1,'"','0',13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,1,15,0,
+    '0',0x82,1,0xa,2,130,1,1,0,227,251,'}',163,'r',186,194,240,201,20,135,245,
+    'k',0x01,'N',225,'n','@',7,186,'m',39,']',127,247,'[','-',179,'Z',199,'Q',
+    '_',0xab,164,'2',166,'a',135,182,'n',15,134,210,'0',2,151,248,215,'i','W',
+    0xa1,0x18,'9',']','j','d','y',198,1,'Y',172,'<','1','J','8','|',210,4,210,
+    'K','(',232,' ','_',';',7,162,204,'M','s',219,243,174,'O',199,'V',213,'Z',
+    0xa7,0x96,137,250,243,171,'h',212,'#',134,'Y',39,207,9,39,188,172,'n','r',
+    0x83,28,'0','r',223,224,162,233,210,225,'t','u',25,189,'*',158,'{',21,'T',
+    0x4,27,215,'C','9',173,'U','(',197,226,26,187,244,192,228,174,'8','I','3',
+    0xcc,'v',0x85,0x9f,'9','E',210,164,158,242,18,140,'Q',248,'|',228,'-',127,
+    0xf5,0xac,'_',0xeb,22,159,177,'-',209,186,204,145,'B','w','L','%',201,144,
+    '8','o',0xdb,240,204,251,142,30,151,'Y','>',213,'`','N',230,5,'(',237,'I',
+    'y',19,'K',186,'H',219,'/',249,'r',211,'9',202,254,31,216,'4','r',245,180,
+    '@',207,'1',1,195,236,222,17,'-',23,']',31,184,'P',209,'^',25,167,'i',222,
+    7,'3','(',202,'P',149,249,167,'T',203,'T',134,'P','E',169,249,'I',2,3,1,0,
+    1,163,'B','0','@','0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',29,6,
+    3,'U',29,14,4,22,4,20,8,'v',205,203,7,255,'$',246,197,205,237,187,144,188,
+    226,132,'7','F','u',247,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',13,6,
+    9,'*',0x86,'H',134,247,13,1,1,5,5,0,3,130,1,1,0,166,168,173,'"',206,1,'=',
+    0xa6,163,255,'b',208,'H',157,139,'^','r',176,'x','D',227,220,28,175,9,253,
+    '#','H',0xfa,0xbd,'*',0xc4,185,'U',4,181,16,163,141,39,222,11,130,'c',208,
+    238,222,12,'7','y','A','[','"',178,176,154,'A',92,166,'p',224,212,208,'w',
+    203,'#',211,0,224,'l','V','/',225,'i',13,13,217,170,191,'!',129,'P',217,6,
+    165,168,255,149,'7',208,170,254,226,179,245,153,'-','E',132,138,229,'B',9,
+    0xd7,'t',0x2,'/',247,137,216,153,233,188,39,212,'G',141,186,13,'F',28,'w',
+    207,20,164,28,185,164,'1',196,156,'(','t',3,'4',255,'3',25,'&',165,233,13,
+    't',0xb7,'>',0x97,0xc6,'v',232,39,150,163,'f',221,225,174,242,'A','[',202,
+    152,'V',131,'s','p',228,134,26,210,'1','A',186,'/',190,'-',19,'Z','v','o',
+    'N',0xe8,'N',129,14,'?','[',3,'"',160,18,190,'f','X',17,'J',203,3,196,180,
+    '*','*','-',0x96,23,0xe0,'9','T',188,'H',211,'v',39,157,154,'-',6,166,201,
+    0xec,'9',0xd2,171,219,159,154,11,39,2,'5',')',177,'@',149,231,249,232,156,
+    'U',0x88,0x19,'F',214,183,'4',245,'~',206,'9',154,217,'8',241,'Q',247,'O',
+    ',',
+]
+
 
 /**
 Certum Trusted Network CA.
 SHA256 fingerprint: 5c:58:46:8d:55:f5:8e:49:7e:74:39:82:d2:b5:00:10:b6:d1:65:37:4a:cf:83:a7:d4:a3:2d:b7:68:c4:40:8e
 */
-CERTUM_TRUSTED_NETWORK_CA ::= net.Certificate.parse CERTUM_TRUSTED_NETWORK_CA_TEXT_
+CERTUM_TRUSTED_NETWORK_CA ::= parse_ CERTUM_TRUSTED_NETWORK_CA_BYTES_
 
-TWCA_ROOT_CERTIFICATION_AUTHORITY_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIDezCCAmOgAwIBAgIBATANBgkqhkiG9w0BAQUFADBfMQswCQYDVQQGEwJUVzES
-MBAGA1UECgwJVEFJV0FOLUNBMRAwDgYDVQQLDAdSb290IENBMSowKAYDVQQDDCFU
-V0NBIFJvb3QgQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkwHhcNMDgwODI4MDcyNDMz
-WhcNMzAxMjMxMTU1OTU5WjBfMQswCQYDVQQGEwJUVzESMBAGA1UECgwJVEFJV0FO
-LUNBMRAwDgYDVQQLDAdSb290IENBMSowKAYDVQQDDCFUV0NBIFJvb3QgQ2VydGlm
-aWNhdGlvbiBBdXRob3JpdHkwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIB
-AQCwfnK4pAOU5qfeCTiRShFAh6d8WWQUe7UREN3+v9XAu1bihSX0NXIP+FPQQeFE
-AcK0HMMxQhZHhTMidrIKbw/lJVBPhYa+v5guEGcevhEFhgWQxFnQfHgQsIBct+HH
-K3XLfJ+utdGdIzdjp9xCoi2SBBtQwXu4PhvJVgSLL1KbralW6cH/ralYhzC2gfeX
-RfwZVzsrb+RH9JlF/h3x+JejiB03HFyP4HYlmlD4oFT/RJB2I9IyxsOrBr/8+7/z
-rX2SYgJbKdM1o5OaQ2RgXbL6Mv87BK9NQGr5x+PvI/1ry+UPizgN7gr8/g+YnzAx
-3WxSZfmLgb4i4RxYA7qRG4kHAgMBAAGjQjBAMA4GA1UdDwEB/wQEAwIBBjAPBgNV
-HRMBAf8EBTADAQH/MB0GA1UdDgQWBBRqOFsmjd6LWvJPelSDGRjjCDWmujANBgkq
-hkiG9w0BAQUFAAOCAQEAPNV3PdrfibqHDAhUaiBQkr6wQT25JmSDCi/oQMCXKCeC
-MErJk/9q56YAf4lCmtYR5VPOL8zy2gXE/uJQxDqGfczafhAJO5I1KlOy/usrBdls
-XebQ79NqZp4VKIV66IIArB6nCWlWQtNoURi+VJq/REG6Sb4gumlc7rh3zc5sH62D
-lhh9DrUUOYTxKOkto557HnpyWoOzeW/vtPzQCqVYT0bf+215WfKEIlKuD8z7fDvn
-aspHYcN6+NOSBB+4IIThNlQWx0DeO4pz3N/GCUzf7Nr/1FNCocnyYh0igzyXxfkZ
-YiesZSLX0zzG5Y6yU8xJzrww/nsOM5D77dIUkR8Hrw==
------END CERTIFICATE-----
-"""
+TWCA_ROOT_CERTIFICATION_AUTHORITY_BYTES_ ::= #[
+    '0',0x82,3,'{','0',130,2,'c',160,3,2,1,2,2,1,1,'0',13,6,9,'*',134,'H',134,
+    247,13,1,1,5,5,0,'0','_','1',11,'0',9,6,3,'U',4,6,19,2,'T','W','1',18,'0',
+    16,6,3,'U',4,0xa,12,9,'T','A','I','W','A','N','-','C','A','1',16,'0',14,6,
+    0x3,'U',4,11,12,7,'R','o','o','t',' ','C','A','1','*','0','(',6,3,'U',4,3,
+    0x0c,'!','T','W','C','A',' ','R','o','o','t',' ','C','e','r','t','i','f',
+    'i','c','a','t','i','o','n',' ','A','u','t','h','o','r','i','t','y','0',
+    0x1e,23,0xd,'0','8','0','8','2','8','0','7','2','4','3','3','Z',23,13,'3',
+    '0','1','2','3','1','1','5','5','9','5','9','Z','0','_','1',0xb,'0',9,6,3,
+    'U',4,6,19,2,'T','W','1',18,'0',16,6,3,'U',4,0xa,12,9,'T','A','I','W','A',
+    'N','-','C','A','1',0x10,'0',14,6,3,'U',4,11,12,7,'R','o','o','t',' ','C',
+    'A','1','*','0','(',0x06,3,'U',4,3,12,'!','T','W','C','A',' ','R','o','o',
+    't',' ','C','e','r','t','i','f','i','c','a','t','i','o','n',' ','A','u',
+    't','h','o','r','i','t','y','0',0x82,1,'"','0',13,6,9,'*',134,'H',134,247,
+    0xd,1,1,1,5,0,3,130,1,15,0,'0',130,1,10,2,130,1,1,0,176,'~','r',184,164,3,
+    148,230,167,222,9,'8',145,'J',17,'@',135,167,'|','Y','d',20,'{',181,17,16,
+    0xdd,0xfe,0xbf,213,192,187,'V',226,133,'%',244,'5','r',15,248,'S',208,'A',
+    225,'D',1,194,180,28,195,'1','B',22,'G',133,'3','"','v',178,10,'o',15,229,
+    '%','P','O',0x85,134,190,191,152,'.',16,'g',30,190,17,5,134,5,144,196,'Y',
+    208,'|','x',16,176,128,92,183,225,199,'+','u',203,'|',159,174,181,209,157,
+    '#','7','c',167,220,'B',162,'-',146,4,27,'P',193,'{',184,'>',27,201,'V',4,
+    0x8b,'/','R',0x9b,173,169,'V',233,193,255,173,169,'X',135,'0',182,129,247,
+    151,'E',252,25,'W',';','+','o',228,'G',244,153,'E',254,29,241,248,151,163,
+    0x88,29,'7',28,92,143,224,'v','%',154,'P',248,160,'T',255,'D',144,'v','#',
+    0xd2,'2',0xc6,195,171,6,191,252,251,191,243,173,'}',146,'b',2,'[',')',211,
+    '5',163,147,154,'C','d','`',']',178,250,'2',255,';',4,175,'M','@','j',249,
+    0xc7,0xe3,239,'#',253,'k',203,229,15,139,'8',13,238,10,252,254,15,152,159,
+    '0','1',221,'l','R','e',249,139,129,190,'"',225,28,'X',3,186,145,27,137,7,
+    2,3,1,0,1,163,'B','0','@','0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',15,
+    0x06,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',29,6,3,'U',29,14,4,22,4,20,
+    'j','8','[','&',0x8d,0xde,139,'Z',242,'O','z','T',131,25,24,227,8,'5',166,
+    0xba,'0',0xd,6,9,'*',134,'H',134,247,13,1,1,5,5,0,3,130,1,1,0,'<',213,'w',
+    '=',0xda,223,137,186,135,12,8,'T','j',' ','P',146,190,176,'A','=',185,'&',
+    'd',131,10,'/',232,'@',192,151,'(',39,130,'0','J',201,147,255,'j',231,166,
+    0x00,127,137,'B',154,214,17,229,'S',206,'/',204,242,218,5,196,254,226,'P',
+    0xc4,':',0x86,'}',0xcc,218,'~',16,9,';',146,'5','*','S',178,254,235,'+',5,
+    0xd9,'l',']',0xe6,208,239,211,'j','f',158,21,'(',133,'z',232,130,0,172,30,
+    0xa7,9,'i','V','B',211,'h','Q',24,190,'T',154,191,'D','A',186,'I',190,' ',
+    0xba,'i',0x5c,238,184,'w',205,206,'l',31,173,131,150,24,'}',14,181,20,'9',
+    0x84,0xf1,'(',0xe9,'-',163,158,'{',30,'z','r','Z',131,179,'y','o',239,180,
+    252,208,10,165,'X','O','F',223,251,'m','y','Y',242,132,'"','R',174,15,204,
+    0xfb,'|',';',231,'j',202,'G','a',195,'z',248,211,146,4,31,184,' ',132,225,
+    '6','T',22,0xc7,'@',222,';',138,'s',220,223,198,9,'L',223,236,218,255,212,
+    'S','B',0xa1,201,242,'b',29,'"',131,'<',151,197,249,25,'b',39,172,'e','"',
+    0xd7,0xd3,'<',0xc6,229,142,178,'S',204,'I',206,188,'0',254,'{',14,'3',144,
+    251,237,210,20,145,31,7,175,
+]
+
 
 /**
 TWCA Root Certification Authority.
 SHA256 fingerprint: bf:d8:8f:e1:10:1c:41:ae:3e:80:1b:f8:be:56:35:0e:e9:ba:d1:a6:b9:bd:51:5e:dc:5c:6d:5b:87:11:ac:44
 */
-TWCA_ROOT_CERTIFICATION_AUTHORITY ::= net.Certificate.parse TWCA_ROOT_CERTIFICATION_AUTHORITY_TEXT_
+TWCA_ROOT_CERTIFICATION_AUTHORITY ::= parse_ TWCA_ROOT_CERTIFICATION_AUTHORITY_BYTES_
 
-SECURITY_COMMUNICATION_ROOTCA2_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIDdzCCAl+gAwIBAgIBADANBgkqhkiG9w0BAQsFADBdMQswCQYDVQQGEwJKUDEl
-MCMGA1UEChMcU0VDT00gVHJ1c3QgU3lzdGVtcyBDTy4sTFRELjEnMCUGA1UECxMe
-U2VjdXJpdHkgQ29tbXVuaWNhdGlvbiBSb290Q0EyMB4XDTA5MDUyOTA1MDAzOVoX
-DTI5MDUyOTA1MDAzOVowXTELMAkGA1UEBhMCSlAxJTAjBgNVBAoTHFNFQ09NIFRy
-dXN0IFN5c3RlbXMgQ08uLExURC4xJzAlBgNVBAsTHlNlY3VyaXR5IENvbW11bmlj
-YXRpb24gUm9vdENBMjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBANAV
-OVKxUrO6xVmCxF1SrjpDZYBLx/KWvNs2l9amZIyoXvDjChz335c9S672XewhtUGr
-zbl+dp+++T42NKA7wfYxEUV0kz1XgMX5iZnK5atq1LXaQZAQwdbWQonCv/Q4EpVM
-VAX3NuRFg3sUZdbcDE3R3n4MqzvEFb46VqZab3ZpUql6ucjrappdUtAtCms1FgkQ
-hNBqyjoGADdH5H5XTz+L62e4iKrFvlNVspHEfbmwhRkGeC7bYRr6hfVKkaHnFtWO
-ojnflLhwHyg/i/xAXmODPIMqGplrz95Zajv8bxbXH/1KEOtOghY6rCcMU/Gt1SSw
-awNQwS08Ft1ENCcadfsCAwEAAaNCMEAwHQYDVR0OBBYEFAqFqXdlBZh8QIH4D5cs
-OPEK7DzPMA4GA1UdDwEB/wQEAwIBBjAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3
-DQEBCwUAA4IBAQBMOqNErLlFsceTfsgLCkLfZOoc7llsCLqJX2rKSpWeeo8HxdpF
-coJxDjrSzG+ntKEju/Ykn8sX/oymzsLS28yN/HH8AynBbF0zX2S2ZTuJbxh2ePXc
-okgfGT+Ok+vx+hfuzU7jBBJV1uXk3fs+BXziHV7Gp7yXT2g69ekuCkO2r1dcYmh8
-t/2jioSgrGK+KwmHNPBqAbubKVY8/gA3zyNs8U6qtnRGEmyR7jTV7JqR50S+kDFy
-1UkC9gLl9B/rfNmWVan/7Ir5mUf/NVoCqgTLiluHcSmRvaS0eg29mvVXIwAHIRc/
-SjnRBUkLp7Y3gaVdjKozXoEofKd9J+sAro03
------END CERTIFICATE-----
-"""
+SECURITY_COMMUNICATION_ROOTCA2_BYTES_ ::= #[
+    '0',0x82,3,'w','0',130,2,'_',160,3,2,1,2,2,1,0,'0',13,6,9,'*',134,'H',134,
+    0xf7,0xd,1,1,11,5,0,'0',']','1',11,'0',9,6,3,'U',4,6,19,2,'J','P','1','%',
+    '0','#',0x06,3,'U',4,10,19,28,'S','E','C','O','M',' ','T','r','u','s','t',
+    ' ','S','y','s','t','e','m','s',' ','C','O','.',',','L','T','D','.','1',
+    39,'0','%',6,3,'U',4,11,19,30,'S','e','c','u','r','i','t','y',' ','C','o',
+    'm','m','u','n','i','c','a','t','i','o','n',' ','R','o','o','t','C','A',
+    '2','0',0x1e,23,13,'0','9','0','5','2','9','0','5','0','0','3','9','Z',23,
+    13,'2','9','0','5','2','9','0','5','0','0','3','9','Z','0',']','1',11,'0',
+    9,6,3,'U',4,6,19,2,'J','P','1','%','0','#',6,3,'U',4,10,19,28,'S','E','C',
+    'O','M',' ','T','r','u','s','t',' ','S','y','s','t','e','m','s',' ','C',
+    'O','.',',','L','T','D','.','1',39,'0','%',6,3,'U',4,11,19,30,'S','e','c',
+    'u','r','i','t','y',' ','C','o','m','m','u','n','i','c','a','t','i','o',
+    'n',' ','R','o','o','t','C','A','2','0',0x82,1,'"','0',13,6,9,'*',134,'H',
+    134,247,13,1,1,1,5,0,3,130,1,15,0,'0',130,1,10,2,130,1,1,0,208,21,'9','R',
+    0xb1,'R',0xb3,186,197,'Y',130,196,']','R',174,':','C','e',128,'K',199,242,
+    150,188,219,'6',151,214,166,'d',140,168,'^',240,227,10,28,247,223,151,'=',
+    'K',0xae,0xf6,']',236,'!',181,'A',171,205,185,'~','v',159,190,249,'>','6',
+    '4',0xa0,';',0xc1,0xf6,'1',17,'E','t',147,'=','W',128,197,249,137,153,202,
+    229,171,'j',212,181,218,'A',144,16,193,214,214,'B',137,194,191,244,'8',18,
+    0x95,'L','T',5,0xf7,'6',228,'E',131,'{',20,'e',214,220,12,'M',209,222,'~',
+    12,171,';',196,21,190,':','V',166,'Z','o','v','i','R',169,'z',185,200,235,
+    'j',0x9a,']','R',0xd0,'-',0xa,'k','5',22,9,16,132,208,'j',202,':',6,0,'7',
+    'G',0xe4,'~','W','O','?',0x8b,235,'g',184,136,170,197,190,'S','U',178,145,
+    0xc4,'}',0xb9,176,133,25,6,'x','.',219,'a',26,250,133,245,'J',145,161,231,
+    22,213,142,162,'9',223,148,184,'p',31,'(','?',139,252,'@','^','c',131,'<',
+    0x83,'*',26,0x99,'k',207,222,'Y','j',';',252,'o',22,215,31,253,'J',16,235,
+    'N',130,22,':',172,39,12,'S',241,173,213,'$',176,'k',3,'P',193,'-','<',22,
+    0xdd,'D','4',39,26,'u',251,2,3,1,0,1,163,'B','0','@','0',29,6,3,'U',29,14,
+    4,22,4,20,0xa,133,169,'w','e',5,152,'|','@',129,248,15,151,',','8',241,10,
+    236,'<',207,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',15,6,3,'U',29,19,
+    1,1,0xff,4,5,'0',3,1,1,255,'0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,3,
+    0x82,1,1,0,'L',':',0xa3,'D',172,185,'E',177,199,147,'~',200,11,10,'B',223,
+    'd',0xea,0x1c,238,'Y','l',8,186,137,'_','j',202,'J',149,158,'z',143,7,197,
+    0xda,'E','r',0x82,'q',0xe,':',210,204,'o',167,180,161,'#',187,246,'$',159,
+    0xcb,23,254,140,166,206,194,210,219,204,141,252,'q',252,3,')',193,'l',']',
+    '3','_','d',0xb6,'e',';',137,'o',24,'v','x',245,220,162,'H',31,25,'?',142,
+    147,235,241,250,23,238,205,'N',227,4,18,'U',214,229,228,221,251,'>',5,'|',
+    0xe2,29,'^',198,167,188,151,'O','h',':',245,233,'.',10,'C',182,175,'W',92,
+    'b','h','|',0xb7,0xfd,163,138,132,160,172,'b',190,'+',9,135,'4',240,'j',1,
+    0xbb,155,')','V','<',254,0,'7',207,'#','l',241,'N',170,182,'t','F',18,'l',
+    0x91,0xee,'4',213,236,154,145,231,'D',190,144,'1','r',213,'I',2,246,2,229,
+    0xf4,31,235,'|',217,150,'U',169,255,236,138,249,153,'G',255,'5','Z',2,170,
+    4,0xcb,138,'[',135,'q',')',145,189,164,180,'z',13,189,154,245,'W','#',0,7,
+    '!',0x17,'?','J','9',209,5,'I',11,167,182,'7',129,165,']',140,170,'3','^',
+    129,'(','|',167,'}',39,235,0,174,141,'7',
+]
+
 
 /**
 Security Communication RootCA2.
 SHA256 fingerprint: 51:3b:2c:ec:b8:10:d4:cd:e5:dd:85:39:1a:df:c6:c2:dd:60:d8:7b:b7:36:d2:b5:21:48:4a:a4:7a:0e:be:f6
 */
-SECURITY_COMMUNICATION_ROOTCA2 ::= net.Certificate.parse SECURITY_COMMUNICATION_ROOTCA2_TEXT_
+SECURITY_COMMUNICATION_ROOTCA2 ::= parse_ SECURITY_COMMUNICATION_ROOTCA2_BYTES_
 
-EC_ACC_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIFVjCCBD6gAwIBAgIQ7is969Qh3hSoYqwE893EATANBgkqhkiG9w0BAQUFADCB
-8zELMAkGA1UEBhMCRVMxOzA5BgNVBAoTMkFnZW5jaWEgQ2F0YWxhbmEgZGUgQ2Vy
-dGlmaWNhY2lvIChOSUYgUS0wODAxMTc2LUkpMSgwJgYDVQQLEx9TZXJ2ZWlzIFB1
-YmxpY3MgZGUgQ2VydGlmaWNhY2lvMTUwMwYDVQQLEyxWZWdldSBodHRwczovL3d3
-dy5jYXRjZXJ0Lm5ldC92ZXJhcnJlbCAoYykwMzE1MDMGA1UECxMsSmVyYXJxdWlh
-IEVudGl0YXRzIGRlIENlcnRpZmljYWNpbyBDYXRhbGFuZXMxDzANBgNVBAMTBkVD
-LUFDQzAeFw0wMzAxMDcyMzAwMDBaFw0zMTAxMDcyMjU5NTlaMIHzMQswCQYDVQQG
-EwJFUzE7MDkGA1UEChMyQWdlbmNpYSBDYXRhbGFuYSBkZSBDZXJ0aWZpY2FjaW8g
-KE5JRiBRLTA4MDExNzYtSSkxKDAmBgNVBAsTH1NlcnZlaXMgUHVibGljcyBkZSBD
-ZXJ0aWZpY2FjaW8xNTAzBgNVBAsTLFZlZ2V1IGh0dHBzOi8vd3d3LmNhdGNlcnQu
-bmV0L3ZlcmFycmVsIChjKTAzMTUwMwYDVQQLEyxKZXJhcnF1aWEgRW50aXRhdHMg
-ZGUgQ2VydGlmaWNhY2lvIENhdGFsYW5lczEPMA0GA1UEAxMGRUMtQUNDMIIBIjAN
-BgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsyLHT+KXQpWIR4NA9h0X84NzJB5R
-85iKw5K4/0CQBXCHYMkAqbWUZRkiFRfCQ2xmRJoNBD45b6VLeqpjt4pEndljkYRm
-4CgPukLjbo73FCeTae6RDqNfDrHrZqJyTxIThmV6PttPB/SnCWDaOkKZx7J/sxaV
-HMf5NLWUhdWZXqBIoH7nF2W4onW4HvPlQn2v7fOKSGRdghST2MDk/7NQcvJ29rNd
-QlB50JQ+awwAvthrDk4q7D7SzIKiGGUzE3eeml0aE9jD2z3Il3rucO2n5nzbcc8t
-lGLfbdb1OL4/pYUKGbio2Al1QnDE6u/LDsg0qBIimAy4E5S2S+zw0JDnJwIDAQAB
-o4HjMIHgMB0GA1UdEQQWMBSBEmVjX2FjY0BjYXRjZXJ0Lm5ldDAPBgNVHRMBAf8E
-BTADAQH/MA4GA1UdDwEB/wQEAwIBBjAdBgNVHQ4EFgQUoMOLRKo3pUW/l4Ba0fF4
-opvpXY0wfwYDVR0gBHgwdjB0BgsrBgEEAfV4AQMBCjBlMCwGCCsGAQUFBwIBFiBo
-dHRwczovL3d3dy5jYXRjZXJ0Lm5ldC92ZXJhcnJlbDA1BggrBgEFBQcCAjApGidW
-ZWdldSBodHRwczovL3d3dy5jYXRjZXJ0Lm5ldC92ZXJhcnJlbCAwDQYJKoZIhvcN
-AQEFBQADggEBAKBIW4IB9k1IuDlVNZyAelOZ1Vr/sXE7zDkJlF7W2u++AVtd0x7Y
-/X1PzaBB4DSTv8vihpw3kpBWHNzrKQXlxJ7HNd+KDM3FIUPpqojlNcAZQmNaAl6k
-SBg6hW/cnbw/nZzBh7h6YQjpdwt/cKt63dmXLGQehb+8dJahw3oS7AwaboMMPOhy
-Rp/7SNVel+axofjk70YllJyJ22k4vuxcDlbHZVHlUIiIv0LVKz3l+bqeLrPK9HOS
-Agu+TGbrIP65y7WZf+a2E/rKS03Z7lNGBjvGTq2TWoF+bCpLagVFjPIhpDGQh2xl
-nJ2lYJU6Un/10asIbvPuW/mIPX64b24D5EI=
------END CERTIFICATE-----
-"""
+EC_ACC_BYTES_ ::= #[
+    '0',0x82,5,'V','0',130,4,'>',160,3,2,1,2,2,16,238,'+','=',235,212,'!',222,
+    20,0xa8,'b',172,4,243,221,196,1,'0',13,6,9,'*',134,'H',134,247,13,1,1,5,5,
+    0x0,'0',129,243,'1',11,'0',9,6,3,'U',4,6,19,2,'E','S','1',';','0','9',6,3,
+    'U',0x4,10,19,'2','A','g','e','n','c','i','a',' ','C','a','t','a','l','a',
+    'n','a',' ','d','e',' ','C','e','r','t','i','f','i','c','a','c','i','o',
+    ' ','(','N','I','F',' ','Q','-','0','8','0','1','1','7','6','-','I',')',
+    '1','(','0','&',0x06,3,'U',4,11,19,31,'S','e','r','v','e','i','s',' ','P',
+    'u','b','l','i','c','s',' ','d','e',' ','C','e','r','t','i','f','i','c',
+    'a','c','i','o','1','5','0','3',0x6,3,'U',4,11,19,',','V','e','g','e','u',
+    ' ','h','t','t','p','s',':','/','/','w','w','w','.','c','a','t','c','e',
+    'r','t','.','n','e','t','/','v','e','r','a','r','r','e','l',' ','(','c',
+    ')','0','3','1','5','0','3',0x6,3,'U',4,11,19,',','J','e','r','a','r','q',
+    'u','i','a',' ','E','n','t','i','t','a','t','s',' ','d','e',' ','C','e',
+    'r','t','i','f','i','c','a','c','i','o',' ','C','a','t','a','l','a','n',
+    'e','s','1',0xf,'0',13,6,3,'U',4,3,19,6,'E','C','-','A','C','C','0',30,23,
+    0xd,'0','3','0','1','0','7','2','3','0','0','0','0','Z',23,13,'3','1','0',
+    '1','0','7','2','2','5','9','5','9','Z','0',0x81,243,'1',11,'0',9,6,3,'U',
+    4,6,19,2,'E','S','1',';','0','9',6,3,'U',4,0xa,19,'2','A','g','e','n','c',
+    'i','a',' ','C','a','t','a','l','a','n','a',' ','d','e',' ','C','e','r',
+    't','i','f','i','c','a','c','i','o',' ','(','N','I','F',' ','Q','-','0',
+    '8','0','1','1','7','6','-','I',')','1','(','0','&',0x06,3,'U',4,11,19,31,
+    'S','e','r','v','e','i','s',' ','P','u','b','l','i','c','s',' ','d','e',
+    ' ','C','e','r','t','i','f','i','c','a','c','i','o','1','5','0','3',0x6,3,
+    'U',0x4,11,19,',','V','e','g','e','u',' ','h','t','t','p','s',':','/','/',
+    'w','w','w','.','c','a','t','c','e','r','t','.','n','e','t','/','v','e',
+    'r','a','r','r','e','l',' ','(','c',')','0','3','1','5','0','3',6,3,'U',4,
+    11,19,',','J','e','r','a','r','q','u','i','a',' ','E','n','t','i','t','a',
+    't','s',' ','d','e',' ','C','e','r','t','i','f','i','c','a','c','i','o',
+    ' ','C','a','t','a','l','a','n','e','s','1',0x0f,'0',0xd,6,3,'U',4,3,19,6,
+    'E','C','-','A','C','C','0',130,1,'"','0',13,6,9,'*',134,'H',134,247,13,1,
+    1,1,5,0,3,130,1,15,0,'0',130,1,10,2,130,1,1,0,179,'"',199,'O',226,151,'B',
+    0x95,136,'G',131,'@',246,29,23,243,131,'s','$',30,'Q',243,152,138,195,146,
+    0xb8,255,'@',144,5,'p',135,'`',201,0,169,181,148,'e',25,'"',21,23,194,'C',
+    'l','f','D',0x9a,13,4,'>','9','o',165,'K','z',170,'c',183,138,'D',157,217,
+    'c',0x91,132,'f',224,'(',15,186,'B',227,'n',142,247,20,39,147,'i',238,145,
+    14,163,'_',14,177,235,'f',162,'r','O',18,19,134,'e','z','>',219,'O',7,244,
+    0xa7,9,'`',0xda,':','B',153,199,178,127,179,22,149,28,199,249,'4',181,148,
+    133,213,153,'^',160,'H',160,'~',231,23,'e',184,162,'u',184,30,243,229,'B',
+    '}',0xaf,0xed,0xf3,138,'H','d',']',130,20,147,216,192,228,255,179,'P','r',
+    0xf2,'v',0xf6,179,']','B','P','y',208,148,'>','k',12,0,190,216,'k',14,'N',
+    '*',0xec,'>',0xd2,204,130,162,24,'e','3',19,'w',158,154,']',26,19,216,195,
+    0xdb,'=',0xc8,151,'z',238,'p',237,167,230,'|',219,'q',207,'-',148,'b',223,
+    'm',0xd6,0xf5,'8',190,'?',165,133,10,25,184,168,216,9,'u','B','p',196,234,
+    0xef,0xcb,14,200,'4',168,18,'"',152,12,184,19,148,182,'K',236,240,208,144,
+    231,39,2,3,1,0,1,163,129,227,'0',129,224,'0',29,6,3,'U',29,17,4,22,'0',20,
+    0x81,0x12,'e','c','_','a','c','c','@','c','a','t','c','e','r','t','.','n',
+    'e','t','0',0xf,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',14,6,3,'U',29,
+    15,1,1,255,4,4,3,2,1,6,'0',29,6,3,'U',29,14,4,22,4,20,160,195,139,'D',170,
+    '7',0xa5,'E',0xbf,151,128,'Z',209,241,'x',162,155,233,']',141,'0',127,6,3,
+    'U',0x1d,' ',4,'x','0','v','0','t',6,0xb,'+',6,1,4,1,245,'x',1,3,1,10,'0',
+    'e','0',',',6,8,'+',6,1,5,5,7,2,1,22,' ','h','t','t','p','s',':','/','/',
+    'w','w','w','.','c','a','t','c','e','r','t','.','n','e','t','/','v','e',
+    'r','a','r','r','e','l','0','5',0x6,8,'+',6,1,5,5,7,2,2,'0',')',26,39,'V',
+    'e','g','e','u',' ','h','t','t','p','s',':','/','/','w','w','w','.','c',
+    'a','t','c','e','r','t','.','n','e','t','/','v','e','r','a','r','r','e',
+    'l',' ','0',0x0d,6,9,'*',134,'H',134,247,13,1,1,5,5,0,3,130,1,1,0,160,'H',
+    '[',130,1,246,'M','H',184,'9','U','5',156,128,'z','S',153,213,'Z',255,177,
+    'q',';',0xcc,'9',0x9,148,'^',214,218,239,190,1,'[',']',211,30,216,253,'}',
+    'O',0xcd,0xa0,'A',0xe0,'4',147,191,203,226,134,156,'7',146,144,'V',28,220,
+    0xeb,')',5,229,196,158,199,'5',223,138,12,205,197,'!','C',233,170,136,229,
+    '5',0xc0,25,'B','c','Z',2,'^',0xa4,'H',24,':',133,'o',220,157,188,'?',157,
+    0x9c,193,135,184,'z','a',8,233,'w',11,127,'p',171,'z',221,217,151,',','d',
+    0x1e,0x85,191,188,'t',150,161,195,'z',18,236,12,26,'n',131,12,'<',232,'r',
+    'F',0x9f,0xfb,'H',213,'^',151,230,177,161,248,228,239,'F','%',148,156,137,
+    219,'i','8',190,236,92,14,'V',199,'e','Q',229,'P',136,136,191,'B',213,'+',
+    '=',0xe5,249,186,158,'.',179,202,244,'s',146,2,11,190,'L','f',235,' ',254,
+    0xb9,203,181,153,127,230,182,19,250,202,'K','M',217,238,'S','F',6,';',198,
+    'N',173,147,'Z',129,'~','l','*','K','j',5,'E',140,242,'!',164,'1',144,135,
+    'l','e',156,157,165,'`',149,':','R',127,245,209,171,8,'n',243,238,'[',249,
+    136,'=','~',184,'o','n',3,228,'B',
+]
+
 
 /**
 EC-ACC.
 SHA256 fingerprint: 88:49:7f:01:60:2f:31:54:24:6a:e2:8c:4d:5a:ef:10:f1:d8:7e:bb:76:62:6f:4a:e0:b7:f9:5b:a7:96:87:99
 */
-EC_ACC ::= net.Certificate.parse EC_ACC_TEXT_
+EC_ACC ::= parse_ EC_ACC_BYTES_
 
-HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2011_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIEMTCCAxmgAwIBAgIBADANBgkqhkiG9w0BAQUFADCBlTELMAkGA1UEBhMCR1Ix
-RDBCBgNVBAoTO0hlbGxlbmljIEFjYWRlbWljIGFuZCBSZXNlYXJjaCBJbnN0aXR1
-dGlvbnMgQ2VydC4gQXV0aG9yaXR5MUAwPgYDVQQDEzdIZWxsZW5pYyBBY2FkZW1p
-YyBhbmQgUmVzZWFyY2ggSW5zdGl0dXRpb25zIFJvb3RDQSAyMDExMB4XDTExMTIw
-NjEzNDk1MloXDTMxMTIwMTEzNDk1MlowgZUxCzAJBgNVBAYTAkdSMUQwQgYDVQQK
-EztIZWxsZW5pYyBBY2FkZW1pYyBhbmQgUmVzZWFyY2ggSW5zdGl0dXRpb25zIENl
-cnQuIEF1dGhvcml0eTFAMD4GA1UEAxM3SGVsbGVuaWMgQWNhZGVtaWMgYW5kIFJl
-c2VhcmNoIEluc3RpdHV0aW9ucyBSb290Q0EgMjAxMTCCASIwDQYJKoZIhvcNAQEB
-BQADggEPADCCAQoCggEBAKlTAOMupvaO+mDYLZU++CwqVE7NuYRhlFhPjz2L5EPz
-dYmNUeTDN9KKiE15HrcS3UN4SoqS5tdI1Q+kOilENbgH9mgdVc04UfCMJDGFr4PJ
-fel3r+0ae50X+bOdOFAPplp5kYCvN66m0zH7tSYJnTxa71HFK9+WXesyHgLacEns
-bgzImjeN9/E2YEsmLIKe0HjzDQ9jpFEw4fkrJxIH2Oq9GGKYsFk3fb7u8yBRQlqD
-75O6aRXxYp2fmTmCobd0LovUxQt7L/DICto9eQqakxylKHJzkUOap9FNhYS5qXSP
-FEDH3N6sQWRstBmbAmNtJGSPRLIl6s5ddAxjMlyNh+UCAwEAAaOBiTCBhjAPBgNV
-HRMBAf8EBTADAQH/MAsGA1UdDwQEAwIBBjAdBgNVHQ4EFgQUppFC/RNhSiOeCKQp
-5dgTBCPuQSUwRwYDVR0eBEAwPqA8MAWCAy5ncjAFggMuZXUwBoIELmVkdTAGggQu
-b3JnMAWBAy5ncjAFgQMuZXUwBoEELmVkdTAGgQQub3JnMA0GCSqGSIb3DQEBBQUA
-A4IBAQAf73lB4XtuP7KMhjdCSk4cNx6NZrokgclPEg8hwAOXhiVtXdMiKahsog2p
-6z0GW5k6x8zDmjR/qw7IThzh+uTczQ2+vyT+bOdrwg3IBp5OjWEopmr95fZi6hg8
-TqBTnbI6nOulnJEWtk2C4AwFSKls9cz4y51JtPACpf1wA+2KIaWuE4ZJwzNzvoc7
-dIsXRSZMFpGD/md9zU1jZ/rzAxKWeAaNsWftjj++n08C9bMJL/NMh98qy5V8Acys
-Nnq/onN694/BtZqhFLKPM58N7yLcZnuEvUUXBj08yrl3NI/K6s8/MT7jiOOASSXI
-l7WdmplNsDz4SgCbZN2fOUvRJ9e4
------END CERTIFICATE-----
-"""
+HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2011_BYTES_ ::= #[
+    '0',0x82,4,'1','0',0x82,3,25,160,3,2,1,2,2,1,0,'0',13,6,9,'*',134,'H',134,
+    0xf7,0x0d,1,1,5,5,0,'0',129,149,'1',11,'0',9,6,3,'U',4,6,19,2,'G','R','1',
+    'D','0','B',0x6,3,'U',4,10,19,';','H','e','l','l','e','n','i','c',' ','A',
+    'c','a','d','e','m','i','c',' ','a','n','d',' ','R','e','s','e','a','r',
+    'c','h',' ','I','n','s','t','i','t','u','t','i','o','n','s',' ','C','e',
+    'r','t','.',' ','A','u','t','h','o','r','i','t','y','1','@','0','>',0x6,3,
+    'U',0x04,3,19,'7','H','e','l','l','e','n','i','c',' ','A','c','a','d','e',
+    'm','i','c',' ','a','n','d',' ','R','e','s','e','a','r','c','h',' ','I',
+    'n','s','t','i','t','u','t','i','o','n','s',' ','R','o','o','t','C','A',
+    ' ','2','0','1','1','0',30,23,0xd,'1','1','1','2','0','6','1','3','4','9',
+    '5','2','Z',23,13,'3','1','1','2','0','1','1','3','4','9','5','2','Z','0',
+    0x81,0x95,'1',11,'0',9,6,3,'U',4,6,19,2,'G','R','1','D','0','B',6,3,'U',4,
+    10,19,';','H','e','l','l','e','n','i','c',' ','A','c','a','d','e','m','i',
+    'c',' ','a','n','d',' ','R','e','s','e','a','r','c','h',' ','I','n','s',
+    't','i','t','u','t','i','o','n','s',' ','C','e','r','t','.',' ','A','u',
+    't','h','o','r','i','t','y','1','@','0','>',0x06,3,'U',4,3,19,'7','H','e',
+    'l','l','e','n','i','c',' ','A','c','a','d','e','m','i','c',' ','a','n',
+    'd',' ','R','e','s','e','a','r','c','h',' ','I','n','s','t','i','t','u',
+    't','i','o','n','s',' ','R','o','o','t','C','A',' ','2','0','1','1','0',
+    0x82,0x1,'"','0',13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,1,15,0,'0',
+    0x82,0x1,10,2,130,1,1,0,169,'S',0,227,'.',166,246,142,250,'`',216,'-',149,
+    '>',0xf8,',','*','T','N',0xcd,185,132,'a',148,'X','O',143,'=',139,228,'C',
+    243,'u',137,141,'Q',228,195,'7',210,138,136,'M','y',30,183,18,221,'C','x',
+    'J',0x8a,0x92,230,215,'H',213,15,164,':',')','D','5',184,7,246,'h',29,'U',
+    0xcd,'8','Q',0xf0,0x8c,'$','1',133,175,131,201,'}',233,'w',175,237,26,'{',
+    157,23,249,179,157,'8','P',15,166,'Z','y',145,128,175,'7',174,166,211,'1',
+    0xfb,0xb5,'&',9,0x9d,'<','Z',239,'Q',197,'+',223,150,']',235,'2',30,2,218,
+    'p','I',0xec,'n',0x0c,200,154,'7',141,247,241,'6','`','K','&',',',130,158,
+    0xd0,'x',243,13,15,'c',164,'Q','0',225,249,'+',39,18,7,216,234,189,24,'b',
+    0x98,0xb0,'Y','7','}',0xbe,238,243,' ','Q','B','Z',131,239,147,186,'i',21,
+    0xf1,'b',0x9d,0x9f,153,'9',130,161,183,'t','.',139,212,197,11,'{','/',240,
+    0xc8,10,218,'=','y',10,154,147,28,165,'(','r','s',145,'C',154,167,209,'M',
+    0x85,0x84,185,169,'t',143,20,'@',199,220,222,172,'A','d','l',180,25,155,2,
+    'c','m','$','d',143,'D',178,'%',234,206,']','t',12,'c','2',92,141,135,229,
+    2,3,1,0,1,0xa3,129,137,'0',129,134,'0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,
+    0x1,1,255,'0',11,6,3,'U',29,15,4,4,3,2,1,6,'0',29,6,3,'U',29,14,4,22,4,20,
+    166,145,'B',253,19,'a','J','#',158,8,164,')',229,216,19,4,'#',238,'A','%',
+    '0','G',6,3,'U',29,30,4,'@','0','>',160,'<','0',5,130,3,'.','g','r','0',5,
+    130,3,'.','e','u','0',6,130,4,'.','e','d','u','0',6,130,4,'.','o','r','g',
+    '0',0x5,129,3,'.','g','r','0',5,129,3,'.','e','u','0',6,129,4,'.','e','d',
+    'u','0',6,129,4,'.','o','r','g','0',13,6,9,'*',134,'H',134,247,13,1,1,5,5,
+    0,3,0x82,1,1,0,31,239,'y','A',225,'{','n','?',178,140,134,'7','B','J','N',
+    28,'7',30,141,'f',186,'$',129,201,'O',18,15,'!',192,3,151,134,'%','m',']',
+    0xd3,'"',')',168,'l',162,13,169,235,'=',6,'[',153,':',199,204,195,154,'4',
+    0x7f,171,14,200,'N',28,225,250,228,220,205,13,190,191,'$',254,'l',231,'k',
+    0xc2,0xd,200,6,158,'N',141,'a','(',166,'j',253,229,246,'b',234,24,'<','N',
+    0xa0,'S',0x9d,178,':',156,235,165,156,145,22,182,'M',130,224,12,5,'H',169,
+    'l',0xf5,0xcc,248,203,157,'I',180,240,2,165,253,'p',3,237,138,'!',165,174,
+    19,0x86,'I',195,'3','s',190,135,';','t',139,23,'E','&','L',22,145,131,254,
+    'g','}',0xcd,'M','c','g',0xfa,0xf3,3,18,150,'x',6,141,177,'g',237,142,'?',
+    190,159,'O',2,245,179,9,'/',243,'L',135,223,'*',203,149,'|',1,204,172,'6',
+    'z',191,162,'s','z',247,143,193,181,154,161,20,178,143,'3',159,13,239,'"',
+    0xdc,'f','{',132,189,'E',23,6,'=','<',202,185,'w','4',143,202,234,207,'?',
+    '1','>',0xe3,0x88,227,128,'I','%',200,151,181,157,154,153,'M',176,'<',248,
+    'J',0,155,'d',221,159,'9','K',209,39,215,184,
+]
+
 
 /**
 Hellenic Academic and Research Institutions RootCA 2011.
 SHA256 fingerprint: bc:10:4f:15:a4:8b:e7:09:dc:a5:42:a7:e1:d4:b9:df:6f:05:45:27:e8:02:ea:a9:2d:59:54:44:25:8a:fe:71
 */
-HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2011 ::= net.Certificate.parse HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2011_TEXT_
+HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2011 ::= parse_ HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2011_BYTES_
 
-ACTALIS_AUTHENTICATION_ROOT_CA_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIFuzCCA6OgAwIBAgIIVwoRl0LE48wwDQYJKoZIhvcNAQELBQAwazELMAkGA1UE
-BhMCSVQxDjAMBgNVBAcMBU1pbGFuMSMwIQYDVQQKDBpBY3RhbGlzIFMucC5BLi8w
-MzM1ODUyMDk2NzEnMCUGA1UEAwweQWN0YWxpcyBBdXRoZW50aWNhdGlvbiBSb290
-IENBMB4XDTExMDkyMjExMjIwMloXDTMwMDkyMjExMjIwMlowazELMAkGA1UEBhMC
-SVQxDjAMBgNVBAcMBU1pbGFuMSMwIQYDVQQKDBpBY3RhbGlzIFMucC5BLi8wMzM1
-ODUyMDk2NzEnMCUGA1UEAwweQWN0YWxpcyBBdXRoZW50aWNhdGlvbiBSb290IENB
-MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAp8bEpSmkLO/lGMWwUKNv
-UTufClrJwkg4CsIcoBh/kbWHuUA/3R1oHwiD1S0eiKD4j1aPbZkCkpAW1V8IbInX
-4ay8IMKx4INRimlNAJZaby/ARH6jDuSRzVju3PvHHkVH3Se5CAGfpiEd9UEtL0z9
-KK3giq0itFZljoZUj5NDKd45RnijMCO6zfB9E1fAXdKDa0hMxKufgFpbOr3JpyI/
-gCczWw63igxdBzcIy2zSekciRDXFzMwujt0q7bd9Zg1fYVEiVRvjRuPjPdA1Yprb
-rxTIW6HMiRvhMCb8oJsfgadHHwTrozmSBp+Z07/T6k9QnBn+locePGX2oxgkg4YQ
-51Q+qDp2JE+BIcXjDwL4k5RHILv+1A7TaLndxHqEguNTVHnd25zS8gebLra8Pu2F
-be8lEfKXGkJh90qX6IuxEAf6ZYGyojnP9zz/GPvG8VqLWeICrHuS0E4UT1lF9gxe
-KF+w6D9Fz8+vm2/7hNN3WpVvrJSEnu68wEqPSpP4RCHiMUVhUE4Q2OM1fEwZtN4F
-v6MGn8i1zeQf1xcGDXqVdFUNaBr8EBtiZJ1t4JWgw5QHVw0U5r0F+7if5t+L4sbn
-fpb2U8WANFAoWPASUHEXMLrmeGO89LKtmyuy/uE5jF66CyCU3nuDuP/jVo23Eek7
-jPKxwV2dpAtMK9myGPW1n0sCAwEAAaNjMGEwHQYDVR0OBBYEFFLYiDrIn3hm7Ynz
-ezhwlMkCAjbQMA8GA1UdEwEB/wQFMAMBAf8wHwYDVR0jBBgwFoAUUtiIOsifeGbt
-ifN7OHCUyQICNtAwDgYDVR0PAQH/BAQDAgEGMA0GCSqGSIb3DQEBCwUAA4ICAQAL
-e3KHwGCmSUyIWOYdiPcUZEim2FgKDk8TNd81HdTtBjHIgT5q1d07GjLukD0R0i70
-jsNjLiNmsGe+b7bAEzlgqqI0JZN1Ut6nna0Oh4lScWoWPBkdg/iaKWW+9D+a2fDz
-WochcYBNy+A4mz+7+uAwTc+G02UQGRjRlwKxK3JCaKygvU5a2hi/a5iB0P2avl4V
-SM0RFbnAKVy06Ij3Pjaut2L9HmLecHgQHEhb2rykOLpn7VU+Xlff1ANATIGk0k9j
-pwlCCRT8AKnCgHNPLsBA2RF7SOp6AsDT6ygBJlh0wcBzIm2Tlf05fbsq4/aC4yyX
-X04fkZT6/iyj2HYauE2yOE+b+h1IYHkm4vP9qdCa6HCPSXrW5b0KDtst842/6+Ok
-fcvHlXHo2qN8xcL4dJIEG4aspCJTQLas/kx2z/uUMsA1n3Y/buWQbqCmJqK4LL7R
-K4X9p2jIugErsWx0Hbhzlefut8cl8ABMALJ+tguLHPPAUJ4lueAI3jZm/zel0btU
-ZCzJJ7VLkn5l/9Mt4blOvH+kQSGQQXemOR/qnuOf0GZvBeyqdn6/axag67XH/JJU
-LysRJyU3eExRarDzzFhdFPFqSBX/wge2sY0PjlxQRrM9vwGYT7JZVEc+NHt4bVaT
-LnPqZih4zR0Uv6CPLy64Lo7yFIrM6bV8+2ydDKXhlg==
------END CERTIFICATE-----
-"""
+ACTALIS_AUTHENTICATION_ROOT_CA_BYTES_ ::= #[
+    '0',130,5,187,'0',130,3,163,160,3,2,1,2,2,8,'W',10,17,151,'B',196,227,204,
+    '0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,'0','k','1',11,'0',9,6,3,'U',
+    0x4,6,19,2,'I','T','1',14,'0',12,6,3,'U',4,7,12,5,'M','i','l','a','n','1',
+    '#','0','!',0x06,3,'U',4,10,12,26,'A','c','t','a','l','i','s',' ','S','.',
+    'p','.','A','.','/','0','3','3','5','8','5','2','0','9','6','7','1',0x27,
+    '0','%',6,3,'U',4,3,12,30,'A','c','t','a','l','i','s',' ','A','u','t','h',
+    'e','n','t','i','c','a','t','i','o','n',' ','R','o','o','t',' ','C','A',
+    '0',0x1e,23,0xd,'1','1','0','9','2','2','1','1','2','2','0','2','Z',23,13,
+    '3','0','0','9','2','2','1','1','2','2','0','2','Z','0','k','1',0xb,'0',9,
+    0x6,3,'U',4,6,19,2,'I','T','1',14,'0',12,6,3,'U',4,7,12,5,'M','i','l','a',
+    'n','1','#','0','!',0x06,3,'U',4,10,12,26,'A','c','t','a','l','i','s',' ',
+    'S','.','p','.','A','.','/','0','3','3','5','8','5','2','0','9','6','7',
+    '1',39,'0','%',6,3,'U',4,3,0xc,30,'A','c','t','a','l','i','s',' ','A','u',
+    't','h','e','n','t','i','c','a','t','i','o','n',' ','R','o','o','t',' ',
+    'C','A','0',130,2,'"','0',13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,2,
+    0xf,0,'0',130,2,10,2,130,2,1,0,167,198,196,165,')',164,',',239,229,24,197,
+    0xb0,'P',0xa3,'o','Q',';',159,10,'Z',201,194,'H','8',10,194,28,160,24,127,
+    0x91,0xb5,0x87,185,'@','?',221,29,'h',31,8,131,213,'-',30,136,160,248,143,
+    'V',0x8f,'m',0x99,2,0x92,144,22,213,'_',8,'l',137,215,225,172,188,' ',194,
+    0xb1,224,131,'Q',138,'i','M',0,150,'Z','o','/',192,'D','~',163,14,228,145,
+    0xcd,'X',238,220,251,199,30,'E','G',221,39,185,8,1,159,166,'!',29,245,'A',
+    '-','/','L',0xfd,'(',0xad,224,138,173,'"',180,'V','e',142,134,'T',143,147,
+    'C',')',0xde,'9','F','x',0xa3,'0','#',0xba,205,240,'}',19,'W',192,']',210,
+    0x83,'k','H','L',0xc4,0xab,159,128,'Z','[',':',189,201,167,'"','?',128,39,
+    '3','[',14,183,138,12,']',7,'7',8,203,'l',210,'z','G','"','D','5',197,204,
+    204,'.',142,221,'*',237,183,'}','f',13,'_','a','Q','"','U',27,227,'F',227,
+    227,'=',208,'5','b',154,219,175,20,200,'[',161,204,137,27,225,'0','&',252,
+    160,155,31,129,167,'G',31,4,235,163,'9',146,6,159,153,211,191,211,234,'O',
+    'P',0x9c,25,0xfe,150,135,30,'<','e',246,163,24,'$',131,134,16,231,'T','>',
+    0xa8,':','v','$','O',129,'!',197,227,15,2,248,147,148,'G',' ',187,254,212,
+    0xe,211,'h',185,221,196,'z',132,130,227,'S','T','y',221,219,156,210,242,7,
+    155,'.',182,188,'>',237,133,'m',239,'%',17,242,151,26,'B','a',247,'J',151,
+    0xe8,0x8b,177,16,7,250,'e',129,178,162,'9',207,247,'<',255,24,251,198,241,
+    'Z',0x8b,'Y',0xe2,2,172,'{',146,208,'N',20,'O','Y','E',246,12,'^','(','_',
+    0xb0,0xe8,'?','E',207,207,175,155,'o',251,132,211,'w','Z',149,'o',172,148,
+    0x84,0x9e,238,188,192,'J',143,'J',147,248,'D','!',226,'1','E','a','P','N',
+    16,0xd8,227,'5','|','L',25,180,222,5,191,163,6,159,200,181,205,228,31,215,
+    0x17,6,13,'z',149,'t','U',13,'h',26,252,16,27,'b','d',157,'m',224,149,160,
+    195,148,7,'W',13,20,230,189,5,251,184,159,230,223,139,226,198,231,'~',150,
+    246,'S',197,128,'4','P','(','X',240,18,'P','q',23,'0',186,230,'x','c',188,
+    0xf4,0xb2,0xad,155,'+',178,254,225,'9',140,'^',186,11,' ',148,222,'{',131,
+    184,255,227,'V',141,183,17,233,';',140,242,177,193,']',157,164,11,'L','+',
+    217,178,24,245,181,159,'K',2,3,1,0,1,163,'c','0','a','0',29,6,3,'U',29,14,
+    4,22,4,20,'R',216,136,':',200,159,'x','f',237,137,243,'{','8','p',148,201,
+    2,2,'6',208,'0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',31,6,3,'U',
+    29,'#',4,24,'0',22,128,20,'R',216,136,':',200,159,'x','f',237,137,243,'{',
+    '8','p',0x94,201,2,2,'6',208,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',
+    0x0d,6,9,'*',134,'H',134,247,13,1,1,11,5,0,3,130,2,1,0,11,'{','r',135,192,
+    '`',0xa6,'I','L',0x88,'X',230,29,136,247,20,'d','H',166,216,'X',10,14,'O',
+    0x13,'5',0xdf,'5',29,212,237,6,'1',200,129,'>','j',213,221,';',26,'2',238,
+    144,'=',17,210,'.',244,142,195,'c','.','#','f',176,'g',190,'o',182,192,19,
+    '9','`',0xaa,0xa2,'4','%',0x93,'u','R',222,167,157,173,14,135,137,'R','q',
+    'j',22,'<',25,29,0x83,248,154,')','e',190,244,'?',154,217,240,243,'Z',135,
+    '!','q',0x80,'M',0xcb,224,'8',155,'?',187,250,224,'0','M',207,134,211,'e',
+    16,25,24,209,151,2,177,'+','r','B','h',172,160,189,'N','Z',218,24,191,'k',
+    0x98,0x81,208,253,154,190,'^',21,'H',205,17,21,185,192,')',92,180,232,136,
+    0xf7,'>','6',174,183,'b',253,30,'b',222,'p','x',16,28,'H','[',218,188,164,
+    '8',186,'g',237,'U','>','^','W',223,212,3,'@','L',129,164,210,'O','c',167,
+    9,'B',9,20,252,0,169,194,128,'s','O','.',192,'@',217,17,'{','H',234,'z',2,
+    192,211,235,'(',1,'&','X','t',193,192,'s','"','m',147,149,253,'9','}',187,
+    '*',227,246,130,227,',',151,'_','N',31,145,148,250,254,',',163,216,'v',26,
+    0xb8,'M',0xb2,'8','O',0x9b,250,29,'H','`','y','&',226,243,253,169,208,154,
+    232,'p',143,'I','z',214,229,189,10,14,219,'-',243,141,191,235,227,164,'}',
+    0xcb,199,149,'q',232,218,163,'|',197,194,248,'t',146,4,27,134,172,164,'"',
+    'S','@',0xb6,0xac,254,'L','v',207,251,148,'2',192,'5',159,'v','?','n',229,
+    144,'n',160,166,'&',162,184,',',190,209,'+',133,253,167,'h',200,186,1,'+',
+    177,'l','t',29,184,'s',149,231,238,183,199,'%',240,0,'L',0,178,'~',182,11,
+    0x8b,28,243,192,'P',158,'%',185,224,8,222,'6','f',255,'7',165,209,187,'T',
+    'd',',',0xc9,0x27,181,'K',146,'~','e',255,211,'-',225,185,'N',188,127,164,
+    'A','!',0x90,'A','w',166,'9',31,234,158,227,159,208,'f','o',5,236,170,'v',
+    '~',0xbf,'k',22,160,235,181,199,252,146,'T','/','+',17,39,'%','7','x','L',
+    'Q','j',0xb0,0xf3,0xcc,'X',']',20,241,'j','H',21,255,194,7,182,177,141,15,
+    0x8e,92,'P','F',179,'=',191,1,152,'O',178,'Y','T','G','>','4','{','x','m',
+    'V',147,'.','s',234,'f','(','x',205,29,20,191,160,143,'/','.',184,'.',142,
+    242,20,138,204,233,181,'|',251,'l',157,12,165,225,150,
+]
+
 
 /**
 Actalis Authentication Root CA.
 SHA256 fingerprint: 55:92:60:84:ec:96:3a:64:b9:6e:2a:be:01:ce:0b:a8:6a:64:fb:fe:bc:c7:aa:b5:af:c1:55:b3:7f:d7:60:66
 */
-ACTALIS_AUTHENTICATION_ROOT_CA ::= net.Certificate.parse ACTALIS_AUTHENTICATION_ROOT_CA_TEXT_
+ACTALIS_AUTHENTICATION_ROOT_CA ::= parse_ ACTALIS_AUTHENTICATION_ROOT_CA_BYTES_
 
-BUYPASS_CLASS_2_ROOT_CA_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIFWTCCA0GgAwIBAgIBAjANBgkqhkiG9w0BAQsFADBOMQswCQYDVQQGEwJOTzEd
-MBsGA1UECgwUQnV5cGFzcyBBUy05ODMxNjMzMjcxIDAeBgNVBAMMF0J1eXBhc3Mg
-Q2xhc3MgMiBSb290IENBMB4XDTEwMTAyNjA4MzgwM1oXDTQwMTAyNjA4MzgwM1ow
-TjELMAkGA1UEBhMCTk8xHTAbBgNVBAoMFEJ1eXBhc3MgQVMtOTgzMTYzMzI3MSAw
-HgYDVQQDDBdCdXlwYXNzIENsYXNzIDIgUm9vdCBDQTCCAiIwDQYJKoZIhvcNAQEB
-BQADggIPADCCAgoCggIBANfHXvfBB9R3+0Mh9PT1aeTuMgHbo4Yf5FkNuud1g1Lr
-6hxhFUi7HQfKjK6w3Jad6sNgkoaCKHOcVgb/S2TwDCo3SbXlzwx87vFKu3MwZfPV
-L4O2fuPn9Z6rYPnT8Z2SdIrkHJasW4DptfQxh6NR/Md+oW+OU3fUl8FVM5I+GC91
-1K2GScuVr1QGbNgGE41b/+EmGVnAJLqBcXmQRFBoJJRfuLMR8SlBYaNByyM21cHx
-MlAQTn/0hpPshNOOvEu/XAFOBz3cFIqUCqTqc/sLUegTBxj6DvEr0VQVfTzh97QZ
-QmdiXnfgolXsttlpF9U6r0TtSsWe5HonfOV116rLJeffawrbD02TTqigzXsu8lkB
-arcNuAeBfos4GzjmCleZPe4h6KP1DBbdi+w0jpwqHAAVF41og9JwnxgIzRFo1clr
-Us3ERo/ctfPYV3Me6ZQ5BL/T3jjetFPsaRyifsSP5BtwrfKi+fv3FmRmaZ9JUaLi
-FRhnBkp/1Wy1TbMz4GHrXb7pmA8y1x1LPC5aAVKRCfLf6o3YBkBjqhHk/sM3nhRS
-P/TizPJhk9H9Z2vXUq6/aKtAQ6BXNVN48FP4YUIHZMbXb5tMOA1jrGKvNouicwoN
-9SG9dKpN6nIDSdvHXx1iY8f93ZHsM+71bbRuMGjeyNYmsHVee7QHIJihdjK4TWxP
-AgMBAAGjQjBAMA8GA1UdEwEB/wQFMAMBAf8wHQYDVR0OBBYEFMmAd+BikoL1Rpzz
-uvdMw964o605MA4GA1UdDwEB/wQEAwIBBjANBgkqhkiG9w0BAQsFAAOCAgEAU18h
-9bqwOlI5LJKwbADJ784g7wbylp7ppHR/ehb8t/W2+xUbP6umwHJdELFx7rxP462s
-A20ucS6vxOOto70MEae0/0qyexAQH6dXQbLArvQsWdZHEIjzIVEpMMpghq9Gqx3t
-OluwlN5E40EIosHsHdb9T7bWR9AUC8rmyrV7d35BH16Dx7aMOZawP5aBQW9gkOLo
-+fsicdl9sz1Gv7SEr5AcD48Saq/v7h56rgJKihcrdv6sVIkkLE8/trKnToyokZf7
-KcZ7XC25y2a2t6hbElGFtQl+Ynhw/qlqYLYdDnkM/crqJIByw5c/8nerQyIKx+u2
-DISCLIBrQYoIwOula9+ZEsuK1V6ADJHgJgg2SMX6OBE1/yWDLfJ6v9r9jv6ly0Us
-H8SIU653DtmadsWOLB2jutXsMq7Aqqz30XpN69QH4kj3Io6wpJ9qzo6ysmD0oyLQ
-I+uUWnpp3Q+/QFesa1lQ2aOZ4W7+jQF5JyMV3pKdewlNWudLSDBaGOYKbeaP4NK7
-5t98biGCwWg5TbSYWGZizEqQXsP6JwSxeRV0mcy+rSDeJmAc61ZRpqPq5KM/p/9h
-3PFaTWwyI0PurKju7koSCTxdccK+efrCh2gdC/1cacwG0Jp9VJkqyTkaGa9LKkPz
-Y11aWOIv4x3kqdbQCtCev9eBCfHJxyYNrJgWVqA=
------END CERTIFICATE-----
-"""
+BUYPASS_CLASS_2_ROOT_CA_BYTES_ ::= #[
+    '0',0x82,5,'Y','0',130,3,'A',160,3,2,1,2,2,1,2,'0',13,6,9,'*',134,'H',134,
+    0xf7,0x0d,1,1,11,5,0,'0','N','1',11,'0',9,6,3,'U',4,6,19,2,'N','O','1',29,
+    '0',27,6,3,'U',4,10,12,20,'B','u','y','p','a','s','s',' ','A','S','-','9',
+    '8','3','1','6','3','3','2','7','1',' ','0',30,6,3,'U',4,3,0xc,23,'B','u',
+    'y','p','a','s','s',' ','C','l','a','s','s',' ','2',' ','R','o','o','t',
+    ' ','C','A','0',30,23,0xd,'1','0','1','0','2','6','0','8','3','8','0','3',
+    'Z',23,13,'4','0','1','0','2','6','0','8','3','8','0','3','Z','0','N','1',
+    0x0b,'0',9,6,3,'U',4,6,19,2,'N','O','1',29,'0',27,6,3,'U',4,0xa,12,20,'B',
+    'u','y','p','a','s','s',' ','A','S','-','9','8','3','1','6','3','3','2',
+    '7','1',' ','0',30,6,3,'U',4,3,0xc,23,'B','u','y','p','a','s','s',' ','C',
+    'l','a','s','s',' ','2',' ','R','o','o','t',' ','C','A','0',130,2,'"','0',
+    13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,2,15,0,'0',130,2,10,2,130,2,
+    1,0,215,199,'^',247,193,7,212,'w',251,'C','!',244,244,245,'i',228,238,'2',
+    1,219,163,134,31,228,'Y',13,186,231,'u',131,'R',235,234,28,'a',21,'H',187,
+    29,7,0xca,140,174,176,220,150,157,234,195,'`',146,134,130,'(','s',156,'V',
+    0x6,255,'K','d',240,12,'*','7','I',181,229,207,12,'|',238,241,'J',187,'s',
+    '0','e',0xf3,0xd5,'/',131,182,'~',227,231,245,158,171,'`',249,211,241,157,
+    0x92,'t',0x8a,0xe4,28,150,172,'[',128,233,181,244,'1',135,163,'Q',252,199,
+    '~',0xa1,'o',0x8e,'S','w',0xd4,151,193,'U','3',146,'>',24,'/','u',212,173,
+    134,'I',203,149,175,'T',6,'l',216,6,19,141,'[',255,225,'&',25,'Y',192,'$',
+    0xba,0x81,'q','y',0x90,'D','P','h','$',148,'_',184,179,17,241,')','A','a',
+    0xa3,'A',0xcb,'#','6',0xd5,193,241,'2','P',16,'N',127,244,134,147,236,132,
+    0xd3,0x8e,188,'K',191,92,1,'N',7,'=',220,20,138,148,10,164,234,'s',251,11,
+    'Q',0xe8,19,7,24,250,14,241,'+',209,'T',21,'}','<',225,247,180,25,'B','g',
+    'b','^','w',0xe0,0xa2,'U',0xec,182,217,'i',23,213,':',175,'D',237,'J',197,
+    0x9e,228,'z',39,'|',229,'u',215,170,203,'%',231,223,'k',10,219,15,'M',147,
+    'N',168,160,205,'{','.',242,'Y',1,'j',183,13,184,7,129,'~',139,'8',27,'8',
+    0xe6,10,'W',153,'=',238,'!',232,163,245,12,22,221,139,236,'4',142,156,'*',
+    0x1c,0,21,23,0x8d,'h',131,210,'p',159,24,8,205,17,'h',213,201,'k','R',205,
+    0xc4,'F',143,220,181,243,216,'W','s',30,233,148,'9',4,191,211,222,'8',222,
+    0xb4,'S',236,'i',28,162,'~',196,143,228,27,'p',173,242,162,249,251,247,22,
+    'd','f','i',0x9f,'I','Q',0xa2,226,21,24,'g',6,'J',127,213,'l',181,'M',179,
+    '3',224,'a',235,']',190,233,152,15,'2',215,29,'K','<','.','Z',1,'R',145,9,
+    0xf2,0xdf,234,141,216,6,'@','c',170,17,228,254,195,'7',158,20,'R','?',244,
+    0xe2,0xcc,242,'a',147,209,253,'g','k',215,'R',174,191,'h',171,'@','C',160,
+    'W','5','S','x',0xf0,'S',248,'a','B',7,'d',198,215,'o',155,'L','8',13,'c',
+    0xac,'b',0xaf,'6',139,162,'s',10,13,245,'!',189,'t',170,'M',234,'r',3,'I',
+    0xdb,0xc7,'_',29,'b','c',0xc7,253,221,145,236,'3',238,245,'m',180,'n','0',
+    'h',222,200,214,'&',176,'u','^','{',180,7,' ',152,161,'v','2',184,'M','l',
+    'O',2,3,1,0,1,0xa3,'B','0','@','0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,
+    0xff,'0',0x1d,6,3,'U',29,14,4,22,4,20,201,128,'w',224,'b',146,130,245,'F',
+    0x9c,243,186,247,'L',195,222,184,163,173,'9','0',14,6,3,'U',29,15,1,1,255,
+    4,4,3,2,1,6,'0',0xd,6,9,'*',134,'H',134,247,13,1,1,11,5,0,3,130,2,1,0,'S',
+    '_','!',0xf5,0xba,176,':','R','9',',',146,176,'l',0,201,239,206,' ',239,6,
+    0xf2,150,158,233,164,'t',127,'z',22,252,183,245,182,251,21,27,'?',171,166,
+    0xc0,'r',']',16,177,'q',238,188,'O',227,173,172,3,'m','.','q','.',175,196,
+    0xe3,0xad,0xa3,189,12,17,167,180,255,'J',178,'{',16,16,31,167,'W','A',178,
+    0xc0,0xae,0xf4,',','Y',214,'G',16,136,243,'!','Q',')','0',202,'`',134,175,
+    'F',0xab,29,0xed,':','[',176,148,222,'D',227,'A',8,162,193,236,29,214,253,
+    'O',0xb6,214,'G',208,20,11,202,230,202,181,'{','w','~','A',31,'^',131,199,
+    0xb6,0x8c,'9',150,176,'?',150,129,'A','o','`',144,226,232,249,251,'"','q',
+    0xd9,'}',0xb3,'=','F',191,180,132,175,144,28,15,143,18,'j',175,239,238,30,
+    'z',0xae,2,'J',138,23,'+','v',254,172,'T',137,'$',',','O','?',182,178,167,
+    'N',140,168,145,151,251,')',198,'{',92,'-',185,203,'f',182,183,168,'[',18,
+    'Q',0x85,0xb5,9,'~','b','x','p',0xfe,169,'j','`',182,29,14,'y',12,253,202,
+    234,'$',128,'r',195,151,'?',242,'w',171,'C','"',10,199,235,182,12,132,130,
+    ',',0x80,'k','A',0x8a,8,192,235,165,'k',223,153,18,203,138,213,'^',128,12,
+    0x91,224,'&',8,'6','H',197,250,'8',17,'5',255,'%',131,'-',242,'z',191,218,
+    253,142,254,165,203,'E',',',31,196,136,'S',174,'w',14,217,154,'v',197,142,
+    ',',29,0xa3,186,213,236,'2',174,192,170,172,247,209,'z','M',235,212,7,226,
+    'H',0xf7,'"',0x8e,176,164,159,'j',206,142,178,178,'`',244,163,'"',208,'#',
+    0xeb,0x94,'Z','z','i',0xdd,15,191,'@','W',172,'k','Y','P',217,163,153,225,
+    'n',254,141,1,'y',39,'#',21,222,146,157,'{',9,'M','Z',231,'K','H','0','Z',
+    24,230,10,'m',230,143,224,210,187,230,223,'|','n','!',130,193,'h','9','M',
+    0xb4,0x98,'X','f','b',204,'J',144,'^',195,250,39,4,177,'y',21,'t',153,204,
+    0xbe,0xad,' ',0xde,'&','`',28,235,'V','Q',166,163,234,228,163,'?',167,255,
+    'a',0xdc,241,'Z','M','l','2','#','C',238,172,168,238,238,'J',18,9,'<',']',
+    'q',0xc2,0xbe,'y',0xfa,194,135,'h',29,11,253,92,'i',204,6,208,154,'}','T',
+    0x99,'*',201,'9',26,25,175,'K','*','C',243,'c',']','Z','X',226,'/',227,29,
+    0xe4,0xa9,0xd6,208,10,208,158,191,215,129,9,241,201,199,'&',13,172,152,22,
+    'V',160,
+]
+
 
 /**
 Buypass Class 2 Root CA.
 SHA256 fingerprint: 9a:11:40:25:19:7c:5b:b9:5d:94:e6:3d:55:cd:43:79:08:47:b6:46:b2:3c:df:11:ad:a4:a0:0e:ff:15:fb:48
 */
-BUYPASS_CLASS_2_ROOT_CA ::= net.Certificate.parse BUYPASS_CLASS_2_ROOT_CA_TEXT_
+BUYPASS_CLASS_2_ROOT_CA ::= parse_ BUYPASS_CLASS_2_ROOT_CA_BYTES_
 
-BUYPASS_CLASS_3_ROOT_CA_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIFWTCCA0GgAwIBAgIBAjANBgkqhkiG9w0BAQsFADBOMQswCQYDVQQGEwJOTzEd
-MBsGA1UECgwUQnV5cGFzcyBBUy05ODMxNjMzMjcxIDAeBgNVBAMMF0J1eXBhc3Mg
-Q2xhc3MgMyBSb290IENBMB4XDTEwMTAyNjA4Mjg1OFoXDTQwMTAyNjA4Mjg1OFow
-TjELMAkGA1UEBhMCTk8xHTAbBgNVBAoMFEJ1eXBhc3MgQVMtOTgzMTYzMzI3MSAw
-HgYDVQQDDBdCdXlwYXNzIENsYXNzIDMgUm9vdCBDQTCCAiIwDQYJKoZIhvcNAQEB
-BQADggIPADCCAgoCggIBAKXaCpUWUOOV8l6ddjEGMnqb8RB2uACatVI2zSRHsJ8Y
-ZLya9vrVediQYkwiL944PdbgqOkcLNt4EemOaFEVcsfzM4fkoF0LXOBXByow9c3E
-N3coTRiR5r/VUv1xLXA+58bEiuPwKAv0dpihi4dVsjoT/Lc+JzeOIuOoTyrvYLs9
-tznDDgFHmV0ST9tD+leh7fmdvhFHJlsTmKtdFoqwNxxXnUX/iJY2v7vKB3tvh2PX
-0DJq1l1sDPGzbjniazEuOQAnFN44wOwZZoYS6J1yFhNkUsepNxz9gjDthBgd9K5c
-/3ATAOux9TN6S9ZV+AWNS2mw9bMoNlwUxFFzTWsL8TQH2xc519woe2v1n/MuwU8X
-KhDzzMro6/1rqy6any2CbgTUUgGTLT2G/H783+9CHaZr77kgxve9oKeV/afmiSTY
-zIw0bOIjL9kSGiG5VZFvC5F5GQytQIgLcOJ60g7YaEi7ghM5EFjp2CoHxhLbWNvS
-O1UQRwUVZ2J+GGOmRj8JDlQyXr8NYnon74Do29lLBlo3WiXQCBJ31G8JUJc9yB3D
-34xFMFbG02SrZvPAXpacw8Tvw3xrizp5f7NJzz3iiZ+gMEuFuZyUJHmPfWupRWgP
-K9Dx2hzLabjKSWJtyNBjYt1gD1iqj6G8BaVmos8bdrKEZLFMOVLAMLrwjEsCsLa3
-AgMBAAGjQjBAMA8GA1UdEwEB/wQFMAMBAf8wHQYDVR0OBBYEFEe4zf/lb+74suwv
-Tg75JbCOPGvDMA4GA1UdDwEB/wQEAwIBBjANBgkqhkiG9w0BAQsFAAOCAgEAACAj
-QTUEkMJAYmDv4jVM1z+s4jSQuKFvdvoWFqRINyzpkMLyPPgKn9iB5btb2iUspKdV
-cSQy9sgL8rxq+JOssgfCX5/bzMiKqr5qb+FJEMwx14C7u8jYog5kV+qi9cKpMRXS
-IGrs/CIBKM+GuIAeqcwRpTzyFrNHnfzSgCHEy9BHcEGhyoMZCCxt8l13nIoUE9Q2
-HJLw5QY33KbmkJs4j1xrG0aGQ0JfPgEHU1RdZX33inOhmlRaHylDFCfChQ+1iHsa
-O5S3HWCntZznKWlXWpuTekMwGwPXYshApqr8ZORK15FTAaggiG6cX0S5y2CBNOxv
-033aSF/rtJC8LakcC6wc1aJoIIAE1vyxjy+7SjENSoYc6+I2KSb12tjE8nVhz36u
-dmNKekBlk4f4HoCMhuWG1o8O/FMsYOgWYRqiPkN7zTlgVGr18okmAWiDSKIz6MkE
-kbIRNBE+6tBDGR8Dk5AM/1E9V/RBbuHLoL7ryWPNbczk+DaqaJ3tvV2XcEQNtg41
-3OEMXbugUZTLfhbrES+jkkXITHHZvMmZUldGL1DPvTVp9D0VzgalLA8+9oG6lLvD
-u79leNKGef9JOxqDDPDeeOzI8k1MGt6CKfjBWtrt7uYnXuhF0J0cUahoq0Tj0Itq
-4/g7u9xN12TyUb7mqqta6THuBrxzvxNiCp/HuZc=
------END CERTIFICATE-----
-"""
+BUYPASS_CLASS_3_ROOT_CA_BYTES_ ::= #[
+    '0',0x82,5,'Y','0',130,3,'A',160,3,2,1,2,2,1,2,'0',13,6,9,'*',134,'H',134,
+    0xf7,0x0d,1,1,11,5,0,'0','N','1',11,'0',9,6,3,'U',4,6,19,2,'N','O','1',29,
+    '0',27,6,3,'U',4,10,12,20,'B','u','y','p','a','s','s',' ','A','S','-','9',
+    '8','3','1','6','3','3','2','7','1',' ','0',30,6,3,'U',4,3,0xc,23,'B','u',
+    'y','p','a','s','s',' ','C','l','a','s','s',' ','3',' ','R','o','o','t',
+    ' ','C','A','0',30,23,0xd,'1','0','1','0','2','6','0','8','2','8','5','8',
+    'Z',23,13,'4','0','1','0','2','6','0','8','2','8','5','8','Z','0','N','1',
+    0x0b,'0',9,6,3,'U',4,6,19,2,'N','O','1',29,'0',27,6,3,'U',4,0xa,12,20,'B',
+    'u','y','p','a','s','s',' ','A','S','-','9','8','3','1','6','3','3','2',
+    '7','1',' ','0',30,6,3,'U',4,3,0xc,23,'B','u','y','p','a','s','s',' ','C',
+    'l','a','s','s',' ','3',' ','R','o','o','t',' ','C','A','0',130,2,'"','0',
+    13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,2,15,0,'0',130,2,10,2,130,2,
+    0x1,0,165,218,10,149,22,'P',227,149,242,'^',157,'v','1',6,'2','z',155,241,
+    0x10,'v',184,0,154,181,'R','6',205,'$','G',176,159,24,'d',188,154,246,250,
+    0xd5,'y',0xd8,0x90,'b','L','"','/',222,'8','=',214,224,168,233,28,',',219,
+    'x',17,233,142,'h','Q',21,'r',199,243,'3',135,228,160,']',11,92,224,'W',7,
+    '*','0',0xf5,0xcd,0xc4,'7','w','(','M',24,145,230,191,213,'R',253,'q','-',
+    'p','>',0xe7,0xc6,0xc4,138,227,240,'(',11,244,'v',152,161,139,135,'U',178,
+    ':',19,252,183,'>',39,'7',142,'"',227,168,'O','*',239,'`',187,'=',183,'9',
+    0xc3,0x0e,1,'G',153,']',18,'O',219,'C',250,'W',161,237,249,157,190,17,'G',
+    '&','[',19,0x98,171,']',22,138,176,'7',28,'W',157,'E',255,136,150,'6',191,
+    0xbb,202,7,'{','o',135,'c',215,208,'2','j',214,']','l',12,241,179,'n','9',
+    0xe2,'k','1','.','9',0,39,20,222,'8',192,236,25,'f',134,18,232,157,'r',22,
+    19,'d','R',199,169,'7',28,253,130,'0',237,132,24,29,244,174,92,255,'p',19,
+    0x0,235,177,245,'3','z','K',214,'U',248,5,141,'K','i',176,245,179,'(','6',
+    92,20,196,'Q','s','M','k',11,241,'4',7,219,23,'9',215,220,'(','{','k',245,
+    159,243,'.',193,'O',23,'*',16,243,204,202,232,235,253,'k',171,'.',154,159,
+    '-',0x82,'n',0x4,212,'R',1,147,'-','=',134,252,'~',252,223,239,'B',29,166,
+    'k',0xef,0xb9,' ',198,247,189,160,167,149,253,167,230,137,'$',216,204,140,
+    '4','l',0xe2,'#','/',0xd9,18,26,'!',0xb9,'U',145,'o',11,145,'y',25,12,173,
+    '@',0x88,0xb,'p',226,'z',210,14,216,'h','H',187,130,19,'9',16,'X',233,216,
+    '*',0x7,198,18,219,'X',219,210,';','U',16,'G',5,21,'g','b','~',24,'c',166,
+    'F','?',9,0xe,'T','2','^',191,13,'b','z',39,239,128,232,219,217,'K',6,'Z',
+    '7','Z','%',208,8,18,'w',212,'o',9,'P',151,'=',200,29,195,223,140,'E','0',
+    'V',0xc6,0xd3,'d',171,'f',243,192,'^',150,156,195,196,239,195,'|','k',139,
+    ':','y',0x7f,0xb3,'I',207,'=',226,137,159,160,'0','K',133,185,156,148,'$',
+    'y',143,'}','k',169,'E','h',15,'+',208,241,218,28,203,'i',184,202,'I','b',
+    'm',0xc8,0xd0,'c','b',221,'`',15,'X',170,143,161,188,5,165,'f',162,207,27,
+    'v',178,132,'d',177,'L','9','R',192,'0',186,240,140,'K',2,176,182,183,2,3,
+    1,0,1,0xa3,'B','0','@','0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',
+    0x1d,6,3,'U',29,0xe,4,22,4,20,'G',184,205,255,229,'o',238,248,178,236,'/',
+    'N',14,249,'%',176,142,'<','k',195,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,
+    6,'0',0xd,6,9,'*',134,'H',134,247,13,1,1,11,5,0,3,130,2,1,0,0,' ','#','A',
+    '5',4,144,194,'@','b','`',239,226,'5','L',215,'?',172,226,'4',144,184,161,
+    'o','v',0xfa,22,22,164,'H','7',',',233,144,194,242,'<',248,10,159,216,129,
+    0xe5,0xbb,'[',0xda,'%',',',164,167,'U','q','$','2',246,200,11,242,188,'j',
+    0xf8,147,172,178,7,194,'_',159,219,204,200,138,170,190,'j','o',225,'I',16,
+    204,'1',215,128,187,187,200,216,162,14,'d','W',234,162,245,194,169,'1',21,
+    0xd2,' ','j',0xec,252,'"',1,'(',207,134,184,128,30,169,204,17,165,'<',242,
+    0x16,179,'G',157,252,210,128,'!',196,203,208,'G','p','A',161,202,131,25,8,
+    ',','m',0xf2,']','w',0x9c,0x8a,20,19,212,'6',28,146,240,229,6,'7',220,166,
+    230,144,155,'8',143,92,'k',27,'F',134,'C','B','_','>',1,7,'S','T',']','e',
+    '}',0xf7,0x8a,'s',161,154,'T','Z',31,')','C',20,39,194,133,15,181,136,'{',
+    26,';',148,183,29,'`',167,181,156,231,')','i','W','Z',155,147,'z','C','0',
+    0x1b,3,0xd7,'b',200,'@',166,170,252,'d',228,'J',215,145,'S',1,168,' ',136,
+    'n',0x9c,'_','D',0xb9,203,'`',129,'4',236,'o',211,'}',218,'H','_',235,180,
+    0x90,0xbc,'-',0xa9,28,11,172,28,213,162,'h',' ',128,4,214,252,177,143,'/',
+    187,'J','1',13,'J',134,28,235,226,'6',')','&',245,218,216,196,242,'u','a',
+    0xcf,'~',0xae,'v','c','J','z','@','e',0x93,135,248,30,128,140,134,229,134,
+    0xd6,143,14,252,'S',',','`',232,22,'a',26,162,'>','C','{',205,'9','`','T',
+    'j',245,242,137,'&',1,'h',131,'H',162,'3',232,201,4,145,178,17,'4',17,'>',
+    0xea,0xd0,'C',25,31,3,0x93,144,12,255,'Q','=','W',244,'A','n',225,203,160,
+    0xbe,0xeb,201,'c',205,'m',204,228,248,'6',170,'h',157,237,189,']',151,'p',
+    'D',0x0d,0xb6,14,'5',220,225,12,']',187,160,'Q',148,203,'~',22,235,17,'/',
+    0xa3,0x92,'E',200,'L','q',217,188,201,153,'R','W','F','/','P',207,189,'5',
+    'i',0xf4,'=',21,0xce,6,165,',',15,'>',246,129,186,148,187,195,187,191,'e',
+    'x',0xd2,134,'y',255,'I',';',26,131,12,240,222,'x',236,200,242,'M','L',26,
+    222,130,')',248,193,'Z',218,237,238,230,39,'^',232,'E',208,157,28,'Q',168,
+    'h',0xab,'D',0xe3,208,139,'j',227,248,';',187,220,'M',215,'d',242,'Q',190,
+    230,170,171,'Z',233,'1',238,6,188,'s',191,19,'b',10,159,199,185,151,
+]
+
 
 /**
 Buypass Class 3 Root CA.
 SHA256 fingerprint: ed:f7:eb:bc:a2:7a:2a:38:4d:38:7b:7d:40:10:c6:66:e2:ed:b4:84:3e:4c:29:b4:ae:1d:5b:93:32:e6:b2:4d
 */
-BUYPASS_CLASS_3_ROOT_CA ::= net.Certificate.parse BUYPASS_CLASS_3_ROOT_CA_TEXT_
+BUYPASS_CLASS_3_ROOT_CA ::= parse_ BUYPASS_CLASS_3_ROOT_CA_BYTES_
 
-T_TELESEC_GLOBALROOT_CLASS_3_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIDwzCCAqugAwIBAgIBATANBgkqhkiG9w0BAQsFADCBgjELMAkGA1UEBhMCREUx
-KzApBgNVBAoMIlQtU3lzdGVtcyBFbnRlcnByaXNlIFNlcnZpY2VzIEdtYkgxHzAd
-BgNVBAsMFlQtU3lzdGVtcyBUcnVzdCBDZW50ZXIxJTAjBgNVBAMMHFQtVGVsZVNl
-YyBHbG9iYWxSb290IENsYXNzIDMwHhcNMDgxMDAxMTAyOTU2WhcNMzMxMDAxMjM1
-OTU5WjCBgjELMAkGA1UEBhMCREUxKzApBgNVBAoMIlQtU3lzdGVtcyBFbnRlcnBy
-aXNlIFNlcnZpY2VzIEdtYkgxHzAdBgNVBAsMFlQtU3lzdGVtcyBUcnVzdCBDZW50
-ZXIxJTAjBgNVBAMMHFQtVGVsZVNlYyBHbG9iYWxSb290IENsYXNzIDMwggEiMA0G
-CSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC9dZPwYiJvJK7genasfb3ZJNW4t/zN
-8ELg63iIVl6bmlQdTQyK9tPPcPRStdiTBONGhnFBSivwKixVA9ZIw+A5OO3yXDw/
-RLyTPWGrTs0NvvAgJ1gORH8EGoel15YUNpDQSXuhdfsaa3Ox+M6pCSzyU9XDFES4
-hqX2iys52qMzVNn6chr3IhUciJFrf2blw2qAsCTz34ZFiP0Zf3WHHx+xGwpzJFu5
-ZeAsVMhg02YXP+HMVDNzkQI6pn97djmiH5a2OK61yJN0HZ65tOVgnS9W0eDrXltM
-EnAMbEQgqxHY9Bn20pxSN+f6tsIxO0rUFJmtxxr1XV/6B7h8DR/Wgx6zAgMBAAGj
-QjBAMA8GA1UdEwEB/wQFMAMBAf8wDgYDVR0PAQH/BAQDAgEGMB0GA1UdDgQWBBS1
-A/d2O2GCahKqGFPrAyGUv/7OyjANBgkqhkiG9w0BAQsFAAOCAQEAVj3vlNW92nOy
-WL6ukK2YJ5f+AbGwUgC4TeQbIXQbfsDuXmkqJa9c1h3a0nnJ85cp4IaH3gRZD/FZ
-1GSFS5mvJQQeyUapl96Cshtwn5z2r3Ex3XsFpSzTucpH9sry9uetuUg/vBa3wW30
-6gmv7PO15wWeph6KU1HWk4HMdJP2udqmJQV0eVp+QD6CSyYRMG7hP0HHRwA11fXT
-91Q+gT3aSWqas+8QPebrb9HIIkfLzM8BMZLZGOMivgkeGj5asuRrDFR6fUNOuIml
-e9eiPZaGzPImNC1qkp2aGtAw4l1OBLBfiyB+d8E9lYLRRpo7PHi4b6HQDWSieB4p
-TpPDpFQUWw==
------END CERTIFICATE-----
-"""
+T_TELESEC_GLOBALROOT_CLASS_3_BYTES_ ::= #[
+    '0',0x82,3,195,'0',130,2,171,160,3,2,1,2,2,1,1,'0',13,6,9,'*',134,'H',134,
+    0xf7,0xd,1,1,11,5,0,'0',129,130,'1',11,'0',9,6,3,'U',4,6,19,2,'D','E','1',
+    '+','0',')',0x6,3,'U',4,10,12,'"','T','-','S','y','s','t','e','m','s',' ',
+    'E','n','t','e','r','p','r','i','s','e',' ','S','e','r','v','i','c','e',
+    's',' ','G','m','b','H','1',31,'0',29,6,3,'U',4,0xb,12,22,'T','-','S','y',
+    's','t','e','m','s',' ','T','r','u','s','t',' ','C','e','n','t','e','r',
+    '1','%','0','#',6,3,'U',4,3,12,28,'T','-','T','e','l','e','S','e','c',' ',
+    'G','l','o','b','a','l','R','o','o','t',' ','C','l','a','s','s',' ','3',
+    '0',0x1e,23,0xd,'0','8','1','0','0','1','1','0','2','9','5','6','Z',23,13,
+    '3','3','1','0','0','1','2','3','5','9','5','9','Z','0',0x81,0x82,'1',0xb,
+    '0',0x09,6,3,'U',4,6,19,2,'D','E','1','+','0',')',6,3,'U',4,10,12,'"','T',
+    '-','S','y','s','t','e','m','s',' ','E','n','t','e','r','p','r','i','s',
+    'e',' ','S','e','r','v','i','c','e','s',' ','G','m','b','H','1',31,'0',29,
+    0x06,3,'U',4,11,12,22,'T','-','S','y','s','t','e','m','s',' ','T','r','u',
+    's','t',' ','C','e','n','t','e','r','1','%','0','#',6,3,'U',4,3,12,28,'T',
+    '-','T','e','l','e','S','e','c',' ','G','l','o','b','a','l','R','o','o',
+    't',' ','C','l','a','s','s',' ','3','0',0x82,1,'"','0',13,6,9,'*',134,'H',
+    0x86,0xf7,0xd,1,1,1,5,0,3,130,1,15,0,'0',130,1,10,2,130,1,1,0,189,'u',147,
+    0xf0,'b','"','o','$',0xae,224,'z','v',172,'}',189,217,'$',213,184,183,252,
+    205,240,'B',224,235,'x',136,'V','^',155,154,'T',29,'M',12,138,246,211,207,
+    'p',0xf4,'R',0xb5,216,147,4,227,'F',134,'q','A','J','+',240,'*',',','U',3,
+    0xd6,'H',0xc3,0xe0,'9','8',237,242,92,'<','?','D',188,147,'=','a',171,'N',
+    0xcd,13,190,240,' ',39,'X',14,'D',127,4,26,135,165,215,150,20,'6',144,208,
+    'I','{',0xa1,'u',0xfb,26,'k','s',177,248,206,169,9,',',242,'S',213,195,20,
+    'D',184,134,165,246,139,'+','9',218,163,'3','T',217,250,'r',26,247,'"',21,
+    28,136,145,'k',127,'f',229,195,'j',128,176,'$',243,223,134,'E',136,253,25,
+    0x7f,'u',0x87,31,31,177,27,10,'s','$','[',185,'e',224,',','T',200,'`',211,
+    'f',0x17,'?',225,204,'T','3','s',145,2,':',166,127,'{','v','9',162,31,150,
+    0xb6,'8',0xae,0xb5,200,147,'t',29,158,185,180,229,'`',157,'/','V',209,224,
+    0xeb,'^','[','L',18,'p',0xc,'l','D',' ',171,17,216,244,25,246,210,156,'R',
+    '7',0xe7,0xfa,182,194,'1',';','J',212,20,153,173,199,26,245,']','_',250,7,
+    0xb8,'|',13,31,214,131,30,179,2,3,1,0,1,163,'B','0','@','0',15,6,3,'U',29,
+    19,1,1,255,4,5,'0',3,1,1,255,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',
+    0x1d,6,3,'U',29,0xe,4,22,4,20,181,3,247,'v',';','a',130,'j',18,170,24,'S',
+    0xeb,3,'!',148,191,254,206,202,'0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,
+    0,3,130,1,1,0,'V','=',239,148,213,189,218,'s',178,'X',190,174,144,173,152,
+    39,0x97,254,1,177,176,'R',0,184,'M',228,27,'!','t',27,'~',192,238,'^','i',
+    '*','%',0xaf,92,0xd6,29,218,210,'y',201,243,151,')',224,134,135,222,4,'Y',
+    0x0f,241,'Y',212,'d',133,'K',153,175,'%',4,30,201,'F',169,151,222,130,178,
+    27,'p',0x9f,156,246,175,'q','1',221,'{',5,165,',',211,185,202,'G',246,202,
+    0xf2,246,231,173,185,'H','?',188,22,183,193,'m',244,234,9,175,236,243,181,
+    0xe7,5,158,166,30,138,'S','Q',214,147,129,204,'t',147,246,185,218,166,'%',
+    0x05,'t','y','Z','~','@','>',130,'K','&',17,'0','n',225,'?','A',199,'G',0,
+    '5',0xd5,0xf5,0xd3,247,'T','>',129,'=',218,'I','j',154,179,239,16,'=',230,
+    0xeb,'o',209,200,'"','G',203,204,207,1,'1',146,217,24,227,'"',190,9,30,26,
+    '>','Z',0xb2,0xe4,'k',0xc,'T','z','}','C','N',184,137,165,'{',215,162,'=',
+    0x96,134,204,242,'&','4','-','j',146,157,154,26,208,'0',226,']','N',4,176,
+    '_',0x8b,' ','~','w',0xc1,'=',149,130,209,'F',154,';','<','x',184,'o',161,
+    208,13,'d',162,'x',30,')','N',147,195,164,'T',20,'[',
+]
+
 
 /**
 T-TeleSec GlobalRoot Class 3.
 SHA256 fingerprint: fd:73:da:d3:1c:64:4f:f1:b4:3b:ef:0c:cd:da:96:71:0b:9c:d9:87:5e:ca:7e:31:70:7a:f3:e9:6d:52:2b:bd
 */
-T_TELESEC_GLOBALROOT_CLASS_3 ::= net.Certificate.parse T_TELESEC_GLOBALROOT_CLASS_3_TEXT_
+T_TELESEC_GLOBALROOT_CLASS_3 ::= parse_ T_TELESEC_GLOBALROOT_CLASS_3_BYTES_
 
-D_TRUST_ROOT_CLASS_3_CA_2_2009_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIEMzCCAxugAwIBAgIDCYPzMA0GCSqGSIb3DQEBCwUAME0xCzAJBgNVBAYTAkRF
-MRUwEwYDVQQKDAxELVRydXN0IEdtYkgxJzAlBgNVBAMMHkQtVFJVU1QgUm9vdCBD
-bGFzcyAzIENBIDIgMjAwOTAeFw0wOTExMDUwODM1NThaFw0yOTExMDUwODM1NTha
-ME0xCzAJBgNVBAYTAkRFMRUwEwYDVQQKDAxELVRydXN0IEdtYkgxJzAlBgNVBAMM
-HkQtVFJVU1QgUm9vdCBDbGFzcyAzIENBIDIgMjAwOTCCASIwDQYJKoZIhvcNAQEB
-BQADggEPADCCAQoCggEBANOySs96R+91myP6Oi/WUEWJNTrGa9v+2wBoqOADER03
-UAifTUpolDWzU9GUY6cgVq/eUXjsKj3zSEhQPgrfRlWLJ23DEE0NkVJD2IfgXU42
-tSHKXzlABF9bfsyjxiupQB7ZNoTWSPOSHjRGICTBpFGOShrvUD9pXRl/RcPHAY9R
-ySPocq60vFYJfxLLHLGvKZAKyVXMD9O0Gu1HNVpK7ZxzBCHQqr0ME7UAyiZsxGsM
-lFqVlNpQmvH/pStmMaTJOKDfHR+4CS7zp+hnUquVH+BGPtikw8paxTGA6Eian5Rp
-/hnd2HN8gcqW3o7tszIFZYQ05ub9VxC1X3a/L7AQDcUCAwEAAaOCARowggEWMA8G
-A1UdEwEB/wQFMAMBAf8wHQYDVR0OBBYEFP3aFMSfMN4hvR5COfyrYyNJ4PGEMA4G
-A1UdDwEB/wQEAwIBBjCB0wYDVR0fBIHLMIHIMIGAoH6gfIZ6bGRhcDovL2RpcmVj
-dG9yeS5kLXRydXN0Lm5ldC9DTj1ELVRSVVNUJTIwUm9vdCUyMENsYXNzJTIwMyUy
-MENBJTIwMiUyMDIwMDksTz1ELVRydXN0JTIwR21iSCxDPURFP2NlcnRpZmljYXRl
-cmV2b2NhdGlvbmxpc3QwQ6BBoD+GPWh0dHA6Ly93d3cuZC10cnVzdC5uZXQvY3Js
-L2QtdHJ1c3Rfcm9vdF9jbGFzc18zX2NhXzJfMjAwOS5jcmwwDQYJKoZIhvcNAQEL
-BQADggEBAH+X2zDI36ScfSF6gHDOFBJpiBSVYEQBrLLpME+bUMJm2H6NMLVwMeni
-acfzcNsgFYbQDfC+rAF1hM5+n02/t2A7nPPKHeJeaNijnZflQGDSNiH+0LS4F9p0
-o3/U37CYAqxva2ssJSRyoWXuJVrl5jLn8t+rSfrzkGkj2wTZ51xY/GXUl77M/C4K
-zCUqNQT4YJEVdT1B/yMfGchs64JTBKbkTCJNjYy6zltz7GRUUG3RnFX7acM2w4y8
-PIWmawomDeCTmGCufsYkl4phX5GOZpIJhzbNi5stPvZR1FDUWSi9g/LMKHtThm3Y
-Johw1+qRzT65ysCQblrGXnRl11z+o+I=
------END CERTIFICATE-----
-"""
+D_TRUST_ROOT_CLASS_3_CA_2_2009_BYTES_ ::= #[
+    '0',0x82,4,'3','0',0x82,3,27,160,3,2,1,2,2,3,9,131,243,'0',13,6,9,'*',134,
+    'H',0x86,0xf7,13,1,1,11,5,0,'0','M','1',11,'0',9,6,3,'U',4,6,19,2,'D','E',
+    '1',21,'0',19,6,3,'U',4,0xa,12,12,'D','-','T','r','u','s','t',' ','G','m',
+    'b','H','1',39,'0','%',6,3,'U',4,3,0xc,30,'D','-','T','R','U','S','T',' ',
+    'R','o','o','t',' ','C','l','a','s','s',' ','3',' ','C','A',' ','2',' ',
+    '2','0','0','9','0',30,23,0xd,'0','9','1','1','0','5','0','8','3','5','5',
+    '8','Z',23,13,'2','9','1','1','0','5','0','8','3','5','5','8','Z','0','M',
+    '1',0x0b,'0',9,6,3,'U',4,6,19,2,'D','E','1',21,'0',19,6,3,'U',4,0xa,12,12,
+    'D','-','T','r','u','s','t',' ','G','m','b','H','1',39,'0','%',6,3,'U',4,
+    0x3,12,30,'D','-','T','R','U','S','T',' ','R','o','o','t',' ','C','l','a',
+    's','s',' ','3',' ','C','A',' ','2',' ','2','0','0','9','0',130,1,'"','0',
+    13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,1,15,0,'0',130,1,10,2,130,1,
+    0x1,0,211,178,'J',207,'z','G',239,'u',155,'#',250,':','/',214,'P','E',137,
+    '5',':',0xc6,'k',0xdb,254,219,0,'h',168,224,3,17,29,'7','P',8,159,'M','J',
+    'h',0x94,'5',0xb3,'S',209,148,'c',167,' ','V',175,222,'Q','x',236,'*','=',
+    0xf3,'H','H','P','>',0xa,223,'F','U',139,39,'m',195,16,'M',13,145,'R','C',
+    216,135,224,']','N','6',181,'!',202,'_','9','@',4,'_','[','~',204,163,198,
+    '+',169,'@',30,217,'6',132,214,'H',243,146,30,'4','F',' ','$',193,164,'Q',
+    0x8e,'J',26,0xef,'P','?','i',']',25,127,'E',195,199,1,143,'Q',201,'#',232,
+    'r',174,180,188,'V',9,127,18,203,28,177,175,')',144,10,201,'U',204,15,211,
+    0xb4,26,237,'G','5','Z','J',237,156,'s',4,'!',208,170,189,12,19,181,0,202,
+    '&','l',0xc4,'k',0x0c,148,'Z',149,148,218,'P',154,241,255,165,'+','f','1',
+    0xa4,0xc9,'8',0xa0,223,29,31,184,9,'.',243,167,232,'g','R',171,149,31,224,
+    'F','>',0xd8,0xa4,0xc3,202,'Z',197,'1',128,232,'H',154,159,148,'i',254,25,
+    221,216,'s','|',129,202,150,222,142,237,179,'2',5,'e',132,'4',230,230,253,
+    'W',16,181,'_','v',191,'/',176,16,13,197,2,3,1,0,1,163,130,1,26,'0',130,1,
+    22,'0',0xf,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',29,6,3,'U',29,14,4,
+    22,4,20,253,218,20,196,159,'0',222,'!',189,30,'B','9',252,171,'c','#','I',
+    0xe0,241,132,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',129,211,6,3,'U',
+    0x1d,31,4,129,203,'0',129,200,'0',129,128,160,'~',160,'|',134,'z','l','d',
+    'a','p',':','/','/','d','i','r','e','c','t','o','r','y','.','d','-','t',
+    'r','u','s','t','.','n','e','t','/','C','N','=','D','-','T','R','U','S',
+    'T','%','2','0','R','o','o','t','%','2','0','C','l','a','s','s','%','2',
+    '0','3','%','2','0','C','A','%','2','0','2','%','2','0','2','0','0','9',
+    ',','O','=','D','-','T','r','u','s','t','%','2','0','G','m','b','H',',',
+    'C','=','D','E','?','c','e','r','t','i','f','i','c','a','t','e','r','e',
+    'v','o','c','a','t','i','o','n','l','i','s','t','0','C',0xa0,'A',0xa0,'?',
+    0x86,'=','h','t','t','p',':','/','/','w','w','w','.','d','-','t','r','u',
+    's','t','.','n','e','t','/','c','r','l','/','d','-','t','r','u','s','t',
+    '_','r','o','o','t','_','c','l','a','s','s','_','3','_','c','a','_','2',
+    '_','2','0','0','9','.','c','r','l','0',13,6,9,'*',134,'H',134,247,13,1,1,
+    0x0b,5,0,3,0x82,1,1,0,127,151,219,'0',200,223,164,156,'}','!','z',128,'p',
+    0xce,0x14,18,'i',136,20,149,'`','D',1,172,178,233,'0','O',155,'P',194,'f',
+    216,'~',141,'0',181,'p','1',233,226,'i',199,243,'p',219,' ',21,134,208,13,
+    0xf0,190,172,1,'u',132,206,'~',159,'M',191,183,'`',';',156,243,202,29,226,
+    '^','h',0xd8,0xa3,0x9d,151,229,'@','`',210,'6','!',254,208,180,184,23,218,
+    't',163,127,212,223,176,152,2,172,'o','k','k',',','%','$','r',161,'e',238,
+    '%','Z',229,230,'2',231,242,223,171,'I',250,243,144,'i','#',219,4,217,231,
+    0x5c,'X',252,'e',212,151,190,204,252,'.',10,204,'%','*','5',4,248,'`',145,
+    0x15,'u','=','A',0xff,'#',31,25,200,'l',235,130,'S',4,166,228,'L','"','M',
+    0x8d,0x8c,186,206,'[','s',236,'d','T','P','m',209,156,'U',251,'i',195,'6',
+    195,140,188,'<',133,166,'k',10,'&',13,224,147,152,'`',174,'~',198,'$',151,
+    138,'a','_',145,142,'f',146,9,135,'6',205,139,155,'-','>',246,'Q',212,'P',
+    0xd4,'Y','(',0xbd,131,242,204,'(','{','S',134,'m',216,'&',136,'p',215,234,
+    0x91,0xcd,'>',0xb9,202,192,144,'n','Z',198,'^','t','e',215,92,254,163,226,
+]
+
 
 /**
 D-TRUST Root Class 3 CA 2 2009.
 SHA256 fingerprint: 49:e7:a4:42:ac:f0:ea:62:87:05:00:54:b5:25:64:b6:50:e4:f4:9e:42:e3:48:d6:aa:38:e0:39:e9:57:b1:c1
 */
-D_TRUST_ROOT_CLASS_3_CA_2_2009 ::= net.Certificate.parse D_TRUST_ROOT_CLASS_3_CA_2_2009_TEXT_
+D_TRUST_ROOT_CLASS_3_CA_2_2009 ::= parse_ D_TRUST_ROOT_CLASS_3_CA_2_2009_BYTES_
 
-D_TRUST_ROOT_CLASS_3_CA_2_EV_2009_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIEQzCCAyugAwIBAgIDCYP0MA0GCSqGSIb3DQEBCwUAMFAxCzAJBgNVBAYTAkRF
-MRUwEwYDVQQKDAxELVRydXN0IEdtYkgxKjAoBgNVBAMMIUQtVFJVU1QgUm9vdCBD
-bGFzcyAzIENBIDIgRVYgMjAwOTAeFw0wOTExMDUwODUwNDZaFw0yOTExMDUwODUw
-NDZaMFAxCzAJBgNVBAYTAkRFMRUwEwYDVQQKDAxELVRydXN0IEdtYkgxKjAoBgNV
-BAMMIUQtVFJVU1QgUm9vdCBDbGFzcyAzIENBIDIgRVYgMjAwOTCCASIwDQYJKoZI
-hvcNAQEBBQADggEPADCCAQoCggEBAJnxhDRwui+3MKCOvXwEz75ivJn9gpfSegpn
-ljgJ9hBOlSJzmY3aFS3nBfwZcyK3jpgAvDw9rKFs+9Z5JUut8Mxk2og+KbgPCdM0
-3TP1YtHhzRnp7hhPTFiu4h7WDFsVWtg6uMQYZB7jM7K1iXdODL/ZlGsTl28So/6Z
-qQTMFexgaDbtCHu39b+T7WYxg4zGcTSHThfqr4uRjRxWQa4iN1438h3Z0S0NL2lR
-p75mpoo6Kr3HGrHhFPC+Oh25z1uxav60sUYgovseO3Dvk5h9jHOW8sXvhXCtKSb8
-HgQ+HKDYD8tSg2J87otTlZCpV6LqYQXY+U3EJ/pure3511H3a6UCAwEAAaOCASQw
-ggEgMA8GA1UdEwEB/wQFMAMBAf8wHQYDVR0OBBYEFNOUikxiEyoZLsyvcop9Ntea
-HNxnMA4GA1UdDwEB/wQEAwIBBjCB3QYDVR0fBIHVMIHSMIGHoIGEoIGBhn9sZGFw
-Oi8vZGlyZWN0b3J5LmQtdHJ1c3QubmV0L0NOPUQtVFJVU1QlMjBSb290JTIwQ2xh
-c3MlMjAzJTIwQ0ElMjAyJTIwRVYlMjAyMDA5LE89RC1UcnVzdCUyMEdtYkgsQz1E
-RT9jZXJ0aWZpY2F0ZXJldm9jYXRpb25saXN0MEagRKBChkBodHRwOi8vd3d3LmQt
-dHJ1c3QubmV0L2NybC9kLXRydXN0X3Jvb3RfY2xhc3NfM19jYV8yX2V2XzIwMDku
-Y3JsMA0GCSqGSIb3DQEBCwUAA4IBAQA07XtaPKSUiO8aEXUHL7P+PPoeUSbrh/Yp
-3uDx1MYkCenBz1UbtDDZzhr+BlGmFaQt77JLvyAoJUnRpjZ3NOhk31KxEcdzes05
-nsKtjHEh8lprr988TlWvsoRlFIm5d8sqMb7Po23Pb0iUMkZv53GMoKaEGTcH8gNF
-CSuGdXzfX2lXANtu2KZyIktQ1HWYVt+3GP9DQ1CuekR78HlR10M9p9OB0/DJT7na
-xpeG0ILD5EJt/rDiZE4OJudANCa1CInXCGNjOCd1HjPqbqjdn5lPdE2BiYBL3ZqX
-KVwvvoFBuYz/6n1gBp7N1z3TLqMVvKjmJuVvw9y4AyHqnxbxLFS1
------END CERTIFICATE-----
-"""
+D_TRUST_ROOT_CLASS_3_CA_2_EV_2009_BYTES_ ::= #[
+    '0',0x82,4,'C','0',130,3,'+',160,3,2,1,2,2,3,9,131,244,'0',13,6,9,'*',134,
+    'H',0x86,0xf7,13,1,1,11,5,0,'0','P','1',11,'0',9,6,3,'U',4,6,19,2,'D','E',
+    '1',21,'0',19,6,3,'U',4,0xa,12,12,'D','-','T','r','u','s','t',' ','G','m',
+    'b','H','1','*','0','(',0x06,3,'U',4,3,12,'!','D','-','T','R','U','S','T',
+    ' ','R','o','o','t',' ','C','l','a','s','s',' ','3',' ','C','A',' ','2',
+    ' ','E','V',' ','2','0','0','9','0',30,23,0xd,'0','9','1','1','0','5','0',
+    '8','5','0','4','6','Z',23,13,'2','9','1','1','0','5','0','8','5','0','4',
+    '6','Z','0','P','1',0x0b,'0',9,6,3,'U',4,6,19,2,'D','E','1',21,'0',19,6,3,
+    'U',0x04,10,12,12,'D','-','T','r','u','s','t',' ','G','m','b','H','1','*',
+    '0','(',0x06,3,'U',4,3,12,'!','D','-','T','R','U','S','T',' ','R','o','o',
+    't',' ','C','l','a','s','s',' ','3',' ','C','A',' ','2',' ','E','V',' ',
+    '2','0','0','9','0',130,1,'"','0',13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,
+    3,130,1,15,0,'0',130,1,10,2,130,1,1,0,153,241,132,'4','p',186,'/',183,'0',
+    0xa0,142,189,'|',4,207,190,'b',188,153,253,130,151,210,'z',10,'g',150,'8',
+    9,0xf6,16,'N',149,'"','s',153,141,218,21,'-',231,5,252,25,'s','"',183,142,
+    152,0,188,'<','=',172,161,'l',251,214,'y','%','K',173,240,204,'d',218,136,
+    '>',')',0xb8,0x0f,9,211,'4',221,'3',245,'b',209,225,205,25,233,238,24,'O',
+    'L','X',0xae,0xe2,30,0xd6,12,'[',21,'Z',216,':',184,196,24,'d',30,227,'3',
+    0xb2,0xb5,0x89,'w','N',12,191,217,148,'k',19,151,'o',18,163,254,153,169,4,
+    0xcc,21,236,'`','h','6',237,8,'{',183,245,191,147,237,'f','1',131,140,198,
+    'q','4',135,'N',23,234,175,139,145,141,28,'V','A',174,'"','7','^','7',242,
+    29,0xd9,209,'-',13,'/','i','Q',167,190,'f',166,138,':','*',189,199,26,177,
+    0xe1,20,240,190,':',29,185,207,'[',177,'j',254,180,177,'F',' ',162,251,30,
+    ';','p',0xef,0x93,152,'}',140,'s',150,242,197,239,133,'p',173,')','&',252,
+    0x1e,4,'>',28,0xa0,216,15,203,'R',131,'b','|',238,139,'S',149,144,169,'W',
+    0xa2,234,'a',5,216,249,'M',196,39,250,'n',173,237,249,215,'Q',247,'k',165,
+    0x02,3,1,0,1,163,130,1,'$','0',130,1,' ','0',15,6,3,'U',29,19,1,1,255,4,5,
+    '0',0x3,1,1,255,'0',29,6,3,'U',29,14,4,22,4,20,211,148,138,'L','b',19,'*',
+    25,'.',0xcc,175,'r',138,'}','6',215,154,28,220,'g','0',14,6,3,'U',29,15,1,
+    1,255,4,4,3,2,1,6,'0',129,221,6,3,'U',29,31,4,129,213,'0',129,210,'0',129,
+    0x87,0xa0,129,132,160,129,129,134,127,'l','d','a','p',':','/','/','d','i',
+    'r','e','c','t','o','r','y','.','d','-','t','r','u','s','t','.','n','e',
+    't','/','C','N','=','D','-','T','R','U','S','T','%','2','0','R','o','o',
+    't','%','2','0','C','l','a','s','s','%','2','0','3','%','2','0','C','A',
+    '%','2','0','2','%','2','0','E','V','%','2','0','2','0','0','9',',','O',
+    '=','D','-','T','r','u','s','t','%','2','0','G','m','b','H',',','C','=',
+    'D','E','?','c','e','r','t','i','f','i','c','a','t','e','r','e','v','o',
+    'c','a','t','i','o','n','l','i','s','t','0','F',0xa0,'D',0xa0,'B',134,'@',
+    'h','t','t','p',':','/','/','w','w','w','.','d','-','t','r','u','s','t',
+    '.','n','e','t','/','c','r','l','/','d','-','t','r','u','s','t','_','r',
+    'o','o','t','_','c','l','a','s','s','_','3','_','c','a','_','2','_','e',
+    'v','_','2','0','0','9','.','c','r','l','0',13,6,9,'*',134,'H',134,247,13,
+    0x01,1,11,5,0,3,130,1,1,0,'4',237,'{','Z','<',164,148,136,239,26,17,'u',7,
+    '/',0xb3,254,'<',250,30,'Q','&',235,135,246,')',222,224,241,212,198,'$',9,
+    0xe9,0xc1,0xcf,'U',27,180,'0',217,206,26,254,6,'Q',166,21,164,'-',239,178,
+    'K',0xbf,' ','(','%','I',0xd1,0xa6,'6','w','4',232,'d',223,'R',177,17,199,
+    's','z',0xcd,'9',0x9e,194,173,140,'q','!',242,'Z','k',175,223,'<','N','U',
+    0xaf,0xb2,0x84,'e',20,137,185,'w',203,'*','1',190,207,163,'m',207,'o','H',
+    0x94,'2','F','o',231,'q',140,160,166,132,25,'7',7,242,3,'E',9,'+',134,'u',
+    '|',223,'_','i','W',0,219,'n',216,166,'r','"','K','P',212,'u',152,'V',223,
+    0xb7,0x18,255,'C','C','P',174,'z','D','{',240,'y','Q',215,'C','=',167,211,
+    0x81,0xd3,240,201,'O',185,218,198,151,134,208,130,195,228,'B','m',254,176,
+    0xe2,'d','N',14,'&',231,'@','4','&',181,8,137,215,8,'c','c','8',39,'u',30,
+    '3',0xea,'n',0xa8,221,159,153,'O','t','M',129,137,128,'K',221,154,151,')',
+    92,'/',0xbe,129,'A',185,140,255,234,'}','`',6,158,205,215,'=',211,'.',163,
+    0x15,188,168,230,'&',229,'o',195,220,184,3,'!',234,159,22,241,',','T',181,
+]
+
 
 /**
 D-TRUST Root Class 3 CA 2 EV 2009.
 SHA256 fingerprint: ee:c5:49:6b:98:8c:e9:86:25:b9:34:09:2e:ec:29:08:be:d0:b0:f3:16:c2:d4:73:0c:84:ea:f1:f3:d3:48:81
 */
-D_TRUST_ROOT_CLASS_3_CA_2_EV_2009 ::= net.Certificate.parse D_TRUST_ROOT_CLASS_3_CA_2_EV_2009_TEXT_
+D_TRUST_ROOT_CLASS_3_CA_2_EV_2009 ::= parse_ D_TRUST_ROOT_CLASS_3_CA_2_EV_2009_BYTES_
 
-CA_DISIG_ROOT_R2_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIFaTCCA1GgAwIBAgIJAJK4iNuwisFjMA0GCSqGSIb3DQEBCwUAMFIxCzAJBgNV
-BAYTAlNLMRMwEQYDVQQHEwpCcmF0aXNsYXZhMRMwEQYDVQQKEwpEaXNpZyBhLnMu
-MRkwFwYDVQQDExBDQSBEaXNpZyBSb290IFIyMB4XDTEyMDcxOTA5MTUzMFoXDTQy
-MDcxOTA5MTUzMFowUjELMAkGA1UEBhMCU0sxEzARBgNVBAcTCkJyYXRpc2xhdmEx
-EzARBgNVBAoTCkRpc2lnIGEucy4xGTAXBgNVBAMTEENBIERpc2lnIFJvb3QgUjIw
-ggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQCio8QACdaFXS1tFPbCw3Oe
-NcJxVX6B+6tGUODBfEl45qt5WDza/3wcn9iXAng+a0EE6UG9vgMsRfYvZNSrXaNH
-PWSb6WiaxswbP7q+sos0Ai6YVRn8jG+qX9pMzk0DIaPY0jSTVpbLTAwAFjxfGs3I
-x2ymrdMxp7zo5eFm1tL7A7RBZckQrg4FY8aAamkw/dLukO8NJ9+flXP04SXabBbe
-QTg06ov80egEFGEtQX6sx3dOy1FU+16SGBsEWmjGycT6txOgmLcRK7fWV8x8nhfR
-yyX+hk4kLlYMeE2eARKmK6cBZW58Yh2EhN/qwGu1pSqVg8NTEQxzHQuyRpDRQjrO
-QG6Vrf/GlK1ul4SOfW+eioANSW1z4nuSHsPzwfPrLgVv2RvPN3YEyLRa5Beny912
-H9AZdugsBbPWnDTYltxhh5EF5EQIM8HauQhl1K6yNg3ruji6DOWbnuuNZt2Zz9aJ
-QfYEkoopKW1rOhzndX0CcQ7zwOe9yxndnWCywmZgtrEE7snmhrmaZkCo5xHtgUUD
-i/ZnWejBBhG93c+AAk9lQHhcR1DIm+YfgXvkRKhbhZri3lrVx/k6RGZL5DJUfORs
-nLMOPReisjQS1n6yqEm70XooQL6iFh/f5DcfEXP7kAplQ6INfPgGAVUzfbANuPT1
-rqVCV3w2EYx7XsQDnYx5nQIDAQABo0IwQDAPBgNVHRMBAf8EBTADAQH/MA4GA1Ud
-DwEB/wQEAwIBBjAdBgNVHQ4EFgQUtZn4r7CU9eMg1gqtzk5WpC5uQu0wDQYJKoZI
-hvcNAQELBQADggIBACYGXnDnZTPIgm7ZnBc6G3pmsgH2eDtpXi/q/075KMOYKmFM
-tCQSin1tERT3nLXK5ryeJ45MGcipvXrA1zYObYVybqjGom32+nNjf7xueQgcnYqf
-GopTpti72TVVsRHFqQOzVju5hJMiXn7B9hJSi+osZ7z+Nkz1uM/Rs0mSO9MpDpkb
-lvdhuDvEK7Z4bLQjb/D907JedR+Zlais9trhxTF7+9FGs9K8Z7RiVLoJ92Owk6Ka
-+elSLotgEqv89WBW7xBci8QaQtyDW2QOy7W81k/BfDxujRNt+3vrMNDcTa/F1bal
-TFtxyegxvug4BkihGuLq0t4SOVga/4AOgnXmt8kHbA7v/zjxmHHEt38OFdAlab0i
-nSvtBfZGR6ztwPDUO+Ls7pZbkBNOHlY667DvlruWIxG68kOGdGSVyCh13x01utI3
-gzhTODY7z2zp+WsO0PsE6E9312UBeIYMej4hYvF/Y3EMyZ9E26gnonW+boE+18Dr
-G5gPcFw0sorMwIUY6256s/daoQe/qUKS82Ail+QUoQebTnbAjn39pCXHR+3/H3Os
-zMOl6W8KjptlwlCFtaOgUxLMVYdh84GuEEZhvUQhuMI9dM9+JDX6HAcOmz0iyu8x
-L4ysEr3vQCj8KWefshNPZiTEUxnpHikV7+ZtsH8tZ/3zbBt1RqPlShfppNcL
------END CERTIFICATE-----
-"""
+CA_DISIG_ROOT_R2_BYTES_ ::= #[
+    '0',130,5,'i','0',130,3,'Q',160,3,2,1,2,2,9,0,146,184,136,219,176,138,193,
+    'c','0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,'0','R','1',11,'0',9,6,3,
+    'U',4,6,19,2,'S','K','1',19,'0',17,6,3,'U',4,7,19,0xa,'B','r','a','t','i',
+    's','l','a','v','a','1',19,'0',17,6,3,'U',4,0xa,19,10,'D','i','s','i','g',
+    ' ','a','.','s','.','1',0x19,'0',23,6,3,'U',4,3,19,16,'C','A',' ','D','i',
+    's','i','g',' ','R','o','o','t',' ','R','2','0',30,23,0xd,'1','2','0','7',
+    '1','9','0','9','1','5','3','0','Z',23,13,'4','2','0','7','1','9','0','9',
+    '1','5','3','0','Z','0','R','1',0xb,'0',9,6,3,'U',4,6,19,2,'S','K','1',19,
+    '0',0x11,6,3,'U',4,7,19,10,'B','r','a','t','i','s','l','a','v','a','1',19,
+    '0',17,6,3,'U',4,0xa,19,10,'D','i','s','i','g',' ','a','.','s','.','1',25,
+    '0',23,6,3,'U',4,3,19,16,'C','A',' ','D','i','s','i','g',' ','R','o','o',
+    't',' ','R','2','0',130,2,'"','0',13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,
+    3,130,2,15,0,'0',130,2,10,2,130,2,1,0,162,163,196,0,9,214,133,']','-','m',
+    0x14,0xf6,194,195,'s',158,'5',194,'q','U','~',129,251,171,'F','P',224,193,
+    '|','I','x',0xe6,171,'y','X','<',218,255,'|',28,159,216,151,2,'x','>','k',
+    'A',0x4,233,'A',189,190,3,',','E',246,'/','d',212,171,']',163,'G','=','d',
+    0x9b,0xe9,'h',154,198,204,27,'?',186,190,178,139,'4',2,'.',152,'U',25,252,
+    140,'o',170,'_',218,'L',206,'M',3,'!',163,216,210,'4',147,'V',150,203,'L',
+    0x0c,0,22,'<','_',26,0xcd,200,199,'l',166,173,211,'1',167,188,232,229,225,
+    'f',214,210,251,3,180,'A','e',201,16,174,14,5,'c',198,128,'j','i','0',253,
+    0xd2,238,144,239,13,39,223,159,149,'s',244,225,'%',218,'l',22,222,'A','8',
+    '4',0xea,139,252,209,232,4,20,'a','-','A','~',172,199,'w','N',203,'Q','T',
+    251,'^',146,24,27,4,'Z','h',198,201,196,250,183,19,160,152,183,17,'+',183,
+    214,'W',204,'|',158,23,209,203,'%',254,134,'N','$','.','V',12,'x','M',158,
+    1,18,166,'+',167,1,'e','n','|','b',29,132,132,223,234,192,'k',181,165,'*',
+    0x95,0x83,195,'S',17,12,'s',29,11,178,'F',144,209,'B',':',206,'@','n',149,
+    0xad,0xff,0xc6,148,173,'n',151,132,142,'}','o',158,138,128,13,'I','m','s',
+    226,'{',146,30,195,243,193,243,235,'.',5,'o',217,27,207,'7','v',4,200,180,
+    'Z',0xe4,0x17,167,203,221,'v',31,208,25,'v',232,',',5,179,214,156,'4',216,
+    0x96,220,'a',135,145,5,228,'D',8,'3',193,218,185,8,'e',212,174,178,'6',13,
+    0xeb,186,'8',186,12,229,155,158,235,141,'f',221,153,207,214,137,'A',246,4,
+    0x92,0x8a,')',')','m','k',':',28,231,'u','}',2,'q',14,243,192,231,189,203,
+    25,0xdd,157,'`',178,194,'f','`',182,177,4,238,201,230,134,185,154,'f','@',
+    0xa8,0xe7,17,237,129,'E',3,139,246,'g','Y',232,193,6,17,189,221,207,128,2,
+    'O','e','@','x',92,'G','P',200,155,230,31,129,'{',228,'D',168,'[',133,154,
+    0xe2,0xde,'Z',213,199,249,':','D','f','K',228,'2','T','|',228,'l',156,179,
+    0xe,'=',23,162,178,'4',18,214,'~',178,168,'I',187,209,'z','(','@',190,162,
+    22,31,223,228,'7',31,17,'s',251,144,10,'e','C',162,13,'|',248,6,1,'U','3',
+    '}',0xb0,0xd,184,244,245,174,165,'B','W','|','6',17,140,'{','^',196,3,157,
+    0x8c,'y',0x9d,2,3,1,0,1,0xa3,'B','0','@','0',15,6,3,'U',29,19,1,1,255,4,5,
+    '0',3,1,1,0xff,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',29,6,3,'U',29,
+    0x0e,4,22,4,20,181,153,248,175,176,148,245,227,' ',214,10,173,206,'N','V',
+    0xa4,'.','n','B',237,'0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,3,130,2,
+    1,0,'&',6,'^','p',231,'e','3',200,130,'n',217,156,23,':',27,'z','f',178,1,
+    0xf6,'x',';','i','^','/',0xea,255,'N',249,'(',195,152,'*','a','L',180,'$',
+    0x12,0x8a,'}','m',17,20,247,156,181,202,230,188,158,39,142,'L',25,200,169,
+    0xbd,'z',0xc0,0xd7,'6',14,'m',133,'r','n',168,198,162,'m',246,250,'s','c',
+    0x7f,0xbc,'n','y',8,28,157,138,159,26,138,'S',166,216,187,217,'5','U',177,
+    0x11,197,169,3,179,'V',';',185,132,147,'"','^','~',193,246,18,'R',139,234,
+    ',','g',188,254,'6','L',245,184,207,209,179,'I',146,';',211,')',14,153,27,
+    0x96,0xf7,'a',184,';',196,'+',182,'x','l',180,'#','o',240,253,211,178,'^',
+    'u',0x1f,0x99,149,168,172,246,218,225,197,'1','{',251,209,'F',179,210,188,
+    'g',0xb4,'b','T',186,9,247,'c',176,147,162,154,249,233,'R','.',139,'`',18,
+    0xab,0xfc,245,'`','V',239,16,92,139,196,26,'B',220,131,'[','d',14,203,181,
+    0xbc,0xd6,'O',0xc1,'|','<','n',141,19,'m',251,'{',235,'0',208,220,'M',175,
+    0xc5,213,182,165,'L','[','q',201,232,'1',190,232,'8',6,'H',161,26,226,234,
+    210,222,18,'9','X',26,255,128,14,130,'u',230,183,201,7,'l',14,239,255,'8',
+    0xf1,0x98,'q',196,183,127,14,21,208,'%','i',189,'"',157,'+',237,5,246,'F',
+    'G',172,237,192,240,212,';',226,236,238,150,'[',144,19,'N',30,'V',':',235,
+    176,239,150,187,150,'#',17,186,242,'C',134,'t','d',149,200,'(','u',223,29,
+    '5',0xba,210,'7',131,'8','S','8','6',';',207,'l',233,249,'k',14,208,251,4,
+    0xe8,'O','w',0xd7,'e',1,'x',134,12,'z','>','!','b',241,127,'c','q',12,201,
+    0x9f,'D',0xdb,168,39,162,'u',190,'n',129,'>',215,192,235,27,152,15,'p',92,
+    '4',0xb2,138,204,192,133,24,235,'n','z',179,247,'Z',161,7,191,169,'B',146,
+    0xf3,'`','"',151,228,20,161,7,155,'N','v',192,142,'}',253,164,'%',199,'G',
+    237,255,31,'s',172,204,195,165,233,'o',10,142,155,'e',194,'P',133,181,163,
+    160,'S',18,204,'U',135,'a',243,129,174,16,'F','a',189,'D','!',184,194,'=',
+    't',0xcf,'~','$','5',0xfa,28,7,0xe,155,'=','"',202,239,'1','/',140,172,18,
+    0xbd,239,'@','(',252,')','g',159,178,19,'O','f','$',196,'S',25,233,30,')',
+    21,0xef,230,'m',176,127,'-','g',253,243,'l',27,'u','F',163,229,'J',23,233,
+    164,215,11,
+]
+
 
 /**
 CA Disig Root R2.
 SHA256 fingerprint: e2:3d:4a:03:6d:7b:70:e9:f5:95:b1:42:20:79:d2:b9:1e:df:bb:1f:b6:51:a0:63:3e:aa:8a:9d:c5:f8:07:03
 */
-CA_DISIG_ROOT_R2 ::= net.Certificate.parse CA_DISIG_ROOT_R2_TEXT_
+CA_DISIG_ROOT_R2 ::= parse_ CA_DISIG_ROOT_R2_BYTES_
 
-ACCVRAIZ1_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIH0zCCBbugAwIBAgIIXsO3pkN/pOAwDQYJKoZIhvcNAQEFBQAwQjESMBAGA1UE
-AwwJQUNDVlJBSVoxMRAwDgYDVQQLDAdQS0lBQ0NWMQ0wCwYDVQQKDARBQ0NWMQsw
-CQYDVQQGEwJFUzAeFw0xMTA1MDUwOTM3MzdaFw0zMDEyMzEwOTM3MzdaMEIxEjAQ
-BgNVBAMMCUFDQ1ZSQUlaMTEQMA4GA1UECwwHUEtJQUNDVjENMAsGA1UECgwEQUND
-VjELMAkGA1UEBhMCRVMwggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQCb
-qau/YUqXry+XZpp0X9DZlv3P4uRm7x8fRzPCRKPfmt4ftVTdFXxpNRFvu8gMjmoY
-HtiP2Ra8EEg2XPBjs5BaXCQ316PWywlxufEBcoSwfdtNgM3802/J+Nq2DoLSRYWo
-G2ioPej0RGy9ocLLA76MPhMAhN9KSMDjIgro6TenGEyxCQ0jVn8ETdkXhBilyNpA
-lHPrzg5XPAOBOp0KoVdDaaxXbXmQeOW1tDvYvEyNKKGno6e6Ak4l0Squ7a4DIrhr
-IA8wKFSVf+DuzgpmndFALW4ir50awQUZ0m/A8p/4e7MCQvtQqR0tkw8jq8bBD5L/
-0KIV9VMJcRz/RROE5iZe+OCIHAr8Fraocwa48GOEAqDGWuzndN9wrqODJerWx5eH
-k6fGioozl2A3ED6XPm4pFdahD9GILBKfb6qkxkLrQaLjlUPTAYVtjrs78yM2x/47
-4KElB0iryYl0/wiPgL/AlmXz7uxLaL2diMMxs0Dx6M/2OLuc5NF/1OVYm3z61PMO
-m3WR5LpSLhl+0fXNWhn8ugb2+1KoS5kE3fj5tItQo05iifCHJPqDQsGH+tUtKSpa
-cXpkatcnYGMN285J9Y0fkIkyF/hzQ7jSWpOGYdbhdQrqeWZ2iE9x6wQl1gpaepPl
-uUsXQA+xtrn13k/c4LOsOxFwYIRKQ26ZIMApcQrAZQIDAQABo4ICyzCCAscwfQYI
-KwYBBQUHAQEEcTBvMEwGCCsGAQUFBzAChkBodHRwOi8vd3d3LmFjY3YuZXMvZmls
-ZWFkbWluL0FyY2hpdm9zL2NlcnRpZmljYWRvcy9yYWl6YWNjdjEuY3J0MB8GCCsG
-AQUFBzABhhNodHRwOi8vb2NzcC5hY2N2LmVzMB0GA1UdDgQWBBTSh7Tj3zcnk1X2
-VuqB5TbMjB4/vTAPBgNVHRMBAf8EBTADAQH/MB8GA1UdIwQYMBaAFNKHtOPfNyeT
-VfZW6oHlNsyMHj+9MIIBcwYDVR0gBIIBajCCAWYwggFiBgRVHSAAMIIBWDCCASIG
-CCsGAQUFBwICMIIBFB6CARAAQQB1AHQAbwByAGkAZABhAGQAIABkAGUAIABDAGUA
-cgB0AGkAZgBpAGMAYQBjAGkA8wBuACAAUgBhAO0AegAgAGQAZQAgAGwAYQAgAEEA
-QwBDAFYAIAAoAEEAZwBlAG4AYwBpAGEAIABkAGUAIABUAGUAYwBuAG8AbABvAGcA
-7QBhACAAeQAgAEMAZQByAHQAaQBmAGkAYwBhAGMAaQDzAG4AIABFAGwAZQBjAHQA
-cgDzAG4AaQBjAGEALAAgAEMASQBGACAAUQA0ADYAMAAxADEANQA2AEUAKQAuACAA
-QwBQAFMAIABlAG4AIABoAHQAdABwADoALwAvAHcAdwB3AC4AYQBjAGMAdgAuAGUA
-czAwBggrBgEFBQcCARYkaHR0cDovL3d3dy5hY2N2LmVzL2xlZ2lzbGFjaW9uX2Mu
-aHRtMFUGA1UdHwROMEwwSqBIoEaGRGh0dHA6Ly93d3cuYWNjdi5lcy9maWxlYWRt
-aW4vQXJjaGl2b3MvY2VydGlmaWNhZG9zL3JhaXphY2N2MV9kZXIuY3JsMA4GA1Ud
-DwEB/wQEAwIBBjAXBgNVHREEEDAOgQxhY2N2QGFjY3YuZXMwDQYJKoZIhvcNAQEF
-BQADggIBAJcxAp/n/UNnSEQU5CmH7UwoZtCPNdpNYbdKl02125DgBS4OxnnQ8pdp
-D70ER9m+27Up2pvZrqmZ1dM8MJP1jaGo/AaNRPTKFpV8M9xii6g3+CfYCS0b78gU
-JyCpZET/LtZ1qmxNYEAZSUNUY9rizLpm5U9EelvZaoErQNV/+QEnWCzI7UiRfD+m
-AM/EKXMRNt6GGT6d7hmKG9Ww7Y49nCrADdg9ZuM8Db3VlFzi4qc1GwQA9j9ajepD
-vV+JHanBsMyZ4k0ACtrJJ1vnE5Bc5PUzolVt3OAJTS+xJlsndQAJxGJ3KQhfnlms
-tn6tn1QwIgPBHnFk/vk4CpYY3QIUrCPLBhwepH2NDd4nQeit2hW3sCPdK6jT2iWH
-7ehVRE2I9DZ+hJp4rPcOVkkO1jMl1oRQQmwgEh0q1b688nCBpHBgvgW1m54ERL5h
-I6zppSSMEYCUWqKiuUnSwdzRp+0xESyeGabu4VXhwOrPDYTkF7eifKXeVSUG7szA
-h1xA2syVP1XgNce4hL60Xc16gwFy7ofmXx2utYXGJt/mwZrpHgJHnyqobalbz+xF
-d3+YJ5oyXSrjhO7FmGYvliAd3djDJ9ew+f7Zfc3Qn48LFFhRny+Lwzgt3uiP1o2H
-pPVWQxaZLPSkVrQ0uGE3ycJYgBugl6H8WY3pEfbRD0tVNEYqi4Y7
------END CERTIFICATE-----
-"""
+ACCVRAIZ1_BYTES_ ::= #[
+    '0',0x82,7,0xd3,'0',130,5,187,160,3,2,1,2,2,8,'^',195,183,166,'C',127,164,
+    224,'0',13,6,9,'*',134,'H',134,247,13,1,1,5,5,0,'0','B','1',18,'0',16,6,3,
+    'U',4,3,0xc,9,'A','C','C','V','R','A','I','Z','1','1',16,'0',14,6,3,'U',4,
+    0x0b,12,7,'P','K','I','A','C','C','V','1',13,'0',11,6,3,'U',4,10,12,4,'A',
+    'C','C','V','1',0x0b,'0',9,6,3,'U',4,6,19,2,'E','S','0',30,23,0xd,'1','1',
+    '0','5','0','5','0','9','3','7','3','7','Z',23,13,'3','0','1','2','3','1',
+    '0','9','3','7','3','7','Z','0','B','1',0x12,'0',16,6,3,'U',4,3,0xc,9,'A',
+    'C','C','V','R','A','I','Z','1','1',0x10,'0',14,6,3,'U',4,11,12,7,'P','K',
+    'I','A','C','C','V','1',0x0d,'0',11,6,3,'U',4,10,12,4,'A','C','C','V','1',
+    0x0b,'0',9,6,3,'U',4,6,19,2,'E','S','0',0x82,2,'"','0',13,6,9,'*',134,'H',
+    0x86,0xf7,0xd,1,1,1,5,0,3,130,2,15,0,'0',130,2,10,2,130,2,1,0,155,169,171,
+    0xbf,'a','J',0x97,175,'/',151,'f',154,'t','_',208,217,150,253,207,226,228,
+    'f',0xef,31,31,'G','3',0xc2,'D',163,223,154,222,31,181,'T',221,21,'|','i',
+    '5',17,'o',0xbb,200,12,142,'j',24,30,216,143,217,22,188,16,'H','6',92,240,
+    'c',0xb3,0x90,'Z',92,'$','7',0xd7,163,214,203,9,'q',185,241,1,'r',132,176,
+    '}',219,'M',128,205,252,211,'o',201,248,218,182,14,130,210,'E',133,168,27,
+    'h',0xa8,'=',0xe8,0xf4,'D','l',189,161,194,203,3,190,140,'>',19,0,132,223,
+    'J','H',0xc0,227,'"',10,232,233,'7',167,24,'L',177,9,13,'#','V',127,4,'M',
+    217,23,132,24,165,200,218,'@',148,'s',235,206,14,'W','<',3,129,':',157,10,
+    0xa1,'W','C','i',0xac,'W','m','y',144,'x',229,181,180,';',216,188,'L',141,
+    '(',0xa1,0xa7,163,167,186,2,'N','%',209,'*',174,237,174,3,'"',184,'k',' ',
+    15,'0','(','T',149,127,224,238,206,10,'f',157,209,'@','-','n','"',175,157,
+    26,0xc1,5,25,210,'o',192,242,159,248,'{',179,2,'B',251,'P',169,29,'-',147,
+    0xf,'#',171,198,193,15,146,255,208,162,21,245,'S',9,'q',28,255,'E',19,132,
+    0xe6,'&','^',248,224,136,28,10,252,22,182,168,'s',6,184,240,'c',132,2,160,
+    0xc6,'Z',0xec,231,'t',223,'p',174,163,131,'%',234,214,199,151,135,147,167,
+    0xc6,138,138,'3',151,'`','7',16,'>',151,'>','n',')',21,214,161,15,209,136,
+    ',',18,0x9f,'o',170,164,198,'B',235,'A',162,227,149,'C',211,1,133,'m',142,
+    0xbb,';',0xf3,'#','6',199,254,';',224,161,'%',7,'H',171,201,137,'t',255,8,
+    0x8f,0x80,191,192,150,'e',243,238,236,'K','h',189,157,136,195,'1',179,'@',
+    0xf1,0xe8,207,246,'8',187,156,228,209,127,212,229,'X',155,'|',250,212,243,
+    0x0e,0x9b,'u',145,228,186,'R','.',25,'~',209,245,205,'Z',25,252,186,6,246,
+    251,'R',168,'K',153,4,221,248,249,180,139,'P',163,'N','b',137,240,135,'$',
+    0xfa,0x83,'B',0xc1,135,250,213,'-',')','*','Z','q','z','d','j',215,39,'`',
+    'c',0xd,219,206,'I',245,141,31,144,137,'2',23,248,'s','C',184,210,'Z',147,
+    0x86,'a',0xd6,225,'u',10,234,'y','f','v',136,'O','q',235,4,'%',214,10,'Z',
+    'z',147,229,185,'K',23,'@',15,177,182,185,245,222,'O',220,224,179,172,';',
+    0x11,'p','`',132,'J','C','n',153,' ',192,')','q',10,192,'e',2,3,1,0,1,163,
+    0x82,2,0xcb,'0',130,2,199,'0','}',6,8,'+',6,1,5,5,7,1,1,4,'q','0','o','0',
+    'L',0x6,8,'+',6,1,5,5,7,'0',2,134,'@','h','t','t','p',':','/','/','w','w',
+    'w','.','a','c','c','v','.','e','s','/','f','i','l','e','a','d','m','i',
+    'n','/','A','r','c','h','i','v','o','s','/','c','e','r','t','i','f','i',
+    'c','a','d','o','s','/','r','a','i','z','a','c','c','v','1','.','c','r',
+    't','0',31,6,8,'+',6,1,5,5,7,'0',1,134,19,'h','t','t','p',':','/','/','o',
+    'c','s','p','.','a','c','c','v','.','e','s','0',0x1d,6,3,'U',29,14,4,22,4,
+    20,0xd2,135,180,227,223,'7',39,147,'U',246,'V',234,129,229,'6',204,140,30,
+    '?',0xbd,'0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',31,6,3,'U',29,
+    '#',4,24,'0',22,128,20,210,135,180,227,223,'7',39,147,'U',246,'V',234,129,
+    0xe5,'6',0xcc,140,30,'?',189,'0',130,1,'s',6,3,'U',29,' ',4,130,1,'j','0',
+    0x82,1,'f','0',130,1,'b',6,4,'U',29,' ',0,'0',130,1,'X','0',130,1,'"',6,8,
+    '+',6,1,5,5,7,2,2,'0',0x82,1,20,30,130,1,16,0,'A',0,'u',0,'t',0,'o',0,'r',
+    0,'i',0,'d',0,'a',0,'d',0,' ',0,'d',0,'e',0,' ',0,'C',0,'e',0,'r',0,'t',0,
+    'i',0x0,'f',0,'i',0,'c',0,'a',0,'c',0,'i',0,243,0,'n',0,' ',0,'R',0,'a',0,
+    0xed,0,'z',0,' ',0,'d',0,'e',0,' ',0,'l',0,'a',0,' ',0,'A',0,'C',0,'C',0,
+    'V',0x0,' ',0,'(',0,'A',0,'g',0,'e',0,'n',0,'c',0,'i',0,'a',0,' ',0,'d',0,
+    'e',0x0,' ',0,'T',0,'e',0,'c',0,'n',0,'o',0,'l',0,'o',0,'g',0,237,0,'a',0,
+    ' ',0x0,'y',0,' ',0,'C',0,'e',0,'r',0,'t',0,'i',0,'f',0,'i',0,'c',0,'a',0,
+    'c',0x0,'i',0,243,0,'n',0,' ',0,'E',0,'l',0,'e',0,'c',0,'t',0,'r',0,243,0,
+    'n',0x0,'i',0,'c',0,'a',0,',',0,' ',0,'C',0,'I',0,'F',0,' ',0,'Q',0,'4',0,
+    '6',0x0,'0',0,'1',0,'1',0,'5',0,'6',0,'E',0,')',0,'.',0,' ',0,'C',0,'P',0,
+    'S',0x0,' ',0,'e',0,'n',0,' ',0,'h',0,'t',0,'t',0,'p',0,':',0,'/',0,'/',0,
+    'w',0,'w',0,'w',0,'.',0,'a',0,'c',0,'c',0,'v',0,'.',0,'e',0,'s','0','0',6,
+    0x08,'+',6,1,5,5,7,2,1,22,'$','h','t','t','p',':','/','/','w','w','w','.',
+    'a','c','c','v','.','e','s','/','l','e','g','i','s','l','a','c','i','o',
+    'n','_','c','.','h','t','m','0','U',0x6,3,'U',29,31,4,'N','0','L','0','J',
+    0xa0,'H',0xa0,'F',134,'D','h','t','t','p',':','/','/','w','w','w','.','a',
+    'c','c','v','.','e','s','/','f','i','l','e','a','d','m','i','n','/','A',
+    'r','c','h','i','v','o','s','/','c','e','r','t','i','f','i','c','a','d',
+    'o','s','/','r','a','i','z','a','c','c','v','1','_','d','e','r','.','c',
+    'r','l','0',0x0e,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',23,6,3,'U',29,17,4,
+    16,'0',14,129,12,'a','c','c','v','@','a','c','c','v','.','e','s','0',13,6,
+    9,'*',0x86,'H',134,247,13,1,1,5,5,0,3,130,2,1,0,151,'1',2,159,231,253,'C',
+    'g','H','D',0x14,0xe4,')',135,237,'L','(','f',208,143,'5',218,'M','a',183,
+    'J',151,'M',181,219,144,224,5,'.',14,198,'y',208,242,151,'i',15,189,4,'G',
+    0xd9,0xbe,219,181,')',218,155,217,174,169,153,213,211,'<','0',147,245,141,
+    0xa1,0xa8,252,6,141,'D',244,202,22,149,'|','3',220,'b',139,168,'7',248,39,
+    0xd8,0x9,'-',27,239,200,20,39,' ',169,'d','D',255,'.',214,'u',170,'l','M',
+    '`','@',0x19,'I','C','T','c',0xda,226,204,186,'f',229,'O','D','z','[',217,
+    'j',0x81,'+','@',0xd5,0x7f,249,1,39,'X',',',200,237,'H',145,'|','?',166,0,
+    0xcf,0xc4,')','s',17,'6',222,134,25,'>',157,238,25,138,27,213,176,237,142,
+    '=',0x9c,'*',192,13,216,'=','f',227,'<',13,189,213,148,92,226,226,167,'5',
+    27,4,0,246,'?','Z',141,234,'C',189,'_',137,29,169,193,176,204,153,226,'M',
+    0x0,10,218,201,39,'[',231,19,144,92,228,245,'3',162,'U','m',220,224,9,'M',
+    '/',0xb1,'&','[',39,'u',0,9,196,'b','w',')',8,'_',158,'Y',172,182,'~',173,
+    0x9f,'T','0','"',3,0xc1,30,'q','d',254,249,'8',10,150,24,221,2,20,172,'#',
+    0xcb,6,28,30,164,'}',141,13,222,39,'A',232,173,218,21,183,176,'#',221,'+',
+    0xa8,0xd3,218,'%',135,237,232,'U','D','M',136,244,'6','~',132,154,'x',172,
+    0xf7,0xe,'V','I',14,214,'3','%',214,132,'P','B','l',' ',18,29,'*',213,190,
+    0xbc,0xf2,'p',129,164,'p','`',190,5,181,155,158,4,'D',190,'a','#',172,233,
+    165,'$',140,17,128,148,'Z',162,162,185,'I',210,193,220,209,167,237,'1',17,
+    ',',0x9e,25,166,238,225,'U',225,192,234,207,13,132,228,23,183,162,'|',165,
+    0xde,'U','%',6,238,204,192,135,92,'@',218,204,149,'?','U',224,'5',199,184,
+    0x84,190,180,']',205,'z',131,1,'r',238,135,230,'_',29,174,181,133,198,'&',
+    0xdf,230,193,154,233,30,2,'G',159,'*',168,'m',169,'[',207,236,'E','w',127,
+    152,39,154,'2',']','*',227,132,238,197,152,'f','/',150,' ',29,221,216,195,
+    39,0xd7,176,249,254,217,'}',205,208,159,143,11,20,'X','Q',159,'/',139,195,
+    '8','-',0xde,0xe8,0x8f,214,141,135,164,245,'V','C',22,153,',',244,164,'V',
+    180,'4',184,'a','7',201,194,'X',128,27,160,151,161,252,'Y',141,233,17,246,
+    209,15,'K','U','4','F','*',139,134,';',
+]
+
 
 /**
 ACCVRAIZ1.
 SHA256 fingerprint: 9a:6e:c0:12:e1:a7:da:9d:be:34:19:4d:47:8a:d7:c0:db:18:22:fb:07:1d:f1:29:81:49:6e:d1:04:38:41:13
 */
-ACCVRAIZ1 ::= net.Certificate.parse ACCVRAIZ1_TEXT_
+ACCVRAIZ1 ::= parse_ ACCVRAIZ1_BYTES_
 
-TWCA_GLOBAL_ROOT_CA_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIFQTCCAymgAwIBAgICDL4wDQYJKoZIhvcNAQELBQAwUTELMAkGA1UEBhMCVFcx
-EjAQBgNVBAoTCVRBSVdBTi1DQTEQMA4GA1UECxMHUm9vdCBDQTEcMBoGA1UEAxMT
-VFdDQSBHbG9iYWwgUm9vdCBDQTAeFw0xMjA2MjcwNjI4MzNaFw0zMDEyMzExNTU5
-NTlaMFExCzAJBgNVBAYTAlRXMRIwEAYDVQQKEwlUQUlXQU4tQ0ExEDAOBgNVBAsT
-B1Jvb3QgQ0ExHDAaBgNVBAMTE1RXQ0EgR2xvYmFsIFJvb3QgQ0EwggIiMA0GCSqG
-SIb3DQEBAQUAA4ICDwAwggIKAoICAQCwBdvI64zEbooh745NnHEKH1Jw7W2CnJfF
-10xORUnLQEK1EjRsGcJ0pDFfhQKX7EMzClPSnIyOt7h52yvVavKOZsTuKwEHktSz
-0ALfUPZVr2YOy+BHYC8rMjk1Ujoog/h7FsYYuGLWRyWRzvAZEk2tY/XTP3VfKfCh
-MBwqoJimFb3u/Rk28OKRQ4/6ytYQJ0lM793B8YVwm8rqqFpD/G2Gb3PpN0Wp8DbH
-zIh1HrtsBv+baz4X7GGqcXzGHaL3SekVtTzWoWH1EfcFbx39Eb7QMAfCKbAJTibc
-46KokWofwpFFiFzlmLhxpRUZyXx1EcxwdE8tmx2RRP1WKKD+u4ZqyPpcC1jcxkt2
-yKsi2XMPpfRaAok/T54igu6idFMqPVMnaR1sjjIsZAAmY2E2TqNGtz99sy2sbZCi
-laLOz9qC5wc0GZbpuCGqKX6mOL6OKUohZnkfs8O1CWfe1tQHRvMq2uYiN2DLgbYP
-oA/pyJV/v1WRBXrPPRXAb94JlAGD1zQbzECl8LibZ9WYkTunhHiVJqRaCPgrdLQA
-BDzfuBSO6N+pjWxnkjMdwLfS7JLIvgm/LCkFbwJrnu+8vyq8W8BQj0FwcYeyTbcE
-qYSjMq+u7msXi7Kx/mzhkIyIqJdIzshNy/MGz19qCkKxHh53L46g5pIOBvwFItIm
-4TFRfTLcDwIDAQABoyMwITAOBgNVHQ8BAf8EBAMCAQYwDwYDVR0TAQH/BAUwAwEB
-/zANBgkqhkiG9w0BAQsFAAOCAgEAXzSBdu+WHdXltdkCY4QWwa6gcFGn90xHNcgL
-1yg9iXHZqjNB6hQbbCEAwGxCGX6faVsgQt+i0trEfJdLjbDorMjupWkEmQqSpqsn
-LhpNgb+E1HAerUf+/UqdM+DyucRFCCEK2mlpc3INvjT+lIutwx4116KD7+U4x6WF
-H6vPNOw/KP4M8VeGTslV9xzU2KV9Bnpv1d8Q34FOIWWxtuEXeZVFBs5fzNxGiWNo
-RI2T9GRwoD2dKAXDOXC4Ynsg/eTb6QihuJ49CcdP+yz4k3ZB3lLg4VfSnQO8d57+
-nile98FRYB/e2guyLXW3Q0iT5/Z5xoRdgFlglPx4mI88k1HtQJAH32RjJMtOcQWh
-15QaiDLxInQirqWm2BJpTGCjAu4r7NRjkgtevi92a6O2JryPA9gK8kxkRr05YuWW
-6zRjESjMlfGt7+/cgFhI6Uu46mWs6fyAtbXIRfmswZ/ZuepiiI7E8UuDEq3mi4TW
-nsLrgxifarsbJGAzcMzs9zLzXNl5fe+epP7JI8Mk7hWSsT2RTyaGvWZzJBPqpK5j
-wa19hAM8EHiGG3njxPPyBJUgriOCxLM6AGK/5jYk4Ve6xx6QddVfP5VhK8E7zeWz
-aGHQRiapIVJpLesux+t3zqY6tQMzT3bR51xUAV3LePTJDL/PEo4XLSNolOer/qmy
-KwbQBM0=
------END CERTIFICATE-----
-"""
+TWCA_GLOBAL_ROOT_CA_BYTES_ ::= #[
+    '0',130,5,'A','0',130,3,')',160,3,2,1,2,2,2,12,190,'0',13,6,9,'*',134,'H',
+    0x86,0xf7,13,1,1,11,5,0,'0','Q','1',11,'0',9,6,3,'U',4,6,19,2,'T','W','1',
+    0x12,'0',16,6,3,'U',4,0xa,19,9,'T','A','I','W','A','N','-','C','A','1',16,
+    '0',0x0e,6,3,'U',4,0xb,19,7,'R','o','o','t',' ','C','A','1',28,'0',26,6,3,
+    'U',4,3,19,19,'T','W','C','A',' ','G','l','o','b','a','l',' ','R','o','o',
+    't',' ','C','A','0',30,23,0xd,'1','2','0','6','2','7','0','6','2','8','3',
+    '3','Z',23,13,'3','0','1','2','3','1','1','5','5','9','5','9','Z','0','Q',
+    '1',11,'0',9,6,3,'U',4,6,19,2,'T','W','1',18,'0',16,6,3,'U',4,10,19,9,'T',
+    'A','I','W','A','N','-','C','A','1',0x10,'0',14,6,3,'U',4,11,19,7,'R','o',
+    'o','t',' ','C','A','1',0x1c,'0',26,6,3,'U',4,3,19,19,'T','W','C','A',' ',
+    'G','l','o','b','a','l',' ','R','o','o','t',' ','C','A','0',130,2,'"','0',
+    13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,2,15,0,'0',130,2,10,2,130,2,
+    0x1,0,176,5,219,200,235,140,196,'n',138,'!',239,142,'M',156,'q',10,31,'R',
+    'p',0xed,'m',0x82,0x9c,151,197,215,'L','N','E','I',203,'@','B',181,18,'4',
+    'l',0x19,194,'t',164,'1','_',133,2,151,236,'C','3',10,'S',210,156,140,142,
+    183,184,'y',219,'+',213,'j',242,142,'f',196,238,'+',1,7,146,212,179,208,2,
+    0xdf,'P',0xf6,'U',0xaf,'f',14,203,224,'G','`','/','+','2','9','5','R',':',
+    '(',0x83,0xf8,'{',22,198,24,184,'b',214,'G','%',145,206,240,25,18,'M',173,
+    'c',245,211,'?','u','_',')',240,161,'0',28,'*',160,152,166,21,189,238,253,
+    25,'6',0xf0,226,145,'C',143,250,202,214,16,39,'I','L',239,221,193,241,133,
+    'p',0x9b,0xca,234,168,'Z','C',252,'m',134,'o','s',233,'7','E',169,240,'6',
+    0xc7,0xcc,136,'u',30,187,'l',6,255,155,'k','>',23,236,'a',170,'q','|',198,
+    29,0xa2,247,'I',233,21,181,'<',214,161,'a',245,17,247,5,'o',29,253,17,190,
+    0xd0,'0',0x7,194,')',176,9,'N','&',220,227,162,168,145,'j',31,194,145,'E',
+    0x88,92,0xe5,152,184,'q',165,21,25,201,'|','u',17,204,'p','t','O','-',155,
+    29,0x91,'D',253,'V','(',160,254,187,134,'j',200,250,92,11,'X',220,198,'K',
+    'v',0xc8,171,'"',217,'s',15,165,244,'Z',2,137,'?','O',158,'"',130,238,162,
+    't','S','*','=','S',0x27,'i',29,'l',142,'2',',','d',0,'&','c','a','6','N',
+    163,'F',183,'?','}',179,'-',172,'m',144,162,149,162,206,207,218,130,231,7,
+    '4',25,150,233,184,'!',170,')','~',166,'8',190,142,')','J','!','f','y',31,
+    0xb3,0xc3,181,9,'g',222,214,212,7,'F',243,'*',218,230,'"','7','`',203,129,
+    0xb6,15,160,15,233,200,149,127,191,'U',145,5,'z',207,'=',21,192,'o',222,9,
+    0x94,1,131,215,'4',27,204,'@',165,240,184,155,'g',213,152,145,';',167,132,
+    'x',0x95,'&',164,'Z',8,248,'+','t',180,0,4,'<',223,184,20,142,232,223,169,
+    0x8d,'l','g',146,'3',29,192,183,210,236,146,200,190,9,191,',',')',5,'o',2,
+    'k',158,239,188,191,'*',188,'[',192,'P',143,'A','p','q',135,178,'M',183,4,
+    0xa9,0x84,0xa3,'2',175,174,238,'k',23,139,178,177,254,'l',225,144,140,136,
+    0xa8,0x97,'H',0xce,200,'M',203,243,6,207,'_','j',10,'B',177,30,30,'w','/',
+    142,160,230,146,14,6,252,5,'"',210,'&',225,'1','Q','}','2',220,15,2,3,1,0,
+    1,163,'#','0','!','0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',15,6,3,'U',
+    29,19,1,1,0xff,4,5,'0',3,1,1,255,'0',13,6,9,'*',134,'H',134,247,13,1,1,11,
+    0x5,0,3,130,2,1,0,'_','4',129,'v',239,150,29,213,229,181,217,2,'c',132,22,
+    0xc1,0xae,0xa0,'p','Q',167,247,'L','G','5',200,11,215,'(','=',137,'q',217,
+    0xaa,'3','A',0xea,20,27,'l','!',0,0xc0,'l','B',25,'~',159,'i','[',' ','B',
+    0xdf,162,210,218,196,'|',151,'K',141,176,232,172,200,238,165,'i',4,153,10,
+    0x92,166,171,39,'.',26,'M',129,191,132,212,'p',30,173,'G',254,253,'J',157,
+    '3',0xe0,0xf2,185,196,'E',8,'!',10,218,'i','i','s','r',13,190,'4',254,148,
+    139,173,195,30,'5',215,162,131,239,229,'8',199,165,133,31,171,207,'4',236,
+    '?','(',0xfe,0xc,241,'W',134,'N',201,'U',247,28,212,216,165,'}',6,'z','o',
+    0xd5,0xdf,16,223,129,'N','!','e',177,182,225,23,'y',149,'E',6,206,'_',204,
+    220,'F',137,'c','h','D',141,147,244,'d','p',160,'=',157,'(',5,195,'9','p',
+    0xb8,'b','{',' ',0xfd,228,219,233,8,161,184,158,'=',9,199,'O',251,',',248,
+    147,'v','A',222,'R',224,225,'W',210,157,3,188,'w',158,254,158,')','^',247,
+    193,'Q','`',31,222,218,11,178,'-','u',183,'C','H',147,231,246,'y',198,132,
+    ']',128,'Y','`',148,252,'x',152,143,'<',147,'Q',237,'@',144,7,223,'d','c',
+    '$',0xcb,'N','q',5,161,215,148,26,136,'2',241,'"','t','"',174,165,166,216,
+    0x12,'i','L','`',163,2,238,'+',236,212,'c',146,11,'^',190,'/','v','k',163,
+    0xb6,'&',188,143,3,216,10,242,'L','d','F',189,'9','b',229,150,235,'4','c',
+    0x11,'(',0xcc,149,241,173,239,239,220,128,'X','H',233,'K',184,234,'e',172,
+    0xe9,0xfc,128,181,181,200,'E',249,172,193,159,217,185,234,'b',136,142,196,
+    0xf1,'K',131,18,173,230,139,132,214,158,194,235,131,24,159,'j',187,27,'$',
+    '`','3','p',0xcc,0xec,0xf7,'2',243,92,217,'y','}',239,158,164,254,201,'#',
+    195,'$',238,21,146,177,'=',145,'O','&',134,189,'f','s','$',19,234,164,174,
+    'c',193,173,'}',132,3,'<',16,'x',134,27,'y',227,196,243,242,4,149,' ',174,
+    '#',0x82,196,179,':',0,'b',191,230,'6','$',225,'W',186,199,30,144,'u',213,
+    '_','?',0x95,'a','+',0xc1,';',205,229,179,'h','a',208,'F','&',169,'!','R',
+    'i','-',0xeb,'.',199,235,'w',206,166,':',181,3,'3','O','v',209,231,92,'T',
+    0x01,']',203,'x',244,201,12,191,207,18,142,23,'-','#','h',148,231,171,254,
+    169,178,'+',6,208,4,205,
+]
+
 
 /**
 TWCA Global Root CA.
 SHA256 fingerprint: 59:76:90:07:f7:68:5d:0f:cd:50:87:2f:9f:95:d5:75:5a:5b:2b:45:7d:81:f3:69:2b:61:0a:98:67:2f:0e:1b
 */
-TWCA_GLOBAL_ROOT_CA ::= net.Certificate.parse TWCA_GLOBAL_ROOT_CA_TEXT_
+TWCA_GLOBAL_ROOT_CA ::= parse_ TWCA_GLOBAL_ROOT_CA_BYTES_
 
-TELIASONERA_ROOT_CA_V1_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIFODCCAyCgAwIBAgIRAJW+FqD3LkbxezmCcvqLzZYwDQYJKoZIhvcNAQEFBQAw
-NzEUMBIGA1UECgwLVGVsaWFTb25lcmExHzAdBgNVBAMMFlRlbGlhU29uZXJhIFJv
-b3QgQ0EgdjEwHhcNMDcxMDE4MTIwMDUwWhcNMzIxMDE4MTIwMDUwWjA3MRQwEgYD
-VQQKDAtUZWxpYVNvbmVyYTEfMB0GA1UEAwwWVGVsaWFTb25lcmEgUm9vdCBDQSB2
-MTCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAMK+6yfwIaPzaSZVfp3F
-VRaRXP3vIb9TgHot0pGMYzHw7CTww6XScnwQbfQ3t+XmfHnqjLWCi65ItqwA3GV1
-7CpNX8GH9SBlK4GoRz6JI5UwFpB/6FcHSOcZrr9FZ7E3GwYq/t75rH2D+1665I+X
-Z75Ljo1kB1c4VWk0Nj0TSO9P4tNmHqTPGrdeNjPUtAa9GAH9d4RQAEX1jF3oI7x+
-/jXh7VB7qTCNGdMJjmhnXb88lxhTuylixcpecsHHltTbLaC0H2kD7OriUPEMPPCs
-81Mt8Bz17Ww5OXOAFshSsCPN4D7c3TxHoLs1iuKYaIu+5b9y7tL6pe0S7fyYGKkm
-dtwoSxAgHNN/Fnct7W+A90m7UwW7XWjH1Mh1Fj+JWov3F0fUTPHSiXk+TT2YqGHe
-Oh7S+F4D4MHJHIzTjU3TlTazN19jY5szFPAtJmtTfImMMsJu7D0hADnJoWjiUIMu
-sDor8zagrC/kb2HCUQk5PotTubtn2txTuXZZNp1D5SDgPTJghSJRt8czu90VL6R4
-pgd7gUY2BIbdeTXHlSw7sKMXNeVzH7RcWe/a6hBle3rQf5+ztCo3O3CLm1u5K7fs
-slESl1MpWtTwEhDcTwK7EpIvYtQ/aUN8Ddb8WHUBiJ1YFkveupD/RwGJBmr2X7KQ
-arMCpgKIv7NHfirZ1fpoeDVNAgMBAAGjPzA9MA8GA1UdEwEB/wQFMAMBAf8wCwYD
-VR0PBAQDAgEGMB0GA1UdDgQWBBTwj1k4ALP1j5qWDNXr+nuqF+gTEjANBgkqhkiG
-9w0BAQUFAAOCAgEAvuRcYk4k9AwI//DTDGjkk0kiP0Qnb7tt3oNmzqjMDfz1mgbl
-dxSR651Be5kqhOX//CHBXfDkH1e3damhXwIm/9fH907eT/j3HEbAek9ALCI18Bmx
-0GtnLLCo4MBANzX2hFxc469CeP6nyQ1Q6g2EdvZR74NTxnr/DlZJLo961gzmJ1Tj
-TQpgcmLNkQfWpb/ImWvtxBnmq0wROMVvMeJuScg/doAmAyYp4Db29iBT4xdwNBed
-Y2gea+zDTYa4EzAvXUYNR0PVG6pZDrlcjQZIrXSHX8f8MVRBE+LHIQ6e4B4N4cB7
-Q4WQxYpYxmUKeFfyxiMPAdkgS94P+5KFdSpcc41teyWRyu5FrgZLAMzTsVlQ2jqI
-OylDRl6XK1TOU2+NSueW+r9xDkKLfP0ooNBIytrEgUy7onOTJsjrDNYmiLbAJM+7
-vVvrdX3pCI6GMyx5dwlppYn8s3CQh3aP0yK7Qs69cwsgJirQmz1wHiRszYd2qReW
-t88NkvuOGKmYSdGe/mBEciG5Ge3C9THxOUiIkCR1VBatzvT4aRRkOfujuLpwQMcn
-HL/EVlP6Y2XQ8xwOFvVrhlhNGNTkDY6lnVuR3HYkUD/GKvvZt5y11ubQ2egZixVx
-SK236thZiNSQvxaz2emsWWFUyBy6ysHK4bkgTI86k4mloMy/0/Z1pHWWbVY=
------END CERTIFICATE-----
-"""
+TELIASONERA_ROOT_CA_V1_BYTES_ ::= #[
+    '0',130,5,'8','0',130,3,' ',160,3,2,1,2,2,17,0,149,190,22,160,247,'.','F',
+    241,'{','9',130,'r',250,139,205,150,'0',13,6,9,'*',134,'H',134,247,13,1,1,
+    0x05,5,0,'0','7','1',20,'0',18,6,3,'U',4,10,12,11,'T','e','l','i','a','S',
+    'o','n','e','r','a','1',0x1f,'0',29,6,3,'U',4,3,12,22,'T','e','l','i','a',
+    'S','o','n','e','r','a',' ','R','o','o','t',' ','C','A',' ','v','1','0',
+    0x1e,23,0xd,'0','7','1','0','1','8','1','2','0','0','5','0','Z',23,13,'3',
+    '2','1','0','1','8','1','2','0','0','5','0','Z','0','7','1',20,'0',18,6,3,
+    'U',4,0xa,12,11,'T','e','l','i','a','S','o','n','e','r','a','1',31,'0',29,
+    6,3,'U',4,3,12,22,'T','e','l','i','a','S','o','n','e','r','a',' ','R','o',
+    'o','t',' ','C','A',' ','v','1','0',0x82,2,'"','0',13,6,9,'*',134,'H',134,
+    247,13,1,1,1,5,0,3,130,2,15,0,'0',130,2,10,2,130,2,1,0,194,190,235,39,240,
+    '!',163,243,'i','&','U','~',157,197,'U',22,145,92,253,239,'!',191,'S',128,
+    'z','-',0xd2,0x91,0x8c,'c','1',240,236,'$',240,195,165,210,'r','|',16,'m',
+    244,'7',183,229,230,'|','y',234,140,181,130,139,174,'H',182,172,0,220,'e',
+    'u',0xec,'*','M','_',0xc1,135,245,' ','e','+',129,168,'G','>',137,'#',149,
+    '0',22,0x90,127,232,'W',7,'H',231,25,174,191,'E','g',177,'7',27,6,'*',254,
+    222,249,172,'}',131,251,'^',186,228,143,151,'g',190,'K',142,141,'d',7,'W',
+    '8','U','i','4','6','=',19,'H',0xef,'O',226,211,'f',30,164,207,26,183,'^',
+    '6','3',0xd4,180,6,189,24,1,253,'w',132,'P',0,'E',245,140,']',232,'#',188,
+    '~',0xfe,'5',225,237,'P','{',169,'0',141,25,211,9,142,'h','g',']',191,'<',
+    151,24,'S',187,')','b',197,202,'^','r',193,199,150,212,219,'-',160,180,31,
+    'i',0x3,236,234,226,'P',241,12,'<',240,172,243,'S','-',240,28,245,237,'l',
+    '9','9','s',0x80,0x16,200,'R',176,'#',205,224,'>',220,221,'<','G',160,187,
+    '5',0x8a,0xe2,0x98,'h',139,190,229,191,'r',238,210,250,165,237,18,237,252,
+    0x98,24,0xa9,'&','v',220,'(','K',16,' ',28,211,127,22,'w','-',237,'o',128,
+    0xf7,'I',0xbb,'S',5,187,']','h',199,212,200,'u',22,'?',137,'Z',139,247,23,
+    'G',0xd4,'L',0xf1,0xd2,137,'y','>','M','=',152,168,'a',222,':',30,210,248,
+    '^',3,0xe0,193,201,28,140,211,141,'M',211,149,'6',179,'7','_','c','c',155,
+    '3',20,0xf0,'-','&','k','S','|',137,140,'2',194,'n',236,'=','!',0,'9',201,
+    0xa1,'h',0xe2,'P',131,'.',176,':','+',243,'6',160,172,'/',228,'o','a',194,
+    'Q',9,'9','>',139,'S',185,187,'g',218,220,'S',185,'v','Y','6',157,'C',229,
+    ' ',0xe0,'=','2','`',133,'"','Q',183,199,'3',187,221,21,'/',164,'x',166,7,
+    '{',0x81,'F','6',4,134,221,'y','5',199,149,',',';',176,163,23,'5',229,'s',
+    31,0xb4,92,'Y',239,218,234,16,'e','{','z',208,127,159,179,180,'*','7',';',
+    'p',0x8b,155,'[',185,'+',183,236,178,'Q',18,151,'S',')','Z',212,240,18,16,
+    220,'O',2,187,18,146,'/','b',212,'?','i','C','|',13,214,252,'X','u',1,136,
+    0x9d,'X',22,'K',222,186,144,255,'G',1,137,6,'j',246,'_',178,144,'j',179,2,
+    0xa6,2,0x88,191,179,'G','~','*',217,213,250,'h','x','5','M',2,3,1,0,1,163,
+    '?','0','=','0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',11,6,3,'U',
+    0x1d,0xf,4,4,3,2,1,6,'0',29,6,3,'U',29,14,4,22,4,20,240,143,'Y','8',0,179,
+    0xf5,0x8f,0x9a,150,12,213,235,250,'{',170,23,232,19,18,'0',13,6,9,'*',134,
+    'H',0x86,247,13,1,1,5,5,0,3,130,2,1,0,190,228,92,'b','N','$',244,12,8,255,
+    240,211,12,'h',228,147,'I','"','?','D',39,'o',187,'m',222,131,'f',206,168,
+    0xcc,0xd,252,245,154,6,229,'w',20,145,235,157,'A','{',153,'*',132,229,255,
+    0xfc,'!',193,']',240,228,31,'W',183,'u',169,161,'_',2,'&',255,215,199,247,
+    'N',222,'O',248,247,28,'F',192,'z','O','@',',','"','5',240,25,177,208,'k',
+    'g',',',176,168,224,192,'@','7','5',246,132,92,92,227,175,'B','x',254,167,
+    0xc9,13,'P',234,13,132,'v',246,'Q',239,131,'S',198,'z',255,14,'V','I','.',
+    0x8f,'z',0xd6,0xc,230,39,'T',227,'M',10,'`','r','b',205,145,7,214,165,191,
+    200,153,'k',237,196,25,230,171,'L',17,'8',197,'o','1',226,'n','I',200,'?',
+    'v',0x80,'&',3,'&',')',0xe0,'6',246,246,' ','S',227,23,'p','4',23,157,'c',
+    'h',0x1e,'k',236,195,'M',134,184,19,'0','/',']','F',13,'G','C',213,27,170,
+    'Y',0x0e,0xb9,92,141,6,'H',173,'t',135,'_',199,252,'1','T','A',19,226,199,
+    '!',0x0e,158,224,30,13,225,192,'{','C',133,144,197,138,'X',198,'e',10,'x',
+    'W',0xf2,0xc6,'#',0xf,1,217,' ','K',222,15,251,146,133,'u','*',92,'s',141,
+    'm','{','%',0x91,0xca,238,'E',174,6,'K',0,204,211,177,'Y','P',218,':',136,
+    ';',')','C','F','^',0x97,'+','T',0xce,'S','o',141,'J',231,150,250,191,'q',
+    0x0e,'B',0x8b,'|',253,'(',160,208,'H',202,218,196,129,'L',187,162,'s',147,
+    '&',0xc8,235,12,214,'&',136,182,192,'$',207,187,189,'[',235,'u','}',233,8,
+    142,134,'3',',','y','w',9,'i',165,137,252,179,'p',144,135,'v',143,211,'"',
+    187,'B',206,189,'s',11,' ','&','*',208,155,'=','p',30,'$','l',205,135,'v',
+    0xa9,23,150,183,207,13,146,251,142,24,169,152,'I',209,158,254,'`','D','r',
+    '!',185,25,237,194,245,'1',241,'9','H',136,144,'$','u','T',22,173,206,244,
+    0xf8,'i',20,'d','9',251,163,184,186,'p','@',199,39,28,191,196,'V','S',250,
+    'c','e',0xd0,0xf3,28,0xe,22,245,'k',134,'X','M',24,212,228,13,142,165,157,
+    '[',0x91,0xdc,'v','$','P','?',198,'*',251,217,183,156,181,214,230,208,217,
+    0xe8,25,139,21,'q','H',173,183,234,216,'Y',136,212,144,191,22,179,217,233,
+    0xac,'Y','a','T',0xc8,28,0xba,202,193,202,225,185,' ','L',143,':',147,137,
+    165,160,204,191,211,246,'u',164,'u',150,'m','V',
+]
+
 
 /**
 TeliaSonera Root CA v1.
 SHA256 fingerprint: dd:69:36:fe:21:f8:f0:77:c1:23:a1:a5:21:c1:22:24:f7:22:55:b7:3e:03:a7:26:06:93:e8:a2:4b:0f:a3:89
 */
-TELIASONERA_ROOT_CA_V1 ::= net.Certificate.parse TELIASONERA_ROOT_CA_V1_TEXT_
+TELIASONERA_ROOT_CA_V1 ::= parse_ TELIASONERA_ROOT_CA_V1_BYTES_
 
-E_TUGRA_CERTIFICATION_AUTHORITY_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIGSzCCBDOgAwIBAgIIamg+nFGby1MwDQYJKoZIhvcNAQELBQAwgbIxCzAJBgNV
-BAYTAlRSMQ8wDQYDVQQHDAZBbmthcmExQDA+BgNVBAoMN0UtVHXEn3JhIEVCRyBC
-aWxpxZ9pbSBUZWtub2xvamlsZXJpIHZlIEhpem1ldGxlcmkgQS7Fni4xJjAkBgNV
-BAsMHUUtVHVncmEgU2VydGlmaWthc3lvbiBNZXJrZXppMSgwJgYDVQQDDB9FLVR1
-Z3JhIENlcnRpZmljYXRpb24gQXV0aG9yaXR5MB4XDTEzMDMwNTEyMDk0OFoXDTIz
-MDMwMzEyMDk0OFowgbIxCzAJBgNVBAYTAlRSMQ8wDQYDVQQHDAZBbmthcmExQDA+
-BgNVBAoMN0UtVHXEn3JhIEVCRyBCaWxpxZ9pbSBUZWtub2xvamlsZXJpIHZlIEhp
-em1ldGxlcmkgQS7Fni4xJjAkBgNVBAsMHUUtVHVncmEgU2VydGlmaWthc3lvbiBN
-ZXJrZXppMSgwJgYDVQQDDB9FLVR1Z3JhIENlcnRpZmljYXRpb24gQXV0aG9yaXR5
-MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA4vU/kwVRHoViVF56C/UY
-B4Oufq9899SKa6VjQzm5S/fDxmSJPZQuVIBSOTkHS0vdhQd2h8y/L5VMzH2nPbxH
-D5hw+IyFHnSOkm0bQNGZDbt1bsipa5rAhDGvykPL6ys06I+XawGb1Q5KCKpbknSF
-Q9OArqGIW66z6l7LFpp3RMih9lRozt6Plyu6W0ACDGQXwLWTzeHxE2bODHnv0ZEo
-q1+gElIwcxmOj+GMB6LDu0rw6h8VqO4lzKRG+Bsi77MOQ7osJLjFLFzUHPhdZL3D
-k14opz8n8Y4e0ypQBaNV2cvnOVPAmJ6MVGKLJrD3fY185MaeZkJVgkfnsliNZvcH
-fC425lAcP9tDJMW/hkd5s3kc91r0E+xs+D/iWR+V7kI+ua2oMoVJl0b+SzGPWsut
-dEcf6ZG33ygEIqDUD13ieU/qbIWGvaimzuT6w+Gzrt48Ue7LE3wBf4QOXVGUnhMM
-ti6lTPk5cDZvlsouDERVxcr6XQKj39ZkjFqzAQqptQpHF//vkUAqjqFGOjGY5RH8
-zLtJVor8udBhmm9lbObDyz51Sf6Pp+KJxWfXnUYTTjF2OySznhFlhqt/7x3U+Lzn
-rFpct1pHXFXOVbQicVtbC/DP3KBhZOqp12gKY6fgDT+gr9Oq0n7vUaDmUStVkhUX
-U8u3Zg5mTPj5dUyQ5xJwx0UCAwEAAaNjMGEwHQYDVR0OBBYEFC7j27JJ0JxUeVz6
-Jyr+zE7S6E5UMA8GA1UdEwEB/wQFMAMBAf8wHwYDVR0jBBgwFoAULuPbsknQnFR5
-XPonKv7MTtLoTlQwDgYDVR0PAQH/BAQDAgEGMA0GCSqGSIb3DQEBCwUAA4ICAQAF
-Nzr0TbdF4kV1JI+2d1LoHNgQk2Xz8lkGpD4eKexd0dCrfOAKkEh47U6YA5n+KGCR
-HTAduGN8qOY1tfrTYXbm1gdLymmasoR6d5NFFxWfJNCYExL/u6Au/U5Mh/jOXKqY
-GwXgAEZKgoClM4so3O0409/lPun++1ndYYRP0lSWE2ETPo+Aab6TR7U1Q9Jauz1c
-77NCR807VRMGsAnb/WP2OogKmW9+4c4bU2pEZiNRCHu8W1Ki/QY3OEBhj0qWuJA3
-+GbHeJAAFS6LrVE1Uweoa2iu+U48BybNCAVwzDk/dr2l02cmAYamU9JgO3xDf1WK
-vJUawSg5TB9D0pH0clmKuVb8P7Sd2nCcdlqMQ1DujjByTd//SffGqWfZbawCEeI6
-FiWnWAjLb1NBnEg4R2gz0dfHj9R0IdTDBZB6/86WiLEVKV0jq9BgoRJP3vQXzTLl
-yb/IQ639Lo7xr+L0mPoSHyDYwKcMhcWQ9DstliaxLL5Mq+ux0orJ23gTDx4JnW2P
-AJ8C2sH6H3p6CcRK5ogql5+Ji/03X186zjhZhkuvcQu02PJwT58yE+Owp1fl2tpD
-y4Q08ijE6m30Ku/Ba3ba+367hTzSU8JNvnHhRdH9I2cNE3X7z2VnIp2usAnRCf8d
-NL/+I5c30jn6PQ0GC7TbO6Orb1wdtn7os4I07QZcJA==
------END CERTIFICATE-----
-"""
+E_TUGRA_CERTIFICATION_AUTHORITY_BYTES_ ::= #[
+    '0',0x82,6,'K','0',0x82,4,'3',160,3,2,1,2,2,8,'j','h','>',156,'Q',155,203,
+    'S','0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,'0',129,178,'1',11,'0',9,
+    0x6,3,'U',4,6,19,2,'T','R','1',15,'0',13,6,3,'U',4,7,12,6,'A','n','k','a',
+    'r','a','1','@','0','>',0x6,3,'U',4,10,12,'7','E','-','T','u',196,159,'r',
+    'a',' ','E','B','G',' ','B','i','l','i',0xc5,0x9f,'i','m',' ','T','e','k',
+    'n','o','l','o','j','i','l','e','r','i',' ','v','e',' ','H','i','z','m',
+    'e','t','l','e','r','i',' ','A','.',197,158,'.','1','&','0','$',6,3,'U',4,
+    0xb,12,29,'E','-','T','u','g','r','a',' ','S','e','r','t','i','f','i','k',
+    'a','s','y','o','n',' ','M','e','r','k','e','z','i','1','(','0','&',0x6,3,
+    'U',4,3,12,31,'E','-','T','u','g','r','a',' ','C','e','r','t','i','f','i',
+    'c','a','t','i','o','n',' ','A','u','t','h','o','r','i','t','y','0',30,23,
+    0xd,'1','3','0','3','0','5','1','2','0','9','4','8','Z',23,13,'2','3','0',
+    '3','0','3','1','2','0','9','4','8','Z','0',0x81,178,'1',11,'0',9,6,3,'U',
+    0x4,6,19,2,'T','R','1',15,'0',13,6,3,'U',4,7,12,6,'A','n','k','a','r','a',
+    '1','@','0','>',0x6,3,'U',4,10,12,'7','E','-','T','u',196,159,'r','a',' ',
+    'E','B','G',' ','B','i','l','i',0xc5,0x9f,'i','m',' ','T','e','k','n','o',
+    'l','o','j','i','l','e','r','i',' ','v','e',' ','H','i','z','m','e','t',
+    'l','e','r','i',' ','A','.',0xc5,0x9e,'.','1','&','0','$',6,3,'U',4,11,12,
+    0x1d,'E','-','T','u','g','r','a',' ','S','e','r','t','i','f','i','k','a',
+    's','y','o','n',' ','M','e','r','k','e','z','i','1','(','0','&',6,3,'U',4,
+    0x3,12,31,'E','-','T','u','g','r','a',' ','C','e','r','t','i','f','i','c',
+    'a','t','i','o','n',' ','A','u','t','h','o','r','i','t','y','0',130,2,'"',
+    '0',0x0d,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,2,15,0,'0',130,2,10,2,
+    0x82,0x2,1,0,226,245,'?',147,5,'Q',30,133,'b','T','^','z',11,245,24,7,131,
+    0xae,'~',0xaf,'|',247,212,138,'k',165,'c','C','9',185,'K',247,195,198,'d',
+    0x89,'=',0x94,'.','T',128,'R','9','9',7,'K','K',221,133,7,'v',135,204,191,
+    '/',149,'L',204,'}',167,'=',188,'G',15,152,'p',248,140,133,30,'t',142,146,
+    'm',27,'@',209,153,13,187,'u','n',200,169,'k',154,192,132,'1',175,202,'C',
+    0xcb,0xeb,'+','4',0xe8,143,151,'k',1,155,213,14,'J',8,170,'[',146,'t',133,
+    'C',0xd3,0x80,0xae,161,136,'[',174,179,234,'^',203,22,154,'w','D',200,161,
+    0xf6,'T','h',0xce,222,143,151,'+',186,'[','@',2,12,'d',23,192,181,147,205,
+    0xe1,0xf1,19,'f',206,12,'y',239,209,145,'(',171,'_',160,18,'R','0','s',25,
+    0x8e,0x8f,225,140,7,162,195,187,'J',240,234,31,21,168,238,'%',204,164,'F',
+    0xf8,27,'"',0xef,179,14,'C',186,',','$',184,197,',',92,212,28,248,']','d',
+    0xbd,0xc3,147,'^','(',167,'?',39,241,142,30,211,'*','P',5,163,'U',217,203,
+    0xe7,'9','S',0xc0,152,158,140,'T','b',139,'&',176,247,'}',141,'|',228,198,
+    0x9e,'f','B','U',130,'G',231,178,'X',141,'f',247,7,'|','.','6',230,'P',28,
+    '?',219,'C','$',197,191,134,'G','y',179,'y',28,247,'Z',244,19,236,'l',248,
+    '?',0xe2,'Y',0x1f,149,238,'B','>',185,173,168,'2',133,'I',151,'F',254,'K',
+    '1',0x8f,'Z',0xcb,173,'t','G',31,233,145,183,223,'(',4,'"',160,212,15,']',
+    0xe2,'y','O',0xea,'l',133,134,189,168,166,206,228,250,195,225,179,174,222,
+    '<','Q',238,203,19,'|',1,127,132,14,']','Q',148,158,19,12,182,'.',165,'L',
+    0xf9,'9','p','6','o',150,202,'.',12,'D','U',197,202,250,']',2,163,223,214,
+    'd',0x8c,'Z',0xb3,1,0xa,169,181,10,'G',23,255,239,145,'@','*',142,161,'F',
+    ':','1',0x98,0xe5,17,0xfc,204,187,'I','V',138,252,185,208,'a',154,'o','e',
+    'l',0xe6,0xc3,0xcb,'>','u','I',254,143,167,226,137,197,'g',215,157,'F',19,
+    'N','1','v',';','$',179,158,17,'e',134,171,127,239,29,212,248,188,231,172,
+    'Z',92,0xb7,'Z','G',92,'U',206,'U',180,'"','q','[','[',11,240,207,220,160,
+    'a','d',234,169,215,'h',10,'c',167,224,13,'?',160,175,211,170,210,'~',239,
+    'Q',0xa0,230,'Q','+','U',146,21,23,'S',203,183,'f',14,'f','L',248,249,'u',
+    'L',144,231,18,'p',199,'E',2,3,1,0,1,163,'c','0','a','0',29,6,3,'U',29,14,
+    0x4,22,4,20,'.',227,219,178,'I',208,156,'T','y',92,250,39,'*',254,204,'N',
+    210,232,'N','T','0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',31,6,3,
+    'U',29,'#',4,24,'0',22,0x80,20,'.',227,219,178,'I',208,156,'T','y',92,250,
+    39,'*',254,204,'N',210,232,'N','T','0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,
+    6,'0',0xd,6,9,'*',134,'H',134,247,13,1,1,11,5,0,3,130,2,1,0,5,'7',':',244,
+    'M',183,'E',226,'E','u','$',143,182,'w','R',232,28,216,16,147,'e',243,242,
+    'Y',0x6,164,'>',30,')',236,']',209,208,171,'|',224,10,144,'H','x',237,'N',
+    0x98,3,0x99,254,'(','`',145,29,'0',29,184,'c','|',168,230,'5',181,250,211,
+    'a','v',0xe6,0xd6,7,'K',202,'i',154,178,132,'z','w',147,'E',23,21,159,'$',
+    208,152,19,18,255,187,160,'.',253,'N','L',135,248,206,92,170,152,27,5,224,
+    0,'F','J',130,128,165,'3',139,'(',220,237,'8',211,223,229,'>',233,254,251,
+    'Y',221,'a',132,'O',210,'T',150,19,'a',19,'>',143,128,'i',190,147,'G',181,
+    '5','C',210,'Z',187,'=',92,239,179,'B','G',205,';','U',19,6,176,9,219,253,
+    'c',0xf6,':',0x88,10,153,'o','~',225,206,27,'S','j','D','f','#','Q',8,'{',
+    188,'[','R',162,253,6,'7','8','@','a',143,'J',150,184,144,'7',248,'f',199,
+    'x',0x90,0,21,'.',139,173,'Q','5','S',7,168,'k','h',174,249,'N','<',7,'&',
+    205,8,5,'p',204,'9','?','v',189,165,211,'g','&',1,134,166,'S',210,'`',';',
+    '|','C',127,'U',138,188,149,26,193,'(','9','L',31,'C',210,145,244,'r','Y',
+    0x8a,0xb9,'V',252,'?',180,157,218,'p',156,'v','Z',140,'C','P',238,142,'0',
+    'r','M',0xdf,0xff,'I',247,198,169,'g',217,'m',172,2,17,226,':',22,'%',167,
+    'X',8,203,'o','S','A',156,'H','8','G','h','3',209,215,199,143,212,'t','!',
+    0xd4,0xc3,5,144,'z',255,206,150,136,177,21,')',']','#',171,208,'`',161,18,
+    'O',0xde,0xf4,23,0xcd,'2',229,201,191,200,'C',173,253,'.',142,241,175,226,
+    0xf4,152,250,18,31,' ',216,192,167,12,133,197,144,244,';','-',150,'&',177,
+    ',',0xbe,'L',171,235,177,210,138,201,219,'x',19,15,30,9,157,'m',143,0,159,
+    0x02,218,193,250,31,'z','z',9,196,'J',230,136,'*',151,159,137,139,253,'7',
+    '_','_',':',206,'8','Y',134,'K',175,'q',11,180,216,242,'p','O',159,'2',19,
+    0xe3,0xb0,167,'W',229,218,218,'C',203,132,'4',242,'(',196,234,'m',244,'*',
+    0xef,0xc1,'k','v',218,251,'~',187,133,'<',210,'S',194,'M',190,'q',225,'E',
+    0xd1,253,'#','g',13,19,'u',251,207,'e','g','"',157,174,176,9,209,9,255,29,
+    '4',0xbf,0xfe,'#',151,'7',210,'9',250,'=',13,6,11,180,219,';',163,171,'o',
+    92,29,182,'~',232,179,130,'4',237,6,92,'$',
+]
+
 
 /**
 E-Tugra Certification Authority.
 SHA256 fingerprint: b0:bf:d5:2b:b0:d7:d9:bd:92:bf:5d:4d:c1:3d:a2:55:c0:2c:54:2f:37:83:65:ea:89:39:11:f5:5e:55:f2:3c
 */
-E_TUGRA_CERTIFICATION_AUTHORITY ::= net.Certificate.parse E_TUGRA_CERTIFICATION_AUTHORITY_TEXT_
+E_TUGRA_CERTIFICATION_AUTHORITY ::= parse_ E_TUGRA_CERTIFICATION_AUTHORITY_BYTES_
 
-T_TELESEC_GLOBALROOT_CLASS_2_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIDwzCCAqugAwIBAgIBATANBgkqhkiG9w0BAQsFADCBgjELMAkGA1UEBhMCREUx
-KzApBgNVBAoMIlQtU3lzdGVtcyBFbnRlcnByaXNlIFNlcnZpY2VzIEdtYkgxHzAd
-BgNVBAsMFlQtU3lzdGVtcyBUcnVzdCBDZW50ZXIxJTAjBgNVBAMMHFQtVGVsZVNl
-YyBHbG9iYWxSb290IENsYXNzIDIwHhcNMDgxMDAxMTA0MDE0WhcNMzMxMDAxMjM1
-OTU5WjCBgjELMAkGA1UEBhMCREUxKzApBgNVBAoMIlQtU3lzdGVtcyBFbnRlcnBy
-aXNlIFNlcnZpY2VzIEdtYkgxHzAdBgNVBAsMFlQtU3lzdGVtcyBUcnVzdCBDZW50
-ZXIxJTAjBgNVBAMMHFQtVGVsZVNlYyBHbG9iYWxSb290IENsYXNzIDIwggEiMA0G
-CSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCqX9obX+hzkeXaXPSi5kfl82hVYAUd
-AqSzm1nzHoqvNK38DcLZSBnuaY/JIPwhqgcZ7bBcrGXHX+0CfHt8LRvWurmAwhiC
-FoT6ZrAIxlQjgeTNuUk/9k9uN0goOA/FvudocP05l03Sx5iRUKrERLMjfTlH6VJi
-1hKTXrcxlkIF+3anHqP1wvzpesVsqXFP6st4vGCvx9702cu+fjOlbpSD8DT6Iavq
-jnKgP6TeMFvvhk1qlVtDRKgQFRzlAVfFmPHmBiiRqiDFt1MmUUOyCxGVWOHAD3bZ
-wI18gfNycJ5v/hqO2V81xrJvNHy+SE/iWjnX2J14np+GPgNeGYtEotXHAgMBAAGj
-QjBAMA8GA1UdEwEB/wQFMAMBAf8wDgYDVR0PAQH/BAQDAgEGMB0GA1UdDgQWBBS/
-WSA2AHmgoCJrjNXyYdK4LMuCSjANBgkqhkiG9w0BAQsFAAOCAQEAMQOiYQsfdOhy
-NsZt+U2e+iKo4YFWz827n+qrkRk4r6p8FU3ztqONpfSO9kSpp+ghla0+AGIWiPAC
-uvxhI+YzmzB6azZie60EI4RYZeLbK4rnJVM3YlNfvNoBYimipidx5joifsFvHZVw
-IEoHNN/q/xWA5brXethbdXwFeilHfkCoMRN3zUA7tFFHei4R40cR3p1m0IvVVGb6
-g1XqfMIpiRvpb7PO4gWEyS8+eIVibslfwXhjdFjASBgMmTnrpMwatXlajRWc2BQN
-9noHV8cigwUtPJslJj0Ys6lDfMjIq2SPDqO/nBudMNva0Bkuqjzx+zOAduTNrRlP
-BSeOE6Fuwg==
------END CERTIFICATE-----
-"""
+T_TELESEC_GLOBALROOT_CLASS_2_BYTES_ ::= #[
+    '0',0x82,3,195,'0',130,2,171,160,3,2,1,2,2,1,1,'0',13,6,9,'*',134,'H',134,
+    0xf7,0xd,1,1,11,5,0,'0',129,130,'1',11,'0',9,6,3,'U',4,6,19,2,'D','E','1',
+    '+','0',')',0x6,3,'U',4,10,12,'"','T','-','S','y','s','t','e','m','s',' ',
+    'E','n','t','e','r','p','r','i','s','e',' ','S','e','r','v','i','c','e',
+    's',' ','G','m','b','H','1',31,'0',29,6,3,'U',4,0xb,12,22,'T','-','S','y',
+    's','t','e','m','s',' ','T','r','u','s','t',' ','C','e','n','t','e','r',
+    '1','%','0','#',6,3,'U',4,3,12,28,'T','-','T','e','l','e','S','e','c',' ',
+    'G','l','o','b','a','l','R','o','o','t',' ','C','l','a','s','s',' ','2',
+    '0',0x1e,23,0xd,'0','8','1','0','0','1','1','0','4','0','1','4','Z',23,13,
+    '3','3','1','0','0','1','2','3','5','9','5','9','Z','0',0x81,0x82,'1',0xb,
+    '0',0x09,6,3,'U',4,6,19,2,'D','E','1','+','0',')',6,3,'U',4,10,12,'"','T',
+    '-','S','y','s','t','e','m','s',' ','E','n','t','e','r','p','r','i','s',
+    'e',' ','S','e','r','v','i','c','e','s',' ','G','m','b','H','1',31,'0',29,
+    0x06,3,'U',4,11,12,22,'T','-','S','y','s','t','e','m','s',' ','T','r','u',
+    's','t',' ','C','e','n','t','e','r','1','%','0','#',6,3,'U',4,3,12,28,'T',
+    '-','T','e','l','e','S','e','c',' ','G','l','o','b','a','l','R','o','o',
+    't',' ','C','l','a','s','s',' ','2','0',0x82,1,'"','0',13,6,9,'*',134,'H',
+    134,247,13,1,1,1,5,0,3,130,1,15,0,'0',130,1,10,2,130,1,1,0,170,'_',218,27,
+    '_',232,'s',145,229,218,92,244,162,230,'G',229,243,'h','U','`',5,29,2,164,
+    0xb3,155,'Y',243,30,138,175,'4',173,252,13,194,217,'H',25,238,'i',143,201,
+    ' ',0xfc,'!',170,7,25,237,176,92,172,'e',199,'_',237,2,'|','{','|','-',27,
+    0xd6,0xba,185,128,194,24,130,22,132,250,'f',176,8,198,'T','#',129,228,205,
+    0xb9,'I','?',0xf6,'O','n','7','H','(','8',0xf,197,190,231,'h','p',253,'9',
+    0x97,'M',0xd2,199,152,145,'P',170,196,'D',179,'#','}','9','G',233,'R','b',
+    0xd6,18,0x93,'^',183,'1',150,'B',5,251,'v',167,30,163,245,194,252,233,'z',
+    0xc5,'l',0xa9,'q','O',234,203,'x',188,'`',175,199,222,244,217,203,190,'~',
+    '3',0xa5,'n',0x94,131,240,'4',250,'!',171,234,142,'r',160,'?',164,222,'0',
+    '[',0xef,0x86,'M','j',0x95,'[','C','D',168,16,21,28,229,1,'W',197,152,241,
+    0xe6,6,'(',0x91,170,' ',197,183,'S','&','Q','C',178,11,17,149,'X',225,192,
+    15,'v',217,192,141,'|',129,243,'r','p',158,'o',254,26,142,217,'_','5',198,
+    178,'o','4','|',190,'H','O',226,'Z','9',215,216,157,'x',158,159,134,'>',3,
+    '^',25,139,'D',162,213,199,2,3,1,0,1,163,'B','0','@','0',15,6,3,'U',29,19,
+    1,1,255,4,5,'0',3,1,1,255,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',29,
+    6,3,'U',29,14,4,22,4,20,191,'Y',' ','6',0,'y',160,160,'"','k',140,213,242,
+    'a',0xd2,184,',',203,130,'J','0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,
+    0x3,130,1,1,0,'1',3,162,'a',11,31,'t',232,'r','6',198,'m',249,'M',158,250,
+    '"',168,225,129,'V',207,205,187,159,234,171,145,25,'8',175,170,'|',21,'M',
+    0xf3,182,163,141,165,244,142,246,'D',169,167,232,'!',149,173,'>',0,'b',22,
+    0x88,0xf0,2,186,252,'a','#',230,'3',155,'0','z','k','6','b','{',173,4,'#',
+    132,'X','e',226,219,'+',138,231,'%','S','7','b','S','_',188,218,1,'b',')',
+    0xa2,0xa6,39,'q',230,':','"','~',193,'o',29,149,'p',' ','J',7,'4',223,234,
+    0xff,21,128,229,186,215,'z',216,'[','u','|',5,'z',')','G','~','@',168,'1',
+    19,'w',0xcd,'@',';',180,'Q','G','z','.',17,227,'G',17,222,157,'f',208,139,
+    0xd5,'T','f',250,131,'U',234,'|',194,')',137,27,233,'o',179,206,226,5,132,
+    201,'/','>','x',133,'b','n',201,'_',193,'x','c','t','X',192,'H',24,12,153,
+    '9',235,164,204,26,181,'y','Z',141,21,156,216,20,13,246,'z',7,'W',199,'"',
+    0x83,5,'-','<',0x9b,'%','&','=',24,179,169,'C','|',200,200,171,'d',143,14,
+    163,191,156,27,157,'0',219,218,208,25,'.',170,'<',241,251,'3',128,'v',228,
+    205,173,25,'O',5,39,142,19,161,'n',194,
+]
+
 
 /**
 T-TeleSec GlobalRoot Class 2.
 SHA256 fingerprint: 91:e2:f5:78:8d:58:10:eb:a7:ba:58:73:7d:e1:54:8a:8e:ca:cd:01:45:98:bc:0b:14:3e:04:1b:17:05:25:52
 */
-T_TELESEC_GLOBALROOT_CLASS_2 ::= net.Certificate.parse T_TELESEC_GLOBALROOT_CLASS_2_TEXT_
+T_TELESEC_GLOBALROOT_CLASS_2 ::= parse_ T_TELESEC_GLOBALROOT_CLASS_2_BYTES_
 
-ATOS_TRUSTEDROOT_2011_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIDdzCCAl+gAwIBAgIIXDPLYixfszIwDQYJKoZIhvcNAQELBQAwPDEeMBwGA1UE
-AwwVQXRvcyBUcnVzdGVkUm9vdCAyMDExMQ0wCwYDVQQKDARBdG9zMQswCQYDVQQG
-EwJERTAeFw0xMTA3MDcxNDU4MzBaFw0zMDEyMzEyMzU5NTlaMDwxHjAcBgNVBAMM
-FUF0b3MgVHJ1c3RlZFJvb3QgMjAxMTENMAsGA1UECgwEQXRvczELMAkGA1UEBhMC
-REUwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCVhTuXbyo7LjvPpvMp
-Nb7PGKw+qtn4TaA+Gke5vJrf8v7MPkfoepbCJI419KkM/IL9bcFyYie96mvr54rM
-VD6QUM+A1JX76LWC1BTFtqlVJVfbsVD2sGBkWXppzwO3bw2+yj5vdHLqqjAqc2K+
-SZFhyBH+DgMq92og3AIVDV4VavzjgsG1xZ1kCWyjWZgHJ8cblithdHFsQ/H3NYkQ
-4J7sVaE3IqKHBAUsR320HLliKWYoyrfhk/WklAOZuXCFteZI6o1Q/NnezG8HDt0L
-cp2AMBYHlT8oDv3FdU9T1nSatCQujgKRz3bFmx5VdJx4IbHwLfELn8LVlhgf8FQi
-eowHAgMBAAGjfTB7MB0GA1UdDgQWBBSnpQaxLKYJYO7Rl+lwrrw7GWzbITAPBgNV
-HRMBAf8EBTADAQH/MB8GA1UdIwQYMBaAFKelBrEspglg7tGX6XCuvDsZbNshMBgG
-A1UdIAQRMA8wDQYLKwYBBAGwLQMEAQEwDgYDVR0PAQH/BAQDAgGGMA0GCSqGSIb3
-DQEBCwUAA4IBAQAmdzTblEiGKkGdLD4GkGDEjKwLVLgfuXvTBznk+j57sj1O7Z8j
-vZfza1zv7v1Apt+hk6EKhqzvINB5Ab149xnYJDE0BAGmuhWawyfc2E8PzBhj/5kP
-DpFrdRbhIfzYJsdHt6bPWHJxfrrhTZVHO8mvbaG0weyJ9rQPOLXiZNwlz6bb65pc
-maHFCN795trV1lpFDMS3wrUU77QR/w4VtfX128a961qn8FYiqTxlVMYVqL2Gns2D
-lmh6cYGJ4Qvh6hEbaAjMaZ7snkGeRDImeuKHCnE96+RapNLbxc3G3mB/ufNPRJLv
-KrcYPqcZ2Qt9sTdBQrC6YB3y/gkRsPCHe6ed
------END CERTIFICATE-----
-"""
+ATOS_TRUSTEDROOT_2011_BYTES_ ::= #[
+    '0',0x82,0x3,'w','0',130,2,'_',160,3,2,1,2,2,8,92,'3',203,'b',',','_',179,
+    '2','0',0xd,6,9,'*',134,'H',134,247,13,1,1,11,5,0,'0','<','1',30,'0',28,6,
+    0x3,'U',4,3,12,21,'A','t','o','s',' ','T','r','u','s','t','e','d','R','o',
+    'o','t',' ','2','0','1','1','1',0x0d,'0',11,6,3,'U',4,10,12,4,'A','t','o',
+    's','1',0x0b,'0',9,6,3,'U',4,6,19,2,'D','E','0',30,23,0xd,'1','1','0','7',
+    '0','7','1','4','5','8','3','0','Z',23,13,'3','0','1','2','3','1','2','3',
+    '5','9','5','9','Z','0','<','1',0x1e,'0',28,6,3,'U',4,3,12,21,'A','t','o',
+    's',' ','T','r','u','s','t','e','d','R','o','o','t',' ','2','0','1','1',
+    '1',0xd,'0',11,6,3,'U',4,10,12,4,'A','t','o','s','1',11,'0',9,6,3,'U',4,6,
+    19,2,'D','E','0',0x82,1,'"','0',13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,
+    0x82,1,0xf,0,'0',130,1,10,2,130,1,1,0,149,133,';',151,'o','*',';','.',';',
+    207,166,243,')','5',190,207,24,172,'>',170,217,248,'M',160,'>',26,'G',185,
+    0xbc,0x9a,0xdf,242,254,204,'>','G',232,'z',150,194,'$',142,'5',244,169,12,
+    0xfc,0x82,0xfd,'m',193,'r','b',39,189,234,'k',235,231,138,204,'T','>',144,
+    'P',0xcf,0x80,0xd4,149,251,232,181,130,212,20,197,182,169,'U','%','W',219,
+    0xb1,'P',246,176,'`','d','Y','z','i',207,3,183,'o',13,190,202,'>','o','t',
+    'r',0xea,0xaa,'0','*','s','b',190,'I',145,'a',200,17,254,14,3,'*',247,'j',
+    ' ',0xdc,2,21,13,'^',21,'j',252,227,130,193,181,197,157,'d',9,'l',163,'Y',
+    0x98,0x7,39,199,27,150,'+','a','t','q','l','C',241,247,'5',137,16,224,158,
+    0xec,'U',0xa1,'7','"',0xa2,135,4,5,',','G','}',180,28,185,'b',')','f','(',
+    202,183,225,147,245,164,148,3,153,185,'p',133,181,230,'H',234,141,'P',252,
+    0xd9,0xde,204,'o',7,14,221,11,'r',157,128,'0',22,7,149,'?','(',14,253,197,
+    'u','O','S',0xd6,'t',154,180,'$','.',142,2,145,207,'v',197,155,30,'U','t',
+    0x9c,'x','!',177,240,'-',241,11,159,194,213,150,24,31,240,'T','"','z',140,
+    7,2,3,1,0,1,0xa3,'}','0','{','0',29,6,3,'U',29,14,4,22,4,20,167,165,6,177,
+    ',',0xa6,9,'`',0xee,209,151,233,'p',174,188,';',25,'l',219,'!','0',15,6,3,
+    'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',31,6,3,'U',29,'#',4,24,'0',22,128,
+    20,167,165,6,177,',',166,9,'`',238,209,151,233,'p',174,188,';',25,'l',219,
+    '!','0',24,6,3,'U',29,' ',4,17,'0',15,'0',13,6,11,'+',6,1,4,1,176,'-',3,4,
+    1,1,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,134,'0',13,6,9,'*',134,'H',134,
+    247,13,1,1,11,5,0,3,130,1,1,0,'&','w','4',219,148,'H',134,'*','A',157,',',
+    '>',6,144,'`',196,140,172,11,'T',184,31,185,'{',211,7,'9',228,250,'>','{',
+    0xb2,'=','N',0xed,0x9f,'#',189,151,243,'k',92,239,238,253,'@',166,223,161,
+    0x93,0xa1,10,134,172,239,' ',208,'y',1,189,'x',247,25,216,'$','1','4',4,1,
+    166,186,21,154,195,39,220,216,'O',15,204,24,'c',255,153,15,14,145,'k','u',
+    0x16,0xe1,'!',252,216,'&',199,'G',183,166,207,'X','r','q','~',186,225,'M',
+    0x95,'G',';',0xc9,0xaf,'m',161,180,193,236,137,246,180,15,'8',181,226,'d',
+    0xdc,'%',207,166,219,235,154,92,153,161,197,8,222,253,230,218,213,214,'Z',
+    'E',0x0c,0xc4,183,194,181,20,239,180,17,255,14,21,181,245,245,219,198,189,
+    0xeb,'Z',0xa7,0xf0,'V','"',169,'<','e','T',198,21,168,189,134,158,205,131,
+    0x96,'h','z','q',0x81,0x89,225,11,225,234,17,27,'h',8,204,'i',158,236,158,
+    'A',0x9e,'D','2','&','z',0xe2,0x87,10,'q','=',235,228,'Z',164,210,219,197,
+    0xcd,198,222,'`',127,185,243,'O','D',146,239,'*',183,24,'>',167,25,217,11,
+    '}',0xb1,'7','A','B',0xb0,186,'`',29,242,254,9,17,176,240,135,'{',167,157,
+]
+
 
 /**
 Atos TrustedRoot 2011.
 SHA256 fingerprint: f3:56:be:a2:44:b7:a9:1e:b3:5d:53:ca:9a:d7:86:4a:ce:01:8e:2d:35:d5:f8:f9:6d:df:68:a6:f4:1a:a4:74
 */
-ATOS_TRUSTEDROOT_2011 ::= net.Certificate.parse ATOS_TRUSTEDROOT_2011_TEXT_
+ATOS_TRUSTEDROOT_2011 ::= parse_ ATOS_TRUSTEDROOT_2011_BYTES_
 
-QUOVADIS_ROOT_CA_1_G3_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIFYDCCA0igAwIBAgIUeFhfLq0sGUvjNwc1NBMotZbUZZMwDQYJKoZIhvcNAQEL
-BQAwSDELMAkGA1UEBhMCQk0xGTAXBgNVBAoTEFF1b1ZhZGlzIExpbWl0ZWQxHjAc
-BgNVBAMTFVF1b1ZhZGlzIFJvb3QgQ0EgMSBHMzAeFw0xMjAxMTIxNzI3NDRaFw00
-MjAxMTIxNzI3NDRaMEgxCzAJBgNVBAYTAkJNMRkwFwYDVQQKExBRdW9WYWRpcyBM
-aW1pdGVkMR4wHAYDVQQDExVRdW9WYWRpcyBSb290IENBIDEgRzMwggIiMA0GCSqG
-SIb3DQEBAQUAA4ICDwAwggIKAoICAQCgvlAQjunybEC0BJyFuTHK3C3kEakEPBtV
-wedYMB0ktMPvhd6MLOHBPd+C5k+tR4ds7FtJwUrVu4/sh6x/gpqG7D0DmVIB0jWe
-rNrwU8lmPNSsAgHaJNM7qAJGr6Qc4/hzWHa39g6QDbXwz8z6+cZM5cOGMAqNF341
-68Xfuw6cwI2H44g4hWf6Pser4BOcBRiYz5P1sZK0/CPTz9XEJ0ngnjybCKOLXSoh
-4Pw5qlPafX7PGglTvF0FBM+hSo+LdoINofjSxxR3W5A2B4GbPgb6Ul5jxaYA/qXp
-UhtStZI5cgMJYr2wYBZupt0lwgNm3fME0UDiTouG9G/lg6AnhF4EwfWQvTA9xO+o
-abw4m6SkltFi2mnAAZauy8RRNOoMqv8hjlmPSlzkYZqn0ukqeI1RPToV7qJZjqlc
-3sX5kCLliEVx3ZGZbHqfPT2YfF72vhZooF6uCyP8Wg+qInYtyaEQHeTTRCOQiJ/G
-KubX9ZqzWB4vMIkIG1SitZgj7Ah3HJVdYdHLiZxfokqRmu8hqkkWCKi9YSgxyXSt
-hfbZxbGL0eUQMk1fiyA6PEkfM4VZDdvLCXVDaXP7a3F98N/ETH3Goy7IlXnLc6KO
-Tk0k+17kBL5yG6YnLUlamXrXXAkgt3+UuU/xDRxeiEIbEbfnkduebPRq34wGmAOt
-zCjvpUfzUwIDAQABo0IwQDAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
-BjAdBgNVHQ4EFgQUo5fW816iEOGrRZ88F2Q87gFwnMwwDQYJKoZIhvcNAQELBQAD
-ggIBABj6W3X8PnrHX3fHyt/PX8MSxEBd1DKquGrX1RUVRpgjpeaQWxiZTOOtQqOC
-MTaIzen7xASWSIsBx40Bz1szBpZGZnQdT+3Btrm0DWHMY37XLneMlhwqI2hrhVd2
-cDMT/uFPpiN3GPoajOi9ZcnPP/TJF9zrx7zABC4tRi9pZsMbj/7sPtPKlL92CiUN
-qXsCHKnQO18LwIE6PWThv6ctTr1NxNgpxiIY0MWscgKCP6o6ojoilzHdCGPDdRS5
-YCgtW2jgFqlmgiNR9etT2DGbe+m3nUvriBbP+V04ikkwj+3x6xn0dxoxGE1nVGwv
-b2X52z3sIexe9PSLymBlVNFxZPT5pqOBMzYzcfCkeF9OrYMh3jRJjehZrJ3ydlo2
-8hP0r+AJx2EqbPfgna67hkooby7utHnNkDPDs3b69fBsnQGQ+p6Q9pxyz0fawx/k
-NSBT8lTR32GDpgLiJTjehTItXnOQUl1CxM49S+H5GYQd1aJQzEH7QRTDvdbJWqNj
-ZgKAvQU6O0ec7AAmTPWIUb+oI38YB7AL7YsmoWTTYUrrXJ/es69nA7Mf3W1daWhp
-q1467HxpvMc7hU6eFbm0FU/DlXpY18ls6Wy58yljXrQs8C097Vpl4KlbQMJImYFt
-nh8GKjwStIsPm6Ik8KaN1nrgS7ZklmOVhMJKzRwuJIczYOXD
------END CERTIFICATE-----
-"""
+QUOVADIS_ROOT_CA_1_G3_BYTES_ ::= #[
+    '0',0x82,5,'`','0',0x82,3,'H',160,3,2,1,2,2,20,'x','X','_','.',173,',',25,
+    'K',0xe3,'7',7,'5','4',19,'(',0xb5,150,212,'e',147,'0',13,6,9,'*',134,'H',
+    0x86,0xf7,13,1,1,11,5,0,'0','H','1',11,'0',9,6,3,'U',4,6,19,2,'B','M','1',
+    25,'0',23,6,3,'U',4,0xa,19,16,'Q','u','o','V','a','d','i','s',' ','L','i',
+    'm','i','t','e','d','1',0x1e,'0',28,6,3,'U',4,3,19,21,'Q','u','o','V','a',
+    'd','i','s',' ','R','o','o','t',' ','C','A',' ','1',' ','G','3','0',30,23,
+    0xd,'1','2','0','1','1','2','1','7','2','7','4','4','Z',23,13,'4','2','0',
+    '1','1','2','1','7','2','7','4','4','Z','0','H','1',0xb,'0',9,6,3,'U',4,6,
+    19,2,'B','M','1',25,'0',23,6,3,'U',4,10,19,16,'Q','u','o','V','a','d','i',
+    's',' ','L','i','m','i','t','e','d','1',0x1e,'0',28,6,3,'U',4,3,19,21,'Q',
+    'u','o','V','a','d','i','s',' ','R','o','o','t',' ','C','A',' ','1',' ',
+    'G','3','0',130,2,'"','0',13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,2,
+    0x0f,0,'0',0x82,2,10,2,130,2,1,0,160,190,'P',16,142,233,242,'l','@',180,4,
+    0x9c,0x85,0xb9,'1',202,220,'-',228,17,169,4,'<',27,'U',193,231,'X','0',29,
+    '$',0xb4,0xc3,239,133,222,140,',',225,193,'=',223,130,230,'O',173,'G',135,
+    'l',236,'[','I',193,'J',213,187,143,236,135,172,127,130,154,134,236,'=',3,
+    153,'R',1,210,'5',158,172,218,240,'S',201,'f','<',212,172,2,1,218,'$',211,
+    ';',0xa8,0x2,'F',175,164,28,227,248,'s','X','v',183,246,14,144,13,181,240,
+    207,204,250,249,198,'L',229,195,134,'0',10,141,23,'~','5',235,197,223,187,
+    0x0e,0x9c,192,141,135,227,136,'8',133,'g',250,'>',199,171,224,19,156,5,24,
+    0x98,0xcf,0x93,245,177,146,180,252,'#',211,207,213,196,39,'I',224,158,'<',
+    0x9b,0x8,163,139,']','*','!',224,252,'9',170,'S',218,'}','~',207,26,9,'S',
+    188,']',5,4,207,161,'J',143,139,'v',130,13,161,248,210,199,20,'w','[',144,
+    '6',7,0x81,155,'>',6,250,'R','^','c',197,166,0,254,165,233,'R',27,'R',181,
+    0x92,'9','r',0x3,9,'b',189,176,'`',22,'n',166,221,'%',194,3,'f',221,243,4,
+    0xd1,'@',226,'N',139,134,244,'o',229,131,160,39,132,'^',4,193,245,144,189,
+    '0','=',196,239,168,'i',188,'8',155,164,164,150,209,'b',218,'i',192,1,150,
+    174,203,196,'Q','4',234,12,170,255,'!',142,'Y',143,'J',92,228,'a',154,167,
+    210,233,'*','x',141,'Q','=',':',21,238,162,'Y',142,169,92,222,197,249,144,
+    '"',0xe5,0x88,'E','q',221,145,153,'l','z',159,'=','=',152,'|','^',246,190,
+    0x16,'h',0xa0,'^',174,11,'#',252,'Z',15,170,'"','v','-',201,161,16,29,228,
+    0xd3,'D','#',144,136,159,198,'*',230,215,245,154,179,'X',30,'/','0',137,8,
+    0x1b,'T',162,181,152,'#',236,8,'w',28,149,']','a',209,203,137,156,'_',162,
+    'J',0x91,154,239,'!',170,'I',22,8,168,189,'a','(','1',201,'t',173,133,246,
+    217,197,177,139,209,229,16,'2','M','_',139,' ',':','<','I',31,'3',133,'Y',
+    0xd,219,203,9,'u','C','i','s',251,'k','q','}',240,223,196,'L','}',198,163,
+    '.',0xc8,149,'y',203,'s',162,142,'N','M','$',251,'^',228,4,190,'r',27,166,
+    39,'-','I','Z',153,'z',215,92,9,' ',183,127,148,185,'O',241,13,28,'^',136,
+    'B',27,17,183,231,145,219,158,'l',244,'j',223,140,6,152,3,173,204,'(',239,
+    0xa5,'G',243,'S',2,3,1,0,1,163,'B','0','@','0',15,6,3,'U',29,19,1,1,255,4,
+    0x5,'0',3,1,1,255,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',29,6,3,'U',
+    29,14,4,22,4,20,163,151,214,243,'^',162,16,225,171,'E',159,'<',23,'d','<',
+    0xee,1,'p',156,204,'0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,3,130,2,1,
+    0x0,24,250,'[','u',252,'>','z',199,'_','w',199,202,223,207,'_',195,18,196,
+    '@',']',0xd4,'2',170,184,'j',215,213,21,21,'F',152,'#',165,230,144,'[',24,
+    0x99,'L',0xe3,173,'B',163,130,'1','6',136,205,233,251,196,4,150,'H',139,1,
+    199,141,1,207,'[','3',6,150,'F','f','t',29,'O',237,193,182,185,180,13,'a',
+    204,'c','~',215,'.','w',140,150,28,'*','#','h','k',133,'W','v','p','3',19,
+    0xfe,225,'O',166,'#','w',24,250,26,140,232,189,'e',201,207,'?',244,201,23,
+    0xdc,235,199,188,192,4,'.','-','F','/','i','f',195,27,143,254,236,'>',211,
+    202,148,191,'v',10,'%',13,169,'{',2,28,169,208,';','_',11,192,129,':','=',
+    'd',0xe1,191,167,'-','N',189,'M',196,216,')',198,'"',24,208,197,172,'r',2,
+    0x82,'?',170,':',162,':','"',151,'1',221,8,'c',195,'u',20,185,'`','(','-',
+    '[','h',0xe0,0x16,169,'f',130,'#','Q',245,235,'S',216,'1',155,'{',233,183,
+    157,'K',235,136,22,207,249,']','8',138,'I','0',143,237,241,235,25,244,'w',
+    26,'1',24,'M','g','T','l','/','o','e',249,219,'=',236,'!',236,'^',244,244,
+    0x8b,0xca,'`','e','T',209,'q','d',244,249,166,163,129,'3','6','3','q',240,
+    0xa4,'x','_','N',0xad,131,'!',222,'4','I',141,232,'Y',172,157,242,'v','Z',
+    '6',0xf2,19,244,175,224,9,199,'a','*','l',247,224,157,174,187,134,'J','(',
+    'o','.',238,180,'y',205,144,'3',195,179,'v',250,245,240,'l',157,1,144,250,
+    0x9e,0x90,0xf6,156,'r',207,'G',218,195,31,228,'5',' ','S',242,'T',209,223,
+    'a',131,166,2,226,'%','8',222,133,'2','-','^','s',144,'R',']','B',196,206,
+    '=','K',0xe1,249,25,132,29,213,162,'P',204,'A',251,'A',20,195,189,214,201,
+    'Z',163,'c','f',2,128,189,5,':',';','G',156,236,0,'&','L',245,136,'Q',191,
+    0xa8,'#',0x7f,24,7,0xb0,11,237,139,'&',161,'d',211,'a','J',235,92,159,222,
+    0xb3,175,'g',3,179,31,221,'m',']','i','h','i',171,'^',':',236,'|','i',188,
+    199,';',133,'N',158,21,185,180,21,'O',195,149,'z','X',215,201,'l',233,'l',
+    0xb9,0xf3,')','c','^',180,',',240,'-','=',237,'Z','e',224,169,'[','@',194,
+    'H',0x99,0x81,'m',0x9e,31,6,'*','<',18,180,139,15,155,162,'$',240,166,141,
+    0xd6,'z',0xe0,'K',0xb6,'d',150,'c',149,132,194,'J',205,28,'.','$',135,'3',
+    '`',229,195,
+]
+
 
 /**
 QuoVadis Root CA 1 G3.
 SHA256 fingerprint: 8a:86:6f:d1:b2:76:b5:7e:57:8e:92:1c:65:82:8a:2b:ed:58:e9:f2:f2:88:05:41:34:b7:f1:f4:bf:c9:cc:74
 */
-QUOVADIS_ROOT_CA_1_G3 ::= net.Certificate.parse QUOVADIS_ROOT_CA_1_G3_TEXT_
+QUOVADIS_ROOT_CA_1_G3 ::= parse_ QUOVADIS_ROOT_CA_1_G3_BYTES_
 
-QUOVADIS_ROOT_CA_2_G3_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIFYDCCA0igAwIBAgIURFc0JFuBiZs18s64KztbpybwdSgwDQYJKoZIhvcNAQEL
-BQAwSDELMAkGA1UEBhMCQk0xGTAXBgNVBAoTEFF1b1ZhZGlzIExpbWl0ZWQxHjAc
-BgNVBAMTFVF1b1ZhZGlzIFJvb3QgQ0EgMiBHMzAeFw0xMjAxMTIxODU5MzJaFw00
-MjAxMTIxODU5MzJaMEgxCzAJBgNVBAYTAkJNMRkwFwYDVQQKExBRdW9WYWRpcyBM
-aW1pdGVkMR4wHAYDVQQDExVRdW9WYWRpcyBSb290IENBIDIgRzMwggIiMA0GCSqG
-SIb3DQEBAQUAA4ICDwAwggIKAoICAQChriWyARjcV4g/Ruv5r+LrI3HimtFhZiFf
-qq8nUeVuGxbULX1QsFN3vXg6YOJkApt8hpvWGo6t/x8Vf9WVHhLL5hSEBMHfNrMW
-n4rjyduYNM7YMxcoRvynyfDStNVNCXJJ+fKH46nafaF9a7I6JaltUkSs+L5u+9ym
-c5GQYaYDFCDy54ejiK2toIz/pgslUiXnFgHVy7g1gQyjO/Dh4fxaXc6AcW34Sas+
-O7q414AB+6XrW7PFXmAqMaCvN+ggOp+oMiwMzAkd056OXbxMmO7FGmh77FOm6RQ1
-o9/NgJ8MSPsc9PG/Srj61YxxSscfrf5BmrODXfKEVu+lV0POKa2Mq1W/xPtbAd0j
-IaFYAI7D0GoT7RPjEiuA3GfmlbLNHiJuKvhB1PLKFAeNilUSxmn1uIZoL1NesNKq
-IcGY5jDjZ1XHm26sGahVpkUG0CM62+tlXSoREfA7T8pt9DTEceT/AFr2XK4jYIVz
-8eQQsSWu1ZK7E8EM4DnatDlXtas1qnIhO4M15zHfeiFuuDIIfR0ykRVKYnLP43eh
-vNURG3YBZwjgQQvD6xVu+KQZ2aKrr+InUlYrAoosFCT5v0ICvybIxo/gbjh9Uy3l
-7ZizlWNof/k19N+IxWA1ksB8aRxhlRbQ694Lrz4EEEVlWFA4r0jyWbYW8jwNkALG
-cC4BrTwV1wIDAQABo0IwQDAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
-BjAdBgNVHQ4EFgQU7edvdlq/YOxJW8ald7tyFnGbxD0wDQYJKoZIhvcNAQELBQAD
-ggIBAJHfgD9DCX5xwvfrs4iP4VGyvD11+ShdyLyZm3tdquXK4Qr36LLTn91nMX66
-AarHakE7kNQIXLJgapDwyM4DYvmL7ftuKtwGTTwpD4kWilhMSA/ohGHqPHKmd+RC
-roijQ1h5fq7KpVMNqT1wvSAZYaRsOPxDMuHBR//47PERIjKWnML2W2mWeyAMQ0Ga
-W/ZZGYjeVYg3UQt4XAoeo0L9x52ID8DyeAIkVJOviYeIyUqAHerQbj5hLja7NQ4n
-lv1mNDthcnPxFlxHBlRJAHpYErAK74X9sbgzdWqTHBLmYF5vHX/JHyPLhGGfHoJE
-+V+tYlUkmlKY7VHnoX6XOuYvHxHaU4AshZ6rNRDbIl9qxV6XU/IyAgkwo1jwDQHV
-csaxfGl7w/U2Rcxhbl5MlMVerugOXou/983g7aEOGzPuVBj+D77vfoRrQ+NwmNtd
-dbINWQeFFSM51vHfqSYP1kjHs6Yi9TM3WpVHn3u6GBVv/9YUZINJ0gpnIdsPNWNg
-KCLjsZWDzYWm3S8P52dSbrsvhXz1SnPnxT7AvSESBT/8twNJAlvIJebiVDj1eYeM
-HVOyToV7BjjHLPj4sHKNJeV3UvQDHEimUF+IIDBu8oJDqz2XhOdT+yHBTw8imoa4
-WSr2Rz0ZiC3oheGe7IUIarFsNMkd7EgrO3jtZsSOeWmD3n+M
------END CERTIFICATE-----
-"""
+QUOVADIS_ROOT_CA_2_G3_BYTES_ ::= #[
+    '0',0x82,5,'`','0',130,3,'H',160,3,2,1,2,2,20,'D','W','4','$','[',129,137,
+    0x9b,'5',0xf2,0xce,184,'+',';','[',167,'&',240,'u','(','0',13,6,9,'*',134,
+    'H',0x86,0xf7,13,1,1,11,5,0,'0','H','1',11,'0',9,6,3,'U',4,6,19,2,'B','M',
+    '1',25,'0',23,6,3,'U',4,0xa,19,16,'Q','u','o','V','a','d','i','s',' ','L',
+    'i','m','i','t','e','d','1',0x1e,'0',28,6,3,'U',4,3,19,21,'Q','u','o','V',
+    'a','d','i','s',' ','R','o','o','t',' ','C','A',' ','2',' ','G','3','0',
+    0x1e,23,0xd,'1','2','0','1','1','2','1','8','5','9','3','2','Z',23,13,'4',
+    '2','0','1','1','2','1','8','5','9','3','2','Z','0','H','1',0xb,'0',9,6,3,
+    'U',4,6,19,2,'B','M','1',25,'0',23,6,3,'U',4,10,19,16,'Q','u','o','V','a',
+    'd','i','s',' ','L','i','m','i','t','e','d','1',30,'0',28,6,3,'U',4,3,19,
+    0x15,'Q','u','o','V','a','d','i','s',' ','R','o','o','t',' ','C','A',' ',
+    '2',' ','G','3','0',130,2,'"','0',13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,
+    0x03,130,2,15,0,'0',130,2,10,2,130,2,1,0,161,174,'%',178,1,24,220,'W',136,
+    '?','F',0xeb,0xf9,175,226,235,'#','q',226,154,209,'a','f','!','_',170,175,
+    39,'Q',0xe5,'n',27,22,212,'-','}','P',176,'S','w',189,'x',':','`',226,'d',
+    0x2,155,'|',134,155,214,26,142,173,255,31,21,127,213,149,30,18,203,230,20,
+    0x84,4,0xc1,223,'6',179,22,159,138,227,201,219,152,'4',206,216,'3',23,'(',
+    'F',252,167,201,240,210,180,213,'M',9,'r','I',249,242,135,227,169,218,'}',
+    0xa1,'}','k',0xb2,':','%',169,'m','R','D',172,248,190,'n',251,220,166,'s',
+    0x91,0x90,'a',166,3,20,' ',242,231,135,163,136,173,173,160,140,255,166,11,
+    '%','R','%',0xe7,22,1,0xd5,203,184,'5',129,12,163,';',240,225,225,252,'Z',
+    ']',206,128,'q','m',248,'I',171,'>',';',186,184,215,128,1,251,165,235,'[',
+    0xb3,197,'^','`','*','1',160,175,'7',232,' ',':',159,168,'2',',',12,204,9,
+    29,0xd3,158,142,']',188,'L',152,238,197,26,'h','{',236,'S',166,233,20,'5',
+    163,223,205,128,159,12,'H',251,28,244,241,191,'J',184,250,213,140,'q','J',
+    0xc7,0x1f,173,254,'A',154,179,131,']',242,132,'V',239,165,'W','C',206,')',
+    0xad,0x8c,171,'U',191,196,251,'[',1,221,'#','!',161,'X',0,142,195,208,'j',
+    0x13,237,19,227,18,'+',128,220,'g',230,149,178,205,30,'"','n','*',248,'A',
+    0xd4,0xf2,202,20,7,141,138,'U',18,198,'i',245,184,134,'h','/','S','^',176,
+    0xd2,0xaa,'!',0xc1,152,230,'0',227,'g','U',199,155,'n',172,25,168,'U',166,
+    'E',0x6,208,'#',':',219,235,'e',']','*',17,17,240,';','O',202,'m',244,'4',
+    0xc4,'q',0xe4,255,0,'Z',246,92,174,'#','`',133,'s',241,228,16,177,'%',174,
+    213,146,187,19,193,12,224,'9',218,180,'9','W',181,171,'5',170,'r','!',';',
+    0x83,'5',0xe7,'1',223,'z','!','n',184,'2',8,'}',29,'2',145,21,'J','b','r',
+    0xcf,0xe3,'w',161,188,213,17,27,'v',1,'g',8,224,'A',11,195,235,21,'n',248,
+    0xa4,25,217,162,171,175,226,39,'R','V','+',2,138,',',20,'$',249,191,'B',2,
+    0xbf,'&',0xc8,198,143,224,'n','8','}','S','-',229,237,152,179,149,'c','h',
+    127,249,'5',244,223,136,197,'`','5',146,192,'|','i',28,'a',149,22,208,235,
+    222,11,175,'>',4,16,'E','e','X','P','8',175,'H',242,'Y',182,22,242,'<',13,
+    0x90,2,0xc6,'p','.',1,173,'<',21,215,2,3,1,0,1,163,'B','0','@','0',15,6,3,
+    'U',29,19,1,1,0xff,4,5,'0',3,1,1,255,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,
+    0x01,6,'0',29,6,3,'U',29,14,4,22,4,20,237,231,'o','v','Z',191,'`',236,'I',
+    '[',198,165,'w',187,'r',22,'q',155,196,'=','0',13,6,9,'*',134,'H',134,247,
+    0x0d,1,1,11,5,0,3,130,2,1,0,145,223,128,'?','C',9,'~','q',194,247,235,179,
+    0x88,0x8f,225,'Q',178,188,'=','u',249,'(',']',200,188,153,155,'{',']',170,
+    0xe5,202,225,10,247,232,178,211,159,221,'g','1','~',186,1,170,199,'j','A',
+    ';',0x90,0xd4,8,92,0xb2,'`','j',144,240,200,206,3,'b',249,139,237,251,'n',
+    '*',0xdc,0x6,'M','<',')',15,137,22,138,'X','L','H',15,232,132,'a',234,'<',
+    'r',0xa6,'w',0xe4,'B',0xae,136,163,'C','X','y','~',174,202,165,'S',13,169,
+    '=','p',0xbd,' ',0x19,'a',164,'l','8',252,'C','2',225,193,'G',255,248,236,
+    241,17,'"','2',150,156,194,246,'[','i',150,'{',' ',12,'C','A',154,'[',246,
+    'Y',25,136,222,'U',136,'7','Q',11,'x',92,10,30,163,'B',253,199,157,136,15,
+    0xc0,242,'x',2,'$','T',147,175,137,135,136,201,'J',128,29,234,208,'n','>',
+    'a','.','6',187,'5',14,39,150,253,'f','4',';','a','r','s',241,22,92,'G',6,
+    'T','I',0,'z','X',18,176,10,239,133,253,177,184,'3','u','j',147,28,18,230,
+    '`','^','o',29,0x7f,201,31,'#',203,132,'a',159,30,130,'D',249,'_',173,'b',
+    'U','$',154,'R',152,237,'Q',231,161,'~',151,':',230,'/',31,17,218,'S',128,
+    ',',0x85,0x9e,0xab,'5',16,219,'"','_','j',197,'^',151,'S',242,'2',2,9,'0',
+    0xa3,'X',240,13,1,213,'r',198,177,'|','i','{',195,245,'6','E',204,'a','n',
+    '^','L',0x94,197,'^',174,232,14,'^',139,191,247,205,224,237,161,14,27,'3',
+    0xee,'T',24,254,15,190,239,'~',132,'k','C',227,'p',152,219,']','u',178,13,
+    'Y',0x7,133,21,'#','9',214,241,223,169,'&',15,214,'H',199,179,166,'"',245,
+    '3','7','Z',0x95,'G',0x9f,'{',186,24,21,'o',255,214,20,'d',131,'I',210,10,
+    'g','!',219,15,'5','c','`','(','"',227,177,149,131,205,133,166,221,'/',15,
+    0xe7,'g','R','n',187,'/',133,'|',245,'J','s',231,197,'>',192,189,'!',18,5,
+    '?',0xfc,0xb7,3,'I',2,'[',0xc8,'%',230,226,'T','8',245,'y',135,140,29,'S',
+    0xb2,'N',0x85,'{',6,'8',199,',',248,248,176,'r',141,'%',229,'w','R',244,3,
+    0x1c,'H',0xa6,'P','_',136,' ','0','n',242,130,'C',171,'=',151,132,231,'S',
+    251,'!',193,'O',15,'"',154,134,184,'Y','*',246,'G','=',25,136,'-',232,133,
+    0xe1,158,236,133,8,'j',177,'l','4',201,29,236,'H','+',';','x',237,'f',196,
+    142,'y','i',131,222,127,140,
+]
+
 
 /**
 QuoVadis Root CA 2 G3.
 SHA256 fingerprint: 8f:e4:fb:0a:f9:3a:4d:0d:67:db:0b:eb:b2:3e:37:c7:1b:f3:25:dc:bc:dd:24:0e:a0:4d:af:58:b4:7e:18:40
 */
-QUOVADIS_ROOT_CA_2_G3 ::= net.Certificate.parse QUOVADIS_ROOT_CA_2_G3_TEXT_
+QUOVADIS_ROOT_CA_2_G3 ::= parse_ QUOVADIS_ROOT_CA_2_G3_BYTES_
 
-QUOVADIS_ROOT_CA_3_G3_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIFYDCCA0igAwIBAgIULvWbAiin23r/1aOp7r0DoM8Sah0wDQYJKoZIhvcNAQEL
-BQAwSDELMAkGA1UEBhMCQk0xGTAXBgNVBAoTEFF1b1ZhZGlzIExpbWl0ZWQxHjAc
-BgNVBAMTFVF1b1ZhZGlzIFJvb3QgQ0EgMyBHMzAeFw0xMjAxMTIyMDI2MzJaFw00
-MjAxMTIyMDI2MzJaMEgxCzAJBgNVBAYTAkJNMRkwFwYDVQQKExBRdW9WYWRpcyBM
-aW1pdGVkMR4wHAYDVQQDExVRdW9WYWRpcyBSb290IENBIDMgRzMwggIiMA0GCSqG
-SIb3DQEBAQUAA4ICDwAwggIKAoICAQCzyw4QZ47qFJenMioKVjZ/aEzHs286IxSR
-/xl/pcqs7rN2nXrpixurazHb+gtTTK/FpRp5PIpM/6zfJd5O2YIyC0TeytuMrKNu
-FoM7pmRLMon7FhY4futD4tN0SsJiCnMK3UmzV9KwCoWdcTzeo8vAMvMBOSBDGzXR
-U7Ox7sWTaYI+FrUoRqHe6okJ7UO4BUaKhvVZR74bbwEhELn9qdIoyhA5CcoTNs+c
-ra1AdHkrAj80//ogaX3T7mH1urPnMNA3I4ZyYUUpSFlob3emLoG+B01vr87ERROR
-FHAGjx+f+IdpsQ7vw4kZ6+ocYfx6bIrc1gMLnia6Et3UVDmrJqMz6nWB2i3ND0/k
-A9HvFZcba5DFApCTZgIhsUfei5pKgLlVj7WiL8DWM2fafsSntARE60f75li59wzw
-eyuxwHApw0BiLTtIadwjPEjrewl5qW3aqDCYz4ByA4imW0aucnl8CAMhZa634Ryl
-sSqiMd5mBPfAdOhx3v89WcyWJhKLhZVXGqtrdQtEPREoPHtht+KPZ0/l7DxMYIBp
-VzgeAVuNVejH38DMdyM0SXV89pgR6y3e7UEuFAUCf+D+IOs15xGsIs5XPd7JMG0Q
-A4XN8f+MFrXBsj6IbGB/kE+V9/YtrQE5BwT6dYB9v0lQ7e/JxHwc64B+27bQ3RP+
-ydOc17KXqQIDAQABo0IwQDAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
-BjAdBgNVHQ4EFgQUxhfQvKjqAkPyGwaZXSuQILnXnOQwDQYJKoZIhvcNAQELBQAD
-ggIBADRh2Va1EodVTd2jNTFGu6QHcrxfYWLopfsLN7E8trP6KZ1/AvWkyaiTt3px
-KGmPc+FSkNrVvjrlt3ZqVoAh313m6Tqe5T72omnHKgqwGEfcIHB9UqM+WXzBusnI
-FUBhynLWcKzSt/Ac5IYp8M7vaGPQtSCKFWGafoaYtMnCdvvMujAWzKNhxnQT5Wvv
-oxXqA/4Ti2Tk08HS6IT7SdEQTXlm66r99I0xHnAUrdzeZxNMgRVhvLfZkXdxGYFg
-u/BYpbWcC/ePIlUnwEsBbTuZDdQdm2NnL9DuDcpmvJRPpq3t/O5jrFc/ZSXPsoaP
-0Aj/uHYUbt7lJ+yreLVTubY/6CD50qi+YUbKh4yE8/nxoGibIh6BJpsQBJFxwAYf
-3KDTuVan45gtf4Od34wrnDKOMpTwATwiKp9Dwi7DmDkHOHv8XgBCH/MyJnmDhPbl
-8MFREsALHgQjDFSlTC9JxUrRtm5gDWv8a4uFJGS3iQ6rJUdbPM9+Sb3H6QrG2vd+
-DhcI00iX0HGS8A85PjRqHH3Y8iKuu2n0M7SmSFXRDw4m6Oy2Cy2nhTXN/VnIn9HN
-PlopNLk9hM6xZdRZkZFWdSHBd575euFgndOtBBj0fOtek49TSiIp+EgrPk2GrFt/
-ywaZWWDYWGWVjUTR939+J399roD1B0y2PpxxVJkES/1Y+Zj0
------END CERTIFICATE-----
-"""
+QUOVADIS_ROOT_CA_3_G3_BYTES_ ::= #[
+    '0',0x82,0x5,'`','0',130,3,'H',160,3,2,1,2,2,20,'.',245,155,2,'(',167,219,
+    'z',0xff,0xd5,0xa3,169,238,189,3,160,207,18,'j',29,'0',13,6,9,'*',134,'H',
+    0x86,0xf7,13,1,1,11,5,0,'0','H','1',11,'0',9,6,3,'U',4,6,19,2,'B','M','1',
+    25,'0',23,6,3,'U',4,0xa,19,16,'Q','u','o','V','a','d','i','s',' ','L','i',
+    'm','i','t','e','d','1',0x1e,'0',28,6,3,'U',4,3,19,21,'Q','u','o','V','a',
+    'd','i','s',' ','R','o','o','t',' ','C','A',' ','3',' ','G','3','0',30,23,
+    0xd,'1','2','0','1','1','2','2','0','2','6','3','2','Z',23,13,'4','2','0',
+    '1','1','2','2','0','2','6','3','2','Z','0','H','1',0xb,'0',9,6,3,'U',4,6,
+    19,2,'B','M','1',25,'0',23,6,3,'U',4,10,19,16,'Q','u','o','V','a','d','i',
+    's',' ','L','i','m','i','t','e','d','1',0x1e,'0',28,6,3,'U',4,3,19,21,'Q',
+    'u','o','V','a','d','i','s',' ','R','o','o','t',' ','C','A',' ','3',' ',
+    'G','3','0',130,2,'"','0',13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,2,
+    0x0f,0,'0',0x82,2,10,2,130,2,1,0,179,203,14,16,'g',142,234,20,151,167,'2',
+    '*',0xa,'V','6',127,'h','L',199,179,'o',':','#',20,145,255,25,127,165,202,
+    172,238,179,'v',157,'z',233,139,27,171,'k','1',219,250,11,'S','L',175,197,
+    165,26,'y','<',138,'L',255,172,223,'%',222,'N',217,130,'2',11,'D',222,202,
+    0xdb,140,172,163,'n',22,131,';',166,'d','K','2',137,251,22,22,'8','~',235,
+    'C',0xe2,211,'t','J',194,'b',10,'s',10,221,'I',179,'W',210,176,10,133,157,
+    'q','<',0xde,163,203,192,'2',243,1,'9',' ','C',27,'5',209,'S',179,177,238,
+    0xc5,0x93,'i',0x82,'>',22,181,'(','F',161,222,234,137,9,237,'C',184,5,'F',
+    0x8a,134,245,'Y','G',190,27,'o',1,'!',16,185,253,169,210,'(',202,16,'9',9,
+    0xca,19,'6',207,156,173,173,'@','t','y','+',2,'?','4',255,250,' ','i','}',
+    0xd3,0xee,'a',245,186,179,231,'0',208,'7','#',134,'r','a','E',')','H','Y',
+    'h','o','w',166,'.',129,190,7,'M','o',175,206,196,'E',19,145,20,'p',6,143,
+    0x1f,159,248,135,'i',177,14,239,195,137,25,235,234,28,'a',252,'z','l',138,
+    0xdc,0xd6,3,11,158,'&',186,18,221,212,'T','9',171,'&',163,'3',234,'u',129,
+    0xda,'-',0xcd,0xf,'O',228,3,209,239,21,151,27,'k',144,197,2,144,147,'f',2,
+    '!',0xb1,'G',0xde,139,154,'J',128,185,'U',143,181,162,'/',192,214,'3','g',
+    0xda,'~',196,167,180,4,'D',235,'G',251,230,'X',185,247,12,240,'{','+',177,
+    192,'p',')',195,'@','b','-',';','H','i',220,'#','<','H',235,'{',9,'y',169,
+    'm',218,168,'0',152,207,128,'r',3,136,166,'[','F',174,'r','y','|',8,3,'!',
+    'e',0xae,183,225,28,165,177,'*',162,'1',222,'f',4,247,192,'t',232,'q',222,
+    0xff,'=','Y',0xcc,150,'&',18,139,133,149,'W',26,171,'k','u',11,'D','=',17,
+    '(','<','{','a',0xb7,0xe2,143,'g','O',229,236,'<','L','`',128,'i','W','8',
+    0x1e,1,'[',141,'U',232,199,223,192,204,'w','#','4','I','u','|',246,152,17,
+    235,'-',222,237,'A','.',20,5,2,127,224,254,' ',235,'5',231,17,172,'"',206,
+    'W','=',0xde,0xc9,'0','m',16,3,133,205,241,255,140,22,181,193,178,'>',136,
+    'l','`',127,144,'O',149,247,246,'-',173,1,'9',7,4,250,'u',128,'}',191,'I',
+    'P',237,239,201,196,'|',28,235,128,'~',219,182,208,221,19,254,201,211,156,
+    0xd7,178,151,169,2,3,1,0,1,163,'B','0','@','0',15,6,3,'U',29,19,1,1,255,4,
+    0x5,'0',3,1,1,255,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',29,6,3,'U',
+    29,14,4,22,4,20,198,23,208,188,168,234,2,'C',242,27,6,153,']','+',144,' ',
+    0xb9,215,156,228,'0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,3,130,2,1,0,
+    '4','a',0xd9,'V',181,18,135,'U','M',221,163,'5','1','F',187,164,7,'r',188,
+    '_','a','b',0xe8,165,251,11,'7',177,'<',182,179,250,')',157,127,2,245,164,
+    0xc9,0xa8,147,183,'z','q','(','i',143,'s',225,'R',144,218,213,190,':',229,
+    0xb7,'v','j','V',0x80,'!',223,']',230,233,':',158,229,'>',246,162,'i',199,
+    '*',0xa,176,24,'G',220,' ','p','}','R',163,'>','Y','|',193,186,201,200,21,
+    '@','a',0xca,'r',0xd6,'p',0xac,210,183,240,28,228,134,')',240,206,239,'h',
+    'c',0xd0,0xb5,' ',0x8a,21,'a',154,'~',134,152,180,201,194,'v',251,204,186,
+    '0',22,204,163,'a',198,'t',19,229,'k',239,163,21,234,3,254,19,139,'d',228,
+    211,193,210,232,132,251,'I',209,16,'M','y','f',235,170,253,244,141,'1',30,
+    'p',0x14,173,220,222,'g',19,'L',129,21,'a',188,183,217,145,'w','q',25,129,
+    '`',0xbb,0xf0,'X',165,181,156,11,247,143,'"','U',39,192,'K',1,'m',';',153,
+    0xd,212,29,155,'c','g','/',208,238,13,202,'f',188,148,'O',166,173,237,252,
+    0xee,'c',172,'W','?','e','%',207,178,134,143,208,8,255,184,'v',20,'n',222,
+    0xe5,0x27,236,171,'x',181,'S',185,182,'?',232,' ',249,210,168,190,'a','F',
+    0xca,0x87,140,132,243,249,241,160,'h',155,'"',30,129,'&',155,16,4,145,'q',
+    0xc0,6,31,220,160,211,185,'V',167,227,152,'-',127,131,157,223,140,'+',156,
+    '2',0x8e,'2',0x94,240,1,'<','"','*',159,'C',194,'.',195,152,'9',7,'8','{',
+    252,'^',0,'B',31,243,'2','&','y',131,132,246,229,240,193,'Q',18,192,11,30,
+    0x4,'#',12,'T',165,'L','/','I',197,'J',209,182,'n','`',13,'k',252,'k',139,
+    133,'$','d',183,137,14,171,'%','G','[','<',207,'~','I',189,199,233,10,198,
+    218,247,'~',14,23,8,211,'H',151,208,'q',146,240,15,'9','>','4','j',28,'}',
+    216,242,'"',174,187,'i',244,'3',180,166,'H','U',209,15,14,'&',232,236,182,
+    0x0b,'-',0xa7,133,'5',205,253,'Y',200,159,209,205,'>','Z',')','4',185,'=',
+    0x84,0xce,177,'e',212,'Y',145,145,'V','u','!',193,'w',158,249,'z',225,'`',
+    0x9d,211,173,4,24,244,'|',235,'^',147,143,'S','J','"',')',248,'H','+','>',
+    'M',134,172,'[',127,203,6,153,'Y','`',216,'X','e',149,141,'D',209,247,127,
+    '~',0x27,0x7f,'}',174,128,245,7,'L',182,'>',156,'q','T',153,4,'K',253,'X',
+    249,152,244,
+]
+
 
 /**
 QuoVadis Root CA 3 G3.
 SHA256 fingerprint: 88:ef:81:de:20:2e:b0:18:45:2e:43:f8:64:72:5c:ea:5f:bd:1f:c2:d9:d2:05:73:07:09:c5:d8:b8:69:0f:46
 */
-QUOVADIS_ROOT_CA_3_G3 ::= net.Certificate.parse QUOVADIS_ROOT_CA_3_G3_TEXT_
+QUOVADIS_ROOT_CA_3_G3 ::= parse_ QUOVADIS_ROOT_CA_3_G3_BYTES_
 
-DIGICERT_ASSURED_ID_ROOT_G2_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIDljCCAn6gAwIBAgIQC5McOtY5Z+pnI7/Dr5r0SzANBgkqhkiG9w0BAQsFADBl
-MQswCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3
-d3cuZGlnaWNlcnQuY29tMSQwIgYDVQQDExtEaWdpQ2VydCBBc3N1cmVkIElEIFJv
-b3QgRzIwHhcNMTMwODAxMTIwMDAwWhcNMzgwMTE1MTIwMDAwWjBlMQswCQYDVQQG
-EwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3d3cuZGlnaWNl
-cnQuY29tMSQwIgYDVQQDExtEaWdpQ2VydCBBc3N1cmVkIElEIFJvb3QgRzIwggEi
-MA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDZ5ygvUj82ckmIkzTz+GoeMVSA
-n61UQbVH35ao1K+ALbkKz3X9iaV9JPrjIgwrvJUXCzO/GU1BBpAAvQxNEP4Htecc
-biJVMWWXvdMX0h5i89vqbFCMP4QMls+3ywPgym2hFEwbid3tALBSfK+RbLE4E9Hp
-EgjAALAcKxHad3A2m67OeYfcgnDmCXRwVWmvo2ifv922ebPynXApVfSr/5Vh88lA
-bx3RvpO704gqu52/clpWcTs/1PPRCv4o76Pu2ZmvA9OPYLfykqGxvYmJHzDNw6Yu
-YjOuFgJ3RFrngQo8p0Quebg/BLxcoIfhG69Rjs3sLPr4/m3wOnyqi+RnlTGNAgMB
-AAGjQjBAMA8GA1UdEwEB/wQFMAMBAf8wDgYDVR0PAQH/BAQDAgGGMB0GA1UdDgQW
-BBTOw0q5mVXyuNtgv6l+vVa1lzan1jANBgkqhkiG9w0BAQsFAAOCAQEAyqVVjOPI
-QW5pJ6d1Ee88hjZv0p3GeDgdaZaikmkuOGybfQTUiaWxMTeKySHMq2zNixya1r9I
-0jJmwYrA8y8678Dj1JGG0VDjA9tzd29KOVPt3ibHtX2vK0LRdWLjSisCx1BL4Gni
-lmwORGYQRI+tBev4eaymG+g3NJ1TyWGqolKvSnAWhsI6yLETcDbYz+70CjTVW0z9
-B5yiutkBclzzTcHdDrEcDcRjvq30FPuJ7KJBDkzMyFdA0G4Dqs0MjomZmWzwPDCv
-ON9vvKO+KSAnq3T/EyJ43pdSVR6DtVQgA+6uwE9W3jfMw3+qBCe703e4YtsXfJwo
-IhNzbM8m9Yop5w==
------END CERTIFICATE-----
-"""
+DIGICERT_ASSURED_ID_ROOT_G2_BYTES_ ::= #[
+    '0',0x82,0x3,150,'0',130,2,'~',160,3,2,1,2,2,16,11,147,28,':',214,'9','g',
+    234,'g','#',191,195,175,154,244,'K','0',13,6,9,'*',134,'H',134,247,13,1,1,
+    0x0b,5,0,'0','e','1',0xb,'0',9,6,3,'U',4,6,19,2,'U','S','1',21,'0',19,6,3,
+    'U',4,10,19,12,'D','i','g','i','C','e','r','t',' ','I','n','c','1',25,'0',
+    23,6,3,'U',4,11,19,16,'w','w','w','.','d','i','g','i','c','e','r','t','.',
+    'c','o','m','1','$','0','"',6,3,'U',4,3,19,27,'D','i','g','i','C','e','r',
+    't',' ','A','s','s','u','r','e','d',' ','I','D',' ','R','o','o','t',' ',
+    'G','2','0',30,23,0xd,'1','3','0','8','0','1','1','2','0','0','0','0','Z',
+    23,0xd,'3','8','0','1','1','5','1','2','0','0','0','0','Z','0','e','1',11,
+    '0',0x9,6,3,'U',4,6,19,2,'U','S','1',21,'0',19,6,3,'U',4,10,19,12,'D','i',
+    'g','i','C','e','r','t',' ','I','n','c','1',25,'0',23,6,3,'U',4,0xb,19,16,
+    'w','w','w','.','d','i','g','i','c','e','r','t','.','c','o','m','1','$',
+    '0','"',6,3,'U',4,3,19,27,'D','i','g','i','C','e','r','t',' ','A','s','s',
+    'u','r','e','d',' ','I','D',' ','R','o','o','t',' ','G','2','0',130,1,'"',
+    '0',0x0d,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,1,15,0,'0',130,1,10,2,
+    0x82,1,1,0,217,231,'(','/','R','?','6','r','I',136,147,'4',243,248,'j',30,
+    '1','T',0x80,0x9f,0xad,'T','A',181,'G',223,150,168,212,175,128,'-',185,10,
+    0xcf,'u',0xfd,137,165,'}','$',250,227,'"',12,'+',188,149,23,11,'3',191,25,
+    'M','A',0x06,144,0,189,12,'M',16,254,7,181,231,28,'n','"','U','1','e',151,
+    0xbd,211,23,210,30,'b',243,219,234,'l','P',140,'?',132,12,150,207,183,203,
+    3,224,202,'m',161,20,'L',27,137,221,237,0,176,'R','|',175,145,'l',177,'8',
+    0x13,209,233,18,8,192,0,176,28,'+',17,218,'w','p','6',155,174,206,'y',135,
+    220,130,'p',230,9,'t','p','U','i',175,163,'h',159,191,221,182,'y',179,242,
+    0x9d,'p',')','U',0xf4,0xab,255,149,'a',243,201,'@','o',29,209,190,147,187,
+    0xd3,0x88,'*',0xbb,157,191,'r','Z','V','q',';','?',212,243,209,10,254,'(',
+    0xef,163,238,217,153,175,3,211,143,'`',183,242,146,161,177,189,137,137,31,
+    '0',0xcd,0xc3,166,'.','b','3',174,22,2,'w','D','Z',231,129,10,'<',167,'D',
+    '.','y',0xb8,'?',4,0xbc,92,160,135,225,27,175,'Q',142,205,236,',',250,248,
+    254,'m',240,':','|',170,139,228,'g',149,'1',141,2,3,1,0,1,163,'B','0','@',
+    '0',0x0f,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',14,6,3,'U',29,15,1,1,
+    0xff,4,4,3,2,1,134,'0',29,6,3,'U',29,14,4,22,4,20,206,195,'J',185,153,'U',
+    0xf2,0xb8,0xdb,'`',191,169,'~',189,'V',181,151,'6',167,214,'0',13,6,9,'*',
+    134,'H',134,247,13,1,1,11,5,0,3,130,1,1,0,202,165,'U',140,227,200,'A','n',
+    'i',39,0xa7,'u',17,239,'<',134,'6','o',210,157,198,'x','8',29,'i',150,162,
+    146,'i','.','8','l',155,'}',4,212,137,165,177,'1','7',138,201,'!',204,171,
+    'l',0xcd,0x8b,28,0x9a,214,191,'H',210,'2','f',193,138,192,243,'/',':',239,
+    192,227,212,145,134,209,'P',227,3,219,'s','w','o','J','9','S',237,222,'&',
+    199,181,'}',175,'+','B',209,'u','b',227,'J','+',2,199,'P','K',224,'i',226,
+    0x96,'l',0x0e,'D','f',16,'D',143,173,5,235,248,'y',172,166,27,232,'7','4',
+    157,'S',201,'a',170,162,'R',175,'J','p',22,134,194,':',200,177,19,'p','6',
+    216,207,238,244,10,'4',213,'[','L',253,7,156,162,186,217,1,'r',92,243,'M',
+    0xc1,0xdd,0xe,177,28,13,196,'c',190,173,244,20,251,137,236,162,'A',14,'L',
+    0xcc,200,'W','@',208,'n',3,170,205,12,142,137,153,153,'l',240,'<','0',175,
+    '8',223,'o',188,163,190,')',' ',39,171,'t',255,19,'"','x',222,151,'R','U',
+    30,131,181,'T',' ',3,238,174,192,'O','V',222,'7',204,195,127,170,4,39,187,
+    211,'w',184,'b',219,23,'|',156,'(','"',19,'s','l',207,'&',245,138,')',231,
+]
+
 
 /**
 DigiCert Assured ID Root G2.
 SHA256 fingerprint: 7d:05:eb:b6:82:33:9f:8c:94:51:ee:09:4e:eb:fe:fa:79:53:a1:14:ed:b2:f4:49:49:45:2f:ab:7d:2f:c1:85
 */
-DIGICERT_ASSURED_ID_ROOT_G2 ::= net.Certificate.parse DIGICERT_ASSURED_ID_ROOT_G2_TEXT_
+DIGICERT_ASSURED_ID_ROOT_G2 ::= parse_ DIGICERT_ASSURED_ID_ROOT_G2_BYTES_
 
-DIGICERT_ASSURED_ID_ROOT_G3_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIICRjCCAc2gAwIBAgIQC6Fa+h3foLVJRK/NJKBs7DAKBggqhkjOPQQDAzBlMQsw
-CQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3d3cu
-ZGlnaWNlcnQuY29tMSQwIgYDVQQDExtEaWdpQ2VydCBBc3N1cmVkIElEIFJvb3Qg
-RzMwHhcNMTMwODAxMTIwMDAwWhcNMzgwMTE1MTIwMDAwWjBlMQswCQYDVQQGEwJV
-UzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3d3cuZGlnaWNlcnQu
-Y29tMSQwIgYDVQQDExtEaWdpQ2VydCBBc3N1cmVkIElEIFJvb3QgRzMwdjAQBgcq
-hkjOPQIBBgUrgQQAIgNiAAQZ57ysRGXtzbg/WPuNsVepRC0FFfLvC/8QdJ+1YlJf
-Zn4f5dwbRXkLzMZTCp2NXQLZqVneAlr2lSoOjThKiknGvMYDOAdfVdp+CW7if17Q
-RSAPWXYQ1qAk8C3eNvJsKTmjQjBAMA8GA1UdEwEB/wQFMAMBAf8wDgYDVR0PAQH/
-BAQDAgGGMB0GA1UdDgQWBBTL0L2p4ZgFUaFNN6KDec6NHSrkhDAKBggqhkjOPQQD
-AwNnADBkAjAlpIFFAmsSS3V0T8gj43DydXLefInwz5FyYZ5eEJJZVrmDxxDnOOlY
-JjZ91eQ0hjkCMHw2U/Aw5WJjOpnitqM7mzT6HtoQknFekROn3aRukswy1vUhZscv
-6pZjamVFkpUBtA==
------END CERTIFICATE-----
-"""
+DIGICERT_ASSURED_ID_ROOT_G3_BYTES_ ::= #[
+    '0',0x82,0x2,'F','0',130,1,205,160,3,2,1,2,2,16,11,161,'Z',250,29,223,160,
+    0xb5,'I','D',175,205,'$',160,'l',236,'0',10,6,8,'*',134,'H',206,'=',4,3,3,
+    '0','e','1',0xb,'0',9,6,3,'U',4,6,19,2,'U','S','1',21,'0',19,6,3,'U',4,10,
+    0x13,12,'D','i','g','i','C','e','r','t',' ','I','n','c','1',25,'0',23,6,3,
+    'U',0x04,11,19,16,'w','w','w','.','d','i','g','i','c','e','r','t','.','c',
+    'o','m','1','$','0','"',6,3,'U',4,3,19,27,'D','i','g','i','C','e','r','t',
+    ' ','A','s','s','u','r','e','d',' ','I','D',' ','R','o','o','t',' ','G',
+    '3','0',0x1e,23,13,'1','3','0','8','0','1','1','2','0','0','0','0','Z',23,
+    13,'3','8','0','1','1','5','1','2','0','0','0','0','Z','0','e','1',11,'0',
+    0x9,6,3,'U',4,6,19,2,'U','S','1',21,'0',19,6,3,'U',4,10,19,12,'D','i','g',
+    'i','C','e','r','t',' ','I','n','c','1',25,'0',23,6,3,'U',4,0xb,19,16,'w',
+    'w','w','.','d','i','g','i','c','e','r','t','.','c','o','m','1','$','0',
+    '"',6,3,'U',4,3,19,27,'D','i','g','i','C','e','r','t',' ','A','s','s','u',
+    'r','e','d',' ','I','D',' ','R','o','o','t',' ','G','3','0','v','0',16,6,
+    0x07,'*',134,'H',206,'=',2,1,6,5,'+',129,4,0,'"',3,'b',0,4,25,231,188,172,
+    'D','e',0xed,0xcd,184,'?','X',251,141,177,'W',169,'D','-',5,21,242,239,11,
+    0xff,16,'t',0x9f,181,'b','R','_','f','~',31,229,220,27,'E','y',11,204,198,
+    'S',10,157,141,']',2,217,169,'Y',222,2,'Z',246,149,'*',14,141,'8','J',138,
+    'I',0xc6,188,198,3,'8',7,'_','U',218,'~',9,'n',226,127,'^',208,'E',' ',15,
+    'Y','v',0x10,0xd6,160,'$',240,'-',222,'6',242,'l',')','9',163,'B','0','@',
+    '0',0x0f,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',14,6,3,'U',29,15,1,1,
+    0xff,4,4,3,2,1,134,'0',29,6,3,'U',29,14,4,22,4,20,203,208,189,169,225,152,
+    0x5,'Q',161,'M','7',162,131,'y',206,141,29,'*',228,132,'0',10,6,8,'*',134,
+    'H',0xce,'=',4,3,3,3,'g',0,'0','d',2,'0','%',164,129,'E',2,'k',18,'K','u',
+    't','O',0xc8,'#',0xe3,'p',242,'u','r',222,'|',137,240,207,145,'r','a',158,
+    '^',16,146,'Y','V',185,131,199,16,231,'8',233,'X','&','6','}',213,228,'4',
+    134,'9',2,'0','|','6','S',240,'0',229,'b','c',':',153,226,182,163,';',155,
+    '4',0xfa,30,218,16,146,'q','^',145,19,167,221,164,'n',146,204,'2',214,245,
+    '!','f',199,'/',234,150,'c','j','e','E',146,149,1,180,
+]
+
 
 /**
 DigiCert Assured ID Root G3.
 SHA256 fingerprint: 7e:37:cb:8b:4c:47:09:0c:ab:36:55:1b:a6:f4:5d:b8:40:68:0f:ba:16:6a:95:2d:b1:00:71:7f:43:05:3f:c2
 */
-DIGICERT_ASSURED_ID_ROOT_G3 ::= net.Certificate.parse DIGICERT_ASSURED_ID_ROOT_G3_TEXT_
+DIGICERT_ASSURED_ID_ROOT_G3 ::= parse_ DIGICERT_ASSURED_ID_ROOT_G3_BYTES_
 
-DIGICERT_GLOBAL_ROOT_G2_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIDjjCCAnagAwIBAgIQAzrx5qcRqaC7KGSxHQn65TANBgkqhkiG9w0BAQsFADBh
-MQswCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3
-d3cuZGlnaWNlcnQuY29tMSAwHgYDVQQDExdEaWdpQ2VydCBHbG9iYWwgUm9vdCBH
-MjAeFw0xMzA4MDExMjAwMDBaFw0zODAxMTUxMjAwMDBaMGExCzAJBgNVBAYTAlVT
-MRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5j
-b20xIDAeBgNVBAMTF0RpZ2lDZXJ0IEdsb2JhbCBSb290IEcyMIIBIjANBgkqhkiG
-9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuzfNNNx7a8myaJCtSnX/RrohCgiN9RlUyfuI
-2/Ou8jqJkTx65qsGGmvPrC3oXgkkRLpimn7Wo6h+4FR1IAWsULecYxpsMNzaHxmx
-1x7e/dfgy5SDN67sH0NO3Xss0r0upS/kqbitOtSZpLYl6ZtrAGCSYP9PIUkY92eQ
-q2EGnI/yuum06ZIya7XzV+hdG82MHauVBJVJ8zUtluNJbd134/tJS7SsVQepj5Wz
-tCO7TG1F8PapspUwtP1MVYwnSlcUfIKdzXOS0xZKBgyMUNGPHgm+F6HmIcr9g+UQ
-vIOlCsRnKPZzFBQ9RnbDhxSJITRNrw9FDKZJobq7nMWxM4MphQIDAQABo0IwQDAP
-BgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIBhjAdBgNVHQ4EFgQUTiJUIBiV
-5uNu5g/6+rkS7QYXjzkwDQYJKoZIhvcNAQELBQADggEBAGBnKJRvDkhj6zHd6mcY
-1Yl9PMWLSn/pvtsrF9+wX3N3KjITOYFnQoQj8kVnNeyIv/iPsGEMNKSuIEyExtv4
-NeF22d+mQrvHRAiGfzZ0JFrabA0UWTW98kndth/Jsw1HKj2ZL7tcu7XUIOGZX1NG
-Fdtom/DzMNU+MeKNhJ7jitralj41E6Vf8PlwUHBHQRFXGU7Aj64GxJUTFy8bJZ91
-8rGOmaFvE7FBcf6IKshPECBV1/MUReXgRPTqh5Uykw7+U0b6LJ3/iyK5S9kJRaTe
-pLiaWN0bfVKfjllDiIGknibVb63dDcY3fe0Dkhvld1927jyNxF1WW6LZZm6zNTfl
-MrY=
------END CERTIFICATE-----
-"""
+DIGICERT_GLOBAL_ROOT_G2_BYTES_ ::= #[
+    '0',130,3,142,'0',130,2,'v',160,3,2,1,2,2,16,3,':',241,230,167,17,169,160,
+    187,'(','d',177,29,9,250,229,'0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,
+    '0','a','1',0xb,'0',9,6,3,'U',4,6,19,2,'U','S','1',21,'0',19,6,3,'U',4,10,
+    0x13,12,'D','i','g','i','C','e','r','t',' ','I','n','c','1',25,'0',23,6,3,
+    'U',0x04,11,19,16,'w','w','w','.','d','i','g','i','c','e','r','t','.','c',
+    'o','m','1',' ','0',30,6,3,'U',4,3,19,23,'D','i','g','i','C','e','r','t',
+    ' ','G','l','o','b','a','l',' ','R','o','o','t',' ','G','2','0',30,23,0xd,
+    '1','3','0','8','0','1','1','2','0','0','0','0','Z',23,13,'3','8','0','1',
+    '1','5','1','2','0','0','0','0','Z','0','a','1',11,'0',9,6,3,'U',4,6,19,2,
+    'U','S','1',21,'0',19,6,3,'U',4,0xa,19,12,'D','i','g','i','C','e','r','t',
+    ' ','I','n','c','1',25,'0',23,6,3,'U',4,0xb,19,16,'w','w','w','.','d','i',
+    'g','i','c','e','r','t','.','c','o','m','1',' ','0',30,6,3,'U',4,3,19,23,
+    'D','i','g','i','C','e','r','t',' ','G','l','o','b','a','l',' ','R','o',
+    'o','t',' ','G','2','0',130,1,'"','0',13,6,9,'*',134,'H',134,247,13,1,1,1,
+    5,0,3,130,1,15,0,'0',130,1,10,2,130,1,1,0,187,'7',205,'4',220,'{','k',201,
+    0xb2,'h',0x90,173,'J','u',255,'F',186,'!',10,8,141,245,25,'T',201,251,136,
+    0xdb,243,174,242,':',137,145,'<','z',230,171,6,26,'k',207,172,'-',232,'^',
+    0x9,'$','D',186,'b',154,'~',214,163,168,'~',224,'T','u',' ',5,172,'P',183,
+    0x9c,'c',26,'l','0',0xdc,218,31,25,177,215,30,222,253,215,224,203,148,131,
+    '7',0xae,0xec,31,'C','N',0xdd,'{',',',210,189,'.',165,'/',228,169,184,173,
+    ':',0xd4,153,164,182,'%',233,155,'k',0,'`',146,'`',255,'O','!','I',24,247,
+    'g',144,171,'a',6,156,143,242,186,233,180,233,146,'2','k',181,243,'W',232,
+    ']',0x1b,205,140,29,171,149,4,149,'I',243,'5','-',150,227,'I','m',221,'w',
+    227,251,'I','K',180,172,'U',7,169,143,149,179,180,'#',187,'L','m','E',240,
+    246,169,178,149,'0',180,253,'L','U',140,39,'J','W',20,'|',130,157,205,'s',
+    0x92,0xd3,22,'J',6,12,140,'P',209,143,30,9,190,23,161,230,'!',202,253,131,
+    0xe5,0x10,188,131,165,10,196,'g','(',246,'s',20,20,'=','F','v',195,135,20,
+    137,'!','4','M',175,15,'E',12,166,'I',161,186,187,156,197,177,'3',131,')',
+    0x85,2,3,1,0,1,163,'B','0','@','0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,
+    0xff,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,134,'0',29,6,3,'U',29,14,4,22,
+    0x04,20,'N','"','T',' ',24,149,230,227,'n',230,15,250,250,185,18,237,6,23,
+    0x8f,'9','0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,3,130,1,1,0,'`','g',
+    '(',148,'o',14,'H','c',235,'1',221,234,'g',24,213,137,'}','<',197,139,'J',
+    127,233,190,219,'+',23,223,176,'_','s','w','*','2',19,'9',129,'g','B',132,
+    '#',0xf2,'E','g','5',0xec,0x88,191,248,143,176,'a',12,'4',164,174,' ','L',
+    132,198,219,248,'5',225,'v',217,223,166,'B',187,199,'D',8,134,127,'6','t',
+    '$','Z',0xda,'l',0xd,20,'Y','5',189,242,'I',221,182,31,201,179,13,'G','*',
+    '=',153,'/',187,92,187,181,212,' ',225,153,'_','S','F',21,219,'h',155,240,
+    0xf3,'0',0xd5,'>','1',0xe2,141,132,158,227,138,218,218,150,'>','5',19,165,
+    '_',240,249,'p','P','p','G','A',17,'W',25,'N',192,143,174,6,196,149,19,23,
+    '/',27,'%',159,'u',242,177,142,153,161,'o',19,177,'A','q',254,136,'*',200,
+    'O',16,' ','U',0xd7,243,20,'E',229,224,'D',244,234,135,149,'2',147,14,254,
+    'S','F',250,',',157,255,139,'"',185,'K',217,9,'E',164,222,164,184,154,'X',
+    221,27,'}','R',159,142,'Y','C',136,129,164,158,'&',213,'o',173,221,13,198,
+    '7','}',0xed,3,146,27,229,'w','_','v',238,'<',141,196,']','V','[',162,217,
+    'f','n',179,'5','7',229,'2',182,
+]
+
 
 /**
 DigiCert Global Root G2.
 SHA256 fingerprint: cb:3c:cb:b7:60:31:e5:e0:13:8f:8d:d3:9a:23:f9:de:47:ff:c3:5e:43:c1:14:4c:ea:27:d4:6a:5a:b1:cb:5f
 */
-DIGICERT_GLOBAL_ROOT_G2 ::= net.Certificate.parse DIGICERT_GLOBAL_ROOT_G2_TEXT_
+DIGICERT_GLOBAL_ROOT_G2 ::= parse_ DIGICERT_GLOBAL_ROOT_G2_BYTES_
 
-DIGICERT_GLOBAL_ROOT_G3_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIICPzCCAcWgAwIBAgIQBVVWvPJepDU1w6QP1atFcjAKBggqhkjOPQQDAzBhMQsw
-CQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3d3cu
-ZGlnaWNlcnQuY29tMSAwHgYDVQQDExdEaWdpQ2VydCBHbG9iYWwgUm9vdCBHMzAe
-Fw0xMzA4MDExMjAwMDBaFw0zODAxMTUxMjAwMDBaMGExCzAJBgNVBAYTAlVTMRUw
-EwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20x
-IDAeBgNVBAMTF0RpZ2lDZXJ0IEdsb2JhbCBSb290IEczMHYwEAYHKoZIzj0CAQYF
-K4EEACIDYgAE3afZu4q4C/sLfyHS8L6+c/MzXRq8NOrexpu80JX28MzQC7phW1FG
-fp4tn+6OYwwX7Adw9c+ELkCDnOg/QW07rdOkFFk2eJ0DQ+4QE2xy3q6Ip6FrtUPO
-Z9wj/wMco+I+o0IwQDAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIBhjAd
-BgNVHQ4EFgQUs9tIpPmhxdiuNkHMEWNpYim8S8YwCgYIKoZIzj0EAwMDaAAwZQIx
-AK288mw/EkrRLTnDCgmXc/SINoyIJ7vmiI1Qhadj+Z4y3maTD/HMsQmP3Wyr+mt/
-oAIwOWZbwmSNuJ5Q3KjVSaLtx9zRSX8XAbjIho9OjIgrqJqpisXRAL34VOKa5Vt8
-sycX
------END CERTIFICATE-----
-"""
+DIGICERT_GLOBAL_ROOT_G3_BYTES_ ::= #[
+    '0',0x82,0x2,'?','0',130,1,197,160,3,2,1,2,2,16,5,'U','V',188,242,'^',164,
+    '5','5',0xc3,0xa4,15,213,171,'E','r','0',10,6,8,'*',134,'H',206,'=',4,3,3,
+    '0','a','1',0xb,'0',9,6,3,'U',4,6,19,2,'U','S','1',21,'0',19,6,3,'U',4,10,
+    0x13,12,'D','i','g','i','C','e','r','t',' ','I','n','c','1',25,'0',23,6,3,
+    'U',0x04,11,19,16,'w','w','w','.','d','i','g','i','c','e','r','t','.','c',
+    'o','m','1',' ','0',30,6,3,'U',4,3,19,23,'D','i','g','i','C','e','r','t',
+    ' ','G','l','o','b','a','l',' ','R','o','o','t',' ','G','3','0',30,23,0xd,
+    '1','3','0','8','0','1','1','2','0','0','0','0','Z',23,13,'3','8','0','1',
+    '1','5','1','2','0','0','0','0','Z','0','a','1',11,'0',9,6,3,'U',4,6,19,2,
+    'U','S','1',21,'0',19,6,3,'U',4,0xa,19,12,'D','i','g','i','C','e','r','t',
+    ' ','I','n','c','1',25,'0',23,6,3,'U',4,0xb,19,16,'w','w','w','.','d','i',
+    'g','i','c','e','r','t','.','c','o','m','1',' ','0',30,6,3,'U',4,3,19,23,
+    'D','i','g','i','C','e','r','t',' ','G','l','o','b','a','l',' ','R','o',
+    'o','t',' ','G','3','0','v','0',0x10,6,7,'*',0x86,'H',206,'=',2,1,6,5,'+',
+    0x81,4,0,'"',3,'b',0,4,0xdd,167,217,187,138,184,11,251,11,127,'!',210,240,
+    0xbe,0xbe,'s',0xf3,'3',']',26,188,'4',234,222,198,155,188,208,149,246,240,
+    0xcc,0xd0,0xb,186,'a','[','Q','F','~',158,'-',159,238,142,'c',12,23,236,7,
+    'p',0xf5,0xcf,0x84,'.','@',131,156,232,'?','A','m',';',173,211,164,20,'Y',
+    '6','x',0x9d,3,'C',0xee,16,19,'l','r',222,174,136,167,161,'k',181,'C',206,
+    'g',220,'#',255,3,28,163,226,'>',163,'B','0','@','0',15,6,3,'U',29,19,1,1,
+    255,4,5,'0',3,1,1,255,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,134,'0',29,6,
+    3,'U',29,0xe,4,22,4,20,179,219,'H',164,249,161,197,216,174,'6','A',204,17,
+    'c','i','b',')',0xbc,'K',198,'0',10,6,8,'*',134,'H',206,'=',4,3,3,3,'h',0,
+    '0','e',0x2,'1',0,173,188,242,'l','?',18,'J',209,'-','9',195,10,9,151,'s',
+    0xf4,0x88,'6',0x8c,136,39,187,230,136,141,'P',133,167,'c',249,158,'2',222,
+    'f',0x93,0x0f,241,204,177,9,143,221,'l',171,250,'k',127,160,2,'0','9','f',
+    '[',0xc2,'d',0x8d,184,158,'P',220,168,213,'I',162,237,199,220,209,'I',127,
+    0x17,1,0xb8,200,134,143,'N',140,136,'+',168,154,169,138,197,209,0,189,248,
+    'T',226,154,229,'[','|',179,39,23,
+]
+
 
 /**
 DigiCert Global Root G3.
 SHA256 fingerprint: 31:ad:66:48:f8:10:41:38:c7:38:f3:9e:a4:32:01:33:39:3e:3a:18:cc:02:29:6e:f9:7c:2a:c9:ef:67:31:d0
 */
-DIGICERT_GLOBAL_ROOT_G3 ::= net.Certificate.parse DIGICERT_GLOBAL_ROOT_G3_TEXT_
+DIGICERT_GLOBAL_ROOT_G3 ::= parse_ DIGICERT_GLOBAL_ROOT_G3_BYTES_
 
-DIGICERT_TRUSTED_ROOT_G4_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIFkDCCA3igAwIBAgIQBZsbV56OITLiOQe9p3d1XDANBgkqhkiG9w0BAQwFADBi
-MQswCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3
-d3cuZGlnaWNlcnQuY29tMSEwHwYDVQQDExhEaWdpQ2VydCBUcnVzdGVkIFJvb3Qg
-RzQwHhcNMTMwODAxMTIwMDAwWhcNMzgwMTE1MTIwMDAwWjBiMQswCQYDVQQGEwJV
-UzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3d3cuZGlnaWNlcnQu
-Y29tMSEwHwYDVQQDExhEaWdpQ2VydCBUcnVzdGVkIFJvb3QgRzQwggIiMA0GCSqG
-SIb3DQEBAQUAA4ICDwAwggIKAoICAQC/5pBzaN675F1KPDAiMGkz7MKnJS7JIT3y
-ithZwuEppz1Yq3aaza57G4QNxDAf8xukOBbrVsaXbR2rsnnyyhHS5F/WBTxSD1If
-xp4VpX6+n6lXFllVcq9ok3DCsrp1mWpzMpTREEQQLt+C8weE5nQ7bXHiLQwb7iDV
-ySAdYyktzuxeTsiT+CFhmzTrBcZe7FsavOvJz82sNEBfsXpm7nfISKhmV1efVFiO
-DCu3T6cw2Vbuyntd463JT17lNecxy9qTXtyOj4DatpGYQJB5w3jHtrHEtWoYOAMQ
-jdjUN6QuBX2I9YI+EJFwq1WCQTLX2wRzKm6RAXwhTNS8rhsDdV14Ztk6MUSaM0C/
-CNdaSaTC5qmgZ92kJ7yhTzm1EVgX9yRcRo9k98FpiHaYdj1ZXUJ2h4mXaXpI8OCi
-EhtmmnTK3kse5w5jrubU75KSOp493ADkRSWJtppEGSt+wJS00mFt6zPZxd9LBADM
-fRyVw4/3IbKyEbe7f/LVjHAsQWCqsWMYRJUadmJ+9oCw++hkpjPRiQfhvbfmQ6QY
-uKZ3AeEPlAwhHbJUKSWJbOUOUlFHdL4mrLZBdd56rF+NP8m800ERElvlEFDrMcXK
-chYiCd98THU/Y+whX8QgUWtvsauGi0/C1kVfnSD8oR7FwI+isX4KJpn15GkvmB0t
-9dmpsh3lGwIDAQABo0IwQDAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
-hjAdBgNVHQ4EFgQU7NfjgtJxXWRM3y5nP+e6mK4cD08wDQYJKoZIhvcNAQEMBQAD
-ggIBALth2X2pbL4XxJEbw6GiAI3jZGgPVs93rnD5/ZpKmbnJeFwMDF/k5hQpVgs2
-SV1EY+CtnJYYZhsjDT156W1r1lT40jzBQ0CuHVD1UvyQO7uYmWlrx8GnqGikJ9yd
-+SeuMIW59mdNOj6PWTkiU0TryF0Dyu1Qen1iIQqAyHNm0aAFYF/opbSnr6j3bTWc
-fFqK1qI4mfN4i/RN0iAL3gTujJtHgXINwBQy7zBZLq7gcfJW5GqXb5JQbZaNaHqa
-sjYUegbyJLkJEVDXCLG4iXqEI2FCKeWjzaIgQdfRnGTZ6iahixTXTBmyUEFxPT9N
-cCOGDErcgdLMMpSEDQgJlxxPwO5rIHQw0uA5NBCFIRUBCOhVMt5xSdkoF1BN5r5N
-0XWs0Mr7QbhDparTwwVETyw2m+L64kW4I1NsBm9nVX9GtUw/bihaeSbSpKhil9Ie
-4u1Ki7wb/UdKDd9nZn6yW0HQO+T0O/QEY+nvwlQAUaCKKsnOeMzV6ocEGLPOr0mI
-r/OSmbaz5mEP0oUA51Aa5BuVnRmhuZyxm7EAHu/QD09CbMkKvO5D+jpxpchNJqU1
-/YldvIViHTLSoCtU7ZpXwdv6EM8Zt4tKG48BtieVU+i2iW1bvGjUI+iLUaJW+fCm
-gKDWHrO8Dw9TdSmq6hN35N6MgSGtBxBHEa2HPQfRdbzP82Z+
------END CERTIFICATE-----
-"""
+DIGICERT_TRUSTED_ROOT_G4_BYTES_ ::= #[
+    '0',130,5,144,'0',130,3,'x',160,3,2,1,2,2,16,5,155,27,'W',158,142,'!','2',
+    226,'9',7,189,167,'w','u',92,'0',13,6,9,'*',134,'H',134,247,13,1,1,12,5,0,
+    '0','b','1',0xb,'0',9,6,3,'U',4,6,19,2,'U','S','1',21,'0',19,6,3,'U',4,10,
+    0x13,12,'D','i','g','i','C','e','r','t',' ','I','n','c','1',25,'0',23,6,3,
+    'U',0x04,11,19,16,'w','w','w','.','d','i','g','i','c','e','r','t','.','c',
+    'o','m','1','!','0',31,6,3,'U',4,3,19,24,'D','i','g','i','C','e','r','t',
+    ' ','T','r','u','s','t','e','d',' ','R','o','o','t',' ','G','4','0',30,23,
+    0xd,'1','3','0','8','0','1','1','2','0','0','0','0','Z',23,13,'3','8','0',
+    '1','1','5','1','2','0','0','0','0','Z','0','b','1',0xb,'0',9,6,3,'U',4,6,
+    19,2,'U','S','1',21,'0',19,6,3,'U',4,10,19,12,'D','i','g','i','C','e','r',
+    't',' ','I','n','c','1',25,'0',23,6,3,'U',4,0xb,19,16,'w','w','w','.','d',
+    'i','g','i','c','e','r','t','.','c','o','m','1','!','0',31,6,3,'U',4,3,19,
+    0x18,'D','i','g','i','C','e','r','t',' ','T','r','u','s','t','e','d',' ',
+    'R','o','o','t',' ','G','4','0',0x82,2,'"','0',13,6,9,'*',134,'H',134,247,
+    0x0d,1,1,1,5,0,3,0x82,2,15,0,'0',130,2,10,2,130,2,1,0,191,230,144,'s','h',
+    0xde,0xbb,228,']','J','<','0','"','0','i','3',236,194,167,'%','.',201,'!',
+    '=',0xf2,0x8a,0xd8,'Y',194,225,')',167,'=','X',171,'v',154,205,174,'{',27,
+    0x84,0x0d,196,'0',31,243,27,164,'8',22,235,'V',198,151,'m',29,171,178,'y',
+    242,202,17,210,228,'_',214,5,'<','R',15,'R',31,198,158,21,165,'~',190,159,
+    0xa9,'W',0x16,'Y','U','r',175,'h',147,'p',194,178,186,'u',153,'j','s','2',
+    148,209,16,'D',16,'.',223,130,243,7,132,230,'t',';','m','q',226,'-',12,27,
+    0xee,' ',0xd5,0xc9,' ',29,'c',')','-',206,236,'^','N',200,147,248,'!','a',
+    0x9b,'4',235,5,198,'^',236,'[',26,188,235,201,207,205,172,'4','@','_',177,
+    'z','f',0xee,'w',0xc8,'H',0xa8,'f','W','W',159,'T','X',142,12,'+',183,'O',
+    0xa7,'0',0xd9,'V',238,202,'{',']',227,173,201,'O','^',229,'5',231,'1',203,
+    0xda,0x93,'^',220,142,143,128,218,182,145,152,'@',144,'y',195,'x',199,182,
+    177,196,181,'j',24,'8',3,16,141,216,212,'7',164,'.',5,'}',136,245,130,'>',
+    0x10,0x91,'p',171,'U',130,'A','2',215,219,4,'s','*','n',145,1,'|','!','L',
+    0xd4,0xbc,0xae,27,3,'u',']','x','f',217,':','1','D',154,'3','@',191,8,215,
+    'Z','I',0xa4,194,230,169,160,'g',221,164,39,188,161,'O','9',181,17,'X',23,
+    0xf7,'$',0x5c,'F',143,'d',247,193,'i',136,'v',152,'v','=','Y',']','B','v',
+    0x87,137,151,'i','z','H',240,224,162,18,27,'f',154,'t',202,222,'K',30,231,
+    0xe,'c',174,230,212,239,146,146,':',158,'=',220,0,228,'E','%',137,182,154,
+    'D',0x19,'+','~',0xc0,148,180,210,'a','m',235,'3',217,197,223,'K',4,0,204,
+    '}',28,149,195,143,247,'!',178,178,17,183,187,127,242,213,140,'p',',','A',
+    '`',170,177,'c',24,'D',149,26,'v','b','~',246,128,176,251,232,'d',166,'3',
+    0xd1,0x89,7,225,189,183,230,'C',164,24,184,166,'w',1,225,15,148,12,'!',29,
+    0xb2,'T',')','%',0x89,'l',0xe5,14,'R','Q','G','t',190,'&',172,182,'A','u',
+    0xde,'z',172,'_',141,'?',201,188,211,'A',17,18,'[',229,16,'P',235,'1',197,
+    0xca,'r',22,'"',9,223,'|','L','u','?','c',236,'!','_',196,' ','Q','k','o',
+    0xb1,0xab,0x86,139,'O',194,214,'E','_',157,' ',252,161,30,197,192,143,162,
+    177,'~',10,'&',153,245,228,'i','/',152,29,'-',245,217,169,178,29,229,27,2,
+    0x03,1,0,1,163,'B','0','@','0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,
+    '0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,134,'0',29,6,3,'U',29,14,4,22,4,20,
+    236,215,227,130,210,'q',']','d','L',223,'.','g','?',231,186,152,174,28,15,
+    'O','0',0xd,6,9,'*',134,'H',134,247,13,1,1,12,5,0,3,130,2,1,0,187,'a',217,
+    '}',0xa9,'l',0xbe,23,0xc4,145,27,195,161,162,0,141,227,'d','h',15,'V',207,
+    'w',0xae,'p',0xf9,253,154,'J',153,185,201,'x',92,12,12,'_',228,230,20,')',
+    'V',0x0b,'6','I',']','D','c',224,173,156,150,24,'f',27,'#',13,'=','y',233,
+    'm','k',0xd6,'T',0xf8,0xd2,'<',193,'C','@',174,29,'P',245,'R',252,144,';',
+    187,152,153,'i','k',199,193,167,168,'h',164,39,220,157,249,39,174,'0',133,
+    185,246,'g','M',':','>',143,'Y','9','"','S','D',235,200,']',3,202,237,'P',
+    'z','}','b','!',0xa,128,200,'s','f',209,160,5,'`','_',232,165,180,167,175,
+    0xa8,0xf7,'m','5',156,'|','Z',138,214,162,'8',153,243,'x',139,244,'M',210,
+    ' ',0x0b,0xde,4,238,140,155,'G',129,'r',13,192,20,'2',239,'0','Y','.',174,
+    0xe0,'q',0xf2,'V',228,'j',151,'o',146,'P','m',150,141,'h','z',154,178,'6',
+    0x14,'z',6,242,'$',185,9,17,'P',215,8,177,184,137,'z',132,'#','a','B',')',
+    229,163,205,162,' ','A',215,209,156,'d',217,234,'&',161,139,20,215,'L',25,
+    0xb2,'P','A','q','=','?','M','p','#',0x86,0xc,'J',220,129,210,204,'2',148,
+    0x84,13,8,9,151,28,'O',192,238,'k',' ','t','0',210,224,'9','4',16,133,'!',
+    21,1,8,232,'U','2',222,'q','I',217,'(',23,'P','M',230,190,'M',209,'u',172,
+    208,202,251,'A',184,'C',165,170,211,195,5,'D','O',',','6',155,226,250,226,
+    'E',184,'#','S','l',6,'o','g','U',127,'F',181,'L','?','n','(','Z','y','&',
+    0xd2,164,168,'b',151,210,30,226,237,'J',139,188,27,253,'G','J',13,223,'g',
+    'f','~',0xb2,'[','A',0xd0,';',228,244,';',244,4,'c',233,239,194,'T',0,'Q',
+    0xa0,138,'*',201,206,'x',204,213,234,135,4,24,179,206,175,'I',136,175,243,
+    146,153,182,179,230,'a',15,210,133,0,231,'P',26,228,27,149,157,25,161,185,
+    0x9c,0xb1,0x9b,177,0,30,239,208,15,'O','B','l',201,10,188,238,'C',250,':',
+    'q',0xa5,0xc8,'M','&',0xa5,'5',253,137,']',188,133,'b',29,'2',210,160,'+',
+    'T',237,154,'W',193,219,250,16,207,25,183,139,'J',27,143,1,182,39,149,'S',
+    0xe8,0xb6,137,'m','[',188,'h',212,'#',232,139,'Q',162,'V',249,240,166,128,
+    0xa0,0xd6,30,179,188,15,15,'S','u',')',170,234,19,'w',228,222,140,129,'!',
+    173,7,16,'G',17,173,135,'=',7,209,'u',188,207,243,'f','~',
+]
+
 
 /**
 DigiCert Trusted Root G4.
 SHA256 fingerprint: 55:2f:7b:dc:f1:a7:af:9e:6c:e6:72:01:7f:4f:12:ab:f7:72:40:c7:8e:76:1a:c2:03:d1:d9:d2:0a:c8:99:88
 */
-DIGICERT_TRUSTED_ROOT_G4 ::= net.Certificate.parse DIGICERT_TRUSTED_ROOT_G4_TEXT_
+DIGICERT_TRUSTED_ROOT_G4 ::= parse_ DIGICERT_TRUSTED_ROOT_G4_BYTES_
 
-COMODO_RSA_CERTIFICATION_AUTHORITY_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIF2DCCA8CgAwIBAgIQTKr5yttjb+Af907YWwOGnTANBgkqhkiG9w0BAQwFADCB
-hTELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4G
-A1UEBxMHU2FsZm9yZDEaMBgGA1UEChMRQ09NT0RPIENBIExpbWl0ZWQxKzApBgNV
-BAMTIkNPTU9ETyBSU0EgQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkwHhcNMTAwMTE5
-MDAwMDAwWhcNMzgwMTE4MjM1OTU5WjCBhTELMAkGA1UEBhMCR0IxGzAZBgNVBAgT
-EkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgGA1UEChMR
-Q09NT0RPIENBIExpbWl0ZWQxKzApBgNVBAMTIkNPTU9ETyBSU0EgQ2VydGlmaWNh
-dGlvbiBBdXRob3JpdHkwggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQCR
-6FSS0gpWsawNJN3Fz0RndJkrN6N9I3AAcbxT38T6KhKPS38QVr2fcHK3YX/JSw8X
-pz3jsARh7v8Rl8f0hj4K+j5c+ZPmNHrZFGvnnLOFoIJ6dq9xkNfs/Q36nGz637CC
-9BR++b7Epi9Pf5l/tfxnQ3K9DADWietrLNPtj5gcFKt+5eNu/Nio5JIk2kNrYrhV
-/erBvGy2i/MOjZrkm2xpmfh4SDBF1a3hDTxFYPwyllEnvGfDyi62a+pGx8cgoLEf
-Zd5ICLqkTqnyg0Y3hOvozIFIQ2dOciqbXL1MGyiKXCJ7tKuY2e7gUYPDCUZObT6Z
-+pUX2nwzV0E8jVHtC7ZcryxjGt9XyD+86V3Em69FmeKjWiS0uqlWPc9vqv9JWL7w
-qP/0uK3pN/u6uPQLOvnoQ0IeidiEyxPx2bvhiWC4jChWrBQdnArncevPDt09qZah
-SL0896+1DSJMwBGB7FY79tOi4lu3sgQiUpWAk2nojkxl8ZEDLXB0AuqLZxUpaVIC
-u9ffUGpVRr+goyhhf3DQw6KqLCGqR84onAZFdr+CGCe01a60y1Dma/RMhnEw6abf
-Fobg2P9A3fvQQoh/ozM6LlweQRGBY84YcWsr7KaKtzFcOmpH4MN5WdYgGq/yapiq
-crxXStJLnbsQ/LBMQeXtHT1eKJ2czL+zUdqnR+WEUwIDAQABo0IwQDAdBgNVHQ4E
-FgQUu69+Aj36pvE8hI6t7jiY7NkyMtQwDgYDVR0PAQH/BAQDAgEGMA8GA1UdEwEB
-/wQFMAMBAf8wDQYJKoZIhvcNAQEMBQADggIBAArx1UaEt65Ru2yyTUEUAJNMnMvl
-wFTPoCWOAvn9sKIN9SCYPBMtrFaisNZ+EZLpLrqeLppysb0ZRGxhNaKatBYSaVqM
-4dc+pBroLwP0rmEdEBsqpIt6xf4FpuHA1sj+nq6PK7o9mfjYcwlYRm6mnPTXJ9OV
-2jeDchzTc+CiR5kDOF3VSXkAKRzH7JsgHAckaVd4sjn8OoSgtZx8jb8uk2Intzna
-FxiuvTwJaP+EmzzV1gsD41eeFPfR60/IvYcjt7ZJQ3mFXLrrkguhxuhoqEwWsRqZ
-CuhTLJK7oQkYdQxlqHvLI7cawiiFwxv/0Cti76R7CZGYZ4wUAc1oBmpjIXUDgIiK
-boHGhfKppC3n9KUkEEeDys30jXlYsQab5xoq2Z0B15R97QNKyvDb6KkBPvVWmcke
-jkk9u+UJueBPSZI9FoJAzMxZxuY67RIuaTxslbH9qh17f4a+Hg4yRvv7E491f0yL
-S0Zj/gA0QHDBw7mh3aZw4gSzQbzpgJHqZJx64SIDqZxubw5lT2yHh17zbqD5daWb
-QOhTsiedSrnAdyGN/4fy3ryM7xfft0kL0fJuMAsaDk527RH89elWsn2/x20Kk4yl
-0MC2Hb46TpSi125sC8KKfPog88Tk5c0NqMuRkrF8hey1FGlmDoLnzc7ILaZRfyHB
-NVOFBkpdn627G190
------END CERTIFICATE-----
-"""
+COMODO_RSA_CERTIFICATION_AUTHORITY_BYTES_ ::= #[
+    '0',0x82,5,216,'0',130,3,192,160,3,2,1,2,2,16,'L',170,249,202,219,'c','o',
+    224,31,247,'N',216,'[',3,134,157,'0',13,6,9,'*',134,'H',134,247,13,1,1,12,
+    0x5,0,'0',129,133,'1',11,'0',9,6,3,'U',4,6,19,2,'G','B','1',27,'0',25,6,3,
+    'U',4,8,19,18,'G','r','e','a','t','e','r',' ','M','a','n','c','h','e','s',
+    't','e','r','1',0x10,'0',0xe,6,3,'U',4,7,19,7,'S','a','l','f','o','r','d',
+    '1',26,'0',24,6,3,'U',4,0xa,19,17,'C','O','M','O','D','O',' ','C','A',' ',
+    'L','i','m','i','t','e','d','1','+','0',')',0x06,3,'U',4,3,19,'"','C','O',
+    'M','O','D','O',' ','R','S','A',' ','C','e','r','t','i','f','i','c','a',
+    't','i','o','n',' ','A','u','t','h','o','r','i','t','y','0',30,23,0xd,'1',
+    '0','0','1','1','9','0','0','0','0','0','0','Z',23,13,'3','8','0','1','1',
+    '8','2','3','5','9','5','9','Z','0',129,133,'1',11,'0',9,6,3,'U',4,6,19,2,
+    'G','B','1',0x1b,'0',25,6,3,'U',4,8,19,18,'G','r','e','a','t','e','r',' ',
+    'M','a','n','c','h','e','s','t','e','r','1',0x10,'0',0xe,6,3,'U',4,7,19,7,
+    'S','a','l','f','o','r','d','1',26,'0',24,6,3,'U',4,0xa,19,17,'C','O','M',
+    'O','D','O',' ','C','A',' ','L','i','m','i','t','e','d','1','+','0',')',6,
+    3,'U',4,3,19,'"','C','O','M','O','D','O',' ','R','S','A',' ','C','e','r',
+    't','i','f','i','c','a','t','i','o','n',' ','A','u','t','h','o','r','i',
+    't','y','0',130,2,'"','0',13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,2,
+    0x0f,0,'0',130,2,10,2,130,2,1,0,145,232,'T',146,210,10,'V',177,172,13,'$',
+    221,197,207,'D','g','t',153,'+','7',163,'}','#','p',0,'q',188,'S',223,196,
+    0xfa,'*',18,0x8f,'K',127,16,'V',189,159,'p','r',183,'a',127,201,'K',15,23,
+    0xa7,'=',0xe3,0xb0,4,'a',238,255,17,151,199,244,134,'>',10,250,'>',92,249,
+    0x93,0xe6,'4','z',0xd9,20,'k',231,156,179,133,160,130,'z','v',175,'q',144,
+    215,236,253,13,250,156,'l',250,223,176,130,244,20,'~',249,190,196,166,'/',
+    'O',0x7f,153,127,181,252,'g','C','r',189,12,0,214,137,235,'k',',',211,237,
+    143,152,28,20,171,'~',229,227,'n',252,216,168,228,146,'$',218,'C','k','b',
+    0xb8,'U',0xfd,0xea,193,188,'l',182,139,243,14,141,154,228,155,'l','i',153,
+    248,'x','H','0','E',213,173,225,13,'<','E','`',252,'2',150,'Q',39,188,'g',
+    0xc3,202,'.',182,'k',234,'F',199,199,' ',160,177,31,'e',222,'H',8,186,164,
+    'N',0xa9,0xf2,131,'F','7',132,235,232,204,129,'H','C','g','N','r','*',155,
+    0x5c,0xbd,'L',27,'(',138,92,'"','{',180,171,152,217,238,224,'Q',131,195,9,
+    'F','N','m','>',153,250,149,23,218,'|','3','W','A','<',141,'Q',237,11,182,
+    92,175,',','c',26,223,'W',200,'?',188,233,']',196,155,175,'E',153,226,163,
+    'Z','$',0xb4,0xba,169,'V','=',207,'o',170,255,'I','X',190,240,168,255,244,
+    184,173,233,'7',251,186,184,244,11,':',249,232,'C','B',30,137,216,132,203,
+    0x13,241,217,187,225,137,'`',184,140,'(','V',172,20,29,156,10,231,'q',235,
+    0xcf,14,221,'=',169,150,161,'H',189,'<',247,175,181,13,'"','L',192,17,129,
+    236,'V',';',246,211,162,226,'[',183,178,4,'"','R',149,128,147,'i',232,142,
+    'L','e',0xf1,145,3,'-','p','t',2,234,139,'g',21,')','i','R',2,187,215,223,
+    'P','j','U','F',0xbf,0xa0,163,'(','a',127,'p',208,195,162,170,',','!',170,
+    'G',0xce,'(',0x9c,6,'E','v',191,130,24,39,180,213,174,180,203,'P',230,'k',
+    0xf4,'L',0x86,'q','0',0xe9,166,223,22,134,224,216,255,'@',221,251,208,'B',
+    0x88,0x7f,163,'3',':','.',92,30,'A',17,129,'c',206,24,'q','k','+',236,166,
+    138,183,'1',92,':','j','G',224,195,'y','Y',214,' ',26,175,242,'j',152,170,
+    'r',188,'W','J',210,'K',157,187,16,252,176,'L','A',229,237,29,'=','^','(',
+    157,156,204,191,179,'Q',218,167,'G',229,132,'S',2,3,1,0,1,163,'B','0','@',
+    '0',29,6,3,'U',29,0xe,4,22,4,20,187,175,'~',2,'=',250,166,241,'<',132,142,
+    0xad,238,'8',152,236,217,'2','2',212,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,
+    1,6,'0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',13,6,9,'*',134,'H',
+    0x86,247,13,1,1,12,5,0,3,130,2,1,0,10,241,213,'F',132,183,174,'Q',187,'l',
+    0xb2,'M','A',0x14,0,147,'L',156,203,229,192,'T',207,160,'%',142,2,249,253,
+    0xb0,162,13,245,' ',152,'<',19,'-',172,'V',162,176,214,'~',17,146,233,'.',
+    0xba,158,'.',154,'r',177,189,25,'D','l','a','5',162,154,180,22,18,'i','Z',
+    140,225,215,'>',164,26,232,'/',3,244,174,'a',29,16,27,'*',164,139,'z',197,
+    0xfe,5,0xa6,225,192,214,200,254,158,174,143,'+',186,'=',153,248,216,'s',9,
+    'X','F','n',166,156,244,215,39,211,149,218,'7',131,'r',28,211,'s',224,162,
+    'G',0x99,3,'8',']',0xd5,'I','y',0,')',28,199,236,155,' ',28,7,'$','i','W',
+    'x',0xb2,'9',0xfc,':',0x84,160,181,156,'|',141,191,'.',147,'b',39,183,'9',
+    0xda,23,24,0xae,189,'<',9,'h',255,132,155,'<',213,214,11,3,227,'W',158,20,
+    247,209,235,'O',200,189,135,'#',183,182,'I','C','y',133,92,186,235,146,11,
+    161,198,232,'h',168,'L',22,177,26,153,10,232,'S',',',146,187,161,9,24,'u',
+    0xc,'e',168,'{',203,'#',183,26,194,'(',133,195,27,255,208,'+','b',239,164,
+    '{',0x09,145,152,'g',140,20,1,205,'h',6,'j','c','!','u',3,128,136,138,'n',
+    0x81,0xc6,0x85,242,169,164,'-',231,244,165,'$',16,'G',131,202,205,244,141,
+    'y','X',0xb1,6,155,231,26,'*',217,157,1,215,148,'}',237,3,'J',202,240,219,
+    0xe8,0xa9,1,'>',0xf5,'V',153,201,30,142,'I','=',187,229,9,185,224,'O','I',
+    146,'=',22,130,'@',204,204,'Y',198,230,':',237,18,'.','i','<','l',149,177,
+    0xfd,0xaa,29,'{',127,134,190,30,14,'2','F',251,251,19,143,'u',127,'L',139,
+    'K','F','c',0xfe,0,'4','@','p',0xc1,195,185,161,221,166,'p',226,4,179,'A',
+    0xbc,233,128,145,234,'d',156,'z',225,'"',3,169,156,'n','o',14,'e','O','l',
+    0x87,0x87,'^',0xf3,'n',160,249,'u',165,155,'@',232,'S',178,39,157,'J',185,
+    192,'w','!',141,255,135,242,222,188,140,239,23,223,183,'I',11,209,242,'n',
+    '0',0x0b,26,0xe,'N','v',237,17,252,245,233,'V',178,'}',191,199,'m',10,147,
+    140,165,208,192,182,29,190,':','N',148,162,215,'n','l',11,194,138,'|',250,
+    ' ',243,196,228,229,205,13,168,203,145,146,177,'|',133,236,181,20,'i','f',
+    0xe,130,231,205,206,200,'-',166,'Q',127,'!',193,'5','S',133,6,'J',']',159,
+    173,187,27,'_','t',
+]
+
 
 /**
 COMODO RSA Certification Authority.
 SHA256 fingerprint: 52:f0:e1:c4:e5:8e:c6:29:29:1b:60:31:7f:07:46:71:b8:5d:7e:a8:0d:5b:07:27:34:63:53:4b:32:b4:02:34
 */
-COMODO_RSA_CERTIFICATION_AUTHORITY ::= net.Certificate.parse COMODO_RSA_CERTIFICATION_AUTHORITY_TEXT_
+COMODO_RSA_CERTIFICATION_AUTHORITY ::= parse_ COMODO_RSA_CERTIFICATION_AUTHORITY_BYTES_
 
-USERTRUST_RSA_CERTIFICATION_AUTHORITY_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIF3jCCA8agAwIBAgIQAf1tMPyjylGoG7xkDjUDLTANBgkqhkiG9w0BAQwFADCB
-iDELMAkGA1UEBhMCVVMxEzARBgNVBAgTCk5ldyBKZXJzZXkxFDASBgNVBAcTC0pl
-cnNleSBDaXR5MR4wHAYDVQQKExVUaGUgVVNFUlRSVVNUIE5ldHdvcmsxLjAsBgNV
-BAMTJVVTRVJUcnVzdCBSU0EgQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkwHhcNMTAw
-MjAxMDAwMDAwWhcNMzgwMTE4MjM1OTU5WjCBiDELMAkGA1UEBhMCVVMxEzARBgNV
-BAgTCk5ldyBKZXJzZXkxFDASBgNVBAcTC0plcnNleSBDaXR5MR4wHAYDVQQKExVU
-aGUgVVNFUlRSVVNUIE5ldHdvcmsxLjAsBgNVBAMTJVVTRVJUcnVzdCBSU0EgQ2Vy
-dGlmaWNhdGlvbiBBdXRob3JpdHkwggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIK
-AoICAQCAEmUXNg7D2wiz0KxXDXbtzSfTTK1Qg2HiqiBNCS1kCdzOiZ/MPans9s/B
-3PHTsdZ7NygRK0faOca8Ohm0X6a9fZ2jY0K2dvKpOyuR+OJv0OwWIJAJPuLodMkY
-tJHUYmTbf6MG8YgYapAiPLz+E/CHFHv25B+O1ORRxhFnRghRy4YUVD+8M/5+bJz/
-Fp0YvVGONaanZshyZ9shZrHUm3gDwFA66Mzw3LyeTP6vBZY1H1dat//O+T23LLb2
-VN3I5xI6Ta5MirdcmrS3ID3KfyI0rn47aGYBROcBTkZTmzNg95S+UzeQc0PzMsNT
-79uq/nROacdrjGCT3sTHDN/hMq7MkztReJVni+49Vv4M0GkPGw/zJSZrM233bkf6
-c0Plfg6lZrEpfDKEY1WJxA3Bk1QwGROs0303p+tdOmw1XNtB1xLaqUkL39iAigmT
-Yo61Zs8liM2EuLE/pDkP2QKe6xJMlXzzawWpXhaDzLhn4ugTncxbgtNMs+1b/97l
-c6wjOy0AvzVVdAlJ2ElYGn+SNuZRkg7zJn0cTRe8yexDJtC/QV9AqURE9JnnV4ee
-UB9XVKg+/XRjL7FQZQnmWEIuQxpMtPAlR1n6BB6T1CZGSlCBst6+eLf8ZxXhyVeE
-Hg9j1uliutZfVS7qXMYoCAQlObgOK6nyTJccBz8NUvXt7y+CDwIDAQABo0IwQDAd
-BgNVHQ4EFgQUU3m/WqorSs9UgOHYm8Cd8rIDZsswDgYDVR0PAQH/BAQDAgEGMA8G
-A1UdEwEB/wQFMAMBAf8wDQYJKoZIhvcNAQEMBQADggIBAFzUfA3P9wF9QZllDHPF
-Up/L+M+ZBn8b2kMVn54CVVeWFPFSPCeHlCjtHzoBN6J2/FNQwISbxmtOuowhT6KO
-VWKR82kV2LyI48SqC/3vqOlLVSoGIG1VeCkZ7l8wXEskEVX/JJpuXior7gtNn3/3
-ATiUFJVDBwn7YKnuHKsSjKCaXqeYalltiz8I+8jRRa8YFWSQEg9zKC7F4iRO/Fjs
-8PRF/iKz6y+O0tlFYQXBl2+odnKPi4w2r78NBc5xjeambx9spnFixdjQg3IM8WcR
-iQycE0xyNN+81XHfqnHd4blsjDwSXWXavVcStkNr/+XeTWYRUc+ZruwXtuhxkYze
-Sf7dNXGiFSeUHM9h4ya7b6NnJSFd5t0dCy5oGzuCr+yDZ4XUmFF0sbmZgIn/f3gZ
-XHlKYC6SQK5MNyosycdiyA5d9zZbyuAlJQG03RoHnHcAP9Dc1ew91Pq7P8yF1m9/
-qS3fuQL39ZeatTXaw2ewh0qpKJ4jjv9cJ2vhsE/zB+4ALtRZh8tSQZXq9EfX7mRB
-VXyNWQKV3WKdwrnuWih0hKWbt5DHDAff9Yk2dDLWKMGwsAvgnEzDHNb842m1R0aB
-L6KCq9NjRHDEjf8tM7qtj3u1cIiuPhnPQCjY/MiQu12ZIvVS5ljFH4gxQ+6IHdfG
-jjxDah2nGN59PRbxYvnKkKj9
------END CERTIFICATE-----
-"""
+USERTRUST_RSA_CERTIFICATION_AUTHORITY_BYTES_ ::= #[
+    '0',0x82,0x5,222,'0',130,3,198,160,3,2,1,2,2,16,1,253,'m','0',252,163,202,
+    'Q',0xa8,27,188,'d',14,'5',3,'-','0',13,6,9,'*',134,'H',134,247,13,1,1,12,
+    0x5,0,'0',129,136,'1',11,'0',9,6,3,'U',4,6,19,2,'U','S','1',19,'0',17,6,3,
+    'U',0x4,8,19,10,'N','e','w',' ','J','e','r','s','e','y','1',20,'0',18,6,3,
+    'U',4,7,19,11,'J','e','r','s','e','y',' ','C','i','t','y','1',30,'0',28,6,
+    3,'U',4,0xa,19,21,'T','h','e',' ','U','S','E','R','T','R','U','S','T',' ',
+    'N','e','t','w','o','r','k','1','.','0',',',0x06,3,'U',4,3,19,'%','U','S',
+    'E','R','T','r','u','s','t',' ','R','S','A',' ','C','e','r','t','i','f',
+    'i','c','a','t','i','o','n',' ','A','u','t','h','o','r','i','t','y','0',
+    0x1e,23,0xd,'1','0','0','2','0','1','0','0','0','0','0','0','Z',23,13,'3',
+    '8','0','1','1','8','2','3','5','9','5','9','Z','0',0x81,136,'1',11,'0',9,
+    6,3,'U',4,6,19,2,'U','S','1',19,'0',17,6,3,'U',4,8,19,0xa,'N','e','w',' ',
+    'J','e','r','s','e','y','1',0x14,'0',18,6,3,'U',4,7,19,11,'J','e','r','s',
+    'e','y',' ','C','i','t','y','1',30,'0',28,6,3,'U',4,0xa,19,21,'T','h','e',
+    ' ','U','S','E','R','T','R','U','S','T',' ','N','e','t','w','o','r','k',
+    '1','.','0',',',0x06,3,'U',4,3,19,'%','U','S','E','R','T','r','u','s','t',
+    ' ','R','S','A',' ','C','e','r','t','i','f','i','c','a','t','i','o','n',
+    ' ','A','u','t','h','o','r','i','t','y','0',0x82,2,'"','0',13,6,9,'*',134,
+    'H',134,247,13,1,1,1,5,0,3,130,2,15,0,'0',130,2,10,2,130,2,1,0,128,18,'e',
+    23,'6',14,195,219,8,179,208,172,'W',13,'v',237,205,39,211,'L',173,'P',131,
+    'a',0xe2,0xaa,' ','M',9,'-','d',9,220,206,137,159,204,'=',169,236,246,207,
+    193,220,241,211,177,214,'{','7','(',17,'+','G',218,'9',198,188,':',25,180,
+    '_',0xa6,0xbd,'}',157,163,'c','B',182,'v',242,169,';','+',145,248,226,'o',
+    0xd0,0xec,22,' ',144,9,'>',226,232,'t',201,24,180,145,212,'b','d',219,127,
+    163,6,241,136,24,'j',144,'"','<',188,254,19,240,135,20,'{',246,228,31,142,
+    0xd4,0xe4,'Q',198,17,'g','F',8,'Q',203,134,20,'T','?',188,'3',254,'~','l',
+    156,255,22,157,24,189,'Q',142,'5',166,167,'f',200,'r','g',219,'!','f',177,
+    0xd4,0x9b,'x',3,192,'P',':',232,204,240,220,188,158,'L',254,175,5,150,'5',
+    31,'W','Z',183,255,206,249,'=',183,',',182,246,'T',221,200,231,18,':','M',
+    0xae,'L',0x8a,0xb7,92,154,180,183,' ','=',202,127,'"','4',174,'~',';','h',
+    'f',0x1,'D',231,1,'N','F','S',155,'3','`',247,148,190,'S','7',144,'s','C',
+    0xf3,'2',0xc3,'S',239,219,170,254,'t','N','i',199,'k',140,'`',147,222,196,
+    199,12,223,225,'2',174,204,147,';','Q','x',149,'g',139,238,'=','V',254,12,
+    0xd0,'i',15,27,15,243,'%','&','k','3','m',247,'n','G',250,'s','C',229,'~',
+    0x0e,165,'f',177,')','|','2',132,'c','U',137,196,13,193,147,'T','0',25,19,
+    0xac,211,'}','7',167,235,']',':','l','5',92,219,'A',215,18,218,169,'I',11,
+    223,216,128,138,9,147,'b',142,181,'f',207,'%',136,205,132,184,177,'?',164,
+    '9',0xf,217,2,158,235,18,'L',149,'|',243,'k',5,169,'^',22,131,204,184,'g',
+    0xe2,0xe8,19,0x9d,204,'[',130,211,'L',179,237,'[',255,222,229,'s',172,'#',
+    ';','-',0,191,'5','U','t',9,'I',216,'I','X',26,127,146,'6',230,'Q',146,14,
+    243,'&','}',28,'M',23,188,201,236,'C','&',208,191,'A','_','@',169,'D','D',
+    0xf4,0x99,0xe7,'W',135,158,'P',31,'W','T',168,'>',253,'t','c','/',177,'P',
+    'e',9,230,'X','B','.','C',26,'L',180,240,'%','G','Y',250,4,30,147,212,'&',
+    'F','J','P',0x81,178,222,190,'x',183,252,'g',21,225,201,'W',132,30,15,'c',
+    214,233,'b',186,214,'_','U','.',234,92,198,'(',8,4,'%','9',184,14,'+',169,
+    0xf2,'L',151,28,7,'?',13,'R',245,237,239,'/',130,15,2,3,1,0,1,163,'B','0',
+    '@','0',0x1d,6,3,'U',29,0xe,4,22,4,20,'S','y',191,'Z',170,'+','J',207,'T',
+    0x80,225,216,155,192,157,242,178,3,'f',203,'0',14,6,3,'U',29,15,1,1,255,4,
+    0x4,3,2,1,6,'0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',13,6,9,'*',
+    134,'H',134,247,13,1,1,12,5,0,3,130,2,1,0,92,212,'|',13,207,247,1,'}','A',
+    0x99,'e',12,'s',197,'R',159,203,248,207,153,6,127,27,218,'C',21,159,158,2,
+    'U','W',0x96,0x14,241,'R','<',39,135,148,'(',237,31,':',1,'7',162,'v',252,
+    'S','P',0xc0,0x84,155,198,'k','N',186,140,'!','O',162,142,'U','b',145,243,
+    'i',0x15,216,188,136,227,196,170,11,253,239,168,233,'K','U','*',6,' ','m',
+    'U','x',')',25,0xee,'_','0',92,'K','$',17,'U',255,'$',154,'n','^','*','+',
+    238,11,'M',159,127,247,1,'8',148,20,149,'C',7,9,251,'`',169,238,28,171,18,
+    0x8c,0xa0,154,'^',167,152,'j','Y','m',139,'?',8,251,200,209,'E',175,24,21,
+    'd',144,18,15,'s','(','.',197,226,'$','N',252,'X',236,240,244,'E',254,'"',
+    179,235,'/',142,210,217,'E','a',5,193,151,'o',168,'v','r',143,139,140,'6',
+    0xaf,0xbf,13,5,206,'q',141,230,166,'o',31,'l',166,'q','b',197,216,208,131,
+    'r',0x0c,241,'g',17,137,12,156,19,'L','r','4',223,188,213,'q',223,170,'q',
+    221,225,185,'l',140,'<',18,']','e',218,189,'W',18,182,'C','k',255,229,222,
+    'M','f',17,'Q',207,153,174,236,23,182,232,'q',145,140,222,'I',254,221,'5',
+    'q',0xa2,21,39,148,28,207,'a',227,'&',187,'o',163,'g','%','!',']',230,221,
+    29,0xb,'.','h',27,';',130,175,236,131,'g',133,212,152,'Q','t',177,185,153,
+    128,137,255,127,'x',25,92,'y','J','`','.',146,'@',174,'L','7','*',',',201,
+    0xc7,'b',0xc8,14,']',247,'6','[',202,224,'%','%',1,180,221,26,7,156,'w',0,
+    '?',0xd0,0xdc,213,236,'=',212,250,187,'?',204,133,214,'o',127,169,'-',223,
+    185,2,247,245,151,154,181,'5',218,195,'g',176,135,'J',169,'(',158,'#',142,
+    255,92,39,'k',225,176,'O',243,7,238,0,'.',212,'Y',135,203,'R','A',149,234,
+    244,'G',215,238,'d','A','U','|',141,'Y',2,149,221,'b',157,194,185,238,'Z',
+    '(','t',0x84,165,155,183,144,199,12,7,223,245,137,'6','t','2',214,'(',193,
+    176,176,11,224,156,'L',195,28,214,252,227,'i',181,'G','F',129,'/',162,130,
+    0xab,0xd3,'c','D','p',196,141,255,'-','3',186,173,143,'{',181,'p',136,174,
+    '>',25,207,'@','(',216,252,200,144,187,']',153,'"',245,'R',230,'X',197,31,
+    0x88,'1','C',0xee,136,29,215,198,142,'<','C','j',29,167,24,222,'}','=',22,
+    241,'b',249,202,144,168,253,
+]
+
 
 /**
 USERTrust RSA Certification Authority.
 SHA256 fingerprint: e7:93:c9:b0:2f:d8:aa:13:e2:1c:31:22:8a:cc:b0:81:19:64:3b:74:9c:89:89:64:b1:74:6d:46:c3:d4:cb:d2
 */
-USERTRUST_RSA_CERTIFICATION_AUTHORITY ::= net.Certificate.parse USERTRUST_RSA_CERTIFICATION_AUTHORITY_TEXT_
+USERTRUST_RSA_CERTIFICATION_AUTHORITY ::= parse_ USERTRUST_RSA_CERTIFICATION_AUTHORITY_BYTES_
 
-USERTRUST_ECC_CERTIFICATION_AUTHORITY_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIICjzCCAhWgAwIBAgIQXIuZxVqUxdJxVt7NiYDMJjAKBggqhkjOPQQDAzCBiDEL
-MAkGA1UEBhMCVVMxEzARBgNVBAgTCk5ldyBKZXJzZXkxFDASBgNVBAcTC0plcnNl
-eSBDaXR5MR4wHAYDVQQKExVUaGUgVVNFUlRSVVNUIE5ldHdvcmsxLjAsBgNVBAMT
-JVVTRVJUcnVzdCBFQ0MgQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkwHhcNMTAwMjAx
-MDAwMDAwWhcNMzgwMTE4MjM1OTU5WjCBiDELMAkGA1UEBhMCVVMxEzARBgNVBAgT
-Ck5ldyBKZXJzZXkxFDASBgNVBAcTC0plcnNleSBDaXR5MR4wHAYDVQQKExVUaGUg
-VVNFUlRSVVNUIE5ldHdvcmsxLjAsBgNVBAMTJVVTRVJUcnVzdCBFQ0MgQ2VydGlm
-aWNhdGlvbiBBdXRob3JpdHkwdjAQBgcqhkjOPQIBBgUrgQQAIgNiAAQarFRaqflo
-I+d61SRvU8Za2EurxtW20eZzca7dnNYMYf3boIkDuAUU7FfO7l0/4iGzzvfUinng
-o4N+LZfQYcTxmdwlkWOrfzCjtHDix6EznPO/LlxTsV+zfTJ/ijTjeXmjQjBAMB0G
-A1UdDgQWBBQ64QmG1M8ZwpZ2dEl23OA1xmNjmjAOBgNVHQ8BAf8EBAMCAQYwDwYD
-VR0TAQH/BAUwAwEB/zAKBggqhkjOPQQDAwNoADBlAjA2Z6EWCNzklwBBHU6+4WMB
-zzuqQhFkoJ2UOQIReVx7Hfpkue4WQrO/isIJxOzksU0CMQDpKmFHjFJKS04YcPbW
-RNZu9YO6bVi9JNlWSOrvxKJGgYhqOkbRqZtNyWHa0V1Xahg=
------END CERTIFICATE-----
-"""
+USERTRUST_ECC_CERTIFICATION_AUTHORITY_BYTES_ ::= #[
+    '0',0x82,0x2,143,'0',130,2,21,160,3,2,1,2,2,16,92,139,153,197,'Z',148,197,
+    0xd2,'q','V',222,205,137,128,204,'&','0',10,6,8,'*',134,'H',206,'=',4,3,3,
+    '0',129,136,'1',11,'0',9,6,3,'U',4,6,19,2,'U','S','1',19,'0',17,6,3,'U',4,
+    8,19,10,'N','e','w',' ','J','e','r','s','e','y','1',20,'0',18,6,3,'U',4,7,
+    19,11,'J','e','r','s','e','y',' ','C','i','t','y','1',30,'0',28,6,3,'U',4,
+    0xa,19,21,'T','h','e',' ','U','S','E','R','T','R','U','S','T',' ','N','e',
+    't','w','o','r','k','1','.','0',',',0x06,3,'U',4,3,19,'%','U','S','E','R',
+    'T','r','u','s','t',' ','E','C','C',' ','C','e','r','t','i','f','i','c',
+    'a','t','i','o','n',' ','A','u','t','h','o','r','i','t','y','0',30,23,0xd,
+    '1','0','0','2','0','1','0','0','0','0','0','0','Z',23,13,'3','8','0','1',
+    '1','8','2','3','5','9','5','9','Z','0',0x81,136,'1',11,'0',9,6,3,'U',4,6,
+    19,2,'U','S','1',19,'0',17,6,3,'U',4,8,19,0xa,'N','e','w',' ','J','e','r',
+    's','e','y','1',0x14,'0',18,6,3,'U',4,7,19,11,'J','e','r','s','e','y',' ',
+    'C','i','t','y','1',30,'0',28,6,3,'U',4,0xa,19,21,'T','h','e',' ','U','S',
+    'E','R','T','R','U','S','T',' ','N','e','t','w','o','r','k','1','.','0',
+    ',',0x06,3,'U',4,3,19,'%','U','S','E','R','T','r','u','s','t',' ','E','C',
+    'C',' ','C','e','r','t','i','f','i','c','a','t','i','o','n',' ','A','u',
+    't','h','o','r','i','t','y','0','v','0',16,6,7,'*',0x86,'H',206,'=',2,1,6,
+    0x05,'+',129,4,0,'"',3,'b',0,4,26,172,'T','Z',169,249,'h','#',231,'z',213,
+    '$','o','S',0xc6,'Z',0xd8,'K',171,198,213,182,209,230,'s','q',174,221,156,
+    214,12,'a',253,219,160,137,3,184,5,20,236,'W',206,238,']','?',226,'!',179,
+    0xce,0xf7,212,138,'y',224,163,131,'~','-',151,208,'a',196,241,153,220,'%',
+    0x91,'c',0xab,0x7f,'0',163,180,'p',226,199,161,'3',156,243,191,'.',92,'S',
+    0xb1,'_',0xb3,'}','2',0x7f,138,'4',227,'y','y',163,'B','0','@','0',29,6,3,
+    'U',29,0xe,4,22,4,20,':',225,9,134,212,207,25,194,150,'v','t','I','v',220,
+    224,'5',198,'c','c',154,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',15,6,
+    3,'U',29,19,1,1,0xff,4,5,'0',3,1,1,255,'0',10,6,8,'*',134,'H',206,'=',4,3,
+    3,3,'h',0,'0','e',2,'0','6','g',161,22,8,220,228,151,0,'A',29,'N',190,225,
+    'c',0x1,207,';',170,'B',17,'d',160,157,148,'9',2,17,'y',92,'{',29,250,'d',
+    0xb9,238,22,'B',179,191,138,194,9,196,236,228,177,'M',2,'1',0,233,'*','a',
+    'G',0x8c,'R','J','K','N',0x18,'p',246,214,'D',214,'n',245,131,186,'m','X',
+    0xbd,'$',0xd9,'V','H',234,239,196,162,'F',129,136,'j',':','F',209,169,155,
+    'M',201,'a',218,209,']','W','j',24,
+]
+
 
 /**
 USERTrust ECC Certification Authority.
 SHA256 fingerprint: 4f:f4:60:d5:4b:9c:86:da:bf:bc:fc:57:12:e0:40:0d:2b:ed:3f:bc:4d:4f:bd:aa:86:e0:6a:dc:d2:a9:ad:7a
 */
-USERTRUST_ECC_CERTIFICATION_AUTHORITY ::= net.Certificate.parse USERTRUST_ECC_CERTIFICATION_AUTHORITY_TEXT_
+USERTRUST_ECC_CERTIFICATION_AUTHORITY ::= parse_ USERTRUST_ECC_CERTIFICATION_AUTHORITY_BYTES_
 
-GLOBALSIGN_ECC_ROOT_CA_R4_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIB3DCCAYOgAwIBAgINAgPlfvU/k/2lCSGypjAKBggqhkjOPQQDAjBQMSQwIgYD
-VQQLExtHbG9iYWxTaWduIEVDQyBSb290IENBIC0gUjQxEzARBgNVBAoTCkdsb2Jh
-bFNpZ24xEzARBgNVBAMTCkdsb2JhbFNpZ24wHhcNMTIxMTEzMDAwMDAwWhcNMzgw
-MTE5MDMxNDA3WjBQMSQwIgYDVQQLExtHbG9iYWxTaWduIEVDQyBSb290IENBIC0g
-UjQxEzARBgNVBAoTCkdsb2JhbFNpZ24xEzARBgNVBAMTCkdsb2JhbFNpZ24wWTAT
-BgcqhkjOPQIBBggqhkjOPQMBBwNCAAS4xnnTj2wlDp8uORkcA6SumuU5BwkWymOx
-uYb4ilfBV85C+nOh92VC/x7BALJucw7/xyHlGKSq2XE/qNS5zowdo0IwQDAOBgNV
-HQ8BAf8EBAMCAYYwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUVLB7rUW44kB/
-+wpu+74zyTyjhNUwCgYIKoZIzj0EAwIDRwAwRAIgIk90crlgr/HmnKAWBVBfw147
-bmF0774BxL4YSFlhgjICICadVGNA3jdgUM/I2O2dgq43mLyjj0xMqTQrbO/7lZsm
------END CERTIFICATE-----
-"""
+GLOBALSIGN_ECC_ROOT_CA_R4_BYTES_ ::= #[
+    '0',0x82,1,220,'0',130,1,131,160,3,2,1,2,2,13,2,3,229,'~',245,'?',147,253,
+    0xa5,0x9,'!',178,166,'0',10,6,8,'*',134,'H',206,'=',4,3,2,'0','P','1','$',
+    '0','"',0x06,3,'U',4,11,19,27,'G','l','o','b','a','l','S','i','g','n',' ',
+    'E','C','C',' ','R','o','o','t',' ','C','A',' ','-',' ','R','4','1',0x13,
+    '0',17,6,3,'U',4,0xa,19,10,'G','l','o','b','a','l','S','i','g','n','1',19,
+    '0',0x11,6,3,'U',4,3,19,10,'G','l','o','b','a','l','S','i','g','n','0',30,
+    0x17,13,'1','2','1','1','1','3','0','0','0','0','0','0','Z',23,13,'3','8',
+    '0','1','1','9','0','3','1','4','0','7','Z','0','P','1','$','0','"',0x6,3,
+    'U',0x04,11,19,27,'G','l','o','b','a','l','S','i','g','n',' ','E','C','C',
+    ' ','R','o','o','t',' ','C','A',' ','-',' ','R','4','1',19,'0',17,6,3,'U',
+    4,0xa,19,10,'G','l','o','b','a','l','S','i','g','n','1',19,'0',17,6,3,'U',
+    4,3,19,0xa,'G','l','o','b','a','l','S','i','g','n','0','Y','0',19,6,7,'*',
+    0x86,'H',0xce,'=',2,1,6,8,'*',134,'H',206,'=',3,1,7,3,'B',0,4,184,198,'y',
+    211,143,'l','%',14,159,'.','9',25,28,3,164,174,154,229,'9',7,9,22,202,'c',
+    0xb1,0xb9,0x86,248,138,'W',193,'W',206,'B',250,'s',161,247,'e','B',255,30,
+    0xc1,0,0xb2,'n','s',14,255,199,'!',229,24,164,170,217,'q','?',168,212,185,
+    206,140,29,163,'B','0','@','0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,134,'0',
+    15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',29,6,3,'U',29,14,4,22,4,20,
+    'T',0xb0,'{',0xad,'E',0xb8,226,'@',127,251,10,'n',251,190,'3',201,'<',163,
+    0x84,0xd5,'0',0xa,6,8,'*',134,'H',206,'=',4,3,2,3,'G',0,'0','D',2,' ','"',
+    'O','t','r',0xb9,'`',175,241,230,156,160,22,5,'P','_',195,'^',';','n','a',
+    't',0xef,0xbe,1,0xc4,190,24,'H','Y','a',130,'2',2,' ','&',157,'T','c','@',
+    0xde,'7','`','P',0xcf,200,216,237,157,130,174,'7',152,188,163,143,'L','L',
+    169,'4','+','l',239,251,149,155,'&',
+]
+
 
 /**
 GlobalSign ECC Root CA - R4.
 SHA256 fingerprint: b0:85:d7:0b:96:4f:19:1a:73:e4:af:0d:54:ae:7a:0e:07:aa:fd:af:9b:71:dd:08:62:13:8a:b7:32:5a:24:a2
 */
-GLOBALSIGN_ECC_ROOT_CA_R4 ::= net.Certificate.parse GLOBALSIGN_ECC_ROOT_CA_R4_TEXT_
+GLOBALSIGN_ECC_ROOT_CA_R4 ::= parse_ GLOBALSIGN_ECC_ROOT_CA_R4_BYTES_
 
-GLOBALSIGN_ECC_ROOT_CA_R5_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIICHjCCAaSgAwIBAgIRYFlJ4CYuu1X5CneKcflK2GwwCgYIKoZIzj0EAwMwUDEk
-MCIGA1UECxMbR2xvYmFsU2lnbiBFQ0MgUm9vdCBDQSAtIFI1MRMwEQYDVQQKEwpH
-bG9iYWxTaWduMRMwEQYDVQQDEwpHbG9iYWxTaWduMB4XDTEyMTExMzAwMDAwMFoX
-DTM4MDExOTAzMTQwN1owUDEkMCIGA1UECxMbR2xvYmFsU2lnbiBFQ0MgUm9vdCBD
-QSAtIFI1MRMwEQYDVQQKEwpHbG9iYWxTaWduMRMwEQYDVQQDEwpHbG9iYWxTaWdu
-MHYwEAYHKoZIzj0CAQYFK4EEACIDYgAER0UOlvt9Xb/pOdEh+J8LttV7HpI6SFkc
-8GIxLcB6KP4ap1yztsyX50XUWPrRd21DosCHZTQKH3rd6zwzocWdTaRvQZU4f8ke
-hOvRnkmSh5SHDDqFSmafnVmTTZdhBoZKo0IwQDAOBgNVHQ8BAf8EBAMCAQYwDwYD
-VR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUPeYpSJvqB8ohREom3m7e0oPQn1kwCgYI
-KoZIzj0EAwMDaAAwZQIxAOVpEslu28YxuglB4Zf4+/2a4n0Sye18ZNPLBSWLVtmg
-515dTguDnFt2KaAJJiFqYgIwcdK1j1zqO+F4CYWodZI7yFz9SO8NdCKoCOJuxUnO
-xwy8p2Fp8fc74SrL+SvzZpA3
------END CERTIFICATE-----
-"""
+GLOBALSIGN_ECC_ROOT_CA_R5_BYTES_ ::= #[
+    '0',0x82,2,30,'0',0x82,1,164,160,3,2,1,2,2,17,'`','Y','I',224,'&','.',187,
+    'U',249,10,'w',138,'q',249,'J',216,'l','0',10,6,8,'*',134,'H',206,'=',4,3,
+    3,'0','P','1','$','0','"',6,3,'U',4,0xb,19,27,'G','l','o','b','a','l','S',
+    'i','g','n',' ','E','C','C',' ','R','o','o','t',' ','C','A',' ','-',' ',
+    'R','5','1',19,'0',17,6,3,'U',4,0xa,19,10,'G','l','o','b','a','l','S','i',
+    'g','n','1',0x13,'0',17,6,3,'U',4,3,19,10,'G','l','o','b','a','l','S','i',
+    'g','n','0',30,23,0xd,'1','2','1','1','1','3','0','0','0','0','0','0','Z',
+    23,13,'3','8','0','1','1','9','0','3','1','4','0','7','Z','0','P','1','$',
+    '0','"',0x06,3,'U',4,11,19,27,'G','l','o','b','a','l','S','i','g','n',' ',
+    'E','C','C',' ','R','o','o','t',' ','C','A',' ','-',' ','R','5','1',0x13,
+    '0',17,6,3,'U',4,0xa,19,10,'G','l','o','b','a','l','S','i','g','n','1',19,
+    '0',17,6,3,'U',4,3,19,0xa,'G','l','o','b','a','l','S','i','g','n','0','v',
+    '0',16,6,7,'*',0x86,'H',206,'=',2,1,6,5,'+',129,4,0,'"',3,'b',0,4,'G','E',
+    0xe,150,251,'}',']',191,233,'9',209,'!',248,159,11,182,213,'{',30,146,':',
+    'H','Y',28,0xf0,'b','1','-',192,'z','(',254,26,167,92,179,182,204,151,231,
+    'E',212,'X',250,209,'w','m','C',162,192,135,'e','4',10,31,'z',221,235,'<',
+    '3',0xa1,0xc5,0x9d,'M',164,'o','A',149,'8',127,201,30,132,235,209,158,'I',
+    0x92,135,148,135,12,':',133,'J','f',159,157,'Y',147,'M',151,'a',6,134,'J',
+    0xa3,'B','0','@','0',0xe,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',15,6,3,'U',
+    0x1d,19,1,1,0xff,4,5,'0',3,1,1,255,'0',29,6,3,'U',29,14,4,22,4,20,'=',230,
+    ')','H',155,234,7,202,'!','D','J','&',222,'n',222,210,131,208,159,'Y','0',
+    0x0a,6,8,'*',134,'H',206,'=',4,3,3,3,'h',0,'0','e',2,'1',0,229,'i',18,201,
+    'n',0xdb,198,'1',186,9,'A',225,151,248,251,253,154,226,'}',18,201,237,'|',
+    'd',0xd3,203,5,'%',139,'V',217,160,231,'^',']','N',11,131,156,'[','v',')',
+    0xa0,9,'&','!','j','b',2,'0','q',210,181,143,92,234,';',225,'x',9,133,168,
+    'u',0x92,';',0xc8,92,253,'H',239,13,'t','"',168,8,226,'n',197,'I',206,199,
+    12,188,167,'a','i',241,247,';',225,'*',203,249,'+',243,'f',144,'7',
+]
+
 
 /**
 GlobalSign ECC Root CA - R5.
 SHA256 fingerprint: 17:9f:bc:14:8a:3d:d0:0f:d2:4e:a1:34:58:cc:43:bf:a7:f5:9c:81:82:d7:83:a5:13:f6:eb:ec:10:0c:89:24
 */
-GLOBALSIGN_ECC_ROOT_CA_R5 ::= net.Certificate.parse GLOBALSIGN_ECC_ROOT_CA_R5_TEXT_
+GLOBALSIGN_ECC_ROOT_CA_R5 ::= parse_ GLOBALSIGN_ECC_ROOT_CA_R5_BYTES_
 
-STAAT_DER_NEDERLANDEN_EV_ROOT_CA_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIFcDCCA1igAwIBAgIEAJiWjTANBgkqhkiG9w0BAQsFADBYMQswCQYDVQQGEwJO
-TDEeMBwGA1UECgwVU3RhYXQgZGVyIE5lZGVybGFuZGVuMSkwJwYDVQQDDCBTdGFh
-dCBkZXIgTmVkZXJsYW5kZW4gRVYgUm9vdCBDQTAeFw0xMDEyMDgxMTE5MjlaFw0y
-MjEyMDgxMTEwMjhaMFgxCzAJBgNVBAYTAk5MMR4wHAYDVQQKDBVTdGFhdCBkZXIg
-TmVkZXJsYW5kZW4xKTAnBgNVBAMMIFN0YWF0IGRlciBOZWRlcmxhbmRlbiBFViBS
-b290IENBMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA48d+ifkkSzrS
-M4M1LGns3Amk41GoJSt5uAg94JG6hIXGhaTK5skuU6TJJB79VWZxXSzFYGgEt9nC
-UiY4iKTWO0Cmws0/zZiTs1QUWJZV1VD+hq2kY39ch/aO5ieSZxeSAgMs3NZmdO3d
-Z//BYY1jTw+bbRcwJu+r0h8QoPnFfxZpgQNH7R5ojXKhTbImxrpsX23Wr9GxE46p
-rfNeaXUmGD5BKyF/7otdBwadQ8QpCiv8Kj6GyzyDOvnJDdrFmeK8eEEzduG/L13l
-pJhQDBXd4Pqcfzho0LKmeqfRMb1+ilgnQ7O6M5HTp5gVXJrm0w912fxBmJc+qiXb
-j5IusHsMX/FjqTf5m3VpTCgmJdrV8hJwRVXj33NeN/UhbJCONVrJ0yPr08C+eKxC
-KFhmpUZtcALXEPlLVPxdhkqHz3/KRawRWrUgUY0viEeXOcDPusBCAUCZSCELa6fS
-/ZbV0b5GnUngC6agIk440ME8MLxwjyx1zNDFjFE7PZQIZCZhfbnDZY8UnCHQqv0X
-cgOPvZuM5l5Tnrmd74K74bzickFbIZTTRTeU0d8JOV3nI6qaHcptqAqGhYqCvkIH
-1vI4gnPah1vlPNOePqc7nvQDs/nxfRN0Av+7oeX6AHkcpmZBiFxgV6YuCcS6/ZrP
-px9Aw7vMWgpVSzs4dlG4Y4uElBbmVvMCAwEAAaNCMEAwDwYDVR0TAQH/BAUwAwEB
-/zAOBgNVHQ8BAf8EBAMCAQYwHQYDVR0OBBYEFP6rAJCYniT8qcwaivsnuL8wbqg7
-MA0GCSqGSIb3DQEBCwUAA4ICAQDPdyxuVr5Os7aEAJSrR8kN0nbHhp8dB9O2tLsI
-eK9p0gtJ3jPFrK3CiAJ9Brc1AsFgyb/E6JTe1NOpEyVa/m6irn0F3H3zbPB+po3u
-2dfOWBfoqSmuc0iH55vKbimhZF8ZE/euBhD/UcabTVUlT5OZEAFTdfETzsemQUHS
-v4ilf0X8rLiltTMMgsT7B/Zq5SWEXwbKwYY5EdtYzXc7LMJMD16a4/CrPmEbUCTC
-wPTxGfARKbalGAKb12NMcIxHowNDXLldRqANb/9Zjr7dn3LDWyvfjFvO5QxGbJKy
-CqNMVEIYFRIYvdr8unRu/8G2oGTYqV9Vrp9canaW2HNnh/tNf1zuacpzEPuKqf2e
-vTY4SUmH9A4U8OmHuD+nT3pajnnUk+S7aFKErGzp85hwVXIy+TSrK0m1zSBi5Dp6
-Z2Orltxtrpfs/J92VoguZs9btsmksNcFuuEnL5O7Jiqik7Ab846+HUCjuTaPPoIa
-Gl6I6lD4WeKDRikL40Rc4ZW2aZCaFG+XroHPaO+Zmr615+F/+PoTRxZMzG0IQOeL
-eG9QgkRQP2YGiqtDhFZKDyAthg710tvSeopLzaXoTvFeJiUBWSOgftL2fiFX1ye8
-FVdMpEbB4IMeDExNH08GGeL5qPQ6gqGyeUN51q1veieQA6TqJIc/2b3Z6fJfUEkc
-7uzXLg==
------END CERTIFICATE-----
-"""
+STAAT_DER_NEDERLANDEN_EV_ROOT_CA_BYTES_ ::= #[
+    '0',0x82,5,'p','0',130,3,'X',160,3,2,1,2,2,4,0,152,150,141,'0',13,6,9,'*',
+    0x86,'H',0x86,247,13,1,1,11,5,0,'0','X','1',11,'0',9,6,3,'U',4,6,19,2,'N',
+    'L','1',30,'0',28,6,3,'U',4,0xa,12,21,'S','t','a','a','t',' ','d','e','r',
+    ' ','N','e','d','e','r','l','a','n','d','e','n','1',')','0',39,6,3,'U',4,
+    3,0xc,' ','S','t','a','a','t',' ','d','e','r',' ','N','e','d','e','r','l',
+    'a','n','d','e','n',' ','E','V',' ','R','o','o','t',' ','C','A','0',30,23,
+    0xd,'1','0','1','2','0','8','1','1','1','9','2','9','Z',23,13,'2','2','1',
+    '2','0','8','1','1','1','0','2','8','Z','0','X','1',0xb,'0',9,6,3,'U',4,6,
+    19,2,'N','L','1',30,'0',28,6,3,'U',4,10,12,21,'S','t','a','a','t',' ','d',
+    'e','r',' ','N','e','d','e','r','l','a','n','d','e','n','1',')','0',39,6,
+    3,'U',4,3,0xc,' ','S','t','a','a','t',' ','d','e','r',' ','N','e','d','e',
+    'r','l','a','n','d','e','n',' ','E','V',' ','R','o','o','t',' ','C','A',
+    '0',0x82,0x2,'"','0',13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,2,15,0,
+    '0',0x82,2,10,2,130,2,1,0,227,199,'~',137,249,'$','K',':',210,'3',131,'5',
+    ',','i',0xec,0xdc,9,164,227,'Q',168,'%','+','y',184,8,'=',224,145,186,132,
+    0x85,0xc6,0x85,164,202,230,201,'.','S',164,201,'$',30,253,'U','f','q',']',
+    ',',197,'`','h',4,183,217,194,'R','&','8',136,164,214,';','@',166,194,205,
+    '?',205,152,147,179,'T',20,'X',150,'U',213,'P',254,134,173,164,'c',127,92,
+    135,246,142,230,39,146,'g',23,146,2,3,',',220,214,'f','t',237,221,'g',255,
+    0xc1,'a',0x8d,'c','O',15,155,'m',23,'0','&',239,171,210,31,16,160,249,197,
+    0x7f,22,'i',0x81,3,'G',237,30,'h',141,'r',161,'M',178,'&',198,186,'l','_',
+    'm',214,175,209,177,19,142,169,173,243,'^','i','u','&',24,'>','A','+','!',
+    0x7f,0xee,0x8b,']',7,6,157,'C',196,')',10,'+',252,'*','>',134,203,'<',131,
+    ':',0xf9,0xc9,0xd,218,197,153,226,188,'x','A','3','v',225,191,'/',']',229,
+    164,152,'P',12,21,221,224,250,156,127,'8','h',208,178,166,'z',167,209,'1',
+    0xbd,'~',0x8a,'X',39,'C',179,186,'3',145,211,167,152,21,92,154,230,211,15,
+    'u',0xd9,0xfc,'A',0x98,151,'>',170,'%',219,143,146,'.',176,'{',12,'_',241,
+    'c',0xa9,'7',0xf9,0x9b,'u','i','L','(','&','%',218,213,242,18,'p','E','U',
+    0xe3,0xdf,'s','^','7',245,'!','l',144,142,'5','Z',201,211,'#',235,211,192,
+    0xbe,'x',172,'B','(','X','f',165,'F','m','p',2,215,16,249,'K','T',252,']',
+    0x86,'J',0x87,0xcf,127,202,'E',172,17,'Z',181,' ','Q',141,'/',136,'G',151,
+    '9',0xc0,207,186,192,'B',1,'@',153,'H','!',11,'k',167,210,253,150,213,209,
+    0xbe,'F',0x9d,'I',0xe0,11,166,160,'"','N','8',208,193,'<','0',188,'p',143,
+    ',','u',204,208,197,140,'Q',';','=',148,8,'d','&','a','}',185,195,'e',143,
+    0x14,156,'!',208,170,253,23,'r',3,143,189,155,140,230,'^','S',158,185,157,
+    239,130,187,225,188,226,'r','A','[','!',148,211,'E','7',148,209,223,9,'9',
+    ']',0xe7,'#',0xaa,154,29,202,'m',168,10,134,133,138,130,190,'B',7,214,242,
+    '8',130,'s',218,135,'[',229,'<',211,158,'>',167,';',158,244,3,179,249,241,
+    '}',19,'t',2,0xff,187,161,229,250,0,'y',28,166,'f','A',136,92,'`','W',166,
+    '.',0x9,196,186,253,154,207,167,31,'@',195,187,204,'Z',10,'U','K',';','8',
+    'v','Q',0xb8,'c',139,132,148,22,230,'V',243,2,3,1,0,1,163,'B','0','@','0',
+    15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',14,6,3,'U',29,15,1,1,255,4,
+    0x04,3,2,1,6,'0',29,6,3,'U',29,14,4,22,4,20,254,171,0,144,152,158,'$',252,
+    0xa9,204,26,138,251,39,184,191,'0','n',168,';','0',13,6,9,'*',134,'H',134,
+    0xf7,0xd,1,1,11,5,0,3,130,2,1,0,207,'w',',','n','V',190,'N',179,182,132,0,
+    148,171,'G',201,13,210,'v',199,134,159,29,7,211,182,180,187,8,'x',175,'i',
+    0xd2,11,'I',222,'3',197,172,173,194,136,2,'}',6,183,'5',2,193,'`',201,191,
+    0xc4,232,148,222,212,211,169,19,'%','Z',254,'n',162,174,'}',5,220,'}',243,
+    'l',0xf0,'~',0xa6,0x8d,238,217,215,206,'X',23,232,169,')',174,'s','H',135,
+    0xe7,0x9b,0xca,'n',')',161,'d','_',25,19,247,174,6,16,255,'Q',198,155,'M',
+    'U','%','O',0x93,0x99,16,1,'S','u',241,19,206,199,166,'A','A',210,191,136,
+    0xa5,127,'E',252,172,184,165,181,'3',12,130,196,251,7,246,'j',229,'%',132,
+    '_',0x6,202,193,134,'9',17,219,'X',205,'w',';',',',194,'L',15,'^',154,227,
+    240,171,'>','a',27,'P','$',194,192,244,241,25,240,17,')',182,165,24,2,155,
+    0xd7,'c','L','p',0x8c,'G',163,3,'C',92,185,']','F',160,13,'o',255,'Y',142,
+    190,221,159,'r',195,'[','+',223,140,'[',206,229,12,'F','l',146,178,10,163,
+    'L','T','B',0x18,21,18,24,189,218,252,186,'t','n',255,193,182,160,'d',216,
+    169,'_','U',174,159,92,'j','v',150,216,'s','g',135,251,'M',127,92,238,'i',
+    0xca,'s',16,251,138,169,253,158,189,'6','8','I','I',135,244,14,20,240,233,
+    0x87,0xb8,'?',167,'O','z','Z',142,'y',212,147,228,187,'h','R',132,172,'l',
+    0xe9,0xf3,152,'p','U','r','2',249,'4',171,'+','I',181,205,' ','b',228,':',
+    'z','g','c',0xab,0x96,220,'m',174,151,236,252,159,'v','V',136,'.','f',207,
+    '[',0xb6,0xc9,164,176,215,5,186,225,39,'/',147,187,'&','*',162,147,176,27,
+    0xf3,142,190,29,'@',163,185,'6',143,'>',130,26,26,'^',136,234,'P',248,'Y',
+    0xe2,131,'F',')',11,227,'D',92,225,149,182,'i',144,154,20,'o',151,174,129,
+    0xcf,'h',0xef,153,154,190,181,231,225,127,248,250,19,'G',22,'L',204,'m',8,
+    '@',0xe7,139,'x','o','P',130,'D','P','?','f',6,138,171,'C',132,'V','J',15,
+    ' ','-',0x86,0x0e,245,210,219,210,'z',138,'K',205,165,232,'N',241,'^','&',
+    '%',0x1,'Y','#',160,'~',210,246,'~','!','W',215,39,188,21,'W','L',164,'F',
+    193,224,131,30,12,'L','M',31,'O',6,25,226,249,168,244,':',130,161,178,'y',
+    'C','y',0xd6,173,'o','z',39,144,3,164,234,'$',135,'?',217,189,217,233,242,
+    '_','P','I',28,238,236,215,'.',
+]
+
 
 /**
 Staat der Nederlanden EV Root CA.
 SHA256 fingerprint: 4d:24:91:41:4c:fe:95:67:46:ec:4c:ef:a6:cf:6f:72:e2:8a:13:29:43:2f:9d:8a:90:7a:c4:cb:5d:ad:c1:5a
 */
-STAAT_DER_NEDERLANDEN_EV_ROOT_CA ::= net.Certificate.parse STAAT_DER_NEDERLANDEN_EV_ROOT_CA_TEXT_
+STAAT_DER_NEDERLANDEN_EV_ROOT_CA ::= parse_ STAAT_DER_NEDERLANDEN_EV_ROOT_CA_BYTES_
 
-IDENTRUST_COMMERCIAL_ROOT_CA_1_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIFYDCCA0igAwIBAgIQCgFCgAAAAUUjyES1AAAAAjANBgkqhkiG9w0BAQsFADBK
-MQswCQYDVQQGEwJVUzESMBAGA1UEChMJSWRlblRydXN0MScwJQYDVQQDEx5JZGVu
-VHJ1c3QgQ29tbWVyY2lhbCBSb290IENBIDEwHhcNMTQwMTE2MTgxMjIzWhcNMzQw
-MTE2MTgxMjIzWjBKMQswCQYDVQQGEwJVUzESMBAGA1UEChMJSWRlblRydXN0MScw
-JQYDVQQDEx5JZGVuVHJ1c3QgQ29tbWVyY2lhbCBSb290IENBIDEwggIiMA0GCSqG
-SIb3DQEBAQUAA4ICDwAwggIKAoICAQCnUBneP5k91DNG8W9RYYKyqU+PZ4ldhNlT
-3Qwo2dfw/66VQ3KZ+bVdfIrBQuExUHTRgQ18zZshq0PirK1ehm7zCYofWjK9ouuU
-+ehcCuz/mNKvcbO0U59Oh++SvL3sTzIwiEsXXlfEU8L2ApeN2WIrvyQfYo3fw7gp
-S0l4PJNgiCL8mdo2yMKi1CxUAGc1bnO/AljwpN3lsKImesrgNqUZFvX9t++uP0D1
-bVoE/c40yiTcdCMbXTMTEl3EASX2MN0CXZ/g1Ue9tOsbobtJSdifWwLziuQkkORi
-T0/Br4sOdBeo0XKIanoBScy0RnnGF7HamB4HWfp1IYVl3ZBWzvurpWCdxJ35UrCL
-vYf5jysjCiN2O/cz4ckA82n5S6LgTrx+kzmEB/dEcH7+B1rlsazRGMzyNeVJSQjK
-Vsk9+w8YfYs7wRPCTY/JTw436R+hDmrfYi7LNQZReSzIJTj0+kuniVyc0uMNOYZK
-dHzVWYfCP04MXFL0PfdSgvHqo6z9STQaKPNBiDoT7uje/5kdX7rL6B7yuVBgwDHT
-c+XvvqDtMwt0viAgxGds8AgDelWAf0ZOlqf0Hj7h9tgJ4TNkK2PXMl6f+cB7D3hv
-l7yTmvmcEpB4eoCHFddydJxVdHixuuFucAS6T6C6aMN7/zHwcz09lCqxC0EOoP5N
-iGVreTO01wIDAQABo0IwQDAOBgNVHQ8BAf8EBAMCAQYwDwYDVR0TAQH/BAUwAwEB
-/zAdBgNVHQ4EFgQU7UQZwNPwBovupHu+QucmVMiONnYwDQYJKoZIhvcNAQELBQAD
-ggIBAA2ukDL2pkt8RHYZYR4nKM1eVO8lvOMIkPkp165oCOGUAFjvLi5+U1KMtlwH
-6oi6mYtQlNeCgN9hCQCTrQ0U5s7B8jeUeLBfnLOic7iPBZM4zY0+sLj7wM+x8uwt
-LRvM7Kqas6pgghstO8OEPVeKlh6cdbjTMM1gCIOQ045U8U1mwF10A0Cj7oV+wh93
-nAbowacYXVKV7cndJZ5t+qntozo00Fl72u1Q8zW/7esUTTHHYPTa8Yec4kjixsU3
-+wYQ+nVZZjFHKdp2mhzpgq7vmrlR94gjmmmVYjzlVYA211QC//G5Xc7UI2/YRYRK
-W2XviQzdFKcgyxilJbQN+QHwotL0AMh0jqEqSI5l2xPE4iUXfeu+h1sXIFRRk0pT
-AwvsXcoz7WL9RccvW9xYoIA55vrX/hMUpu09lEpCdNTDd1lzzY9GvlU47/rokTLq
-l1gEIt44w8y8bckzOmoKaT+gyOpyj4xjhiO9bTyWnpXgSUyqorkqG5w2gXjtw+hG
-4iZZRHUe2XWJUc0QhJ1hYMtd+ZciTY6Y5uN/9lu7rs3KSoFrXgvzUeF0K+l+J6fZ
-mUlO+KWA2yUPHGNiiskzZ2s8EIPGrd6ozRaOjfAHN3Gf8qv8QfXBi+wAN10J5U6A
-7/qxXDgGpRtK4dw4LTzcqx+QGtVKnO7RcGzM7vRX+Bi6hG6H
------END CERTIFICATE-----
-"""
+IDENTRUST_COMMERCIAL_ROOT_CA_1_BYTES_ ::= #[
+    '0',0x82,5,'`','0',0x82,3,'H',160,3,2,1,2,2,16,10,1,'B',128,0,0,1,'E','#',
+    0xc8,'D',181,0,0,0,2,'0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,'0','J',
+    '1',11,'0',9,6,3,'U',4,6,19,2,'U','S','1',18,'0',16,6,3,'U',4,10,19,9,'I',
+    'd','e','n','T','r','u','s','t','1',39,'0','%',6,3,'U',4,3,19,30,'I','d',
+    'e','n','T','r','u','s','t',' ','C','o','m','m','e','r','c','i','a','l',
+    ' ','R','o','o','t',' ','C','A',' ','1','0',30,23,0xd,'1','4','0','1','1',
+    '6','1','8','1','2','2','3','Z',23,13,'3','4','0','1','1','6','1','8','1',
+    '2','2','3','Z','0','J','1',0xb,'0',9,6,3,'U',4,6,19,2,'U','S','1',18,'0',
+    16,6,3,'U',4,10,19,9,'I','d','e','n','T','r','u','s','t','1',39,'0','%',6,
+    0x3,'U',4,3,19,30,'I','d','e','n','T','r','u','s','t',' ','C','o','m','m',
+    'e','r','c','i','a','l',' ','R','o','o','t',' ','C','A',' ','1','0',130,2,
+    '"','0',13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,2,15,0,'0',130,2,10,
+    0x02,130,2,1,0,167,'P',25,222,'?',153,'=',212,'3','F',241,'o','Q','a',130,
+    0xb2,0xa9,'O',0x8f,'g',137,']',132,217,'S',221,12,'(',217,215,240,255,174,
+    0x95,'C','r',0x99,0xf9,181,']','|',138,193,'B',225,'1','P','t',209,129,13,
+    '|',0xcd,155,'!',171,'C',226,172,173,'^',134,'n',243,9,138,31,'Z','2',189,
+    162,235,148,249,232,92,10,236,255,152,210,175,'q',179,180,'S',159,'N',135,
+    0xef,146,188,189,236,'O','2','0',136,'K',23,'^','W',196,'S',194,246,2,151,
+    0x8d,0xd9,'b','+',0xbf,'$',31,'b',141,223,195,184,')','K','I','x','<',147,
+    '`',136,'"',252,153,218,'6',200,194,162,212,',','T',0,'g','5','n','s',191,
+    0x2,'X',240,164,221,229,176,162,'&','z',202,224,'6',165,25,22,245,253,183,
+    0xef,174,'?','@',245,'m','Z',4,253,206,'4',202,'$',220,'t','#',27,']','3',
+    19,18,']',0xc4,1,'%',246,'0',221,2,']',159,224,213,'G',189,180,235,27,161,
+    187,'I','I',216,159,'[',2,243,138,228,'$',144,228,'b','O','O',193,175,139,
+    0x0e,'t',23,0xa8,209,'r',136,'j','z',1,'I',204,180,'F','y',198,23,177,218,
+    0x98,30,7,'Y',250,'u','!',133,'e',221,144,'V',206,251,171,165,'`',157,196,
+    0x9d,0xf9,'R',0xb0,139,189,135,249,143,'+','#',10,'#','v',';',247,'3',225,
+    0xc9,0,0xf3,'i',249,'K',162,224,'N',188,'~',147,'9',132,7,247,'D','p','~',
+    0xfe,0x7,'Z',229,177,172,209,24,204,242,'5',229,'I','I',8,202,'V',201,'=',
+    251,15,24,'}',139,';',193,19,194,'M',143,201,'O',14,'7',233,31,161,14,'j',
+    0xdf,'b','.',203,'5',6,'Q','y',',',200,'%','8',244,250,'K',167,137,92,156,
+    0xd2,227,13,'9',134,'J','t','|',213,'Y',135,194,'?','N',12,92,'R',244,'=',
+    247,'R',130,241,234,163,172,253,'I','4',26,'(',243,'A',136,':',19,238,232,
+    222,255,153,29,'_',186,203,232,30,242,185,'P','`',192,'1',211,'s',229,239,
+    0xbe,0xa0,0xed,'3',11,'t',190,' ',' ',196,'g','l',240,8,3,'z','U',128,127,
+    'F','N',0x96,167,244,30,'>',225,246,216,9,225,'3','d','+','c',215,'2','^',
+    159,249,192,'{',15,'x','o',151,188,147,154,249,156,18,144,'x','z',128,135,
+    21,0xd7,'r','t',156,'U','t','x',177,186,225,'n','p',4,186,'O',160,186,'h',
+    195,'{',255,'1',240,'s','=','=',148,'*',177,11,'A',14,160,254,'M',136,'e',
+    'k','y','3',0xb4,0xd7,2,3,1,0,1,0xa3,'B','0','@','0',14,6,3,'U',29,15,1,1,
+    255,4,4,3,2,1,6,'0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',29,6,3,
+    'U',29,0xe,4,22,4,20,237,'D',25,192,211,240,6,139,238,164,'{',190,'B',231,
+    '&','T',0xc8,0x8e,'6','v','0',0xd,6,9,'*',134,'H',134,247,13,1,1,11,5,0,3,
+    130,2,1,0,13,174,144,'2',246,166,'K','|','D','v',25,'a',30,39,'(',205,'^',
+    'T',239,'%',188,227,8,144,249,')',215,174,'h',8,225,148,0,'X',239,'.','.',
+    '~','S','R',0x8c,182,92,7,234,136,186,153,139,'P',148,215,130,128,223,'a',
+    9,0,147,173,13,20,230,206,193,242,'7',148,'x',176,'_',156,179,162,'s',184,
+    0x8f,5,147,'8',205,141,'>',176,184,251,192,207,177,242,236,'-','-',27,204,
+    236,170,154,179,170,'`',130,27,'-',';',195,132,'=','W',138,150,30,156,'u',
+    0xb8,0xd3,'0',205,'`',8,131,144,211,142,'T',241,'M','f',192,']','t',3,'@',
+    0xa3,0xee,133,'~',194,31,'w',156,6,232,193,167,24,']','R',149,237,201,221,
+    '%',0x9e,'m',0xfa,169,237,163,':','4',208,'Y','{',218,237,'P',243,'5',191,
+    0xed,0xeb,20,'M','1',0xc7,'`',244,218,241,135,156,226,'H',226,198,197,'7',
+    0xfb,6,16,0xfa,'u','Y','f','1','G',')',218,'v',154,28,233,130,174,239,154,
+    185,'Q',247,136,'#',154,'i',149,'b','<',229,'U',128,'6',215,'T',2,255,241,
+    185,']',206,212,'#','o',216,'E',132,'J','[','e',239,137,12,221,20,167,' ',
+    203,24,165,'%',180,13,249,1,240,162,210,244,0,200,'t',142,161,'*','H',142,
+    'e',0xdb,19,196,226,'%',23,'}',235,190,135,'[',23,' ','T','Q',147,'J','S',
+    3,0xb,236,']',202,'3',237,'b',253,'E',199,'/','[',220,'X',160,128,'9',230,
+    250,215,254,19,20,166,237,'=',148,'J','B','t',212,195,'w','Y','s',205,143,
+    'F',190,'U','8',239,250,232,145,'2',234,151,'X',4,'"',222,'8',195,204,188,
+    'm',0xc9,'3',':','j',0x0a,'i','?',160,200,234,'r',143,140,'c',134,'#',189,
+    'm','<',0x96,0x9e,0x95,224,'I','L',170,162,185,'*',27,156,'6',129,'x',237,
+    195,232,'F',226,'&','Y','D','u',30,217,'u',137,'Q',205,16,132,157,'a','`',
+    0xcb,']',0xf9,151,'"','M',142,152,230,227,127,246,'[',187,174,205,202,'J',
+    129,'k','^',11,243,'Q',225,'t','+',233,'~',39,167,217,153,'I','N',248,165,
+    0x80,219,'%',15,28,'c','b',138,201,'3','g','k','<',16,131,198,173,222,168,
+    0xcd,0x16,142,141,240,7,'7','q',159,242,171,252,'A',245,193,139,236,0,'7',
+    ']',9,229,'N',128,239,250,177,92,'8',6,165,27,'J',225,220,'8','-','<',220,
+    0xab,31,144,26,213,'J',156,238,209,'p','l',204,238,244,'W',248,24,186,132,
+    'n',135,
+]
+
 
 /**
 IdenTrust Commercial Root CA 1.
 SHA256 fingerprint: 5d:56:49:9b:e4:d2:e0:8b:cf:ca:d0:8a:3e:38:72:3d:50:50:3b:de:70:69:48:e4:2f:55:60:30:19:e5:28:ae
 */
-IDENTRUST_COMMERCIAL_ROOT_CA_1 ::= net.Certificate.parse IDENTRUST_COMMERCIAL_ROOT_CA_1_TEXT_
+IDENTRUST_COMMERCIAL_ROOT_CA_1 ::= parse_ IDENTRUST_COMMERCIAL_ROOT_CA_1_BYTES_
 
-IDENTRUST_PUBLIC_SECTOR_ROOT_CA_1_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIFZjCCA06gAwIBAgIQCgFCgAAAAUUjz0Z8AAAAAjANBgkqhkiG9w0BAQsFADBN
-MQswCQYDVQQGEwJVUzESMBAGA1UEChMJSWRlblRydXN0MSowKAYDVQQDEyFJZGVu
-VHJ1c3QgUHVibGljIFNlY3RvciBSb290IENBIDEwHhcNMTQwMTE2MTc1MzMyWhcN
-MzQwMTE2MTc1MzMyWjBNMQswCQYDVQQGEwJVUzESMBAGA1UEChMJSWRlblRydXN0
-MSowKAYDVQQDEyFJZGVuVHJ1c3QgUHVibGljIFNlY3RvciBSb290IENBIDEwggIi
-MA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQC2IpT8pEiv6EdrCvsnduTyP4o7
-ekosMSqMjbCpwzFrqHd2hCa2rIFCDQjrVVi7evi8ZX3yoG2LqEfpYnYeEe4IFNGy
-RBb06tD6Hi9e28tzQa68ALBKK0CyrOE7S8ItneShm+waOh7wCLPQ5CQ1B5+ctMlS
-bdsHyo+1W/CD80/HLaXIrcuVIKQxKFdYWuSNG5qrng0M8gozOSI5Cpcu81N3uURF
-/YTLNiCBWS2ab21ISGHKTN9T0a9SvESfqy9rg3LvdYDaBjMbXcjaY8ZNzaxmMc3R
-3j6HEDbhuaR672BQssvKplbgN6+rNBM5Jeg5ZuSYeqoSmJxZZoY+rfGwyj4GD3vw
-EUs3oERte8uojHH01bWRNszwFcYr3lEXsZdMUD2xlVl8BX0tIdUAvwFnol57plzy
-9yLxkA2T26pEUWbMfXYD62qoKjgZl3YNa4ph+bz27nb9cCvdKTz4Ch5bQhyLVi9V
-GxyhLrXHFub4qjySjmm2AcG1hp2JDws4lFTo6tyePSW8Uybt1as5qsVATFSrsrTZ
-2fjXctscvG29ZV/viDUqZi/u9rNl8DONfJhBaUYPQxxp+pu10GFqzcpL2UyQRqsV
-WaFHVCkugyhfHMKiq3IXAAaOReyL4jM9f9oZRORicsPfIsbyVtTdX5Vy7W1f90gD
-W/3FKqD2cyOEEBsB5wIDAQABo0IwQDAOBgNVHQ8BAf8EBAMCAQYwDwYDVR0TAQH/
-BAUwAwEB/zAdBgNVHQ4EFgQU43HgntinQtnbcZFrlJPrw6PRFKMwDQYJKoZIhvcN
-AQELBQADggIBAEf63QqwEZE4rU1d9+UOl1QZgkiHVIyqZJnYWv6IAcVYpZmxI1Qj
-t2odIFflAWJBF9MJ23XLblSQdf4an4EKwt3X9wnQW3IV5B4Jaj0z8yGa5hV+rVHV
-DRDtfULAj+7AmgjVQdZcDiFpboBhDhXAuM/FSRJSzL46zNQuOAXeNf0fb7iAaJg9
-TaDKQGXSc3z1i9kKlT/YPyNtGtEqJBnZhbMX73huqVjRI9PHE+1yJX9dsXNw0H8G
-lwmEKYBhHfpe/3OsoOOJuBxxFcbeMX8S3OFtm6/n6J91eEyrRjuazr8FGF1NFTwW
-mhlQBJqymm9li1JfPFgEKCXAZmExfrngdbkaqIHWchezxQMxNRF4eKLg6TCMf4Df
-WN88uieW4oA0beOY02QnrEh+KHdcxiVhJfiFDGX6xDIvpZgF5PgLZxYWxoK4Mhn5
-+bl53B/N66+rDt0b20XkeucC4pVd/GnwU2lhlXV5C15V5jgclKlZM57IcXR5f1GJ
-tshquDDIajjDbp7hNxbqBWJMWxJH7ae0s1hWx0nzfxJoCTFx8G34Tkf71oXuxVhA
-GaQdp/lLQzfcaFpPz+vCZHTetBXZ9FRUGi8c15dxVJCO2SCdUyt/q4/i6jC8UDfv
-8Ue1fXwsBOxonbRJRBD0ckscZOf85muQ3Wl9af0AVqW3rLatt8o+Ae+c
------END CERTIFICATE-----
-"""
+IDENTRUST_PUBLIC_SECTOR_ROOT_CA_1_BYTES_ ::= #[
+    '0',0x82,5,'f','0',0x82,3,'N',160,3,2,1,2,2,16,10,1,'B',128,0,0,1,'E','#',
+    0xcf,'F','|',0,0,0,2,'0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,'0','M',
+    '1',11,'0',9,6,3,'U',4,6,19,2,'U','S','1',18,'0',16,6,3,'U',4,10,19,9,'I',
+    'd','e','n','T','r','u','s','t','1','*','0','(',0x06,3,'U',4,3,19,'!','I',
+    'd','e','n','T','r','u','s','t',' ','P','u','b','l','i','c',' ','S','e',
+    'c','t','o','r',' ','R','o','o','t',' ','C','A',' ','1','0',30,23,0xd,'1',
+    '4','0','1','1','6','1','7','5','3','3','2','Z',23,13,'3','4','0','1','1',
+    '6','1','7','5','3','3','2','Z','0','M','1',11,'0',9,6,3,'U',4,6,19,2,'U',
+    'S','1',0x12,'0',16,6,3,'U',4,10,19,9,'I','d','e','n','T','r','u','s','t',
+    '1','*','0','(',0x06,3,'U',4,3,19,'!','I','d','e','n','T','r','u','s','t',
+    ' ','P','u','b','l','i','c',' ','S','e','c','t','o','r',' ','R','o','o',
+    't',' ','C','A',' ','1','0',130,2,'"','0',13,6,9,'*',134,'H',134,247,13,1,
+    1,1,5,0,3,130,2,15,0,'0',130,2,10,2,130,2,1,0,182,'"',148,252,164,'H',175,
+    232,'G','k',10,251,39,'v',228,242,'?',138,';','z','J',',','1','*',140,141,
+    0xb0,169,195,'1','k',168,'w','v',132,'&',182,172,129,'B',13,8,235,'U','X',
+    0xbb,'z',0xf8,188,'e','}',242,160,'m',139,168,'G',233,'b','v',30,17,238,8,
+    0x14,0xd1,178,'D',22,244,234,208,250,30,'/','^',219,203,'s','A',174,188,0,
+    176,'J','+','@',178,172,225,';','K',194,'-',157,228,161,155,236,26,':',30,
+    240,8,179,208,228,'$','5',7,159,156,180,201,'R','m',219,7,202,143,181,'[',
+    0xf0,0x83,243,'O',199,'-',165,200,173,203,149,' ',164,'1','(','W','X','Z',
+    0xe4,0x8d,27,0x9a,171,158,13,12,242,10,'3','9','"','9',10,151,'.',243,'S',
+    'w',0xb9,'D','E',0xfd,132,203,'6',' ',129,'Y','-',154,'o','m','H','H','a',
+    0xca,'L',0xdf,'S',209,175,'R',188,'D',159,171,'/','k',131,'r',239,'u',128,
+    0xda,6,'3',27,']',200,218,'c',198,'M',205,172,'f','1',205,209,222,'>',135,
+    0x10,'6',0xe1,185,164,'z',239,'`','P',178,203,202,166,'V',224,'7',175,171,
+    '4',19,'9','%',232,'9','f',228,152,'z',170,18,152,156,'Y','f',134,'>',173,
+    0xf1,0xb0,202,'>',6,15,'{',240,17,'K','7',160,'D','m','{',203,168,140,'q',
+    244,213,181,145,'6',204,240,21,198,'+',222,'Q',23,177,151,'L','P','=',177,
+    0x95,'Y','|',5,'}','-','!',213,0,191,1,'g',162,'^','{',166,92,242,247,'"',
+    0xf1,0x90,13,147,219,170,'D','Q','f',204,'}','v',3,235,'j',168,'*','8',25,
+    151,'v',13,'k',138,'a',249,188,246,238,'v',253,'p','+',221,')','<',248,10,
+    0x1e,'[','B',28,0x8b,'V','/','U',27,28,161,'.',181,199,22,230,248,170,'<',
+    0x92,0x8e,'i',182,1,193,181,134,157,137,15,11,'8',148,'T',232,234,220,158,
+    '=','%',0xbc,'S','&',0xed,213,171,'9',170,197,'@','L','T',171,178,180,217,
+    0xd9,0xf8,0xd7,'r',219,28,188,'m',189,'e','_',239,136,'5','*','f','/',238,
+    246,179,'e',240,'3',141,'|',152,'A','i','F',15,'C',28,'i',250,155,181,208,
+    'a','j',0xcd,0xca,'K',0xd9,'L',144,'F',171,21,'Y',161,'G','T',')','.',131,
+    '(','_',28,0xc2,162,171,'r',23,0,6,142,'E',236,139,226,'3','=',127,218,25,
+    'D',0xe4,'b','r',0xc3,223,'"',198,242,'V',212,221,'_',149,'r',237,'m','_',
+    0xf7,'H',3,'[',0xfd,197,'*',160,246,'s','#',132,16,27,1,231,2,3,1,0,1,163,
+    'B','0','@','0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',15,6,3,'U',29,19,
+    1,1,0xff,4,5,'0',3,1,1,255,'0',29,6,3,'U',29,14,4,22,4,20,227,'q',224,158,
+    216,167,'B',217,219,'q',145,'k',148,147,235,195,163,209,20,163,'0',13,6,9,
+    '*',0x86,'H',0x86,247,13,1,1,11,5,0,3,130,2,1,0,'G',250,221,10,176,17,145,
+    '8',173,'M',']',247,229,14,151,'T',25,130,'H',135,'T',140,170,'d',153,216,
+    'Z',0xfe,0x88,1,0xc5,'X',165,153,177,'#','T','#',183,'j',29,' ','W',229,1,
+    'b','A',0x17,0xd3,9,219,'u',203,'n','T',144,'u',254,26,159,129,10,194,221,
+    0xd7,247,9,208,'[','r',21,228,30,9,'j','=','3',243,'!',154,230,21,'~',173,
+    'Q',213,13,16,237,'}','B',192,143,238,192,154,8,213,'A',214,92,14,'!','i',
+    'n',0x80,'a',14,21,192,184,207,197,'I',18,'R',204,190,':',204,212,'.','8',
+    5,0xde,'5',253,31,'o',184,128,'h',152,'=','M',160,202,'@','e',210,'s','|',
+    0xf5,0x8b,217,10,149,'?',216,'?','#','m',26,209,'*','$',25,217,133,179,23,
+    0xef,'x','n',0xa9,'X',0xd1,'#',211,199,19,237,'r','%',127,']',177,'s','p',
+    208,127,6,151,9,132,')',128,'a',29,250,'^',255,'s',172,160,227,137,184,28,
+    'q',21,198,222,'1',127,18,220,225,'m',155,175,231,232,159,'u','x','L',171,
+    'F',';',0x9a,0xce,191,5,24,']','M',21,'<',22,154,25,'P',4,154,178,154,'o',
+    'e',0x8b,'R','_','<','X',4,'(','%',192,'f','a','1','~',185,224,'u',185,26,
+    0xa8,0x81,214,'r',23,179,197,3,'1','5',17,'x','x',162,224,233,'0',140,127,
+    128,223,'X',223,'<',186,39,150,226,128,'4','m',227,152,211,'d',39,172,'H',
+    '~','(','w',0x5c,198,'%','a','%',248,133,12,'e',250,196,'2','/',165,152,5,
+    0xe4,0xf8,0xb,'g',22,22,198,130,184,'2',25,249,249,185,'y',220,31,205,235,
+    0xaf,0xab,14,221,27,219,'E',228,'z',231,2,226,149,']',252,'i',240,'S','i',
+    'a',149,'u','y',11,'^','U',230,'8',28,148,169,'Y','3',158,200,'q','t','y',
+    0x7f,'Q',137,182,200,'j',184,'0',200,'j','8',195,'n',158,225,'7',22,234,5,
+    'b','L','[',0x12,'G',237,167,180,179,'X','V',199,'I',243,127,18,'h',9,'1',
+    'q',240,'m',248,'N','G',251,214,133,238,197,'X','@',25,164,29,167,249,'K',
+    'C','7',220,'h','Z','O',207,235,194,'d','t',222,180,21,217,244,'T','T',26,
+    '/',0x1c,0xd7,151,'q','T',144,142,217,' ',157,'S','+',127,171,143,226,234,
+    '0',0xbc,'P','7',239,241,'G',181,'}','|',',',4,236,'h',157,180,'I','D',16,
+    0xf4,'r','K',28,'d',231,252,230,'k',144,221,'i','}','i',253,0,'V',165,183,
+    172,182,173,183,202,'>',1,239,156,
+]
+
 
 /**
 IdenTrust Public Sector Root CA 1.
 SHA256 fingerprint: 30:d0:89:5a:9a:44:8a:26:20:91:63:55:22:d1:f5:20:10:b5:86:7a:ca:e1:2c:78:ef:95:8f:d4:f4:38:9f:2f
 */
-IDENTRUST_PUBLIC_SECTOR_ROOT_CA_1 ::= net.Certificate.parse IDENTRUST_PUBLIC_SECTOR_ROOT_CA_1_TEXT_
+IDENTRUST_PUBLIC_SECTOR_ROOT_CA_1 ::= parse_ IDENTRUST_PUBLIC_SECTOR_ROOT_CA_1_BYTES_
 
-ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G2_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIEPjCCAyagAwIBAgIESlOMKDANBgkqhkiG9w0BAQsFADCBvjELMAkGA1UEBhMC
-VVMxFjAUBgNVBAoTDUVudHJ1c3QsIEluYy4xKDAmBgNVBAsTH1NlZSB3d3cuZW50
-cnVzdC5uZXQvbGVnYWwtdGVybXMxOTA3BgNVBAsTMChjKSAyMDA5IEVudHJ1c3Qs
-IEluYy4gLSBmb3IgYXV0aG9yaXplZCB1c2Ugb25seTEyMDAGA1UEAxMpRW50cnVz
-dCBSb290IENlcnRpZmljYXRpb24gQXV0aG9yaXR5IC0gRzIwHhcNMDkwNzA3MTcy
-NTU0WhcNMzAxMjA3MTc1NTU0WjCBvjELMAkGA1UEBhMCVVMxFjAUBgNVBAoTDUVu
-dHJ1c3QsIEluYy4xKDAmBgNVBAsTH1NlZSB3d3cuZW50cnVzdC5uZXQvbGVnYWwt
-dGVybXMxOTA3BgNVBAsTMChjKSAyMDA5IEVudHJ1c3QsIEluYy4gLSBmb3IgYXV0
-aG9yaXplZCB1c2Ugb25seTEyMDAGA1UEAxMpRW50cnVzdCBSb290IENlcnRpZmlj
-YXRpb24gQXV0aG9yaXR5IC0gRzIwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEK
-AoIBAQC6hLZy254Ma+KZ6TABp3bqMriVQRrJ2mFOWHLP/vaCeb9zYQYKpSfYs1/T
-RU4cctZOMvJyig/3gxnQaoCAAEUesMfnmr8SVycco2gvCoe9amsOXmXzHHfV1IWN
-cCG0szLni6LVhjkCsbjSR87kyUnEO6fe+1R9V77w6G7CebI6C1XiUJgWMhNcL3hW
-wcKUs/Ja5CeanyTXxuzQmyWC48zCxEXFjJd6BmsqEZ+pCm5IO2/b1BEZQvePB7/1
-U1+cPvQXLOZprE4yTGJ36rfo5bs0vBmLrpxR57d+tVOxMyLlbc9wPBr64ptntoP0
-jaWvYkxN4FisZDQSA/i2jZRjJKRxAgMBAAGjQjBAMA4GA1UdDwEB/wQEAwIBBjAP
-BgNVHRMBAf8EBTADAQH/MB0GA1UdDgQWBBRqciZ60B7vfec7aVHUbI2fkBJmqzAN
-BgkqhkiG9w0BAQsFAAOCAQEAeZ8dlsa2eT8ijYfThwMEYGprmi5ZiXMRrEPR9RP/
-jTkrwPK9T3CMqS/qF8QLVJ7UG5aYMzyorWKiAHarWWluBh1+xLlEjZivEtRh2woZ
-Rkfz6/djwUAFQKXSt/S1mja/qYh2iARVBCuch38aNzx+LaUa2NSJXsq9rD1s2G2v
-1fN2D807iDginWyTmsQ9v4IbZT+mD12q/OWyFcq1rca8PdCE6OoGcrBNOTJ4vz4R
-nAuknZoh8/CbCzB428Hch0P+vGOaysXCHMnHjf87ElgI5rY97HosTvuDls4MPGmH
-VHOkc8KT/1EQrBVUAdj8BbGJoX90g5pJ19xOe4pIb4tF9g==
------END CERTIFICATE-----
-"""
+ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G2_BYTES_ ::= #[
+    '0',0x82,0x4,'>','0',130,3,'&',160,3,2,1,2,2,4,'J','S',140,'(','0',13,6,9,
+    '*',134,'H',134,247,13,1,1,11,5,0,'0',129,190,'1',11,'0',9,6,3,'U',4,6,19,
+    0x02,'U','S','1',22,'0',20,6,3,'U',4,10,19,13,'E','n','t','r','u','s','t',
+    ',',' ','I','n','c','.','1','(','0','&',0x06,3,'U',4,11,19,31,'S','e','e',
+    ' ','w','w','w','.','e','n','t','r','u','s','t','.','n','e','t','/','l',
+    'e','g','a','l','-','t','e','r','m','s','1','9','0','7',0x6,3,'U',4,11,19,
+    '0','(','c',')',' ','2','0','0','9',' ','E','n','t','r','u','s','t',',',
+    ' ','I','n','c','.',' ','-',' ','f','o','r',' ','a','u','t','h','o','r',
+    'i','z','e','d',' ','u','s','e',' ','o','n','l','y','1','2','0','0',0x6,3,
+    'U',0x04,3,19,')','E','n','t','r','u','s','t',' ','R','o','o','t',' ','C',
+    'e','r','t','i','f','i','c','a','t','i','o','n',' ','A','u','t','h','o',
+    'r','i','t','y',' ','-',' ','G','2','0',30,23,0xd,'0','9','0','7','0','7',
+    '1','7','2','5','5','4','Z',23,13,'3','0','1','2','0','7','1','7','5','5',
+    '5','4','Z','0',0x81,190,'1',11,'0',9,6,3,'U',4,6,19,2,'U','S','1',22,'0',
+    20,6,3,'U',4,10,19,13,'E','n','t','r','u','s','t',',',' ','I','n','c','.',
+    '1','(','0','&',0x06,3,'U',4,11,19,31,'S','e','e',' ','w','w','w','.','e',
+    'n','t','r','u','s','t','.','n','e','t','/','l','e','g','a','l','-','t',
+    'e','r','m','s','1','9','0','7',0x6,3,'U',4,11,19,'0','(','c',')',' ','2',
+    '0','0','9',' ','E','n','t','r','u','s','t',',',' ','I','n','c','.',' ',
+    '-',' ','f','o','r',' ','a','u','t','h','o','r','i','z','e','d',' ','u',
+    's','e',' ','o','n','l','y','1','2','0','0',0x06,3,'U',4,3,19,')','E','n',
+    't','r','u','s','t',' ','R','o','o','t',' ','C','e','r','t','i','f','i',
+    'c','a','t','i','o','n',' ','A','u','t','h','o','r','i','t','y',' ','-',
+    ' ','G','2','0',0x82,1,'"','0',0xd,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,
+    0x82,0x1,15,0,'0',130,1,10,2,130,1,1,0,186,132,182,'r',219,158,12,'k',226,
+    0x99,233,'0',1,167,'v',234,'2',184,149,'A',26,201,218,'a','N','X','r',207,
+    0xfe,0xf6,0x82,'y',191,'s','a',6,10,165,39,216,179,'_',211,'E','N',28,'r',
+    0xd6,'N','2',0xf2,'r',0x8a,15,247,131,25,208,'j',128,128,0,'E',30,176,199,
+    231,154,191,18,'W',39,28,163,'h','/',10,135,189,'j','k',14,'^','e',243,28,
+    'w',213,212,133,141,'p','!',180,179,'2',231,139,162,213,134,'9',2,177,184,
+    0xd2,'G',0xce,228,201,'I',196,';',167,222,251,'T','}','W',190,240,232,'n',
+    0xc2,'y',0xb2,':',11,'U',226,'P',152,22,'2',19,92,'/','x','V',193,194,148,
+    0xb3,0xf2,'Z',0xe4,39,154,159,'$',215,198,236,208,155,'%',130,227,204,194,
+    0xc4,'E',0xc5,140,151,'z',6,'k','*',17,159,169,10,'n','H',';','o',219,212,
+    0x11,25,'B',0xf7,143,7,191,245,'S','_',156,'>',244,23,',',230,'i',172,'N',
+    '2','L','b','w',0xea,0xb7,0xe8,229,187,'4',188,25,139,174,156,'Q',231,183,
+    '~',0xb5,'S',0xb1,'3','"',0xe5,'m',207,'p','<',26,250,226,155,'g',182,131,
+    0xf4,141,165,175,'b','L','M',224,'X',172,'d','4',18,3,248,182,141,148,'c',
+    '$',0xa4,'q',2,3,1,0,1,163,'B','0','@','0',14,6,3,'U',29,15,1,1,255,4,4,3,
+    2,1,6,'0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',29,6,3,'U',29,14,
+    4,22,4,20,'j','r','&','z',0xd0,30,239,'}',231,';','i','Q',212,'l',141,159,
+    0x90,18,'f',0xab,'0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,3,130,1,1,0,
+    'y',0x9f,0x1d,150,198,182,'y','?','"',141,135,211,135,3,4,'`','j','k',154,
+    '.','Y',137,'s',17,172,'C',209,245,19,255,141,'9','+',192,242,189,'O','p',
+    0x8c,169,'/',234,23,196,11,'T',158,212,27,150,152,'3','<',168,173,'b',162,
+    0,'v',0xab,'Y','i','n',6,29,'~',196,185,'D',141,152,175,18,212,'a',219,10,
+    25,'F','G',0xf3,235,247,'c',193,'@',5,'@',165,210,183,244,181,154,'6',191,
+    169,136,'v',136,4,'U',4,'+',156,135,127,26,'7','<','~','-',165,26,216,212,
+    0x89,'^',0xca,0xbd,172,'=','l',216,'m',175,213,243,'v',15,205,';',136,'8',
+    '"',157,'l',147,154,196,'=',191,130,27,'e','?',166,15,']',170,252,229,178,
+    21,0xca,181,173,198,188,'=',208,132,232,234,6,'r',176,'M','9','2','x',191,
+    '>',17,0x9c,11,164,157,154,'!',243,240,155,11,'0','x',219,193,220,135,'C',
+    0xfe,0xbc,'c',154,202,197,194,28,201,199,141,255,';',18,'X',8,230,182,'=',
+    0xec,'z',',','N',0xfb,0x83,150,206,12,'<','i',135,'T','s',164,'s',194,147,
+    255,'Q',16,172,21,'T',1,216,252,5,177,137,161,127,'t',131,154,'I',215,220,
+    'N','{',138,'H','o',139,'E',246,
+]
+
 
 /**
 Entrust Root Certification Authority - G2.
 SHA256 fingerprint: 43:df:57:74:b0:3e:7f:ef:5f:e4:0d:93:1a:7b:ed:f1:bb:2e:6b:42:73:8c:4e:6d:38:41:10:3d:3a:a7:f3:39
 */
-ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G2 ::= net.Certificate.parse ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G2_TEXT_
+ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G2 ::= parse_ ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G2_BYTES_
 
-ENTRUST_ROOT_CERTIFICATION_AUTHORITY_EC1_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIC+TCCAoCgAwIBAgINAKaLeSkAAAAAUNCR+TAKBggqhkjOPQQDAzCBvzELMAkG
-A1UEBhMCVVMxFjAUBgNVBAoTDUVudHJ1c3QsIEluYy4xKDAmBgNVBAsTH1NlZSB3
-d3cuZW50cnVzdC5uZXQvbGVnYWwtdGVybXMxOTA3BgNVBAsTMChjKSAyMDEyIEVu
-dHJ1c3QsIEluYy4gLSBmb3IgYXV0aG9yaXplZCB1c2Ugb25seTEzMDEGA1UEAxMq
-RW50cnVzdCBSb290IENlcnRpZmljYXRpb24gQXV0aG9yaXR5IC0gRUMxMB4XDTEy
-MTIxODE1MjUzNloXDTM3MTIxODE1NTUzNlowgb8xCzAJBgNVBAYTAlVTMRYwFAYD
-VQQKEw1FbnRydXN0LCBJbmMuMSgwJgYDVQQLEx9TZWUgd3d3LmVudHJ1c3QubmV0
-L2xlZ2FsLXRlcm1zMTkwNwYDVQQLEzAoYykgMjAxMiBFbnRydXN0LCBJbmMuIC0g
-Zm9yIGF1dGhvcml6ZWQgdXNlIG9ubHkxMzAxBgNVBAMTKkVudHJ1c3QgUm9vdCBD
-ZXJ0aWZpY2F0aW9uIEF1dGhvcml0eSAtIEVDMTB2MBAGByqGSM49AgEGBSuBBAAi
-A2IABIQTydC6bUF74mzQ61VfZgIaJPRbiWlH47jCffHyAsWfoPZb1YsGGYZPUxBt
-ByQnoaD41UcZYUx9ypMn6nQM72+WCf5j7HBdNq1nd67JnXxVRDqiY1Ef9eNi1KlH
-Bz7MIKNCMEAwDgYDVR0PAQH/BAQDAgEGMA8GA1UdEwEB/wQFMAMBAf8wHQYDVR0O
-BBYEFLdj5xrdjekIplWDpOBqUEFlEUJJMAoGCCqGSM49BAMDA2cAMGQCMGF52OVC
-R98crlOZF7ZvHH3hvxGU0QOIdeSNiaSKd0bebWHvAvX7td/M/k7//qnmpwIwW5nX
-hTcGtXsI/esni0qU+eH6p44mCOh8kmhtc9hvJqwhAriZtyZBWyVgrtBIGu4G
------END CERTIFICATE-----
-"""
+ENTRUST_ROOT_CERTIFICATION_AUTHORITY_EC1_BYTES_ ::= #[
+    '0',0x82,0x2,249,'0',130,2,128,160,3,2,1,2,2,13,0,166,139,'y',')',0,0,0,0,
+    'P',0xd0,0x91,249,'0',10,6,8,'*',134,'H',206,'=',4,3,3,'0',129,191,'1',11,
+    '0',0x9,6,3,'U',4,6,19,2,'U','S','1',22,'0',20,6,3,'U',4,10,19,13,'E','n',
+    't','r','u','s','t',',',' ','I','n','c','.','1','(','0','&',6,3,'U',4,0xb,
+    19,31,'S','e','e',' ','w','w','w','.','e','n','t','r','u','s','t','.','n',
+    'e','t','/','l','e','g','a','l','-','t','e','r','m','s','1','9','0','7',6,
+    3,'U',4,11,19,'0','(','c',')',' ','2','0','1','2',' ','E','n','t','r','u',
+    's','t',',',' ','I','n','c','.',' ','-',' ','f','o','r',' ','a','u','t',
+    'h','o','r','i','z','e','d',' ','u','s','e',' ','o','n','l','y','1','3',
+    '0','1',0x06,3,'U',4,3,19,'*','E','n','t','r','u','s','t',' ','R','o','o',
+    't',' ','C','e','r','t','i','f','i','c','a','t','i','o','n',' ','A','u',
+    't','h','o','r','i','t','y',' ','-',' ','E','C','1','0',30,23,0xd,'1','2',
+    '1','2','1','8','1','5','2','5','3','6','Z',23,13,'3','7','1','2','1','8',
+    '1','5','5','5','3','6','Z','0',129,191,'1',11,'0',9,6,3,'U',4,6,19,2,'U',
+    'S','1',22,'0',20,6,3,'U',4,0xa,19,13,'E','n','t','r','u','s','t',',',' ',
+    'I','n','c','.','1','(','0','&',0x06,3,'U',4,11,19,31,'S','e','e',' ','w',
+    'w','w','.','e','n','t','r','u','s','t','.','n','e','t','/','l','e','g',
+    'a','l','-','t','e','r','m','s','1','9','0','7',0x6,3,'U',4,11,19,'0','(',
+    'c',')',' ','2','0','1','2',' ','E','n','t','r','u','s','t',',',' ','I',
+    'n','c','.',' ','-',' ','f','o','r',' ','a','u','t','h','o','r','i','z',
+    'e','d',' ','u','s','e',' ','o','n','l','y','1','3','0','1',0x6,3,'U',4,3,
+    0x13,'*','E','n','t','r','u','s','t',' ','R','o','o','t',' ','C','e','r',
+    't','i','f','i','c','a','t','i','o','n',' ','A','u','t','h','o','r','i',
+    't','y',' ','-',' ','E','C','1','0','v','0',16,6,7,'*',0x86,'H',206,'=',2,
+    0x01,6,5,'+',129,4,0,'"',3,'b',0,4,132,19,201,208,186,'m','A','{',226,'l',
+    0xd0,235,'U','_','f',2,26,'$',244,'[',137,'i','G',227,184,194,'}',241,242,
+    0x02,197,159,160,246,'[',213,139,6,25,134,'O','S',16,'m',7,'$',39,161,160,
+    0xf8,0xd5,'G',25,'a','L','}',0xca,147,39,234,'t',12,239,'o',150,9,254,'c',
+    0xec,'p',']','6',0xad,'g','w',0xae,201,157,'|','U','D',':',162,'c','Q',31,
+    0xf5,0xe3,'b',212,169,'G',7,'>',204,' ',163,'B','0','@','0',14,6,3,'U',29,
+    15,1,1,255,4,4,3,2,1,6,'0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',
+    0x1d,6,3,'U',29,14,4,22,4,20,183,'c',231,26,221,141,233,8,166,'U',131,164,
+    224,'j','P','A','e',17,'B','I','0',10,6,8,'*',134,'H',206,'=',4,3,3,3,'g',
+    0,'0','d',2,'0','a','y',0xd8,229,'B','G',223,28,174,'S',153,23,182,'o',28,
+    '}',0xe1,191,17,148,209,3,136,'u',228,141,137,164,138,'w','F',222,'m','a',
+    0xef,2,0xf5,251,181,223,204,254,'N',255,254,169,230,167,2,'0','[',153,215,
+    0x85,'7',6,181,'{',8,253,235,39,139,'J',148,249,225,250,167,142,'&',8,232,
+    '|',146,'h','m','s',216,'o','&',172,'!',2,184,153,183,'&','A','[','%','`',
+    174,208,'H',26,238,6,
+]
+
 
 /**
 Entrust Root Certification Authority - EC1.
 SHA256 fingerprint: 02:ed:0e:b2:8c:14:da:45:16:5c:56:67:91:70:0d:64:51:d7:fb:56:f0:b2:ab:1d:3b:8e:b0:70:e5:6e:df:f5
 */
-ENTRUST_ROOT_CERTIFICATION_AUTHORITY_EC1 ::= net.Certificate.parse ENTRUST_ROOT_CERTIFICATION_AUTHORITY_EC1_TEXT_
+ENTRUST_ROOT_CERTIFICATION_AUTHORITY_EC1 ::= parse_ ENTRUST_ROOT_CERTIFICATION_AUTHORITY_EC1_BYTES_
 
-CFCA_EV_ROOT_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIFjTCCA3WgAwIBAgIEGErM1jANBgkqhkiG9w0BAQsFADBWMQswCQYDVQQGEwJD
-TjEwMC4GA1UECgwnQ2hpbmEgRmluYW5jaWFsIENlcnRpZmljYXRpb24gQXV0aG9y
-aXR5MRUwEwYDVQQDDAxDRkNBIEVWIFJPT1QwHhcNMTIwODA4MDMwNzAxWhcNMjkx
-MjMxMDMwNzAxWjBWMQswCQYDVQQGEwJDTjEwMC4GA1UECgwnQ2hpbmEgRmluYW5j
-aWFsIENlcnRpZmljYXRpb24gQXV0aG9yaXR5MRUwEwYDVQQDDAxDRkNBIEVWIFJP
-T1QwggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQDXXWvNED8fBVnVBU03
-sQ7smCuOFR36k0sXgiFxEFLXUWRwFsJVaU2OFW2fvwwbwuCjZ9YMrM8irq93VCpL
-TIpTUnrD7i7es3ElweldPe6hL6P3KjzJIx1qqx2hp/Hz7KDVRM8Vz3IvHWOX6Jn5
-/ZOkVIBMUtRSqy5J35DNuF++P96hyk0g1CXohClTt7GIH//62pCfCqktQT+x8Rgp
-7hZZLDRJGqgG16iI0gNyejLi6mhNbiyWZXvKWfry4t3uMCz7zEasxGPrb382KzRz
-EpR/38wmnvFyXVBlWY9ps4deMm/DGIq1lY+wejfeWkU7xzbh72fROdOXW3NiGUgt
-hxwG+3SYIElz8AXSG7Ggo7cbcNOIabla1jj0Ytwli3i/+Oh+uFzJlU9fpy25IGvP
-a931DfSCt/SyZi4QKPaXWnuWFo8BGS1sbn85WAZkgwGDg8NNkt0yxoekN+kWzqot
-aK8KgWU6cMGbrU1tVMoqLUuFG7OA5nBFDWteNfB/O7ic5ARwiRIlk9oKmSJgamNg
-TnYGmE69g60dWIolhdLHZR4tjsbftsbhf4oEIRUpdPA+nJCdDC7xij5aqgwJHsfV
-PKPtl8MeNPo4+QgO48BdK4PRVmrJtqhUUy54Mmc9gn900PvhtgVguXDbjgv5E1hv
-cWAQUhC5wUEJ73IfZzF4/5YFjQIDAQABo2MwYTAfBgNVHSMEGDAWgBTj/i39KNAL
-tbq2osS/BqoFjJP7LzAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIBBjAd
-BgNVHQ4EFgQU4/4t/SjQC7W6tqLEvwaqBYyT+y8wDQYJKoZIhvcNAQELBQADggIB
-ACXGumvrh8vegjmWPfBEp2uEcwPenStPuiB/vHiyz5ewG5zz13ku9Ui20vsXiObT
-ej/tUxPQ4i9qecsAIyjmHjdXNYmEwnZPNDatZ8POQQaIxffu2Bq41gt/UP+TqhdL
-jOztUmCypAbqTuv0axn96/Ua4CUqmtzHQTb3yHQFhDmVOdYLO6Qn+gjYXB74BGBS
-ESgoA//vU2YApUo0FmZ8/Qmkrp5nGm9BC2sGE5uPhnEFtC+NiWYzKXZUmhH4J/qy
-P5Hgzg0b8zAarb8iXRvTvyUFTeGSGn+ZnzxEk8rUQElsgIfXBDrDMlI1Dlb4pd19
-xIsNER9Tyx6yF7Zod1rg1MvIB671Oi6ON7fQAUtDKXeMOZePglr4UeWJoBjnaH9d
-Ci77o0cOPaYjesYBx4/IXr9tgFa+iiS6M+qf4TIRnvHST4D2G0CvOJ4RUHlzEhLN
-5mydLIhyPDCBBpEi6lmt2hkuIsKNuYyH4Ga8cyNfIWRjgEj1oDwYPZTISEEdQLpe
-/v5WOaHIz16eGWRGENoXkbcFgKyLmZJ956LYBws2J+dIeWCKw9cTXPhyQN9Ky8+Z
-AAoACxGV2lZFA4gKn2fQ1XmxqI1AbQ3CekD6819kR5LLU7m7Wc5P/dAVUwHY3+vZ
-5nbv0CO7O6l5s9UCKc2Jo5YPSjXnTkLAdc0Hz+Ys63su
------END CERTIFICATE-----
-"""
+CFCA_EV_ROOT_BYTES_ ::= #[
+    '0',130,5,141,'0',130,3,'u',160,3,2,1,2,2,4,24,'J',204,214,'0',13,6,9,'*',
+    0x86,'H',0x86,247,13,1,1,11,5,0,'0','V','1',11,'0',9,6,3,'U',4,6,19,2,'C',
+    'N','1','0','0','.',0x06,3,'U',4,10,12,39,'C','h','i','n','a',' ','F','i',
+    'n','a','n','c','i','a','l',' ','C','e','r','t','i','f','i','c','a','t',
+    'i','o','n',' ','A','u','t','h','o','r','i','t','y','1',21,'0',19,6,3,'U',
+    0x04,3,12,12,'C','F','C','A',' ','E','V',' ','R','O','O','T','0',30,23,13,
+    '1','2','0','8','0','8','0','3','0','7','0','1','Z',23,13,'2','9','1','2',
+    '3','1','0','3','0','7','0','1','Z','0','V','1',11,'0',9,6,3,'U',4,6,19,2,
+    'C','N','1','0','0','.',0x06,3,'U',4,10,12,39,'C','h','i','n','a',' ','F',
+    'i','n','a','n','c','i','a','l',' ','C','e','r','t','i','f','i','c','a',
+    't','i','o','n',' ','A','u','t','h','o','r','i','t','y','1',21,'0',19,6,3,
+    'U',0x4,3,12,12,'C','F','C','A',' ','E','V',' ','R','O','O','T','0',130,2,
+    '"','0',13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,2,15,0,'0',130,2,10,
+    2,0x82,2,1,0,215,']','k',205,16,'?',31,5,'Y',213,5,'M','7',177,14,236,152,
+    '+',0x8e,0x15,29,250,147,'K',23,130,'!','q',16,'R',215,'Q','d','p',22,194,
+    'U','i','M',0x8e,21,'m',0x9f,191,12,27,194,224,163,'g',214,12,172,207,'"',
+    0xae,0xaf,'w','T','*','K','L',138,'S','R','z',195,238,'.',222,179,'q','%',
+    193,233,']','=',238,161,'/',163,247,'*','<',201,'#',29,'j',171,29,161,167,
+    241,243,236,160,213,'D',207,21,207,'r','/',29,'c',151,232,153,249,253,147,
+    0xa4,'T',0x80,'L','R',212,'R',171,'.','I',223,144,205,184,'_',190,'?',222,
+    0xa1,0xca,'M',' ',0xd4,'%',232,132,')','S',183,177,136,31,255,250,218,144,
+    159,10,169,'-','A','?',177,241,24,')',238,22,'Y',',','4','I',26,168,6,215,
+    168,136,210,3,'r','z','2',226,234,'h','M','n',',',150,'e','{',202,'Y',250,
+    0xf2,0xe2,221,238,'0',',',251,204,'F',172,196,'c',235,'o',127,'6','+','4',
+    's',0x12,0x94,127,223,204,'&',158,241,'r',']','P','e','Y',143,'i',179,135,
+    '^','2','o',0xc3,0x18,138,181,149,143,176,'z','7',222,'Z','E',';',199,'6',
+    0xe1,0xef,'g',209,'9',211,151,'[','s','b',25,'H','-',135,28,6,251,'t',152,
+    ' ','I','s',0xf0,5,0xd2,27,177,160,163,183,27,'p',211,136,'i',185,'Z',214,
+    '8',0xf4,'b',0xdc,'%',0x8b,'x',191,248,232,'~',184,92,201,149,'O','_',167,
+    '-',185,' ','k',207,'k',221,245,13,244,130,183,244,178,'f','.',16,'(',246,
+    0x97,'Z','{',0x96,22,143,1,25,'-','l','n',127,'9','X',6,'d',131,1,131,131,
+    195,'M',146,221,'2',198,135,164,'7',233,22,206,170,'-','h',175,10,129,'e',
+    ':','p',0xc1,0x9b,0xad,'M','m','T',202,'*','-','K',133,27,179,128,230,'p',
+    'E',0x0d,'k','^','5',0xf0,127,';',184,156,228,4,'p',137,18,'%',147,218,10,
+    0x99,'"','`','j','c','`','N','v',6,152,'N',189,131,173,29,'X',138,'%',133,
+    0xd2,0xc7,'e',30,'-',142,198,223,182,198,225,127,138,4,'!',21,')','t',240,
+    '>',0x9c,0x90,0x9d,12,'.',241,138,'>','Z',170,12,9,30,199,213,'<',163,237,
+    0x97,0xc3,30,'4',250,'8',249,8,14,227,192,']','+',131,209,'V','j',201,182,
+    168,'T','S','.','x','2','g','=',130,127,'t',208,251,225,182,5,'`',185,'p',
+    0xdb,142,11,249,19,'X','o','q','`',16,'R',16,185,193,'A',9,239,'r',31,'g',
+    '1','x',0xff,0x96,5,141,2,3,1,0,1,163,'c','0','a','0',31,6,3,'U',29,'#',4,
+    24,'0',22,128,20,227,254,'-',253,'(',208,11,181,186,182,162,196,191,6,170,
+    5,140,147,251,'/','0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',14,6,
+    0x03,'U',29,15,1,1,255,4,4,3,2,1,6,'0',29,6,3,'U',29,14,4,22,4,20,227,254,
+    '-',253,'(',208,11,181,186,182,162,196,191,6,170,5,140,147,251,'/','0',13,
+    6,9,'*',134,'H',134,247,13,1,1,11,5,0,3,130,2,1,0,'%',198,186,'k',235,135,
+    203,222,130,'9',150,'=',240,'D',167,'k',132,'s',3,222,157,'+','O',186,' ',
+    127,188,'x',178,207,151,176,27,156,243,215,'y','.',245,'H',182,210,251,23,
+    0x88,0xe6,211,'z','?',237,'S',19,208,226,'/','j','y',203,0,'#','(',230,30,
+    '7','W','5',137,132,194,'v','O','4','6',173,'g',195,206,'A',6,136,197,247,
+    0xee,216,26,184,214,11,127,'P',255,147,170,23,'K',140,236,237,'R','`',178,
+    0xa4,6,0xea,'N',235,244,'k',25,253,235,245,26,224,'%','*',154,220,199,'A',
+    '6',247,200,'t',5,132,'9',149,'9',214,11,';',164,39,250,8,216,92,30,248,4,
+    '`','R',0x11,'(','(',3,255,239,'S','f',0,165,'J','4',22,'f','|',253,9,164,
+    0xae,158,'g',26,'o','A',11,'k',6,19,155,143,134,'q',5,180,'/',141,137,'f',
+    '3',')','v','T',0x9a,0x11,248,39,250,178,'?',145,224,206,13,27,243,'0',26,
+    0xad,0xbf,'"',']',27,211,191,'%',5,'M',225,146,26,127,153,159,'<','D',147,
+    0xca,212,'@','I','l',128,135,215,4,':',195,'2','R','5',14,'V',248,165,221,
+    '}',0xc4,139,13,17,31,'S',203,30,178,23,182,'h','w','Z',224,212,203,200,7,
+    174,245,':','.',142,'7',183,208,1,'K','C',')','w',140,'9',151,143,130,'Z',
+    0xf8,'Q',229,137,160,24,231,'h',127,']',10,'.',251,163,'G',14,'=',166,'#',
+    'z',198,1,199,143,200,'^',191,'m',128,'V',190,138,'$',186,'3',234,159,225,
+    '2',0x11,0x9e,241,210,'O',128,246,27,'@',175,'8',158,17,'P','y','s',18,18,
+    0xcd,230,'l',157,',',136,'r','<','0',129,6,145,'"',234,'Y',173,218,25,'.',
+    '"',0xc2,0x8d,185,140,135,224,'f',188,'s','#','_','!','d','c',128,'H',245,
+    160,'<',24,'=',148,200,'H','A',29,'@',186,'^',254,254,'V','9',161,200,207,
+    '^',0x9e,0x19,'d','F',16,218,23,145,183,5,128,172,139,153,146,'}',231,162,
+    216,7,11,'6',39,231,'H','y','`',138,195,215,19,92,248,'r','@',223,'J',203,
+    207,153,0,10,0,11,17,149,218,'V','E',3,136,10,159,'g',208,213,'y',177,168,
+    0x8d,'@','m',0x0d,194,'z','@',250,243,'_','d','G',146,203,'S',185,187,'Y',
+    0xce,'O',253,208,21,'S',1,216,223,235,217,230,'v',239,208,'#',187,';',169,
+    'y',0xb3,0xd5,2,')',0xcd,137,163,150,15,'J','5',231,'N','B',192,'u',205,7,
+    207,230,',',235,'{','.',
+]
+
 
 /**
 CFCA EV ROOT.
 SHA256 fingerprint: 5c:c3:d7:8e:4e:1d:5e:45:54:7a:04:e6:87:3e:64:f9:0c:f9:53:6d:1c:cc:2e:f8:00:f3:55:c4:c5:fd:70:fd
 */
-CFCA_EV_ROOT ::= net.Certificate.parse CFCA_EV_ROOT_TEXT_
+CFCA_EV_ROOT ::= parse_ CFCA_EV_ROOT_BYTES_
 
-OISTE_WISEKEY_GLOBAL_ROOT_GB_CA_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIDtTCCAp2gAwIBAgIQdrEgUnTwhYdGs/gjGvbCwDANBgkqhkiG9w0BAQsFADBt
-MQswCQYDVQQGEwJDSDEQMA4GA1UEChMHV0lTZUtleTEiMCAGA1UECxMZT0lTVEUg
-Rm91bmRhdGlvbiBFbmRvcnNlZDEoMCYGA1UEAxMfT0lTVEUgV0lTZUtleSBHbG9i
-YWwgUm9vdCBHQiBDQTAeFw0xNDEyMDExNTAwMzJaFw0zOTEyMDExNTEwMzFaMG0x
-CzAJBgNVBAYTAkNIMRAwDgYDVQQKEwdXSVNlS2V5MSIwIAYDVQQLExlPSVNURSBG
-b3VuZGF0aW9uIEVuZG9yc2VkMSgwJgYDVQQDEx9PSVNURSBXSVNlS2V5IEdsb2Jh
-bCBSb290IEdCIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2Be3
-HEokKtaXscriHvt9OO+Y9bI5mE4nuBFde9IllIiCFSZqGzG7qFshISvYD06fWvGx
-WuR51jIjK+FTzJlFXHtPrby/h0oLS5daqPZI7H17Dc0hBt+eFf1Biki3IPShehtX
-1F1Q/7pn2COZH8g/497/b1t3sWtuuMlk9+HKQUYOKXHQuSP8yYFfTvdv37+ErXNk
-u7dCjmn21HYdfp2nuFeKUWdy19SouJVUQHMD9ur06/4oQnc/nSMbsrY9gBQHTC5P
-99UKFg29ZkM3fiNDecNAhvVMKdqOmq0NpQSHiB6F4+lT1ZvIiwNjeOvgGUpuuy9r
-M2RYk61pv48b74JIxwIDAQABo1EwTzALBgNVHQ8EBAMCAYYwDwYDVR0TAQH/BAUw
-AwEB/zAdBgNVHQ4EFgQUNQ/INmNe4qPs+TtmFc5RUuORmj0wEAYJKwYBBAGCNxUB
-BAMCAQAwDQYJKoZIhvcNAQELBQADggEBAEBM+4eymYGQfp3FsLAmzYh7KzKNbrgh
-cViXfa43FK8+5/ea4n32cZiZBKpDdHij40lhPnOMTZTg+XHEthYOU3gf1qKHLwI5
-gSk8rxWYITD+KJAAjNHhy/peyP34EEY7onhCkRd0VQreUGdNZtGn//3ZwLWoo4rO
-ZvUPQ82nK1d7Y0Zqqi5S2PTt4W2tKZB4SLrhI6qjiey1q5bAtEuiHZeeevJuQHHf
-aPFlTc58Bd9TZaml8LGXBHAVRgOY1NK/VLSgWH1Sb9pWJmLU2NuJMW8c8CLC02Ic
-Nc1MaRVUGpCY3useX8p3x8uOPUNpnJpY0CQ73xtAln41rYHHTnG6iBM=
------END CERTIFICATE-----
-"""
+OISTE_WISEKEY_GLOBAL_ROOT_GB_CA_BYTES_ ::= #[
+    '0',0x82,3,181,'0',130,2,157,160,3,2,1,2,2,16,'v',177,' ','R','t',240,133,
+    0x87,'F',179,248,'#',26,246,194,192,'0',13,6,9,'*',134,'H',134,247,13,1,1,
+    0x0b,5,0,'0','m','1',0xb,'0',9,6,3,'U',4,6,19,2,'C','H','1',16,'0',14,6,3,
+    'U',4,10,19,7,'W','I','S','e','K','e','y','1','"','0',' ',6,3,'U',4,11,19,
+    0x19,'O','I','S','T','E',' ','F','o','u','n','d','a','t','i','o','n',' ',
+    'E','n','d','o','r','s','e','d','1','(','0','&',6,3,'U',4,3,19,31,'O','I',
+    'S','T','E',' ','W','I','S','e','K','e','y',' ','G','l','o','b','a','l',
+    ' ','R','o','o','t',' ','G','B',' ','C','A','0',30,23,0xd,'1','4','1','2',
+    '0','1','1','5','0','0','3','2','Z',23,13,'3','9','1','2','0','1','1','5',
+    '1','0','3','1','Z','0','m','1',0xb,'0',9,6,3,'U',4,6,19,2,'C','H','1',16,
+    '0',0xe,6,3,'U',4,10,19,7,'W','I','S','e','K','e','y','1','"','0',' ',6,3,
+    'U',0x04,11,19,25,'O','I','S','T','E',' ','F','o','u','n','d','a','t','i',
+    'o','n',' ','E','n','d','o','r','s','e','d','1','(','0','&',0x6,3,'U',4,3,
+    19,31,'O','I','S','T','E',' ','W','I','S','e','K','e','y',' ','G','l','o',
+    'b','a','l',' ','R','o','o','t',' ','G','B',' ','C','A','0',130,1,'"','0',
+    13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,1,15,0,'0',130,1,10,2,130,1,
+    1,0,0xd8,23,183,28,'J','$','*',214,151,177,202,226,30,251,'}','8',239,152,
+    0xf5,0xb2,'9',152,'N',39,184,17,']','{',210,'%',148,136,130,21,'&','j',27,
+    '1',0xbb,0xa8,'[','!','!','+',0xd8,15,'N',159,'Z',241,177,'Z',228,'y',214,
+    '2','#','+',225,'S',204,153,'E',92,'{','O',173,188,191,135,'J',11,'K',151,
+    'Z',0xa8,0xf6,'H',236,'}','{',13,205,'!',6,223,158,21,253,'A',138,'H',183,
+    ' ',244,161,'z',27,'W',212,']','P',255,186,'g',216,'#',153,31,200,'?',227,
+    0xde,0xff,'o','[','w',0xb1,'k','n',184,201,'d',247,225,202,'A','F',14,')',
+    'q',0xd0,0xb9,'#',252,201,129,'_','N',247,'o',223,191,132,173,'s','d',187,
+    0xb7,'B',0x8e,'i',0xf6,212,'v',29,'~',157,167,184,'W',138,'Q','g','r',215,
+    212,168,184,149,'T','@','s',3,246,234,244,235,254,'(','B','w','?',157,'#',
+    27,0xb2,182,'=',128,20,7,'L','.','O',247,213,10,22,13,189,'f','C','7','~',
+    '#','C','y',0xc3,'@',0x86,245,'L',')',218,142,154,173,13,165,4,135,136,30,
+    0x85,227,233,'S',213,155,200,139,3,'c','x',235,224,25,'J','n',187,'/','k',
+    '3','d','X',0x93,173,'i',191,143,27,239,130,'H',199,2,3,1,0,1,163,'Q','0',
+    'O','0',0x0b,6,3,'U',29,15,4,4,3,2,1,134,'0',15,6,3,'U',29,19,1,1,255,4,5,
+    '0',0x3,1,1,255,'0',29,6,3,'U',29,14,4,22,4,20,'5',15,200,'6','c','^',226,
+    163,236,249,';','f',21,206,'Q','R',227,145,154,'=','0',16,6,9,'+',6,1,4,1,
+    130,'7',21,1,4,3,2,1,0,'0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,3,130,
+    1,1,0,'@','L',251,135,178,153,129,144,'~',157,197,176,176,'&',205,136,'{',
+    '+','2',0x8d,'n',0xb8,'!','q','X',0x97,'}',174,'7',20,175,'>',231,247,154,
+    226,'}',246,'q',152,153,4,170,'C','t','x',163,227,'I','a','>','s',140,'M',
+    0x94,0xe0,0xf9,'q',196,182,22,14,'S','x',31,214,162,135,'/',2,'9',129,')',
+    '<',0xaf,21,152,'!','0',254,'(',144,0,140,209,225,203,250,'^',200,253,248,
+    16,'F',';',0xa2,'x','B',145,23,'t','U',10,222,'P','g','M','f',209,167,255,
+    0xfd,0xd9,0xc0,181,168,163,138,206,'f',245,15,'C',205,167,'+','W','{','c',
+    'F','j',0xaa,'.','R',0xd8,244,237,225,'m',173,')',144,'x','H',186,225,'#',
+    0xaa,0xa3,0x89,236,181,171,150,192,180,'K',162,29,151,158,'z',242,'n','@',
+    'q',0xdf,'h',0xf1,'e','M',206,'|',5,223,'S','e',169,165,240,177,151,4,'p',
+    21,'F',3,0x98,212,210,191,'T',180,160,'X','}','R','o',218,'V','&','b',212,
+    0xd8,0xdb,137,'1','o',28,240,'"',194,211,'b',28,'5',205,'L','i',21,'T',26,
+    0x90,0x98,0xde,235,30,'_',202,'w',199,203,142,'=','C','i',156,154,'X',208,
+    '$',';',223,27,'@',150,'~','5',173,129,199,'N','q',186,136,19,
+]
+
 
 /**
 OISTE WISeKey Global Root GB CA.
 SHA256 fingerprint: 6b:9c:08:e8:6e:b0:f7:67:cf:ad:65:cd:98:b6:21:49:e5:49:4a:67:f5:84:5e:7b:d1:ed:01:9f:27:b8:6b:d6
 */
-OISTE_WISEKEY_GLOBAL_ROOT_GB_CA ::= net.Certificate.parse OISTE_WISEKEY_GLOBAL_ROOT_GB_CA_TEXT_
+OISTE_WISEKEY_GLOBAL_ROOT_GB_CA ::= parse_ OISTE_WISEKEY_GLOBAL_ROOT_GB_CA_BYTES_
 
-SZAFIR_ROOT_CA2_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIDcjCCAlqgAwIBAgIUPopdB+xV0jLVt+O2XwHrLdzk1uQwDQYJKoZIhvcNAQEL
-BQAwUTELMAkGA1UEBhMCUEwxKDAmBgNVBAoMH0tyYWpvd2EgSXpiYSBSb3psaWN6
-ZW5pb3dhIFMuQS4xGDAWBgNVBAMMD1NaQUZJUiBST09UIENBMjAeFw0xNTEwMTkw
-NzQzMzBaFw0zNTEwMTkwNzQzMzBaMFExCzAJBgNVBAYTAlBMMSgwJgYDVQQKDB9L
-cmFqb3dhIEl6YmEgUm96bGljemVuaW93YSBTLkEuMRgwFgYDVQQDDA9TWkFGSVIg
-Uk9PVCBDQTIwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC3vD5QqEvN
-QLXOYeeWyrSh2gwisPq1e3YAd4wLz32ohswmUeQgPYUM1ljj5/QqGJ3a0a4m7utT
-3PSQ1hNKDJA8w/Ta0o4NkjrcsbH/ON7Dui1fgLkCvUqdGw+0w8LBZwPd3BucPbOw
-3gAeqDRHu5rr/gsUvTaE2g0gv/pby6kWIK05YO4vdbbnl5z5Pv1+TW9NL++IDWr6
-3fE9biCloBK0TXC5ztdyO4mTp4CEHCdJckm1/zuVnsHMyAHs6A6KCpbns6aH5db5
-BSsNl0BwPLqsdVqc1U2dAgrSS5tmS0YHF2Wtn2yIANwiieDhZNRnvDF5YTy7ykHN
-XGoAyDw4jlivAgMBAAGjQjBAMA8GA1UdEwEB/wQFMAMBAf8wDgYDVR0PAQH/BAQD
-AgEGMB0GA1UdDgQWBBQuFqlKGLXLzPVvUPMjX/hd56zwyDANBgkqhkiG9w0BAQsF
-AAOCAQEAtXP4A9xZWx126aMqe5Aosk3AM0+qmrHUuOQn/6mWmc5G4G18TKI4pAZw
-8PRBEew/R40/cof5O/2kbytTAOD/OblqBw7rHRz2onKQy4I9EYKL0rufKq8h5mOG
-nXkZ7/e7DDWQw4rtTw/1zBLZpD67oPwglV9PJi8RI4NOdQcPv5vRtB3pEAT+ymCP
-oky4rc/hkA/NrgrHXXu3UNLUYfrVFdvXn4dRVOul4+vJhaAlIDf7js4MNIThPIGy
-d05DpYhfhmehPea0XGG2Ptv+tyjFogeutcrKjSoS75ftwjCkySp6+/NNIxuZMzSg
-LvWpCz/UXeHPhJ/iGcJfitYgHuNztw==
------END CERTIFICATE-----
-"""
+SZAFIR_ROOT_CA2_BYTES_ ::= #[
+    '0',0x82,0x3,'r','0',130,2,'Z',160,3,2,1,2,2,20,'>',138,']',7,236,'U',210,
+    '2',0xd5,183,227,182,'_',1,235,'-',220,228,214,228,'0',13,6,9,'*',134,'H',
+    0x86,0xf7,13,1,1,11,5,0,'0','Q','1',11,'0',9,6,3,'U',4,6,19,2,'P','L','1',
+    '(','0','&',0x06,3,'U',4,10,12,31,'K','r','a','j','o','w','a',' ','I','z',
+    'b','a',' ','R','o','z','l','i','c','z','e','n','i','o','w','a',' ','S',
+    '.','A','.','1',0x18,'0',22,6,3,'U',4,3,12,15,'S','Z','A','F','I','R',' ',
+    'R','O','O','T',' ','C','A','2','0',30,23,0xd,'1','5','1','0','1','9','0',
+    '7','4','3','3','0','Z',23,13,'3','5','1','0','1','9','0','7','4','3','3',
+    '0','Z','0','Q','1',11,'0',9,6,3,'U',4,6,19,2,'P','L','1','(','0','&',6,3,
+    'U',0x04,10,12,31,'K','r','a','j','o','w','a',' ','I','z','b','a',' ','R',
+    'o','z','l','i','c','z','e','n','i','o','w','a',' ','S','.','A','.','1',
+    0x18,'0',22,6,3,'U',4,3,12,15,'S','Z','A','F','I','R',' ','R','O','O','T',
+    ' ','C','A','2','0',130,1,'"','0',13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,
+    3,130,1,15,0,'0',130,1,10,2,130,1,1,0,183,188,'>','P',168,'K',205,'@',181,
+    0xce,'a',0xe7,150,202,180,161,218,12,'"',176,250,181,'{','v',0,'w',140,11,
+    207,'}',168,134,204,'&','Q',228,' ','=',133,12,214,'X',227,231,244,'*',24,
+    157,218,209,174,'&',238,235,'S',220,244,144,214,19,'J',12,144,'<',195,244,
+    0xda,210,142,13,146,':',220,177,177,255,'8',222,195,186,'-','_',128,185,2,
+    0xbd,'J',157,27,15,180,195,194,193,'g',3,221,220,27,156,'=',179,176,222,0,
+    0x1e,168,'4','G',187,154,235,254,11,20,189,'6',132,218,13,' ',191,250,'[',
+    0xcb,0xa9,22,' ',0xad,'9','`',238,'/','u',182,231,151,156,249,'>',253,'~',
+    'M','o','M','/',239,136,13,'j',250,221,241,'=','n',' ',165,160,18,180,'M',
+    'p',185,206,215,'r',';',137,147,167,128,132,28,39,'I','r','I',181,255,';',
+    149,158,193,204,200,1,236,232,14,138,10,150,231,179,166,135,229,214,249,5,
+    '+',0x0d,151,'@','p','<',186,172,'u','Z',156,213,'M',157,2,10,210,'K',155,
+    'f','K','F',0x07,23,'e',173,159,'l',136,0,220,'"',137,224,225,'d',212,'g',
+    0xbc,'1','y','a','<',187,202,'A',205,92,'j',0,200,'<','8',142,'X',175,2,3,
+    1,0,1,0xa3,'B','0','@','0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',
+    0x0e,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',29,6,3,'U',29,14,4,22,4,20,'.',
+    22,169,'J',24,181,203,204,245,'o','P',243,'#','_',248,']',231,172,240,200,
+    '0',0x0d,6,9,'*',0x86,'H',134,247,13,1,1,11,5,0,3,130,1,1,0,181,'s',248,3,
+    0xdc,'Y','[',0x1d,'v',233,163,'*','{',144,'(',178,'M',192,'3','O',170,154,
+    0xb1,212,184,228,39,255,169,150,153,206,'F',224,'m','|','L',162,'8',164,6,
+    'p',0xf0,0xf4,'A',17,0xec,'?','G',141,'?','r',135,249,';',253,164,'o','+',
+    'S',0x0,224,255,'9',185,'j',7,14,235,29,28,246,162,'r',144,203,130,'=',17,
+    130,139,210,187,159,'*',175,'!',230,'c',134,157,'y',25,239,247,187,12,'5',
+    144,195,138,237,'O',15,245,204,18,217,164,'>',187,160,252,' ',149,'_','O',
+    '&','/',0x11,'#',131,'N','u',7,15,191,155,209,180,29,233,16,4,254,202,'`',
+    143,162,'L',184,173,207,225,144,15,205,174,10,199,']','{',183,'P',210,212,
+    'a',0xfa,0xd5,21,0xdb,215,159,135,'Q','T',235,165,227,235,201,133,160,'%',
+    ' ','7',0xfb,0x8e,0xce,12,'4',132,225,'<',129,178,'w','N','C',165,136,'_',
+    0x86,'g',161,'=',230,180,92,'a',182,'>',219,254,183,'(',197,162,7,174,181,
+    202,202,141,'*',18,239,151,237,194,'0',164,201,'*','z',251,243,'M','#',27,
+    153,'3','4',160,'.',245,169,11,'?',212,']',225,207,132,159,226,25,194,'_',
+    138,214,' ',30,227,'s',183,
+]
+
 
 /**
 SZAFIR ROOT CA2.
 SHA256 fingerprint: a1:33:9d:33:28:1a:0b:56:e5:57:d3:d3:2b:1c:e7:f9:36:7e:b0:94:bd:5f:a7:2a:7e:50:04:c8:de:d7:ca:fe
 */
-SZAFIR_ROOT_CA2 ::= net.Certificate.parse SZAFIR_ROOT_CA2_TEXT_
+SZAFIR_ROOT_CA2 ::= parse_ SZAFIR_ROOT_CA2_BYTES_
 
-CERTUM_TRUSTED_NETWORK_CA_2_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIF0jCCA7qgAwIBAgIQIdbQSk8lD8kyN/yqXhKN6TANBgkqhkiG9w0BAQ0FADCB
-gDELMAkGA1UEBhMCUEwxIjAgBgNVBAoTGVVuaXpldG8gVGVjaG5vbG9naWVzIFMu
-QS4xJzAlBgNVBAsTHkNlcnR1bSBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0eTEkMCIG
-A1UEAxMbQ2VydHVtIFRydXN0ZWQgTmV0d29yayBDQSAyMCIYDzIwMTExMDA2MDgz
-OTU2WhgPMjA0NjEwMDYwODM5NTZaMIGAMQswCQYDVQQGEwJQTDEiMCAGA1UEChMZ
-VW5pemV0byBUZWNobm9sb2dpZXMgUy5BLjEnMCUGA1UECxMeQ2VydHVtIENlcnRp
-ZmljYXRpb24gQXV0aG9yaXR5MSQwIgYDVQQDExtDZXJ0dW0gVHJ1c3RlZCBOZXR3
-b3JrIENBIDIwggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQC9+Xj45tWA
-DGSdhhuWZGc/IjoedQF97/tcZ4zJzFxrqZHmuULlIEub2pt7uZld2ZuAS9eEQCsn
-0+i6MLs+CRqnSZXvK0AkwpfHp+6bJe+oCgCXhVqqndwpyeI1B+twTUrWwbNWuKFB
-OJvR+zF/j+Bf4bE/D44WSWDXBo0Y+aomEKsq09DRZ40bRr5HMNUuctHFY9rnY3lE
-fktjJImGLjQ/KUxSiyqnwOKRKIm5wFv5HdnnJ63/mgKXwcZQkpsCLL2puTRZCr+E
-Sv/f/rOf69me4Jgj7KZrdxYq28ytOxykh9xGc14ZYmhFV+SQgkK7QtbwYeDBoz1m
-o130GO6IyY0XRSmZMnUCMe4pJshrAua1YkV/NxVaI2iJ1D7eTiew8EAMvE0Xy02i
-sx7QBlrd9pPPV3WZ9fqGGmd4s7+W/jTcvedSVuWz5XV710GRBdxdaeOVDUO5/IOW
-OZV7bIBaTxNyxtd9KXpEulKkKtVBRgkg/iKgtlswjbyJDNXXcPiHUv3a76xRLgez
-Tv7QCdpw75j6VuZt27VXS9zlLCUVyJ4ueE742pyehizKV/Ma5ciSixqClnrDvFAS
-adgOWkaLOusm+iPJtrCBvkIApPjW/jAux9JG9uWOdf3yzLnQh1vMBhBgu4M1t15n
-3kfsmUjxpKEV/q2MYo45VU85FrmxY53/twIDAQABo0IwQDAPBgNVHRMBAf8EBTAD
-AQH/MB0GA1UdDgQWBBS2oVQ5AsOgP46KvPrU+Bym0ToO/TAOBgNVHQ8BAf8EBAMC
-AQYwDQYJKoZIhvcNAQENBQADggIBAHGlDs7k6b8/ONWJWsQCYftMxRQXLYtPU2sQ
-F/xlhMcQSZDe28cmk4gmb3DWAl45oPePq5a1pRNcgRRtDoGCERuKTsZPpd1iHkTf
-CVn0W3cLN+mLIMb4Ck4uWBzrM9DPhmDJ2vuAL55MYIR4PSFk1vtBHxgP58l1cb29
-XN40hz5BsA72udY/CROWFC/emh1auVbONTqwX3BNXuMp8SMoclm2q8KMZiYcdywm
-djWLKKdpoPk79SPdhRB0yZADVpHnr7pH1BKXESLjokmUbOe3lEu6LaTaM4tMpkT/
-WjzGHWTYtTHkpjx6qFcL2+1hGsvxznN3Y6SHb0xRONbkX8eftoEq5IVIeVheO/jb
-AoJnwTnbw3RLPTYe+SmTiGhbqEQZIfCn6IENLOiTNrQ3ssqwGyZ6miUfmpqAnksq
-P/ujmv5zMnHCnsZy4YpoJ/HkD7TETKVhk/iXEAcqMCWpuchxuO9ozC1+9eB+D4Ko
-b7a6bINDd82Kkhehnlt4Fj1F4jNy3eFmypnTycUm/Q1oBEauttmbjL4ZvrHG8hnj
-XALKLNhvSgfZyTXaQHXyxKcZb55CEJh15pWLYLztxRLXis7VmFxWlgPF7ncGNf/P
-5O4/E2Hu29othfDNrp2yGAlFw5Khchf8R7agCyzxxN5DaAhqXzvwdmP7zAYspsbi
-DrW5viSP
------END CERTIFICATE-----
-"""
+CERTUM_TRUSTED_NETWORK_CA_2_BYTES_ ::= #[
+    '0',0x82,5,0xd2,'0',130,3,186,160,3,2,1,2,2,16,'!',214,208,'J','O','%',15,
+    0xc9,'2','7',252,170,'^',18,141,233,'0',13,6,9,'*',134,'H',134,247,13,1,1,
+    0xd,5,0,'0',129,128,'1',11,'0',9,6,3,'U',4,6,19,2,'P','L','1','"','0',' ',
+    0x06,3,'U',4,10,19,25,'U','n','i','z','e','t','o',' ','T','e','c','h','n',
+    'o','l','o','g','i','e','s',' ','S','.','A','.','1',39,'0','%',6,3,'U',4,
+    0xb,19,30,'C','e','r','t','u','m',' ','C','e','r','t','i','f','i','c','a',
+    't','i','o','n',' ','A','u','t','h','o','r','i','t','y','1','$','0','"',6,
+    0x3,'U',4,3,19,27,'C','e','r','t','u','m',' ','T','r','u','s','t','e','d',
+    ' ','N','e','t','w','o','r','k',' ','C','A',' ','2','0','"',24,15,'2','0',
+    '1','1','1','0','0','6','0','8','3','9','5','6','Z',24,15,'2','0','4','6',
+    '1','0','0','6','0','8','3','9','5','6','Z','0',0x81,128,'1',11,'0',9,6,3,
+    'U',0x4,6,19,2,'P','L','1','"','0',' ',6,3,'U',4,10,19,25,'U','n','i','z',
+    'e','t','o',' ','T','e','c','h','n','o','l','o','g','i','e','s',' ','S',
+    '.','A','.','1',39,'0','%',6,3,'U',4,11,19,30,'C','e','r','t','u','m',' ',
+    'C','e','r','t','i','f','i','c','a','t','i','o','n',' ','A','u','t','h',
+    'o','r','i','t','y','1','$','0','"',6,3,'U',4,3,19,27,'C','e','r','t','u',
+    'm',' ','T','r','u','s','t','e','d',' ','N','e','t','w','o','r','k',' ',
+    'C','A',' ','2','0',130,2,'"','0',13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,
+    3,0x82,2,15,0,'0',130,2,10,2,130,2,1,0,189,249,'x',248,230,213,128,12,'d',
+    0x9d,0x86,27,0x96,'d','g','?','"',':',30,'u',1,'}',239,251,92,'g',140,201,
+    0xcc,0x5c,'k',169,145,230,185,'B',229,' ','K',155,218,155,'{',185,153,']',
+    0xd9,0x9b,128,'K',215,132,'@','+',39,211,232,186,'0',187,'>',9,26,167,'I',
+    0x95,239,'+','@','$',194,151,199,167,238,155,'%',239,168,10,0,151,133,'Z',
+    170,157,220,')',201,226,'5',7,235,'p','M','J',214,193,179,'V',184,161,'A',
+    '8',0x9b,0xd1,251,'1',127,143,224,'_',225,177,'?',15,142,22,'I','`',215,6,
+    0x8d,24,249,170,'&',16,171,'*',211,208,209,'g',141,27,'F',190,'G','0',213,
+    '.','r',0xd1,0xc5,'c',218,231,'c','y','D','~','K','c','$',137,134,'.','4',
+    '?',')','L','R',0x8b,'*',0xa7,0xc0,226,145,'(',137,185,192,'[',249,29,217,
+    231,39,173,255,154,2,151,193,198,'P',146,155,2,',',189,169,185,'4','Y',10,
+    0xbf,0x84,'J',255,223,254,179,159,235,217,158,224,152,'#',236,166,'k','w',
+    22,'*',0xdb,204,173,';',28,164,135,220,'F','s','^',25,'b','h','E','W',228,
+    0x90,0x82,'B',0xbb,'B',214,240,'a',224,193,163,'=','f',163,']',244,24,238,
+    0x88,0xc9,0x8d,23,'E',')',153,'2','u',2,'1',238,')','&',200,'k',2,230,181,
+    'b','E',0x7f,'7',21,'Z','#','h',137,212,'>',222,'N',39,176,240,'@',12,188,
+    'M',0x17,203,'M',162,179,30,208,6,'Z',221,246,147,207,'W','u',153,245,250,
+    0x86,0x1a,'g','x',179,191,150,254,'4',220,189,231,'R','V',229,179,229,'u',
+    '{',0xd7,'A',145,5,220,']','i',227,149,13,'C',185,252,131,150,'9',149,'{',
+    'l',0x80,'Z','O',0x13,'r',198,215,'}',')','z','D',186,'R',164,'*',213,'A',
+    'F',9,' ',0xfe,'"',160,182,'[','0',141,188,137,12,213,215,'p',248,135,'R',
+    0xfd,0xda,239,172,'Q','.',7,179,'N',254,208,9,218,'p',239,152,250,'V',230,
+    'm',0xdb,0xb5,'W','K',0xdc,229,',','%',21,200,158,'.','x','N',248,218,156,
+    0x9e,134,',',202,'W',243,26,229,200,146,139,26,130,150,'z',195,188,'P',18,
+    'i',0xd8,14,'Z','F',139,':',235,'&',250,'#',201,182,176,129,190,'B',0,164,
+    0xf8,0xd6,254,'0','.',199,210,'F',246,229,142,'u',253,242,204,185,208,135,
+    '[',0xcc,6,16,'`',187,131,'5',183,'^','g',222,'G',236,153,'H',241,164,161,
+    21,254,173,140,'b',142,'9','U','O','9',22,185,177,'c',157,255,183,2,3,1,0,
+    1,163,'B','0','@','0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',29,6,
+    0x3,'U',29,14,4,22,4,20,182,161,'T','9',2,195,160,'?',142,138,188,250,212,
+    248,28,166,209,':',14,253,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',13,
+    6,9,'*',0x86,'H',134,247,13,1,1,13,5,0,3,130,2,1,0,'q',165,14,206,228,233,
+    0xbf,'?','8',0xd5,137,'Z',196,2,'a',251,'L',197,20,23,'-',139,'O','S','k',
+    16,23,0xfc,'e',132,199,16,'I',144,222,219,199,'&',147,136,'&','o','p',214,
+    0x2,'^','9',160,247,143,171,150,181,165,19,92,129,20,'m',14,129,130,17,27,
+    0x8a,'N',0xc6,'O',165,221,'b',30,'D',223,9,'Y',244,'[','w',11,'7',233,139,
+    ' ',198,248,10,'N','.','X',28,235,'3',208,207,134,'`',201,218,251,128,'/',
+    0x9e,'L','`',132,'x','=','!','d',214,251,'A',31,24,15,231,201,'u','q',189,
+    189,92,222,'4',135,'>','A',176,14,246,185,214,'?',9,19,150,20,'/',222,154,
+    0x1d,'Z',0xb9,'V',206,'5',':',176,'_','p','M','^',227,')',241,'#','(','r',
+    'Y',0xb6,0xab,0xc2,140,'f','&',28,'w',',','&','v','5',139,'(',167,'i',160,
+    0xf9,';',0xf5,'#',221,133,16,'t',201,144,3,'V',145,231,175,186,'G',212,18,
+    0x97,0x11,'"',227,162,'I',148,'l',231,183,148,'K',186,'-',164,218,'3',139,
+    'L',166,'D',255,'Z','<',198,29,'d',216,181,'1',228,166,'<','z',168,'W',11,
+    0xdb,0xed,'a',26,0xcb,241,206,'s','w','c',164,135,'o','L','Q','8',214,228,
+    '_',199,159,182,129,'*',228,133,'H','y','X','^',';',248,219,2,130,'g',193,
+    '9',219,195,'t','K','=','6',30,249,')',147,136,'h','[',168,'D',25,'!',240,
+    0xa7,232,129,13,',',232,147,'6',180,'7',178,202,176,27,'&','z',154,'%',31,
+    0x9a,0x9a,128,158,'K','*','?',251,163,154,254,'s','2','q',194,158,198,'r',
+    0xe1,0x8a,'h',39,0xf1,228,15,180,196,'L',165,'a',147,248,151,16,7,'*','0',
+    '%',0xa9,0xb9,0xc8,'q',184,239,'h',204,'-','~',245,224,'~',15,130,168,'o',
+    182,186,'l',131,'C','w',205,138,146,23,161,158,'[','x',22,'=','E',226,'3',
+    'r',0xdd,225,'f',202,153,211,201,197,'&',253,13,'h',4,'F',174,182,217,155,
+    0x8c,190,25,190,177,198,242,25,227,92,2,202,',',216,'o','J',7,217,201,'5',
+    218,'@','u',242,196,167,25,'o',158,'B',16,152,'u',230,149,139,'`',188,237,
+    197,18,215,138,206,213,152,92,'V',150,3,197,238,'w',6,'5',255,207,228,238,
+    '?',0x13,'a',238,219,218,'-',133,240,205,174,157,178,24,9,'E',195,146,161,
+    'r',0x17,252,'G',182,160,11,',',241,196,222,'C','h',8,'j','_',';',240,'v',
+    'c',251,204,6,',',166,198,226,14,181,185,190,'$',143,
+]
+
 
 /**
 Certum Trusted Network CA 2.
 SHA256 fingerprint: b6:76:f2:ed:da:e8:77:5c:d3:6c:b0:f6:3c:d1:d4:60:39:61:f4:9e:62:65:ba:01:3a:2f:03:07:b6:d0:b8:04
 */
-CERTUM_TRUSTED_NETWORK_CA_2 ::= net.Certificate.parse CERTUM_TRUSTED_NETWORK_CA_2_TEXT_
+CERTUM_TRUSTED_NETWORK_CA_2 ::= parse_ CERTUM_TRUSTED_NETWORK_CA_2_BYTES_
 
-HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2015_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIGCzCCA/OgAwIBAgIBADANBgkqhkiG9w0BAQsFADCBpjELMAkGA1UEBhMCR1Ix
-DzANBgNVBAcTBkF0aGVuczFEMEIGA1UEChM7SGVsbGVuaWMgQWNhZGVtaWMgYW5k
-IFJlc2VhcmNoIEluc3RpdHV0aW9ucyBDZXJ0LiBBdXRob3JpdHkxQDA+BgNVBAMT
-N0hlbGxlbmljIEFjYWRlbWljIGFuZCBSZXNlYXJjaCBJbnN0aXR1dGlvbnMgUm9v
-dENBIDIwMTUwHhcNMTUwNzA3MTAxMTIxWhcNNDAwNjMwMTAxMTIxWjCBpjELMAkG
-A1UEBhMCR1IxDzANBgNVBAcTBkF0aGVuczFEMEIGA1UEChM7SGVsbGVuaWMgQWNh
-ZGVtaWMgYW5kIFJlc2VhcmNoIEluc3RpdHV0aW9ucyBDZXJ0LiBBdXRob3JpdHkx
-QDA+BgNVBAMTN0hlbGxlbmljIEFjYWRlbWljIGFuZCBSZXNlYXJjaCBJbnN0aXR1
-dGlvbnMgUm9vdENBIDIwMTUwggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoIC
-AQDC+Kk/G4n8PDwEXT2QNrCROnk8ZlrvbTkBSRq0t89/TSNTt5AA4xMqKKYx8ZEA
-4yjsriFBzh/a/X0SWwGDD7mwX5nh8hKDgE0GPt+sr+ehiGsxr/CL0BgzuNtFajT0
-AoAkKAoCFZVedioNmToUW/bLy1O8E00BiDeUJRtCvCLYjqOWXjrZMts+6PAQZe10
-4S+nfK8nNLspfZu2zwnI5dMK/IhlZXQK3HMcXM1AsRzUtoSMTFDPaI6oWa7CJ06C
-ojXdFPQf/7J31Ycvqm59JCfnxssm5uX+Zwdj2EUN3TpZZTlYepKZcj2chF6IIbjV
-9Cz82XBST3i4vTwri5WY9bPRaM8gFH5MXF/ni+X1NYEZN9cRCLdmvtNKzoNXADrD
-gfgXy5I2XdGj2HUb4Ysn6npIQf1FGQatJ5lOwXBH3bWfgVMS5bGMSF0xQxfjjMZ6
-Y5ZLKTBOhE5iGV48zpeQpX8B653g+IuJ3SWYPZK2fu/Z8VFRfS0myGlZYeCsargq
-NhEEelC9MoS+L9xy1dcdFkfkR2YgP/SWxa+OAXqlD3pk9Q0Yh9muiNX6hME6wGko
-LfINaFGq46V3xqSQDqE3izEjR8EJCOtu93ib14L8hCCZSRm2Ekax+0VVFqmjZayc
-Bw/qa9wfLgZy7IaIEuQt218FL+TwA9MmM+eAws1CoRc0CwIDAQABo0IwQDAPBgNV
-HRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIBBjAdBgNVHQ4EFgQUcRVnyMjJvXVd
-ctA4GGqd83EkVAswDQYJKoZIhvcNAQELBQADggIBAHW7bVRLqhBYRjTyYtcWNl0I
-XtVsyIe9tC5G8jH4fOpCtZMWVdyhDBKg2mF+D1hYc2Ryx+hFjtyp8iY/xnmMsVMI
-M4GwVhO+5lFc2JsKT0ucVlMC6U/2DWDqTUJV6HwbISHTGzrMd/K4kPFox/la/vot
-9L/J9UUbzjgQKjeKeaO04wlshYaT/4mWJ3iBj2fjRnRUjtkNaeJK9E10A/+yd+2V
-Z5fkscWrv2oj6NSU4kQoYsRL4vDY4ilrGnB+JGGTe08DMiUNRSQrlrRGar9KC/ea
-j8GsGsVn82800vpzY4zvFrCopEYq+OsS7HK07/grfoxSwIuEVPkvPuNVqNxmsdnh
-X9izjFk0WaSrT2y7HxjbdavYy5LNlDhhDgcGH0tGEPEVvo2FXDtKK4F5D7Rpn0lQ
-l033DlZdwJVqwjbDG2jJ9SrcR5q+ss7FJej6A7na+RZukYT1HCjI/CbM1xyQVqdf
-bzoEvM14iQuODy+jqk+iGxI9FghAD/FGTNeqewjBCvVtJ94Cj8rDtSvK6evIIVM4
-pcw72Hc3MKJP2W/R8kCtQXoXxdZKNYm3QdV8hn9VTYNKpXMgwDqvkPGaJI7ZjnHK
-e7iG2rKPmT4dEw0SEe7Uq/DpFXYC5ODfqiAeW2GFZECpkJcNrVPSWh2HagCXZWK0
-vm9qp/UsQu0yrbYhnr68
------END CERTIFICATE-----
-"""
+HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2015_BYTES_ ::= #[
+    '0',0x82,6,0xb,'0',130,3,243,160,3,2,1,2,2,1,0,'0',13,6,9,'*',134,'H',134,
+    0xf7,0xd,1,1,11,5,0,'0',129,166,'1',11,'0',9,6,3,'U',4,6,19,2,'G','R','1',
+    0x0f,'0',0xd,6,3,'U',4,7,19,6,'A','t','h','e','n','s','1','D','0','B',6,3,
+    'U',0x4,10,19,';','H','e','l','l','e','n','i','c',' ','A','c','a','d','e',
+    'm','i','c',' ','a','n','d',' ','R','e','s','e','a','r','c','h',' ','I',
+    'n','s','t','i','t','u','t','i','o','n','s',' ','C','e','r','t','.',' ',
+    'A','u','t','h','o','r','i','t','y','1','@','0','>',0x06,3,'U',4,3,19,'7',
+    'H','e','l','l','e','n','i','c',' ','A','c','a','d','e','m','i','c',' ',
+    'a','n','d',' ','R','e','s','e','a','r','c','h',' ','I','n','s','t','i',
+    't','u','t','i','o','n','s',' ','R','o','o','t','C','A',' ','2','0','1',
+    '5','0',0x1e,23,13,'1','5','0','7','0','7','1','0','1','1','2','1','Z',23,
+    13,'4','0','0','6','3','0','1','0','1','1','2','1','Z','0',129,166,'1',11,
+    '0',9,6,3,'U',4,6,19,2,'G','R','1',15,'0',13,6,3,'U',4,7,19,6,'A','t','h',
+    'e','n','s','1','D','0','B',0x6,3,'U',4,10,19,';','H','e','l','l','e','n',
+    'i','c',' ','A','c','a','d','e','m','i','c',' ','a','n','d',' ','R','e',
+    's','e','a','r','c','h',' ','I','n','s','t','i','t','u','t','i','o','n',
+    's',' ','C','e','r','t','.',' ','A','u','t','h','o','r','i','t','y','1',
+    '@','0','>',0x06,3,'U',4,3,19,'7','H','e','l','l','e','n','i','c',' ','A',
+    'c','a','d','e','m','i','c',' ','a','n','d',' ','R','e','s','e','a','r',
+    'c','h',' ','I','n','s','t','i','t','u','t','i','o','n','s',' ','R','o',
+    'o','t','C','A',' ','2','0','1','5','0',0x82,2,'"','0',13,6,9,'*',134,'H',
+    0x86,0xf7,0xd,1,1,1,5,0,3,130,2,15,0,'0',130,2,10,2,130,2,1,0,194,248,169,
+    '?',27,0x89,252,'<','<',4,']','=',144,'6',176,145,':','y','<','f','Z',239,
+    'm','9',1,'I',26,180,183,207,127,'M','#','S',183,144,0,227,19,'*','(',166,
+    '1',0xf1,145,0,227,'(',236,174,'!','A',206,31,218,253,'}',18,'[',1,131,15,
+    0xb9,176,'_',153,225,242,18,131,128,'M',6,'>',223,172,175,231,161,136,'k',
+    '1',0xaf,240,139,208,24,'3',184,219,'E','j','4',244,2,128,'$','(',10,2,21,
+    0x95,'^','v','*',0x0d,153,':',20,'[',246,203,203,'S',188,19,'M',1,136,'7',
+    148,'%',27,'B',188,'"',216,142,163,150,'^',':',217,'2',219,'>',232,240,16,
+    'e',0xed,'t',225,'/',167,'|',175,39,'4',187,')','}',155,182,207,9,200,229,
+    0xd3,0x0a,252,136,'e','e','t',10,220,'s',28,92,205,'@',177,28,212,182,132,
+    0x8c,'L','P',207,'h',142,168,'Y',174,194,39,'N',130,162,'5',221,20,244,31,
+    0xff,0xb2,'w',0xd5,135,'/',170,'n','}','$',39,231,198,203,'&',230,229,254,
+    'g',7,'c',0xd8,'E',13,221,':','Y','e','9','X','z',146,153,'r','=',156,132,
+    '^',0x88,'!',0xb8,213,244,',',252,217,'p','R','O','x',184,189,'<','+',139,
+    149,152,245,179,209,'h',207,' ',20,'~','L',92,'_',231,139,229,245,'5',129,
+    25,'7',0xd7,17,8,183,'f',190,211,'J',206,131,'W',0,':',195,129,248,23,203,
+    0x92,'6',']',0xd1,0xa3,216,'u',27,225,139,39,234,'z','H','A',253,'E',25,6,
+    173,39,153,'N',193,'p','G',221,181,159,129,'S',18,229,177,140,'H',']','1',
+    'C',23,227,140,198,'z','c',150,'K',')','0','N',132,'N','b',25,'^','<',206,
+    151,144,165,127,1,235,157,224,248,139,137,221,'%',152,'=',146,182,'~',239,
+    0xd9,241,'Q','Q','}','-','&',200,'i','Y','a',224,172,'j',184,'*','6',17,4,
+    'z','P',189,'2',132,190,'/',220,'r',213,215,29,22,'G',228,'G','f',' ','?',
+    0xf4,0x96,0xc5,175,142,1,'z',165,15,'z','d',245,13,24,135,217,174,136,213,
+    0xfa,0x84,0xc1,':',192,'i','(','-',242,13,'h','Q',170,227,165,'w',198,164,
+    0x90,0x0e,161,'7',139,'1','#','G',193,9,8,235,'n',247,'x',155,215,130,252,
+    132,' ',153,'I',25,182,18,'F',177,251,'E','U',22,169,163,'e',172,156,7,15,
+    0xea,'k',0xdc,31,'.',6,'r',236,134,136,18,228,'-',219,'_',5,'/',228,240,3,
+    0xd3,'&','3',0xe7,128,194,205,'B',161,23,'4',11,2,3,1,0,1,163,'B','0','@',
+    '0',0x0f,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',14,6,3,'U',29,15,1,1,
+    255,4,4,3,2,1,6,'0',29,6,3,'U',29,14,4,22,4,20,'q',21,'g',200,200,201,189,
+    'u',']','r',0xd0,'8',24,'j',157,243,'q','$','T',11,'0',13,6,9,'*',134,'H',
+    0x86,247,13,1,1,11,5,0,3,130,2,1,0,'u',187,'m','T','K',170,16,'X','F','4',
+    0xf2,'b',215,22,'6',']',8,'^',213,'l',200,135,189,180,'.','F',242,'1',248,
+    '|',0xea,'B',0xb5,147,22,'U',220,161,12,18,160,218,'a','~',15,'X','X','s',
+    'd','r',199,232,'E',142,220,169,242,'&','?',198,'y',140,177,'S',8,'3',129,
+    176,'V',19,190,230,'Q',92,216,155,10,'O','K',156,'V','S',2,233,'O',246,13,
+    '`',234,'M','B','U',232,'|',27,'!','!',211,27,':',204,'w',242,184,144,241,
+    'h',199,249,'Z',254,250,'-',244,191,201,245,'E',27,206,'8',16,'*','7',138,
+    'y',0xa3,180,227,9,'l',133,134,147,255,137,150,39,'x',129,143,'g',227,'F',
+    't','T',0x8e,217,13,'i',226,'J',244,'M','t',3,255,178,'w',237,149,'g',151,
+    0xe4,0xb1,197,171,191,'j','#',232,212,148,226,'D','(','b',196,'K',226,240,
+    0xd8,0xe2,')','k',26,'p','~','$','a',147,'{','O',3,'2','%',13,'E','$','+',
+    150,180,'F','j',191,'J',11,247,154,143,193,172,26,197,'g',243,'o','4',210,
+    250,'s','c',140,239,22,176,168,164,'F','*',248,235,18,236,'r',180,239,248,
+    '+','~',0x8c,'R',0xc0,139,132,'T',249,'/','>',227,'U',168,220,'f',177,217,
+    225,'_',216,179,140,'Y','4','Y',164,171,'O','l',187,31,24,219,'u',171,216,
+    0xcb,0x92,0xcd,148,'8','a',14,7,6,31,'K','F',16,241,21,190,141,133,92,';',
+    'J','+',129,'y',15,180,'i',159,'I','P',151,'M',247,14,'V',']',192,149,'j',
+    0xc2,'6',195,27,'h',201,245,'*',220,'G',154,190,178,206,197,'%',232,250,3,
+    0xb9,218,249,22,'n',145,132,245,28,'(',200,252,'&',204,215,28,144,'V',167,
+    '_','o',':',4,0xbc,205,'x',137,11,142,15,'/',163,170,'O',162,27,18,'=',22,
+    0x08,'@',15,241,'F','L',215,170,'{',8,193,10,245,'m',39,222,2,143,202,195,
+    0xb5,'+',0xca,233,235,200,'!','S','8',165,204,';',216,'w','7','0',162,'O',
+    0xd9,'o',0xd1,0xf2,'@',173,'A','z',23,197,214,'J','5',137,183,'A',213,'|',
+    0x86,0x7f,'U','M',131,'J',165,'s',' ',192,':',175,144,241,154,'$',142,217,
+    0x8e,'q',0xca,'{',0xb8,134,218,178,143,153,'>',29,19,13,18,17,238,212,171,
+    0xf0,0xe9,21,'v',2,228,224,223,170,' ',30,'[','a',133,'d','@',169,144,151,
+    0x0d,173,'S',210,'Z',29,135,'j',0,151,'e','b',180,190,'o','j',167,245,',',
+    'B',237,'2',173,182,'!',158,190,188,
+]
+
 
 /**
 Hellenic Academic and Research Institutions RootCA 2015.
 SHA256 fingerprint: a0:40:92:9a:02:ce:53:b4:ac:f4:f2:ff:c6:98:1c:e4:49:6f:75:5e:6d:45:fe:0b:2a:69:2b:cd:52:52:3f:36
 */
-HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2015 ::= net.Certificate.parse HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2015_TEXT_
+HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2015 ::= parse_ HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2015_BYTES_
 
-HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ECC_ROOTCA_2015_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIICwzCCAkqgAwIBAgIBADAKBggqhkjOPQQDAjCBqjELMAkGA1UEBhMCR1IxDzAN
-BgNVBAcTBkF0aGVuczFEMEIGA1UEChM7SGVsbGVuaWMgQWNhZGVtaWMgYW5kIFJl
-c2VhcmNoIEluc3RpdHV0aW9ucyBDZXJ0LiBBdXRob3JpdHkxRDBCBgNVBAMTO0hl
-bGxlbmljIEFjYWRlbWljIGFuZCBSZXNlYXJjaCBJbnN0aXR1dGlvbnMgRUNDIFJv
-b3RDQSAyMDE1MB4XDTE1MDcwNzEwMzcxMloXDTQwMDYzMDEwMzcxMlowgaoxCzAJ
-BgNVBAYTAkdSMQ8wDQYDVQQHEwZBdGhlbnMxRDBCBgNVBAoTO0hlbGxlbmljIEFj
-YWRlbWljIGFuZCBSZXNlYXJjaCBJbnN0aXR1dGlvbnMgQ2VydC4gQXV0aG9yaXR5
-MUQwQgYDVQQDEztIZWxsZW5pYyBBY2FkZW1pYyBhbmQgUmVzZWFyY2ggSW5zdGl0
-dXRpb25zIEVDQyBSb290Q0EgMjAxNTB2MBAGByqGSM49AgEGBSuBBAAiA2IABJKg
-QehLgoRc4vgxEZmGZE4JJS+dQS8KrjVPdJWyUWRrjWvmP3CV8AVER6ZyOFB2lQJa
-jq4onvktTpnvLEhvTCUp6NFxW98dwXU3tNf6e3pCnGoKVlp8aQuqgAkkbH7BRqNC
-MEAwDwYDVR0TAQH/BAUwAwEB/zAOBgNVHQ8BAf8EBAMCAQYwHQYDVR0OBBYEFLQi
-C4KZJAEOnLvkDv2/+5cgk5kqMAoGCCqGSM49BAMCA2cAMGQCMGfOFmI4oqxiRaep
-lSTAGiecMjvAwNW6qef4BENThe5SId6d9SWDPp5YSy/XZxMOIQIwBeF1Ad5o7Sof
-TUwJCA3sS61kFyjndc5FZXIhF8siQQ6ME5g4mlRtm8rifOoCWCKR
------END CERTIFICATE-----
-"""
+HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ECC_ROOTCA_2015_BYTES_ ::= #[
+    '0',0x82,2,195,'0',130,2,'J',160,3,2,1,2,2,1,0,'0',10,6,8,'*',134,'H',206,
+    '=',4,3,2,'0',129,170,'1',11,'0',9,6,3,'U',4,6,19,2,'G','R','1',15,'0',13,
+    6,3,'U',4,7,19,6,'A','t','h','e','n','s','1','D','0','B',6,3,'U',4,0xa,19,
+    ';','H','e','l','l','e','n','i','c',' ','A','c','a','d','e','m','i','c',
+    ' ','a','n','d',' ','R','e','s','e','a','r','c','h',' ','I','n','s','t',
+    'i','t','u','t','i','o','n','s',' ','C','e','r','t','.',' ','A','u','t',
+    'h','o','r','i','t','y','1','D','0','B',0x06,3,'U',4,3,19,';','H','e','l',
+    'l','e','n','i','c',' ','A','c','a','d','e','m','i','c',' ','a','n','d',
+    ' ','R','e','s','e','a','r','c','h',' ','I','n','s','t','i','t','u','t',
+    'i','o','n','s',' ','E','C','C',' ','R','o','o','t','C','A',' ','2','0',
+    '1','5','0',30,23,0xd,'1','5','0','7','0','7','1','0','3','7','1','2','Z',
+    23,13,'4','0','0','6','3','0','1','0','3','7','1','2','Z','0',129,170,'1',
+    0xb,'0',9,6,3,'U',4,6,19,2,'G','R','1',15,'0',13,6,3,'U',4,7,19,6,'A','t',
+    'h','e','n','s','1','D','0','B',0x6,3,'U',4,10,19,';','H','e','l','l','e',
+    'n','i','c',' ','A','c','a','d','e','m','i','c',' ','a','n','d',' ','R',
+    'e','s','e','a','r','c','h',' ','I','n','s','t','i','t','u','t','i','o',
+    'n','s',' ','C','e','r','t','.',' ','A','u','t','h','o','r','i','t','y',
+    '1','D','0','B',0x06,3,'U',4,3,19,';','H','e','l','l','e','n','i','c',' ',
+    'A','c','a','d','e','m','i','c',' ','a','n','d',' ','R','e','s','e','a',
+    'r','c','h',' ','I','n','s','t','i','t','u','t','i','o','n','s',' ','E',
+    'C','C',' ','R','o','o','t','C','A',' ','2','0','1','5','0','v','0',16,6,
+    0x7,'*',134,'H',206,'=',2,1,6,5,'+',129,4,0,'"',3,'b',0,4,146,160,'A',232,
+    'K',0x82,0x84,92,0xe2,248,'1',17,153,134,'d','N',9,'%','/',157,'A','/',10,
+    174,'5','O','t',149,178,'Q','d','k',141,'k',230,'?','p',149,240,5,'D','G',
+    166,'r','8','P','v',149,2,'Z',142,174,'(',158,249,'-','N',153,239,',','H',
+    'o','L','%',')',0xe8,0xd1,'q','[',0xdf,29,193,'u','7',180,215,250,'{','z',
+    'B',0x9c,'j',0xa,'V','Z','|','i',11,170,128,9,'$','l','~',193,'F',163,'B',
+    '0','@','0',0xf,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',14,6,3,'U',29,
+    0xf,1,1,255,4,4,3,2,1,6,'0',29,6,3,'U',29,14,4,22,4,20,180,'"',11,130,153,
+    '$',0x01,14,156,187,228,14,253,191,251,151,' ',147,153,'*','0',10,6,8,'*',
+    0x86,'H',0xce,'=',4,3,2,3,'g',0,'0','d',2,'0','g',0xce,22,'b','8',162,172,
+    'b','E',167,169,149,'$',192,26,39,156,'2',';',192,192,213,186,169,231,248,
+    4,'C','S',133,238,'R','!',222,157,245,'%',131,'>',158,'X','K','/',215,'g',
+    19,14,'!',2,'0',5,225,'u',1,222,'h',237,'*',31,'M','L',9,8,13,236,'K',173,
+    'd',0x17,'(',231,'u',206,'E','e','r','!',23,203,'"','A',14,140,19,152,'8',
+    154,'T','m',155,202,226,'|',234,2,'X','"',145,
+]
+
 
 /**
 Hellenic Academic and Research Institutions ECC RootCA 2015.
 SHA256 fingerprint: 44:b5:45:aa:8a:25:e6:5a:73:ca:15:dc:27:fc:36:d2:4c:1c:b9:95:3a:06:65:39:b1:15:82:dc:48:7b:48:33
 */
-HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ECC_ROOTCA_2015 ::= net.Certificate.parse HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ECC_ROOTCA_2015_TEXT_
+HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ECC_ROOTCA_2015 ::= parse_ HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ECC_ROOTCA_2015_BYTES_
 
-ISRG_ROOT_X1_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIFazCCA1OgAwIBAgIRAIIQz7DSQONZRGPgu2OCiwAwDQYJKoZIhvcNAQELBQAw
-TzELMAkGA1UEBhMCVVMxKTAnBgNVBAoTIEludGVybmV0IFNlY3VyaXR5IFJlc2Vh
-cmNoIEdyb3VwMRUwEwYDVQQDEwxJU1JHIFJvb3QgWDEwHhcNMTUwNjA0MTEwNDM4
-WhcNMzUwNjA0MTEwNDM4WjBPMQswCQYDVQQGEwJVUzEpMCcGA1UEChMgSW50ZXJu
-ZXQgU2VjdXJpdHkgUmVzZWFyY2ggR3JvdXAxFTATBgNVBAMTDElTUkcgUm9vdCBY
-MTCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAK3oJHP0FDfzm54rVygc
-h77ct984kIxuPOZXoHj3dcKi/vVqbvYATyjb3miGbESTtrFj/RQSa78f0uoxmyF+
-0TM8ukj13Xnfs7j/EvEhmkvBioZxaUpmZmyPfjxwv60pIgbz5MDmgK7iS4+3mX6U
-A5/TR5d8mUgjU+g4rk8Kb4Mu0UlXjIB0ttov0DiNewNwIRt18jA8+o+u3dpjq+sW
-T8KOEUt+zwvo/7V3LvSye0rgTBIlDHCNAymg4VMk7BPZ7hm/ELNKjD+Jo2FR3qyH
-B5T0Y3HsLuJvW5iB4YlcNHlsdu87kGJ55tukmi8mxdAQ4Q7e2RCOFvu396j3x+UC
-B5iPNgiV5+I3lg02dZ77DnKxHZu8A/lJBdiB3QW0KtZB6awBdpUKD9jf1b0SHzUv
-KBds0pjBqAlkd25HN7rOrFleaJ1/ctaJxQZBKT5ZPt0m9STJEadao0xAH0ahmbWn
-OlFuhjuefXKnEgV4We0+UXgVCwOPjdAvBbI+e0ocS3MFEvzG6uBQE3xDk3SzynTn
-jh8BCNAw1FtxNrQHusEwMFxIt4I7mKZ9YIqioymCzLq9gwQbooMDQaHWBfEbwrbw
-qHyGO0aoSCqI3Haadr8faqU9GY/rOPNk3sgrDQoo//fb4hVC1CLQJ13hef4Y53CI
-rU7m2Ys6xt0nUW7/vGT1M0NPAgMBAAGjQjBAMA4GA1UdDwEB/wQEAwIBBjAPBgNV
-HRMBAf8EBTADAQH/MB0GA1UdDgQWBBR5tFnme7bl5AFzgAiIyBpY9umbbjANBgkq
-hkiG9w0BAQsFAAOCAgEAVR9YqbyyqFDQDLHYGmkgJykIrGF1XIpu+ILlaS/V9lZL
-ubhzEFnTIZd+50xx+7LSYK05qAvqFyFWhfFQDlnrzuBZ6brJFe+GnY+EgPbk6ZGQ
-3BebYhtF8GaV0nxvwuo77x/Py9auJ/GpsMiu/X1+mvoiBOv/2X/qkSsisRcOj/KK
-NFtY2PwByVS5uCbMiogziUwthDyC3+6WVwW6LLv3xLfHTjuCvjHIInNzktHCgKQ5
-ORAzI4JMPJ+GslWYHb4phowim57iaztXOoJwTdwJx4nLCgdNbOhdjsnvzqvHu7Ur
-TkXWStAmzOVyyghqpZXjFaH3pO3JLF+l+/+sKAIuvtd7u+Nxe5AW0wdeRlN8NwdC
-jNPElpzVmbUq4JUagEiuTDkHzsxHpFKVK7q4+63SM1N95R1NbdWhscdCb+ZAJzVc
-oyi3B43njTOQ5yOf+1CceWxG1bQVs5ZufpsMljq4Ui0/1lvh+wjChP4kqKOJ2qxq
-4RgqsahDYVvTH9w7jXbyLeiNdd8XM2w9U/t7y0Ff/9yi0GE44Za4rF2LN9d11TPA
-mRGunUHBcnWEvgJBQl9nJEiU0Zsnvgc/ubhPgXRR4Xq37Z0j4r7g1SgEEzwxA57d
-emyPxgcYxn/eR44/KJ4EBs+lVDR3veyJm+kXQ99b21/+jh5Xos1AnX5iItreGCc=
------END CERTIFICATE-----
-"""
+ISRG_ROOT_X1_BYTES_ ::= #[
+    '0',130,5,'k','0',130,3,'S',160,3,2,1,2,2,17,0,130,16,207,176,210,'@',227,
+    'Y','D','c',0xe0,0xbb,'c',130,139,0,'0',13,6,9,'*',134,'H',134,247,13,1,1,
+    0x0b,5,0,'0','O','1',11,'0',9,6,3,'U',4,6,19,2,'U','S','1',')','0',39,6,3,
+    'U',0x4,10,19,' ','I','n','t','e','r','n','e','t',' ','S','e','c','u','r',
+    'i','t','y',' ','R','e','s','e','a','r','c','h',' ','G','r','o','u','p',
+    '1',0x15,'0',19,6,3,'U',4,3,19,12,'I','S','R','G',' ','R','o','o','t',' ',
+    'X','1','0',30,23,0xd,'1','5','0','6','0','4','1','1','0','4','3','8','Z',
+    23,0xd,'3','5','0','6','0','4','1','1','0','4','3','8','Z','0','O','1',11,
+    '0',9,6,3,'U',4,6,19,2,'U','S','1',')','0',39,6,3,'U',4,10,19,' ','I','n',
+    't','e','r','n','e','t',' ','S','e','c','u','r','i','t','y',' ','R','e',
+    's','e','a','r','c','h',' ','G','r','o','u','p','1',21,'0',19,6,3,'U',4,3,
+    0x13,12,'I','S','R','G',' ','R','o','o','t',' ','X','1','0',130,2,'"','0',
+    13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,2,15,0,'0',130,2,10,2,130,2,
+    1,0,173,232,'$','s',244,20,'7',243,155,158,'+','W','(',28,135,190,220,183,
+    0xdf,'8',0x90,140,'n','<',230,'W',160,'x',247,'u',194,162,254,245,'j','n',
+    0xf6,0,'O','(',0xdb,222,'h',134,'l','D',147,182,177,'c',253,20,18,'k',191,
+    0x1f,0xd2,234,'1',155,'!','~',209,'3','<',186,'H',245,221,'y',223,179,184,
+    0xff,0x12,241,'!',154,'K',193,138,134,'q','i','J','f','f','l',143,'~','<',
+    'p',191,173,')','"',6,243,228,192,230,128,174,226,'K',143,183,153,'~',148,
+    3,0x9f,211,'G',151,'|',153,'H','#','S',232,'8',174,'O',10,'o',131,'.',209,
+    'I','W',0x8c,128,'t',182,218,'/',208,'8',141,'{',3,'p','!',27,'u',242,'0',
+    '<',0xfa,143,174,221,218,'c',171,235,22,'O',194,142,17,'K','~',207,11,232,
+    0xff,0xb5,'w','.',244,178,'{','J',224,'L',18,'%',12,'p',141,3,')',160,225,
+    'S','$',0xec,19,217,238,25,191,16,179,'J',140,'?',137,163,'a','Q',222,172,
+    0x87,7,148,244,'c','q',236,'.',226,'o','[',152,129,225,137,92,'4','y','l',
+    'v',239,';',144,'b','y',230,219,164,154,'/','&',197,208,16,225,14,222,217,
+    0x10,142,22,251,183,247,168,247,199,229,2,7,152,143,'6',8,149,231,226,'7',
+    0x96,0x0d,'6','u',158,251,14,'r',177,29,155,188,3,249,'I',5,216,129,221,5,
+    180,'*',214,'A',233,172,1,'v',149,10,15,216,223,213,189,18,31,'5','/','(',
+    23,'l',0xd2,152,193,168,9,'d','w','n','G','7',186,206,172,'Y','^','h',157,
+    0x7f,'r',214,137,197,6,'A',')','>','Y','>',221,'&',245,'$',201,17,167,'Z',
+    163,'L','@',31,'F',161,153,181,167,':','Q','n',134,';',158,'}','r',167,18,
+    0x05,'x','Y',237,'>','Q','x',21,11,3,143,141,208,'/',5,178,'>','{','J',28,
+    'K','s',0x5,18,252,198,234,224,'P',19,'|','C',147,'t',179,202,'t',231,142,
+    0x1f,1,8,208,'0',212,'[','q','6',180,7,186,193,'0','0',92,'H',183,130,';',
+    0x98,0xa6,'}','`',0x8a,162,163,')',130,204,186,189,131,4,27,162,131,3,'A',
+    0xa1,214,5,241,27,194,182,240,168,'|',134,';','F',168,'H','*',136,220,'v',
+    0x9a,'v',0xbf,31,'j',165,'=',25,143,235,'8',243,'d',222,200,'+',13,10,'(',
+    0xff,247,219,226,21,'B',212,'"',208,39,']',225,'y',254,24,231,'p',136,173,
+    'N',0xe6,217,139,':',198,221,39,'Q','n',255,188,'d',245,'3','C','O',2,3,1,
+    0x0,1,163,'B','0','@','0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',15,6,3,
+    'U',0x1d,19,1,1,0xff,4,5,'0',3,1,1,255,'0',29,6,3,'U',29,14,4,22,4,20,'y',
+    0xb4,'Y',0xe6,'{',0xb6,229,228,1,'s',128,8,136,200,26,'X',246,233,155,'n',
+    '0',0x0d,6,9,'*',134,'H',134,247,13,1,1,11,5,0,3,130,2,1,0,'U',31,'X',169,
+    188,178,168,'P',208,12,177,216,26,'i',' ',39,')',8,172,'a','u',92,138,'n',
+    0xf8,0x82,0xe5,'i','/',213,246,'V','K',185,184,'s',16,'Y',211,'!',151,'~',
+    0xe7,'L','q',251,178,210,'`',173,'9',168,11,234,23,'!','V',133,241,'P',14,
+    'Y',0xeb,0xce,0xe0,'Y',233,186,201,21,239,134,157,143,132,128,246,228,233,
+    0x91,144,220,23,155,'b',27,'E',240,'f',149,210,'|','o',194,234,';',239,31,
+    0xcf,203,214,174,39,241,169,176,200,174,253,'}','~',154,250,'"',4,235,255,
+    0xd9,0x7f,234,145,'+','"',177,23,14,143,242,138,'4','[','X',216,252,1,201,
+    'T',185,184,'&',204,138,136,'3',137,'L','-',132,'<',130,223,238,150,'W',5,
+    0xba,',',0xbb,247,196,183,199,'N',';',130,190,'1',200,'"','s','s',146,209,
+    194,128,164,'9','9',16,'3','#',130,'L','<',159,134,178,'U',152,29,190,')',
+    0x86,140,'"',155,158,226,'k',';','W',':',130,'p','M',220,9,199,137,203,10,
+    7,'M','l',232,']',142,201,239,206,171,199,187,181,'+','N','E',214,'J',208,
+    '&',0xcc,229,'r',202,8,'j',165,149,227,21,161,247,164,237,201,',','_',165,
+    0xfb,0xff,0xac,'(',2,'.',190,215,'{',187,227,'q','{',144,22,211,7,'^','F',
+    'S','|','7',7,'B',0x8c,211,196,150,156,213,153,181,'*',224,149,26,128,'H',
+    174,'L','9',7,206,204,'G',164,'R',149,'+',186,184,251,173,210,'3','S','}',
+    0xe5,0x1d,'M','m',213,161,177,199,'B','o',230,'@',39,'5',92,163,'(',183,7,
+    0x8d,0xe7,0x8d,'3',144,231,'#',159,251,'P',156,'y','l','F',213,180,21,179,
+    0x96,'n','~',155,12,150,':',184,'R','-','?',214,'[',225,251,8,194,132,254,
+    '$',168,163,137,218,172,'j',225,24,'*',177,168,'C','a','[',211,31,220,';',
+    0x8d,'v',0xf2,'-',0xe8,141,'u',223,23,'3','l','=','S',251,'{',203,'A','_',
+    0xff,0xdc,162,208,'a','8',225,150,184,172,']',139,'7',215,'u',213,'3',192,
+    0x99,17,174,157,'A',193,'r','u',132,190,2,'A','B','_','g','$','H',148,209,
+    0x9b,39,190,7,'?',185,184,'O',129,'t','Q',225,'z',183,237,157,'#',226,190,
+    0xe0,0xd5,'(',4,19,'<','1',3,158,221,'z','l',143,198,7,24,198,127,222,'G',
+    0x8e,'?','(',0x9e,4,6,0xcf,165,'T','4','w',189,236,137,155,233,23,'C',223,
+    '[',219,'_',254,142,30,'W',162,205,'@',157,'~','b','"',218,222,24,39,
+]
+
 
 /**
 ISRG Root X1.
 SHA256 fingerprint: 96:bc:ec:06:26:49:76:f3:74:60:77:9a:cf:28:c5:a7:cf:e8:a3:c0:aa:e1:1a:8f:fc:ee:05:c0:bd:df:08:c6
 */
-ISRG_ROOT_X1 ::= net.Certificate.parse ISRG_ROOT_X1_TEXT_
+ISRG_ROOT_X1 ::= parse_ ISRG_ROOT_X1_BYTES_
 
-AC_RAIZ_FNMT_RCM_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIFgzCCA2ugAwIBAgIPXZONMGc2yAYdGsdUhGkHMA0GCSqGSIb3DQEBCwUAMDsx
-CzAJBgNVBAYTAkVTMREwDwYDVQQKDAhGTk1ULVJDTTEZMBcGA1UECwwQQUMgUkFJ
-WiBGTk1ULVJDTTAeFw0wODEwMjkxNTU5NTZaFw0zMDAxMDEwMDAwMDBaMDsxCzAJ
-BgNVBAYTAkVTMREwDwYDVQQKDAhGTk1ULVJDTTEZMBcGA1UECwwQQUMgUkFJWiBG
-Tk1ULVJDTTCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALpxgHpMhm5/
-yBNtwMZ9HACXjywMI7sQmkCpGreHiPibVmr75nuOi5KOpyVdWRHbNi63URcfqQgf
-BBckWKo3Shjf5TnUV/3XwSyRAZHiItQDwFj8d0fsjz50Q7qsNI1NOHZnjrDIbzAz
-WHFctPVrbtQBULgTfmxKo0nRIBnuvMApGGWn3v7v3QqQIecaZ5JCEJhfTzC8PhxF
-tBDXaEAUwED653cXeuYLj2VbPNmaUtu1vZ5Gzz3rkQUCwJaydkxNEJY7kvqcfw+Z
-374jNUUeAlz+taibmSXaXvMiwzn15Cou08YfxGyqxRxqAQVKL9LFwag0Jl1mpdIC
-IfkYtwb1TplvqKtMUejPUBjFd8g5CSxJkjKZqLsXF3mwWsXmo8RZZUc1g16p6DUL
-mbvkzSDGm0oGObVo/CK67lWMK07q87Hj/LaZmtVC+nFNCM+HHmpxffnTtOmlcYF7
-wk5HlqX2doWjKI/pgG6BU6VtX7hI+cL5NqYuSf+4lsKMB7ObiFj86xsc3i1w4peS
-MKGJ47xVqCfWS+2QrYv6YyVZLag13cqXM7zlzced0ezvXg5KkAYmY6252TUtB7p2
-ZSysV4999AeU14ECll2jB0nVetBX+RvnU0Z1qrB5QstocQjpYL05ac70r8NWQMet
-UqIJ5G+GR4of6ygnXYMgrwTJbFaai0b1AgMBAAGjgYMwgYAwDwYDVR0TAQH/BAUw
-AwEB/zAOBgNVHQ8BAf8EBAMCAQYwHQYDVR0OBBYEFPd9xf3E6Jobd2Sn9R2gzL+H
-YJptMD4GA1UdIAQ3MDUwMwYEVR0gADArMCkGCCsGAQUFBwIBFh1odHRwOi8vd3d3
-LmNlcnQuZm5tdC5lcy9kcGNzLzANBgkqhkiG9w0BAQsFAAOCAgEAB5BK3/MjTvDD
-nFFlm5wioooMhfNzKWtN/gHiqQxjAb8EZ6WdmF/9ARP67Jpi6Yb+tmLSbkyU+8B1
-RXxlDPiyN8+sD8+Nb/kZ94/sHvJwnvDKuO+3/3Y3dlv2bojzr2IyIpMNOmqOFGYM
-LVN0V2Ue1bLdI4E7pWYjJ2cJj+F3qkPNZVEI7VFY/uY5+ctHhKQV8Xa7pO6kO8Rf
-77IzlhEYt8llvhjho6Tc+hj507wTmzl6NLrTQfv6MooqtyuGC2mDOL7Nii4LcK2N
-JpLuHvUBKwrZ1pebbuCoGRw6IYsMHkCtA+fdZn71uSANA+iW+YJF1DngoABd15jm
-fZ5nc8OaKveri6E6FO80vFIOiZiaBECEHX5FaZNXzuvO+FB8TxxuBEOb+dY7Ixjp
-6o7RTUaN8Tvkasq6+yO3m/qZASlaWFot4/nUbQ4mrcFuNLwy+AwF+mWj2zs3gyLp
-1txyM/1d8iC9djwj2ij3+RvrWWTV3F9yfiD8zYm1kGdNYno/Tq0dwzn+evQoFt9B
-9kiABdcPUXmsEKvU7ANm5mqwujGSQkBqvjrTcuFqN1W8rB2Vt2lh8kORdOag0wok
-RqEIr9baRRmW1FMdW4R58MD3R++Lj8UGrp1MYp3/RgT408m2ECVAdf4WqslKYIYv
-uu8wd+RU4riEmViAqhOLUTpPSPaLtrM=
------END CERTIFICATE-----
-"""
+AC_RAIZ_FNMT_RCM_BYTES_ ::= #[
+    '0',0x82,5,131,'0',130,3,'k',160,3,2,1,2,2,15,']',147,141,'0','g','6',200,
+    0x06,29,26,199,'T',132,'i',7,'0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,
+    '0',';','1',0xb,'0',9,6,3,'U',4,6,19,2,'E','S','1',17,'0',15,6,3,'U',4,10,
+    12,8,'F','N','M','T','-','R','C','M','1',25,'0',23,6,3,'U',4,11,12,16,'A',
+    'C',' ','R','A','I','Z',' ','F','N','M','T','-','R','C','M','0',30,23,0xd,
+    '0','8','1','0','2','9','1','5','5','9','5','6','Z',23,13,'3','0','0','1',
+    '0','1','0','0','0','0','0','0','Z','0',';','1',11,'0',9,6,3,'U',4,6,19,2,
+    'E','S','1',0x11,'0',15,6,3,'U',4,10,12,8,'F','N','M','T','-','R','C','M',
+    '1',25,'0',23,6,3,'U',4,0xb,12,16,'A','C',' ','R','A','I','Z',' ','F','N',
+    'M','T','-','R','C','M','0',130,2,'"','0',13,6,9,'*',134,'H',134,247,13,1,
+    1,1,5,0,3,130,2,15,0,'0',130,2,10,2,130,2,1,0,186,'q',128,'z','L',134,'n',
+    0x7f,200,19,'m',192,198,'}',28,0,151,143,',',12,'#',187,16,154,'@',169,26,
+    0xb7,0x87,136,248,155,'V','j',251,230,'{',142,139,146,142,167,'%',']','Y',
+    17,219,'6','.',183,'Q',23,31,169,8,31,4,23,'$','X',170,'7','J',24,223,229,
+    '9',0xd4,'W',0xfd,215,193,',',145,1,145,226,'"',212,3,192,'X',252,'w','G',
+    0xec,0x8f,'>','t','C',186,172,'4',141,'M','8','v','g',142,176,200,'o','0',
+    '3','X','q',0x5c,180,245,'k','n',212,1,'P',184,19,'~','l','J',163,'I',209,
+    ' ',0x19,238,188,192,')',24,'e',167,222,254,239,221,10,144,'!',231,26,'g',
+    0x92,'B',16,0x98,'_','O','0',188,'>',28,'E',180,16,215,'h','@',20,192,'@',
+    250,231,'w',23,'z',230,11,143,'e','[','<',217,154,'R',219,181,189,158,'F',
+    207,'=',235,145,5,2,192,150,178,'v','L','M',16,150,';',146,250,156,127,15,
+    0x99,0xdf,190,'#','5','E',30,2,92,254,181,168,155,153,'%',218,'^',243,'"',
+    195,'9',245,228,'*','.',211,198,31,196,'l',170,197,28,'j',1,5,'J','/',210,
+    0xc5,0xc1,0xa8,'4','&',']','f',165,210,2,'!',249,24,183,6,245,'N',153,'o',
+    0xa8,171,'L','Q',232,207,'P',24,197,'w',200,'9',9,',','I',146,'2',153,168,
+    187,23,23,'y',176,'Z',197,230,163,196,'Y','e','G','5',131,'^',169,232,'5',
+    0xb,153,187,228,205,' ',198,155,'J',6,'9',181,'h',252,'"',186,238,'U',140,
+    '+','N',0xea,243,177,227,252,182,153,154,213,'B',250,'q','M',8,207,135,30,
+    'j','q','}',0xf9,0xd3,180,233,165,'q',129,'{',194,'N','G',150,165,246,'v',
+    0x85,0xa3,'(',143,233,128,'n',129,'S',165,'m','_',184,'H',249,194,249,'6',
+    0xa6,'.','I',0xff,184,150,194,140,7,179,155,136,'X',252,235,27,28,222,'-',
+    'p',0xe2,0x97,0x92,'0',161,137,227,188,'U',168,39,214,'K',237,144,173,139,
+    0xfa,'c','%','Y','-',0xa8,'5',221,202,151,'3',188,229,205,199,157,209,236,
+    0xef,'^',0x0e,'J',144,6,'&','c',173,185,217,'5','-',7,186,'v','e',',',172,
+    'W',0x8f,'}',244,7,148,215,129,2,150,']',163,7,'I',213,'z',208,'W',249,27,
+    231,'S','F','u',170,176,'y','B',203,'h','q',8,233,'`',189,'9','i',206,244,
+    0xaf,0xc3,'V','@',199,173,'R',162,9,228,'o',134,'G',138,31,235,'(',39,']',
+    0x83,' ',0xaf,4,201,'l','V',154,139,'F',245,2,3,1,0,1,163,129,131,'0',129,
+    128,'0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',14,6,3,'U',29,15,1,
+    1,0xff,4,4,3,2,1,6,'0',29,6,3,'U',29,14,4,22,4,20,247,'}',197,253,196,232,
+    0x9a,27,'w','d',167,245,29,160,204,191,135,'`',154,'m','0','>',6,3,'U',29,
+    ' ',4,'7','0','5','0','3',6,4,'U',29,' ',0,'0','+','0',')',6,8,'+',6,1,5,
+    5,7,2,1,22,29,'h','t','t','p',':','/','/','w','w','w','.','c','e','r','t',
+    '.','f','n','m','t','.','e','s','/','d','p','c','s','/','0',0x0d,6,9,'*',
+    0x86,'H',0x86,247,13,1,1,11,5,0,3,130,2,1,0,7,144,'J',223,243,'#','N',240,
+    0xc3,156,'Q','e',155,156,'"',162,138,12,133,243,'s',')','k','M',254,1,226,
+    0xa9,0xc,'c',1,191,4,'g',165,157,152,'_',253,1,19,250,236,154,'b',233,134,
+    0xfe,0xb6,'b',0xd2,'n','L',148,251,192,'u','E','|','e',12,248,178,'7',207,
+    0xac,15,207,141,'o',249,25,247,143,236,30,242,'p',158,240,202,184,239,183,
+    255,'v','7','v','[',246,'n',136,243,175,'b','2','"',147,13,':','j',142,20,
+    'f',0xc,'-','S','t','W','e',30,213,178,221,'#',129,';',165,'f','#',39,'g',
+    0x9,143,225,'w',170,'C',205,'e','Q',8,237,'Q','X',254,230,'9',249,203,'G',
+    0x84,164,21,241,'v',187,164,238,164,';',196,'_',239,178,'3',150,17,24,183,
+    0xc9,'e',190,24,225,163,164,220,250,24,249,211,188,19,155,'9','z','4',186,
+    211,'A',251,250,'2',138,'*',183,'+',134,11,'i',131,'8',190,205,138,'.',11,
+    'p',173,141,'&',146,238,30,245,1,'+',10,217,214,151,155,'n',224,168,25,28,
+    ':','!',0x8b,12,30,'@',173,3,231,221,'f','~',245,185,' ',13,3,232,150,249,
+    130,'E',212,'9',224,160,0,']',215,152,230,'}',158,'g','s',195,154,'*',247,
+    0xab,0x8b,0xa1,':',20,239,'4',188,'R',14,137,152,154,4,'@',132,29,'~','E',
+    'i',0x93,'W',206,235,206,248,'P','|','O',28,'n',4,'C',155,249,214,';','#',
+    0x18,0xe9,234,142,209,'M','F',141,241,';',228,'j',202,186,251,'#',183,155,
+    0xfa,153,1,')','Z','X','Z','-',227,249,212,'m',14,'&',173,193,'n','4',188,
+    '2',0xf8,12,5,250,'e',163,219,';','7',131,'"',233,214,220,'r','3',253,']',
+    0xf2,' ',0xbd,'v','<','#',0xda,'(',247,249,27,235,'Y','d',213,220,'_','r',
+    '~',' ',0xfc,0xcd,0x89,181,144,'g','M','b','z','?','N',173,29,195,'9',254,
+    'z',0xf4,'(',22,223,'A',246,'H',128,5,215,15,'Q','y',172,16,171,212,236,3,
+    'f',0xe6,'j',0xb0,186,'1',146,'B','@','j',190,':',211,'r',225,'j','7','U',
+    0xbc,0xac,29,149,183,'i','a',242,'C',145,'t',230,160,211,10,'$','F',161,8,
+    175,214,218,'E',25,150,212,'S',29,'[',132,'y',240,192,247,'G',239,139,143,
+    197,6,174,157,'L','b',157,255,'F',4,248,211,201,182,16,'%','@','u',254,22,
+    0xaa,0xc9,'J','`',134,'/',186,239,'0','w',228,'T',226,184,132,153,'X',128,
+    170,19,139,'Q',':','O','H',246,139,182,179,
+]
+
 
 /**
 AC RAIZ FNMT-RCM.
 SHA256 fingerprint: eb:c5:57:0c:29:01:8c:4d:67:b1:aa:12:7b:af:12:f7:03:b4:61:1e:bc:17:b7:da:b5:57:38:94:17:9b:93:fa
 */
-AC_RAIZ_FNMT_RCM ::= net.Certificate.parse AC_RAIZ_FNMT_RCM_TEXT_
+AC_RAIZ_FNMT_RCM ::= parse_ AC_RAIZ_FNMT_RCM_BYTES_
 
-AMAZON_ROOT_CA_1_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIDQTCCAimgAwIBAgITBmyfz5m/jAo54vB4ikPmljZbyjANBgkqhkiG9w0BAQsF
-ADA5MQswCQYDVQQGEwJVUzEPMA0GA1UEChMGQW1hem9uMRkwFwYDVQQDExBBbWF6
-b24gUm9vdCBDQSAxMB4XDTE1MDUyNjAwMDAwMFoXDTM4MDExNzAwMDAwMFowOTEL
-MAkGA1UEBhMCVVMxDzANBgNVBAoTBkFtYXpvbjEZMBcGA1UEAxMQQW1hem9uIFJv
-b3QgQ0EgMTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALJ4gHHKeNXj
-ca9HgFB0fW7Y14h29Jlo91ghYPl0hAEvrAIthtOgQ3pOsqTQNroBvo3bSMgHFzZM
-9O6II8c+6zf1tRn4SWiw3te5djgdYZ6k/oI2peVKVuRF4fn9tBb6dNqcmzU5L/qw
-IFAGbHrQgLKm+a/sRxmPUDgH3KKHOVj4utWp+UhnMJbulHheb4mjUcAwhmahRWa6
-VOujw5H5SNz/0egwLX0tdHA114gk957EWW67c4cX8jJGKLhD+rcdqsq08p8kDi1L
-93FcXmn/6pUCyziKrlA4b9v7LWIbxcceVOF34GfID5yHI9Y/QCB/IIDEgEw+OyQm
-jgSubJrIqg0CAwEAAaNCMEAwDwYDVR0TAQH/BAUwAwEB/zAOBgNVHQ8BAf8EBAMC
-AYYwHQYDVR0OBBYEFIQYzIU07LwMlJQuCFmcx7IQTgoIMA0GCSqGSIb3DQEBCwUA
-A4IBAQCY8jdaQZChGsV2USggNiMOruYou6r4lK5IpDB/G/wkjUu0yKGX9rbxenDI
-U5PMCCjjmCXPI6T53iHTfIUJrU6adTrCC2qJeHZERxhlbI1Bjjt/msv0tadQ1wUs
-N+gDS63pYaACbvXy8MWy7Vu33PqUXHeeE6V/Uq2V8viTO96LXFvKWlJbYK8U90vv
-o/ufQJVtMVT8QtPHRh8jrdkPSHCa2XV4cdFyQzR1bldZwgJcJmApzyMZFo6IQ6XU
-5MsI+yMRQ+hDKXJioaldXgjUkK642M4UwtBV8ob2xJNDd2ZhwLnoQdeXeGADbkpy
-rqXRfboQnoZsG4q5WTP468SQvvG5
------END CERTIFICATE-----
-"""
+AMAZON_ROOT_CA_1_BYTES_ ::= #[
+    '0',130,3,'A','0',130,2,')',160,3,2,1,2,2,19,6,'l',159,207,153,191,140,10,
+    '9',0xe2,0xf0,'x',0x8a,'C',230,150,'6','[',202,'0',13,6,9,'*',134,'H',134,
+    0xf7,0x0d,1,1,11,5,0,'0','9','1',11,'0',9,6,3,'U',4,6,19,2,'U','S','1',15,
+    '0',0xd,6,3,'U',4,10,19,6,'A','m','a','z','o','n','1',25,'0',23,6,3,'U',4,
+    0x3,19,16,'A','m','a','z','o','n',' ','R','o','o','t',' ','C','A',' ','1',
+    '0',0x1e,23,0xd,'1','5','0','5','2','6','0','0','0','0','0','0','Z',23,13,
+    '3','8','0','1','1','7','0','0','0','0','0','0','Z','0','9','1',0xb,'0',9,
+    6,3,'U',4,6,19,2,'U','S','1',0xf,'0',13,6,3,'U',4,10,19,6,'A','m','a','z',
+    'o','n','1',0x19,'0',23,6,3,'U',4,3,19,16,'A','m','a','z','o','n',' ','R',
+    'o','o','t',' ','C','A',' ','1','0',0x82,1,'"','0',13,6,9,'*',134,'H',134,
+    0xf7,0x0d,1,1,1,5,0,3,130,1,15,0,'0',130,1,10,2,130,1,1,0,178,'x',128,'q',
+    0xca,'x',0xd5,227,'q',175,'G',128,'P','t','}','n',216,215,136,'v',244,153,
+    'h',0xf7,'X','!','`',0xf9,'t',132,1,'/',172,2,'-',134,211,160,'C','z','N',
+    0xb2,0xa4,0xd0,'6',186,1,190,141,219,'H',200,7,23,'6','L',244,238,136,'#',
+    199,'>',235,'7',245,181,25,248,'I','h',176,222,215,185,'v','8',29,'a',158,
+    0xa4,0xfe,0x82,'6',165,229,'J','V',228,'E',225,249,253,180,22,250,'t',218,
+    156,155,'5','9','/',250,176,' ','P',6,'l','z',208,128,178,166,249,175,236,
+    'G',25,0x8f,'P','8',7,220,162,135,'9','X',248,186,213,169,249,'H','g','0',
+    0x96,0xee,148,'x','^','o',137,163,'Q',192,'0',134,'f',161,'E','f',186,'T',
+    0xeb,0xa3,195,145,249,'H',220,255,209,232,'0','-','}','-','t','p','5',215,
+    0x88,'$',0xf7,0x9e,196,'Y','n',187,'s',135,23,242,'2','F','(',184,'C',250,
+    0xb7,29,170,202,180,242,159,'$',14,'-','K',247,'q',92,'^','i',255,234,149,
+    0x2,203,'8',138,174,'P','8','o',219,251,'-','b',27,197,199,30,'T',225,'w',
+    0xe0,'g',0xc8,0xf,156,135,'#',214,'?','@',' ',127,' ',128,196,128,'L','>',
+    ';','$','&',142,4,174,'l',154,200,170,13,2,3,1,0,1,163,'B','0','@','0',15,
+    6,3,'U',29,19,1,1,0xff,4,5,'0',3,1,1,255,'0',14,6,3,'U',29,15,1,1,255,4,4,
+    0x03,2,1,134,'0',29,6,3,'U',29,14,4,22,4,20,132,24,204,133,'4',236,188,12,
+    0x94,148,'.',8,'Y',156,199,178,16,'N',10,8,'0',13,6,9,'*',134,'H',134,247,
+    0xd,1,1,11,5,0,3,130,1,1,0,152,242,'7','Z','A',144,161,26,197,'v','Q','(',
+    ' ','6','#',14,174,230,'(',187,170,248,148,174,'H',164,'0',127,27,252,'$',
+    141,'K',180,200,161,151,246,182,241,'z','p',200,'S',147,204,8,'(',227,152,
+    '%',0xcf,'#',164,249,222,'!',211,'|',133,9,173,'N',154,'u',':',194,11,'j',
+    0x89,'x','v','D','G',0x18,'e','l',141,'A',142,';',127,154,203,244,181,167,
+    'P',215,5,',','7',232,3,'K',173,233,'a',160,2,'n',245,242,240,197,178,237,
+    '[',183,220,250,148,92,'w',158,19,165,127,'R',173,149,242,248,147,';',222,
+    139,92,'[',202,'Z','R','[','`',175,20,247,'K',239,163,251,159,'@',149,'m',
+    '1','T',252,'B',211,199,'F',31,'#',173,217,15,'H','p',154,217,'u','x','q',
+    0xd1,'r','C','4','u','n','W','Y',0xc2,2,92,'&','`',')',0xcf,'#',25,22,142,
+    0x88,'C',165,212,228,203,8,251,'#',17,'C',232,'C',')','r','b',161,169,']',
+    '^',8,0xd4,144,174,184,216,206,20,194,208,'U',242,134,246,196,147,'C','w',
+    'f','a',192,185,232,'A',215,151,'x','`',3,'n','J','r',174,165,209,'}',186,
+    16,158,134,'l',27,138,185,'Y','3',248,235,196,144,190,241,185,
+]
+
 
 /**
 Amazon Root CA 1.
 SHA256 fingerprint: 8e:cd:e6:88:4f:3d:87:b1:12:5b:a3:1a:c3:fc:b1:3d:70:16:de:7f:57:cc:90:4f:e1:cb:97:c6:ae:98:19:6e
 */
-AMAZON_ROOT_CA_1 ::= net.Certificate.parse AMAZON_ROOT_CA_1_TEXT_
+AMAZON_ROOT_CA_1 ::= parse_ AMAZON_ROOT_CA_1_BYTES_
 
-AMAZON_ROOT_CA_2_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIFQTCCAymgAwIBAgITBmyf0pY1hp8KD+WGePhbJruKNzANBgkqhkiG9w0BAQwF
-ADA5MQswCQYDVQQGEwJVUzEPMA0GA1UEChMGQW1hem9uMRkwFwYDVQQDExBBbWF6
-b24gUm9vdCBDQSAyMB4XDTE1MDUyNjAwMDAwMFoXDTQwMDUyNjAwMDAwMFowOTEL
-MAkGA1UEBhMCVVMxDzANBgNVBAoTBkFtYXpvbjEZMBcGA1UEAxMQQW1hem9uIFJv
-b3QgQ0EgMjCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAK2Wny2cSkxK
-gXlRmeyKy2tgURO8TW0G/LAIjd0ZEGrHJgw12MBvIITplLGbhQPDW9tK6Mj4kHbZ
-W0/jTOgGNk3Mmqw9DJArktQGGWCsN0R5hYGCrVo34A3MnaZMUnbqQ523BNFQ9lXg
-1dKmSYXpN+nKfq5clU1Imj+uIFptiJXZNLhSGkOQsL9sBbm2eLfq0OQ6PBJTYv9K
-8nu+NQWpEjTj82R0Yiw9AElaKP4yRLuH3WUnAnE72kr3H9rN9yFVkE8P7K6C4Z9r
-2UXTu/Bfh+08LDmG2j/e7HJV63mjrdvdfLC6HM783k81ds8P+HgfajZRRidhW+me
-z/CiVX18JYpvL7TFz4QuK/0NURBs+18bvBt+xa47mAExkv8LV/SasrlX6avvDXbR
-8O70zoan4G7ptGmh32n2M8ZpLpcTnqWHsFcQgTfJU7O7f/aS0ZzQGPSSbtqDT6Zj
-mUyl+17vIWR6IF9sZIUVyzfpYgwLKhbcAS4y2j5L9Z469hdAlO+ekQiG+r5jqFoz
-7Mt0Q5X5bGlSNscpb/xVA1wf+5+9R+vnSUeVC06JIglJ4PVhHvG/LopyboBZ/1c6
-+XUyo05f7O0oYtlNc/LMgRdg7c3r3NunysV+Ar3yVAhU/bQtCSwXVEqY0VThUWcI
-0u1ufm8/0i2BWSlmy5A5lREedCf+3euvAgMBAAGjQjBAMA8GA1UdEwEB/wQFMAMB
-Af8wDgYDVR0PAQH/BAQDAgGGMB0GA1UdDgQWBBSwDPBMMPQFWAJI/TPlUq9LhONm
-UjANBgkqhkiG9w0BAQwFAAOCAgEAqqiAjw54o+Ci1M3m9Zh6O+oAA7CXDpO8Wqj2
-LIxyh6mx/H9z/WNxeKWHWc8w4Q0QshNabYL1auaAn6AFC2jkR2vHat+2/XcycuUY
-+gn0oJMsXdKMdYV2ZZAMA3m3MSNjrXiDCYZohMr/+c8mmpJ5581LxedhpxfL86kS
-k5Nrp+gvU5LEYFiwzAJRGFuFjWJZY7attN6a+yb3ACfAXVU3dJnJUH/jWS5E4ywl
-7uxMMne0nxrpS10gxdr9HIcWxkPo1LsmmkVwXqkLN1PiRnsn/eBG8om3zEK2yygm
-btmlyTrIQRNg91CMFa6ybRoVGld45pIq2WWQgj9sAq+uEjonljYE1x2igGOpm/Hl
-urR8FLBOybEfdF849lHqm/osohHUqS0nGkWxr7JOcQ3AWEbWaQbLU8uz/mtBzUF+
-fUwPfHJ5elnNXkoOrJupmHN5fLT0zLm4BwyydFy4x2+IoZCn9Kr5v2c69BoVYh63
-n749sSmvZ6ES8lgQGVMDMBu4Gon2nL2XA46jCfMdiyHxtN/kHNGfZQIG6lzWE7OE
-76KlXIx3KadowGuuQNKotOrN8I1LOJwZmhsoVLiJkO/KdYE+HvJkJMcYr07/R54H
-9jVlpNMKVv/1F2Rs76giJUmTtt8AF9pYfl3uxRuw0dFfIRDH+fO6AgonB8Xx1sfT
-4PsJYGw=
------END CERTIFICATE-----
-"""
+AMAZON_ROOT_CA_2_BYTES_ ::= #[
+    '0',0x82,0x5,'A','0',130,3,')',160,3,2,1,2,2,19,6,'l',159,210,150,'5',134,
+    0x9f,10,15,229,134,'x',248,'[','&',187,138,'7','0',13,6,9,'*',134,'H',134,
+    0xf7,0x0d,1,1,12,5,0,'0','9','1',11,'0',9,6,3,'U',4,6,19,2,'U','S','1',15,
+    '0',0xd,6,3,'U',4,10,19,6,'A','m','a','z','o','n','1',25,'0',23,6,3,'U',4,
+    0x3,19,16,'A','m','a','z','o','n',' ','R','o','o','t',' ','C','A',' ','2',
+    '0',0x1e,23,0xd,'1','5','0','5','2','6','0','0','0','0','0','0','Z',23,13,
+    '4','0','0','5','2','6','0','0','0','0','0','0','Z','0','9','1',0xb,'0',9,
+    6,3,'U',4,6,19,2,'U','S','1',0xf,'0',13,6,3,'U',4,10,19,6,'A','m','a','z',
+    'o','n','1',0x19,'0',23,6,3,'U',4,3,19,16,'A','m','a','z','o','n',' ','R',
+    'o','o','t',' ','C','A',' ','2','0',0x82,2,'"','0',13,6,9,'*',134,'H',134,
+    0xf7,0x0d,1,1,1,5,0,3,130,2,15,0,'0',130,2,10,2,130,2,1,0,173,150,159,'-',
+    0x9c,'J','L','J',129,'y','Q',153,236,138,203,'k','`','Q',19,188,'M','m',6,
+    0xfc,0xb0,8,0x8d,221,25,16,'j',199,'&',12,'5',216,192,'o',' ',132,233,148,
+    177,155,133,3,195,'[',219,'J',232,200,248,144,'v',217,'[','O',227,'L',232,
+    6,'6','M',204,154,172,'=',12,144,'+',146,212,6,25,'`',172,'7','D','y',133,
+    0x81,130,173,'Z','7',224,13,204,157,166,'L','R','v',234,'C',157,183,4,209,
+    'P',0xf6,'U',0xe0,0xd5,210,166,'I',133,233,'7',233,202,'~',174,92,149,'M',
+    'H',0x9a,'?',0xae,' ','Z','m',0x88,149,217,'4',184,'R',26,'C',144,176,191,
+    'l',5,0xb9,182,'x',183,234,208,228,':','<',18,'S','b',255,'J',242,'{',190,
+    '5',0x05,169,18,'4',227,243,'d','t','b',',','=',0,'I','Z','(',254,'2','D',
+    0xbb,0x87,221,'e',39,2,'q',';',218,'J',247,31,218,205,247,'!','U',144,'O',
+    0x0f,0xec,174,130,225,159,'k',217,'E',211,187,240,'_',135,237,'<',',','9',
+    0x86,0xda,'?',0xde,236,'r','U',235,'y',163,173,219,221,'|',176,186,28,206,
+    0xfc,222,'O','5','v',207,15,248,'x',31,'j','6','Q','F',39,'a','[',233,158,
+    0xcf,0xf0,0xa2,'U','}','|','%',138,'o','/',180,197,207,132,'.','+',253,13,
+    'Q',16,'l',251,'_',27,188,27,'~',197,174,';',152,1,'1',146,255,11,'W',244,
+    0x9a,0xb2,0xb9,'W',233,171,239,13,'v',209,240,238,244,206,134,167,224,'n',
+    233,180,'i',161,223,'i',246,'3',198,'i','.',151,19,158,165,135,176,'W',16,
+    0x81,'7',0xc9,'S',0xb3,187,127,246,146,209,156,208,24,244,146,'n',218,131,
+    'O',0xa6,'c',0x99,'L',0xa5,251,'^',239,'!','d','z',' ','_','l','d',133,21,
+    203,'7',233,'b',12,11,'*',22,220,1,'.','2',218,'>','K',245,158,':',246,23,
+    '@',148,239,158,145,8,134,250,190,'c',168,'Z','3',236,203,'t','C',149,249,
+    'l','i','R','6',0xc7,')','o',0xfc,'U',3,92,31,251,159,189,'G',235,231,'I',
+    'G',0x95,0xb,'N',137,'"',9,'I',224,245,'a',30,241,191,'.',138,'r','n',128,
+    'Y',0xff,'W',':',0xf9,'u','2',163,'N','_',236,237,'(','b',217,'M','s',242,
+    0xcc,0x81,23,'`',0xed,205,235,220,219,167,202,197,'~',2,189,242,'T',8,'T',
+    0xfd,0xb4,'-',9,',',23,'T','J',0x98,209,'T',225,'Q','g',8,210,237,'n','~',
+    'o','?',0xd2,'-',129,'Y',')','f',203,144,'9',149,17,30,'t',39,254,221,235,
+    0xaf,2,3,1,0,1,163,'B','0','@','0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,
+    0xff,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,134,'0',29,6,3,'U',29,14,4,22,
+    0x4,20,176,12,240,'L','0',244,5,'X',2,'H',253,'3',229,'R',175,'K',132,227,
+    'f','R','0',0xd,6,9,'*',134,'H',134,247,13,1,1,12,5,0,3,130,2,1,0,170,168,
+    128,143,14,'x',163,224,162,212,205,230,245,152,'z',';',234,0,3,176,151,14,
+    0x93,0xbc,'Z',168,246,',',140,'r',135,169,177,252,127,'s',253,'c','q','x',
+    0xa5,135,'Y',207,'0',225,13,16,178,19,'Z','m',130,245,'j',230,128,159,160,
+    5,11,'h',228,'G','k',199,'j',223,182,253,'w','2','r',229,24,250,9,244,160,
+    0x93,',',']',210,140,'u',133,'v','e',144,12,3,'y',183,'1','#','c',173,'x',
+    131,9,134,'h',132,202,255,249,207,'&',154,146,'y',231,205,'K',197,231,'a',
+    167,23,203,243,169,18,147,147,'k',167,232,'/','S',146,196,'`','X',176,204,
+    2,'Q',24,'[',133,141,'b','Y','c',182,173,180,222,154,251,'&',247,0,39,192,
+    ']','U','7','t',0x99,0xc9,'P',127,227,'Y','.','D',227,',','%',238,236,'L',
+    '2','w',0xb4,159,26,233,'K',']',' ',197,218,253,28,135,22,198,'C',232,212,
+    187,'&',154,'E','p','^',169,11,'7','S',226,'F','{',39,253,224,'F',242,137,
+    0xb7,0xcc,'B',0xb6,203,'(','&','n',217,165,201,':',200,'A',19,'`',247,'P',
+    140,21,174,178,'m',26,21,26,'W','x',230,146,'*',217,'e',144,130,'?','l',2,
+    0xaf,0xae,18,':',39,0x96,'6',4,215,29,162,128,'c',169,155,241,229,186,180,
+    '|',20,0xb0,'N',201,177,31,'t','_','8',246,'Q',234,155,250,',',162,17,212,
+    0xa9,'-',0x27,26,'E',177,175,178,'N','q',13,192,'X','F',214,'i',6,203,'S',
+    0xcb,0xb3,0xfe,'k','A',205,'A','~','}','L',15,'|','r','y','z','Y',205,'^',
+    'J',0x0e,0xac,155,169,152,'s','y','|',180,244,204,185,184,7,12,178,'t',92,
+    0xb8,199,'o',136,161,144,167,244,170,249,191,'g',':',244,26,21,'b',30,183,
+    0x9f,190,'=',177,')',175,'g',161,18,242,'X',16,25,'S',3,'0',27,184,26,137,
+    246,156,189,151,3,142,163,9,243,29,139,'!',241,180,223,228,28,209,159,'e',
+    2,6,0xea,92,214,19,179,132,239,162,165,92,140,'w',')',167,'h',192,'k',174,
+    '@',210,168,180,234,205,240,141,'K','8',156,25,154,27,'(','T',184,137,144,
+    0xef,0xca,'u',129,'>',30,242,'d','$',199,24,175,'N',255,'G',158,7,246,'5',
+    'e',0xa4,0xd3,10,'V',255,245,23,'d','l',239,168,'"','%','I',147,182,223,0,
+    23,218,'X','~',']',238,197,27,176,209,209,'_','!',16,199,249,243,186,2,10,
+    39,7,197,241,214,199,211,224,251,9,'`','l',
+]
+
 
 /**
 Amazon Root CA 2.
 SHA256 fingerprint: 1b:a5:b2:aa:8c:65:40:1a:82:96:01:18:f8:0b:ec:4f:62:30:4d:83:ce:c4:71:3a:19:c3:9c:01:1e:a4:6d:b4
 */
-AMAZON_ROOT_CA_2 ::= net.Certificate.parse AMAZON_ROOT_CA_2_TEXT_
+AMAZON_ROOT_CA_2 ::= parse_ AMAZON_ROOT_CA_2_BYTES_
 
-AMAZON_ROOT_CA_3_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIBtjCCAVugAwIBAgITBmyf1XSXNmY/Owua2eiedgPySjAKBggqhkjOPQQDAjA5
-MQswCQYDVQQGEwJVUzEPMA0GA1UEChMGQW1hem9uMRkwFwYDVQQDExBBbWF6b24g
-Um9vdCBDQSAzMB4XDTE1MDUyNjAwMDAwMFoXDTQwMDUyNjAwMDAwMFowOTELMAkG
-A1UEBhMCVVMxDzANBgNVBAoTBkFtYXpvbjEZMBcGA1UEAxMQQW1hem9uIFJvb3Qg
-Q0EgMzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABCmXp8ZBf8ANm+gBG1bG8lKl
-ui2yEujSLtf6ycXYqm0fc4E7O5hrOXwzpcVOho6AF2hiRVd9RFgdszflZwjrZt6j
-QjBAMA8GA1UdEwEB/wQFMAMBAf8wDgYDVR0PAQH/BAQDAgGGMB0GA1UdDgQWBBSr
-ttvXBp43rDCGB5Fwx5zEGbF4wDAKBggqhkjOPQQDAgNJADBGAiEA4IWSoxe3jfkr
-BqWTrBqYaGFy+uGh0PsceGCmQ5nFuMQCIQCcAu/xlJyzlvnrxir4tiz+OpAUFteM
-YyRIHN8wfdVoOw==
------END CERTIFICATE-----
-"""
+AMAZON_ROOT_CA_3_BYTES_ ::= #[
+    '0',0x82,0x1,182,'0',130,1,'[',160,3,2,1,2,2,19,6,'l',159,213,'t',151,'6',
+    'f','?',';',0x0b,154,217,232,158,'v',3,242,'J','0',10,6,8,'*',134,'H',206,
+    '=',4,3,2,'0','9','1',11,'0',9,6,3,'U',4,6,19,2,'U','S','1',15,'0',13,6,3,
+    'U',4,10,19,6,'A','m','a','z','o','n','1',25,'0',23,6,3,'U',4,3,19,16,'A',
+    'm','a','z','o','n',' ','R','o','o','t',' ','C','A',' ','3','0',30,23,0xd,
+    '1','5','0','5','2','6','0','0','0','0','0','0','Z',23,13,'4','0','0','5',
+    '2','6','0','0','0','0','0','0','Z','0','9','1',11,'0',9,6,3,'U',4,6,19,2,
+    'U','S','1',0x0f,'0',0xd,6,3,'U',4,10,19,6,'A','m','a','z','o','n','1',25,
+    '0',23,6,3,'U',4,3,19,16,'A','m','a','z','o','n',' ','R','o','o','t',' ',
+    'C','A',' ','3','0','Y','0',0x13,6,7,'*',0x86,'H',206,'=',2,1,6,8,'*',134,
+    'H',0xce,'=',3,1,7,3,'B',0,4,')',0x97,167,198,'A',127,192,13,155,232,1,27,
+    'V',0xc6,0xf2,'R',0xa5,186,'-',178,18,232,210,'.',215,250,201,197,216,170,
+    'm',31,'s',129,';',';',152,'k','9','|','3',165,197,'N',134,142,128,23,'h',
+    'b','E','W','}','D','X',29,0xb3,'7',229,'g',8,235,'f',222,163,'B','0','@',
+    '0',0x0f,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',14,6,3,'U',29,15,1,1,
+    0xff,0x4,4,3,2,1,134,'0',29,6,3,'U',29,14,4,22,4,20,171,182,219,215,6,158,
+    '7',0xac,'0',0x86,7,145,'p',199,156,196,25,177,'x',192,'0',10,6,8,'*',134,
+    'H',0xce,'=',4,3,2,3,'I',0,'0','F',2,'!',0,224,133,146,163,23,183,141,249,
+    '+',0x6,165,147,172,26,152,'h','a','r',250,225,161,208,251,28,'x','`',166,
+    'C',153,197,184,196,2,'!',0,156,2,239,241,148,156,179,150,249,235,198,'*',
+    0xf8,182,',',254,':',144,20,22,215,140,'c','$','H',28,223,'0','}',213,'h',
+    ';',
+]
+
 
 /**
 Amazon Root CA 3.
 SHA256 fingerprint: 18:ce:6c:fe:7b:f1:4e:60:b2:e3:47:b8:df:e8:68:cb:31:d0:2e:bb:3a:da:27:15:69:f5:03:43:b4:6d:b3:a4
 */
-AMAZON_ROOT_CA_3 ::= net.Certificate.parse AMAZON_ROOT_CA_3_TEXT_
+AMAZON_ROOT_CA_3 ::= parse_ AMAZON_ROOT_CA_3_BYTES_
 
-AMAZON_ROOT_CA_4_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIB8jCCAXigAwIBAgITBmyf18G7EEwpQ+Vxe3ssyBrBDjAKBggqhkjOPQQDAzA5
-MQswCQYDVQQGEwJVUzEPMA0GA1UEChMGQW1hem9uMRkwFwYDVQQDExBBbWF6b24g
-Um9vdCBDQSA0MB4XDTE1MDUyNjAwMDAwMFoXDTQwMDUyNjAwMDAwMFowOTELMAkG
-A1UEBhMCVVMxDzANBgNVBAoTBkFtYXpvbjEZMBcGA1UEAxMQQW1hem9uIFJvb3Qg
-Q0EgNDB2MBAGByqGSM49AgEGBSuBBAAiA2IABNKrijdPo1MN/sGKe0uoe0ZLY7Bi
-9i0b2whxIdIA6GO9mif78DluXeo9pcmBqqNbIJhFXRbb/egQbeOc4OO9X4Ri83Bk
-M6DLJC9wuoihKqB1+IGuYgbEgds5bimwHvouXKNCMEAwDwYDVR0TAQH/BAUwAwEB
-/zAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0OBBYEFNPsxzplbszh2naaVvuc84ZtV+WB
-MAoGCCqGSM49BAMDA2gAMGUCMDqLIfG9fhGt0O9Yli/W651+kI0rz2ZVwyzjKKlw
-CkcO8DdZEv8tmZQoTipPNU0zWgIxAOp1AE47xDqUEpHJWEadIRNyp4iciuRMStuW
-1KyLa2tJElMzrdfkviT8tQp21KW8EA==
------END CERTIFICATE-----
-"""
+AMAZON_ROOT_CA_4_BYTES_ ::= #[
+    '0',130,1,242,'0',130,1,'x',160,3,2,1,2,2,19,6,'l',159,215,193,187,16,'L',
+    ')','C',0xe5,'q','{','{',',',200,26,193,14,'0',10,6,8,'*',134,'H',206,'=',
+    4,3,3,'0','9','1',11,'0',9,6,3,'U',4,6,19,2,'U','S','1',15,'0',13,6,3,'U',
+    4,10,19,6,'A','m','a','z','o','n','1',25,'0',23,6,3,'U',4,3,19,16,'A','m',
+    'a','z','o','n',' ','R','o','o','t',' ','C','A',' ','4','0',30,23,0xd,'1',
+    '5','0','5','2','6','0','0','0','0','0','0','Z',23,13,'4','0','0','5','2',
+    '6','0','0','0','0','0','0','Z','0','9','1',11,'0',9,6,3,'U',4,6,19,2,'U',
+    'S','1',15,'0',13,6,3,'U',4,10,19,6,'A','m','a','z','o','n','1',25,'0',23,
+    6,3,'U',4,3,19,16,'A','m','a','z','o','n',' ','R','o','o','t',' ','C','A',
+    ' ','4','0','v','0',16,6,7,'*',0x86,'H',206,'=',2,1,6,5,'+',129,4,0,'"',3,
+    'b',0x00,4,210,171,138,'7','O',163,'S',13,254,193,138,'{','K',168,'{','F',
+    'K','c',176,'b',246,'-',27,219,8,'q','!',210,0,232,'c',189,154,39,251,240,
+    '9','n',']',0xea,'=',0xa5,0xc9,129,170,163,'[',' ',152,'E',']',22,219,253,
+    0xe8,0x10,'m',227,156,224,227,189,'_',132,'b',243,'p','d','3',160,203,'$',
+    '/','p',186,136,161,'*',160,'u',248,129,174,'b',6,196,129,219,'9','n',')',
+    0xb0,30,250,'.',92,163,'B','0','@','0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,
+    1,1,255,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,134,'0',29,6,3,'U',29,14,4,
+    0x16,4,20,211,236,199,':','e','n',204,225,218,'v',154,'V',251,156,243,134,
+    'm','W',0xe5,0x81,'0',0xa,6,8,'*',134,'H',206,'=',4,3,3,3,'h',0,'0','e',2,
+    '0',':',0x8b,'!',0xf1,0xbd,'~',17,173,208,239,'X',150,'/',214,235,157,'~',
+    0x90,141,'+',207,'f','U',195,',',227,'(',169,'p',10,'G',14,240,'7','Y',18,
+    255,'-',153,148,'(','N','*','O','5','M','3','Z',2,'1',0,234,'u',0,'N',';',
+    196,':',148,18,145,201,'X','F',157,'!',19,'r',167,136,156,138,228,'L','J',
+    219,150,212,172,139,'k','k','I',18,'S','3',173,215,228,190,'$',252,181,10,
+    'v',212,165,188,16,
+]
+
 
 /**
 Amazon Root CA 4.
 SHA256 fingerprint: e3:5d:28:41:9e:d0:20:25:cf:a6:90:38:cd:62:39:62:45:8d:a5:c6:95:fb:de:a3:c2:2b:0b:fb:25:89:70:92
 */
-AMAZON_ROOT_CA_4 ::= net.Certificate.parse AMAZON_ROOT_CA_4_TEXT_
+AMAZON_ROOT_CA_4 ::= parse_ AMAZON_ROOT_CA_4_BYTES_
 
-TUBITAK_KAMU_SM_SSL_KOK_SERTIFIKASI_SURUM_1_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIEYzCCA0ugAwIBAgIBATANBgkqhkiG9w0BAQsFADCB0jELMAkGA1UEBhMCVFIx
-GDAWBgNVBAcTD0dlYnplIC0gS29jYWVsaTFCMEAGA1UEChM5VHVya2l5ZSBCaWxp
-bXNlbCB2ZSBUZWtub2xvamlrIEFyYXN0aXJtYSBLdXJ1bXUgLSBUVUJJVEFLMS0w
-KwYDVQQLEyRLYW11IFNlcnRpZmlrYXN5b24gTWVya2V6aSAtIEthbXUgU00xNjA0
-BgNVBAMTLVRVQklUQUsgS2FtdSBTTSBTU0wgS29rIFNlcnRpZmlrYXNpIC0gU3Vy
-dW0gMTAeFw0xMzExMjUwODI1NTVaFw00MzEwMjUwODI1NTVaMIHSMQswCQYDVQQG
-EwJUUjEYMBYGA1UEBxMPR2ViemUgLSBLb2NhZWxpMUIwQAYDVQQKEzlUdXJraXll
-IEJpbGltc2VsIHZlIFRla25vbG9qaWsgQXJhc3Rpcm1hIEt1cnVtdSAtIFRVQklU
-QUsxLTArBgNVBAsTJEthbXUgU2VydGlmaWthc3lvbiBNZXJrZXppIC0gS2FtdSBT
-TTE2MDQGA1UEAxMtVFVCSVRBSyBLYW11IFNNIFNTTCBLb2sgU2VydGlmaWthc2kg
-LSBTdXJ1bSAxMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAr3UwM6q7
-a9OZLBI3hNmNe5eA027n/5tQlT6QlVZC1xl8JoSNkvoBHToP4mQ4t4y86Ij5iySr
-LqP1N+RAjhgleYN1Hzv/bKjFxlb4tO2KRKOrbEz8HdDc72i9z+SqzvBV96I01INr
-N3wcwv61A+xXzry0tcXtAA9TNypN9E8Mg/uGz8v+jE69h/mniyFXnHrfA2eJLJ2X
-YacQuFWQfw4tJzh03+f92k4S400VIgLI4OD8D62K18lUUMw7D8oWgITQUVbDjlZ/
-iSIzL+aFCr2lqBs23tPcLG07xxO9WSMs5uWk99gL7eqQQESolbuT1dCANLZGeA4f
-AJNG4e7p+exPFwIDAQABo0IwQDAdBgNVHQ4EFgQUZT/HiobGPN08VFw1+DrtUgxH
-V8gwDgYDVR0PAQH/BAQDAgEGMA8GA1UdEwEB/wQFMAMBAf8wDQYJKoZIhvcNAQEL
-BQADggEBACo/4fEyjq7hmFxLXs9rHmoJ0iKpEsdeV31zVmSAhHqT5Am5EM2fKifh
-AHe+SMg1qIGf5LgsyX8OsNJLN13qudULXjS99HMpw+0mFZx+CFOKWI3QSyjfwbPf
-IPP54+M638yclNhOT8NrF7f3cuitZjO1JVOr4PhMqZ398g26rrnZqsZr+ZO7rqu4
-lzwDGrpDxpa5RXI4s6ehlj2Re37AIVNMh+3yC1SVUZPVIqUNivGTDj5UDrDYyU7c
-8jEyVupk+eq1nRZmQnLzf9OxMUP8pI4X8W0jq5Rm+K37DwhuJi1/FwcJsoz7UMCf
-lo3Ptv0AnVoUmr8CRPXBwp8iXqIPoeM=
------END CERTIFICATE-----
-"""
+TUBITAK_KAMU_SM_SSL_KOK_SERTIFIKASI_SURUM_1_BYTES_ ::= #[
+    '0',0x82,4,'c','0',130,3,'K',160,3,2,1,2,2,1,1,'0',13,6,9,'*',134,'H',134,
+    0xf7,0xd,1,1,11,5,0,'0',129,210,'1',11,'0',9,6,3,'U',4,6,19,2,'T','R','1',
+    0x18,'0',22,6,3,'U',4,7,19,15,'G','e','b','z','e',' ','-',' ','K','o','c',
+    'a','e','l','i','1','B','0','@',0x6,3,'U',4,10,19,'9','T','u','r','k','i',
+    'y','e',' ','B','i','l','i','m','s','e','l',' ','v','e',' ','T','e','k',
+    'n','o','l','o','j','i','k',' ','A','r','a','s','t','i','r','m','a',' ',
+    'K','u','r','u','m','u',' ','-',' ','T','U','B','I','T','A','K','1','-',
+    '0','+',0x6,3,'U',4,11,19,'$','K','a','m','u',' ','S','e','r','t','i','f',
+    'i','k','a','s','y','o','n',' ','M','e','r','k','e','z','i',' ','-',' ',
+    'K','a','m','u',' ','S','M','1','6','0','4',0x06,3,'U',4,3,19,'-','T','U',
+    'B','I','T','A','K',' ','K','a','m','u',' ','S','M',' ','S','S','L',' ',
+    'K','o','k',' ','S','e','r','t','i','f','i','k','a','s','i',' ','-',' ',
+    'S','u','r','u','m',' ','1','0',30,23,0xd,'1','3','1','1','2','5','0','8',
+    '2','5','5','5','Z',23,13,'4','3','1','0','2','5','0','8','2','5','5','5',
+    'Z','0',0x81,0xd2,'1',11,'0',9,6,3,'U',4,6,19,2,'T','R','1',24,'0',22,6,3,
+    'U',4,7,19,15,'G','e','b','z','e',' ','-',' ','K','o','c','a','e','l','i',
+    '1','B','0','@',0x6,3,'U',4,10,19,'9','T','u','r','k','i','y','e',' ','B',
+    'i','l','i','m','s','e','l',' ','v','e',' ','T','e','k','n','o','l','o',
+    'j','i','k',' ','A','r','a','s','t','i','r','m','a',' ','K','u','r','u',
+    'm','u',' ','-',' ','T','U','B','I','T','A','K','1','-','0','+',6,3,'U',4,
+    11,19,'$','K','a','m','u',' ','S','e','r','t','i','f','i','k','a','s','y',
+    'o','n',' ','M','e','r','k','e','z','i',' ','-',' ','K','a','m','u',' ',
+    'S','M','1','6','0','4',0x06,3,'U',4,3,19,'-','T','U','B','I','T','A','K',
+    ' ','K','a','m','u',' ','S','M',' ','S','S','L',' ','K','o','k',' ','S',
+    'e','r','t','i','f','i','k','a','s','i',' ','-',' ','S','u','r','u','m',
+    ' ','1','0',130,1,'"','0',13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,1,
+    0xf,0,'0',130,1,10,2,130,1,1,0,175,'u','0','3',170,187,'k',211,153,',',18,
+    '7',0x84,0xd9,141,'{',151,128,211,'n',231,255,155,'P',149,'>',144,149,'V',
+    'B',0xd7,0x19,'|','&',132,141,146,250,1,29,':',15,226,'d','8',183,140,188,
+    232,136,249,139,'$',171,'.',163,245,'7',228,'@',142,24,'%','y',131,'u',31,
+    ';',0xff,'l',0xa8,0xc5,198,'V',248,180,237,138,'D',163,171,'l','L',252,29,
+    0xd0,0xdc,239,'h',189,207,228,170,206,240,'U',247,162,'4',212,131,'k','7',
+    '|',28,194,254,181,3,236,'W',206,188,180,181,197,237,0,15,'S','7','*','M',
+    0xf4,'O',0x0c,131,251,134,207,203,254,140,'N',189,135,249,167,139,'!','W',
+    0x9c,'z',0xdf,3,'g',0x89,',',157,151,'a',167,16,184,'U',144,127,14,'-',39,
+    '8','t',0xdf,0xe7,0xfd,218,'N',18,227,'M',21,'"',2,200,224,224,252,15,173,
+    138,215,201,'T','P',204,';',15,202,22,128,132,208,'Q','V',195,142,'V',127,
+    137,'"','3','/',230,133,10,189,165,168,27,'6',222,211,220,',','m',';',199,
+    19,189,'Y','#',',',230,229,164,247,216,11,237,234,144,'@','D',168,149,187,
+    0x93,0xd5,208,128,'4',182,'F','x',14,31,0,147,'F',225,238,233,249,236,'O',
+    0x17,2,3,1,0,1,163,'B','0','@','0',29,6,3,'U',29,14,4,22,4,20,'e','?',199,
+    0x8a,134,198,'<',221,'<','T',92,'5',248,':',237,'R',12,'G','W',200,'0',14,
+    6,3,'U',29,0xf,1,1,255,4,4,3,2,1,6,'0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,
+    1,1,0xff,'0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,3,130,1,1,0,'*','?',
+    0xe1,0xf1,'2',0x8e,174,225,152,92,'K','^',207,'k',30,'j',9,210,'"',169,18,
+    0xc7,'^','W','}','s','V','d',0x80,132,'z',147,228,9,185,16,205,159,'*',39,
+    0xe1,0,'w',190,'H',200,'5',168,129,159,228,184,',',201,127,14,176,210,'K',
+    '7',']',0xea,0xb9,213,11,'^','4',189,244,'s',')',195,237,'&',21,156,'~',8,
+    'S',0x8a,'X',0x8d,208,'K','(',223,193,179,223,' ',243,249,227,227,':',223,
+    0xcc,0x9c,0x94,216,'N','O',195,'k',23,183,247,'r',232,173,'f','3',181,'%',
+    'S',0xab,0xe0,0xf8,'L',169,157,253,242,13,186,174,185,217,170,198,'k',249,
+    0x93,187,174,171,184,151,'<',3,26,186,'C',198,150,185,'E','r','8',179,167,
+    0xa1,0x96,'=',0x91,'{','~',192,'!','S','L',135,237,242,11,'T',149,'Q',147,
+    0xd5,'"',165,13,138,241,147,14,'>','T',14,176,216,201,'N',220,242,'1','2',
+    'V',0xea,'d',0xf9,0xea,181,157,22,'f','B','r',243,127,211,177,'1','C',252,
+    0xa4,142,23,241,'m','#',171,148,'f',248,173,251,15,8,'n','&','-',127,23,7,
+    9,0xb2,140,251,'P',192,159,150,141,207,182,253,0,157,'Z',20,154,191,2,'D',
+    245,193,194,159,'"','^',162,15,161,227,
+]
+
 
 /**
 TUBITAK Kamu SM SSL Kok Sertifikasi - Surum 1.
 SHA256 fingerprint: 46:ed:c3:68:90:46:d5:3a:45:3f:b3:10:4a:b8:0d:ca:ec:65:8b:26:60:ea:16:29:dd:7e:86:79:90:64:87:16
 */
-TUBITAK_KAMU_SM_SSL_KOK_SERTIFIKASI_SURUM_1 ::= net.Certificate.parse TUBITAK_KAMU_SM_SSL_KOK_SERTIFIKASI_SURUM_1_TEXT_
+TUBITAK_KAMU_SM_SSL_KOK_SERTIFIKASI_SURUM_1 ::= parse_ TUBITAK_KAMU_SM_SSL_KOK_SERTIFIKASI_SURUM_1_BYTES_
 
-GDCA_TRUSTAUTH_R5_ROOT_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIFiDCCA3CgAwIBAgIIfQmX/vBH6nowDQYJKoZIhvcNAQELBQAwYjELMAkGA1UE
-BhMCQ04xMjAwBgNVBAoMKUdVQU5HIERPTkcgQ0VSVElGSUNBVEUgQVVUSE9SSVRZ
-IENPLixMVEQuMR8wHQYDVQQDDBZHRENBIFRydXN0QVVUSCBSNSBST09UMB4XDTE0
-MTEyNjA1MTMxNVoXDTQwMTIzMTE1NTk1OVowYjELMAkGA1UEBhMCQ04xMjAwBgNV
-BAoMKUdVQU5HIERPTkcgQ0VSVElGSUNBVEUgQVVUSE9SSVRZIENPLixMVEQuMR8w
-HQYDVQQDDBZHRENBIFRydXN0QVVUSCBSNSBST09UMIICIjANBgkqhkiG9w0BAQEF
-AAOCAg8AMIICCgKCAgEA2aMW8Mh0dHeb7zMNOwZ+Vfy1YI92hhJCfVZmPoiC7XJj
-Dp6L3TQsAlFRwxn9WVSEyfFrs0yw6ehGXTjGoqcuEVe6ghWinI9tsJlKCvLriXBj
-TnnEt1u9ol2x8kECK62pOqPseQrsXzrj/e+APK00mxqriCZ7VqKChh/rNYmDf1+u
-KU49tm7srsHwJ5uu4/Ts765/94Y9cnrrpftZTqfrlYwiOXnhLQiPzLyRuEH3FMEj
-qcOtmkVEs7LXLM3GKeJQEK5cy4KOFxg2fZfmiJqwTTQJ9Cy5WmYqsBebnh52nUpm
-MUHfP/vFBu8btn4aRjb3ZGM74zkYI+dndRTVdVeSN72+ahsmUPI2JgaQxXABZG12
-ZuGR224HwGGALrIuL4xwp9E7PLOR5G62xDtw8mySlwnNR30YwPO7ng/Wi64HtloP
-zgsMR6flPri9fcebNaBhlzpBdRfMK5Z3KpIhHtmVdiBnaM8Nvd/WHwlqmuLMc3Gk
-L30SgLdTMEZeS1SZD2fJpcjyIMGC7J0R38IC+xo70e0gmu9lZJIQDSri3nDxGGeC
-jGHeuLzRL5z7D9Ar7Rt2ueQ5Vfj4oR24qoAATILnsn8JuLwwoC8N9VKejveSswoA
-HQBUlwbgsQfZxw9cZX08bVlX5O2ljelAU58VS6Bx9hoh49pwBiFYFIeFd3mqgnkC
-AwEAAaNCMEAwHQYDVR0OBBYEFOLJQJ9NzuiaoXzPDj9lxSmIahlRMA8GA1UdEwEB
-/wQFMAMBAf8wDgYDVR0PAQH/BAQDAgGGMA0GCSqGSIb3DQEBCwUAA4ICAQDRSVfg
-p8xoWLoBDysZzY2wYUWsEe1jUGn4H3++Fo/9nesLqjJHdtJnJO29fDMylyrHBYZm
-DRd9FBUb1Ov9H5r2XpdptxolpAqzkT9fNqyL7FeoPueBihhXOYV0GkLH6VsTX4/5
-COmSdI31R9KrO9b7eGZONn356ZLpBN79SWP8bfsUcZNnL0dKt7n/HipzcEYwv1ry
-L3ml4Y0M2fmyYzeMN2WFcGpcWwlyua1jPLHd+PwyvzeG5LuOmCd+uh8W4XAR8gPf
-JWIyJyYYMoSf/wA6E7qaTfRPuBRwIrHKK5DOKcFw9C+df/KQHtZa37dG/OaG+svg
-IHZ6uqbL9XzeYqWxi+7egmaKTjowHz+Ay60nugxe19CxVsp3cbK1daFQqUBDF8Io
-2c9Si1vIY9RCPqAzekYu9wogRlR+ak8x8YF+QnQ4ZXMn7sZ8uI7XpTrXmKGcjBBV
-09tL7ECQ8s1uV9JiDnxXk7Gnbc2dg7sq5+W2O3FYrf3RRbxake5TFW/TRQl1brqQ
-XR4EzzffHqhmsYzmIGrv/EhOdJhCrylvLmrH+33RZjEizIYAfmaDDEL0vTSSwxrq
-T8p+ck0LcIymSLumoRT2+1hEmRSuqguTaaApJUqlyyvdimYHFngVV3Eb7PVHhPOe
-MTd61X8kreS8/f3MboPoDKi3QWwH3b08hpcv0g==
------END CERTIFICATE-----
-"""
+GDCA_TRUSTAUTH_R5_ROOT_BYTES_ ::= #[
+    '0',130,5,136,'0',130,3,'p',160,3,2,1,2,2,8,'}',9,151,254,240,'G',234,'z',
+    '0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,'0','b','1',11,'0',9,6,3,'U',
+    4,6,19,2,'C','N','1','2','0','0',6,3,'U',4,0xa,12,')','G','U','A','N','G',
+    ' ','D','O','N','G',' ','C','E','R','T','I','F','I','C','A','T','E',' ',
+    'A','U','T','H','O','R','I','T','Y',' ','C','O','.',',','L','T','D','.',
+    '1',0x1f,'0',29,6,3,'U',4,3,12,22,'G','D','C','A',' ','T','r','u','s','t',
+    'A','U','T','H',' ','R','5',' ','R','O','O','T','0',30,23,0xd,'1','4','1',
+    '1','2','6','0','5','1','3','1','5','Z',23,13,'4','0','1','2','3','1','1',
+    '5','5','9','5','9','Z','0','b','1',11,'0',9,6,3,'U',4,6,19,2,'C','N','1',
+    '2','0','0',0x6,3,'U',4,10,12,')','G','U','A','N','G',' ','D','O','N','G',
+    ' ','C','E','R','T','I','F','I','C','A','T','E',' ','A','U','T','H','O',
+    'R','I','T','Y',' ','C','O','.',',','L','T','D','.','1',31,'0',29,6,3,'U',
+    4,3,12,22,'G','D','C','A',' ','T','r','u','s','t','A','U','T','H',' ','R',
+    '5',' ','R','O','O','T','0',130,2,'"','0',13,6,9,'*',134,'H',134,247,13,1,
+    1,1,5,0,3,0x82,2,15,0,'0',130,2,10,2,130,2,1,0,217,163,22,240,200,'t','t',
+    'w',0x9b,0xef,'3',13,';',6,'~','U',252,181,'`',143,'v',134,18,'B','}','V',
+    'f','>',0x88,0x82,237,'r','c',14,158,139,221,'4',',',2,'Q','Q',195,25,253,
+    'Y','T',0x84,0xc9,241,'k',179,'L',176,233,232,'F',']','8',198,162,167,'.',
+    17,'W',0xba,130,21,162,156,143,'m',176,153,'J',10,242,235,137,'p','c','N',
+    'y',0xc4,183,'[',189,162,']',177,242,'A',2,'+',173,169,':',163,236,'y',10,
+    0xec,'_',':',0xe3,0xfd,239,128,'<',173,'4',155,26,171,136,'&','{','V',162,
+    0x82,0x86,31,0xeb,'5',137,131,127,'_',174,')','N','=',182,'n',236,174,193,
+    0xf0,0x27,155,174,227,244,236,239,174,127,247,134,'=','r','z',235,165,251,
+    'Y','N',167,235,149,140,'"','9','y',225,'-',8,143,204,188,145,184,'A',247,
+    20,193,'#',169,195,173,154,'E','D',179,178,215,',',205,198,')',226,'P',16,
+    0xae,0x5c,203,130,142,23,24,'6','}',151,230,136,154,176,'M','4',9,244,',',
+    185,'Z','f','*',176,23,155,158,30,'v',157,'J','f','1','A',223,'?',251,197,
+    6,239,27,182,'~',26,'F','6',247,'d','c',';',227,'9',24,'#',231,'g','u',20,
+    0xd5,'u','W',0x92,'7',0xbd,190,'j',27,'&','P',242,'6','&',6,144,197,'p',1,
+    'd','m','v','f',225,145,219,'n',7,192,'a',128,'.',178,'.','/',140,'p',167,
+    209,';','<',179,145,228,'n',182,196,';','p',242,'l',146,151,9,205,'G','}',
+    24,0xc0,243,187,158,15,214,139,174,7,182,'Z',15,206,11,12,'G',167,229,'>',
+    0xb8,0xbd,'}',0xc7,155,'5',160,'a',151,':','A','u',23,204,'+',150,'w','*',
+    0x92,'!',0x1e,217,149,'v',' ','g','h',207,13,189,223,214,31,9,'j',154,226,
+    204,'s','q',164,'/','}',18,128,183,'S','0','F','^','K','T',153,15,'g',201,
+    0xa5,0xc8,242,' ',193,130,236,157,17,223,194,2,251,26,';',209,237,' ',154,
+    0xef,'e','d',146,16,13,'*',226,222,'p',241,24,'g',130,140,'a',222,184,188,
+    0xd1,'/',156,251,15,208,'+',237,27,'v',185,228,'9','U',248,248,161,29,184,
+    0xaa,0x80,0,'L',0x82,231,178,127,9,184,188,'0',160,'/',13,245,'R',158,142,
+    0xf7,0x92,179,10,0,29,0,'T',151,6,224,177,7,217,199,15,92,'e','}','<','m',
+    'Y','W',228,237,165,141,233,'@','S',159,21,'K',160,'q',246,26,'!',227,218,
+    'p',0x06,'!','X',20,135,133,'w','y',170,130,'y',2,3,1,0,1,163,'B','0','@',
+    '0',0x1d,6,3,'U',29,0xe,4,22,4,20,226,201,'@',159,'M',206,232,154,161,'|',
+    0xcf,0x0e,'?','e',197,')',136,'j',25,'Q','0',15,6,3,'U',29,19,1,1,255,4,5,
+    '0',0x3,1,1,255,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,134,'0',13,6,9,'*',
+    134,'H',134,247,13,1,1,11,5,0,3,130,2,1,0,209,'I','W',224,167,204,'h','X',
+    186,1,15,'+',25,205,141,176,'a','E',172,17,237,'c','P','i',248,31,127,190,
+    22,143,253,157,235,11,170,'2','G','v',210,'g','$',237,189,'|','3','2',151,
+    '*',0xc7,5,0x86,'f',13,23,'}',20,21,27,212,235,253,31,154,246,'^',151,'i',
+    183,26,'%',164,10,179,145,'?','_','6',172,139,236,'W',168,'>',231,129,138,
+    0x18,'W','9',0x85,'t',26,'B',199,233,'[',19,'_',143,249,8,233,146,'t',141,
+    245,'G',210,171,';',214,251,'x','f','N','6','}',249,233,146,233,4,222,253,
+    'I','c',252,'m',251,20,'q',147,'g','/','G','J',183,185,255,30,'*','s','p',
+    'F','0',0xbf,'Z',0xf2,'/','y',0xa5,225,141,12,217,249,178,'c','7',140,'7',
+    'e',0x85,'p','j',92,'[',9,'r',185,173,'c','<',177,221,248,252,'2',191,'7',
+    0x86,228,187,142,152,39,'~',186,31,22,225,'p',17,242,3,223,'%','b','2',39,
+    '&',0x18,'2',0x84,159,255,0,':',19,186,154,'M',244,'O',184,20,'p','"',177,
+    0xca,'+',0x90,0xce,')',193,'p',244,'/',157,127,242,144,30,214,'Z',223,183,
+    'F',0xfc,0xe6,134,250,203,224,' ','v','z',186,166,203,245,'|',222,'b',165,
+    0xb1,139,238,222,130,'f',138,'N',':','0',31,'?',128,203,173,39,186,12,'^',
+    0xd7,0xd0,0xb1,'V',202,'w','q',178,181,'u',161,'P',169,'@','C',23,194,'(',
+    0xd9,0xcf,'R',0x8b,'[',200,'c',212,'B','>',160,'3','z','F','.',247,10,' ',
+    'F','T','~','j','O','1',0xf1,0x81,'~','B','t','8','e','s',39,0xee,198,'|',
+    0xb8,0x8e,0xd7,165,':',215,152,161,156,140,16,'U',211,219,'K',236,'@',144,
+    0xf2,0xcd,'n','W',0xd2,'b',14,'|','W',147,177,167,'m',205,157,131,187,'*',
+    0xe7,0xe5,0xb6,';','q','X',173,253,209,'E',188,'Z',145,238,'S',21,'o',211,
+    'E',9,'u','n',186,144,']',30,4,207,'7',223,30,168,'f',177,140,230,' ','j',
+    0xef,0xfc,'H','N','t',152,'B',175,')','o','.','j',199,251,'}',209,'f','1',
+    '"',0xcc,0x86,0,'~','f',131,12,'B',244,189,'4',146,195,26,234,'O',202,'~',
+    'r','M',0xb,'p',140,166,'H',187,166,161,20,246,251,'X','D',153,20,174,170,
+    11,147,'i',160,')','%','J',165,203,'+',221,138,'f',7,22,'x',21,'W','q',27,
+    0xec,0xf5,'G',132,243,158,'1','7','z',213,127,'$',173,228,188,253,253,204,
+    'n',131,232,12,168,183,'A','l',7,221,189,'<',134,151,'/',210,
+]
+
 
 /**
 GDCA TrustAUTH R5 ROOT.
 SHA256 fingerprint: bf:ff:8f:d0:44:33:48:7d:6a:8a:a6:0c:1a:29:76:7a:9f:c2:bb:b0:5e:42:0f:71:3a:13:b9:92:89:1d:38:93
 */
-GDCA_TRUSTAUTH_R5_ROOT ::= net.Certificate.parse GDCA_TRUSTAUTH_R5_ROOT_TEXT_
+GDCA_TRUSTAUTH_R5_ROOT ::= parse_ GDCA_TRUSTAUTH_R5_ROOT_BYTES_
 
-TRUSTCOR_ROOTCERT_CA_1_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIEMDCCAxigAwIBAgIJANqb7HHzA7AZMA0GCSqGSIb3DQEBCwUAMIGkMQswCQYD
-VQQGEwJQQTEPMA0GA1UECAwGUGFuYW1hMRQwEgYDVQQHDAtQYW5hbWEgQ2l0eTEk
-MCIGA1UECgwbVHJ1c3RDb3IgU3lzdGVtcyBTLiBkZSBSLkwuMScwJQYDVQQLDB5U
-cnVzdENvciBDZXJ0aWZpY2F0ZSBBdXRob3JpdHkxHzAdBgNVBAMMFlRydXN0Q29y
-IFJvb3RDZXJ0IENBLTEwHhcNMTYwMjA0MTIzMjE2WhcNMjkxMjMxMTcyMzE2WjCB
-pDELMAkGA1UEBhMCUEExDzANBgNVBAgMBlBhbmFtYTEUMBIGA1UEBwwLUGFuYW1h
-IENpdHkxJDAiBgNVBAoMG1RydXN0Q29yIFN5c3RlbXMgUy4gZGUgUi5MLjEnMCUG
-A1UECwweVHJ1c3RDb3IgQ2VydGlmaWNhdGUgQXV0aG9yaXR5MR8wHQYDVQQDDBZU
-cnVzdENvciBSb290Q2VydCBDQS0xMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIB
-CgKCAQEAv463leLCJhJrMxnHQFgKq1mqjQCj/IDHUHuO1CAmujIS2CNUSSUQIpid
-RtLByZ5OGy4sDjjzGiVoHKZaBeYei0i/mJZ0PmnK6bV4pQa81QBeCQryJ3pS/C3V
-seq0iWEk8xoT26nPUu0MJLq5nux+AHT6k61sKZKuUbS701e/s/OojZz0JEsq1pme
-9J7+wH5COucLlVPat2gOkEz7cD+PSiyU8ybdY2mplNgQTsVHCJCZGxdNuWxu72CV
-EY4hgLW9oHPY0LJ3xEXqWib7ZnZ2+AYfYW0PVcWDtxBWcgYHpfOxGgMFZA6dWorW
-hnAbJN7+KIor0Gqw/Hqi3LJ5DotlDwIDAQABo2MwYTAdBgNVHQ4EFgQU7mtJPHo/
-DeOxCbeKyKsZn3MzUOcwHwYDVR0jBBgwFoAU7mtJPHo/DeOxCbeKyKsZn3MzUOcw
-DwYDVR0TAQH/BAUwAwEB/zAOBgNVHQ8BAf8EBAMCAYYwDQYJKoZIhvcNAQELBQAD
-ggEBACUY1JGPE+6PHh0RU9otRCkZoB5rMZ5NDp6tPVxBb5UrJKF5mDo4Nvu7Zp5I
-/5CQ7z3UuJu0h3U/IJvOcs+hVcFNZKIZBqEHMwwLKeXx6quj7LUKdJDHfXLy11yf
-ke+Ri7fc7Waiz45mO7yfOgLgJ90WmMCV1Aqk5IGadZQ1nJBfiDcGrVmVCrDRZ9MZ
-yonnMlo2HD6CqFqTvsbQZJG2z9m2GM/bftJlo6bEjhcxwft+dtvTheNYsnd6djts
-L1Ac59v2Z3kf9YKVmgenFK+P3CghZwnS1k1aHBkcjndcw5QkPTJrS37UeJSDvjdN
-zl/HHk484IkzlQsPpTLWPFp5LBk=
------END CERTIFICATE-----
-"""
+TRUSTCOR_ROOTCERT_CA_1_BYTES_ ::= #[
+    '0',130,4,'0','0',130,3,24,160,3,2,1,2,2,9,0,218,155,236,'q',243,3,176,25,
+    '0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,'0',129,164,'1',11,'0',9,6,3,
+    'U',0x4,6,19,2,'P','A','1',15,'0',13,6,3,'U',4,8,12,6,'P','a','n','a','m',
+    'a','1',0x14,'0',18,6,3,'U',4,7,12,11,'P','a','n','a','m','a',' ','C','i',
+    't','y','1','$','0','"',0x06,3,'U',4,10,12,27,'T','r','u','s','t','C','o',
+    'r',' ','S','y','s','t','e','m','s',' ','S','.',' ','d','e',' ','R','.',
+    'L','.','1',39,'0','%',6,3,'U',4,11,12,30,'T','r','u','s','t','C','o','r',
+    ' ','C','e','r','t','i','f','i','c','a','t','e',' ','A','u','t','h','o',
+    'r','i','t','y','1',0x1f,'0',29,6,3,'U',4,3,12,22,'T','r','u','s','t','C',
+    'o','r',' ','R','o','o','t','C','e','r','t',' ','C','A','-','1','0',30,23,
+    0xd,'1','6','0','2','0','4','1','2','3','2','1','6','Z',23,13,'2','9','1',
+    '2','3','1','1','7','2','3','1','6','Z','0',0x81,164,'1',11,'0',9,6,3,'U',
+    0x4,6,19,2,'P','A','1',15,'0',13,6,3,'U',4,8,12,6,'P','a','n','a','m','a',
+    '1',0x14,'0',18,6,3,'U',4,7,12,11,'P','a','n','a','m','a',' ','C','i','t',
+    'y','1','$','0','"',0x06,3,'U',4,10,12,27,'T','r','u','s','t','C','o','r',
+    ' ','S','y','s','t','e','m','s',' ','S','.',' ','d','e',' ','R','.','L',
+    '.','1',39,'0','%',6,3,'U',4,11,12,30,'T','r','u','s','t','C','o','r',' ',
+    'C','e','r','t','i','f','i','c','a','t','e',' ','A','u','t','h','o','r',
+    'i','t','y','1',0x1f,'0',29,6,3,'U',4,3,12,22,'T','r','u','s','t','C','o',
+    'r',' ','R','o','o','t','C','e','r','t',' ','C','A','-','1','0',130,1,'"',
+    '0',0x0d,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,1,15,0,'0',130,1,10,2,
+    0x82,0x1,1,0,191,142,183,149,226,194,'&',18,'k','3',25,199,'@','X',10,171,
+    'Y',0xaa,141,0,163,252,128,199,'P','{',142,212,' ','&',186,'2',18,216,'#',
+    'T','I','%',16,'"',0x98,157,'F',210,193,201,158,'N',27,'.',',',14,'8',243,
+    0x1a,'%','h',28,0xa6,'Z',5,230,30,139,'H',191,152,150,'t','>','i',202,233,
+    0xb5,'x',0xa5,6,188,213,0,'^',9,10,242,39,'z','R',252,'-',213,177,234,180,
+    0x89,'a','$',0xf3,26,19,0xdb,169,207,'R',237,12,'$',186,185,158,236,'~',0,
+    't',0xfa,0x93,173,'l',')',146,174,'Q',180,187,211,'W',191,179,243,168,141,
+    0x9c,0xf4,'$','K','*',0xd6,153,158,244,158,254,192,'~','B',':',231,11,149,
+    'S',0xda,0xb7,'h',0xe,144,'L',251,'p','?',143,'J',',',148,243,'&',221,'c',
+    'i',0xa9,0x94,0xd8,16,'N',197,'G',8,144,153,27,23,'M',185,'l','n',239,'`',
+    0x95,0x11,142,'!',128,181,189,160,'s',216,208,178,'w',196,'E',234,'Z','&',
+    0xfb,'f','v','v',0xf8,6,31,'a','m',0xf,'U',197,131,183,16,'V','r',6,7,165,
+    0xf3,177,26,3,5,'d',14,157,'Z',138,214,134,'p',27,'$',222,254,'(',138,'+',
+    0xd0,'j',0xb0,252,'z',162,220,178,'y',14,139,'e',15,2,3,1,0,1,163,'c','0',
+    'a','0',0x1d,6,3,'U',29,14,4,22,4,20,238,'k','I','<','z','?',13,227,177,9,
+    0xb7,138,200,171,25,159,'s','3','P',231,'0',31,6,3,'U',29,'#',4,24,'0',22,
+    0x80,0x14,238,'k','I','<','z','?',13,227,177,9,183,138,200,171,25,159,'s',
+    '3','P',231,'0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',14,6,3,'U',
+    29,0xf,1,1,255,4,4,3,2,1,134,'0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,
+    3,130,1,1,0,'%',24,212,145,143,19,238,143,30,29,17,'S',218,'-','D',')',25,
+    0xa0,30,'k','1',158,'M',14,158,173,'=',92,'A','o',149,'+','$',161,'y',152,
+    ':','8','6',0xfb,0xbb,'f',158,'H',255,144,144,239,'=',212,184,155,180,135,
+    'u','?',' ',0x9b,206,'r',207,161,'U',193,'M','d',162,25,6,161,7,'3',12,11,
+    ')',229,241,234,171,163,236,181,10,'t',144,199,'}','r',242,215,92,159,145,
+    0xef,145,139,183,220,237,'f',162,207,142,'f',';',188,159,':',2,224,39,221,
+    0x16,152,192,149,212,10,164,228,129,154,'u',148,'5',156,144,'_',136,'7',6,
+    0xad,'Y',149,10,176,209,'g',211,25,202,137,231,'2','Z','6',28,'>',130,168,
+    'Z',0x93,0xbe,0xc6,208,'d',145,182,207,217,182,24,207,219,'~',210,'e',163,
+    0xa6,0xc4,0x8e,23,'1',193,251,'~','v',219,211,133,227,'X',178,'w','z','v',
+    ';','l','/','P',0x1c,0xe7,219,246,'g','y',31,245,130,149,154,7,167,20,175,
+    143,220,'(','!','g',9,210,214,'M','Z',28,25,28,142,'w',92,195,148,'$','=',
+    '2','k','K','~',0xd4,'x',0x94,0x83,190,'7','M',206,'_',199,30,'N','<',224,
+    137,'3',149,11,15,165,'2',214,'<','Z','y',',',25,
+]
+
 
 /**
 TrustCor RootCert CA-1.
 SHA256 fingerprint: d4:0e:9c:86:cd:8f:e4:68:c1:77:69:59:f4:9e:a7:74:fa:54:86:84:b6:c4:06:f3:90:92:61:f4:dc:e2:57:5c
 */
-TRUSTCOR_ROOTCERT_CA_1 ::= net.Certificate.parse TRUSTCOR_ROOTCERT_CA_1_TEXT_
+TRUSTCOR_ROOTCERT_CA_1 ::= parse_ TRUSTCOR_ROOTCERT_CA_1_BYTES_
 
-TRUSTCOR_ROOTCERT_CA_2_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIGLzCCBBegAwIBAgIIJaHfyjPLWQIwDQYJKoZIhvcNAQELBQAwgaQxCzAJBgNV
-BAYTAlBBMQ8wDQYDVQQIDAZQYW5hbWExFDASBgNVBAcMC1BhbmFtYSBDaXR5MSQw
-IgYDVQQKDBtUcnVzdENvciBTeXN0ZW1zIFMuIGRlIFIuTC4xJzAlBgNVBAsMHlRy
-dXN0Q29yIENlcnRpZmljYXRlIEF1dGhvcml0eTEfMB0GA1UEAwwWVHJ1c3RDb3Ig
-Um9vdENlcnQgQ0EtMjAeFw0xNjAyMDQxMjMyMjNaFw0zNDEyMzExNzI2MzlaMIGk
-MQswCQYDVQQGEwJQQTEPMA0GA1UECAwGUGFuYW1hMRQwEgYDVQQHDAtQYW5hbWEg
-Q2l0eTEkMCIGA1UECgwbVHJ1c3RDb3IgU3lzdGVtcyBTLiBkZSBSLkwuMScwJQYD
-VQQLDB5UcnVzdENvciBDZXJ0aWZpY2F0ZSBBdXRob3JpdHkxHzAdBgNVBAMMFlRy
-dXN0Q29yIFJvb3RDZXJ0IENBLTIwggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIK
-AoICAQCnIG7CKqJiJJWQdsg4foDSq8GbZQWU9MEKENUCrO2fk8eHyLAnK0IMPQo+
-QVqedd2NyuCb7GgypGmSaIwLgQ5WoD4a3SwlFIIvl9NkRvRUqdw6VC0xK5mC8tkq
-1+9xALgxpL56JAfDQiDyitSSBBtlVkxs1Pu2YVpHI7TYabS3OtB0PAx1oYxOdqHp
-2yqlO/rOsP9+aij9JxzIsekp8VduZLTQwRVtDr4uDkbIXvRR/u8OYzo7cbrPb1nK
-DOObXUm4TOJXsZiKQlecdu/vvdFoqNL0Cbt3Nb4lggjEFixEIFapRBF37120Hape
-az6LMvYHL1cEksr1/p3C6eizjkxLAjHZ5DxIgif3GIJ2SDpxsROhOdUuxTTCHWKF
-3wP+TfSvPd9cW436cOGlfifHhi5qjxLGhF5DUVCcGZt45vz27Ud+ez1m7xMTiF88
-oWP7+ayHNZ/zgp6kPwqcMWmLmaSISo5uZk3vFsQPeSghYA2FFn3XVDjxklb9tTNM
-g9zXEJ9L/cb4Qr26fHMC4P99zVvh1Kxhe1fVSntb1IVYJ12/+CtgrKAmrhQhJ8Z3
-mjOAPF5GP/fDsaOGM8boXg25NSyqRsGFAnWAoOsk+xWq5Gd/bnc/9ASKL3x74xdh
-8N0JqSDIvgmk0H5Ew7IwSjiqqewYmgeCK9u4nBit2uBGF6zPXQIDAQABo2MwYTAd
-BgNVHQ4EFgQU2f4hQG6UnrybPZx9mCAZ5YwwYrIwHwYDVR0jBBgwFoAU2f4hQG6U
-nrybPZx9mCAZ5YwwYrIwDwYDVR0TAQH/BAUwAwEB/zAOBgNVHQ8BAf8EBAMCAYYw
-DQYJKoZIhvcNAQELBQADggIBAJ5Fngw7tu/hOsh80QA9z+LqBrWyOrsGS2h60COX
-dKcs8AjYeVrXWoSK2BKaG9l9XE1wxaX5q+WjiYndAfrs3fnpkpfbsEZC89NiqpX+
-MWcUaViQCqoL7jcjx1BRtPV+nuN79+TMQjItSQzL/0kMmx40/W5ulop5A7Zv2wnL
-/V9lFDfhOPXzYRZY5LVtDQsEGz9QLX+zx3oaFoBg+Iof6Rsqxvm6ARppv9JYx1RX
-CI/hOWB3S6xZhBqI8d3LT3jX5+EzLfzuQfogsL7L9ziUwOHQhQ+77Sxzq+3+knYa
-ZH9bDTMJBzN7Bj8RpFxwPIXAz+OQqIN3+tvmxYxoZxBnpVIt8MSZj3+/0WvitUfW
-2dCFmU2Umw9Lje4AWkcdEQOsQRivh7dvDDqPys/cA8GiCcjl/YBeyGBCARsaU1q7
-N6a3vLqE6R5sGtRk2tRD/pOLS/IseRYQ1JMLiI+h2IYURpFHmygk71dSTlxCnKr3
-Sewn6EAes6aJInKc9Q0ztFijMDvd1GpUk74aTfOTlPf8hAs/hCBcNANExdqtvArB
-As8e5ZTZ845b2EzwnexhF7sUMlQMAimTHpKG9n/v55IFDlndmQguLvqcAFLTxWYp
-5KeXRKQOKIETNcX2b2TmQcTVL8w0RSXPQQCWPUouwpaYT05KnJe32x+SMsj/D1Fu
-1uwJ
------END CERTIFICATE-----
-"""
+TRUSTCOR_ROOTCERT_CA_2_BYTES_ ::= #[
+    '0',0x82,6,'/','0',130,4,23,160,3,2,1,2,2,8,'%',161,223,202,'3',203,'Y',2,
+    '0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,'0',129,164,'1',11,'0',9,6,3,
+    'U',0x4,6,19,2,'P','A','1',15,'0',13,6,3,'U',4,8,12,6,'P','a','n','a','m',
+    'a','1',0x14,'0',18,6,3,'U',4,7,12,11,'P','a','n','a','m','a',' ','C','i',
+    't','y','1','$','0','"',0x06,3,'U',4,10,12,27,'T','r','u','s','t','C','o',
+    'r',' ','S','y','s','t','e','m','s',' ','S','.',' ','d','e',' ','R','.',
+    'L','.','1',39,'0','%',6,3,'U',4,11,12,30,'T','r','u','s','t','C','o','r',
+    ' ','C','e','r','t','i','f','i','c','a','t','e',' ','A','u','t','h','o',
+    'r','i','t','y','1',0x1f,'0',29,6,3,'U',4,3,12,22,'T','r','u','s','t','C',
+    'o','r',' ','R','o','o','t','C','e','r','t',' ','C','A','-','2','0',30,23,
+    0xd,'1','6','0','2','0','4','1','2','3','2','2','3','Z',23,13,'3','4','1',
+    '2','3','1','1','7','2','6','3','9','Z','0',0x81,164,'1',11,'0',9,6,3,'U',
+    0x4,6,19,2,'P','A','1',15,'0',13,6,3,'U',4,8,12,6,'P','a','n','a','m','a',
+    '1',0x14,'0',18,6,3,'U',4,7,12,11,'P','a','n','a','m','a',' ','C','i','t',
+    'y','1','$','0','"',0x06,3,'U',4,10,12,27,'T','r','u','s','t','C','o','r',
+    ' ','S','y','s','t','e','m','s',' ','S','.',' ','d','e',' ','R','.','L',
+    '.','1',39,'0','%',6,3,'U',4,11,12,30,'T','r','u','s','t','C','o','r',' ',
+    'C','e','r','t','i','f','i','c','a','t','e',' ','A','u','t','h','o','r',
+    'i','t','y','1',0x1f,'0',29,6,3,'U',4,3,12,22,'T','r','u','s','t','C','o',
+    'r',' ','R','o','o','t','C','e','r','t',' ','C','A','-','2','0',130,2,'"',
+    '0',0x0d,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,2,15,0,'0',130,2,10,2,
+    130,2,1,0,167,' ','n',194,'*',162,'b','$',149,144,'v',200,'8','~',128,210,
+    171,193,155,'e',5,148,244,193,10,16,213,2,172,237,159,147,199,135,200,176,
+    39,'+','B',0xc,'=',10,'>','A','Z',158,'u',221,141,202,224,155,236,'h','2',
+    0xa4,'i',0x92,'h',140,11,129,14,'V',160,'>',26,221,',','%',20,130,'/',151,
+    0xd3,'d','F',0xf4,'T',169,220,':','T','-','1','+',153,130,242,217,'*',215,
+    0xef,'q',0,184,'1',164,190,'z','$',7,195,'B',' ',242,138,212,146,4,27,'e',
+    'V','L','l',0xd4,0xfb,182,'a','Z','G','#',180,216,'i',180,183,':',208,'t',
+    '<',0x0c,'u',0xa1,140,'N','v',161,233,219,'*',165,';',250,206,176,255,'~',
+    'j','(',0xfd,39,28,0xc8,177,233,')',241,'W','n','d',180,208,193,21,'m',14,
+    190,'.',14,'F',200,'^',244,'Q',254,239,14,'c',':',';','q',186,207,'o','Y',
+    0xca,0x0c,227,155,']','I',184,'L',226,'W',177,152,138,'B','W',156,'v',239,
+    0xef,0xbd,0xd1,'h',168,210,244,9,187,'w','5',190,'%',130,8,196,22,',','D',
+    ' ','V',0xa9,'D',17,'w',0xef,']',180,29,170,'^','k','>',139,'2',246,7,'/',
+    'W',0x4,146,202,245,254,157,194,233,232,179,142,'L','K',2,'1',217,228,'<',
+    'H',0x82,39,247,24,130,'v','H',':','q',177,19,161,'9',213,'.',197,'4',194,
+    0x1d,'b',133,223,3,254,'M',244,175,'=',223,92,'[',141,250,'p',225,165,'~',
+    39,0xc7,134,'.','j',143,18,198,132,'^','C','Q','P',156,25,155,'x',230,252,
+    246,237,'G','~','{','=','f',239,19,19,136,'_','<',161,'c',251,249,172,135,
+    '5',0x9f,0xf3,0x82,158,164,'?',10,156,'1','i',139,153,164,136,'J',142,'n',
+    'f','M',0xef,22,0xc4,15,'y','(','!','`',13,133,22,'}',215,'T','8',241,146,
+    'V',0xfd,0xb5,'3','L',0x83,220,215,16,159,'K',253,198,248,'B',189,186,'|',
+    's',2,224,255,'}',205,'[',225,212,172,'a','{','W',213,'J','{','[',212,133,
+    'X',39,']',0xbf,248,'+','`',172,160,'&',174,20,'!',39,198,'w',154,'3',128,
+    '<','^','F','?',0xf7,0xc3,0xb1,163,134,'3',198,232,'^',13,185,'5',',',170,
+    'F',0xc1,133,2,'u',128,160,235,'$',251,21,170,228,'g',127,'n','w','?',244,
+    4,0x8a,'/','|','{',227,23,'a',240,221,9,169,' ',200,190,9,164,208,'~','D',
+    0xc3,0xb2,'0','J','8',170,169,236,24,154,7,130,'+',219,184,156,24,173,218,
+    0xe0,'F',23,0xac,207,']',2,3,1,0,1,163,'c','0','a','0',29,6,3,'U',29,14,4,
+    0x16,4,20,0xd9,254,'!','@','n',148,158,188,155,'=',156,'}',152,' ',25,229,
+    0x8c,'0','b',178,'0',31,6,3,'U',29,'#',4,24,'0',22,128,20,217,254,'!','@',
+    'n',148,158,188,155,'=',156,'}',152,' ',25,229,140,'0','b',178,'0',15,6,3,
+    'U',29,19,1,1,0xff,4,5,'0',3,1,1,255,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,
+    0x01,134,'0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,3,130,2,1,0,158,'E',
+    0x9e,0x0c,';',182,239,225,':',200,'|',209,0,'=',207,226,234,6,181,178,':',
+    0xbb,6,'K','h','z',0xd0,'#',151,'t',167,',',240,8,216,'y','Z',215,'Z',132,
+    0x8a,216,18,154,27,217,'}',92,'M','p',197,165,249,171,229,163,137,137,221,
+    1,250,236,221,249,233,146,151,219,176,'F','B',243,211,'b',170,149,254,'1',
+    'g',20,'i','X',0x90,10,170,11,238,'7','#',199,'P','Q',180,245,'~',158,227,
+    '{',0xf7,228,204,'B','2','-','I',12,203,255,'I',12,155,30,'4',253,'n','n',
+    150,138,'y',3,182,'o',219,9,203,253,'_','e',20,'7',225,'8',245,243,'a',22,
+    'X',0xe4,181,'m',13,11,4,27,'?','P','-',127,179,199,'z',26,22,128,'`',248,
+    0x8a,31,233,27,'*',198,249,186,1,26,'i',191,210,'X',199,'T','W',8,143,225,
+    '9','`','w','K',0xac,'Y',0x84,26,0x88,241,221,203,'O','x',215,231,225,'3',
+    '-',0xfc,0xee,'A',0xfa,' ',176,190,203,247,'8',148,192,225,208,133,15,187,
+    0xed,',','s',0xab,237,254,146,'v',26,'d',127,'[',13,'3',9,7,'3','{',6,'?',
+    17,164,92,'p','<',133,192,207,227,144,168,131,'w',250,219,230,197,140,'h',
+    'g',0x10,'g',0xa5,'R','-',240,196,153,143,127,191,209,'k',226,181,'G',214,
+    0xd9,0xd0,133,153,'M',148,155,15,'K',141,238,0,'Z','G',29,17,3,172,'A',24,
+    0xaf,0x87,0xb7,'o',12,':',143,202,207,220,3,193,162,9,200,229,253,128,'^',
+    200,'`','B',1,27,26,'S','Z',187,'7',166,183,188,186,132,233,30,'l',26,212,
+    'd',0xda,212,'C',254,147,139,'K',242,',','y',22,16,212,147,11,136,143,161,
+    216,134,20,'F',145,'G',155,'(','$',239,'W','R','N',92,'B',156,170,247,'I',
+    0xec,39,232,'@',30,179,166,137,'"','r',156,245,13,'3',180,'X',163,'0',';',
+    0xdd,212,'j','T',147,190,26,'M',243,147,148,247,252,132,11,'?',132,' ',92,
+    '4',3,'D',197,218,173,188,10,193,2,207,30,229,148,217,243,142,'[',216,'L',
+    240,157,236,'a',23,187,20,'2','T',12,2,')',147,30,146,134,246,127,239,231,
+    0x92,5,14,'Y',221,153,8,'.','.',250,156,0,'R',211,197,'f',')',228,167,151,
+    'D',164,14,'(',129,19,'5',197,246,'o','d',230,'A',196,213,'/',204,'4','E',
+    '%',0xcf,'A',0,150,'=','J','.',194,150,152,'O','N','J',156,151,183,219,31,
+    146,'2',200,255,15,'Q','n',214,236,9,
+]
+
 
 /**
 TrustCor RootCert CA-2.
 SHA256 fingerprint: 07:53:e9:40:37:8c:1b:d5:e3:83:6e:39:5d:ae:a5:cb:83:9e:50:46:f1:bd:0e:ae:19:51:cf:10:fe:c7:c9:65
 */
-TRUSTCOR_ROOTCERT_CA_2 ::= net.Certificate.parse TRUSTCOR_ROOTCERT_CA_2_TEXT_
+TRUSTCOR_ROOTCERT_CA_2 ::= parse_ TRUSTCOR_ROOTCERT_CA_2_BYTES_
 
-TRUSTCOR_ECA_1_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIEIDCCAwigAwIBAgIJAISCLF8cYtBAMA0GCSqGSIb3DQEBCwUAMIGcMQswCQYD
-VQQGEwJQQTEPMA0GA1UECAwGUGFuYW1hMRQwEgYDVQQHDAtQYW5hbWEgQ2l0eTEk
-MCIGA1UECgwbVHJ1c3RDb3IgU3lzdGVtcyBTLiBkZSBSLkwuMScwJQYDVQQLDB5U
-cnVzdENvciBDZXJ0aWZpY2F0ZSBBdXRob3JpdHkxFzAVBgNVBAMMDlRydXN0Q29y
-IEVDQS0xMB4XDTE2MDIwNDEyMzIzM1oXDTI5MTIzMTE3MjgwN1owgZwxCzAJBgNV
-BAYTAlBBMQ8wDQYDVQQIDAZQYW5hbWExFDASBgNVBAcMC1BhbmFtYSBDaXR5MSQw
-IgYDVQQKDBtUcnVzdENvciBTeXN0ZW1zIFMuIGRlIFIuTC4xJzAlBgNVBAsMHlRy
-dXN0Q29yIENlcnRpZmljYXRlIEF1dGhvcml0eTEXMBUGA1UEAwwOVHJ1c3RDb3Ig
-RUNBLTEwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDPj+ARtZ+odnbb
-3w9U73NjKYKtR8aja+3+XzP4Q1HpGjORMRegdMTUpwHmspI+ap3tDvl0mEDTPwOA
-BoJA6LHip1GnHYMma6ve+heRK9jGrB6xnhkB1Zem6g23xFUfJ3zSCNV2HykVh0A5
-3ThFEXXQmqc04L/NyFIduUd+Dbi7xgz2c1cWWn5DkR9VOsZtRASqnKmcp0yJF4Ou
-owReUoCLHhIlERnXDH19MURB6tuvsBzvgdAsxZohmz3tQjtQJvLsznFhBmIhVE5/
-wZ0+fyCMgMsq2JdiyIMzkX2woloPV+g7zPIlstR8L+xNxqE6FXrntl019fZISjZF
-ZtS6mFjBAgMBAAGjYzBhMB0GA1UdDgQWBBREnkj1zG1I1KBLf/5ZJC+Dl5mahjAf
-BgNVHSMEGDAWgBREnkj1zG1I1KBLf/5ZJC+Dl5mahjAPBgNVHRMBAf8EBTADAQH/
-MA4GA1UdDwEB/wQEAwIBhjANBgkqhkiG9w0BAQsFAAOCAQEABT41XBVwm8nHc2Fv
-civUwo/yQ10CzsSUuZQRg2dd4mdsdXa/uwyqNsatR5Nj3B5+1t4u/ukZMjgDfxT2
-AHMsWbEhBuH7rBiVDKP/mZb3Kyeb1STMHd3BOuCYRLDE5D53sXOpZCz2HAF8P11F
-hcCF5yWPldwX8zyfGm6wyuMdKulMY/okYWLW2n62HGz1Ah3UKt1VkOsqEUc8Ll50
-soIipX1TH0XsJ5F95yIW6MBoNtjG8U+ARDL54dHRHareqKucBK+tIA5kmE2la8BI
-WJZpTdwHjFGTot+fDz2LYLSCjaoITmJF4PkL0uDgPFveXHEnJcLmA4GLEFPjx1Wi
-tJ/X5g==
------END CERTIFICATE-----
-"""
+TRUSTCOR_ECA_1_BYTES_ ::= #[
+    '0',0x82,0x4,' ','0',130,3,8,160,3,2,1,2,2,9,0,132,130,',','_',28,'b',208,
+    '@','0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,'0',129,156,'1',11,'0',9,
+    0x6,3,'U',4,6,19,2,'P','A','1',15,'0',13,6,3,'U',4,8,12,6,'P','a','n','a',
+    'm','a','1',0x14,'0',18,6,3,'U',4,7,12,11,'P','a','n','a','m','a',' ','C',
+    'i','t','y','1','$','0','"',0x06,3,'U',4,10,12,27,'T','r','u','s','t','C',
+    'o','r',' ','S','y','s','t','e','m','s',' ','S','.',' ','d','e',' ','R',
+    '.','L','.','1',39,'0','%',6,3,'U',4,11,12,30,'T','r','u','s','t','C','o',
+    'r',' ','C','e','r','t','i','f','i','c','a','t','e',' ','A','u','t','h',
+    'o','r','i','t','y','1',0x17,'0',21,6,3,'U',4,3,12,14,'T','r','u','s','t',
+    'C','o','r',' ','E','C','A','-','1','0',30,23,0xd,'1','6','0','2','0','4',
+    '1','2','3','2','3','3','Z',23,13,'2','9','1','2','3','1','1','7','2','8',
+    '0','7','Z','0',0x81,156,'1',11,'0',9,6,3,'U',4,6,19,2,'P','A','1',15,'0',
+    0xd,6,3,'U',4,8,12,6,'P','a','n','a','m','a','1',20,'0',18,6,3,'U',4,7,12,
+    0xb,'P','a','n','a','m','a',' ','C','i','t','y','1','$','0','"',6,3,'U',4,
+    0xa,12,27,'T','r','u','s','t','C','o','r',' ','S','y','s','t','e','m','s',
+    ' ','S','.',' ','d','e',' ','R','.','L','.','1',0x27,'0','%',6,3,'U',4,11,
+    12,30,'T','r','u','s','t','C','o','r',' ','C','e','r','t','i','f','i','c',
+    'a','t','e',' ','A','u','t','h','o','r','i','t','y','1',23,'0',21,6,3,'U',
+    4,3,12,14,'T','r','u','s','t','C','o','r',' ','E','C','A','-','1','0',130,
+    1,'"','0',0xd,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,1,15,0,'0',130,1,
+    0xa,2,130,1,1,0,207,143,224,17,181,159,168,'v','v',219,223,15,'T',239,'s',
+    'c',')',0x82,0xad,'G',0xc6,163,'k',237,254,'_','3',248,'C','Q',233,26,'3',
+    0x91,'1',23,0xa0,'t',196,212,167,1,230,178,146,'>','j',157,237,14,249,'t',
+    0x98,'@',0xd3,'?',3,0x80,6,130,'@',232,177,226,167,'Q',167,29,131,'&','k',
+    171,222,250,23,145,'+',216,198,172,30,177,158,25,1,213,151,166,234,13,183,
+    0xc4,'U',31,39,'|',210,8,213,'v',31,')',21,135,'@','9',221,'8','E',17,'u',
+    0xd0,154,167,'4',224,191,205,200,'R',29,185,'G','~',13,184,187,198,12,246,
+    's','W',0x16,'Z','~','C',145,31,'U',':',198,'m','D',4,170,156,169,156,167,
+    'L',0x89,23,0x83,174,163,4,'^','R',128,139,30,18,'%',17,25,215,12,'}','}',
+    '1','D','A',0xea,0xdb,0xaf,176,28,239,129,208,',',197,154,'!',155,'=',237,
+    'B',';','P','&',242,236,206,'q','a',6,'b','!','T','N',127,193,157,'>',127,
+    ' ',0x8c,0x80,0xcb,'*',216,151,'b',200,131,'3',145,'}',176,162,'Z',15,'W',
+    0xe8,';',0xcc,0xf2,'%',178,212,'|','/',236,'M',198,161,':',21,'z',231,182,
+    ']','5',245,246,'H','J','6','E','f',212,186,152,'X',193,2,3,1,0,1,163,'c',
+    '0','a','0',0x1d,6,3,'U',29,0xe,4,22,4,20,'D',158,'H',245,204,'m','H',212,
+    0xa0,'K',0x7f,254,'Y','$','/',131,151,153,154,134,'0',31,6,3,'U',29,'#',4,
+    24,'0',22,0x80,20,'D',158,'H',245,204,'m','H',212,160,'K',127,254,'Y','$',
+    '/',0x83,0x97,0x99,154,134,'0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,
+    '0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,134,'0',13,6,9,'*',134,'H',134,247,
+    13,1,1,11,5,0,3,130,1,1,0,5,'>','5',92,21,'p',155,201,199,'s','a','o','r',
+    '+',0xd4,194,143,242,'C',']',2,206,196,148,185,148,17,131,'g',']',226,'g',
+    'l','u','v',191,187,12,170,'6',198,173,'G',147,'c',220,30,'~',214,222,'.',
+    0xfe,0xe9,25,'2','8',3,0x7f,20,246,0,'s',',','Y',177,'!',6,225,251,172,24,
+    0x95,12,163,255,153,150,247,'+',39,155,213,'$',204,29,221,193,':',224,152,
+    'D',0xb0,196,228,'>','w',177,'s',169,'d',',',246,28,1,'|','?',']','E',133,
+    0xc0,133,231,'%',143,149,220,23,243,'<',159,26,'n',176,202,227,29,'*',233,
+    'L','c',0xfa,'$','a','b',0xd6,218,'~',182,28,'l',245,2,29,212,'*',221,'U',
+    0x90,235,'*',17,'G','<','.','^','t',178,130,'"',165,'}','S',31,'E',236,39,
+    0x91,'}',0xe7,'"',22,0xe8,192,'h','6',216,198,241,'O',128,'D','2',249,225,
+    0xd1,0xd1,29,170,222,168,171,156,4,175,173,' ',14,'d',152,'M',165,'k',192,
+    'H','X',0x96,'i','M',220,7,140,'Q',147,162,223,159,15,'=',139,'`',180,130,
+    0x8d,0xaa,8,'N','b','E',0xe0,249,11,210,224,224,'<','[',222,92,'q',39,'%',
+    194,230,3,129,139,16,'S',227,199,'U',162,180,159,215,230,
+]
+
 
 /**
 TrustCor ECA-1.
 SHA256 fingerprint: 5a:88:5d:b1:9c:01:d9:12:c5:75:93:88:93:8c:af:bb:df:03:1a:b2:d4:8e:91:ee:15:58:9b:42:97:1d:03:9c
 */
-TRUSTCOR_ECA_1 ::= net.Certificate.parse TRUSTCOR_ECA_1_TEXT_
+TRUSTCOR_ECA_1 ::= parse_ TRUSTCOR_ECA_1_BYTES_
 
-SSL_COM_ROOT_CERTIFICATION_AUTHORITY_RSA_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIF3TCCA8WgAwIBAgIIeyyb0xaAMpkwDQYJKoZIhvcNAQELBQAwfDELMAkGA1UE
-BhMCVVMxDjAMBgNVBAgMBVRleGFzMRAwDgYDVQQHDAdIb3VzdG9uMRgwFgYDVQQK
-DA9TU0wgQ29ycG9yYXRpb24xMTAvBgNVBAMMKFNTTC5jb20gUm9vdCBDZXJ0aWZp
-Y2F0aW9uIEF1dGhvcml0eSBSU0EwHhcNMTYwMjEyMTczOTM5WhcNNDEwMjEyMTcz
-OTM5WjB8MQswCQYDVQQGEwJVUzEOMAwGA1UECAwFVGV4YXMxEDAOBgNVBAcMB0hv
-dXN0b24xGDAWBgNVBAoMD1NTTCBDb3Jwb3JhdGlvbjExMC8GA1UEAwwoU1NMLmNv
-bSBSb290IENlcnRpZmljYXRpb24gQXV0aG9yaXR5IFJTQTCCAiIwDQYJKoZIhvcN
-AQEBBQADggIPADCCAgoCggIBAPkP3aMrfcvQKv7sZ4Wm5y4bunfh4/WvpOz6Sl2R
-xFdHaxh3a3by/ZPkPQ/CFp4LZsNWlJ4Xg4XOVu/yFv0AYvUiCVToZRdOQbngT0aX
-qhvIuG5iXmmxX9sqAn78bMrzQdjt0Oj8P2FI7bADFB0QDksZ4LtO7IZl/zbzXmcC
-C52GVWH9ejjt/uIZALdvoVBidXQ8oPrIJZK0bnoix/geoeOy3ZExqysdBP+lSgQ3
-6YWkMyv94tZVNHwZpEpox7Ko07fKoZOI68GXvIz5HdkihCR0xwQ9aqkpk8zruFvh
-/l8lqjRYyMEjVJ0bmBHDOJx+PYZspQ9AhnwC9FwCTyjLrnGfDzrIM/4RJTXq/LrF
-YD3ZfBjVsqnTdXgDciLKOsMf7yzlLqn6niy2UUb9rwPW6mBo6oUWNmuF6R7As93E
-JNyAKoFBbZQ+yODJgUEAnl6/f8UImKIYLEJAs/lvOCdLToD0PYFH4Ih86hzOtXVc
-US4cK38acijnALXRdMbX5J+tB5O2UzU1/Dfkw/ZdFr4hc96SCvigY2q8lpJqPvi8
-ZVWb3vUNiSYE/CUapiVpy8JtynziWV+XrOvvLsi81xtZPCvM8hnIk2snYxnP/Okm
-+Mpxm3+T/jRnhE6Z6/yzeAkzcLpmpnbtG3PrGqUNxCITIJRWCk4sbE6x/c+cCbqi
-M+2HAgMBAAGjYzBhMB0GA1UdDgQWBBTdBAkHovV6fVJTEpKV7jiAJQ2mWTAPBgNV
-HRMBAf8EBTADAQH/MB8GA1UdIwQYMBaAFN0ECQei9Xp9UlMSkpXuOIAlDaZZMA4G
-A1UdDwEB/wQEAwIBhjANBgkqhkiG9w0BAQsFAAOCAgEAIBgRlCn7Jp0cHh5wYfGV
-cpNxJK1ok1iOMq8bs3AD/CUrdIWQPXhq9LmLpZc7tRiRux6n+UBbkflVma8eEdBc
-Hadm47GUBwwyOabqG7B52B2ccETjit3E+ZUfijhDPwGFpUenPUayvOUiaPd7nNgs
-PgohyC0zrL/FgZkxdMF1ccW+sfAjRfSda/wZY52jvATGGAslu1OJD7OAUN5F7kR/
-q5R4ZJjT9ijdh9hwZXT7DrkT66cPYakylszeu+1jTBi7qUD3oFRuIIhxdRjqerQ0
-cuAjJ3dctpDqhiVAq+8zD8ufgr6iIPv2tS0a5sKFsXQP+8hlAqRSAUfdSSLBv9jr
-a6x+3uxjMxW3IwiPxg+NQVrdjsW5j+VFP3jbutIbQLH+cU0/4IGiul607BXgk90I
-H37hVZkLId6Tngr75qNJvTYw/ud3sqB1l7UtgYgXZSD32pAAn8lSzDLKNXz1PQ/Y
-K9f1JmzJBjSWFupwWRoyeXkLtoh/D1JIPb9s2KJELtFOt3JY04kTlf5Eq/jXixtu
-nLwsoFvVagCvXzfh1foQC5ichucmj87w7G6KVwuA406ywKBjYZC6VWg3dGq2ktuf
-oYYitmUnDuy2n0Jg5GfCtdpBC8TTi2EbvPofkSvXRAdeuims2cXp71NIWuuA8ShY
-Ic2wBlX7Jz9TkHCpBB5XJ7k=
------END CERTIFICATE-----
-"""
+SSL_COM_ROOT_CERTIFICATION_AUTHORITY_RSA_BYTES_ ::= #[
+    '0',0x82,0x5,221,'0',130,3,197,160,3,2,1,2,2,8,'{',',',155,211,22,128,'2',
+    153,'0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,'0','|','1',11,'0',9,6,3,
+    'U',0x4,6,19,2,'U','S','1',14,'0',12,6,3,'U',4,8,12,5,'T','e','x','a','s',
+    '1',16,'0',0xe,6,3,'U',4,7,12,7,'H','o','u','s','t','o','n','1',24,'0',22,
+    0x06,3,'U',4,10,12,15,'S','S','L',' ','C','o','r','p','o','r','a','t','i',
+    'o','n','1','1','0','/',0x06,3,'U',4,3,12,'(','S','S','L','.','c','o','m',
+    ' ','R','o','o','t',' ','C','e','r','t','i','f','i','c','a','t','i','o',
+    'n',' ','A','u','t','h','o','r','i','t','y',' ','R','S','A','0',30,23,0xd,
+    '1','6','0','2','1','2','1','7','3','9','3','9','Z',23,13,'4','1','0','2',
+    '1','2','1','7','3','9','3','9','Z','0','|','1',11,'0',9,6,3,'U',4,6,19,2,
+    'U','S','1',0xe,'0',12,6,3,'U',4,8,12,5,'T','e','x','a','s','1',16,'0',14,
+    0x6,3,'U',4,7,12,7,'H','o','u','s','t','o','n','1',24,'0',22,6,3,'U',4,10,
+    12,15,'S','S','L',' ','C','o','r','p','o','r','a','t','i','o','n','1','1',
+    '0','/',0x06,3,'U',4,3,12,'(','S','S','L','.','c','o','m',' ','R','o','o',
+    't',' ','C','e','r','t','i','f','i','c','a','t','i','o','n',' ','A','u',
+    't','h','o','r','i','t','y',' ','R','S','A','0',0x82,2,'"','0',13,6,9,'*',
+    134,'H',134,247,13,1,1,1,5,0,3,130,2,15,0,'0',130,2,10,2,130,2,1,0,249,15,
+    0xdd,0xa3,'+','}',0xcb,208,'*',254,236,'g',133,166,231,'.',27,186,'w',225,
+    0xe3,0xf5,0xaf,164,236,250,'J',']',145,196,'W','G','k',24,'w','k','v',242,
+    0xfd,0x93,228,'=',15,194,22,158,11,'f',195,'V',148,158,23,131,133,206,'V',
+    239,242,22,253,0,'b',245,'"',9,'T',232,'e',23,'N','A',185,224,'O','F',151,
+    0xaa,27,200,184,'n','b','^','i',177,'_',219,'*',2,'~',252,'l',202,243,'A',
+    0xd8,237,208,232,252,'?','a','H',237,176,3,20,29,16,14,'K',25,224,187,'N',
+    0xec,134,'e',255,'6',243,'^','g',2,11,157,134,'U','a',253,'z','8',237,254,
+    0xe2,25,0,183,'o',161,'P','b','u','t','<',160,250,200,'%',146,180,'n','z',
+    '"',199,248,30,161,227,178,221,145,'1',171,'+',29,4,255,165,'J',4,'7',233,
+    0x85,0xa4,'3','+',0xfd,226,214,'U','4','|',25,164,'J','h',199,178,168,211,
+    0xb7,202,161,147,136,235,193,151,188,140,249,29,217,'"',132,'$','t',199,4,
+    '=','j',0xa9,')',0x93,204,235,184,'[',225,254,'_','%',170,'4','X',200,193,
+    '#','T',0x9d,0x1b,152,17,195,'8',156,'~','=',134,'l',165,15,'@',134,'|',2,
+    0xf4,0x5c,2,'O','(',203,174,'q',159,15,':',200,'3',254,17,'%','5',234,252,
+    0xba,197,'`','=',217,'|',24,213,178,169,211,'u','x',3,'r','"',202,':',195,
+    31,0xef,',',229,'.',169,250,158,',',182,'Q','F',253,175,3,214,234,'`','h',
+    234,133,22,'6','k',133,233,30,192,179,221,196,'$',220,128,'*',129,'A','m',
+    0x94,'>',0xc8,0xe0,201,129,'A',0,158,'^',191,127,197,8,152,162,24,',','B',
+    '@',179,249,'o','8',39,'K','N',128,244,'=',129,'G',224,136,'|',234,28,206,
+    0xb5,'u',0x5c,'Q','.',28,'+',127,26,'r','(',231,0,181,209,'t',198,215,228,
+    0x9f,173,7,147,182,'S','5','5',252,'7',228,195,246,']',22,190,'!','s',222,
+    146,10,248,160,'c','j',188,150,146,'j','>',248,188,'e','U',155,222,245,13,
+    0x89,'&',4,252,'%',26,166,'%','i',203,194,'m',202,'|',226,'Y','_',151,172,
+    0xeb,0xef,'.',200,188,215,27,'Y','<','+',204,242,25,200,147,'k',39,'c',25,
+    0xcf,0xfc,233,'&',248,202,'q',155,127,147,254,'4','g',132,'N',153,235,252,
+    179,'x',9,'3','p',186,'f',166,'v',237,27,'s',235,26,165,13,196,'"',19,' ',
+    0x94,'V',10,'N',',','l','N',177,253,207,156,9,186,162,'3',237,135,2,3,1,0,
+    0x01,163,'c','0','a','0',29,6,3,'U',29,14,4,22,4,20,221,4,9,7,162,245,'z',
+    '}','R','S',18,0x92,149,238,'8',128,'%',13,166,'Y','0',15,6,3,'U',29,19,1,
+    1,0xff,4,5,'0',3,1,1,255,'0',31,6,3,'U',29,'#',4,24,'0',22,128,20,221,4,9,
+    7,0xa2,245,'z','}','R','S',18,146,149,238,'8',128,'%',13,166,'Y','0',14,6,
+    0x3,'U',29,15,1,1,255,4,4,3,2,1,134,'0',13,6,9,'*',134,'H',134,247,13,1,1,
+    11,5,0,3,130,2,1,0,' ',24,17,148,')',251,'&',157,28,30,30,'p','a',241,149,
+    'r',0x93,'q','$',173,'h',147,'X',142,'2',175,27,179,'p',3,252,'%','+','t',
+    133,144,'=','x','j',244,185,139,165,151,';',181,24,145,187,30,167,249,'@',
+    '[',0x91,249,'U',153,175,30,17,208,92,29,167,'f',227,177,148,7,12,'2','9',
+    0xa6,234,27,176,'y',216,29,156,'p','D',227,138,221,196,249,149,31,138,'8',
+    'C','?',1,133,165,'G',167,'=','F',178,188,229,'"','h',247,'{',156,216,',',
+    '>',0x0a,'!',0xc8,'-','3',172,191,197,129,153,'1','t',193,'u','q',197,190,
+    0xb1,0xf0,'#','E',0xf4,157,'k',252,25,'c',157,163,188,4,198,24,11,'%',187,
+    'S',0x89,0x0f,179,128,'P',222,'E',238,'D',127,171,148,'x','d',152,211,246,
+    '(',0xdd,135,216,'p','e','t',251,14,185,19,235,167,15,'a',169,'2',150,204,
+    222,187,237,'c','L',24,187,169,'@',247,160,'T','n',' ',136,'q','u',24,234,
+    'z',0xb4,'4','r',224,'#',39,'w',92,182,144,234,134,'%','@',171,239,'3',15,
+    203,159,130,190,162,' ',251,246,181,'-',26,230,194,133,177,'t',15,251,200,
+    'e',0x2,164,'R',1,'G',221,'I','"',193,191,216,235,'k',172,'~',222,236,'c',
+    '3',0x15,183,'#',8,143,198,15,141,'A','Z',221,142,197,185,143,229,'E','?',
+    'x',219,186,210,27,'@',177,254,'q','M','?',224,129,162,186,'^',180,236,21,
+    0xe0,0x93,0xdd,8,31,'~',225,'U',153,11,'!',222,147,158,10,251,230,163,'I',
+    0xbd,'6','0',0xfe,0xe7,'w',178,160,'u',151,181,'-',129,136,23,'e',' ',247,
+    0xda,144,0,159,201,'R',204,'2',202,'5','|',245,'=',15,216,'+',215,245,'&',
+    'l',201,6,'4',150,22,234,'p','Y',26,'2','y','y',11,182,136,127,15,'R','H',
+    '=',0xbf,'l',0xd8,0xa2,'D','.',209,'N',183,'r','X',211,137,19,149,254,'D',
+    0xab,248,215,139,27,'n',156,188,',',160,'[',213,'j',0,175,'_','7',225,213,
+    0xfa,16,11,152,156,134,231,'&',143,206,240,236,'n',138,'W',11,128,227,'N',
+    0xb2,0xc0,160,'c','a',144,186,'U','h','7','t','j',182,146,219,159,161,134,
+    '"',0xb6,'e',39,14,236,182,159,'B','`',228,'g',194,181,218,'A',11,196,211,
+    0x8b,'a',27,0xbc,250,31,145,'+',215,'D',7,'^',186,')',172,217,197,233,239,
+    'S','H','Z',0xeb,128,241,'(','X','!',205,176,6,'U',251,39,'?','S',144,'p',
+    169,4,30,'W',39,185,
+]
+
 
 /**
 SSL.com Root Certification Authority RSA.
 SHA256 fingerprint: 85:66:6a:56:2e:e0:be:5c:e9:25:c1:d8:89:0a:6f:76:a8:7e:c1:6d:4d:7d:5f:29:ea:74:19:cf:20:12:3b:69
 */
-SSL_COM_ROOT_CERTIFICATION_AUTHORITY_RSA ::= net.Certificate.parse SSL_COM_ROOT_CERTIFICATION_AUTHORITY_RSA_TEXT_
+SSL_COM_ROOT_CERTIFICATION_AUTHORITY_RSA ::= parse_ SSL_COM_ROOT_CERTIFICATION_AUTHORITY_RSA_BYTES_
 
-SSL_COM_ROOT_CERTIFICATION_AUTHORITY_ECC_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIICjTCCAhSgAwIBAgIIdebfy8FoW6gwCgYIKoZIzj0EAwIwfDELMAkGA1UEBhMC
-VVMxDjAMBgNVBAgMBVRleGFzMRAwDgYDVQQHDAdIb3VzdG9uMRgwFgYDVQQKDA9T
-U0wgQ29ycG9yYXRpb24xMTAvBgNVBAMMKFNTTC5jb20gUm9vdCBDZXJ0aWZpY2F0
-aW9uIEF1dGhvcml0eSBFQ0MwHhcNMTYwMjEyMTgxNDAzWhcNNDEwMjEyMTgxNDAz
-WjB8MQswCQYDVQQGEwJVUzEOMAwGA1UECAwFVGV4YXMxEDAOBgNVBAcMB0hvdXN0
-b24xGDAWBgNVBAoMD1NTTCBDb3Jwb3JhdGlvbjExMC8GA1UEAwwoU1NMLmNvbSBS
-b290IENlcnRpZmljYXRpb24gQXV0aG9yaXR5IEVDQzB2MBAGByqGSM49AgEGBSuB
-BAAiA2IABEVuqVDEpiM2nl8ojRfLliJkP9x6jh3MCLOicSS6jkm5BBtHllirLZXI
-7Z4INcgn64mMU1jrYor+8FsPazFSY0E7ic3s7LaNGdM0B9y7xgZ/wkWV7Mt/qCPg
-CemB+vNH06NjMGEwHQYDVR0OBBYEFILRhXMw5zUE044CkvvlpNHEIejNMA8GA1Ud
-EwEB/wQFMAMBAf8wHwYDVR0jBBgwFoAUgtGFczDnNQTTjgKS++Wk0cQh6M0wDgYD
-VR0PAQH/BAQDAgGGMAoGCCqGSM49BAMCA2cAMGQCMG/n61kRpGDPYbCWe+0F+S8T
-kdzt5fxQaxFGRrMcIQBiu77D5+jNB5n5DQtdcj7EqgIwH7y6C+IwJPt8bYBVCpk+
-gA0z5Wajs6O7pdWLjwkspl1+4vAHCGht0nxpbl/f5Wpl
------END CERTIFICATE-----
-"""
+SSL_COM_ROOT_CERTIFICATION_AUTHORITY_ECC_BYTES_ ::= #[
+    '0',0x82,0x2,141,'0',130,2,20,160,3,2,1,2,2,8,'u',230,223,203,193,'h','[',
+    168,'0',10,6,8,'*',134,'H',206,'=',4,3,2,'0','|','1',11,'0',9,6,3,'U',4,6,
+    0x13,2,'U','S','1',0xe,'0',12,6,3,'U',4,8,12,5,'T','e','x','a','s','1',16,
+    '0',14,6,3,'U',4,7,12,7,'H','o','u','s','t','o','n','1',24,'0',22,6,3,'U',
+    0x04,10,12,15,'S','S','L',' ','C','o','r','p','o','r','a','t','i','o','n',
+    '1','1','0','/',0x06,3,'U',4,3,12,'(','S','S','L','.','c','o','m',' ','R',
+    'o','o','t',' ','C','e','r','t','i','f','i','c','a','t','i','o','n',' ',
+    'A','u','t','h','o','r','i','t','y',' ','E','C','C','0',30,23,0xd,'1','6',
+    '0','2','1','2','1','8','1','4','0','3','Z',23,13,'4','1','0','2','1','2',
+    '1','8','1','4','0','3','Z','0','|','1',11,'0',9,6,3,'U',4,6,19,2,'U','S',
+    '1',0xe,'0',12,6,3,'U',4,8,12,5,'T','e','x','a','s','1',16,'0',14,6,3,'U',
+    4,7,12,7,'H','o','u','s','t','o','n','1',24,'0',22,6,3,'U',4,10,12,15,'S',
+    'S','L',' ','C','o','r','p','o','r','a','t','i','o','n','1','1','0','/',6,
+    3,'U',4,3,0xc,'(','S','S','L','.','c','o','m',' ','R','o','o','t',' ','C',
+    'e','r','t','i','f','i','c','a','t','i','o','n',' ','A','u','t','h','o',
+    'r','i','t','y',' ','E','C','C','0','v','0',16,6,7,'*',0x86,'H',206,'=',2,
+    0x1,6,5,'+',129,4,0,'"',3,'b',0,4,'E','n',169,'P',196,166,'#','6',158,'_',
+    '(',0x8d,23,0xcb,150,'"','d','?',220,'z',142,29,204,8,179,162,'q','$',186,
+    142,'I',185,4,27,'G',150,'X',171,'-',149,200,237,158,8,'5',200,39,235,137,
+    0x8c,'S','X',0xeb,'b',0x8a,254,240,'[',15,'k','1','R','c','A',';',137,205,
+    0xec,0xec,0xb6,141,25,211,'4',7,220,187,198,6,127,194,'E',149,236,203,127,
+    0xa8,'#',0xe0,9,233,129,250,243,'G',211,163,'c','0','a','0',29,6,3,'U',29,
+    0xe,4,22,4,20,130,209,133,'s','0',231,'5',4,211,142,2,146,251,229,164,209,
+    196,'!',232,205,'0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',31,6,3,
+    'U',29,'#',4,24,'0',22,128,20,130,209,133,'s','0',231,'5',4,211,142,2,146,
+    0xfb,0xe5,0xa4,209,196,'!',232,205,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,
+    0x86,'0',0x0a,6,8,'*',134,'H',206,'=',4,3,2,3,'g',0,'0','d',2,'0','o',231,
+    0xeb,'Y',17,0xa4,'`',207,'a',176,150,'{',237,5,249,'/',19,145,220,237,229,
+    252,'P','k',17,'F','F',179,28,'!',0,'b',187,190,195,231,232,205,7,153,249,
+    13,11,']','r','>',196,170,2,'0',31,188,186,11,226,'0','$',251,'|','m',128,
+    'U',0x0a,153,'>',128,13,'3',229,'f',163,179,163,187,165,213,139,143,9,',',
+    166,']','~',226,240,7,8,'h','m',210,'|','i','n','_',223,229,'j','e',
+]
+
 
 /**
 SSL.com Root Certification Authority ECC.
 SHA256 fingerprint: 34:17:bb:06:cc:60:07:da:1b:96:1c:92:0b:8a:b4:ce:3f:ad:82:0e:4a:a3:0b:9a:cb:c4:a7:4e:bd:ce:bc:65
 */
-SSL_COM_ROOT_CERTIFICATION_AUTHORITY_ECC ::= net.Certificate.parse SSL_COM_ROOT_CERTIFICATION_AUTHORITY_ECC_TEXT_
+SSL_COM_ROOT_CERTIFICATION_AUTHORITY_ECC ::= parse_ SSL_COM_ROOT_CERTIFICATION_AUTHORITY_ECC_BYTES_
 
-SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_RSA_R2_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIF6zCCA9OgAwIBAgIIVrYpzTS8ePYwDQYJKoZIhvcNAQELBQAwgYIxCzAJBgNV
-BAYTAlVTMQ4wDAYDVQQIDAVUZXhhczEQMA4GA1UEBwwHSG91c3RvbjEYMBYGA1UE
-CgwPU1NMIENvcnBvcmF0aW9uMTcwNQYDVQQDDC5TU0wuY29tIEVWIFJvb3QgQ2Vy
-dGlmaWNhdGlvbiBBdXRob3JpdHkgUlNBIFIyMB4XDTE3MDUzMTE4MTQzN1oXDTQy
-MDUzMDE4MTQzN1owgYIxCzAJBgNVBAYTAlVTMQ4wDAYDVQQIDAVUZXhhczEQMA4G
-A1UEBwwHSG91c3RvbjEYMBYGA1UECgwPU1NMIENvcnBvcmF0aW9uMTcwNQYDVQQD
-DC5TU0wuY29tIEVWIFJvb3QgQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkgUlNBIFIy
-MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAjzZlQOHWTcDXtOlG2mvq
-M0fNTPl9fb69LT3w23jhhqXZuglXaO1XPqDQCEGD5yhBJB/jchXQARr7XnAjssuf
-OePPxU7Gkm0mxnu7s9onnQqG6YE3Bf7wcXHswxzpY6IXFJ3vG2fThVUCAtZJycxa
-4bH3bzKfydQ7iEGonL3Lq9ttewkfokxykNorCPzPPFTOZw+oz12WGQvE43LrrdF9
-HSfvkusQv1vrO6/PgN3B0pYEW3p+pKk8OHakYo6gOV7qd89dAFmPZiw+B6KjBSYR
-aZfqhbcPlgtLyEDhULouisv3D5oi53+aNxPN8k0TayHRwMwi8qFG9kRpnMphNQcA
-b9ZhCBHqurj26bNg5U257J8UZslXWNvNh2n4ioYSA0e/ZhN2rHd9NCSFg83XqpyQ
-Gp8hLH94t2S42Oim9HizVcuE0jLEeK6jj2HdzghTreyI/BXkmg3mnxp3zkyPuBQV
-PWKchjgGAGYS5Fl2WlPAApiiECtoRHuOec4zSnaqW4EWG7WK2NAAe15itAnWhmMO
-pgWVSbooi4iTsjQc2KRVbrcc0N6ZVTsj9CLg+SlmJuwgUHfbSguPvuUCYHBBXtSu
-UDkiFCbLsjtzdFVHB3mBOagwE0TlBIqulhMlQg+5U8Sb/M3kHN48+qvWBkofZ6aY
-MBzdLNvcGJVXZsb/XItW9XcCAwEAAaNjMGEwDwYDVR0TAQH/BAUwAwEB/zAfBgNV
-HSMEGDAWgBT5YLvU49U09rj1BoAlp3PbRmmonjAdBgNVHQ4EFgQU+WC71OPVNPa4
-9QaAJadz20ZpqJ4wDgYDVR0PAQH/BAQDAgGGMA0GCSqGSIb3DQEBCwUAA4ICAQBW
-s47LCp1Jjr+kxJG7ZhcFUZh1++VQLHqe8RT6q9OKPv+RKY9ji9i0qVQBDb6Thi/5
-Sm3HXvVX+cpVHBK+Rw82xd9qt9t1wkclf7nxY/hoLVUE0fKNsKTPvDxeH3jnpaAg
-cLAExbf3cqfeIg29MyVGjGSSJuM+LmOW2puMPfgYCdcDzH2GguDKBAdRUNf/ktUM
-79qGn5nX67evaOI5JpS6aLe/g9Pqemc9YmeuJeVy6OLk7K4S9ksrPJ/psEDzOFSz
-/bdoyNrGj1E8svuR3Bznm53htw1yj+KkxKl4+esUrMZDBcJlOSgYAsOCsp0FvmXt
-ll9ldDz7CTUue5wT/RsPXcdtgTpWD8w74a8CLyKsRspGPKAcTNZEtF4uXBVmCeEm
-Kf7GUmG6sXP/wwyc5WxqlD8UykAWlYTzWamsX0xhk23RO8yilQwipmdnRC652dKK
-QbNmC1r7fSOl8hqw/96bg5Qu0T/fkreRrwU7ZcegbLHNYhLDkBvjJc40vG93drEQ
-w/cFGsDWr3RiSBd3kmmQYRzelYB0VI8YHMPzA9C/pEN1hlMYegouCRw2n5H9gooi
-S9EOUCXdywMMF8mDAAhONU2Ki+3wApRmLER/y5UnlhetCTCstnEXbosX9hwJ1C07
-mKVx01QT2WDz9UtmT/rx7iASjbSsV7FFY6GsdqnC+w==
------END CERTIFICATE-----
-"""
+SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_RSA_R2_BYTES_ ::= #[
+    '0',0x82,5,0xeb,'0',130,3,211,160,3,2,1,2,2,8,'V',182,')',205,'4',188,'x',
+    246,'0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,'0',129,130,'1',11,'0',9,
+    0x6,3,'U',4,6,19,2,'U','S','1',14,'0',12,6,3,'U',4,8,12,5,'T','e','x','a',
+    's','1',16,'0',14,6,3,'U',4,7,12,7,'H','o','u','s','t','o','n','1',24,'0',
+    22,6,3,'U',4,10,12,15,'S','S','L',' ','C','o','r','p','o','r','a','t','i',
+    'o','n','1','7','0','5',0x06,3,'U',4,3,12,'.','S','S','L','.','c','o','m',
+    ' ','E','V',' ','R','o','o','t',' ','C','e','r','t','i','f','i','c','a',
+    't','i','o','n',' ','A','u','t','h','o','r','i','t','y',' ','R','S','A',
+    ' ','R','2','0',30,23,0xd,'1','7','0','5','3','1','1','8','1','4','3','7',
+    'Z',23,13,'4','2','0','5','3','0','1','8','1','4','3','7','Z','0',129,130,
+    '1',0xb,'0',9,6,3,'U',4,6,19,2,'U','S','1',14,'0',12,6,3,'U',4,8,12,5,'T',
+    'e','x','a','s','1',0x10,'0',0xe,6,3,'U',4,7,12,7,'H','o','u','s','t','o',
+    'n','1',24,'0',22,6,3,'U',4,0xa,12,15,'S','S','L',' ','C','o','r','p','o',
+    'r','a','t','i','o','n','1','7','0','5',0x06,3,'U',4,3,12,'.','S','S','L',
+    '.','c','o','m',' ','E','V',' ','R','o','o','t',' ','C','e','r','t','i',
+    'f','i','c','a','t','i','o','n',' ','A','u','t','h','o','r','i','t','y',
+    ' ','R','S','A',' ','R','2','0',0x82,2,'"','0',13,6,9,'*',134,'H',134,247,
+    0x0d,1,1,1,5,0,3,0x82,2,15,0,'0',130,2,10,2,130,2,1,0,143,'6','e','@',225,
+    0xd6,'M',0xc0,215,180,233,'F',218,'k',234,'3','G',205,'L',249,'}','}',190,
+    189,'-','=',240,219,'x',225,134,165,217,186,9,'W','h',237,'W','>',160,208,
+    8,'A',0x83,231,'(','A','$',31,227,'r',21,208,1,26,251,'^','p','#',178,203,
+    159,'9',227,207,197,'N',198,146,'m','&',198,'{',187,179,218,39,157,10,134,
+    233,129,'7',5,254,240,'q','q',236,195,28,233,'c',162,23,20,157,239,27,'g',
+    0xd3,0x85,'U',2,2,214,'I',201,204,'Z',225,177,247,'o','2',159,201,212,';',
+    0x88,'A',0xa8,0x9c,189,203,171,219,'m','{',9,31,162,'L','r',144,218,'+',8,
+    0xfc,207,'<','T',206,'g',15,168,207,']',150,25,11,196,227,'r',235,173,209,
+    '}',0x1d,39,0xef,146,235,16,191,'[',235,';',175,207,128,221,193,210,150,4,
+    '[','z','~',164,169,'<','8','v',164,'b',142,160,'9','^',234,'w',207,']',0,
+    'Y',0x8f,'f',',','>',7,162,163,5,'&',17,'i',151,234,133,183,15,150,11,'K',
+    200,'@',225,'P',186,'.',138,203,247,15,154,'"',231,127,154,'7',19,205,242,
+    'M',19,'k','!',0xd1,192,204,'"',242,161,'F',246,'D','i',156,202,'a','5',7,
+    0,'o',214,'a',8,17,234,186,184,246,233,179,'`',229,'M',185,236,159,20,'f',
+    0xc9,'W','X',0xdb,205,135,'i',248,138,134,18,3,'G',191,'f',19,'v',172,'w',
+    '}','4','$',0x85,0x83,0xcd,215,170,156,144,26,159,'!',',',127,'x',183,'d',
+    0xb8,0xd8,232,166,244,'x',179,'U',203,132,210,'2',196,'x',174,163,143,'a',
+    0xdd,0xce,8,'S',0xad,236,136,252,21,228,154,13,230,159,26,'w',206,'L',143,
+    0xb8,0x14,21,'=','b',156,134,'8',6,0,'f',18,228,'Y','v','Z','S',192,2,152,
+    0xa2,16,'+','h','D','{',142,'y',206,'3','J','v',170,'[',129,22,27,181,138,
+    0xd8,208,0,'{','^','b',180,9,214,134,'c',14,166,5,149,'I',186,'(',139,136,
+    147,178,'4',28,216,164,'U','n',183,28,208,222,153,'U',';','#',244,'"',224,
+    0xf9,')','f','&',236,' ','P','w',219,'J',11,143,190,229,2,'`','p','A','^',
+    0xd4,174,'P','9','"',20,'&',203,178,';','s','t','U','G',7,'y',129,'9',168,
+    '0',19,'D',229,4,138,174,150,19,'%','B',15,185,'S',196,155,252,205,228,28,
+    0xde,'<',0xfa,0xab,214,6,'J',31,'g',166,152,'0',28,221,',',219,220,24,149,
+    'W','f',0xc6,0xff,92,139,'V',245,'w',2,3,1,0,1,163,'c','0','a','0',15,6,3,
+    'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',31,6,3,'U',29,'#',4,24,'0',22,128,
+    20,0xf9,'`',187,212,227,213,'4',246,184,245,6,128,'%',167,'s',219,'F','i',
+    0xa8,0x9e,'0',29,6,3,'U',29,0xe,4,22,4,20,249,'`',187,212,227,213,'4',246,
+    0xb8,0xf5,6,0x80,'%',167,'s',219,'F','i',168,158,'0',14,6,3,'U',29,15,1,1,
+    0xff,4,4,3,2,1,134,'0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,3,130,2,1,
+    0,'V',179,142,203,10,157,'I',142,191,164,196,145,187,'f',23,5,'Q',152,'u',
+    0xfb,0xe5,'P',',','z',0x9e,241,20,250,171,211,138,'>',255,145,')',143,'c',
+    0x8b,216,180,169,'T',1,13,190,147,134,'/',249,'J','m',199,'^',245,'W',249,
+    0xca,'U',28,18,190,'G',15,'6',197,223,'j',183,219,'u',194,'G','%',127,185,
+    0xf1,'c',248,'h','-','U',4,209,242,141,176,164,207,188,'<','^',31,'x',231,
+    0xa5,160,' ','p',176,4,197,183,247,'r',167,222,'"',13,189,'3','%','F',140,
+    'd',0x92,'&',0xe3,'>','.','c',0x96,218,155,140,'=',248,24,9,215,3,204,'}',
+    0x86,0x82,0xe0,202,4,7,'Q','P',215,255,146,213,12,239,218,134,159,153,215,
+    0xeb,0xb7,175,'h',226,'9','&',148,186,'h',183,191,131,211,234,'z','g','=',
+    'b','g',0xae,'%',0xe5,'r',0xe8,226,228,236,174,18,246,'K','+','<',159,233,
+    0xb0,'@',0xf3,'8','T',179,253,183,'h',200,218,198,143,'Q','<',178,251,145,
+    0xdc,28,231,155,157,225,183,13,'r',143,226,164,196,169,'x',249,235,20,172,
+    0xc6,'C',5,194,'e','9','(',24,2,195,130,178,157,5,190,'e',237,150,'_','e',
+    't','<',251,9,'5','.','{',156,19,253,27,15,']',199,'m',129,':','V',15,204,
+    ';',0xe1,175,2,'/','"',172,'F',202,'F','<',160,28,'L',214,'D',180,'^','.',
+    0x5c,21,'f',9,0xe1,'&',')',254,198,'R','a',186,177,'s',255,195,12,156,229,
+    'l','j',148,'?',20,202,'@',22,149,132,243,'Y',169,172,'_','L','a',147,'m',
+    0xd1,';',0xcc,0xa2,149,12,'"',166,'g','g','D','.',185,217,210,138,'A',179,
+    'f',11,'Z',251,'}','#',165,242,26,176,255,222,155,131,148,'.',209,'?',223,
+    0x92,0xb7,145,175,5,';','e',199,160,'l',177,205,'b',18,195,144,27,227,'%',
+    0xce,'4',0xbc,'o','w','v',0xb1,16,195,247,5,26,192,214,175,'t','b','H',23,
+    'w',0x92,'i',0x90,'a',28,0xde,149,128,'t','T',143,24,28,195,243,3,208,191,
+    0xa4,'C','u',0x86,'S',24,'z',0xa,'.',9,28,'6',159,145,253,130,138,'"','K',
+    0xd1,14,'P','%',221,203,3,12,23,201,131,0,8,'N','5','M',138,139,237,240,2,
+    148,'f',',','D',127,203,149,39,150,23,173,9,'0',172,182,'q',23,'n',139,23,
+    0xf6,28,9,0xd4,'-',';',152,165,'q',211,'T',19,217,'`',243,245,'K','f','O',
+    0xfa,0xf1,0xee,' ',18,141,180,172,'W',177,'E','c',161,172,'v',169,194,251,
+]
+
 
 /**
 SSL.com EV Root Certification Authority RSA R2.
 SHA256 fingerprint: 2e:7b:f1:6c:c2:24:85:a7:bb:e2:aa:86:96:75:07:61:b0:ae:39:be:3b:2f:e9:d0:cc:6d:4e:f7:34:91:42:5c
 */
-SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_RSA_R2 ::= net.Certificate.parse SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_RSA_R2_TEXT_
+SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_RSA_R2 ::= parse_ SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_RSA_R2_BYTES_
 
-SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_ECC_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIClDCCAhqgAwIBAgIILCmcWxbtBZUwCgYIKoZIzj0EAwIwfzELMAkGA1UEBhMC
-VVMxDjAMBgNVBAgMBVRleGFzMRAwDgYDVQQHDAdIb3VzdG9uMRgwFgYDVQQKDA9T
-U0wgQ29ycG9yYXRpb24xNDAyBgNVBAMMK1NTTC5jb20gRVYgUm9vdCBDZXJ0aWZp
-Y2F0aW9uIEF1dGhvcml0eSBFQ0MwHhcNMTYwMjEyMTgxNTIzWhcNNDEwMjEyMTgx
-NTIzWjB/MQswCQYDVQQGEwJVUzEOMAwGA1UECAwFVGV4YXMxEDAOBgNVBAcMB0hv
-dXN0b24xGDAWBgNVBAoMD1NTTCBDb3Jwb3JhdGlvbjE0MDIGA1UEAwwrU1NMLmNv
-bSBFViBSb290IENlcnRpZmljYXRpb24gQXV0aG9yaXR5IEVDQzB2MBAGByqGSM49
-AgEGBSuBBAAiA2IABKoSR5CYG/vvw0AHgyBO8TCCogbR8pKGYfL2IWjKAMTH6kMA
-VIbc/R/fALhBYlzccBYy3h+Z1MzFB8gIH2EWB1E9fVwHU+M1OIzfzZ/ZLg1Kthku
-WnBaBu2+8KGwytAJKaNjMGEwHQYDVR0OBBYEFFvKXuXe0oGqzagtZFG22XKbl+ZP
-MA8GA1UdEwEB/wQFMAMBAf8wHwYDVR0jBBgwFoAUW8pe5d7SgarNqC1kUbbZcpuX
-5k8wDgYDVR0PAQH/BAQDAgGGMAoGCCqGSM49BAMCA2gAMGUCMQCK5kCJN+vp1RPZ
-ytRrJPOwPYdGWBrssd9v+1a6cGvHOMzosYxPD/fxZ3YOg9AeUY8CMD32IygmTMZg
-h5Mmm7I1HrrW9zzRHM76JTymGoEVW/MSD2zuZYrJh6j5B+BimoxcSg==
------END CERTIFICATE-----
-"""
+SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_ECC_BYTES_ ::= #[
+    '0',0x82,2,0x94,'0',130,2,26,160,3,2,1,2,2,8,',',')',156,'[',22,237,5,149,
+    '0',0xa,6,8,'*',134,'H',206,'=',4,3,2,'0',127,'1',11,'0',9,6,3,'U',4,6,19,
+    0x2,'U','S','1',14,'0',12,6,3,'U',4,8,12,5,'T','e','x','a','s','1',16,'0',
+    0x0e,6,3,'U',4,7,12,7,'H','o','u','s','t','o','n','1',24,'0',22,6,3,'U',4,
+    0xa,12,15,'S','S','L',' ','C','o','r','p','o','r','a','t','i','o','n','1',
+    '4','0','2',0x06,3,'U',4,3,12,'+','S','S','L','.','c','o','m',' ','E','V',
+    ' ','R','o','o','t',' ','C','e','r','t','i','f','i','c','a','t','i','o',
+    'n',' ','A','u','t','h','o','r','i','t','y',' ','E','C','C','0',30,23,0xd,
+    '1','6','0','2','1','2','1','8','1','5','2','3','Z',23,13,'4','1','0','2',
+    '1','2','1','8','1','5','2','3','Z','0',127,'1',11,'0',9,6,3,'U',4,6,19,2,
+    'U','S','1',0xe,'0',12,6,3,'U',4,8,12,5,'T','e','x','a','s','1',16,'0',14,
+    0x6,3,'U',4,7,12,7,'H','o','u','s','t','o','n','1',24,'0',22,6,3,'U',4,10,
+    12,15,'S','S','L',' ','C','o','r','p','o','r','a','t','i','o','n','1','4',
+    '0','2',0x06,3,'U',4,3,12,'+','S','S','L','.','c','o','m',' ','E','V',' ',
+    'R','o','o','t',' ','C','e','r','t','i','f','i','c','a','t','i','o','n',
+    ' ','A','u','t','h','o','r','i','t','y',' ','E','C','C','0','v','0',16,6,
+    0x07,'*',134,'H',206,'=',2,1,6,5,'+',129,4,0,'"',3,'b',0,4,170,18,'G',144,
+    0x98,0x1b,251,239,195,'@',7,131,' ','N',241,'0',130,162,6,209,242,146,134,
+    'a',0xf2,246,'!','h',202,0,196,199,234,'C',0,'T',134,220,253,31,223,0,184,
+    'A','b',92,0xdc,'p',22,'2',222,31,153,212,204,197,7,200,8,31,'a',22,7,'Q',
+    '=','}',0x5c,7,'S',0xe3,'5','8',140,223,205,159,217,'.',13,'J',182,25,'.',
+    'Z','p','Z',6,0xed,190,240,161,176,202,208,9,')',163,'c','0','a','0',29,6,
+    3,'U',29,14,4,22,4,20,'[',202,'^',229,222,210,129,170,205,168,'-','d','Q',
+    0xb6,0xd9,'r',0x9b,151,230,'O','0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,
+    0xff,'0',31,6,3,'U',29,'#',4,24,'0',22,128,20,'[',202,'^',229,222,210,129,
+    0xaa,205,168,'-','d','Q',182,217,'r',155,151,230,'O','0',14,6,3,'U',29,15,
+    0x01,1,255,4,4,3,2,1,134,'0',10,6,8,'*',134,'H',206,'=',4,3,2,3,'h',0,'0',
+    'e',0x02,'1',0,138,230,'@',137,'7',235,233,213,19,217,202,212,'k','$',243,
+    0xb0,'=',0x87,'F','X',26,0xec,177,223,'o',251,'V',186,'p','k',199,'8',204,
+    0xe8,0xb1,0x8c,'O',15,247,241,'g','v',14,131,208,30,'Q',143,2,'0','=',246,
+    '#','(','&','L',198,'`',135,147,'&',155,178,'5',30,186,214,247,'<',209,28,
+    0xce,0xfa,'%','<',166,26,129,21,'[',243,18,15,'l',238,'e',138,201,135,168,
+    249,7,224,'b',154,140,92,'J',
+]
+
 
 /**
 SSL.com EV Root Certification Authority ECC.
 SHA256 fingerprint: 22:a2:c1:f7:bd:ed:70:4c:c1:e7:01:b5:f4:08:c3:10:88:0f:e9:56:b5:de:2a:4a:44:f9:9c:87:3a:25:a7:c8
 */
-SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_ECC ::= net.Certificate.parse SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_ECC_TEXT_
+SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_ECC ::= parse_ SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_ECC_BYTES_
 
-GLOBALSIGN_ROOT_CA_R6_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIFgzCCA2ugAwIBAgIORea7A4Mzw4VlSOb/RVEwDQYJKoZIhvcNAQEMBQAwTDEg
-MB4GA1UECxMXR2xvYmFsU2lnbiBSb290IENBIC0gUjYxEzARBgNVBAoTCkdsb2Jh
-bFNpZ24xEzARBgNVBAMTCkdsb2JhbFNpZ24wHhcNMTQxMjEwMDAwMDAwWhcNMzQx
-MjEwMDAwMDAwWjBMMSAwHgYDVQQLExdHbG9iYWxTaWduIFJvb3QgQ0EgLSBSNjET
-MBEGA1UEChMKR2xvYmFsU2lnbjETMBEGA1UEAxMKR2xvYmFsU2lnbjCCAiIwDQYJ
-KoZIhvcNAQEBBQADggIPADCCAgoCggIBAJUH6HPKZvnsFMp7PPcNCPG0RQssgrRI
-xutbPK6DuEGSMxSkb3/pKszGsIhrxbaJ0cay/xTOURQh7ErdG1rG1ofuTToVBu1k
-ZguSgMpE3nOUTvOniX9PeGMIyBJQbUJmL025eShNUhqKGoC3GYEOfsSKvGRMIRxD
-aNc9PIrFsmbVkJq3MQbFvuJtMgamHvm566qjuL++gmNQ0PAYid/kD3n16qIfKtJw
-LnvnvJO7bVPiSHyMEAc4/2ayd2F+4OqMPKq0pPbzlUoSB239jLKJz9CgYXfIWHSw
-1CM69106yqLbnQneXUQtkPGBzVeS+n68UARjNN9rkxi+azayOeSsJDa38O+2HBNX
-k7besvjihbdzorg1qkXy4J02oW9UivFyVm4uiMVRQkQVlO6jxTiWm05OWgtH8wY2
-SXcwvHE35absIQh1/OZhFj931dmRl4QKbNQCTXTAFO39OfuD8l4UoQSwC+n+7o/h
-bguyCLNhZglqsQY6ZZZZwPA1/cnaKI0aEYdwgQqomnUdnjqGBQCe24DWJfncBZ4n
-WUx2OVvq+aWh2IMP0f/fMBH5hc8zSPXKbWQULHpYT9NLCEnFlWQaYw55PfWzjMpY
-rZxCRXluDocZXFSxZba/jJvcE+kNb7gu3GduyYsRtYQUigAZcIN5kZeR1Bonvzce
-MgfYFGM8KEyvAgMBAAGjYzBhMA4GA1UdDwEB/wQEAwIBBjAPBgNVHRMBAf8EBTAD
-AQH/MB0GA1UdDgQWBBSubAWjkxPioufi1xzWx/B/yGdToDAfBgNVHSMEGDAWgBSu
-bAWjkxPioufi1xzWx/B/yGdToDANBgkqhkiG9w0BAQwFAAOCAgEAgyXt6NH9lVLN
-nsAEoJFp5lzQhN7craJP6Ed41mWYqVuoPId8AorRbrcWc+ZfwFSY1XS+wc3iEZGt
-Ixg93eFyRJa0lV7Ae46ZeBZDE1ZXs6KzO7V33EByrKPrmzU+sQghoefEQzd5Mr61
-55wsTLxDKZmOMNOsIeDjHfrYBzN2VAAiKrlNIC5waNrlU/yDXNOd8v9EDERm8tLj
-vUYAGm0CuiVdjaExUd1URhxN25mW7xocBFymFe944Hn+Xds+qkxV/ZoVqW/hpvvf
-cDDpw+5CRu3CkwWJ+n1jez/QcYF8AOiYrg54NMMl+68KnyBr3TsTjxKM4kEaSHpz
-oHdpx7Zcf4LIHv5YGygrqGytXm3ABdJ7t+uA/iU3/gKbaKxCXcPu9czc8FB10jZp
-nOZ7BN9uBmm23goJSFmH63sUYHpkqmlD75HHTOwY3WzvUy2MmeFe8nI+z1TIvWfs
-pA9MRf/TuTAjB0yPEL+GltmZWrSZVxykzLsViVO6LAUP5MSeGbEYNNVMnbrt9x+v
-JJUEeKgDu+6B5dpffItKoZB0JaezPkvILFa9x8jvOOJckvB595yEunQtYQEgfn7R
-8k8HWV+LLUNS60YMlOH1Zkd5d9VUWx+tJDfLRVpOoERIyNiwmcUVhAn21klJwGW4
-5hpxbqCo8YLoRT5s1gLXCmeDBVrJpBA=
------END CERTIFICATE-----
-"""
+GLOBALSIGN_ROOT_CA_R6_BYTES_ ::= #[
+    '0',0x82,0x5,131,'0',130,3,'k',160,3,2,1,2,2,14,'E',230,187,3,131,'3',195,
+    0x85,'e','H',230,255,'E','Q','0',13,6,9,'*',134,'H',134,247,13,1,1,12,5,0,
+    '0','L','1',' ','0',30,6,3,'U',4,11,19,23,'G','l','o','b','a','l','S','i',
+    'g','n',' ','R','o','o','t',' ','C','A',' ','-',' ','R','6','1',19,'0',17,
+    6,3,'U',4,0xa,19,10,'G','l','o','b','a','l','S','i','g','n','1',19,'0',17,
+    0x06,3,'U',4,3,19,10,'G','l','o','b','a','l','S','i','g','n','0',30,23,13,
+    '1','4','1','2','1','0','0','0','0','0','0','0','Z',23,13,'3','4','1','2',
+    '1','0','0','0','0','0','0','0','Z','0','L','1',' ','0',0x1e,6,3,'U',4,11,
+    19,23,'G','l','o','b','a','l','S','i','g','n',' ','R','o','o','t',' ','C',
+    'A',' ','-',' ','R','6','1',19,'0',17,6,3,'U',4,0xa,19,10,'G','l','o','b',
+    'a','l','S','i','g','n','1',0x13,'0',17,6,3,'U',4,3,19,10,'G','l','o','b',
+    'a','l','S','i','g','n','0',130,2,'"','0',13,6,9,'*',134,'H',134,247,13,1,
+    0x1,1,5,0,3,130,2,15,0,'0',130,2,10,2,130,2,1,0,149,7,232,'s',202,'f',249,
+    0xec,0x14,202,'{','<',247,13,8,241,180,'E',11,',',130,180,'H',198,235,'[',
+    '<',0xae,0x83,0xb8,'A',146,'3',20,164,'o',127,233,'*',204,198,176,136,'k',
+    0xc5,182,137,209,198,178,255,20,206,'Q',20,'!',236,'J',221,27,'Z',198,214,
+    0x87,0xee,'M',':',21,6,237,'d','f',11,146,128,202,'D',222,'s',148,'N',243,
+    0xa7,137,127,'O','x','c',8,200,18,'P','m','B','f','/','M',185,'y','(','M',
+    'R',0x1a,0x8a,26,128,183,25,129,14,'~',196,138,188,'d','L','!',28,'C','h',
+    0xd7,'=','<',0x8a,197,178,'f',213,144,154,183,'1',6,197,190,226,'m','2',6,
+    166,30,249,185,235,170,163,184,191,190,130,'c','P',208,240,24,137,223,228,
+    15,'y',245,234,162,31,'*',210,'p','.','{',231,188,147,187,'m','S',226,'H',
+    '|',0x8c,16,7,'8',255,'f',178,'w','a','~',224,234,140,'<',170,180,164,246,
+    0xf3,149,'J',18,7,'m',253,140,178,137,207,208,160,'a','w',200,'X','t',176,
+    212,'#',':',247,']',':',202,162,219,157,9,222,']','D','-',144,241,129,205,
+    'W',0x92,250,'~',188,'P',4,'c','4',223,'k',147,24,190,'k','6',178,'9',228,
+    172,'$','6',183,240,239,182,28,19,'W',147,182,222,178,248,226,133,183,'s',
+    0xa2,0xb8,'5',170,'E',242,224,157,'6',161,'o','T',138,241,'r','V','n','.',
+    136,197,'Q','B','D',21,148,238,163,197,'8',150,155,'N','N','Z',11,'G',243,
+    0x06,'6','I','w','0',188,'q','7',229,166,236,'!',8,'u',252,230,'a',22,'?',
+    'w',0xd5,0xd9,145,151,132,10,'l',212,2,'M','t',192,20,237,253,'9',251,131,
+    0xf2,'^',0x14,161,4,176,11,233,254,238,143,225,'n',11,178,8,179,'a','f',9,
+    'j',0xb1,6,':','e',0x96,'Y',192,240,'5',253,201,218,'(',141,26,17,135,'p',
+    0x81,0xa,168,154,'u',29,158,':',134,5,0,158,219,128,214,'%',249,220,5,158,
+    39,'Y','L','v','9','[',0xea,249,165,161,216,131,15,209,255,223,'0',17,249,
+    0x85,207,'3','H',245,202,'m','d',20,',','z','X','O',211,'K',8,'I',197,149,
+    'd',26,'c',0xe,'y','=',245,179,140,202,'X',173,156,'B','E','y','n',14,135,
+    0x19,92,'T',177,'e',182,191,140,155,220,19,233,13,'o',184,'.',220,'g','n',
+    0xc9,139,17,181,132,20,138,0,25,'p',131,'y',145,151,145,212,26,39,191,'7',
+    30,'2',7,0xd8,20,'c','<','(','L',175,2,3,1,0,1,163,'c','0','a','0',14,6,3,
+    'U',29,0xf,1,1,255,4,4,3,2,1,6,'0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,
+    0xff,'0',29,6,3,'U',29,0xe,4,22,4,20,174,'l',5,163,147,19,226,162,231,226,
+    0xd7,28,214,199,240,127,200,'g','S',160,'0',31,6,3,'U',29,'#',4,24,'0',22,
+    0x80,0x14,174,'l',5,163,147,19,226,162,231,226,215,28,214,199,240,127,200,
+    'g','S',0xa0,'0',13,6,9,'*',134,'H',134,247,13,1,1,12,5,0,3,130,2,1,0,131,
+    '%',0xed,232,209,253,149,'R',205,158,192,4,160,145,'i',230,92,208,132,222,
+    220,173,162,'O',232,'G','x',214,'e',152,169,'[',168,'<',135,'|',2,138,209,
+    'n',183,22,'s',230,'_',192,'T',152,213,'t',190,193,205,226,17,145,173,'#',
+    24,'=',0xdd,225,'r','D',150,180,149,'^',192,'{',142,153,'x',22,'C',19,'V',
+    'W',179,162,179,';',181,'w',220,'@','r',172,163,235,155,'5','>',177,8,'!',
+    0xa1,0xe7,196,'C','7','y','2',190,181,231,156,',','L',188,'C',')',153,142,
+    '0',0xd3,0xac,'!',0xe0,227,29,250,216,7,'3','v','T',0,'"','*',185,'M',' ',
+    '.','p','h',218,229,'S',252,131,92,211,157,242,255,'D',12,'D','f',242,210,
+    227,189,'F',0,26,'m',2,186,'%',']',141,161,'1','Q',221,'T','F',28,'M',219,
+    153,150,239,26,28,4,92,166,21,239,'x',224,'y',254,']',219,'>',170,'L','U',
+    0xfd,0x9a,21,0xa9,'o',225,166,251,223,'p','0',233,195,238,'B','F',237,194,
+    0x93,0x5,137,250,'}','c','{','?',208,'q',129,'|',0,232,152,174,14,'x','4',
+    0xc3,'%',0xfb,175,10,159,' ','k',221,';',19,143,18,140,226,'A',26,'H','z',
+    's',0xa0,'w','i',199,182,92,127,130,200,30,254,'X',27,'(','+',168,'l',173,
+    '^','m',0xc0,5,0xd2,'{',183,235,128,254,'%','7',254,2,155,'h',172,'B',']',
+    0xc3,0xee,245,204,220,240,'P','u',210,'6','i',156,230,'{',4,223,'n',6,'i',
+    0xb6,0xde,10,9,'H','Y',135,235,'{',20,'`','z','d',170,'i','C',239,145,199,
+    'L',0xec,0x18,221,'l',239,'S','-',140,153,225,'^',242,'r','>',207,'T',200,
+    0xbd,'g',0xec,164,15,'L','E',255,211,185,'0','#',7,'L',143,16,191,134,150,
+    0xd9,0x99,'Z',0xb4,153,'W',28,164,204,187,21,137,'S',186,',',5,15,228,196,
+    0x9e,25,177,24,'4',213,'L',157,186,237,247,31,175,'$',149,4,'x',168,3,187,
+    0xee,0x81,229,218,'_','|',139,'J',161,144,'t','%',167,179,'>','K',200,',',
+    'V',0xbd,199,200,239,'8',226,92,146,240,'y',247,156,132,186,'t','-','a',1,
+    ' ','~','~',0xd1,242,'O',7,'Y','_',139,'-','C','R',235,'F',12,148,225,245,
+    'f','G','y','w',0xd5,'T','[',0x1f,173,'$','7',203,'E','Z','N',160,'D','H',
+    0xc8,0xd8,176,153,197,21,132,9,246,214,'I','I',192,'e',184,230,26,'q','n',
+    0xa0,0xa8,0xf1,0x82,232,'E','>','l',214,2,215,10,'g',131,5,'Z',201,164,16,
+]
+
 
 /**
 GlobalSign Root CA - R6.
 SHA256 fingerprint: 2c:ab:ea:fe:37:d0:6c:a2:2a:ba:73:91:c0:03:3d:25:98:29:52:c4:53:64:73:49:76:3a:3a:b5:ad:6c:cf:69
 */
-GLOBALSIGN_ROOT_CA_R6 ::= net.Certificate.parse GLOBALSIGN_ROOT_CA_R6_TEXT_
+GLOBALSIGN_ROOT_CA_R6 ::= parse_ GLOBALSIGN_ROOT_CA_R6_BYTES_
 
-OISTE_WISEKEY_GLOBAL_ROOT_GC_CA_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIICaTCCAe+gAwIBAgIQISpWDK7aDKtARb8roi066jAKBggqhkjOPQQDAzBtMQsw
-CQYDVQQGEwJDSDEQMA4GA1UEChMHV0lTZUtleTEiMCAGA1UECxMZT0lTVEUgRm91
-bmRhdGlvbiBFbmRvcnNlZDEoMCYGA1UEAxMfT0lTVEUgV0lTZUtleSBHbG9iYWwg
-Um9vdCBHQyBDQTAeFw0xNzA1MDkwOTQ4MzRaFw00MjA1MDkwOTU4MzNaMG0xCzAJ
-BgNVBAYTAkNIMRAwDgYDVQQKEwdXSVNlS2V5MSIwIAYDVQQLExlPSVNURSBGb3Vu
-ZGF0aW9uIEVuZG9yc2VkMSgwJgYDVQQDEx9PSVNURSBXSVNlS2V5IEdsb2JhbCBS
-b290IEdDIENBMHYwEAYHKoZIzj0CAQYFK4EEACIDYgAETOlQwMYPchi82PG6s4ni
-eUqjFqdrVCTbUf/q9Akkwwsin8tqJ4KBDdLArzHkdIJuyiXZjHWd8dvQmqJLIX4W
-p2OQ0jnUsYd4XxiWD1AbNTcPasbc2RNNpI6QN+a9WzGRo1QwUjAOBgNVHQ8BAf8E
-BAMCAQYwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUSIcUrOPDnpBgOtfKie7T
-rYy0UGYwEAYJKwYBBAGCNxUBBAMCAQAwCgYIKoZIzj0EAwMDaAAwZQIwJsdpW9zV
-57LnyAyMjMPdeYwbY9XJUpROTYJKcx6ygISpJcBMWm1JKWB4E+J+SOtkAjEA2zQg
-Mgj/mkkCtojeFK9dbJlxjRo/i9fgojaGHAeCOnZT/cKi7e97sIBPWA9LUzm9
------END CERTIFICATE-----
-"""
+OISTE_WISEKEY_GLOBAL_ROOT_GC_CA_BYTES_ ::= #[
+    '0',0x82,0x2,'i','0',130,1,239,160,3,2,1,2,2,16,'!','*','V',12,174,218,12,
+    0xab,'@','E',191,'+',162,'-',':',234,'0',10,6,8,'*',134,'H',206,'=',4,3,3,
+    '0','m','1',0xb,'0',9,6,3,'U',4,6,19,2,'C','H','1',16,'0',14,6,3,'U',4,10,
+    0x13,7,'W','I','S','e','K','e','y','1','"','0',' ',6,3,'U',4,11,19,25,'O',
+    'I','S','T','E',' ','F','o','u','n','d','a','t','i','o','n',' ','E','n',
+    'd','o','r','s','e','d','1','(','0','&',6,3,'U',4,3,19,31,'O','I','S','T',
+    'E',' ','W','I','S','e','K','e','y',' ','G','l','o','b','a','l',' ','R',
+    'o','o','t',' ','G','C',' ','C','A','0',30,23,0xd,'1','7','0','5','0','9',
+    '0','9','4','8','3','4','Z',23,13,'4','2','0','5','0','9','0','9','5','8',
+    '3','3','Z','0','m','1',11,'0',9,6,3,'U',4,6,19,2,'C','H','1',16,'0',14,6,
+    3,'U',4,0xa,19,7,'W','I','S','e','K','e','y','1','"','0',' ',6,3,'U',4,11,
+    19,25,'O','I','S','T','E',' ','F','o','u','n','d','a','t','i','o','n',' ',
+    'E','n','d','o','r','s','e','d','1','(','0','&',6,3,'U',4,3,19,31,'O','I',
+    'S','T','E',' ','W','I','S','e','K','e','y',' ','G','l','o','b','a','l',
+    ' ','R','o','o','t',' ','G','C',' ','C','A','0','v','0',0x10,6,7,'*',0x86,
+    'H',0xce,'=',2,1,6,5,'+',129,4,0,'"',3,'b',0,4,'L',233,'P',192,198,15,'r',
+    24,188,216,241,186,179,137,226,'y','J',163,22,167,'k','T','$',219,'Q',255,
+    0xea,0xf4,9,'$',0xc3,11,'"',159,203,'j',39,130,129,13,210,192,175,'1',228,
+    't',0x82,'n',0xca,'%',0xd9,140,'u',157,241,219,208,154,162,'K','!','~',22,
+    0xa7,'c',0x90,210,'9',212,177,135,'x','_',24,150,15,'P',27,'5','7',15,'j',
+    0xc6,0xdc,0xd9,19,'M',164,142,144,'7',230,189,'[','1',145,163,'T','0','R',
+    '0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',15,6,3,'U',29,19,1,1,255,4,5,
+    '0',0x3,1,1,255,'0',29,6,3,'U',29,14,4,22,4,20,'H',135,20,172,227,195,158,
+    0x90,'`',':',215,202,137,238,211,173,140,180,'P','f','0',16,6,9,'+',6,1,4,
+    1,130,'7',21,1,4,3,2,1,0,'0',10,6,8,'*',134,'H',206,'=',4,3,3,3,'h',0,'0',
+    'e',2,'0','&',0xc7,'i','[',220,213,231,178,231,200,12,140,140,195,221,'y',
+    140,27,'c',213,201,'R',148,'N','M',130,'J','s',30,178,128,132,169,'%',192,
+    'L','Z','m','I',')','`','x',0x13,0xe2,'~','H',235,'d',2,'1',0,219,'4',' ',
+    '2',8,255,154,'I',2,182,136,222,20,175,']','l',153,'q',141,26,'?',139,215,
+    0xe0,162,'6',134,28,7,130,':','v','S',253,194,162,237,239,'{',176,128,'O',
+    'X',15,'K','S','9',189,
+]
+
 
 /**
 OISTE WISeKey Global Root GC CA.
 SHA256 fingerprint: 85:60:f9:1c:36:24:da:ba:95:70:b5:fe:a0:db:e3:6f:f1:1a:83:23:be:94:86:85:4f:b3:f3:4a:55:71:19:8d
 */
-OISTE_WISEKEY_GLOBAL_ROOT_GC_CA ::= net.Certificate.parse OISTE_WISEKEY_GLOBAL_ROOT_GC_CA_TEXT_
+OISTE_WISEKEY_GLOBAL_ROOT_GC_CA ::= parse_ OISTE_WISEKEY_GLOBAL_ROOT_GC_CA_BYTES_
 
-GTS_ROOT_R1_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIFVzCCAz+gAwIBAgINAgPlk28xsBNJiGuiFzANBgkqhkiG9w0BAQwFADBHMQsw
-CQYDVQQGEwJVUzEiMCAGA1UEChMZR29vZ2xlIFRydXN0IFNlcnZpY2VzIExMQzEU
-MBIGA1UEAxMLR1RTIFJvb3QgUjEwHhcNMTYwNjIyMDAwMDAwWhcNMzYwNjIyMDAw
-MDAwWjBHMQswCQYDVQQGEwJVUzEiMCAGA1UEChMZR29vZ2xlIFRydXN0IFNlcnZp
-Y2VzIExMQzEUMBIGA1UEAxMLR1RTIFJvb3QgUjEwggIiMA0GCSqGSIb3DQEBAQUA
-A4ICDwAwggIKAoICAQC2EQKLHuOhd5s73L+UPreVp0A8of2C+X0yBoJx9vaMf/vo
-27xqLpeXo4xL+Sv2sfnOhB2x+cWX3u+58qPpvBKJXqeqUqv4IyfLpLGcY9vXmX7w
-Cl7raKb0xlpHDU0QM+NOsROjyBhsS+z8CZDfnWQpJSMHobTSPS5g4M/SCYe7zUjw
-TcLCeoiKu7rPWRnWr4+wB7CeMfGCwcDfLqZtbBkOtdh+JhpFAz2weaSUKK0Pfybl
-qAj+lug8aJRT7oM6iCsVlgmy4HqMLnXWnOunVmSPlk9orj2XwoSPwLxAwAtcvfaH
-szVsrBhQf4TgTM2S0yDpM7xSma8ytSmzJSq0SPly4cpk9+aCEI3oncKKiPo4Zor8
-Y/kB+Xj9e1x3+naH+uzfsQ55lVe0vSbv1gHR6xYKu44LtcXFilWr06zqkUspzBmk
-MiVOKvFlRNACzqrOSbTqn3yDsEB750Orp2yjj32JgfpMpf/VjsPOS+C12LOORc92
-wO1AK/1TD7Cn1TsNsYqiA94xrcx36m97PtbfkSIS5r762DL8EGMUUXLeXdYWk70p
-aDPvOmbsB4om3xPXV2V4J95eSRQAogB/mqghtqmxlbCluQ0WEdrHbEg8QOB+DVrN
-VjzRlwW5y0vtOUucxD/SVRNuJLDWcfr0wbrM7Rv1/oFB2ACYPTrIrnqYNxgFlQID
-AQABo0IwQDAOBgNVHQ8BAf8EBAMCAYYwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4E
-FgQU5K8rJnEaK0gnhS9SZizv8IkTcT4wDQYJKoZIhvcNAQEMBQADggIBAJ+qQibb
-C5u+/x6Wki4+omVKapi6Ist9wTrYggoGxval3sBOh2Z5ofmmWJyq+bXmYOfg6LEe
-QkEzCzc9zolwFcq1JKjPa7XSQCGYzyI0zzvFIoTgxQ6KfF2I5DUkzps+GlQebtuy
-h6f88/qBVRRiClmpIgUxPoLW7ttXNLwzldMXG+gnoot7TiYaelpkttGsN/H9oPM4
-7HLwEXWdyzRSjeZ2axfG34arJ45JK3VmgRAhpuo+9K4l/3wV3s6MJT/KYnAK9y8J
-ZgfIPxz88NtFMN9iiMG1D53Dn0reWVlHxYciNuaCp+0KueIHoI17eko8cdLiA6Ef
-MgfdG+RCzgwARWGAtQsgWSl4vflVy2PFPEz0tv/bal8xa5meLMFrUKTX5hgUvYU/
-Z6tGn6D/Qqc6f1zLXbBwHSs09dR2CQzreExZBfMzQsNhFRAbd03OIozUhfJFfbdT
-6u9AWpQKXCBfTkBdYiJ23//OYb2MI3jSNwLgjt7RETeJ9r/tSQdirpLsQBqvFAnZ
-0E6yove+7u7Y/9waLd64NnHi/Hm3lCXRSHNboTXns5lndcEZOitHTtNCjv0xyBZm
-2tIMPNuzjsmhDYAPexZ3FL//2wmUspO8IFgV6dtxQ/PeEMMA3KgqlbbC1j+Qa3bb
-bP6MvPJwNQzcmRk13NfIRmPVNnGuV/u3gm3c
------END CERTIFICATE-----
-"""
+GTS_ROOT_R1_BYTES_ ::= #[
+    '0',0x82,5,'W','0',0x82,3,'?',160,3,2,1,2,2,13,2,3,229,147,'o','1',176,19,
+    'I',0x88,'k',0xa2,23,'0',13,6,9,'*',134,'H',134,247,13,1,1,12,5,0,'0','G',
+    '1',0xb,'0',9,6,3,'U',4,6,19,2,'U','S','1','"','0',' ',6,3,'U',4,10,19,25,
+    'G','o','o','g','l','e',' ','T','r','u','s','t',' ','S','e','r','v','i',
+    'c','e','s',' ','L','L','C','1',0x14,'0',18,6,3,'U',4,3,19,11,'G','T','S',
+    ' ','R','o','o','t',' ','R','1','0',30,23,0xd,'1','6','0','6','2','2','0',
+    '0','0','0','0','0','Z',23,13,'3','6','0','6','2','2','0','0','0','0','0',
+    '0','Z','0','G','1',11,'0',9,6,3,'U',4,6,19,2,'U','S','1','"','0',' ',6,3,
+    'U',0x04,10,19,25,'G','o','o','g','l','e',' ','T','r','u','s','t',' ','S',
+    'e','r','v','i','c','e','s',' ','L','L','C','1',20,'0',18,6,3,'U',4,3,19,
+    0x0b,'G','T','S',' ','R','o','o','t',' ','R','1','0',130,2,'"','0',13,6,9,
+    '*',0x86,'H',0x86,0xf7,13,1,1,1,5,0,3,130,2,15,0,'0',130,2,10,2,130,2,1,0,
+    0xb6,17,2,0x8b,30,227,161,'w',155,';',220,191,148,'>',183,149,167,'@','<',
+    161,253,130,249,'}','2',6,130,'q',246,246,140,127,251,232,219,188,'j','.',
+    0x97,0x97,0xa3,140,'K',249,'+',246,177,249,206,132,29,177,249,197,151,222,
+    239,185,242,163,233,188,18,137,'^',167,170,'R',171,248,'#',39,203,164,177,
+    0x9c,'c',219,215,153,'~',240,10,'^',235,'h',166,244,198,'Z','G',13,'M',16,
+    '3',0xe3,'N',0xb1,19,163,200,24,'l','K',236,252,9,144,223,157,'d',')','%',
+    '#',0x7,161,180,210,'=','.','`',224,207,210,9,135,187,205,'H',240,'M',194,
+    0xc2,'z',136,138,187,186,207,'Y',25,214,175,143,176,7,176,158,'1',241,130,
+    0xc1,0xc0,0xdf,'.',166,'m','l',25,14,181,216,'~','&',26,'E',3,'=',176,'y',
+    0xa4,148,'(',173,15,127,'&',229,168,8,254,150,232,'<','h',148,'S',238,131,
+    ':',0x88,'+',21,150,9,178,224,'z',140,'.','u',214,156,235,167,'V','d',143,
+    150,'O','h',174,'=',151,194,132,143,192,188,'@',192,11,92,189,246,135,179,
+    '5','l',0xac,0x18,'P',127,132,224,'L',205,146,211,' ',233,'3',188,'R',153,
+    0xaf,'2',0xb5,')',0xb3,'%','*',180,'H',249,'r',225,202,'d',247,230,130,16,
+    0x8d,232,157,194,138,136,250,'8','f',138,252,'c',249,1,249,'x',253,'{',92,
+    'w',0xfa,'v',135,250,236,223,177,14,'y',149,'W',180,189,'&',239,214,1,209,
+    0xeb,22,10,187,142,11,181,197,197,138,'U',171,211,172,234,145,'K',')',204,
+    25,0xa4,'2','%','N','*',241,'e','D',208,2,206,170,206,'I',180,234,159,'|',
+    0x83,0xb0,'@','{',231,'C',171,167,'l',163,143,'}',137,129,250,'L',165,255,
+    0xd5,0x8e,195,206,'K',224,181,216,179,142,'E',207,'v',192,237,'@','+',253,
+    'S',0x0f,176,167,213,';',13,177,138,162,3,222,'1',173,204,'w',234,'o','{',
+    '>',0xd6,223,145,'"',18,230,190,250,216,'2',252,16,'c',20,'Q','r',222,']',
+    0xd6,22,0x93,189,')','h','3',239,':','f',236,7,138,'&',223,19,215,'W','e',
+    'x',39,222,'^','I',20,0,162,0,127,154,168,'!',182,169,177,149,176,165,185,
+    13,22,17,218,199,'l','H','<','@',224,'~',13,'Z',205,'V','<',209,151,5,185,
+    0xcb,'K',0xed,'9','K',0x9c,196,'?',210,'U',19,'n','$',176,214,'q',250,244,
+    0xc1,186,204,237,27,245,254,129,'A',216,0,152,'=',':',200,174,'z',152,'7',
+    24,5,149,2,3,1,0,1,163,'B','0','@','0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,
+    134,'0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',29,6,3,'U',29,14,4,
+    22,4,20,228,175,'+','&','q',26,'+','H',39,133,'/','R','f',',',239,240,137,
+    0x13,'q','>','0',13,6,9,'*',134,'H',134,247,13,1,1,12,5,0,3,130,2,1,0,159,
+    170,'B','&',219,11,155,190,255,30,150,146,'.','>',162,'e','J','j',152,186,
+    '"',0xcb,'}',193,':',216,130,10,6,198,246,165,222,192,'N',135,'f','y',161,
+    249,166,'X',156,170,249,181,230,'`',231,224,232,177,30,'B','A','3',11,'7',
+    '=',0xce,0x89,'p',21,0xca,181,'$',168,207,'k',181,210,'@','!',152,207,'"',
+    '4',0xcf,';',0xc5,'"',0x84,224,197,14,138,'|',']',136,228,'5','$',206,155,
+    '>',0x1a,'T',30,'n',219,178,135,167,252,243,250,129,'U',20,'b',10,'Y',169,
+    '"',0x05,'1','>',130,214,238,219,'W','4',188,'3',149,211,23,27,232,39,162,
+    0x8b,'{','N','&',0x1a,'z','Z','d',182,209,172,'7',241,253,160,243,'8',236,
+    'r',0xf0,17,'u',157,203,'4','R',141,230,'v','k',23,198,223,134,171,39,142,
+    'I','+','u','f',129,16,'!',166,234,'>',244,174,'%',255,'|',21,222,206,140,
+    '%','?',202,'b','p',10,247,'/',9,'f',7,200,'?',28,252,240,219,'E','0',223,
+    'b',0x88,0xc1,0xb5,15,157,195,159,'J',222,'Y','Y','G',197,135,'"','6',230,
+    130,167,237,10,185,226,7,160,141,'{','z','J','<','q',210,226,3,161,31,'2',
+    7,0xdd,27,228,'B',206,12,0,'E','a',128,181,11,' ','Y',')','x',189,249,'U',
+    0xcb,'c',0xc5,'<','L',244,182,255,219,'j','_','1','k',153,158,',',193,'k',
+    'P',164,215,230,24,20,189,133,'?','g',171,'F',159,160,255,'B',167,':',127,
+    92,0xcb,']',176,'p',29,'+','4',245,212,'v',9,12,235,'x','L','Y',5,243,'3',
+    'B',0xc3,'a',21,16,27,'w','M',206,'"',140,212,133,242,'E','}',183,'S',234,
+    239,'@','Z',148,10,92,' ','_','N','@',']','b','"','v',223,255,206,'a',189,
+    0x8c,'#','x',0xd2,'7',2,0xe0,142,222,209,17,'7',137,246,191,237,'I',7,'b',
+    0xae,0x92,236,'@',26,175,20,9,217,208,'N',178,162,247,190,238,238,216,255,
+    0xdc,0x1a,'-',222,184,'6','q',226,252,'y',183,148,'%',209,'H','s','[',161,
+    '5',231,179,153,'g','u',193,25,':','+','G','N',211,'B',142,253,'1',200,22,
+    'f',0xda,0xd2,0xc,'<',219,179,142,201,161,13,128,15,'{',22,'w',20,191,255,
+    219,9,148,178,147,188,' ','X',21,233,219,'q','C',243,222,16,195,0,220,168,
+    '*',0x95,0xb6,0xc2,214,'?',144,'k','v',219,'l',254,140,188,242,'p','5',12,
+    0xdc,0x99,25,'5',0xdc,215,200,'F','c',213,'6','q',174,'W',251,183,130,'m',
+    220,
+]
+
 
 /**
 GTS Root R1.
 SHA256 fingerprint: d9:47:43:2a:bd:e7:b7:fa:90:fc:2e:6b:59:10:1b:12:80:e0:e1:c7:e4:e4:0f:a3:c6:88:7f:ff:57:a7:f4:cf
 */
-GTS_ROOT_R1 ::= net.Certificate.parse GTS_ROOT_R1_TEXT_
+GTS_ROOT_R1 ::= parse_ GTS_ROOT_R1_BYTES_
 
-GTS_ROOT_R2_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIFVzCCAz+gAwIBAgINAgPlrsWNBCUaqxElqjANBgkqhkiG9w0BAQwFADBHMQsw
-CQYDVQQGEwJVUzEiMCAGA1UEChMZR29vZ2xlIFRydXN0IFNlcnZpY2VzIExMQzEU
-MBIGA1UEAxMLR1RTIFJvb3QgUjIwHhcNMTYwNjIyMDAwMDAwWhcNMzYwNjIyMDAw
-MDAwWjBHMQswCQYDVQQGEwJVUzEiMCAGA1UEChMZR29vZ2xlIFRydXN0IFNlcnZp
-Y2VzIExMQzEUMBIGA1UEAxMLR1RTIFJvb3QgUjIwggIiMA0GCSqGSIb3DQEBAQUA
-A4ICDwAwggIKAoICAQDO3v2m++zsFDQ8BwZabFn3GTXd98GdVarTzTukk3LvCvpt
-nfbwhYBboUhSnznFt+4orO/LdmgUud+tAWyZH8QiHZ/+cnfgLFuv5AS/T3KgGjSY
-6Dlo7JUle3ah5mm5hRm9iYz+re026nO8/4Piy33B0s5Ks40FnotJk9/BW9BuXvAu
-MC6C/Pq8tBcKSOWIm8Wba96wyrQD8Nr0kLhlZPdcTK3ofmZemde4wj7I0BOdre7k
-RXuJVfeKH2JShBKzwkCX44ofR5GmdFrS+LFjKBC4swm4VndAoiaYecb+3yXuPuWg
-f9RhD1FLPD+M2uFwdNjCaKH5wQzpoeJ/u1U8dgbuak7MkogwTZq9TwtImoS1mKPV
-+3PBV2HdKFZ1E66HjucMUQkQdYhMvI35ezzUIkgfKtzra7tEscszcTJGr61K8Yzo
-dDqs5xoic4DSMPclQsciOzsSrZYuxsN2B6ogtzVJV+mSSeh2FnIxZyuWfoqjx5RW
-Ir9qS34BIbIjMt/kmkRtWVtd9QCgHJvGeJeNkP+byKq0rxFROV7Z+2et1VsRnTKa
-G73VululycslaVNVJ1zgyjbLiGH7HrfQy+4W+9OmTN6SpdTi3/UGVN4unUu0kzCq
-gc7dGtxRcw1PcOnlthYhGXmy5okLdWTK1au8CcEYof/UVKGFPP0UJAOyh9OktwID
-AQABo0IwQDAOBgNVHQ8BAf8EBAMCAYYwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4E
-FgQUu//KjiOfT5nK2+JopqUVJxce2Q4wDQYJKoZIhvcNAQEMBQADggIBAB/Kzt3H
-vqGf2SdMC9wXmBFqiN495nFWcrKeGk6c1SuYJF2ba3uwM4IJvd8lRuqYnrYb/oM8
-0mJhwQTtzuDFycgTE1XnqGOtjHsB/ncw4c5omwX4Eu55MaBBRTUoCnGkJE+M3DyC
-B19m3H0Q/gxhswWV7uGugQ+o+MePTagjAiZrHYNSVc61LwDKgEDg4XSsYPWHgJ2u
-NmSRXbBoGOqKYcl3qJfEycel/FVL8/B/uWU9J2jQzGv6U53hkRrJXRqWbTKH7QMg
-yALOWr7Z6v2yTcQvG99fevX4i8buMTolUVVnjWQye+mew4K6Ki3pHrTgSAai/Gev
-HyICc/sgCq+dVEuhzf9gR7A/Xe8bVr2XIZYtCtFenTgCR2y59PYjJbigapordwj6
-xLEokCZYCDzifqrXPW+6MYgKBesntaFJ7qBFVHvmJ2WZICGoo7z7GJa7Um8M7YNR
-TOlZ4iBgxcJlkoKM8xAfDoqXvneCbT+PHV28SSe9zE8P4c52hgQjxcCMElv924Sg
-JPFI/2R80L5cFtHvma3AH/vLrrw4IgYmZNralw4/KBVEqE8AyvCazM90arQ+POuV
-7LXTWtiBmelDGDfrs7vRWGJB82bSj6p4lVQgw1oudCvV0b4YacCs1aTPObpRhANl
-6WLAYv7YTVWW4tAR+kg0Eeye7QUd5MjWHYbL
------END CERTIFICATE-----
-"""
+GTS_ROOT_R2_BYTES_ ::= #[
+    '0',130,5,'W','0',130,3,'?',160,3,2,1,2,2,13,2,3,229,174,197,141,4,'%',26,
+    0xab,17,'%',0xaa,'0',13,6,9,'*',134,'H',134,247,13,1,1,12,5,0,'0','G','1',
+    0xb,'0',9,6,3,'U',4,6,19,2,'U','S','1','"','0',' ',6,3,'U',4,10,19,25,'G',
+    'o','o','g','l','e',' ','T','r','u','s','t',' ','S','e','r','v','i','c',
+    'e','s',' ','L','L','C','1',0x14,'0',18,6,3,'U',4,3,19,11,'G','T','S',' ',
+    'R','o','o','t',' ','R','2','0',30,23,0xd,'1','6','0','6','2','2','0','0',
+    '0','0','0','0','Z',23,13,'3','6','0','6','2','2','0','0','0','0','0','0',
+    'Z','0','G','1',11,'0',9,6,3,'U',4,6,19,2,'U','S','1','"','0',' ',6,3,'U',
+    0x04,10,19,25,'G','o','o','g','l','e',' ','T','r','u','s','t',' ','S','e',
+    'r','v','i','c','e','s',' ','L','L','C','1',0x14,'0',18,6,3,'U',4,3,19,11,
+    'G','T','S',' ','R','o','o','t',' ','R','2','0',0x82,2,'"','0',13,6,9,'*',
+    0x86,'H',0x86,0xf7,13,1,1,1,5,0,3,130,2,15,0,'0',130,2,10,2,130,2,1,0,206,
+    222,253,166,251,236,236,20,'4','<',7,6,'Z','l','Y',247,25,'5',221,247,193,
+    0x9d,'U',0xaa,0xd3,205,';',164,147,'r',239,10,250,'m',157,246,240,133,128,
+    '[',0xa1,'H','R',0x9f,'9',0xc5,183,238,'(',172,239,203,'v','h',20,185,223,
+    173,1,'l',153,31,196,'"',29,159,254,'r','w',224,',','[',175,228,4,191,'O',
+    'r',160,26,'4',152,232,'9','h',236,149,'%','{','v',161,230,'i',185,133,25,
+    0xbd,0x89,140,254,173,237,'6',234,'s',188,255,131,226,203,'}',193,210,206,
+    'J',179,141,5,158,139,'I',147,223,193,'[',208,'n','^',240,'.','0','.',130,
+    0xfc,0xfa,188,180,23,10,'H',229,136,155,197,155,'k',222,176,202,180,3,240,
+    0xda,0xf4,0x90,184,'e','d',247,92,'L',173,232,'~','f','^',153,215,184,194,
+    '>',0xc8,208,19,157,173,238,228,'E','{',137,'U',247,138,31,'b','R',132,18,
+    179,194,'@',151,227,138,31,'G',145,166,'t','Z',210,248,177,'c','(',16,184,
+    179,9,184,'V','w','@',162,'&',152,'y',198,254,223,'%',238,'>',229,160,127,
+    212,'a',15,'Q','K','<','?',140,218,225,'p','t',216,194,'h',161,249,193,12,
+    233,161,226,127,187,'U','<','v',6,238,'j','N',204,146,136,'0','M',154,189,
+    'O',11,'H',154,132,181,152,163,213,251,'s',193,'W','a',221,'(','V','u',19,
+    0xae,0x87,142,231,12,'Q',9,16,'u',136,'L',188,141,249,'{','<',212,'"','H',
+    0x1f,'*',0xdc,235,'k',187,'D',177,203,'3','q','2','F',175,173,'J',241,140,
+    232,'t',':',172,231,26,'"','s',128,210,'0',247,'%','B',199,'"',';',';',18,
+    0xad,150,'.',198,195,'v',7,170,' ',183,'5','I','W',233,146,'I',232,'v',22,
+    'r','1','g','+',150,'~',138,163,199,148,'V','"',191,'j','K','~',1,'!',178,
+    '#','2',0xdf,228,154,'D','m','Y','[',']',245,0,160,28,155,198,'x',151,141,
+    144,255,155,200,170,180,175,17,'Q','9','^',217,251,'g',173,213,'[',17,157,
+    '2',0x9a,27,189,213,186,'[',165,201,203,'%','i','S','U',39,92,224,202,'6',
+    203,136,'a',251,30,183,208,203,238,22,251,211,166,'L',222,146,165,212,226,
+    0xdf,245,6,'T',222,'.',157,'K',180,147,'0',170,129,206,221,26,220,'Q','s',
+    0x0d,'O','p',233,229,182,22,'!',25,'y',178,230,137,11,'u','d',202,213,171,
+    188,9,193,24,161,255,212,'T',161,133,'<',253,20,'$',3,178,135,211,164,183,
+    2,3,1,0,1,0xa3,'B','0','@','0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,134,'0',
+    15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',29,6,3,'U',29,14,4,22,4,20,
+    0xbb,0xff,202,142,'#',159,'O',153,202,219,226,'h',166,165,21,39,23,30,217,
+    0x0e,'0',0xd,6,9,'*',134,'H',134,247,13,1,1,12,5,0,3,130,2,1,0,31,202,206,
+    0xdd,0xc7,190,161,159,217,39,'L',11,220,23,152,17,'j',136,222,'=',230,'q',
+    'V','r',0xb2,158,26,'N',156,213,'+',152,'$',']',155,'k','{',176,'3',130,9,
+    0xbd,223,'%','F',234,152,158,182,27,254,131,'<',210,'b','a',193,4,237,206,
+    0xe0,0xc5,201,200,19,19,'U',231,168,'c',173,140,'{',1,254,'w','0',225,206,
+    'h',0x9b,5,0xf8,18,238,'y','1',160,'A','E','5','(',10,'q',164,'$','O',140,
+    0xdc,'<',130,7,'_','f',220,'}',16,254,12,'a',179,5,149,238,225,174,129,15,
+    0xa8,0xf8,0xc7,143,'M',168,'#',2,'&','k',29,131,'R','U',206,181,'/',0,202,
+    0x80,'@',0xe0,225,'t',172,'`',245,135,128,157,174,'6','d',145,']',176,'h',
+    0x18,0xea,138,'a',201,'w',168,151,196,201,199,165,252,'U','K',243,240,127,
+    0xb9,'e','=',39,'h',208,204,'k',250,'S',157,225,145,26,201,']',26,150,'m',
+    '2',0x87,0xed,3,' ',0xc8,2,206,'Z',190,217,234,253,178,'M',196,'/',27,223,
+    '_','z',0xf5,0xf8,139,198,238,'1',':','%','Q','U','g',141,'d','2','{',233,
+    158,195,130,186,'*','-',233,30,180,224,'H',6,162,252,'g',175,31,'"',2,'s',
+    251,' ',10,175,157,'T','K',161,205,255,'`','G',176,'?',']',239,27,'V',189,
+    0x97,'!',150,'-',10,209,'^',157,'8',2,'G','l',185,244,246,'#','%',184,160,
+    'j',0x9a,'+','w',8,0xfa,196,177,'(',144,'&','X',8,'<',226,'~',170,215,'=',
+    'o',0xba,'1',0x88,0xa,5,235,39,181,161,'I',238,160,'E','T','{',230,39,'e',
+    153,' ','!',168,163,188,251,24,150,187,'R','o',12,237,131,'Q','L',233,'Y',
+    0xe2,' ','`',197,194,'e',146,130,140,243,16,31,14,138,151,190,'w',130,'m',
+    '?',0x8f,0x1d,']',188,'I',39,189,204,'O',15,225,206,'v',134,4,'#',197,192,
+    0x8c,18,'[',253,219,132,160,'$',241,'H',255,'d','|',208,190,92,22,209,239,
+    0x99,0xad,192,31,251,203,174,188,'8','"',6,'&','d',218,218,151,14,'?','(',
+    21,'D',0xa8,'O',0,202,240,154,204,207,'t','j',180,'>','<',235,149,236,181,
+    0xd3,'Z',0xd8,0x81,153,233,'C',24,'7',235,179,187,209,'X','b','A',243,'f',
+    0xd2,0x8f,0xaa,'x',149,'T',' ',195,'Z','.','t','+',213,209,190,24,'i',192,
+    172,213,164,207,'9',186,'Q',132,3,'e',233,'b',192,'b',254,216,'M','U',150,
+    226,208,17,250,'H','4',17,236,158,237,5,29,228,200,214,29,134,203,
+]
+
 
 /**
 GTS Root R2.
 SHA256 fingerprint: 8d:25:cd:97:22:9d:bf:70:35:6b:da:4e:b3:cc:73:40:31:e2:4c:f0:0f:af:cf:d3:2d:c7:6e:b5:84:1c:7e:a8
 */
-GTS_ROOT_R2 ::= net.Certificate.parse GTS_ROOT_R2_TEXT_
+GTS_ROOT_R2 ::= parse_ GTS_ROOT_R2_BYTES_
 
-GTS_ROOT_R3_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIICCTCCAY6gAwIBAgINAgPluILrIPglJ209ZjAKBggqhkjOPQQDAzBHMQswCQYD
-VQQGEwJVUzEiMCAGA1UEChMZR29vZ2xlIFRydXN0IFNlcnZpY2VzIExMQzEUMBIG
-A1UEAxMLR1RTIFJvb3QgUjMwHhcNMTYwNjIyMDAwMDAwWhcNMzYwNjIyMDAwMDAw
-WjBHMQswCQYDVQQGEwJVUzEiMCAGA1UEChMZR29vZ2xlIFRydXN0IFNlcnZpY2Vz
-IExMQzEUMBIGA1UEAxMLR1RTIFJvb3QgUjMwdjAQBgcqhkjOPQIBBgUrgQQAIgNi
-AAQfTzOHMymKoYTey8chWEGJ6ladK0uFxh1MJ7x/JlFyb+Kf1qPKzEUURout736G
-jOyxfi//qXGdGIRFBEFVbivqJn+7kAHjSxm65FSWRQmx1WyRRK2EE46ajA2ADDL2
-4CejQjBAMA4GA1UdDwEB/wQEAwIBhjAPBgNVHRMBAf8EBTADAQH/MB0GA1UdDgQW
-BBTB8Sa6oC2uhYHP0/EqEr24Cmf9vDAKBggqhkjOPQQDAwNpADBmAjEA9uEglRR7
-VKOQFhG/hMjqb2sXnh5GmCCbn9MN2azTL818+FsuVbu/3ZL3pAzcMeGiAjEA/Jdm
-ZuVDFhOD3cffL74UOO0BzrEXGhF16b0DjyZ+hOXJYKaV11RZt+cRLInUue4X
------END CERTIFICATE-----
-"""
+GTS_ROOT_R3_BYTES_ ::= #[
+    '0',0x82,0x2,9,'0',130,1,142,160,3,2,1,2,2,13,2,3,229,184,130,235,' ',248,
+    '%',0x27,'m','=','f','0',0xa,6,8,'*',134,'H',206,'=',4,3,3,'0','G','1',11,
+    '0',9,6,3,'U',4,6,19,2,'U','S','1','"','0',' ',6,3,'U',4,10,19,25,'G','o',
+    'o','g','l','e',' ','T','r','u','s','t',' ','S','e','r','v','i','c','e',
+    's',' ','L','L','C','1',0x14,'0',18,6,3,'U',4,3,19,11,'G','T','S',' ','R',
+    'o','o','t',' ','R','3','0',30,23,0xd,'1','6','0','6','2','2','0','0','0',
+    '0','0','0','Z',23,13,'3','6','0','6','2','2','0','0','0','0','0','0','Z',
+    '0','G','1',0x0b,'0',9,6,3,'U',4,6,19,2,'U','S','1','"','0',' ',6,3,'U',4,
+    0xa,19,25,'G','o','o','g','l','e',' ','T','r','u','s','t',' ','S','e','r',
+    'v','i','c','e','s',' ','L','L','C','1',0x14,'0',18,6,3,'U',4,3,19,11,'G',
+    'T','S',' ','R','o','o','t',' ','R','3','0','v','0',0x10,6,7,'*',0x86,'H',
+    0xce,'=',2,1,6,5,'+',129,4,0,'"',3,'b',0,4,31,'O','3',135,'3',')',138,161,
+    132,222,203,199,'!','X','A',137,234,'V',157,'+','K',133,198,29,'L',39,188,
+    0x7f,'&','Q','r','o',0xe2,0x9f,214,163,202,204,'E',20,'F',139,173,239,'~',
+    0x86,140,236,177,'~','/',255,169,'q',157,24,132,'E',4,'A','U','n','+',234,
+    '&',0x7f,0xbb,0x90,1,227,'K',25,186,228,'T',150,'E',9,177,213,'l',145,'D',
+    0xad,132,19,142,154,140,13,128,12,'2',246,224,39,163,'B','0','@','0',14,6,
+    3,'U',29,0xf,1,1,255,4,4,3,2,1,134,'0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,
+    0x01,1,255,'0',29,6,3,'U',29,14,4,22,4,20,193,241,'&',186,160,'-',174,133,
+    0x81,207,211,241,'*',18,189,184,10,'g',253,188,'0',10,6,8,'*',134,'H',206,
+    '=',0x4,3,3,3,'i',0,'0','f',2,'1',0,246,225,' ',149,20,'{','T',163,144,22,
+    0x11,191,132,200,234,'o','k',23,158,30,'F',152,' ',155,159,211,13,217,172,
+    0xd3,'/',0xcd,'|',0xf8,'[','.','U',187,191,221,146,247,164,12,220,'1',225,
+    0xa2,2,'1',0,252,151,'f','f',229,'C',22,19,131,221,199,223,'/',190,20,'8',
+    0xed,1,206,177,23,26,17,'u',233,189,3,143,'&','~',132,229,201,'`',166,149,
+    215,'T','Y',183,231,17,',',137,212,185,238,23,
+]
+
 
 /**
 GTS Root R3.
 SHA256 fingerprint: 34:d8:a7:3e:e2:08:d9:bc:db:0d:95:65:20:93:4b:4e:40:e6:94:82:59:6e:8b:6f:73:c8:42:6b:01:0a:6f:48
 */
-GTS_ROOT_R3 ::= net.Certificate.parse GTS_ROOT_R3_TEXT_
+GTS_ROOT_R3 ::= parse_ GTS_ROOT_R3_BYTES_
 
-GTS_ROOT_R4_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIICCTCCAY6gAwIBAgINAgPlwGjvYxqccpBQUjAKBggqhkjOPQQDAzBHMQswCQYD
-VQQGEwJVUzEiMCAGA1UEChMZR29vZ2xlIFRydXN0IFNlcnZpY2VzIExMQzEUMBIG
-A1UEAxMLR1RTIFJvb3QgUjQwHhcNMTYwNjIyMDAwMDAwWhcNMzYwNjIyMDAwMDAw
-WjBHMQswCQYDVQQGEwJVUzEiMCAGA1UEChMZR29vZ2xlIFRydXN0IFNlcnZpY2Vz
-IExMQzEUMBIGA1UEAxMLR1RTIFJvb3QgUjQwdjAQBgcqhkjOPQIBBgUrgQQAIgNi
-AATzdHOnaItgrkO4NcWBMHtLSZ37wWHO5t5GvWvVYRg1rkDdc/eJkTBa6zzuhXyi
-QHY7qca4R9gq55KRanPpsXI5nymfopjTX15YhmUPoYRlBtHci8nHc8iMai/lxKvR
-HYqjQjBAMA4GA1UdDwEB/wQEAwIBhjAPBgNVHRMBAf8EBTADAQH/MB0GA1UdDgQW
-BBSATNbrdP9JNqPV2Py1PsVq8JQdjDAKBggqhkjOPQQDAwNpADBmAjEA6ED/g94D
-9J+uHXqnLrmvT/aDHQ4thQEd0dlq7A/Cr8deVl5c1RxYIigL9zC2L7F8AjEA8GE8
-p/SgguMh1YQdc4acLa/KNJvxn7kjNuK8YAOdgLOaVsjh4rsUecrNIdSUtUlD
------END CERTIFICATE-----
-"""
+GTS_ROOT_R4_BYTES_ ::= #[
+    '0',130,2,9,'0',130,1,142,160,3,2,1,2,2,13,2,3,229,192,'h',239,'c',26,156,
+    'r',144,'P','R','0',10,6,8,'*',134,'H',206,'=',4,3,3,'0','G','1',11,'0',9,
+    0x6,3,'U',4,6,19,2,'U','S','1','"','0',' ',6,3,'U',4,10,19,25,'G','o','o',
+    'g','l','e',' ','T','r','u','s','t',' ','S','e','r','v','i','c','e','s',
+    ' ','L','L','C','1',0x14,'0',18,6,3,'U',4,3,19,11,'G','T','S',' ','R','o',
+    'o','t',' ','R','4','0',30,23,0xd,'1','6','0','6','2','2','0','0','0','0',
+    '0','0','Z',23,13,'3','6','0','6','2','2','0','0','0','0','0','0','Z','0',
+    'G','1',11,'0',9,6,3,'U',4,6,19,2,'U','S','1','"','0',' ',6,3,'U',4,10,19,
+    0x19,'G','o','o','g','l','e',' ','T','r','u','s','t',' ','S','e','r','v',
+    'i','c','e','s',' ','L','L','C','1',0x14,'0',18,6,3,'U',4,3,19,11,'G','T',
+    'S',' ','R','o','o','t',' ','R','4','0','v','0',0x10,6,7,'*',0x86,'H',206,
+    '=',2,1,6,5,'+',129,4,0,'"',3,'b',0,4,243,'t','s',167,'h',139,'`',174,'C',
+    0xb8,'5',0xc5,129,'0','{','K','I',157,251,193,'a',206,230,222,'F',189,'k',
+    0xd5,'a',0x18,'5',174,'@',221,'s',247,137,145,'0','Z',235,'<',238,133,'|',
+    0xa2,'@','v',';',0xa9,198,184,'G',216,'*',231,146,145,'j','s',233,177,'r',
+    '9',0x9f,')',159,162,152,211,'_','^','X',134,'e',15,161,132,'e',6,209,220,
+    0x8b,0xc9,0xc7,'s',200,140,'j','/',229,196,171,209,29,138,163,'B','0','@',
+    '0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,134,'0',15,6,3,'U',29,19,1,1,255,4,
+    0x05,'0',3,1,1,255,'0',29,6,3,'U',29,14,4,22,4,20,128,'L',214,235,'t',255,
+    'I','6',163,213,216,252,181,'>',197,'j',240,148,29,140,'0',10,6,8,'*',134,
+    'H',0xce,'=',4,3,3,3,'i',0,'0','f',2,'1',0,0xe8,'@',255,131,222,3,244,159,
+    174,29,'z',167,'.',185,175,'O',246,131,29,14,'-',133,1,29,209,217,'j',236,
+    0x0f,194,175,199,'^','V','^',92,213,28,'X','"','(',11,247,'0',182,'/',177,
+    '|',0x02,'1',0,240,'a','<',167,244,160,130,227,'!',213,132,29,'s',134,156,
+    '-',175,202,'4',155,241,159,185,'#','6',226,188,'`',3,157,128,179,154,'V',
+    200,225,226,187,20,'y',202,205,'!',212,148,181,'I','C',
+]
+
 
 /**
 GTS Root R4.
 SHA256 fingerprint: 34:9d:fa:40:58:c5:e2:63:12:3b:39:8a:e7:95:57:3c:4e:13:13:c8:3f:e6:8f:93:55:6c:d5:e8:03:1b:3c:7d
 */
-GTS_ROOT_R4 ::= net.Certificate.parse GTS_ROOT_R4_TEXT_
+GTS_ROOT_R4 ::= parse_ GTS_ROOT_R4_BYTES_
 
-UCA_GLOBAL_G2_ROOT_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIFRjCCAy6gAwIBAgIQXd+x2lqj7V2+WmUgZQOQ7zANBgkqhkiG9w0BAQsFADA9
-MQswCQYDVQQGEwJDTjERMA8GA1UECgwIVW5pVHJ1c3QxGzAZBgNVBAMMElVDQSBH
-bG9iYWwgRzIgUm9vdDAeFw0xNjAzMTEwMDAwMDBaFw00MDEyMzEwMDAwMDBaMD0x
-CzAJBgNVBAYTAkNOMREwDwYDVQQKDAhVbmlUcnVzdDEbMBkGA1UEAwwSVUNBIEds
-b2JhbCBHMiBSb290MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAxeYr
-b3zvJgUno4Ek2m/LAfmZmqkywiKHYUGRO8vDaBsGxUypK8FnFyIdK+35KYmToni9
-kmugow2ifsqTs6bRjDXVdfkX9s9FxeV67HeToI8jrg4aA3++1NDtLnurRiNb/yzm
-VHqUwCoV8MmNsHo7JOHXaOIxPAYzRrZUEaalLyJUKlgNAQLx+hVRZ2zA+te2G3/R
-VogvGjqNO7uCEeBHANBSh6v7hn4PJGtAnTRnvI3HLYZveT6OqTwXS3+wmeOwcWDc
-C/Vkw85DvG1xudLeJ1uK6NjGruFZfc8oLTW4lVYa8bJYS7cSN8h8s+1LgOGN+jIj
-tm+3SJUIsUROhYw6AlQgL9+/V087OpAh18EmNVQg7Mc/R+zvWr9LesGtOxdQXGLY
-D0tK3Cv6brxzks3sx1DoQZbXqX5t2Okdj4q1uViSukqSKwxW/YDrCPBeKW4bHAyv
-j5OJrdu9o54hyokZ7N+1wxrrFv54NkzWbtA+FxyQF2smuvt6L78RHBgOLXMDj6Dl
-NaBa4kx1HXHhOThTeEDMg5PXCp6dW4+K5OXgSORIskfNTip1KnvyIvbJvgmRlld6
-iIis7nCs+dwp4wwcOxJORNanTrAmyPPZGpeRaOrvjUYG0lZFWJo8DA+DuAUlwznP
-O6Q0ibd5Ei9Hxeepl2n8pndntd978XplFeRhVmUCAwEAAaNCMEAwDgYDVR0PAQH/
-BAQDAgEGMA8GA1UdEwEB/wQFMAMBAf8wHQYDVR0OBBYEFIHEjMz15DD/pQwIX4wV
-ZyF0Ad/fMA0GCSqGSIb3DQEBCwUAA4ICAQATZSL1jiutROTL/7lo5sOASD0Ee/oj
-L3rtNtqyzm325p7lX1iPyzcyochltq44PTUbPrw7tgTQvPlJ9Zv3hcU2tsu8+Mg5
-1eRfB70VVJd0ysrtT7q6ZHafgbiERUlMjW+i67HM0cOU2kTC5uLqGOiiHycFutfl
-1qnN3e92mI0ADs0b+gO3joBYDic/UvuUospeZcnWhNq5NXHzJsBPd+aBJ9J3O5oU
-b3n09tDh05S60FdRvScFDcH9yBIw7m+NESsIndTUv4BFFJqIRNow6rSn4+7vW4LV
-PtateJLbXDzz2K36uGt/xDYotgIVilQsnLAXc47QN6MUPJiVAAwpBVueSUmxX8fj
-y88nZY41F7dXyDDZQVu5FLbowg+UMaeUmMxq67XhJ/UQqAHojhJi6IjMtX9Gl8Cb
-EGY4GjZGXyJoPd/JxhMnq1MGrKI8hgZlb7F+sSlEmqO6SWkoaY/X5V+tBIZkbxqg
-DMUIYs6Ao9Dz7GjevjPHF1t/gMRMTLGmhIrDO7gJzRSBuhjjVFc2/tsvfEehOjPI
-+Vg7RE+xygKJBJYoaMVLuCaJu9YzL1DV/pqJuhgyklTGW+Cd+V7lDSKb9triyCGy
-YiGqhkCyLmTTX8jjfhFnRR8F/uOi77Oos/N9j/gMHyIfLXC0uAE0djAA5SN4p1bX
-UB+K+wb1whnw0A==
------END CERTIFICATE-----
-"""
+UCA_GLOBAL_G2_ROOT_BYTES_ ::= #[
+    '0',0x82,5,'F','0',130,3,'.',160,3,2,1,2,2,16,']',223,177,218,'Z',163,237,
+    ']',0xbe,'Z','e',' ','e',3,0x90,239,'0',13,6,9,'*',134,'H',134,247,13,1,1,
+    0x0b,5,0,'0','=','1',0xb,'0',9,6,3,'U',4,6,19,2,'C','N','1',17,'0',15,6,3,
+    'U',0x4,10,12,8,'U','n','i','T','r','u','s','t','1',27,'0',25,6,3,'U',4,3,
+    12,18,'U','C','A',' ','G','l','o','b','a','l',' ','G','2',' ','R','o','o',
+    't','0',0x1e,23,13,'1','6','0','3','1','1','0','0','0','0','0','0','Z',23,
+    13,'4','0','1','2','3','1','0','0','0','0','0','0','Z','0','=','1',11,'0',
+    0x09,6,3,'U',4,6,19,2,'C','N','1',17,'0',15,6,3,'U',4,10,12,8,'U','n','i',
+    'T','r','u','s','t','1',0x1b,'0',25,6,3,'U',4,3,12,18,'U','C','A',' ','G',
+    'l','o','b','a','l',' ','G','2',' ','R','o','o','t','0',0x82,2,'"','0',13,
+    6,9,'*',0x86,'H',134,247,13,1,1,1,5,0,3,130,2,15,0,'0',130,2,10,2,130,2,1,
+    0,0xc5,230,'+','o','|',239,'&',5,39,163,129,'$',218,'o',203,1,249,153,154,
+    0xa9,'2',194,'"',135,'a','A',145,';',203,195,'h',27,6,197,'L',169,'+',193,
+    'g',23,'"',29,'+',0xed,249,')',137,147,162,'x',189,146,'k',160,163,13,162,
+    '~',0xca,0x93,0xb3,166,209,140,'5',213,'u',249,23,246,207,'E',197,229,'z',
+    0xec,'w',0x93,160,143,'#',174,14,26,3,127,190,212,208,237,'.','{',171,'F',
+    '#','[',0xff,',',0xe6,'T','z',0x94,192,'*',21,240,201,141,176,'z',';','$',
+    0xe1,215,'h',226,'1','<',6,'3','F',182,'T',17,166,165,'/','"','T','*','X',
+    0x0d,1,2,241,250,21,'Q','g','l',192,250,215,182,27,127,209,'V',136,'/',26,
+    ':',0x8d,';',0xbb,130,17,224,'G',0,208,'R',135,171,251,134,'~',15,'$','k',
+    '@',0x9d,'4','g',0xbc,0x8d,199,'-',134,'o','y','>',142,169,'<',23,'K',127,
+    0xb0,0x99,0xe3,176,'q','`',220,11,245,'d',195,206,'C',188,'m','q',185,210,
+    222,39,'[',138,232,216,198,174,225,'Y','}',207,'(','-','5',184,149,'V',26,
+    0xf1,0xb2,'X','K',0xb7,18,'7',200,'|',179,237,'K',128,225,141,250,'2','#',
+    0xb6,'o',0xb7,'H',149,8,177,'D','N',133,140,':',2,'T',' ','/',223,191,'W',
+    'O',';',':',0x90,'!',0xd7,193,'&','5','T',' ',236,199,'?','G',236,239,'Z',
+    0xbf,'K','z',193,173,';',23,'P',92,'b',216,15,'K','J',220,'+',250,'n',188,
+    's',0x92,0xcd,0xec,199,'P',232,'A',150,215,169,'~','m',216,233,29,143,138,
+    0xb5,0xb9,'X',146,186,'J',146,'+',12,'V',253,128,235,8,240,'^',')','n',27,
+    28,0xc,175,143,147,137,173,219,189,163,158,'!',202,137,25,236,223,181,195,
+    0x1a,0xeb,22,254,'x','6','L',214,'n',208,'>',23,28,144,23,'k','&',186,251,
+    'z','/',0xbf,17,28,24,14,'-','s',3,143,160,229,'5',160,'Z',226,'L','u',29,
+    'q',0xe1,'9','8','S','x','@',0xcc,0x83,147,215,10,158,157,'[',143,138,228,
+    229,224,'H',228,'H',178,'G',205,'N','*','u','*','{',242,'"',246,201,190,9,
+    0x91,150,'W','z',136,136,172,238,'p',172,249,220,')',227,12,28,';',18,'N',
+    'D',0xd6,167,'N',176,'&',200,243,217,26,151,145,'h',234,239,141,'F',6,210,
+    'V','E','X',0x9a,'<',0xc,15,131,184,5,'%',195,'9',207,';',164,'4',137,183,
+    'y',0x12,'/','G',0xc5,231,169,151,'i',252,166,'w','g',181,223,'{',241,'z',
+    'e',21,228,'a','V','e',2,3,1,0,1,163,'B','0','@','0',14,6,3,'U',29,15,1,1,
+    255,4,4,3,2,1,6,'0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',29,6,3,
+    'U',0x1d,14,4,22,4,20,129,196,140,204,245,228,'0',255,165,12,8,'_',140,21,
+    'g','!','t',1,0xdf,223,'0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,3,130,
+    2,1,0,19,'e','"',0xf5,142,'+',173,'D',228,203,255,185,'h',230,195,128,'H',
+    '=',4,'{',250,'#','/','z',237,'6',218,178,206,'m',246,230,158,229,'_','X',
+    0x8f,203,'7','2',161,200,'e',182,174,'8','=','5',27,'>',188,';',182,4,208,
+    188,249,'I',245,155,247,133,197,'6',182,203,188,248,200,'9',213,228,'_',7,
+    0xbd,0x15,'T',151,'t',202,202,237,'O',186,186,'d','v',159,129,184,132,'E',
+    'I','L',0x8d,'o',0xa2,0xeb,177,204,209,195,148,218,'D',194,230,226,234,24,
+    0xe8,0xa2,31,39,5,186,215,229,214,169,205,221,239,'v',152,141,0,14,205,27,
+    0xfa,3,0xb7,142,128,'X',14,39,'?','R',251,148,162,202,'^','e',201,214,132,
+    218,185,'5','q',243,'&',192,'O','w',230,129,39,210,'w',';',154,20,'o','y',
+    0xf4,0xf6,0xd0,225,211,148,186,208,'W','Q',189,39,5,13,193,253,200,18,'0',
+    0xee,'o',0x8d,17,'+',8,157,212,212,191,128,'E',20,154,136,'D',218,'0',234,
+    0xb4,0xa7,0xe3,238,239,'[',130,213,'>',214,173,'x',146,219,92,'<',243,216,
+    0xad,0xfa,184,'k',127,196,'6','(',182,2,21,138,'T',',',156,176,23,'s',142,
+    208,'7',163,20,'<',152,149,0,12,')',5,'[',158,'I','I',177,'_',199,227,203,
+    0xcf,39,'e',0x8e,'5',23,183,'W',200,'0',217,'A','[',185,20,182,232,194,15,
+    0x94,'1',0xa7,0x94,152,204,'j',235,181,225,39,245,16,168,1,232,142,18,'b',
+    232,136,204,181,127,'F',151,192,155,16,'f','8',26,'6','F','_','"','h','=',
+    223,201,198,19,39,171,'S',6,172,162,'<',134,6,'e','o',177,'~',177,')','D',
+    0x9a,0xa3,186,'I','i','(','i',143,215,229,'_',173,4,134,'d','o',26,160,12,
+    0xc5,8,'b',206,128,163,208,243,236,'h',222,190,'3',199,23,'[',127,128,196,
+    'L','L',0xb1,0xa6,132,138,195,';',184,9,205,20,129,186,24,227,'T','W','6',
+    0xfe,0xdb,'/','|','G',161,':','3',200,249,'X',';','D','O',177,202,2,137,4,
+    0x96,'(','h',0xc5,'K',184,'&',137,187,214,'3','/','P',213,254,154,137,186,
+    24,'2',146,'T',198,'[',224,157,249,'^',229,13,'"',155,246,218,226,200,'!',
+    0xb2,'b','!',0xaa,134,'@',178,'.','d',211,'_',200,227,'~',17,'g','E',31,5,
+    0xfe,227,162,239,179,168,179,243,'}',143,248,12,31,'"',31,'-','p',180,184,
+    0x1,'4','v','0',0,229,'#','x',167,'V',215,'P',31,138,251,6,245,194,25,240,
+    208,
+]
+
 
 /**
 UCA Global G2 Root.
 SHA256 fingerprint: 9b:ea:11:c9:76:fe:01:47:64:c1:be:56:a6:f9:14:b5:a5:60:31:7a:bd:99:88:39:33:82:e5:16:1a:a0:49:3c
 */
-UCA_GLOBAL_G2_ROOT ::= net.Certificate.parse UCA_GLOBAL_G2_ROOT_TEXT_
+UCA_GLOBAL_G2_ROOT ::= parse_ UCA_GLOBAL_G2_ROOT_BYTES_
 
-UCA_EXTENDED_VALIDATION_ROOT_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIFWjCCA0KgAwIBAgIQT9Irj/VkyDOeTzRYZiNwYDANBgkqhkiG9w0BAQsFADBH
-MQswCQYDVQQGEwJDTjERMA8GA1UECgwIVW5pVHJ1c3QxJTAjBgNVBAMMHFVDQSBF
-eHRlbmRlZCBWYWxpZGF0aW9uIFJvb3QwHhcNMTUwMzEzMDAwMDAwWhcNMzgxMjMx
-MDAwMDAwWjBHMQswCQYDVQQGEwJDTjERMA8GA1UECgwIVW5pVHJ1c3QxJTAjBgNV
-BAMMHFVDQSBFeHRlbmRlZCBWYWxpZGF0aW9uIFJvb3QwggIiMA0GCSqGSIb3DQEB
-AQUAA4ICDwAwggIKAoICAQCpCQcoEwKwmeBkqh5DFnpzsZGgdT6o+uM4AHrsiWog
-D4vFsJszA1qGxliG1cGFu0/GnEBNyr7uaZa4rYEwmnySBesFK5pI0Lh2PpbIILvS
-sPGP2KxFRv+qZ2C0d35qHzwaUnoEPQc8hQ2E0B92CvdqFN9y4zR8V05WAT558aop
-O2z6+I9tTcg1367r3CTueUWnhbYFiN6IXSV8l2RnCdm/WhUFhvMJHuxYMjMR83dk
-sHYf5BA1FxvyDrFspCqjc/wJHx4yGVMR59mzLC52LqGj3n5qiAno8geK+LLNEOfi
-c0CTuwjRP+H8C5SzJe98ptfRr5//lpr1kXuYC3fUfugH0mK1lTnj8/FtDw5lhIpj
-VMWAtuCeS31HJqcBCF3RiJ7XwzJE+oJKCmhUfzhTA8ykADNkUVkLo4KRel7sFsLz
-KuZi2irbWWIQJUoqgQtHB0MGcIfS+pMRKXpITeuUx3BNr2fVUbGAIAEBtHoIppB/
-TuDvB0GHr2qlXov7z1CymlSvw4m6WC31MJixNnI5fkkE/SmnTHnkBVfblLkWU41G
-sx2VYVdWf6/wFlthWG82UBEL2KwrlRYaDh8IzTY0ZRBiZtWAXxQgXy0MoHgKaNYs
-1+lvK9JKBZP8nm9rZ/+I8U6laUpSNwXqxhaN0sSZ0YIrO7o1dfdRUVjzyAfd5LQD
-fwIDAQABo0IwQDAdBgNVHQ4EFgQU2XQ65DA9DfcS3H5aBZ8eNJr34RQwDwYDVR0T
-AQH/BAUwAwEB/zAOBgNVHQ8BAf8EBAMCAYYwDQYJKoZIhvcNAQELBQADggIBADaN
-l8xCFWQpN5smLNb7rhVpLGsaGvdftvkHTFnq88nIua7Mui563MD1sC3AO6+fcAUR
-ap8lTwEpcOPlDOHqWnzcSbvBHiqB9RZLcpHIojG5qtr8nR/zXUACE/xOHAbKsxSQ
-VBcZEhrxH9cMaVr2cXj0lH2RC47skFSOvG+hTKv8dGT9cZr4QQehzZHkPJrgmzI5
-c6sq1WnIeJEmMX3ixzDx/BR4dxIOE/TdFpS/S2d7cFOFyrC78zhNLJA5wA3CXWvp
-4uXViI3WLL+rG761KIcSF3Ru/H38j9CHJrAb+7lsq+KePRXBOy5nAliRn+/4Qh8s
-t2j1da3Ptfb/EX3C8CSlrdP6oDyp+l3cpaDvRKS+1ujl5BOWF3sGPjLtx7dCvHaj
-2GU4Kzg1USEODm8uNBNA4StnDG1KQTAYI1oyVZnJF+A83vbsea0rWBmirSwiGpWO
-vpaQXUJXxPkUAzUrHC1RVwinOt4/5Mi0A3PCwSaAuwtCH60NryZy2sy+s6ODWA2C
-xR9GUeOcGMyNm43sSet1UNWMKFnKdDTajAshqx7qG+XH/RU+wBeq+yNuJkbL+vmx
-cmtpzyKEC2IPrNkZAJSidjzULZrtBJ4tBmIQN1IchXIbJ+XMxjHsN+xjWZsLHXbM
-fjKaiJUINlK73nZfdklJrX+9ZSCyycErdhh2n1ax
------END CERTIFICATE-----
-"""
+UCA_EXTENDED_VALIDATION_ROOT_BYTES_ ::= #[
+    '0',0x82,5,'Z','0',130,3,'B',160,3,2,1,2,2,16,'O',210,'+',143,245,'d',200,
+    '3',158,'O','4','X','f','#','p','`','0',13,6,9,'*',134,'H',134,247,13,1,1,
+    0x0b,5,0,'0','G','1',0xb,'0',9,6,3,'U',4,6,19,2,'C','N','1',17,'0',15,6,3,
+    'U',4,10,12,8,'U','n','i','T','r','u','s','t','1','%','0','#',6,3,'U',4,3,
+    12,28,'U','C','A',' ','E','x','t','e','n','d','e','d',' ','V','a','l','i',
+    'd','a','t','i','o','n',' ','R','o','o','t','0',30,23,0xd,'1','5','0','3',
+    '1','3','0','0','0','0','0','0','Z',23,13,'3','8','1','2','3','1','0','0',
+    '0','0','0','0','Z','0','G','1',0xb,'0',9,6,3,'U',4,6,19,2,'C','N','1',17,
+    '0',0xf,6,3,'U',4,10,12,8,'U','n','i','T','r','u','s','t','1','%','0','#',
+    6,3,'U',4,3,12,28,'U','C','A',' ','E','x','t','e','n','d','e','d',' ','V',
+    'a','l','i','d','a','t','i','o','n',' ','R','o','o','t','0',130,2,'"','0',
+    13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,2,15,0,'0',130,2,10,2,130,2,
+    0x01,0,169,9,7,'(',19,2,176,153,224,'d',170,30,'C',22,'z','s',177,145,160,
+    'u','>',0xa8,0xfa,0xe3,'8',0,'z',236,137,'j',' ',15,139,197,176,155,'3',3,
+    'Z',0x86,0xc6,'X',134,213,193,133,187,'O',198,156,'@','M',202,190,238,'i',
+    0x96,0xb8,173,129,'0',154,'|',146,5,235,5,'+',154,'H',208,184,'v','>',150,
+    0xc8,' ',0xbb,210,176,241,143,216,172,'E','F',255,170,'g','`',180,'w','~',
+    'j',31,'<',26,'R','z',4,'=',7,'<',133,13,132,208,31,'v',10,247,'j',20,223,
+    'r',227,'4','|','W','N','V',1,'>','y',241,170,')',';','l',250,248,143,'m',
+    'M',200,'5',223,174,235,220,'$',238,'y','E',167,133,182,5,136,222,136,']',
+    '%','|',0x97,'d','g',0x9,217,191,'Z',21,5,134,243,9,30,236,'X','2','3',17,
+    0xf3,'w','d',0xb0,'v',31,0xe4,16,'5',23,27,242,14,177,'l',164,'*',163,'s',
+    252,9,31,30,'2',25,'S',17,231,217,179,',','.','v','.',161,163,222,'~','j',
+    0x88,9,232,242,7,138,248,178,205,16,231,226,'s','@',147,187,8,209,'?',225,
+    0xfc,0x0b,148,179,'%',239,'|',166,215,209,175,159,255,150,154,245,145,'{',
+    0x98,0x0b,'w',212,'~',232,7,210,'b',181,149,'9',227,243,241,'m',15,14,'e',
+    0x84,0x8a,'c','T',197,128,182,224,158,'K','}','G','&',167,1,8,']',209,136,
+    0x9e,0xd7,0xc3,'2','D',250,130,'J',10,'h','T',127,'8','S',3,204,164,0,'3',
+    'd','Q','Y',11,163,130,145,'z','^',236,22,194,243,'*',230,'b',218,'*',219,
+    'Y','b',16,'%','J','*',0x81,11,'G',7,'C',6,'p',135,210,250,147,17,')','z',
+    'H','M',235,148,199,'p','M',175,'g',213,'Q',177,128,' ',1,1,180,'z',8,166,
+    144,127,'N',224,239,7,'A',135,175,'j',165,'^',139,251,207,'P',178,154,'T',
+    175,195,137,186,'X','-',245,'0',152,177,'6','r','9','~','I',4,253,')',167,
+    'L','y',0xe4,5,'W',0xdb,148,185,22,'S',141,'F',179,29,149,'a','W','V',127,
+    0xaf,0xf0,22,'[','a','X','o','6','P',17,0xb,216,172,'+',149,22,26,14,31,8,
+    0xcd,'6','4','e',16,'b','f',0xd5,128,'_',20,' ','_','-',12,160,'x',10,'h',
+    214,',',215,233,'o','+',210,'J',5,147,252,158,'o','k','g',255,136,241,'N',
+    0xa5,'i','J','R','7',5,234,198,22,141,210,196,153,209,130,'+',';',186,'5',
+    'u',247,'Q','Q','X',243,200,7,221,228,180,3,127,2,3,1,0,1,163,'B','0','@',
+    '0',29,6,3,'U',29,0xe,4,22,4,20,217,'t',':',228,'0','=',13,247,18,220,'~',
+    'Z',5,0x9f,30,'4',154,247,225,20,'0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,
+    0x1,255,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,134,'0',13,6,9,'*',134,'H',
+    0x86,247,13,1,1,11,5,0,3,130,2,1,0,'6',141,151,204,'B',21,'d',')','7',155,
+    '&',',',0xd6,0xfb,0xae,21,'i',',','k',26,26,247,'_',182,249,7,'L','Y',234,
+    0xf3,0xc9,200,185,174,204,186,'.','z',220,192,245,176,'-',192,';',175,159,
+    'p',5,17,'j',159,'%','O',1,')','p',227,229,12,225,234,'Z','|',220,'I',187,
+    0xc1,30,'*',129,245,22,'K','r',145,200,162,'1',185,170,218,252,157,31,243,
+    ']','@',0x02,19,252,'N',28,6,202,179,20,144,'T',23,25,18,26,241,31,215,12,
+    'i','Z',0xf6,'q','x',0xf4,0x94,'}',145,11,142,236,144,'T',142,188,'o',161,
+    'L',171,252,'t','d',253,'q',154,248,'A',7,161,205,145,228,'<',154,224,155,
+    '2','9','s',0xab,'*',0xd5,'i',200,'x',145,'&','1','}',226,199,'0',241,252,
+    0x14,'x','w',18,0xe,19,244,221,22,148,191,'K','g','{','p','S',133,202,176,
+    0xbb,0xf3,'8','M',',',0x90,'9',192,13,194,']','k',233,226,229,213,136,141,
+    0xd6,',',191,171,27,190,181,'(',135,18,23,'t','n',252,'}',252,143,208,135,
+    '&',0xb0,27,0xfb,185,'l',171,226,158,'=',21,193,';','.','g',2,'X',145,159,
+    239,248,'B',31,',',183,'h',245,'u',173,207,181,246,255,17,'}',194,240,'$',
+    0xa5,0xad,211,250,160,'<',169,250,']',220,165,160,239,'D',164,190,214,232,
+    0xe5,0xe4,19,150,23,'{',6,'>','2',237,199,183,'B',188,'v',163,216,'e','8',
+    '+','8','5','Q','!',0x0e,14,'o','.','4',19,'@',225,'+','g',12,'m','J','A',
+    '0',24,'#','Z','2','U',0x99,201,23,224,'<',222,246,236,'y',173,'+','X',25,
+    0xa2,0xad,',','"',26,149,142,190,150,144,']','B','W',196,249,20,3,'5','+',
+    28,'-','Q','W',8,167,':',222,'?',228,200,180,3,'s',194,193,'&',128,187,11,
+    'B',0x1f,173,13,175,'&','r',218,204,190,179,163,131,'X',13,130,197,31,'F',
+    'Q',0xe3,0x9c,24,0xcc,141,155,141,236,'I',235,'u','P',213,140,'(','Y',202,
+    't','4',0xda,0x8c,0xb,'!',171,30,234,27,229,199,253,21,'>',192,23,170,251,
+    '#','n','&','F',203,250,249,177,'r','k','i',207,'"',132,11,'b',15,172,217,
+    0x19,0,0x94,162,'v','<',212,'-',154,237,4,158,'-',6,'b',16,'7','R',28,133,
+    'r',0x1b,39,229,204,198,'1',236,'7',236,'c','Y',155,11,29,'v',204,'~','2',
+    154,136,149,8,'6','R',187,222,'v','_','v','I','I',173,127,189,'e',' ',178,
+    201,193,'+','v',24,'v',159,'V',177,
+]
+
 
 /**
 UCA Extended Validation Root.
 SHA256 fingerprint: d4:3a:f9:b3:54:73:75:5c:96:84:fc:06:d7:d8:cb:70:ee:5c:28:e7:73:fb:29:4e:b4:1e:e7:17:22:92:4d:24
 */
-UCA_EXTENDED_VALIDATION_ROOT ::= net.Certificate.parse UCA_EXTENDED_VALIDATION_ROOT_TEXT_
+UCA_EXTENDED_VALIDATION_ROOT ::= parse_ UCA_EXTENDED_VALIDATION_ROOT_BYTES_
 
-CERTIGNA_ROOT_CA_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIGWzCCBEOgAwIBAgIRAMrpG4nxVQMNo+ZBbcTjpuEwDQYJKoZIhvcNAQELBQAw
-WjELMAkGA1UEBhMCRlIxEjAQBgNVBAoMCURoaW15b3RpczEcMBoGA1UECwwTMDAw
-MiA0ODE0NjMwODEwMDAzNjEZMBcGA1UEAwwQQ2VydGlnbmEgUm9vdCBDQTAeFw0x
-MzEwMDEwODMyMjdaFw0zMzEwMDEwODMyMjdaMFoxCzAJBgNVBAYTAkZSMRIwEAYD
-VQQKDAlEaGlteW90aXMxHDAaBgNVBAsMEzAwMDIgNDgxNDYzMDgxMDAwMzYxGTAX
-BgNVBAMMEENlcnRpZ25hIFJvb3QgQ0EwggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAw
-ggIKAoICAQDNGDllGlmx6mQWDoyUJJV8g9PFOSbcDO8WV43X2KyjQn+Cyu3NW9sO
-ty3tRQgXstmzy9YXUnIo245Onoq2C/mehJpNdt4iKVzSs9IGPjA5qXSjklYcoW9M
-CiBtnyN6tMbaLOQdLNyzKNAT8kxOAkmhVECe5uUFoC2EyP+YbNDrihqECB63aCPu
-I9Vwzm1RaRDuoXrC0SIxwoKF0vJVdlB8JXrJhFwLrN1CTivngqIkicuQstDuI7pm
-TLtipPlTWmR7fJj6o0ieD5Wupxj0auwuA0Wv8HT4Ks16XdG+RCYyKfHx9WzMfgIh
-C59vpD++nVPiz32pLHxYGpfhPTc3GGYo0kDFUYqMwy3OU4gkWGQwFsWq4NYKpkDf
-ePb1BHxpE4S80dGnBs8B92jAqFe7OmGtBIyT46388NtEbVncSVmurJqZNjBBe3Yz
-IoejwpKGbvlw7q6Hh5UbxHq9MfPU0uWZ/75I7HX1eBYdpnDBfzwboZL7z8g81sWT
-Co/1VTp2lc5ZmIoJlXcymoO6LAQ6l73UL77XbJuiyn1tJslV1c/DeVIICZkHJC1k
-JWumIWmbat10TWuXekG9qxf5kBdIjzb5LdXF2+6qhUVB+s06RbFo5jZMm5BX7CO5
-hwjCxAnxl4YqKE3idMDaxIzb3+KhF1nOJFl0Mdp//TBt2dzhauH8XwIDAQABo4IB
-GjCCARYwDwYDVR0TAQH/BAUwAwEB/zAOBgNVHQ8BAf8EBAMCAQYwHQYDVR0OBBYE
-FBiHVuBud+4kNTxOc5of1uHieX4rMB8GA1UdIwQYMBaAFBiHVuBud+4kNTxOc5of
-1uHieX4rMEQGA1UdIAQ9MDswOQYEVR0gADAxMC8GCCsGAQUFBwIBFiNodHRwczov
-L3d3d3cuY2VydGlnbmEuZnIvYXV0b3JpdGVzLzBtBgNVHR8EZjBkMC+gLaArhilo
-dHRwOi8vY3JsLmNlcnRpZ25hLmZyL2NlcnRpZ25hcm9vdGNhLmNybDAxoC+gLYYr
-aHR0cDovL2NybC5kaGlteW90aXMuY29tL2NlcnRpZ25hcm9vdGNhLmNybDANBgkq
-hkiG9w0BAQsFAAOCAgEAlLieT/DjlQgi581oQfccVdV8AOItOoldaDgvUSILSo3L
-6btdPrtcPbEo/uRTVRPPoZAbAh1fZkYJMyjhDSSXcNMQH+pkV5a7XdrnxIxPTGRG
-HVyH41neQtGbqH6mid2PHMkwgu07nM3A6RngatgCdTer9zQoKJHyBApPNeNgJgH6
-0BGM+RFq7q89w1DTj18zeTyGqHNFkIwgtnJzFyO+B2XleJINugHA64wcZr+shncB
-lA2c5uk5jR+mUYyZDDl34bSb+hxnV29qao6pK0xXeXpXIs/NX2NGjVxZOob4Mkdi
-o2cNGJHc+6Zr9UhhcyNZjgKnvETq9Emd8VRY+WCv2hikLyhF3HqgiIZd8zvn/yk1
-gPxkQ5Tm4xxvvq0OKmOZK8l+hfZx6AYDlf7ej0gcWtSS6Cvu5zHbugRqh5jnxV/v
-faci9wHYTfmJ0A6aBVmknpjZbyvKcL5kwlWj9Omvw5Ip3IgWJJk8jSaYtlu3zM63
-Nwf9JtmYhST/WSMDmu2dnajkXjjO11INb9I/bbEFa0nOipFGc/T2L/Coc3cOZayh
-jWZSaX5LaAzHHjcng6WMxwLkFM1JAbBzs/3GkDpv0mztO+7skb6iQ12LAEpmJURw
-3kAP+HwV96LOPNdeE4yBFxgX0b3xdxA61GU5wSesVywlVP+i2k+KYTlerj1KjL0=
------END CERTIFICATE-----
-"""
+CERTIGNA_ROOT_CA_BYTES_ ::= #[
+    '0',0x82,6,'[','0',0x82,4,'C',160,3,2,1,2,2,17,0,202,233,27,137,241,'U',3,
+    0xd,163,230,'A','m',196,227,166,225,'0',13,6,9,'*',134,'H',134,247,13,1,1,
+    0x0b,5,0,'0','Z','1',0xb,'0',9,6,3,'U',4,6,19,2,'F','R','1',18,'0',16,6,3,
+    'U',4,10,12,9,'D','h','i','m','y','o','t','i','s','1',28,'0',26,6,3,'U',4,
+    0xb,12,19,'0','0','0','2',' ','4','8','1','4','6','3','0','8','1','0','0',
+    '0','3','6','1',0x19,'0',23,6,3,'U',4,3,12,16,'C','e','r','t','i','g','n',
+    'a',' ','R','o','o','t',' ','C','A','0',30,23,0xd,'1','3','1','0','0','1',
+    '0','8','3','2','2','7','Z',23,13,'3','3','1','0','0','1','0','8','3','2',
+    '2','7','Z','0','Z','1',11,'0',9,6,3,'U',4,6,19,2,'F','R','1',18,'0',16,6,
+    3,'U',4,10,12,9,'D','h','i','m','y','o','t','i','s','1',28,'0',26,6,3,'U',
+    0x04,11,12,19,'0','0','0','2',' ','4','8','1','4','6','3','0','8','1','0',
+    '0','0','3','6','1',0x19,'0',23,6,3,'U',4,3,12,16,'C','e','r','t','i','g',
+    'n','a',' ','R','o','o','t',' ','C','A','0',0x82,2,'"','0',13,6,9,'*',134,
+    'H',134,247,13,1,1,1,5,0,3,130,2,15,0,'0',130,2,10,2,130,2,1,0,205,24,'9',
+    'e',26,'Y',0xb1,234,'d',22,14,140,148,'$',149,'|',131,211,197,'9','&',220,
+    0xc,239,22,'W',141,215,216,172,163,'B',127,130,202,237,205,'[',219,14,183,
+    '-',0xed,'E',8,23,0xb2,217,179,203,214,23,'R','r','(',219,142,'N',158,138,
+    0xb6,0xb,249,158,132,154,'M','v',222,'"',')',92,210,179,210,6,'>','0','9',
+    169,'t',163,146,'V',28,161,'o','L',10,' ','m',159,'#','z',180,198,218,',',
+    228,29,',',220,179,'(',208,19,242,'L','N',2,'I',161,'T','@',158,230,229,5,
+    0xa0,'-',0x84,200,255,152,'l',208,235,138,26,132,8,30,183,'h','#',238,'#',
+    0xd5,'p',0xce,'m','Q','i',16,0xee,161,'z',194,209,'"','1',194,130,133,210,
+    242,'U','v','P','|','%','z',201,132,92,11,172,221,'B','N','+',231,130,162,
+    '$',0x89,0xcb,144,178,208,238,'#',186,'f','L',187,'b',164,249,'S','Z','d',
+    '{','|',0x98,0xfa,163,'H',158,15,149,174,167,24,244,'j',236,'.',3,'E',175,
+    0xf0,'t',0xf8,'*',205,'z',']',209,190,'D','&','2',')',241,241,245,'l',204,
+    '~',0x2,'!',11,159,'o',164,'?',190,157,'S',226,207,'}',169,',','|','X',26,
+    0x97,0xe1,'=','7','7',24,'f','(',0xd2,'@',197,'Q',138,140,195,'-',206,'S',
+    0x88,'$','X','d','0',22,0xc5,170,224,214,10,166,'@',223,'x',246,245,4,'|',
+    'i',19,0x84,188,209,209,167,6,207,1,247,'h',192,168,'W',187,':','a',173,4,
+    0x8c,0x93,227,173,252,240,219,'D','m','Y',220,'I','Y',174,172,154,153,'6',
+    '0','A','{','v','3','"',0x87,0xa3,194,146,134,'n',249,'p',238,174,135,135,
+    149,27,196,'z',189,'1',243,212,210,229,153,255,190,'H',236,'u',245,'x',22,
+    29,0xa6,'p',193,127,'<',27,161,146,251,207,200,'<',214,197,147,10,143,245,
+    'U',':','v',0x95,0xce,'Y',152,138,9,149,'w','2',154,131,186,',',4,':',151,
+    0xbd,0xd4,'/',190,215,'l',155,162,202,'}','m','&',201,'U',213,207,195,'y',
+    'R',8,9,153,7,'$','-','d','%','k',166,'!','i',155,'j',221,'t','M','k',151,
+    'z','A',189,171,23,249,144,23,'H',143,'6',249,'-',213,197,219,238,170,133,
+    'E','A',250,205,':','E',177,'h',230,'6','L',155,144,'W',236,'#',185,135,8,
+    194,196,9,241,151,134,'*','(','M',226,'t',192,218,196,140,219,223,226,161,
+    0x17,'Y',0xce,'$','Y','t','1',218,127,253,'0','m',217,220,225,'j',225,252,
+    '_',2,3,1,0,1,0xa3,130,1,26,'0',130,1,22,'0',15,6,3,'U',29,19,1,1,255,4,5,
+    '0',3,1,1,0xff,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',29,6,3,'U',29,
+    0x0e,4,22,4,20,24,0x87,'V',224,'n','w',238,'$','5','<','N','s',154,31,214,
+    0xe1,0xe2,'y','~','+','0',31,6,3,'U',29,'#',4,24,'0',22,128,20,24,135,'V',
+    0xe0,'n','w',0xee,'$','5','<','N','s',0x9a,31,214,225,226,'y','~','+','0',
+    'D',6,3,'U',29,' ',4,'=','0',';','0','9',6,4,'U',29,' ',0,'0','1','0','/',
+    6,8,'+',6,1,5,5,7,2,1,22,'#','h','t','t','p','s',':','/','/','w','w','w',
+    'w','.','c','e','r','t','i','g','n','a','.','f','r','/','a','u','t','o',
+    'r','i','t','e','s','/','0','m',0x6,3,'U',29,31,4,'f','0','d','0','/',160,
+    '-',0xa0,'+',0x86,')','h','t','t','p',':','/','/','c','r','l','.','c','e',
+    'r','t','i','g','n','a','.','f','r','/','c','e','r','t','i','g','n','a',
+    'r','o','o','t','c','a','.','c','r','l','0','1',0xa0,'/',0xa0,'-',134,'+',
+    'h','t','t','p',':','/','/','c','r','l','.','d','h','i','m','y','o','t',
+    'i','s','.','c','o','m','/','c','e','r','t','i','g','n','a','r','o','o',
+    't','c','a','.','c','r','l','0',0xd,6,9,'*',134,'H',134,247,13,1,1,11,5,0,
+    3,0x82,2,1,0,148,184,158,'O',240,227,149,8,'"',231,205,'h','A',247,28,'U',
+    0xd5,'|',0,226,'-',':',137,']','h','8','/','Q','"',11,'J',141,203,233,187,
+    ']','>',187,92,'=',177,'(',254,228,'S','U',19,207,161,144,27,2,29,'_','f',
+    'F',0x09,'3','(',225,13,'$',151,'p',211,16,31,234,'d','W',150,187,']',218,
+    231,196,140,'O','L','d','F',29,92,135,227,'Y',222,'B',209,155,168,'~',166,
+    0x89,0xdd,143,28,201,'0',130,237,';',156,205,192,233,25,224,'j',216,2,'u',
+    '7',171,247,'4','(','(',145,242,4,10,'O','5',227,'`','&',1,250,208,17,140,
+    0xf9,0x11,'j',238,175,'=',195,'P',211,143,'_','3','y','<',134,168,'s','E',
+    144,140,' ',182,'r','s',23,'#',190,7,'e',229,'x',146,13,186,1,192,235,140,
+    28,'f',191,172,134,'w',1,148,13,156,230,233,'9',141,31,166,'Q',140,153,12,
+    '9','w',0xe1,0xb4,0x9b,250,28,'g','W','o','j','j',142,169,'+','L','W','y',
+    'z','W','"',0xcf,0xcd,'_','c','F',0x8d,92,'Y',':',134,248,'2','G','b',163,
+    'g',0x0d,24,145,220,251,166,'k',245,'H','a','s','#','Y',142,2,167,188,'D',
+    0xea,0xf4,'I',0x9d,241,'T','X',249,'`',175,218,24,164,'/','(','E',220,'z',
+    0xa0,0x88,0x86,']',243,';',231,255,')','5',128,252,'d','C',148,230,227,28,
+    'o',0xbe,0xad,0xe,'*','c',153,'+',201,'~',133,246,'q',232,6,3,149,254,222,
+    0x8f,'H',28,'Z',212,146,232,'+',238,231,'1',219,186,4,'j',135,152,231,197,
+    '_',0xef,'}',0xa7,'"',0xf7,1,216,'M',249,137,208,14,154,5,'Y',164,158,152,
+    0xd9,'o','+',0xca,'p',190,'d',194,'U',163,244,233,175,195,146,')',220,136,
+    22,'$',0x99,'<',141,'&',152,182,'[',183,204,206,183,'7',7,253,'&',217,152,
+    0x85,'$',255,'Y','#',3,154,237,157,157,168,228,'^','8',206,215,'R',13,'o',
+    210,'?','m',177,5,'k','I',206,138,145,'F','s',244,246,'/',240,168,'s','w',
+    0x0e,'e',172,161,141,'f','R','i','~','K','h',12,199,30,'7',39,131,165,140,
+    0xc7,0x2,228,20,205,'I',1,176,'s',179,253,198,144,':','o',210,'l',237,';',
+    0xee,236,145,190,162,'C',']',139,0,'J','f','%','D','p',222,'@',15,248,'|',
+    21,247,162,206,'<',215,'^',19,140,129,23,24,23,209,189,241,'w',16,':',212,
+    'e','9',0xc1,0x27,172,'W',',','%','T',255,162,218,'O',138,'a','9','^',174,
+    '=','J',140,189,
+]
+
 
 /**
 Certigna Root CA.
 SHA256 fingerprint: d4:8d:3d:23:ee:db:50:a4:59:e5:51:97:60:1c:27:77:4b:9d:7b:18:c9:4d:5a:05:95:11:a1:02:50:b9:31:68
 */
-CERTIGNA_ROOT_CA ::= net.Certificate.parse CERTIGNA_ROOT_CA_TEXT_
+CERTIGNA_ROOT_CA ::= parse_ CERTIGNA_ROOT_CA_BYTES_
 
-EMSIGN_ROOT_CA_G1_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIDlDCCAnygAwIBAgIKMfXkYgxsWO3W2DANBgkqhkiG9w0BAQsFADBnMQswCQYD
-VQQGEwJJTjETMBEGA1UECxMKZW1TaWduIFBLSTElMCMGA1UEChMcZU11ZGhyYSBU
-ZWNobm9sb2dpZXMgTGltaXRlZDEcMBoGA1UEAxMTZW1TaWduIFJvb3QgQ0EgLSBH
-MTAeFw0xODAyMTgxODMwMDBaFw00MzAyMTgxODMwMDBaMGcxCzAJBgNVBAYTAklO
-MRMwEQYDVQQLEwplbVNpZ24gUEtJMSUwIwYDVQQKExxlTXVkaHJhIFRlY2hub2xv
-Z2llcyBMaW1pdGVkMRwwGgYDVQQDExNlbVNpZ24gUm9vdCBDQSAtIEcxMIIBIjAN
-BgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAk0u76WaK7p1b1TST0Bsew+eeuGQz
-f2N4aLTNLnF115sgxk0pvLZoYIr3IZpWNVrzdr3YzZr/k1ZLpVkGoZM0Kd0WNHVO
-8oG0x5ZOrRkVUkr+PHB1cM2vK6sVmjM8qrOLqs1D/fXqcP/tzxE7lM5OMhbTI0Aq
-d7OvPAEsbO2ZLIvZTmmYsvePQbAyeGHWDV/D+qJAkh1cF+ZwPjXnorfCYuKrpDhM
-tTk1b+oDafo6VGiFbdbyL0NVHpENDtjVaqSW0RM8LHhQ6DqS0hdW5TUaQBw+jSzt
-Od9C4INBdN+jzcKGYEho42kLVACL5HZpIQ15TjQIXhTCzLG3rdd8cIrHhQIDAQAB
-o0IwQDAdBgNVHQ4EFgQU++8Nhp6w492pufEhF38+/PB3KxowDgYDVR0PAQH/BAQD
-AgEGMA8GA1UdEwEB/wQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBAFn/8oz1h31x
-PaOfG1vR2vjTnGs2vZupYeveFix0PZ7mddrXuqe8QhfnPZHr5X3dPpzxz5KsbEjM
-wiI/aTvFthUvozXGaCocV685743QNcMYDHsAVhzNixl03r4PEuDQqqE/AjSxcM6d
-GNYIAwlG7mDgfrbESQRRfXBgvKqy/3lyeqYdPV8q+Mri/Tm3R7nrft8EI6/6nAYH
-6ftjk4BAtcZsCjEozgyfz7MjNYBBjWzEN3uBL4ChQEKF6dk4jeihU80Bv2noWgby
-RQuQ+q7hv53yrlc8pa6yVvSLZUDp/TGBLPQ5Cdjua6e0ph0VpZj3AYHYhX3zUVxx
-iN66zB+Afko=
------END CERTIFICATE-----
-"""
+EMSIGN_ROOT_CA_G1_BYTES_ ::= #[
+    '0',0x82,3,0x94,'0',130,2,'|',160,3,2,1,2,2,10,'1',245,228,'b',12,'l','X',
+    0xed,0xd6,216,'0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,'0','g','1',11,
+    '0',0x9,6,3,'U',4,6,19,2,'I','N','1',19,'0',17,6,3,'U',4,11,19,10,'e','m',
+    'S','i','g','n',' ','P','K','I','1','%','0','#',0x06,3,'U',4,10,19,28,'e',
+    'M','u','d','h','r','a',' ','T','e','c','h','n','o','l','o','g','i','e',
+    's',' ','L','i','m','i','t','e','d','1',0x1c,'0',26,6,3,'U',4,3,19,19,'e',
+    'm','S','i','g','n',' ','R','o','o','t',' ','C','A',' ','-',' ','G','1',
+    '0',0x1e,23,0xd,'1','8','0','2','1','8','1','8','3','0','0','0','Z',23,13,
+    '4','3','0','2','1','8','1','8','3','0','0','0','Z','0','g','1',0xb,'0',9,
+    6,3,'U',4,6,19,2,'I','N','1',19,'0',17,6,3,'U',4,11,19,10,'e','m','S','i',
+    'g','n',' ','P','K','I','1','%','0','#',0x06,3,'U',4,10,19,28,'e','M','u',
+    'd','h','r','a',' ','T','e','c','h','n','o','l','o','g','i','e','s',' ',
+    'L','i','m','i','t','e','d','1',0x1c,'0',26,6,3,'U',4,3,19,19,'e','m','S',
+    'i','g','n',' ','R','o','o','t',' ','C','A',' ','-',' ','G','1','0',130,1,
+    '"','0',13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,1,15,0,'0',130,1,10,
+    2,130,1,1,0,147,'K',187,233,'f',138,238,157,'[',213,'4',147,208,27,30,195,
+    0xe7,0x9e,184,'d','3',127,'c','x','h',180,205,'.','q','u',215,155,' ',198,
+    'M',')',0xbc,0xb6,'h','`',138,247,'!',154,'V','5','Z',243,'v',189,216,205,
+    0x9a,255,147,'V','K',165,'Y',6,161,147,'4',')',221,22,'4','u','N',242,129,
+    0xb4,199,150,'N',173,25,21,'R','J',254,'<','p','u','p',205,175,'+',171,21,
+    0x9a,'3','<',0xaa,0xb3,139,170,205,'C',253,245,234,'p',255,237,207,17,';',
+    0x94,206,'N','2',22,211,'#','@','*','w',179,175,'<',1,',','l',237,153,',',
+    0x8b,0xd9,'N','i',0x98,178,247,143,'A',176,'2','x','a',214,13,'_',195,250,
+    0xa2,'@',146,29,92,23,230,'p','>','5',231,162,183,194,'b',226,171,164,'8',
+    'L',181,'9','5','o',234,3,'i',250,':','T','h',133,'m',214,242,'/','C','U',
+    0x1e,145,13,14,216,213,'j',164,150,209,19,'<',',','x','P',232,':',146,210,
+    23,'V',0xe5,'5',26,'@',28,'>',141,',',237,'9',223,'B',224,131,'A','t',223,
+    0xa3,0xcd,194,134,'`','H','h',227,'i',11,'T',0,139,228,'v','i','!',13,'y',
+    'N','4',0x08,'^',20,194,204,177,183,173,215,'|','p',138,199,133,2,3,1,0,1,
+    163,'B','0','@','0',29,6,3,'U',29,14,4,22,4,20,251,239,13,134,158,176,227,
+    0xdd,169,185,241,'!',23,127,'>',252,240,'w','+',26,'0',14,6,3,'U',29,15,1,
+    1,255,4,4,3,2,1,6,'0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',13,6,
+    0x9,'*',134,'H',134,247,13,1,1,11,5,0,3,130,1,1,0,'Y',255,242,140,245,135,
+    '}','q','=',0xa3,0x9f,27,'[',0xd1,218,248,211,156,'k','6',189,155,169,'a',
+    235,222,22,',','t','=',158,230,'u',218,215,186,167,188,'B',23,231,'=',145,
+    0xeb,0xe5,'}',221,'>',156,241,207,146,172,'l','H',204,194,'"','?','i',';',
+    0xc5,182,21,'/',163,'5',198,'h','*',28,'W',175,'9',239,141,208,'5',195,24,
+    0x0c,'{',0,'V',28,0xcd,139,25,'t',222,190,15,18,224,208,170,161,'?',2,'4',
+    0xb1,'p',0xce,0x9d,24,214,8,3,9,'F',238,'`',224,'~',182,196,'I',4,'Q','}',
+    'p','`',0xbc,0xaa,0xb2,255,'y','r','z',166,29,'=','_','*',248,202,226,253,
+    '9',183,'G',185,235,'~',223,4,'#',175,250,156,6,7,233,251,'c',147,128,'@',
+    181,198,'l',10,'1','(',206,12,159,207,179,'#','5',128,'A',141,'l',196,'7',
+    '{',129,'/',128,161,'@','B',133,233,217,'8',141,232,161,'S',205,1,191,'i',
+    0xe8,'Z',6,242,'E',11,144,250,174,225,191,157,242,174,'W','<',165,174,178,
+    'V',244,139,'e','@',233,253,'1',129,',',244,'9',9,216,238,'k',167,180,166,
+    29,21,165,152,247,1,129,216,133,'}',243,'Q',92,'q',136,222,186,204,31,128,
+    '~','J',
+]
+
 
 /**
 emSign Root CA - G1.
 SHA256 fingerprint: 40:f6:af:03:46:a9:9a:a1:cd:1d:55:5a:4e:9c:ce:62:c7:f9:63:46:03:ee:40:66:15:83:3d:c8:c8:d0:03:67
 */
-EMSIGN_ROOT_CA_G1 ::= net.Certificate.parse EMSIGN_ROOT_CA_G1_TEXT_
+EMSIGN_ROOT_CA_G1 ::= parse_ EMSIGN_ROOT_CA_G1_BYTES_
 
-EMSIGN_ECC_ROOT_CA_G3_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIICTjCCAdOgAwIBAgIKPPYHqWhwDtqLhDAKBggqhkjOPQQDAzBrMQswCQYDVQQG
-EwJJTjETMBEGA1UECxMKZW1TaWduIFBLSTElMCMGA1UEChMcZU11ZGhyYSBUZWNo
-bm9sb2dpZXMgTGltaXRlZDEgMB4GA1UEAxMXZW1TaWduIEVDQyBSb290IENBIC0g
-RzMwHhcNMTgwMjE4MTgzMDAwWhcNNDMwMjE4MTgzMDAwWjBrMQswCQYDVQQGEwJJ
-TjETMBEGA1UECxMKZW1TaWduIFBLSTElMCMGA1UEChMcZU11ZGhyYSBUZWNobm9s
-b2dpZXMgTGltaXRlZDEgMB4GA1UEAxMXZW1TaWduIEVDQyBSb290IENBIC0gRzMw
-djAQBgcqhkjOPQIBBgUrgQQAIgNiAAQjpQy4LRL1KPOxst3iAhKAnjlfSU2fySU0
-WXTsuwYc58Byr+iuL+FBVIcUqEqy6HyC5ltqtdyzdc6LBtCGI79G1Y4PPwT01xyS
-fvalY8L1X44uT6EYGQIrMgqCZH0Wk9GjQjBAMB0GA1UdDgQWBBR8XQKEE9TMipuB
-zhccLikenEhjQjAOBgNVHQ8BAf8EBAMCAQYwDwYDVR0TAQH/BAUwAwEB/zAKBggq
-hkjOPQQDAwNpADBmAjEAvvNhzwIQHWSVB7gYboiFBS+DCBeQyh+KTOgNG3qxrdWB
-CUfvO6wIBHxcmbHtRwfSAjEAnbpV/KlK6O3t5nYBQnvI+GDZjVGLVTv7jHvrZQnD
-+JbNR6iC8hZVdyR+EhCVBCyj
------END CERTIFICATE-----
-"""
+EMSIGN_ECC_ROOT_CA_G3_BYTES_ ::= #[
+    '0',130,2,'N','0',130,1,211,160,3,2,1,2,2,10,'<',246,7,169,'h','p',14,218,
+    139,132,'0',10,6,8,'*',134,'H',206,'=',4,3,3,'0','k','1',11,'0',9,6,3,'U',
+    4,6,19,2,'I','N','1',19,'0',17,6,3,'U',4,11,19,10,'e','m','S','i','g','n',
+    ' ','P','K','I','1','%','0','#',0x06,3,'U',4,10,19,28,'e','M','u','d','h',
+    'r','a',' ','T','e','c','h','n','o','l','o','g','i','e','s',' ','L','i',
+    'm','i','t','e','d','1',' ','0',30,6,3,'U',4,3,19,23,'e','m','S','i','g',
+    'n',' ','E','C','C',' ','R','o','o','t',' ','C','A',' ','-',' ','G','3',
+    '0',0x1e,23,0xd,'1','8','0','2','1','8','1','8','3','0','0','0','Z',23,13,
+    '4','3','0','2','1','8','1','8','3','0','0','0','Z','0','k','1',0xb,'0',9,
+    6,3,'U',4,6,19,2,'I','N','1',19,'0',17,6,3,'U',4,11,19,10,'e','m','S','i',
+    'g','n',' ','P','K','I','1','%','0','#',0x06,3,'U',4,10,19,28,'e','M','u',
+    'd','h','r','a',' ','T','e','c','h','n','o','l','o','g','i','e','s',' ',
+    'L','i','m','i','t','e','d','1',' ','0',30,6,3,'U',4,3,19,23,'e','m','S',
+    'i','g','n',' ','E','C','C',' ','R','o','o','t',' ','C','A',' ','-',' ',
+    'G','3','0','v','0',16,6,7,'*',0x86,'H',206,'=',2,1,6,5,'+',129,4,0,'"',3,
+    'b',0x00,4,'#',165,12,184,'-',18,245,'(',243,177,178,221,226,2,18,128,158,
+    '9','_','I','M',0x9f,201,'%','4','Y','t',236,187,6,28,231,192,'r',175,232,
+    0xae,'/',0xe1,'A','T',0x87,20,168,'J',178,232,'|',130,230,'[','j',181,220,
+    179,'u',206,139,6,208,134,'#',191,'F',213,142,15,'?',4,244,215,28,146,'~',
+    246,165,'c',194,245,'_',142,'.','O',161,24,25,2,'+','2',10,130,'d','}',22,
+    0x93,0xd1,163,'B','0','@','0',29,6,3,'U',29,14,4,22,4,20,'|',']',2,132,19,
+    0xd4,0xcc,138,155,129,206,23,28,'.',')',30,156,'H','c','B','0',14,6,3,'U',
+    29,0xf,1,1,255,4,4,3,2,1,6,'0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,
+    '0',0xa,6,8,'*',134,'H',206,'=',4,3,3,3,'i',0,'0','f',2,'1',0,190,243,'a',
+    0xcf,0x2,16,29,'d',149,7,184,24,'n',136,133,5,'/',131,8,23,144,202,31,138,
+    'L',0xe8,0x0d,27,'z',177,173,213,129,9,'G',239,';',172,8,4,'|',92,153,177,
+    0xed,'G',7,0xd2,2,'1',0,157,186,'U',252,169,'J',232,237,237,230,'v',1,'B',
+    '{',200,248,'`',217,141,'Q',139,'U',';',251,140,'{',235,'e',9,195,248,150,
+    205,'G',168,130,242,22,'U','w','$','~',18,16,149,4,',',163,
+]
+
 
 /**
 emSign ECC Root CA - G3.
 SHA256 fingerprint: 86:a1:ec:ba:08:9c:4a:8d:3b:be:27:34:c6:12:ba:34:1d:81:3e:04:3c:f9:e8:a8:62:cd:5c:57:a3:6b:be:6b
 */
-EMSIGN_ECC_ROOT_CA_G3 ::= net.Certificate.parse EMSIGN_ECC_ROOT_CA_G3_TEXT_
+EMSIGN_ECC_ROOT_CA_G3 ::= parse_ EMSIGN_ECC_ROOT_CA_G3_BYTES_
 
-EMSIGN_ROOT_CA_C1_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIDczCCAlugAwIBAgILAK7PALrEzzL4Q7IwDQYJKoZIhvcNAQELBQAwVjELMAkG
-A1UEBhMCVVMxEzARBgNVBAsTCmVtU2lnbiBQS0kxFDASBgNVBAoTC2VNdWRocmEg
-SW5jMRwwGgYDVQQDExNlbVNpZ24gUm9vdCBDQSAtIEMxMB4XDTE4MDIxODE4MzAw
-MFoXDTQzMDIxODE4MzAwMFowVjELMAkGA1UEBhMCVVMxEzARBgNVBAsTCmVtU2ln
-biBQS0kxFDASBgNVBAoTC2VNdWRocmEgSW5jMRwwGgYDVQQDExNlbVNpZ24gUm9v
-dCBDQSAtIEMxMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAz+upufGZ
-BczYKCFK83M0UYRWEPWgTywS4/oTmifQz/l5GnRfHXk5/Fv4cI7gklL35CX5VIPZ
-HdPIWoU/Xse2B+4+wM6ar6xWQio5JXDWv7V7Nq2s9nPczdcdioOl+yuQFTdrHCZH
-3DspVpNqs8FqOp099cGXOFgFixwR4+S0uF2FHYP+eF8LRWgYSKVGczQ7/g/IdrvH
-GPMF0Ybzhe3nudkyrVWIzqa2kbBPrH4VI5b2P/AgNBbeCsbEBEV5f6f9vtKppa+c
-xSMq9zwhbL2vj07FOrLzNBL834AaSaTUqZX3noleoomslMuoaJuvimUnzYnu3Yy1
-aylwQ6BpC+S5DwIDAQABo0IwQDAdBgNVHQ4EFgQU/qHgcB4qAzlSWkK+XJGFehiq
-TbUwDgYDVR0PAQH/BAQDAgEGMA8GA1UdEwEB/wQFMAMBAf8wDQYJKoZIhvcNAQEL
-BQADggEBAMJKVvoVIXsoounlHfv4LcQ5lkFMOycsxGwYFYDGrK9HWS8mC+M2sO87
-/kOXSTKZEhVb3xEp/6tT+LvBeA+snFOvV71ojD1pM/CjoCNjO2RnIkSt1XHLVip4
-kqNPEjE2NuLe/gDEo2APJ62gsIq1NnpSob0n9CAnYuhNlCQT5AoE6TyrLshDCUrG
-YQTlSTR+08TI9Q/Aqum6VF7zYytPT1DU/rl7mYw9wC68AivTxEDkigcxHpvOJpkT
-+xHqmiIMERnHXhuBUDDIlhJu58tBf5E7oke3VIAb3ADMmpDqw8NQBmIMMMAVSKeo
-WXzhriKi4gp6D/piq1JM4fHfyr6DDUI=
------END CERTIFICATE-----
-"""
+EMSIGN_ROOT_CA_C1_BYTES_ ::= #[
+    '0',0x82,3,'s','0',130,2,'[',160,3,2,1,2,2,11,0,174,207,0,186,196,207,'2',
+    0xf8,'C',0xb2,'0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,'0','V','1',11,
+    '0',0x9,6,3,'U',4,6,19,2,'U','S','1',19,'0',17,6,3,'U',4,11,19,10,'e','m',
+    'S','i','g','n',' ','P','K','I','1',20,'0',18,6,3,'U',4,0xa,19,11,'e','M',
+    'u','d','h','r','a',' ','I','n','c','1',0x1c,'0',26,6,3,'U',4,3,19,19,'e',
+    'm','S','i','g','n',' ','R','o','o','t',' ','C','A',' ','-',' ','C','1',
+    '0',0x1e,23,0xd,'1','8','0','2','1','8','1','8','3','0','0','0','Z',23,13,
+    '4','3','0','2','1','8','1','8','3','0','0','0','Z','0','V','1',0xb,'0',9,
+    6,3,'U',4,6,19,2,'U','S','1',19,'0',17,6,3,'U',4,11,19,10,'e','m','S','i',
+    'g','n',' ','P','K','I','1',20,'0',18,6,3,'U',4,0xa,19,11,'e','M','u','d',
+    'h','r','a',' ','I','n','c','1',0x1c,'0',26,6,3,'U',4,3,19,19,'e','m','S',
+    'i','g','n',' ','R','o','o','t',' ','C','A',' ','-',' ','C','1','0',130,1,
+    '"','0',13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,1,15,0,'0',130,1,10,
+    2,130,1,1,0,207,235,169,185,241,153,5,204,216,'(','!','J',243,'s','4','Q',
+    0x84,'V',0x10,245,160,'O',',',18,227,250,19,154,39,208,207,249,'y',26,'t',
+    '_',0x1d,'y','9',0xfc,'[',248,'p',142,224,146,'R',247,228,'%',249,'T',131,
+    0xd9,29,211,200,'Z',133,'?','^',199,182,7,238,'>',192,206,154,175,172,'V',
+    'B','*','9','%','p',0xd6,0xbf,0xb5,'{','6',173,172,246,'s',220,205,215,29,
+    138,131,165,251,'+',144,21,'7','k',28,'&','G',220,';',')','V',147,'j',179,
+    0xc1,'j',':',0x9d,'=',245,193,151,'8','X',5,139,28,17,227,228,180,184,']',
+    0x85,29,0x83,254,'x','_',11,'E','h',24,'H',165,'F','s','4',';',254,15,200,
+    'v',0xbb,199,24,243,5,209,134,243,133,237,231,185,217,'2',173,'U',136,206,
+    0xa6,182,145,176,'O',172,'~',21,'#',150,246,'?',240,' ','4',22,222,10,198,
+    196,4,'E','y',127,167,253,190,210,169,165,175,156,197,'#','*',247,'<','!',
+    'l',189,175,143,'N',197,':',178,243,'4',18,252,223,128,26,'I',164,212,169,
+    0x95,0xf7,0x9e,137,'^',162,137,172,148,203,168,'h',155,175,138,'e',39,205,
+    0x89,0xee,221,140,181,'k',')','p','C',160,'i',11,228,185,15,2,3,1,0,1,163,
+    'B','0','@','0',0x1d,6,3,'U',29,14,4,22,4,20,254,161,224,'p',30,'*',3,'9',
+    'R','Z','B',0xbe,0x5c,145,133,'z',24,170,'M',181,'0',14,6,3,'U',29,15,1,1,
+    255,4,4,3,2,1,6,'0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',13,6,9,
+    '*',0x86,'H',134,247,13,1,1,11,5,0,3,130,1,1,0,194,'J','V',250,21,'!','{',
+    '(',0xa2,233,229,29,251,248,'-',196,'9',150,'A','L',';',39,',',196,'l',24,
+    21,128,198,172,175,'G','Y','/','&',11,227,'6',176,239,';',254,'C',151,'I',
+    '2',0x99,18,21,'[',0xdf,17,')',255,171,'S',248,187,193,'x',15,172,156,'S',
+    0xaf,'W',0xbd,'h',140,'=','i','3',240,163,160,'#','c',';','d','g','"','D',
+    0xad,213,'q',203,'V','*','x',146,163,'O',18,'1','6','6',226,222,254,0,196,
+    0xa3,'`',0xf,39,173,160,176,138,181,'6','z','R',161,189,39,244,' ',39,'b',
+    0xe8,'M',0x94,'$',19,228,10,4,233,'<',171,'.',200,'C',9,'J',198,'a',4,229,
+    'I','4','~',0xd3,0xc4,0xc8,245,15,192,170,233,186,'T','^',243,'c','+','O',
+    'O','P',212,254,185,'{',153,140,'=',192,'.',188,2,'+',211,196,'@',228,138,
+    0x07,'1',30,155,206,'&',153,19,251,17,234,154,'"',12,17,25,199,'^',27,129,
+    'P','0',200,150,18,'n',231,203,'A',127,145,';',162,'G',183,'T',128,27,220,
+    0,204,154,144,234,195,195,'P',6,'b',12,'0',192,21,'H',167,168,'Y','|',225,
+    0xae,'"',162,226,10,'z',15,250,'b',171,'R','L',225,241,223,202,190,131,13,
+    'B',
+]
+
 
 /**
 emSign Root CA - C1.
 SHA256 fingerprint: 12:56:09:aa:30:1d:a0:a2:49:b9:7a:82:39:cb:6a:34:21:6f:44:dc:ac:9f:39:54:b1:42:92:f2:e8:c8:60:8f
 */
-EMSIGN_ROOT_CA_C1 ::= net.Certificate.parse EMSIGN_ROOT_CA_C1_TEXT_
+EMSIGN_ROOT_CA_C1 ::= parse_ EMSIGN_ROOT_CA_C1_BYTES_
 
-EMSIGN_ECC_ROOT_CA_C3_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIICKzCCAbGgAwIBAgIKe3G2gla4EnycqDAKBggqhkjOPQQDAzBaMQswCQYDVQQG
-EwJVUzETMBEGA1UECxMKZW1TaWduIFBLSTEUMBIGA1UEChMLZU11ZGhyYSBJbmMx
-IDAeBgNVBAMTF2VtU2lnbiBFQ0MgUm9vdCBDQSAtIEMzMB4XDTE4MDIxODE4MzAw
-MFoXDTQzMDIxODE4MzAwMFowWjELMAkGA1UEBhMCVVMxEzARBgNVBAsTCmVtU2ln
-biBQS0kxFDASBgNVBAoTC2VNdWRocmEgSW5jMSAwHgYDVQQDExdlbVNpZ24gRUND
-IFJvb3QgQ0EgLSBDMzB2MBAGByqGSM49AgEGBSuBBAAiA2IABP2lYa57JhAd6bci
-MK4G9IGzsUJxlTm801Ljr6/58pc1kjZGDoeVjbk5Wum739D+yAdBPLtVb4Ojavti
-sIGJAnB9SMVK4+kiVCJNk7tCDK93nCOmfddhEc5lx/h//vXyqaNCMEAwHQYDVR0O
-BBYEFPtaSNCAIEDyqOkAB2kZd6fmw/TPMA4GA1UdDwEB/wQEAwIBBjAPBgNVHRMB
-Af8EBTADAQH/MAoGCCqGSM49BAMDA2gAMGUCMQC02C8Cif22TGK6Q04ThHK1rt0c
-3ta13FaPWEBaLd4gTCKDypOofu4SQMfWh0/434UCMBwUZOR8loMRnLDRWmFLpg9J
-0wD8ofzkpf9/rdcw0Md3f76BB1UwUCAU9Vc4CqgxUQ==
------END CERTIFICATE-----
-"""
+EMSIGN_ECC_ROOT_CA_C3_BYTES_ ::= #[
+    '0',0x82,2,'+','0',0x82,1,177,160,3,2,1,2,2,10,'{','q',182,130,'V',184,18,
+    '|',156,168,'0',10,6,8,'*',134,'H',206,'=',4,3,3,'0','Z','1',11,'0',9,6,3,
+    'U',4,6,19,2,'U','S','1',19,'0',17,6,3,'U',4,11,19,10,'e','m','S','i','g',
+    'n',' ','P','K','I','1',20,'0',18,6,3,'U',4,0xa,19,11,'e','M','u','d','h',
+    'r','a',' ','I','n','c','1',' ','0',30,6,3,'U',4,3,19,23,'e','m','S','i',
+    'g','n',' ','E','C','C',' ','R','o','o','t',' ','C','A',' ','-',' ','C',
+    '3','0',0x1e,23,13,'1','8','0','2','1','8','1','8','3','0','0','0','Z',23,
+    13,'4','3','0','2','1','8','1','8','3','0','0','0','Z','0','Z','1',11,'0',
+    0x9,6,3,'U',4,6,19,2,'U','S','1',19,'0',17,6,3,'U',4,11,19,10,'e','m','S',
+    'i','g','n',' ','P','K','I','1',20,'0',18,6,3,'U',4,0xa,19,11,'e','M','u',
+    'd','h','r','a',' ','I','n','c','1',' ','0',30,6,3,'U',4,3,19,23,'e','m',
+    'S','i','g','n',' ','E','C','C',' ','R','o','o','t',' ','C','A',' ','-',
+    ' ','C','3','0','v','0',0x10,6,7,'*',0x86,'H',206,'=',2,1,6,5,'+',129,4,0,
+    '"',3,'b',0,4,253,165,'a',174,'{','&',16,29,233,183,'"','0',174,6,244,129,
+    0xb3,0xb1,'B','q',149,'9',188,211,'R',227,175,175,249,242,151,'5',146,'6',
+    'F',0xe,135,149,141,185,'9','Z',233,187,223,208,254,200,7,'A','<',187,'U',
+    'o',131,163,'j',251,'b',176,129,137,2,'p','}','H',197,'J',227,233,'"','T',
+    '"','M',147,187,'B',12,175,'w',156,'#',166,'}',215,'a',17,206,'e',199,248,
+    0x7f,0xfe,0xf5,242,169,163,'B','0','@','0',29,6,3,'U',29,14,4,22,4,20,251,
+    'Z','H',0xd0,0x80,' ','@',0xf2,168,233,0,7,'i',25,'w',167,230,195,244,207,
+    '0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',15,6,3,'U',29,19,1,1,255,4,5,
+    '0',3,1,1,0xff,'0',10,6,8,'*',134,'H',206,'=',4,3,3,3,'h',0,'0','e',2,'1',
+    0,180,216,'/',2,137,253,182,'L','b',186,'C','N',19,132,'r',181,174,221,28,
+    0xde,0xd6,181,220,'V',143,'X','@','Z','-',222,' ','L','"',131,202,147,168,
+    '~',0xee,0x12,'@',199,214,135,'O',248,223,133,2,'0',28,20,'d',228,'|',150,
+    0x83,17,0x9c,176,209,'Z','a','K',166,15,'I',211,0,252,161,252,228,165,255,
+    0x7f,173,215,'0',208,199,'w',127,190,129,7,'U','0','P',' ',20,245,'W','8',
+    10,168,'1','Q',
+]
+
 
 /**
 emSign ECC Root CA - C3.
 SHA256 fingerprint: bc:4d:80:9b:15:18:9d:78:db:3e:1d:8c:f4:f9:72:6a:79:5d:a1:64:3c:a5:f1:35:8e:1d:db:0e:dc:0d:7e:b3
 */
-EMSIGN_ECC_ROOT_CA_C3 ::= net.Certificate.parse EMSIGN_ECC_ROOT_CA_C3_TEXT_
+EMSIGN_ECC_ROOT_CA_C3 ::= parse_ EMSIGN_ECC_ROOT_CA_C3_BYTES_
 
-HONGKONG_POST_ROOT_CA_3_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIFzzCCA7egAwIBAgIUCBZfikyl7ADJk0DfxMauI7gcWqQwDQYJKoZIhvcNAQEL
-BQAwbzELMAkGA1UEBhMCSEsxEjAQBgNVBAgTCUhvbmcgS29uZzESMBAGA1UEBxMJ
-SG9uZyBLb25nMRYwFAYDVQQKEw1Ib25na29uZyBQb3N0MSAwHgYDVQQDExdIb25n
-a29uZyBQb3N0IFJvb3QgQ0EgMzAeFw0xNzA2MDMwMjI5NDZaFw00MjA2MDMwMjI5
-NDZaMG8xCzAJBgNVBAYTAkhLMRIwEAYDVQQIEwlIb25nIEtvbmcxEjAQBgNVBAcT
-CUhvbmcgS29uZzEWMBQGA1UEChMNSG9uZ2tvbmcgUG9zdDEgMB4GA1UEAxMXSG9u
-Z2tvbmcgUG9zdCBSb290IENBIDMwggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIK
-AoICAQCziNfqzg8gTr7m1gNt7ln8wlffKWihgw4+aMdoWJwcYEuJQwy51BWy7sFO
-dem1p+/l6TWZ5Mwc50tfjTMwIDNT2aa71T4Tjukfh0mtUC1Qyhi+AViiE3CWu4mI
-VoBc+L0sPOFMV4i707mV78vH9toxdCim5lSJ9UExyuUmGs2C4HDaOym71QP1mbpV
-9WTRYA6ziUm4ii8F0oRFKHyPaFASePwLtVPLwpgchKOesL4jpNrcyCse2m5FHomY
-2vkALgbpDDtw1VAliJnLzXNg99X/NWfFobxeq81KuEXryGgeDQ0URhLj0mRiikKY
-vLTGCAj4/ahMZJx2Ab0vqWwzD9g/KLg8aQFChn5pwckGyuV6RmXpwtZQQS4/t+Tt
-bNe/JgERohYpSms0BpDsE9K2+2p20jzt8NYt3eEV7KObLyzJPivkaTv/ciWxNoZb
-x39ri1UbSsUgYT2uy1DhCDq+sI9jQVMwCFk8mB13umOResoQUGC/8Ne8lYePl8X+
-l2oBlKN8W4UdKjk60FSh0Tlxnf0h+bV78OLgAo9uliQlLKAeLKjEiafv7ZkGL7YK
-TE/bosw3Gq9HhS2KX8Q0NEwA/RiTZxPRN+ZItIsGxVd7GYYKecsAyVKvQv83j+Gj
-Hno9UKtjBucVtT+2RTeUN7F+8kjDf8V1/peNRY8apxpyKBpADwIDAQABo2MwYTAP
-BgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIBBjAfBgNVHSMEGDAWgBQXnc0e
-i9Y5K3DTXNSguB+wAPzFYTAdBgNVHQ4EFgQUF53NHovWOStw01zUoLgfsAD8xWEw
-DQYJKoZIhvcNAQELBQADggIBAFbVe27mIgHSQpsY1Q7XZiNc4/6gx5LS6ZStS6LG
-7BJ8dNVI0lkUmcDrudHr9EgwW62nV3OZqdPlt9EuWSRY3GguLmLYauRwCy0gUCCk
-MpXRAJi70/33MvJJrsZ64Ee+bs7Lo3I6LWldy8joRTnU+kLBEUx3XZL7av9YROXr
-gZ6voJmtvqkBZss4HTzfQx/0TW60uhdG/H39h4F5ag0zD/ov+BS5gLNdTaqX4fnk
-GMX41TiMJjz98iji7lpJiCzfeT2OnpA8vUFKOt1b9pq0zj8lMH8yfaIDlNDceqFS
-3m6TjRgm/VWsvY+b0s+v54Ysyx8Jb6NvqYTUc79NoXQbTiNg8swOqn+knEwlqLJm
-Ozj/2ZQw9nKEvmhVEA/GcywWaZMH/rFF7buiVWqw2rVKAiUnhde3t4ZEFolsgCs+
-l6mc1X5VTMbeRRAc6uk7nwNT7u56AQIWeNTowr5GdogTPyK7SBIdUgC0An4hGh6c
-JfTzPV4e0hz5sy229zdcxsshTrD3mUcYhcErulWuBurQB7Lcq9CClnXO0lD+mefP
-L5/ndtFhKvshuzHQqp9HpLIiyhY6UFfEW0NnxWViA0kB60PZ2Pierc+xYw5F9KBa
-LJstxabArahH9CdMOA0uG0k7UvToiIMrVCjU8jVStDKDYmlkDJGcn5fqdBb9HxEG
-mpv0
------END CERTIFICATE-----
-"""
+HONGKONG_POST_ROOT_CA_3_BYTES_ ::= #[
+    '0',0x82,5,0xcf,'0',130,3,183,160,3,2,1,2,2,20,8,22,'_',138,'L',165,236,0,
+    201,147,'@',223,196,198,174,'#',184,28,'Z',164,'0',13,6,9,'*',134,'H',134,
+    0xf7,0x0d,1,1,11,5,0,'0','o','1',11,'0',9,6,3,'U',4,6,19,2,'H','K','1',18,
+    '0',16,6,3,'U',4,8,19,9,'H','o','n','g',' ','K','o','n','g','1',18,'0',16,
+    0x06,3,'U',4,7,19,9,'H','o','n','g',' ','K','o','n','g','1',22,'0',20,6,3,
+    'U',0x04,10,19,13,'H','o','n','g','k','o','n','g',' ','P','o','s','t','1',
+    ' ','0',30,6,3,'U',4,3,19,23,'H','o','n','g','k','o','n','g',' ','P','o',
+    's','t',' ','R','o','o','t',' ','C','A',' ','3','0',30,23,0xd,'1','7','0',
+    '6','0','3','0','2','2','9','4','6','Z',23,13,'4','2','0','6','0','3','0',
+    '2','2','9','4','6','Z','0','o','1',11,'0',9,6,3,'U',4,6,19,2,'H','K','1',
+    18,'0',16,6,3,'U',4,8,19,9,'H','o','n','g',' ','K','o','n','g','1',18,'0',
+    16,6,3,'U',4,7,19,9,'H','o','n','g',' ','K','o','n','g','1',22,'0',20,6,3,
+    'U',0x04,10,19,13,'H','o','n','g','k','o','n','g',' ','P','o','s','t','1',
+    ' ','0',30,6,3,'U',4,3,19,23,'H','o','n','g','k','o','n','g',' ','P','o',
+    's','t',' ','R','o','o','t',' ','C','A',' ','3','0',0x82,2,'"','0',13,6,9,
+    '*',0x86,'H',0x86,0xf7,13,1,1,1,5,0,3,130,2,15,0,'0',130,2,10,2,130,2,1,0,
+    0xb3,136,215,234,206,15,' ','N',190,230,214,3,'m',238,'Y',252,194,'W',223,
+    ')','h',0xa1,131,14,'>','h',199,'h','X',156,28,'`','K',137,'C',12,185,212,
+    21,178,238,193,'N','u',233,181,167,239,229,233,'5',153,228,204,28,231,'K',
+    '_',141,'3','0',' ','3','S',217,166,187,213,'>',19,142,233,31,135,'I',173,
+    'P','-','P',0xca,0x18,190,1,'X',162,19,'p',150,187,137,136,'V',128,92,248,
+    0xbd,',','<',0xe1,'L','W',136,187,211,185,149,239,203,199,246,218,'1','t',
+    '(',0xa6,0xe6,'T',0x89,245,'A','1',202,229,'&',26,205,130,224,'p',218,';',
+    ')',0xbb,213,3,245,153,186,'U',245,'d',209,'`',14,179,137,'I',184,138,'/',
+    0x05,210,132,'E','(','|',143,'h','P',18,'x',252,11,181,'S',203,194,152,28,
+    132,163,158,176,190,'#',164,218,220,200,'+',30,218,'n','E',30,137,152,218,
+    0xf9,0x0,'.',6,233,12,';','p',213,'P','%',136,153,203,205,'s','`',247,213,
+    0xff,'5','g',0xc5,161,188,'^',171,205,'J',184,'E',235,200,'h',30,13,13,20,
+    'F',0x12,0xe3,210,'d','b',138,'B',152,188,180,198,8,8,248,253,168,'L','d',
+    0x9c,'v',0x1,189,'/',169,'l','3',15,216,'?','(',184,'<','i',1,'B',134,'~',
+    'i',193,201,6,202,229,'z','F','e',233,194,214,'P','A','.','?',183,228,237,
+    'l',0xd7,191,'&',1,17,162,22,')','J','k','4',6,144,236,19,210,182,251,'j',
+    'v',0xd2,'<',0xed,0xf0,214,'-',221,225,21,236,163,155,'/',',',201,'>','+',
+    0xe4,'i',';',0xff,'r','%',0xb1,'6',134,'[',199,127,'k',139,'U',27,'J',197,
+    ' ','a','=',0xae,0xcb,'P',225,8,':',190,176,143,'c','A','S','0',8,'Y','<',
+    152,29,'w',186,'c',145,'z',202,16,'P','`',191,240,215,188,149,135,143,151,
+    0xc5,254,151,'j',1,148,163,'|','[',133,29,'*','9',':',208,'T',161,209,'9',
+    'q',0x9d,253,'!',249,181,'{',240,226,224,2,143,'n',150,'$','%',',',160,30,
+    ',',0xa8,0xc4,137,167,239,237,153,6,'/',182,10,'L','O',219,162,204,'7',26,
+    0xaf,'G',0x85,'-',138,'_',196,'4','4','L',0,253,24,147,'g',19,209,'7',230,
+    'H',180,139,6,197,'W','{',25,134,10,'y',203,0,201,'R',175,'B',255,'7',143,
+    0xe1,0xa3,30,'z','=','P',171,'c',6,231,21,181,'?',182,'E','7',148,'7',177,
+    '~',0xf2,'H',195,127,197,'u',254,151,141,'E',143,26,167,26,'r','(',26,'@',
+    0x0f,2,3,1,0,1,163,'c','0','a','0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,
+    0xff,'0',0xe,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',31,6,3,'U',29,'#',4,24,
+    '0',22,128,20,23,157,205,30,139,214,'9','+','p',211,92,212,160,184,31,176,
+    0x00,252,197,'a','0',29,6,3,'U',29,14,4,22,4,20,23,157,205,30,139,214,'9',
+    '+','p',0xd3,0x5c,212,160,184,31,176,0,252,197,'a','0',13,6,9,'*',134,'H',
+    0x86,0xf7,13,1,1,11,5,0,3,130,2,1,0,'V',213,'{','n',230,'"',1,210,'B',155,
+    24,0xd5,14,215,'f','#',92,227,254,160,199,146,210,233,148,173,'K',162,198,
+    236,18,'|','t',213,'H',210,'Y',20,153,192,235,185,209,235,244,'H','0','[',
+    0xad,0xa7,'W','s',153,169,211,229,183,209,'.','Y','$','X',220,'h','.','.',
+    'b',0xd8,'j',228,'p',11,'-',' ','P',' ',164,'2',149,209,0,152,187,211,253,
+    0xf7,'2',0xf2,'I',174,198,'z',224,'G',190,'n',206,203,163,'r',':','-','i',
+    ']',0xcb,0xc8,0xe8,'E','9',212,250,'B',193,17,'L','w',']',146,251,'j',255,
+    'X','D',0xe5,235,129,158,175,160,153,173,190,169,1,'f',203,'8',29,'<',223,
+    'C',0x1f,244,'M','n',180,186,23,'F',252,'}',253,135,129,'y','j',13,'3',15,
+    250,'/',248,20,185,128,179,']','M',170,151,225,249,228,24,197,248,213,'8',
+    0x8c,'&','<',0xfd,242,'(',226,238,'Z','I',136,',',223,'y','=',142,158,144,
+    '<',189,'A','J',':',221,'[',246,154,180,206,'?','%','0',127,'2','}',162,3,
+    0x94,0xd0,0xdc,'z',161,'R',222,'n',147,141,24,'&',253,'U',172,189,143,155,
+    0xd2,207,175,231,134,',',203,31,9,'o',163,'o',169,132,212,'s',191,'M',161,
+    't',27,'N','#','`',242,204,14,170,127,164,156,'L','%',168,178,'f',';','8',
+    0xff,0xd9,0x94,'0',246,'r',132,190,'h','U',16,15,198,'s',',',22,'i',147,7,
+    0xfe,177,'E',237,187,162,'U','j',176,218,181,'J',2,'%',39,133,215,183,183,
+    134,'D',22,137,'l',128,'+','>',151,169,156,213,'~','U','L',198,222,'E',16,
+    0x1c,234,233,';',159,3,'S',238,238,'z',1,2,22,'x',212,232,194,190,'F','v',
+    0x88,0x13,'?','"',187,'H',18,29,'R',0,180,2,'~','!',26,30,156,'%',244,243,
+    '=','^',30,0xd2,28,249,179,'-',182,247,'7',92,198,203,'!','N',176,247,153,
+    'G',0x18,0x85,193,'+',186,'U',174,6,234,208,7,178,220,171,208,130,150,'u',
+    0xce,0xd2,'P',254,153,231,207,'/',159,231,'v',209,'a','*',251,'!',187,'1',
+    0xd0,0xaa,0x9f,'G',164,178,'"',202,22,':','P','W',196,'[','C','g',197,'e',
+    'b',0x03,'I',1,235,'C',217,216,248,158,173,207,177,'c',14,'E',244,160,'Z',
+    ',',0x9b,'-',197,166,192,173,168,'G',244,39,'L','8',13,'.',27,'I',';','R',
+    0xf4,0xe8,0x88,131,'+','T','(',212,242,'5','R',180,'2',131,'b','i','d',12,
+    145,156,159,151,234,'t',22,253,31,17,6,154,155,244,
+]
+
 
 /**
 Hongkong Post Root CA 3.
 SHA256 fingerprint: 5a:2f:c0:3f:0c:83:b0:90:bb:fa:40:60:4b:09:88:44:6c:76:36:18:3d:f9:84:6e:17:10:1a:44:7f:b8:ef:d6
 */
-HONGKONG_POST_ROOT_CA_3 ::= net.Certificate.parse HONGKONG_POST_ROOT_CA_3_TEXT_
+HONGKONG_POST_ROOT_CA_3 ::= parse_ HONGKONG_POST_ROOT_CA_3_BYTES_
 
-ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G4_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIGSzCCBDOgAwIBAgIRANm1Q3+vqTkPAAAAAFVlrVgwDQYJKoZIhvcNAQELBQAw
-gb4xCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1FbnRydXN0LCBJbmMuMSgwJgYDVQQL
-Ex9TZWUgd3d3LmVudHJ1c3QubmV0L2xlZ2FsLXRlcm1zMTkwNwYDVQQLEzAoYykg
-MjAxNSBFbnRydXN0LCBJbmMuIC0gZm9yIGF1dGhvcml6ZWQgdXNlIG9ubHkxMjAw
-BgNVBAMTKUVudHJ1c3QgUm9vdCBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0eSAtIEc0
-MB4XDTE1MDUyNzExMTExNloXDTM3MTIyNzExNDExNlowgb4xCzAJBgNVBAYTAlVT
-MRYwFAYDVQQKEw1FbnRydXN0LCBJbmMuMSgwJgYDVQQLEx9TZWUgd3d3LmVudHJ1
-c3QubmV0L2xlZ2FsLXRlcm1zMTkwNwYDVQQLEzAoYykgMjAxNSBFbnRydXN0LCBJ
-bmMuIC0gZm9yIGF1dGhvcml6ZWQgdXNlIG9ubHkxMjAwBgNVBAMTKUVudHJ1c3Qg
-Um9vdCBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0eSAtIEc0MIICIjANBgkqhkiG9w0B
-AQEFAAOCAg8AMIICCgKCAgEAsewsQu7i0TD/pZJH4i3DumSXbcr3DbVZwbPLqGgZ
-2K+EbTBwXX7zLtJTmeH+H17ZSK9dE43b/2MzTdMAArzE+NEGCJR5WIoV3imz/f3E
-T+iq4qA7ec2/a0My3dl0ELn39GjUu9CH1apLiipvKgS1sqbHoHrmSKvS0VnM1n4j
-5pds8ELl3FFLFUHtSUrJ3hCX1nbB76W1NhSXNdh4IjVS70O92yfbYVaCNNzLiGAM
-C1rlLAHGVK/XqsEQe9IFWrhAnoanw5CGAlZSCXqc0ieCU0plUmr1POeo8pyvi73T
-DtTUXm6Hnmo9RR3RXRv06QqsYJn7ibT/mCzPfB3pAqoEmh643IhuJbNsZvc8kPNX
-wbMv9W3y+8qh+CmdRouzavbmZwe+LGcKKh9asj5XxNMhIWNlUpEbsZmOeX7m640A
-2Vqq6nPopIICR5b+W45UYaPrL0swsIsjdXJ8ITzI9vF01Bx7owVV7rtNOzK+mndm
-nqxpkCIHH2E6lr7lmk/MBTwoWdPBDFSoWWG9yHJM6Nyfh3+9nEg2XpWjDrk4JFX8
-dWbrAuMINClKxuMrLzOg2qOGpRKX/YAr2hRC45K9PvJdXmd0LhyIRyk0X+IyqJwl
-N4y6mACXi0mWHv0liqzc2thddG5msP9E36EYxr5ILzeUePiVSj9/E15dWf10hkNj
-c0kCAwEAAaNCMEAwDwYDVR0TAQH/BAUwAwEB/zAOBgNVHQ8BAf8EBAMCAQYwHQYD
-VR0OBBYEFJ84xFYjwznooHFs6FRM5Og6sb9nMA0GCSqGSIb3DQEBCwUAA4ICAQAS
-5UKme4sPDORGpbZgQIeMJX6tuGguW8ZAdjwD+MlZ9POrYs4QjbRaZIxowLByQzTS
-Gwv2LFPSypBLhmb8qoMi9IsabyZIrHZ3CL/FmFz0Jomee8O5ZDIBf9PD3Vht7LGr
-hFV0d4QEJ1JrhkzO3bll/9bGXp+aEJlLdWr+aumXIOTkdnrG0CSqkM0gkLpHZPt/
-B7NTeLUKYvJzQ85BK4FqLoUWlFPUa19yIqtRLULVAJyZv967lDtX/Zr1hstWO1uI
-AeV8KEsD+UmDfLJ/fOPtjqF/YFOOVZ1QNBIPt5d7bIdKROf1beyAN/BYGW5KaHbw
-H5Lk6rWS02FREAutp9lfx1/cH6NcjKF+m7ee01ZvZl4HliDtC3T7Zk6LERXpgUl+
-b7DUUH8i119lAg2m9IUe2K4GS0qn0jFmwvjO5QimpAKWRGhXxNUzzxkvFMSUHHuk
-2fCfDrGA4tGeEWSpiBE6doLlYsKA2KSD7ZPvfC+QsDJMlhVoSFLUmQjAJOgc47Ol
-IQ6SwJAfzyBfyjs4x7dtOvPmRLgOMWuIjnDrnBdSqEGULoe256YSxXXfW8AKbnuk
-5F6G+TaU33fD6Q3AOfF5u0aOq0NZJ7cguyPpVkAh7DE9ZapD8j3fcEThuk0mEDuY
-n/PIjhs4ViFqUZPTkcpG2om3PVODLAgfi49T3f+sHw==
------END CERTIFICATE-----
-"""
+ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G4_BYTES_ ::= #[
+    '0',0x82,0x6,'K','0',130,4,'3',160,3,2,1,2,2,17,0,217,181,'C',127,175,169,
+    '9',15,0,0,0,0,'U','e',173,'X','0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,
+    0,'0',129,190,'1',11,'0',9,6,3,'U',4,6,19,2,'U','S','1',22,'0',20,6,3,'U',
+    0x04,10,19,13,'E','n','t','r','u','s','t',',',' ','I','n','c','.','1','(',
+    '0','&',0x06,3,'U',4,11,19,31,'S','e','e',' ','w','w','w','.','e','n','t',
+    'r','u','s','t','.','n','e','t','/','l','e','g','a','l','-','t','e','r',
+    'm','s','1','9','0','7',0x6,3,'U',4,11,19,'0','(','c',')',' ','2','0','1',
+    '5',' ','E','n','t','r','u','s','t',',',' ','I','n','c','.',' ','-',' ',
+    'f','o','r',' ','a','u','t','h','o','r','i','z','e','d',' ','u','s','e',
+    ' ','o','n','l','y','1','2','0','0',0x06,3,'U',4,3,19,')','E','n','t','r',
+    'u','s','t',' ','R','o','o','t',' ','C','e','r','t','i','f','i','c','a',
+    't','i','o','n',' ','A','u','t','h','o','r','i','t','y',' ','-',' ','G',
+    '4','0',0x1e,23,13,'1','5','0','5','2','7','1','1','1','1','1','6','Z',23,
+    13,'3','7','1','2','2','7','1','1','4','1','1','6','Z','0',129,190,'1',11,
+    '0',0x9,6,3,'U',4,6,19,2,'U','S','1',22,'0',20,6,3,'U',4,10,19,13,'E','n',
+    't','r','u','s','t',',',' ','I','n','c','.','1','(','0','&',6,3,'U',4,0xb,
+    19,31,'S','e','e',' ','w','w','w','.','e','n','t','r','u','s','t','.','n',
+    'e','t','/','l','e','g','a','l','-','t','e','r','m','s','1','9','0','7',6,
+    3,'U',4,11,19,'0','(','c',')',' ','2','0','1','5',' ','E','n','t','r','u',
+    's','t',',',' ','I','n','c','.',' ','-',' ','f','o','r',' ','a','u','t',
+    'h','o','r','i','z','e','d',' ','u','s','e',' ','o','n','l','y','1','2',
+    '0','0',0x06,3,'U',4,3,19,')','E','n','t','r','u','s','t',' ','R','o','o',
+    't',' ','C','e','r','t','i','f','i','c','a','t','i','o','n',' ','A','u',
+    't','h','o','r','i','t','y',' ','-',' ','G','4','0',0x82,2,'"','0',13,6,9,
+    '*',0x86,'H',0x86,0xf7,13,1,1,1,5,0,3,130,2,15,0,'0',130,2,10,2,130,2,1,0,
+    0xb1,0xec,',','B',238,226,209,'0',255,165,146,'G',226,'-',195,186,'d',151,
+    'm',202,247,13,181,'Y',193,179,203,168,'h',25,216,175,132,'m','0','p',']',
+    '~',243,'.',210,'S',153,225,254,31,'^',217,'H',175,']',19,141,219,255,'c',
+    '3','M',0xd3,0x0,2,188,196,248,209,6,8,148,'y','X',138,21,222,')',179,253,
+    0xfd,0xc4,'O',0xe8,170,226,160,';','y',205,191,'k','C','2',221,217,'t',16,
+    185,247,244,'h',212,187,208,135,213,170,'K',138,'*','o','*',4,181,178,166,
+    0xc7,0xa0,'z',230,'H',171,210,209,'Y',204,214,'~','#',230,151,'l',240,'B',
+    229,220,'Q','K',21,'A',237,'I','J',201,222,16,151,214,'v',193,239,165,181,
+    '6',20,151,'5',216,'x','"','5','R',239,'C',189,219,39,219,'a','V',130,'4',
+    0xdc,203,136,'`',12,11,'Z',229,',',1,198,'T',175,215,170,193,16,'{',210,5,
+    'Z',0xb8,'@',0x9e,0x86,167,195,144,134,2,'V','R',9,'z',156,210,39,130,'S',
+    'J','e','R','j',0xf5,'<',0xe7,0xa8,242,156,175,139,189,211,14,212,212,'^',
+    'n',0x87,158,'j','=','E',29,209,']',27,244,233,10,172,'`',153,251,137,180,
+    255,152,',',207,'|',29,233,2,170,4,154,30,184,220,136,'n','%',179,'l','f',
+    0xf7,'<',0x90,243,'W',193,179,'/',245,'m',242,251,202,161,248,')',157,'F',
+    0x8b,0xb3,'j',246,230,'g',7,190,',','g',10,'*',31,'Z',178,'>','W',196,211,
+    '!','!','c','e','R',0x91,27,177,153,142,'y','~',230,235,141,0,217,'Z',170,
+    234,'s',232,164,130,2,'G',150,254,'[',142,'T','a',163,235,'/','K','0',176,
+    0x8b,'#','u','r','|','!','<',200,246,241,'t',212,28,'{',163,5,'U',238,187,
+    'M',';','2',0xbe,154,'w','f',158,172,'i',144,'"',7,31,'a',':',150,190,229,
+    0x9a,'O',204,5,'<','(','Y',211,193,12,'T',168,'Y','a',189,200,'r','L',232,
+    0xdc,0x9f,0x87,127,189,156,'H','6','^',149,163,14,185,'8','$','U',252,'u',
+    'f',0xeb,0x2,227,8,'4',')','J',198,227,'+','/','3',160,218,163,134,165,18,
+    151,253,128,'+',218,20,'B',227,146,189,'>',242,']','^','g','t','.',28,136,
+    'G',')','4','_',0xe2,'2',168,156,'%','7',140,186,152,0,151,139,'I',150,30,
+    0xfd,'%',0x8a,0xac,220,218,216,']','t','n','f',176,255,'D',223,161,24,198,
+    0xbe,'H','/','7',0x94,'x',0xf8,149,'J','?',127,19,'^',']','Y',253,'t',134,
+    'C','c','s','I',2,3,1,0,1,0xa3,'B','0','@','0',15,6,3,'U',29,19,1,1,255,4,
+    0x5,'0',3,1,1,255,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',29,6,3,'U',
+    0x1d,14,4,22,4,20,159,'8',196,'V','#',195,'9',232,160,'q','l',232,'T','L',
+    0xe4,0xe8,':',0xb1,191,'g','0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,3,
+    0x82,0x2,1,0,18,229,'B',166,'{',139,15,12,228,'F',165,182,'`','@',135,140,
+    '%','~',173,184,'h','.','[',198,'@','v','<',3,248,201,'Y',244,243,171,'b',
+    0xce,16,141,180,'Z','d',140,'h',192,176,'r','C','4',210,27,11,246,',','S',
+    0xd2,0xca,0x90,'K',134,'f',252,170,131,'"',244,139,26,'o','&','H',172,'v',
+    'w',0x08,191,197,152,92,244,'&',137,158,'{',195,185,'d','2',1,127,211,195,
+    0xdd,'X','m',236,177,171,132,'U','t','w',132,4,39,'R','k',134,'L',206,221,
+    0xb9,'e',0xff,0xd6,198,'^',159,154,16,153,'K','u','j',254,'j',233,151,' ',
+    228,228,'v','z',198,208,'$',170,144,205,' ',144,186,'G','d',251,127,7,179,
+    'S','x',181,10,'b',242,'s','C',206,'A','+',129,'j','.',133,22,148,'S',212,
+    'k','_','r','"',171,'Q','-','B',213,0,156,153,191,222,187,148,';','W',253,
+    0x9a,0xf5,134,203,'V',';','[',136,1,229,'|','(','K',3,249,'I',131,'|',178,
+    127,'|',227,237,142,161,127,'`','S',142,'U',157,'P','4',18,15,183,151,'{',
+    'l',135,'J','D',231,245,'m',236,128,'7',240,'X',25,'n','J','h','v',240,31,
+    0x92,228,234,181,146,211,'a','Q',16,11,173,167,217,'_',199,'_',220,31,163,
+    0x5c,140,161,'~',155,183,158,211,'V','o','f','^',7,150,' ',237,11,'t',251,
+    'f','N',0x8b,17,21,0xe9,129,'I','~','o',176,212,'P',127,'"',215,'_','e',2,
+    13,166,244,133,30,216,174,6,'K','J',167,210,'1','f',194,248,206,229,8,166,
+    0xa4,0x2,150,'D','h','W',196,213,'3',207,25,'/',20,196,148,28,'{',164,217,
+    0xf0,159,14,177,128,226,209,158,17,'d',169,136,17,':','v',130,229,'b',194,
+    0x80,0xd8,0xa4,131,237,147,239,'|','/',144,176,'2','L',150,21,'h','H','R',
+    0xd4,0x99,8,0xc0,'$',232,28,227,179,165,'!',14,146,192,144,31,207,' ','_',
+    0xca,';','8',0xc7,0xb7,'m',':',243,230,'D',184,14,'1','k',136,142,'p',235,
+    0x9c,23,'R',168,'A',148,'.',135,182,231,166,18,197,'u',223,'[',192,10,'n',
+    '{',0xa4,0xe4,'^',0x86,249,'6',148,223,'w',195,233,13,192,'9',241,'y',187,
+    'F',0x8e,0xab,'C','Y',39,0xb7,' ',187,'#',233,'V','@','!',236,'1','=','e',
+    170,'C',242,'=',223,'p','D',225,186,'M','&',16,';',152,159,243,200,142,27,
+    '8','V','!','j','Q',0x93,211,145,202,'F',218,137,183,'=','S',131,',',8,31,
+    139,143,'S',221,255,172,31,
+]
+
 
 /**
 Entrust Root Certification Authority - G4.
 SHA256 fingerprint: db:35:17:d1:f6:73:2a:2d:5a:b9:7c:53:3e:c7:07:79:ee:32:70:a6:2f:b4:ac:42:38:37:24:60:e6:f0:1e:88
 */
-ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G4 ::= net.Certificate.parse ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G4_TEXT_
+ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G4 ::= parse_ ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G4_BYTES_
 
-MICROSOFT_ECC_ROOT_CERTIFICATE_AUTHORITY_2017_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIICWTCCAd+gAwIBAgIQZvI9r4fei7FK6gxXMQHC7DAKBggqhkjOPQQDAzBlMQsw
-CQYDVQQGEwJVUzEeMBwGA1UEChMVTWljcm9zb2Z0IENvcnBvcmF0aW9uMTYwNAYD
-VQQDEy1NaWNyb3NvZnQgRUNDIFJvb3QgQ2VydGlmaWNhdGUgQXV0aG9yaXR5IDIw
-MTcwHhcNMTkxMjE4MjMwNjQ1WhcNNDIwNzE4MjMxNjA0WjBlMQswCQYDVQQGEwJV
-UzEeMBwGA1UEChMVTWljcm9zb2Z0IENvcnBvcmF0aW9uMTYwNAYDVQQDEy1NaWNy
-b3NvZnQgRUNDIFJvb3QgQ2VydGlmaWNhdGUgQXV0aG9yaXR5IDIwMTcwdjAQBgcq
-hkjOPQIBBgUrgQQAIgNiAATUvD0CQnVBEyPNgASGAlEvaqiBYgtlzPbKnR5vSmZR
-ogPZnZH6thaxjG7efM3beaYvzrvOcS/lpaso7GMEZpn4+vKTEAXhgShC48Zo9OYb
-hGBKia/teQ87zvH2RPUBeMCjVDBSMA4GA1UdDwEB/wQEAwIBhjAPBgNVHRMBAf8E
-BTADAQH/MB0GA1UdDgQWBBTIy5lycFIM+Oa+sgRXKSrPQhDtNTAQBgkrBgEEAYI3
-FQEEAwIBADAKBggqhkjOPQQDAwNoADBlAjBY8k3qDPlfXu5gKcs68tvWMoQZP3zV
-L8KxzJOuULsJMsbG7X7JNpQS5GiFBqIb0C8CMQCZ6Ra0DvpWSNSkMBaReNtUjGUB
-iudQZsIxtzm6uBoiB078a1QWIP8rtedMDE2mT3M=
------END CERTIFICATE-----
-"""
+MICROSOFT_ECC_ROOT_CERTIFICATE_AUTHORITY_2017_BYTES_ ::= #[
+    '0',0x82,2,'Y','0',130,1,223,160,3,2,1,2,2,16,'f',242,'=',175,135,222,139,
+    177,'J',234,12,'W','1',1,194,236,'0',10,6,8,'*',134,'H',206,'=',4,3,3,'0',
+    'e','1',0x0b,'0',9,6,3,'U',4,6,19,2,'U','S','1',30,'0',28,6,3,'U',4,10,19,
+    0x15,'M','i','c','r','o','s','o','f','t',' ','C','o','r','p','o','r','a',
+    't','i','o','n','1','6','0','4',0x06,3,'U',4,3,19,'-','M','i','c','r','o',
+    's','o','f','t',' ','E','C','C',' ','R','o','o','t',' ','C','e','r','t',
+    'i','f','i','c','a','t','e',' ','A','u','t','h','o','r','i','t','y',' ',
+    '2','0','1','7','0',30,23,0xd,'1','9','1','2','1','8','2','3','0','6','4',
+    '5','Z',23,13,'4','2','0','7','1','8','2','3','1','6','0','4','Z','0','e',
+    '1',0x0b,'0',9,6,3,'U',4,6,19,2,'U','S','1',30,'0',28,6,3,'U',4,0xa,19,21,
+    'M','i','c','r','o','s','o','f','t',' ','C','o','r','p','o','r','a','t',
+    'i','o','n','1','6','0','4',0x06,3,'U',4,3,19,'-','M','i','c','r','o','s',
+    'o','f','t',' ','E','C','C',' ','R','o','o','t',' ','C','e','r','t','i',
+    'f','i','c','a','t','e',' ','A','u','t','h','o','r','i','t','y',' ','2',
+    '0','1','7','0','v','0',0x10,6,7,'*',0x86,'H',206,'=',2,1,6,5,'+',129,4,0,
+    '"',0x03,'b',0,4,212,188,'=',2,'B','u','A',19,'#',205,128,4,134,2,'Q','/',
+    'j',0xa8,0x81,'b',11,'e',204,246,202,157,30,'o','J','f','Q',162,3,217,157,
+    0x91,0xfa,0xb6,22,177,140,'n',222,'|',205,219,'y',166,'/',206,187,206,'q',
+    '/',0xe5,0xa5,0xab,'(',236,'c',4,'f',153,248,250,242,147,16,5,225,129,'(',
+    'B',227,198,'h',244,230,27,132,'`','J',137,175,237,'y',15,';',206,241,246,
+    'D',0xf5,1,'x',192,163,'T','0','R','0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,
+    134,'0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',29,6,3,'U',29,14,4,
+    22,4,20,0xc8,203,153,'r','p','R',12,248,230,190,178,4,'W',')','*',207,'B',
+    0x10,237,'5','0',16,6,9,'+',6,1,4,1,130,'7',21,1,4,3,2,1,0,'0',10,6,8,'*',
+    0x86,'H',0xce,'=',4,3,3,3,'h',0,'0','e',2,'0','X',0xf2,'M',234,12,249,'_',
+    '^',0xee,'`',')',0xcb,':',0xf2,219,214,'2',132,25,'?','|',213,'/',194,177,
+    0xcc,0x93,0xae,'P',187,9,'2',198,198,237,'~',201,'6',148,18,228,'h',133,6,
+    0xa2,27,0xd0,'/',2,'1',0,153,233,22,180,14,250,'V','H',212,164,'0',22,145,
+    'x',0xdb,'T',0x8c,'e',1,0x8a,231,'P','f',194,'1',183,'9',186,184,26,'"',7,
+    'N',252,'k','T',22,' ',255,'+',181,231,'L',12,'M',166,'O','s',
+]
+
 
 /**
 Microsoft ECC Root Certificate Authority 2017.
 SHA256 fingerprint: 35:8d:f3:9d:76:4a:f9:e1:b7:66:e9:c9:72:df:35:2e:e1:5c:fa:c2:27:af:6a:d1:d7:0e:8e:4a:6e:dc:ba:02
 */
-MICROSOFT_ECC_ROOT_CERTIFICATE_AUTHORITY_2017 ::= net.Certificate.parse MICROSOFT_ECC_ROOT_CERTIFICATE_AUTHORITY_2017_TEXT_
+MICROSOFT_ECC_ROOT_CERTIFICATE_AUTHORITY_2017 ::= parse_ MICROSOFT_ECC_ROOT_CERTIFICATE_AUTHORITY_2017_BYTES_
 
-MICROSOFT_RSA_ROOT_CERTIFICATE_AUTHORITY_2017_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIFqDCCA5CgAwIBAgIQHtOXCV/YtLNHcB6qvn9FszANBgkqhkiG9w0BAQwFADBl
-MQswCQYDVQQGEwJVUzEeMBwGA1UEChMVTWljcm9zb2Z0IENvcnBvcmF0aW9uMTYw
-NAYDVQQDEy1NaWNyb3NvZnQgUlNBIFJvb3QgQ2VydGlmaWNhdGUgQXV0aG9yaXR5
-IDIwMTcwHhcNMTkxMjE4MjI1MTIyWhcNNDIwNzE4MjMwMDIzWjBlMQswCQYDVQQG
-EwJVUzEeMBwGA1UEChMVTWljcm9zb2Z0IENvcnBvcmF0aW9uMTYwNAYDVQQDEy1N
-aWNyb3NvZnQgUlNBIFJvb3QgQ2VydGlmaWNhdGUgQXV0aG9yaXR5IDIwMTcwggIi
-MA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQDKW76UM4wplZEWCpW9R2LBifOZ
-Nt9GkMml7Xhqb0eRaPgnZ1AzHaGm++DlQ6OEAlcBXZxIQIJTELy/xztokLaCLeX0
-ZdDMbRnMlfl7rEqUrQ7eS0MdhweSE5CAg2Q1OQT85elss7YfUJQ4ZVBcF0a5toW1
-HLUX6NZFndiyJrDKxHBKrmCk3bPZ7Pw71VdyvD/IybLeS2v4I2wDwAW9lcfNcztm
-gGTjGqwu+UcF8ga2m3P1eDNbx6H7JyqhtJqRjJHTOoI+dkC0zVJhUXAoP8XFWvLJ
-jEm7FFtNyP9nTUwSlq31/niol4fX/V4ggNyhSyL71Imtus5Hl0dVe49FyGcohJUc
-aDDv70ngNXtk55iwlNpNhTs+VcQor1fznhPbRiefHqJeRIOkpcrVE7NLP8TjwuaG
-YaRSMLl6IE9vDzhTyzMMEyuP1pq9KsgtsRx9S1HKR9FIJ3Jdh+vVReZIZZ2vUpC6
-W6IYZVcSn2i51BVrlMRpIpj0M+Dt+VGOQVDJNE92kKz8OMHY4Xu54+OU4UZpyw4K
-UGsTuqwPN1q3ErWQgR5WrlcihtnJ0tHXUeOrO8ZV/R4O03QK0dqq6mm4lyiPSMQH
-+FJDOvTKVTUssKZqwJz58oHhEmrARdlns87/I6KJClTUFLkqqNfs+avNJVgyeY+Q
-W5g5xAgGwax/Dj0ApQIDAQABo1QwUjAOBgNVHQ8BAf8EBAMCAYYwDwYDVR0TAQH/
-BAUwAwEB/zAdBgNVHQ4EFgQUCctZf4aycI8awznjwNnpv7tNsiMwEAYJKwYBBAGC
-NxUBBAMCAQAwDQYJKoZIhvcNAQEMBQADggIBAKyvPl3CEZaJjqPnktaXFbgToqZC
-LgLNFgVZJ8og6Lq46BrsTaiXVq5lQ7GPAJtSzVXNUzltYkyLDVt8LkS/gxCP81OC
-gMNPOsduET/m4xaRhPtthH80dK2Jp86519efhGSSvpWhrQlTM93uCupKUY5vVau6
-tZRGrox/2KJQJWVggEbbMwSubLWYdFQl3JPk+ONVFT24bcMKpBLBaYVu32TxU5nh
-SnUgnZUP5NbcA/FZGOhHibJXWpS2qdgXKxdJ5XbLwVaZOjex/2kskZGT4d9Mozd2
-TaGf+G0eHdP67Pv0RR0Tbc/3WeUiJ3IrhvNXuzDtJE3cfVa7o7P4NHmJweDyAmH3
-pvwPuxwXC65B2Xy9J6P9LjrRk5Sxcx0ki69bIImtt2dmefU6xqaWM/5TkshGsRGR
-xpl/j8nWZjEgQRCHLQzWwa80mMpkg/sTV9HB8Dx6jKXB/ZUhoHHBk2dxEuqPiApp
-GWSZI1b7rCoucL5mxAyE7+WL85MB+GqQk2dLsmijtWKP6T+MejteD+eMuMZ87zf9
-dOLITzNy4ZQ5bb0Sr74MTnB8G2+NszKTc0QWbej09+CVgI+WXTik9KveCjCHk9hN
-AHFiRSdLOkKEW39lt2c0Ui2cFmuqqNh7o0JMcccMyj6D5KbvtwEwXlGjefVwaaZB
-RA+GsCyRxj3qrg+E
------END CERTIFICATE-----
-"""
+MICROSOFT_RSA_ROOT_CERTIFICATE_AUTHORITY_2017_BYTES_ ::= #[
+    '0',130,5,168,'0',130,3,144,160,3,2,1,2,2,16,30,211,151,9,'_',216,180,179,
+    'G','p',30,170,190,127,'E',179,'0',13,6,9,'*',134,'H',134,247,13,1,1,12,5,
+    0x0,'0','e','1',11,'0',9,6,3,'U',4,6,19,2,'U','S','1',30,'0',28,6,3,'U',4,
+    0xa,19,21,'M','i','c','r','o','s','o','f','t',' ','C','o','r','p','o','r',
+    'a','t','i','o','n','1','6','0','4',0x06,3,'U',4,3,19,'-','M','i','c','r',
+    'o','s','o','f','t',' ','R','S','A',' ','R','o','o','t',' ','C','e','r',
+    't','i','f','i','c','a','t','e',' ','A','u','t','h','o','r','i','t','y',
+    ' ','2','0','1','7','0',30,23,0xd,'1','9','1','2','1','8','2','2','5','1',
+    '2','2','Z',23,13,'4','2','0','7','1','8','2','3','0','0','2','3','Z','0',
+    'e','1',0x0b,'0',9,6,3,'U',4,6,19,2,'U','S','1',30,'0',28,6,3,'U',4,10,19,
+    0x15,'M','i','c','r','o','s','o','f','t',' ','C','o','r','p','o','r','a',
+    't','i','o','n','1','6','0','4',0x06,3,'U',4,3,19,'-','M','i','c','r','o',
+    's','o','f','t',' ','R','S','A',' ','R','o','o','t',' ','C','e','r','t',
+    'i','f','i','c','a','t','e',' ','A','u','t','h','o','r','i','t','y',' ',
+    '2','0','1','7','0',130,2,'"','0',13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,
+    3,130,2,15,0,'0',130,2,10,2,130,2,1,0,202,'[',190,148,'3',140,')',149,145,
+    22,10,149,189,'G','b',193,137,243,153,'6',223,'F',144,201,165,237,'x','j',
+    'o','G',0x91,'h',0xf8,39,'g','P','3',29,161,166,251,224,229,'C',163,132,2,
+    'W',1,']',0x9c,'H','@',130,'S',16,188,191,199,';','h',144,182,130,'-',229,
+    0xf4,'e',208,204,'m',25,204,149,249,'{',172,'J',148,173,14,222,'K','C',29,
+    135,7,146,19,144,128,131,'d','5','9',4,252,229,233,'l',179,182,31,'P',148,
+    '8','e','P',0x5c,23,'F',185,182,133,181,28,181,23,232,214,'E',157,216,178,
+    '&',0xb0,0xca,196,'p','J',174,'`',164,221,179,217,236,252,';',213,'W','r',
+    0xbc,'?',0xc8,201,178,222,'K','k',248,'#','l',3,192,5,189,149,199,205,'s',
+    ';','f',0x80,'d',0xe3,26,0xac,'.',249,'G',5,242,6,182,155,'s',245,'x','3',
+    '[',0xc7,0xa1,0xfb,39,'*',161,180,154,145,140,145,211,':',130,'>','v','@',
+    0xb4,0xcd,'R','a','Q','p','(','?',0xc5,197,'Z',242,201,140,'I',187,20,'[',
+    'M',0xc8,0xff,'g','M','L',18,0x96,173,245,254,'x',168,151,135,215,253,'^',
+    ' ',0x80,0xdc,161,'K','"',251,212,137,173,186,206,'G',151,'G','U','{',143,
+    'E',0xc8,'g','(',0x84,0x95,28,'h','0',239,239,'I',224,'5','{','d',231,152,
+    176,148,218,'M',133,';','>','U',196,'(',175,'W',243,158,19,219,'F',39,159,
+    30,162,'^','D',131,164,165,202,213,19,179,'K','?',196,227,194,230,134,'a',
+    0xa4,'R','0',185,'z',' ','O','o',15,'8','S',203,'3',12,19,'+',143,214,154,
+    189,'*',200,'-',177,28,'}','K','Q',202,'G',209,'H',39,'r',']',135,235,213,
+    'E',230,'H','e',157,175,'R',144,186,'[',162,24,'e','W',18,159,'h',185,212,
+    0x15,'k',0x94,196,'i','"',152,244,'3',224,237,249,'Q',142,'A','P',201,'4',
+    'O','v',0x90,0xac,252,'8',193,216,225,'{',185,227,227,148,225,'F','i',203,
+    14,10,'P','k',19,186,172,15,'7','Z',183,18,181,144,129,30,'V',174,'W','"',
+    0x86,217,201,210,209,215,'Q',227,171,';',198,'U',253,30,14,211,'t',10,209,
+    218,170,234,'i',184,151,'(',143,'H',196,7,248,'R','C',':',244,202,'U','5',
+    ',',0xb0,0xa6,'j',0xc0,156,249,242,129,225,18,'j',192,'E',217,'g',179,206,
+    255,'#',162,137,10,'T',212,20,185,'*',168,215,236,249,171,205,'%','X','2',
+    'y',0x8f,0x90,'[',0x98,'9',196,8,6,193,172,127,14,'=',0,165,2,3,1,0,1,163,
+    'T','0','R','0',0xe,6,3,'U',29,15,1,1,255,4,4,3,2,1,134,'0',15,6,3,'U',29,
+    19,1,1,255,4,5,'0',3,1,1,255,'0',29,6,3,'U',29,14,4,22,4,20,9,203,'Y',127,
+    134,178,'p',143,26,195,'9',227,192,217,233,191,187,'M',178,'#','0',16,6,9,
+    '+',6,1,4,1,0x82,'7',21,1,4,3,2,1,0,'0',13,6,9,'*',134,'H',134,247,13,1,1,
+    12,5,0,3,130,2,1,0,172,175,'>',']',194,17,150,137,142,163,231,146,214,151,
+    0x15,0xb8,19,162,166,'B','.',2,205,22,5,'Y',39,202,' ',232,186,184,232,26,
+    236,'M',168,151,'V',174,'e','C',177,143,0,155,'R',205,'U',205,'S','9','m',
+    'b','L',139,13,'[','|','.','D',191,131,16,143,243,'S',130,128,195,'O',':',
+    199,'n',17,'?',230,227,22,145,132,251,'m',132,127,'4','t',173,137,167,206,
+    0xb9,215,215,159,132,'d',146,190,149,161,173,9,'S','3',221,238,10,234,'J',
+    'Q',0x8e,'o','U',0xab,186,181,148,'F',174,140,127,216,162,'P','%','e','`',
+    0x80,'F',219,'3',4,174,'l',181,152,'t','T','%',220,147,228,248,227,'U',21,
+    '=',184,'m',195,10,164,18,193,'i',133,'n',223,'d',241,'S',153,225,'J','u',
+    ' ',0x9d,0x95,15,228,214,220,3,241,'Y',24,232,'G',137,178,'W','Z',148,182,
+    169,216,23,'+',23,'I',229,'v',203,193,'V',153,':','7',177,255,'i',',',145,
+    145,147,225,223,'L',163,'7','v','M',161,159,248,'m',30,29,211,250,236,251,
+    0xf4,'E',29,19,'m',207,247,'Y',229,'"',39,'r','+',134,243,'W',187,'0',237,
+    '$','M',220,'}','V',187,163,179,248,'4','y',137,193,224,242,2,'a',247,166,
+    0xfc,0x0f,187,28,23,11,174,'A',217,'|',189,39,163,253,'.',':',209,147,148,
+    0xb1,'s',0x1d,'$',139,175,'[',' ',137,173,183,'g','f','y',245,':',198,166,
+    0x96,'3',0xfe,'S',0x92,200,'F',177,17,145,198,153,127,143,201,214,'f','1',
+    ' ','A',16,0x87,'-',12,214,193,175,'4',152,202,'d',131,251,19,'W',209,193,
+    0xf0,'<','z',0x8c,0xa5,193,253,149,'!',160,'q',193,147,'g','q',18,234,143,
+    0x88,10,'i',25,'d',153,'#','V',251,172,'*','.','p',190,'f',196,12,132,239,
+    229,139,243,147,1,248,'j',144,147,'g','K',178,'h',163,181,'b',143,233,'?',
+    0x8c,'z',';','^',0x0f,231,140,184,198,'|',239,'7',253,'t',226,200,'O','3',
+    'r',0xe1,148,'9','m',189,18,175,190,12,'N','p','|',27,'o',141,179,'2',147,
+    's','D',22,'m',232,244,247,224,149,128,143,150,']','8',164,244,171,222,10,
+    '0',0x87,147,216,'M',0,'q','b','E',39,'K',':','B',132,'[',127,'e',183,'g',
+    '4','R','-',156,22,'k',170,168,216,'{',163,'B','L','q',199,12,202,'>',131,
+    0xe4,166,239,183,1,'0','^','Q',163,'y',245,'p','i',166,'A','D',15,134,176,
+    ',',145,198,'=',234,174,15,132,
+]
+
 
 /**
 Microsoft RSA Root Certificate Authority 2017.
 SHA256 fingerprint: c7:41:f7:0f:4b:2a:8d:88:bf:2e:71:c1:41:22:ef:53:ef:10:eb:a0:cf:a5:e6:4c:fa:20:f4:18:85:30:73:e0
 */
-MICROSOFT_RSA_ROOT_CERTIFICATE_AUTHORITY_2017 ::= net.Certificate.parse MICROSOFT_RSA_ROOT_CERTIFICATE_AUTHORITY_2017_TEXT_
+MICROSOFT_RSA_ROOT_CERTIFICATE_AUTHORITY_2017 ::= parse_ MICROSOFT_RSA_ROOT_CERTIFICATE_AUTHORITY_2017_BYTES_
 
-E_SZIGNO_ROOT_CA_2017_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIICQDCCAeWgAwIBAgIMAVRI7yH9l1kN9QQKMAoGCCqGSM49BAMCMHExCzAJBgNV
-BAYTAkhVMREwDwYDVQQHDAhCdWRhcGVzdDEWMBQGA1UECgwNTWljcm9zZWMgTHRk
-LjEXMBUGA1UEYQwOVkFUSFUtMjM1ODQ0OTcxHjAcBgNVBAMMFWUtU3ppZ25vIFJv
-b3QgQ0EgMjAxNzAeFw0xNzA4MjIxMjA3MDZaFw00MjA4MjIxMjA3MDZaMHExCzAJ
-BgNVBAYTAkhVMREwDwYDVQQHDAhCdWRhcGVzdDEWMBQGA1UECgwNTWljcm9zZWMg
-THRkLjEXMBUGA1UEYQwOVkFUSFUtMjM1ODQ0OTcxHjAcBgNVBAMMFWUtU3ppZ25v
-IFJvb3QgQ0EgMjAxNzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABJbcPYrYsHtv
-xie+RJCxs1YVe45DJH0ahFnuY2iyxl6H0BVIHqiQrb1TotreOpCmYF9oMrWGQd+H
-Wyx7xf58etqjYzBhMA8GA1UdEwEB/wQFMAMBAf8wDgYDVR0PAQH/BAQDAgEGMB0G
-A1UdDgQWBBSHERUI0arBeAyxr87GyZDvvzAEwDAfBgNVHSMEGDAWgBSHERUI0arB
-eAyxr87GyZDvvzAEwDAKBggqhkjOPQQDAgNJADBGAiEAtVfd14pVCzbhhkT61Nlo
-jbjcI4qKDdQvfepz7L9NbKgCIQDLpbQS+ue16M9+k/zzNY9vTlp8tLxOsvxyqltZ
-+efcMQ==
------END CERTIFICATE-----
-"""
+E_SZIGNO_ROOT_CA_2017_BYTES_ ::= #[
+    '0',0x82,0x2,'@','0',130,1,229,160,3,2,1,2,2,12,1,'T','H',239,'!',253,151,
+    'Y',13,245,4,10,'0',10,6,8,'*',134,'H',206,'=',4,3,2,'0','q','1',11,'0',9,
+    0x6,3,'U',4,6,19,2,'H','U','1',17,'0',15,6,3,'U',4,7,12,8,'B','u','d','a',
+    'p','e','s','t','1',22,'0',20,6,3,'U',4,0xa,12,13,'M','i','c','r','o','s',
+    'e','c',' ','L','t','d','.','1',23,'0',21,6,3,'U',4,'a',12,14,'V','A','T',
+    'H','U','-','2','3','5','8','4','4','9','7','1',30,'0',28,6,3,'U',4,3,0xc,
+    0x15,'e','-','S','z','i','g','n','o',' ','R','o','o','t',' ','C','A',' ',
+    '2','0','1','7','0',30,23,0xd,'1','7','0','8','2','2','1','2','0','7','0',
+    '6','Z',23,13,'4','2','0','8','2','2','1','2','0','7','0','6','Z','0','q',
+    '1',0xb,'0',9,6,3,'U',4,6,19,2,'H','U','1',17,'0',15,6,3,'U',4,7,12,8,'B',
+    'u','d','a','p','e','s','t','1',22,'0',20,6,3,'U',4,0xa,12,13,'M','i','c',
+    'r','o','s','e','c',' ','L','t','d','.','1',23,'0',21,6,3,'U',4,'a',12,14,
+    'V','A','T','H','U','-','2','3','5','8','4','4','9','7','1',30,'0',28,6,3,
+    'U',4,3,12,21,'e','-','S','z','i','g','n','o',' ','R','o','o','t',' ','C',
+    'A',' ','2','0','1','7','0','Y','0',0x13,6,7,'*',0x86,'H',206,'=',2,1,6,8,
+    '*',0x86,'H',0xce,'=',3,1,7,3,'B',0,4,150,220,'=',138,216,176,'{','o',198,
+    39,0xbe,'D',144,177,179,'V',21,'{',142,'C','$','}',26,132,'Y',238,'c','h',
+    178,198,'^',135,208,21,'H',30,168,144,173,189,'S',162,218,222,':',144,166,
+    '`','_','h','2',0xb5,0x86,'A',223,135,'[',',','{',197,254,'|','z',218,163,
+    'c','0','a','0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',14,6,3,'U',
+    29,0xf,1,1,255,4,4,3,2,1,6,'0',29,6,3,'U',29,14,4,22,4,20,135,17,21,8,209,
+    0xaa,0xc1,'x',12,177,175,206,198,201,144,239,191,'0',4,192,'0',31,6,3,'U',
+    29,'#',4,24,'0',22,0x80,20,135,17,21,8,209,170,193,'x',12,177,175,206,198,
+    0xc9,0x90,0xef,191,'0',4,192,'0',10,6,8,'*',134,'H',206,'=',4,3,2,3,'I',0,
+    '0','F',0x02,'!',0,181,'W',221,215,138,'U',11,'6',225,134,'D',250,212,217,
+    'h',0x8d,184,220,'#',138,138,13,212,'/','}',234,'s',236,191,'M','l',168,2,
+    '!',0,0xcb,165,180,18,250,231,181,232,207,'~',147,252,243,'5',143,'o','N',
+    'Z','|',180,188,'N',178,252,'r',170,'[','Y',249,231,220,'1',
+]
+
 
 /**
 e-Szigno Root CA 2017.
 SHA256 fingerprint: be:b0:0b:30:83:9b:9b:c3:2c:32:e4:44:79:05:95:06:41:f2:64:21:b1:5e:d0:89:19:8b:51:8a:e2:ea:1b:99
 */
-E_SZIGNO_ROOT_CA_2017 ::= net.Certificate.parse E_SZIGNO_ROOT_CA_2017_TEXT_
+E_SZIGNO_ROOT_CA_2017 ::= parse_ E_SZIGNO_ROOT_CA_2017_BYTES_
 
-CERTSIGN_ROOT_CA_G2_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIFRzCCAy+gAwIBAgIJEQA0tk7GNi02MA0GCSqGSIb3DQEBCwUAMEExCzAJBgNV
-BAYTAlJPMRQwEgYDVQQKEwtDRVJUU0lHTiBTQTEcMBoGA1UECxMTY2VydFNJR04g
-Uk9PVCBDQSBHMjAeFw0xNzAyMDYwOTI3MzVaFw00MjAyMDYwOTI3MzVaMEExCzAJ
-BgNVBAYTAlJPMRQwEgYDVQQKEwtDRVJUU0lHTiBTQTEcMBoGA1UECxMTY2VydFNJ
-R04gUk9PVCBDQSBHMjCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAMDF
-dRmRfUR0dIf+DjuW3NgBFszuY5HnC2/OOwppGnzC46+CjobXXo9X69MhWf05N0Iw
-vlDqtg+piNguLWkh59E3GE59kdUWX2tbAMI5Qw02hVK5U2UPHULlj88F0+7cDBrZ
-uIt4ImfkabBoxTzkbFpG583H+u/E7Eu9aqSs/cwoUe+StCmrqzWaTOTECMYmzPhp
-n+Sc8CnTXPnGFiWeI8MgwT0PPzhAsP6CRDiqWhqKa2NYOLQV07YRaXseVO6MGiKs
-cpc/I1mbySKEwQdPzH/iV8oScLumZfNpdWO9lfsbl83kqK/20U6o2YpxJM02PbyW
-xPFsqa7lzw1uKA2wDrXKUXt4FMMgL3/7FFXhEZn91QqhngLjYl/rNUssuHLoPj1P
-rCy7Lobio3aP5ZMqz6WryFyNSwb/EkaseMsUBzXgqd+L6a8VTxaJW732jcZZroiF
-DsGJ6x9nxUWO/203Nit4ZoORUSs9/1F3dmKh7Gc+PoGD4FapUB8fepmrY7+EF3fx
-DTvf95xhszWYijqy7DwaNz9+j5LP2RIUZNoQAhVB/0/E6xyjyfqZ90bp4RjZsbgy
-LcsUDFDYg2WD7rlcz8sFWkz6GZdr1l0T08JcVLwyc6B49fFtHsufpaafItzRUZ6C
-eWRgKRM+o/1Pcmqr4tTluCRVLERLiohEnMqE0yo7AgMBAAGjQjBAMA8GA1UdEwEB
-/wQFMAMBAf8wDgYDVR0PAQH/BAQDAgEGMB0GA1UdDgQWBBSCIS1mxteg4BXrzkwJ
-d8RgnlRuAzANBgkqhkiG9w0BAQsFAAOCAgEAYN4auOfyYILVAzOBywaK8SJJ6ejq
-kX/GM15oGQOGO0MBzwdw5AgeZYWR5hEit/UCI46uuR59H35s5r0l1ZUa8gWmr4UC
-b6741jH/JclKyMeKqdmfS0mbEVeZkkMR3rYzpMzXjWR91M08KCy0mpbqTfXERMQl
-qiCA2ClV9+BB/AYm/7k29UMUA2Z44RGx2iBfRgB4ACGlHgAoYXhvqAEBj500mv/0
-OJD7uNGzcgbJceaBxXntC6Z58hMLnPddDnskk7RI24Zf3lCGeOdA5jGokHZwYa+c
-NywRtYK3qq4kNFtyDGkNzVmf9nGvnAvRCjj5BiKDUyUM/FHE5r7iOZULJK2v0ZXk
-ltd0ZGtxTgI8qoXzIKNDOXZbbFD+mpwUHmUUihW9o4JFWklWatKcsWMy5WHgUyIO
-pwpJ6st+H6jiYoD2EEVSmAYY3qXNL3+q1Ok+CHLsIwMCPKaq2LxndD0UF/tUSxfj
-03k9bWtJySgOLnRQvwzZRjoQhsmnP+mg7H/rpXdYaXHmgwo38oZJar55CJD2AhZk
-PuXaTH4MNMn5X7azKFGnpyuqSfqNZSlO42sTp5SjLVFteAxEy9/eCG/Oo2Sr05WE
-1LlSVHJ7liXMvGnjSG4N0MedJ5qq+BOS3R7fY581qRY27Iy4g/Q9iY/NtBde17MX
-QRBdJ3NghVdJIgc=
------END CERTIFICATE-----
-"""
+CERTSIGN_ROOT_CA_G2_BYTES_ ::= #[
+    '0',0x82,5,'G','0',130,3,'/',160,3,2,1,2,2,9,17,0,'4',182,'N',198,'6','-',
+    '6','0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,'0','A','1',11,'0',9,6,3,
+    'U',4,6,19,2,'R','O','1',20,'0',18,6,3,'U',4,10,19,11,'C','E','R','T','S',
+    'I','G','N',' ','S','A','1',28,'0',26,6,3,'U',4,0xb,19,19,'c','e','r','t',
+    'S','I','G','N',' ','R','O','O','T',' ','C','A',' ','G','2','0',30,23,0xd,
+    '1','7','0','2','0','6','0','9','2','7','3','5','Z',23,13,'4','2','0','2',
+    '0','6','0','9','2','7','3','5','Z','0','A','1',11,'0',9,6,3,'U',4,6,19,2,
+    'R','O','1',20,'0',18,6,3,'U',4,0xa,19,11,'C','E','R','T','S','I','G','N',
+    ' ','S','A','1',28,'0',26,6,3,'U',4,0xb,19,19,'c','e','r','t','S','I','G',
+    'N',' ','R','O','O','T',' ','C','A',' ','G','2','0',0x82,2,'"','0',13,6,9,
+    '*',0x86,'H',0x86,0xf7,13,1,1,1,5,0,3,130,2,15,0,'0',130,2,10,2,130,2,1,0,
+    0xc0,0xc5,'u',25,0x91,'}','D','t','t',135,254,14,';',150,220,216,1,22,204,
+    0xee,'c',145,231,11,'o',206,';',10,'i',26,'|',194,227,175,130,142,134,215,
+    '^',0x8f,'W',0xeb,0xd3,'!','Y',253,'9','7','B','0',190,'P',234,182,15,169,
+    0x88,0xd8,'.','-','i','!',231,209,'7',24,'N','}',145,213,22,'_','k','[',0,
+    0xc2,'9','C',0x0d,'6',133,'R',185,'S','e',15,29,'B',229,143,207,5,211,238,
+    220,12,26,217,184,139,'x','"','g',228,'i',176,'h',197,'<',228,'l','Z','F',
+    0xe7,0xcd,199,250,239,196,236,'K',189,'j',164,172,253,204,'(','Q',239,146,
+    180,')',171,171,'5',154,'L',228,196,8,198,'&',204,248,'i',159,228,156,240,
+    ')',0xd3,92,249,198,22,'%',158,'#',195,' ',193,'=',15,'?','8','@',176,254,
+    0x82,'D','8',0xaa,'Z',26,138,'k','c','X','8',180,21,211,182,17,'i','{',30,
+    'T',0xee,140,26,'"',172,'r',151,'?','#','Y',155,201,'"',132,193,7,'O',204,
+    127,226,'W',202,18,'p',187,166,'e',243,'i','u','c',189,149,251,27,151,205,
+    0xe4,0xa8,175,246,209,'N',168,217,138,'q','$',205,'6','=',188,150,196,241,
+    'l',0xa9,0xae,229,207,13,'n','(',13,176,14,181,202,'Q','{','x',20,195,' ',
+    '/',0x7f,0xfb,20,'U',0xe1,17,153,253,213,10,161,158,2,227,'b','_',235,'5',
+    'K',',',0xb8,'r',0xe8,'>','=','O',172,',',187,'.',134,226,163,'v',143,229,
+    0x93,'*',207,165,171,200,92,141,'K',6,255,18,'F',172,'x',203,20,7,'5',224,
+    0xa9,223,139,233,175,21,'O',22,137,'[',189,246,141,198,'Y',174,136,133,14,
+    0xc1,0x89,0xeb,31,'g',197,'E',142,255,'m','7','6','+','x','f',131,145,'Q',
+    '+','=',0xff,'Q','w','v','b',0xa1,236,'g','>','>',129,131,224,'V',169,'P',
+    0x1f,31,'z',153,171,'c',191,132,23,'w',241,13,';',223,247,156,'a',179,'5',
+    152,138,':',178,236,'<',26,'7','?','~',143,146,207,217,18,20,'d',218,16,2,
+    21,'A',0xff,'O',196,235,28,163,201,250,153,247,'F',233,225,24,217,177,184,
+    '2','-',203,20,12,'P',216,131,'e',131,238,185,92,207,203,5,'Z','L',250,25,
+    0x97,'k',214,']',19,211,194,92,'T',188,'2','s',160,'x',245,241,'m',30,203,
+    0x9f,0xa5,0xa6,159,'"',220,209,'Q',158,130,'y','d','`',')',19,'>',163,253,
+    'O','r','j',0xab,0xe2,212,229,184,'$','U',',','D','K',138,136,'D',156,202,
+    0x84,211,'*',';',2,3,1,0,1,163,'B','0','@','0',15,6,3,'U',29,19,1,1,255,4,
+    0x5,'0',3,1,1,255,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',29,6,3,'U',
+    29,0xe,4,22,4,20,130,'!','-','f',198,215,160,224,21,235,206,'L',9,'w',196,
+    '`',0x9e,'T','n',3,'0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,3,130,2,1,
+    0,'`',0xde,26,184,231,242,'`',130,213,3,'3',129,203,6,138,241,'"','I',233,
+    232,234,145,127,198,'3','^','h',25,3,134,';','C',1,207,7,'p',228,8,30,'e',
+    0x85,0x91,0xe6,17,'"',183,245,2,'#',142,174,185,30,'}',31,'~','l',230,189,
+    '%',0xd5,0x95,26,0xf2,5,166,175,133,2,'o',174,248,214,'1',255,'%',201,'J',
+    200,199,138,169,217,159,'K','I',155,17,'W',153,146,'C',17,222,182,'3',164,
+    0xcc,0xd7,141,'d','}',212,205,'<','(',',',180,154,150,234,'M',245,196,'D',
+    196,'%',170,' ',128,216,')','U',247,224,'A',252,6,'&',255,185,'6',245,'C',
+    20,3,'f','x',0xe1,17,177,218,' ','_','F',0,'x',0,'!',165,30,0,'(','a','x',
+    'o',168,1,1,143,157,'4',154,255,244,'8',144,251,184,209,179,'r',6,201,'q',
+    0xe6,0x81,197,'y',237,11,166,'y',242,19,11,156,247,']',14,'{','$',147,180,
+    'H',0xdb,0x86,'_',222,'P',134,'x',231,'@',230,'1',168,144,'v','p','a',175,
+    0x9c,'7',',',17,181,130,183,170,174,'$','4','[','r',12,'i',13,205,'Y',159,
+    0xf6,'q',0xaf,0x9c,11,209,10,'8',249,6,'"',131,'S','%',12,252,'Q',196,230,
+    0xbe,226,'9',149,11,'$',173,175,209,149,228,150,215,'t','d','k','q','N',2,
+    '<',0xaa,133,243,' ',163,'C','9','v','[','l','P',254,154,156,20,30,'e',20,
+    0x8a,0x15,189,163,130,'E','Z','I','V','j',210,156,177,'c','2',229,'a',224,
+    'S','"',14,167,10,'I',234,203,'~',31,168,226,'b',128,246,16,'E','R',152,6,
+    24,0xde,165,205,'/',127,170,212,233,'>',8,'r',236,'#',3,2,'<',166,170,216,
+    0xbc,'g','t','=',20,23,251,'T','K',23,227,211,'y','=','m','k','I',201,'(',
+    0xe,'.','t','P',191,12,217,'F',':',16,134,201,167,'?',233,160,236,127,235,
+    165,'w','X','i','q',230,131,10,'7',242,134,'I','j',190,'y',8,144,246,2,22,
+    'd','>',0xe5,0xda,'L','~',0xc,'4',201,249,'_',182,179,'(','Q',167,167,'+',
+    170,'I',250,141,'e',')','N',227,'k',19,167,148,163,'-','Q','m','x',12,'D',
+    203,223,222,8,'o',206,163,'d',171,211,149,132,212,185,'R','T','r','{',150,
+    '%',0xcc,0xbc,'i',227,'H','n',13,208,199,157,39,154,170,248,19,146,221,30,
+    223,'c',159,'5',169,22,'6',236,140,184,131,244,'=',137,143,205,180,23,'^',
+    215,179,23,'A',16,']',39,'s','`',133,'W','I','"',7,
+]
+
 
 /**
 certSIGN Root CA G2.
 SHA256 fingerprint: 65:7c:fe:2f:a7:3f:aa:38:46:25:71:f3:32:a2:36:3a:46:fc:e7:02:09:51:71:07:02:cd:fb:b6:ee:da:33:05
 */
-CERTSIGN_ROOT_CA_G2 ::= net.Certificate.parse CERTSIGN_ROOT_CA_G2_TEXT_
+CERTSIGN_ROOT_CA_G2 ::= parse_ CERTSIGN_ROOT_CA_G2_BYTES_
 
-TRUSTWAVE_GLOBAL_CERTIFICATION_AUTHORITY_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIF2jCCA8KgAwIBAgIMBfcOhtpJ80Y1LrqyMA0GCSqGSIb3DQEBCwUAMIGIMQsw
-CQYDVQQGEwJVUzERMA8GA1UECAwISWxsaW5vaXMxEDAOBgNVBAcMB0NoaWNhZ28x
-ITAfBgNVBAoMGFRydXN0d2F2ZSBIb2xkaW5ncywgSW5jLjExMC8GA1UEAwwoVHJ1
-c3R3YXZlIEdsb2JhbCBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0eTAeFw0xNzA4MjMx
-OTM0MTJaFw00MjA4MjMxOTM0MTJaMIGIMQswCQYDVQQGEwJVUzERMA8GA1UECAwI
-SWxsaW5vaXMxEDAOBgNVBAcMB0NoaWNhZ28xITAfBgNVBAoMGFRydXN0d2F2ZSBI
-b2xkaW5ncywgSW5jLjExMC8GA1UEAwwoVHJ1c3R3YXZlIEdsb2JhbCBDZXJ0aWZp
-Y2F0aW9uIEF1dGhvcml0eTCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIB
-ALldUShLPDeS0YLOvR29zd24q88KPuFd5dyqCblXAj7mY2Hf8g+CY66j96xz0Xzn
-swuvCAAJWX/NKSqIk4cXGIDtiLK0thAfLdZfVaITXdHG6wZWiYj+rDKd/VzDBcdu
-7oaJuogDnXIhhpCujwOl3J+IKMujkkkP7NAP4m1ET4BqstTnoApTAbqOl5F2brz8
-1Ws25kCI1nsvXwXoLG0R8+eyvpJETNKXpP7ScoFDB5zpET71ixpZfR9oWN0EACyW
-80OzfpgZdNmcc9kYvkHHNHnZ9GLCQ7mzJ7Aiy/k9UscwR7PJPrhq4ufogXBeQotP
-JqX+OsIgbrv4Fo7NDKm0G2x2EOFYeUY+VM6AqFcJNykbmROPDMjWLBz7BegIlT1l
-RtzuzWniTY+HKE40Cz7PFNm73bZQmq131BnW2hqIyE4bJ3XYsgjxroMwuREOzYfw
-hI0Vcnyh78zyiGG69Gm7DIwLdVcEuE4qFC49DxweMqZiNu5m4iK4BUBjECLzMx10
-coos9TkpoNPnG4CELcU9402x/RpvumUHO1jsQkUm+9jaJXLE9gCxInm943xZYkqc
-BW89zubWR2OZxiRvchLIrH+QtAuRcOi35hYQcRfO3gZPSEF9NUqjifLJS3tBEW1n
-twiYTOURGa5CgNz7kAXU+FDKvuStx8KU1xad5hePrzb7AgMBAAGjQjBAMA8GA1Ud
-EwEB/wQFMAMBAf8wHQYDVR0OBBYEFJngGWcNYtt2s9o9uFvo/ULSMQ6HMA4GA1Ud
-DwEB/wQEAwIBBjANBgkqhkiG9w0BAQsFAAOCAgEAmHNw4rDT7TnsTGDZqRKGFx6W
-0OhUKDtkLSGm+J1WE2pIPU/HPinbbViDVD2HfSMF1OQc3Og4ZYbFdada2zUFvXfe
-uyk3QAUHw5RSn8pk3fEbK9xGChACMf1KaA0HZJDmHvUqoai7PF35owgLEQzxPy0Q
-lG/+4jSHg9bP5Rs1bdID4bANqKCqRieCNqcVtgimQlRXtpla4gt5kNdXElE1GYhB
-aCXUNxeEFfsBctyV3lImIJgm4nb1J2/6ADtKYdkNy1GTKv0WBpanI5ojSP5RvbbE
-sLFUzt5sQa0WZ37b/TjNuThOssFgy50X31ieemKyJo90lZvkWx3SD92YHJtZuSPT
-MaCm/zjdzyBP6VhWOmfD0faZmZ26NraAL4hHT4a/RDqA5Dccprrql5gR0IRiR2Qe
-qu5AvzSxnI9O4fKSTx+O856X3vOmeWqJcU9LJxdI/uz0UA9PSX3MReO9ekDFQdxh
-VicGaeVyQYHTtgGJoC86cnn+OjC/QezHYj6RS8fZMXZC+fc8Y+wmjHMMfRod6qh8
-h6jCJ3zhM0EPz8/8AKAigJ5Kp28AsEFFtyLKaEjFQqKu3R3y4G5OBVixwJAWKqQ9
-EEC+j2Jjg6mcgn0tAumDMHzLJ8n9HmYAsC7TIS+OMxZsmO0QqAfWzJPP29FpHOTK
-yeC2nOnOcXHebD8WpHk=
------END CERTIFICATE-----
-"""
+TRUSTWAVE_GLOBAL_CERTIFICATION_AUTHORITY_BYTES_ ::= #[
+    '0',130,5,218,'0',130,3,194,160,3,2,1,2,2,12,5,247,14,134,218,'I',243,'F',
+    '5','.',0xba,178,'0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,'0',129,136,
+    '1',0xb,'0',9,6,3,'U',4,6,19,2,'U','S','1',17,'0',15,6,3,'U',4,8,12,8,'I',
+    'l','l','i','n','o','i','s','1',0x10,'0',0xe,6,3,'U',4,7,12,7,'C','h','i',
+    'c','a','g','o','1','!','0',31,6,3,'U',4,10,12,24,'T','r','u','s','t','w',
+    'a','v','e',' ','H','o','l','d','i','n','g','s',',',' ','I','n','c','.',
+    '1','1','0','/',0x06,3,'U',4,3,12,'(','T','r','u','s','t','w','a','v','e',
+    ' ','G','l','o','b','a','l',' ','C','e','r','t','i','f','i','c','a','t',
+    'i','o','n',' ','A','u','t','h','o','r','i','t','y','0',30,23,0xd,'1','7',
+    '0','8','2','3','1','9','3','4','1','2','Z',23,13,'4','2','0','8','2','3',
+    '1','9','3','4','1','2','Z','0',129,136,'1',11,'0',9,6,3,'U',4,6,19,2,'U',
+    'S','1',17,'0',15,6,3,'U',4,8,12,8,'I','l','l','i','n','o','i','s','1',16,
+    '0',0x0e,6,3,'U',4,7,0xc,7,'C','h','i','c','a','g','o','1','!','0',31,6,3,
+    'U',0x04,10,12,24,'T','r','u','s','t','w','a','v','e',' ','H','o','l','d',
+    'i','n','g','s',',',' ','I','n','c','.','1','1','0','/',0x06,3,'U',4,3,12,
+    '(','T','r','u','s','t','w','a','v','e',' ','G','l','o','b','a','l',' ',
+    'C','e','r','t','i','f','i','c','a','t','i','o','n',' ','A','u','t','h',
+    'o','r','i','t','y','0',130,2,'"','0',13,6,9,'*',134,'H',134,247,13,1,1,1,
+    5,0,3,130,2,15,0,'0',130,2,10,2,130,2,1,0,185,']','Q','(','K','<','7',146,
+    0xd1,0x82,206,189,29,189,205,221,184,171,207,10,'>',225,']',229,220,170,9,
+    0xb9,'W',2,'>',230,'c','a',223,242,15,130,'c',174,163,247,172,'s',209,'|',
+    0xe7,0xb3,0xb,175,8,0,9,'Y',127,205,')','*',136,147,135,23,24,128,237,136,
+    0xb2,0xb4,0xb6,16,31,'-',214,'_','U',162,19,']',209,198,235,6,'V',137,136,
+    0xfe,0xac,'2',0x9d,253,92,195,5,199,'n',238,134,137,186,136,3,157,'r','!',
+    0x86,0x90,174,143,3,165,220,159,136,'(',203,163,146,'I',15,236,208,15,226,
+    'm','D','O',0x80,'j',178,212,231,160,10,'S',1,186,142,151,145,'v','n',188,
+    0xfc,213,'k','6',230,'@',136,214,'{','/','_',5,232,',','m',17,243,231,178,
+    0xbe,146,'D','L',210,151,164,254,210,'r',129,'C',7,156,233,17,'>',245,139,
+    26,'Y','}',31,'h','X',0xdd,4,0,',',150,243,'C',179,'~',152,25,'t',217,156,
+    's',217,24,190,'A',199,'4','y',217,244,'b',194,'C',185,179,39,176,'"',203,
+    0xf9,'=','R',0xc7,'0','G',179,201,'>',184,'j',226,231,232,129,'p','^','B',
+    0x8b,'O','&',165,254,':',194,' ','n',187,248,22,142,205,12,169,180,27,'l',
+    'v',16,225,'X','y','F','>','T',206,128,168,'W',9,'7',')',27,153,19,143,12,
+    0xc8,0xd6,',',28,0xfb,5,232,8,149,'=','e','F',220,238,205,'i',226,'M',143,
+    0x87,'(','N','4',11,'>',207,20,217,187,221,182,'P',154,173,'w',212,25,214,
+    0xda,26,136,200,'N',27,39,'u',216,178,8,241,174,131,'0',185,17,14,205,135,
+    0xf0,132,141,21,'r','|',161,239,204,242,136,'a',186,244,'i',187,12,140,11,
+    'u','W',4,184,'N','*',20,'.','=',15,28,30,'2',166,'b','6',238,'f',226,'"',
+    0xb8,5,'@','c',16,'"',0xf3,'3',29,'t','r',138,',',245,'9',')',160,211,231,
+    0x1b,128,132,'-',197,'=',227,'M',177,253,26,'o',186,'e',7,';','X',236,'B',
+    'E','&',251,216,218,'%','r',196,246,0,177,'"','y',189,227,'|','Y','b','J',
+    0x9c,5,'o','=',206,230,214,'G','c',153,198,'$','o','r',18,200,172,127,144,
+    180,11,145,'p',232,183,230,22,16,'q',23,206,222,6,'O','H','A','}','5','J',
+    0xa3,0x89,0xf2,201,'K','{','A',17,'m','g',183,8,152,'L',229,17,25,174,'B',
+    0x80,220,251,144,5,212,248,'P',202,190,228,173,199,194,148,215,22,157,230,
+    23,143,175,'6',251,2,3,1,0,1,163,'B','0','@','0',15,6,3,'U',29,19,1,1,255,
+    0x04,5,'0',3,1,1,255,'0',29,6,3,'U',29,14,4,22,4,20,153,224,25,'g',13,'b',
+    0xdb,'v',179,218,'=',184,'[',232,253,'B',210,'1',14,135,'0',14,6,3,'U',29,
+    15,1,1,255,4,4,3,2,1,6,'0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,3,130,
+    0x02,1,0,152,'s','p',226,176,211,237,'9',236,'L','`',217,169,18,134,23,30,
+    0x96,0xd0,0xe8,'T','(',';','d','-','!',166,248,157,'V',19,'j','H','=','O',
+    0xc7,'>',')',219,'m','X',131,'T','=',135,'}','#',5,212,228,28,220,232,'8',
+    'e',134,197,'u',167,'Z',219,'5',5,189,'w',222,187,')','7','@',5,7,195,148,
+    'R',0x9f,0xca,'d',221,241,27,'+',220,'F',10,16,2,'1',253,'J','h',13,7,'d',
+    0x90,230,30,245,'*',161,168,187,'<',']',249,163,8,11,17,12,241,'?','-',16,
+    0x94,'o',0xfe,226,'4',135,131,214,207,229,27,'5','m',210,3,225,176,13,168,
+    0xa0,0xaa,'F',39,0x82,'6',167,21,182,8,166,'B','T','W',182,153,'Z',226,11,
+    'y',144,215,'W',18,'Q','5',25,136,'A','h','%',212,'7',23,132,21,251,1,'r',
+    0xdc,149,222,'R','&',' ',152,'&',226,'v',245,39,'o',250,0,';','J','a',217,
+    0x0d,203,'Q',147,'*',253,22,6,150,167,'#',154,'#','H',254,'Q',189,182,196,
+    0xb0,0xb1,'T',0xce,222,'l','A',173,22,'g','~',219,253,'8',205,185,'8','N',
+    0xb2,0xc1,'`',0xcb,157,23,223,'X',158,'z','b',178,'&',143,'t',149,155,228,
+    '[',29,0xd2,15,221,152,28,155,'Y',185,'#',211,'1',160,166,255,'8',221,207,
+    ' ','O',0xe9,'X','V',':','g',0xc3,209,246,153,153,157,186,'6',182,128,'/',
+    136,'G','O',134,191,'D',':',128,228,'7',28,166,186,234,151,152,17,208,132,
+    'b','G','d',30,170,238,'@',191,'4',177,156,143,'N',225,242,146,'O',31,142,
+    243,158,151,222,243,166,'y','j',137,'q','O','K',39,23,'H',254,236,244,'P',
+    0x0f,'O','I','}',204,'E',227,189,'z','@',197,'A',220,'a','V',39,6,'i',229,
+    'r','A',129,211,182,1,137,160,'/',':','r','y',254,':','0',191,'A',236,199,
+    'b','>',0x91,'K',0xc7,0xd9,'1','v','B',249,247,'<','c',236,'&',140,'s',12,
+    '}',26,29,234,168,'|',135,168,194,39,'|',225,'3','A',15,207,207,252,0,160,
+    '"',128,158,'J',167,'o',0,176,'A','E',183,'"',202,'h','H',197,'B',162,174,
+    0xdd,0x1d,242,224,'n','N',5,'X',177,192,144,22,'*',164,'=',16,'@',190,143,
+    'b','c',131,169,156,130,'}','-',2,233,131,'0','|',203,39,201,253,30,'f',0,
+    0xb0,'.',0xd3,'!','/',142,'3',22,'l',152,237,16,168,7,214,204,147,207,219,
+    209,'i',28,228,202,201,224,182,156,233,206,'q','q',222,'l','?',22,164,'y',
+]
+
 
 /**
 Trustwave Global Certification Authority.
 SHA256 fingerprint: 97:55:20:15:f5:dd:fc:3c:87:88:c0:06:94:45:55:40:88:94:45:00:84:f1:00:86:70:86:bc:1a:2b:b5:8d:c8
 */
-TRUSTWAVE_GLOBAL_CERTIFICATION_AUTHORITY ::= net.Certificate.parse TRUSTWAVE_GLOBAL_CERTIFICATION_AUTHORITY_TEXT_
+TRUSTWAVE_GLOBAL_CERTIFICATION_AUTHORITY ::= parse_ TRUSTWAVE_GLOBAL_CERTIFICATION_AUTHORITY_BYTES_
 
-TRUSTWAVE_GLOBAL_ECC_P256_CERTIFICATION_AUTHORITY_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIICYDCCAgegAwIBAgIMDWpfCD8oXD5Rld9dMAoGCCqGSM49BAMCMIGRMQswCQYD
-VQQGEwJVUzERMA8GA1UECBMISWxsaW5vaXMxEDAOBgNVBAcTB0NoaWNhZ28xITAf
-BgNVBAoTGFRydXN0d2F2ZSBIb2xkaW5ncywgSW5jLjE6MDgGA1UEAxMxVHJ1c3R3
-YXZlIEdsb2JhbCBFQ0MgUDI1NiBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0eTAeFw0x
-NzA4MjMxOTM1MTBaFw00MjA4MjMxOTM1MTBaMIGRMQswCQYDVQQGEwJVUzERMA8G
-A1UECBMISWxsaW5vaXMxEDAOBgNVBAcTB0NoaWNhZ28xITAfBgNVBAoTGFRydXN0
-d2F2ZSBIb2xkaW5ncywgSW5jLjE6MDgGA1UEAxMxVHJ1c3R3YXZlIEdsb2JhbCBF
-Q0MgUDI1NiBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0eTBZMBMGByqGSM49AgEGCCqG
-SM49AwEHA0IABH77bOYj43MyCMpg5lOcunSNGLB4kFKA3TjASh3RqMyTpJcGOMoN
-FWLGjgEqZZ2q3zSRLoHB5DOSMcT9CTqmP62jQzBBMA8GA1UdEwEB/wQFMAMBAf8w
-DwYDVR0PAQH/BAUDAwcGADAdBgNVHQ4EFgQUo0EGrJBt0UrrdaVKEJmzsaGLSvcw
-CgYIKoZIzj0EAwIDRwAwRAIgB+ZU2g6gWrKuEZ+Hxbb/ad4lvvigtwjzRM4q3wgh
-DDcCIC0mA6AFvWvR9lz4ZcyGbbOcNEhjhAnFjXca4syc4XR7
------END CERTIFICATE-----
-"""
+TRUSTWAVE_GLOBAL_ECC_P256_CERTIFICATION_AUTHORITY_BYTES_ ::= #[
+    '0',0x82,0x2,'`','0',130,2,7,160,3,2,1,2,2,12,13,'j','_',8,'?','(',92,'>',
+    'Q',0x95,0xdf,']','0',10,6,8,'*',134,'H',206,'=',4,3,2,'0',129,145,'1',11,
+    '0',9,6,3,'U',4,6,19,2,'U','S','1',17,'0',15,6,3,'U',4,8,19,8,'I','l','l',
+    'i','n','o','i','s','1',0x10,'0',0xe,6,3,'U',4,7,19,7,'C','h','i','c','a',
+    'g','o','1','!','0',31,6,3,'U',4,10,19,24,'T','r','u','s','t','w','a','v',
+    'e',' ','H','o','l','d','i','n','g','s',',',' ','I','n','c','.','1',':',
+    '0','8',0x06,3,'U',4,3,19,'1','T','r','u','s','t','w','a','v','e',' ','G',
+    'l','o','b','a','l',' ','E','C','C',' ','P','2','5','6',' ','C','e','r',
+    't','i','f','i','c','a','t','i','o','n',' ','A','u','t','h','o','r','i',
+    't','y','0',30,23,0xd,'1','7','0','8','2','3','1','9','3','5','1','0','Z',
+    23,13,'4','2','0','8','2','3','1','9','3','5','1','0','Z','0',129,145,'1',
+    0xb,'0',9,6,3,'U',4,6,19,2,'U','S','1',17,'0',15,6,3,'U',4,8,19,8,'I','l',
+    'l','i','n','o','i','s','1',0x10,'0',0xe,6,3,'U',4,7,19,7,'C','h','i','c',
+    'a','g','o','1','!','0',31,6,3,'U',4,10,19,24,'T','r','u','s','t','w','a',
+    'v','e',' ','H','o','l','d','i','n','g','s',',',' ','I','n','c','.','1',
+    ':','0','8',0x06,3,'U',4,3,19,'1','T','r','u','s','t','w','a','v','e',' ',
+    'G','l','o','b','a','l',' ','E','C','C',' ','P','2','5','6',' ','C','e',
+    'r','t','i','f','i','c','a','t','i','o','n',' ','A','u','t','h','o','r',
+    'i','t','y','0','Y','0',0x13,6,7,'*',0x86,'H',206,'=',2,1,6,8,'*',134,'H',
+    206,'=',3,1,7,3,'B',0,4,'~',251,'l',230,'#',227,'s','2',8,202,'`',230,'S',
+    156,186,'t',141,24,176,'x',144,'R',128,221,'8',192,'J',29,209,168,204,147,
+    164,151,6,'8',202,13,21,'b',198,142,1,'*','e',157,170,223,'4',145,'.',129,
+    0xc1,228,'3',146,'1',196,253,9,':',166,'?',173,163,'C','0','A','0',15,6,3,
+    'U',29,19,1,1,0xff,4,5,'0',3,1,1,255,'0',15,6,3,'U',29,15,1,1,255,4,5,3,3,
+    0x07,6,0,'0',29,6,3,'U',29,14,4,22,4,20,163,'A',6,172,144,'m',209,'J',235,
+    'u',165,'J',16,153,179,177,161,139,'J',247,'0',10,6,8,'*',134,'H',206,'=',
+    0x4,3,2,3,'G',0,'0','D',2,' ',7,230,'T',218,14,160,'Z',178,174,17,159,135,
+    0xc5,0xb6,0xff,'i',222,'%',190,248,160,183,8,243,'D',206,'*',223,8,'!',12,
+    '7',2,' ','-','&',3,0xa0,5,189,'k',209,246,92,248,'e',204,134,'m',179,156,
+    '4','H','c',132,9,197,141,'w',26,226,204,156,225,'t','{',
+]
+
 
 /**
 Trustwave Global ECC P256 Certification Authority.
 SHA256 fingerprint: 94:5b:bc:82:5e:a5:54:f4:89:d1:fd:51:a7:3d:df:2e:a6:24:ac:70:19:a0:52:05:22:5c:22:a7:8c:cf:a8:b4
 */
-TRUSTWAVE_GLOBAL_ECC_P256_CERTIFICATION_AUTHORITY ::= net.Certificate.parse TRUSTWAVE_GLOBAL_ECC_P256_CERTIFICATION_AUTHORITY_TEXT_
+TRUSTWAVE_GLOBAL_ECC_P256_CERTIFICATION_AUTHORITY ::= parse_ TRUSTWAVE_GLOBAL_ECC_P256_CERTIFICATION_AUTHORITY_BYTES_
 
-TRUSTWAVE_GLOBAL_ECC_P384_CERTIFICATION_AUTHORITY_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIICnTCCAiSgAwIBAgIMCL2Fl2yZJ6SAaEc7MAoGCCqGSM49BAMDMIGRMQswCQYD
-VQQGEwJVUzERMA8GA1UECBMISWxsaW5vaXMxEDAOBgNVBAcTB0NoaWNhZ28xITAf
-BgNVBAoTGFRydXN0d2F2ZSBIb2xkaW5ncywgSW5jLjE6MDgGA1UEAxMxVHJ1c3R3
-YXZlIEdsb2JhbCBFQ0MgUDM4NCBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0eTAeFw0x
-NzA4MjMxOTM2NDNaFw00MjA4MjMxOTM2NDNaMIGRMQswCQYDVQQGEwJVUzERMA8G
-A1UECBMISWxsaW5vaXMxEDAOBgNVBAcTB0NoaWNhZ28xITAfBgNVBAoTGFRydXN0
-d2F2ZSBIb2xkaW5ncywgSW5jLjE6MDgGA1UEAxMxVHJ1c3R3YXZlIEdsb2JhbCBF
-Q0MgUDM4NCBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0eTB2MBAGByqGSM49AgEGBSuB
-BAAiA2IABGvaDXU1CDFHBa5FmVXxERMuSvgQMSOjfoPTfygIOiYaOs+Xgh+AtycJ
-j9GOMMQKmw6sWASr9zZ9lCOkmwqKi6vr/TklZvFe/oyujUF5nQlgziip04pt89ZF
-1PKYhDhloKNDMEEwDwYDVR0TAQH/BAUwAwEB/zAPBgNVHQ8BAf8EBQMDBwYAMB0G
-A1UdDgQWBBRVqYSJ0sEyvRjLbKYHTsjnnb6CkDAKBggqhkjOPQQDAwNnADBkAjA3
-AZKXRRJ+oPM+rRk6ct30UJMDEr5E0k9BpIycnR+j9sKS50gU/k6bpZFXrsY3crsC
-MGclCrEMXu6pY5Jv5ZAL/mYiykf9ijH3g/56vxC+GCsej/YpHpRZ744hN8tRmKVu
-Sw==
------END CERTIFICATE-----
-"""
+TRUSTWAVE_GLOBAL_ECC_P384_CERTIFICATION_AUTHORITY_BYTES_ ::= #[
+    '0',130,2,157,'0',130,2,'$',160,3,2,1,2,2,12,8,189,133,151,'l',153,39,164,
+    0x80,'h','G',';','0',0xa,6,8,'*',134,'H',206,'=',4,3,3,'0',129,145,'1',11,
+    '0',9,6,3,'U',4,6,19,2,'U','S','1',17,'0',15,6,3,'U',4,8,19,8,'I','l','l',
+    'i','n','o','i','s','1',0x10,'0',0xe,6,3,'U',4,7,19,7,'C','h','i','c','a',
+    'g','o','1','!','0',31,6,3,'U',4,10,19,24,'T','r','u','s','t','w','a','v',
+    'e',' ','H','o','l','d','i','n','g','s',',',' ','I','n','c','.','1',':',
+    '0','8',0x06,3,'U',4,3,19,'1','T','r','u','s','t','w','a','v','e',' ','G',
+    'l','o','b','a','l',' ','E','C','C',' ','P','3','8','4',' ','C','e','r',
+    't','i','f','i','c','a','t','i','o','n',' ','A','u','t','h','o','r','i',
+    't','y','0',30,23,0xd,'1','7','0','8','2','3','1','9','3','6','4','3','Z',
+    23,13,'4','2','0','8','2','3','1','9','3','6','4','3','Z','0',129,145,'1',
+    0xb,'0',9,6,3,'U',4,6,19,2,'U','S','1',17,'0',15,6,3,'U',4,8,19,8,'I','l',
+    'l','i','n','o','i','s','1',0x10,'0',0xe,6,3,'U',4,7,19,7,'C','h','i','c',
+    'a','g','o','1','!','0',31,6,3,'U',4,10,19,24,'T','r','u','s','t','w','a',
+    'v','e',' ','H','o','l','d','i','n','g','s',',',' ','I','n','c','.','1',
+    ':','0','8',0x06,3,'U',4,3,19,'1','T','r','u','s','t','w','a','v','e',' ',
+    'G','l','o','b','a','l',' ','E','C','C',' ','P','3','8','4',' ','C','e',
+    'r','t','i','f','i','c','a','t','i','o','n',' ','A','u','t','h','o','r',
+    'i','t','y','0','v','0',0x10,6,7,'*',0x86,'H',206,'=',2,1,6,5,'+',129,4,0,
+    '"',0x03,'b',0,4,'k',218,13,'u','5',8,'1','G',5,174,'E',153,'U',241,17,19,
+    '.','J',0xf8,16,'1','#',0xa3,'~',131,211,127,'(',8,':','&',26,':',207,151,
+    0x82,31,0x80,183,39,9,143,209,142,'0',196,10,155,14,172,'X',4,171,247,'6',
+    '}',0x94,'#',0xa4,0x9b,10,138,139,171,235,253,'9','%','f',241,'^',254,140,
+    174,141,'A','y',157,9,'`',206,'(',169,211,138,'m',243,214,'E',212,242,152,
+    0x84,'8','e',160,163,'C','0','A','0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,
+    0x1,255,'0',15,6,3,'U',29,15,1,1,255,4,5,3,3,7,6,0,'0',29,6,3,'U',29,14,4,
+    22,4,20,'U',0xa9,132,137,210,193,'2',189,24,203,'l',166,7,'N',200,231,157,
+    0xbe,0x82,0x90,'0',10,6,8,'*',134,'H',206,'=',4,3,3,3,'g',0,'0','d',2,'0',
+    '7',1,0x92,151,'E',18,'~',160,243,'>',173,25,':','r',221,244,'P',147,3,18,
+    190,'D',210,'O','A',164,140,156,157,31,163,246,194,146,231,'H',20,254,'N',
+    0x9b,0xa5,145,'W',174,198,'7','r',187,2,'0','g','%',10,177,12,'^',238,169,
+    'c',0x92,'o',0xe5,0x90,11,254,'f','"',202,'G',253,138,'1',247,131,254,'z',
+    0xbf,16,0xbe,24,'+',30,143,246,')',30,148,'Y',239,142,'!','7',203,'Q',152,
+    165,'n','K',
+]
+
 
 /**
 Trustwave Global ECC P384 Certification Authority.
 SHA256 fingerprint: 55:90:38:59:c8:c0:c3:eb:b8:75:9e:ce:4e:25:57:22:5f:f5:75:8b:bd:38:eb:d4:82:76:60:1e:1b:d5:80:97
 */
-TRUSTWAVE_GLOBAL_ECC_P384_CERTIFICATION_AUTHORITY ::= net.Certificate.parse TRUSTWAVE_GLOBAL_ECC_P384_CERTIFICATION_AUTHORITY_TEXT_
+TRUSTWAVE_GLOBAL_ECC_P384_CERTIFICATION_AUTHORITY ::= parse_ TRUSTWAVE_GLOBAL_ECC_P384_CERTIFICATION_AUTHORITY_BYTES_
 
-NAVER_GLOBAL_ROOT_CERTIFICATION_AUTHORITY_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIFojCCA4qgAwIBAgIUAZQwHqIL3fXFMyqxQ0Rx+NZQTQ0wDQYJKoZIhvcNAQEM
-BQAwaTELMAkGA1UEBhMCS1IxJjAkBgNVBAoMHU5BVkVSIEJVU0lORVNTIFBMQVRG
-T1JNIENvcnAuMTIwMAYDVQQDDClOQVZFUiBHbG9iYWwgUm9vdCBDZXJ0aWZpY2F0
-aW9uIEF1dGhvcml0eTAeFw0xNzA4MTgwODU4NDJaFw0zNzA4MTgyMzU5NTlaMGkx
-CzAJBgNVBAYTAktSMSYwJAYDVQQKDB1OQVZFUiBCVVNJTkVTUyBQTEFURk9STSBD
-b3JwLjEyMDAGA1UEAwwpTkFWRVIgR2xvYmFsIFJvb3QgQ2VydGlmaWNhdGlvbiBB
-dXRob3JpdHkwggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQC21PGTXLVA
-iQqrDZBbUGOukJR0F0Vy1ntlWilLp1agS7gvQnXp2XskWjFlqxcX0TM62RHcQDaH
-38dq6SZeWYp34+hInDEW+j6RscrJo+KfziFTowI2MMtSAuXaMl3Dxeb57hHHi8lE
-HoSTGEq0n+USZGnQJoViAbbJAh2+g1G7XNr4rRVqmfeSVPc0W+m/6imBEtRTkZaz
-kVrd/pBzKPswRrXKCAfHcXLJZtM0l/aM9BhK4dA9WkW2aacp+yPOiNgSnABIqKYP
-szuSjXEOdMWLyEz59JuOuDxp7W87UC9Y7cSw0BwbagzivESq2M0UXZR4Yb8Obtoq
-vC8MC3GmsxY/nOb5zJ9TNeIDoKAYv7vxvvTWjIcNQvcGufFt7QSUqP620wbGQGHf
-nZ3zVHbOUzoBppJB7ASjjw2i1QnK1sua8e9DXcCrpUHPXFNwcMmIpi3Ua2FzUCaG
-YQ5fG8Ir4ozVu53BA0K6lNpfqbDKzE0K70dpAy8i+/Eozr9dUGWokG2zdLAIx6yo
-0es+nPxdGoMuK8u180SdOqcXYZaicdNwlhVNt0xz7hlcxVs+Qf6sdWA7G2POAN3a
-CJBitOUt7kinaxeZVL6HSuOpXgRM6xBtVNbv8ejyYhbLgGvtPe31HzClrkvJE+2K
-AQHJuFFYwGY6sWZLxNUxAmLpdIQM201GLQIDAQABo0IwQDAdBgNVHQ4EFgQU0p+I
-36HNLL3s9TsBAZMzJ7LrYEswDgYDVR0PAQH/BAQDAgEGMA8GA1UdEwEB/wQFMAMB
-Af8wDQYJKoZIhvcNAQEMBQADggIBADLKgLOdPVQG3dLSLvCkASELZ0jKbY7gyKoN
-qo0hV4/GPnrK21HUUrPUloSlWGB/5QuOH/XcChWB5Tu2tyIvCZwTFrFsDDUIbatj
-cu3cvuzHV+YwIHHW1xDBE1UBjCpD5EHxzzp6U5LOogMFDTjfArsQLtk70pt6wKGm
-+LUx5vR1yblTmXVHIloUFcd4G7ad6Qz4G3bxhYTeodoS76TiEJd6eN4MUZeoIUCL
-hr0N8F5OSza7OyAfikJW4Qsav3vQIkMsRIz75Sq0bBwcupTgE34h5prCy8VCZLQe
-lHsIJchxzIdFV4XTnyliIoNRlwAYl3dqmJLJfGBs32x9SuRwTMKeuB330DTHD8z7
-p/8Dvq1wkNoL3chtl1+afwkyQf3NosxabUzyqkn+Zvjp2DXrDige7kgvOtB5CTh8
-piKCk5XQA76+AqAF3SAi428diDRgxuYKuQl1C/AH6GmWNcf7I4GOODm4RStDeKLR
-LBT/DShycpWbXgnbiUSYqqFJu3FS8r/2/yehNq+4tneI3TqkbZs0kNwUXTC/t+sX
-5Ie3cdCh13cV1ELX8vMxmV2b3RZtP+oGI/hGoiLtk/bdmuYqh7GYVPEi92tF4+KO
-dh2ajcQGjTa3FPOdVGm3jjzVpG2Tgbet9r1ke8LJaDmgkpzNNIaRkPpkUZ3+/uul
-9XXeifdy
------END CERTIFICATE-----
-"""
+NAVER_GLOBAL_ROOT_CERTIFICATION_AUTHORITY_BYTES_ ::= #[
+    '0',0x82,5,162,'0',130,3,138,160,3,2,1,2,2,20,1,148,'0',30,162,11,221,245,
+    197,'3','*',177,'C','D','q',248,214,'P','M',13,'0',13,6,9,'*',134,'H',134,
+    0xf7,0xd,1,1,12,5,0,'0','i','1',11,'0',9,6,3,'U',4,6,19,2,'K','R','1','&',
+    '0','$',0x06,3,'U',4,10,12,29,'N','A','V','E','R',' ','B','U','S','I','N',
+    'E','S','S',' ','P','L','A','T','F','O','R','M',' ','C','o','r','p','.',
+    '1','2','0','0',0x06,3,'U',4,3,12,')','N','A','V','E','R',' ','G','l','o',
+    'b','a','l',' ','R','o','o','t',' ','C','e','r','t','i','f','i','c','a',
+    't','i','o','n',' ','A','u','t','h','o','r','i','t','y','0',30,23,0xd,'1',
+    '7','0','8','1','8','0','8','5','8','4','2','Z',23,13,'3','7','0','8','1',
+    '8','2','3','5','9','5','9','Z','0','i','1',11,'0',9,6,3,'U',4,6,19,2,'K',
+    'R','1','&','0','$',0x06,3,'U',4,10,12,29,'N','A','V','E','R',' ','B','U',
+    'S','I','N','E','S','S',' ','P','L','A','T','F','O','R','M',' ','C','o',
+    'r','p','.','1','2','0','0',0x06,3,'U',4,3,12,')','N','A','V','E','R',' ',
+    'G','l','o','b','a','l',' ','R','o','o','t',' ','C','e','r','t','i','f',
+    'i','c','a','t','i','o','n',' ','A','u','t','h','o','r','i','t','y','0',
+    0x82,0x2,'"','0',13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,2,15,0,'0',
+    130,2,10,2,130,2,1,0,182,212,241,147,92,181,'@',137,10,171,13,144,'[','P',
+    'c',0xae,0x90,0x94,'t',23,'E','r',214,'{','e','Z',')','K',167,'V',160,'K',
+    0xb8,'/','B','u',233,217,'{','$','Z','1','e',171,23,23,209,'3',':',217,17,
+    0xdc,'@','6',0x87,223,199,'j',233,'&','^','Y',138,'w',227,232,'H',156,'1',
+    22,0xfa,'>',145,177,202,201,163,226,159,206,'!','S',163,2,'6','0',203,'R',
+    0x02,229,218,'2',']',195,197,230,249,238,17,199,139,201,'D',30,132,147,24,
+    'J',180,159,229,18,'d','i',208,'&',133,'b',1,182,201,2,29,190,131,'Q',187,
+    92,0xda,248,173,21,'j',153,247,146,'T',247,'4','[',233,191,234,')',129,18,
+    0xd4,'S',0x91,150,179,145,'Z',221,254,144,'s','(',251,'0','F',181,202,8,7,
+    0xc7,'q','r',0xc9,'f',0xd3,'4',151,246,140,244,24,'J',225,208,'=','Z','E',
+    0xb6,'i',0xa7,')',251,'#',206,136,216,18,156,0,'H',168,166,15,179,';',146,
+    0x8d,'q',0x0e,'t',197,139,200,'L',249,244,155,142,184,'<','i',237,'o',';',
+    'P','/','X',0xed,0xc4,176,208,28,27,'j',12,226,188,'D',170,216,205,20,']',
+    0x94,'x','a',0xbf,14,'n',218,'*',188,'/',12,11,'q',166,179,22,'?',156,230,
+    0xf9,0xcc,159,'S','5',226,3,160,160,24,191,187,241,190,244,214,140,135,13,
+    'B',247,6,185,241,'m',237,4,148,168,254,182,211,6,198,'@','a',223,157,157,
+    0xf3,'T','v',206,'S',':',1,166,146,'A',236,4,163,143,13,162,213,9,202,214,
+    0xcb,0x9a,0xf1,239,'C',']',192,171,165,'A',207,92,'S','p','p',201,136,166,
+    '-',212,'k','a','s','P','&',134,'a',14,'_',27,194,'+',226,140,213,187,157,
+    0xc1,0x3,'B',186,148,218,'_',169,176,202,204,'M',10,239,'G','i',3,'/','"',
+    251,241,'(',206,191,']','P','e',168,144,'m',179,'t',176,8,199,172,168,209,
+    235,'>',156,252,']',26,131,'.','+',203,181,243,'D',157,':',167,23,'a',150,
+    0xa2,'q',211,'p',150,21,'M',183,'L','s',238,25,92,197,'[','>','A',254,172,
+    'u','`',';',27,'c',206,0,221,218,8,144,'b',180,229,'-',238,'H',167,'k',23,
+    0x99,'T',190,135,'J',227,169,'^',4,'L',235,16,'m','T',214,239,241,232,242,
+    'b',22,0xcb,128,'k',237,'=',237,245,31,'0',165,174,'K',201,19,237,138,1,1,
+    0xc9,184,'Q','X',192,'f',':',177,'f','K',196,213,'1',2,'b',233,'t',132,12,
+    0xdb,'M','F','-',2,3,1,0,1,163,'B','0','@','0',29,6,3,'U',29,14,4,22,4,20,
+    0xd2,0x9f,0x88,223,161,205,',',189,236,245,';',1,1,147,'3',39,178,235,'`',
+    'K','0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',15,6,3,'U',29,19,1,1,255,
+    4,5,'0',3,1,1,0xff,'0',13,6,9,'*',134,'H',134,247,13,1,1,12,5,0,3,130,2,1,
+    0,'2',0xca,128,179,157,'=','T',6,221,210,210,'.',240,164,1,'!',11,'g','H',
+    0xca,'m',0x8e,0xe0,200,170,13,170,141,'!','W',143,198,'>','z',202,219,'Q',
+    0xd4,'R',0xb3,212,150,132,165,'X','`',127,229,11,142,31,245,220,10,21,129,
+    0xe5,';',182,183,'"','/',9,156,19,22,177,'l',12,'5',8,'m',171,'c','r',237,
+    0xdc,0xbe,236,199,'W',230,'0',' ','q',214,215,16,193,19,'U',1,140,'*','C',
+    0xe4,'A',0xf1,207,':','z','S',146,206,162,3,5,13,'8',223,2,187,16,'.',217,
+    ';',0xd2,0x9b,'z',192,161,166,248,181,'1',230,244,'u',201,185,'S',153,'u',
+    'G','"','Z',0x14,21,0xc7,'x',27,182,157,233,12,248,27,'v',241,133,132,222,
+    0xa1,218,18,239,164,226,16,151,'z','x',222,12,'Q',151,168,'!','@',139,134,
+    0xbd,0xd,240,'^','N','K','6',187,';',' ',31,138,'B','V',225,11,26,191,'{',
+    0xd0,'"','C',',','D',140,251,229,'*',180,'l',28,28,186,148,224,19,'~','!',
+    0xe6,154,194,203,197,'B','d',180,30,148,'{',8,'%',200,'q',204,135,'E','W',
+    0x85,211,159,')','b','"',131,'Q',151,0,24,151,'w','j',152,146,201,'|','`',
+    'l',223,'l','}','J',228,'p','L',194,158,184,29,247,208,'4',199,15,204,251,
+    0xa7,0xff,3,0xbe,173,'p',144,218,11,221,200,'m',151,'_',154,127,9,'2','A',
+    0xfd,0xcd,0xa2,204,'Z','m','L',242,170,'I',254,'f',248,233,216,'5',235,14,
+    '(',0x1e,0xee,'H','/',':',208,'y',9,'8','|',166,'"',130,147,149,208,3,190,
+    0xbe,0x2,160,5,221,' ','"',227,'o',29,136,'4','`',198,230,10,185,9,'u',11,
+    240,7,232,'i',150,'5',199,251,'#',129,142,'8','9',184,'E','+','C','x',162,
+    0xd1,',',20,0xff,13,'(','r','r',149,155,'^',9,219,137,'D',152,170,161,'I',
+    0xbb,'q','R',0xf2,0xbf,246,255,39,161,'6',175,184,182,'w',136,221,':',164,
+    'm',155,'4',144,220,20,']','0',191,183,235,23,228,135,183,'q',208,161,215,
+    'w',0x15,212,'B',215,242,243,'1',153,']',155,221,22,'m','?',234,6,'#',248,
+    'F',0xa2,'"',0xed,147,246,221,154,230,'*',135,177,152,'T',241,'"',247,'k',
+    'E',0xe3,0xe2,142,'v',29,154,141,196,6,141,'6',183,20,243,157,'T','i',183,
+    0x8e,'<',0xd5,164,'m',147,129,183,173,246,189,'d','{',194,201,'h','9',160,
+    0x92,0x9c,205,'4',134,145,144,250,'d','Q',157,254,254,235,165,245,'u',222,
+    137,247,'r',
+]
+
 
 /**
 NAVER Global Root Certification Authority.
 SHA256 fingerprint: 88:f4:38:dc:f8:ff:d1:fa:8f:42:91:15:ff:e5:f8:2a:e1:e0:6e:0c:70:c3:75:fa:ad:71:7b:34:a4:9e:72:65
 */
-NAVER_GLOBAL_ROOT_CERTIFICATION_AUTHORITY ::= net.Certificate.parse NAVER_GLOBAL_ROOT_CERTIFICATION_AUTHORITY_TEXT_
+NAVER_GLOBAL_ROOT_CERTIFICATION_AUTHORITY ::= parse_ NAVER_GLOBAL_ROOT_CERTIFICATION_AUTHORITY_BYTES_
 
-AC_RAIZ_FNMT_RCM_SERVIDORES_SEGUROS_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIICbjCCAfOgAwIBAgIQYvYybOXE42hcG2LdnC6dlTAKBggqhkjOPQQDAzB4MQsw
-CQYDVQQGEwJFUzERMA8GA1UECgwIRk5NVC1SQ00xDjAMBgNVBAsMBUNlcmVzMRgw
-FgYDVQRhDA9WQVRFUy1RMjgyNjAwNEoxLDAqBgNVBAMMI0FDIFJBSVogRk5NVC1S
-Q00gU0VSVklET1JFUyBTRUdVUk9TMB4XDTE4MTIyMDA5MzczM1oXDTQzMTIyMDA5
-MzczM1oweDELMAkGA1UEBhMCRVMxETAPBgNVBAoMCEZOTVQtUkNNMQ4wDAYDVQQL
-DAVDZXJlczEYMBYGA1UEYQwPVkFURVMtUTI4MjYwMDRKMSwwKgYDVQQDDCNBQyBS
-QUlaIEZOTVQtUkNNIFNFUlZJRE9SRVMgU0VHVVJPUzB2MBAGByqGSM49AgEGBSuB
-BAAiA2IABPa6V1PIyqvfNkpSIeSX0oNnnvBlUdBeh8dHsVnyV0ebAAKTRBdp20LH
-sbI6GA60XYyzZl2hNPk2LEnb80b8s0RpRBNm/dfF/a82Tc4DTQdxz69qBdKiQ1oK
-Um8BA06Oi6NCMEAwDwYDVR0TAQH/BAUwAwEB/zAOBgNVHQ8BAf8EBAMCAQYwHQYD
-VR0OBBYEFAG5L++/EYZg8k/QQW6rcx/n0m5JMAoGCCqGSM49BAMDA2kAMGYCMQCu
-SuMrQMN0EfKVrRYj3k4MGuZdpSRea0R7/DjiT8ucRRcRTBQnJlU5dUoDzBOQn5IC
-MQD6SmxgiHPz7riYYqnOK8LZiqZwMR2vsJRM60/G49HzYqc8/5MuB1xJAWdpEgJy
-v+c=
------END CERTIFICATE-----
-"""
+AC_RAIZ_FNMT_RCM_SERVIDORES_SEGUROS_BYTES_ ::= #[
+    '0',0x82,2,'n','0',130,1,243,160,3,2,1,2,2,16,'b',246,'2','l',229,196,227,
+    'h',0x5c,27,'b',0xdd,156,'.',157,149,'0',10,6,8,'*',134,'H',206,'=',4,3,3,
+    '0','x','1',0xb,'0',9,6,3,'U',4,6,19,2,'E','S','1',17,'0',15,6,3,'U',4,10,
+    0xc,8,'F','N','M','T','-','R','C','M','1',14,'0',12,6,3,'U',4,11,12,5,'C',
+    'e','r','e','s','1',24,'0',22,6,3,'U',4,'a',12,15,'V','A','T','E','S','-',
+    'Q','2','8','2','6','0','0','4','J','1',',','0','*',0x06,3,'U',4,3,12,'#',
+    'A','C',' ','R','A','I','Z',' ','F','N','M','T','-','R','C','M',' ','S',
+    'E','R','V','I','D','O','R','E','S',' ','S','E','G','U','R','O','S','0',
+    0x1e,23,0xd,'1','8','1','2','2','0','0','9','3','7','3','3','Z',23,13,'4',
+    '3','1','2','2','0','0','9','3','7','3','3','Z','0','x','1',0xb,'0',9,6,3,
+    'U',4,6,19,2,'E','S','1',17,'0',0xf,6,3,'U',4,10,12,8,'F','N','M','T','-',
+    'R','C','M','1',0x0e,'0',0xc,6,3,'U',4,11,12,5,'C','e','r','e','s','1',24,
+    '0',0x16,6,3,'U',4,'a',0xc,15,'V','A','T','E','S','-','Q','2','8','2','6',
+    '0','0','4','J','1',',','0','*',0x06,3,'U',4,3,12,'#','A','C',' ','R','A',
+    'I','Z',' ','F','N','M','T','-','R','C','M',' ','S','E','R','V','I','D',
+    'O','R','E','S',' ','S','E','G','U','R','O','S','0','v','0',0x10,6,7,'*',
+    134,'H',206,'=',2,1,6,5,'+',129,4,0,'"',3,'b',0,4,246,186,'W','S',200,202,
+    0xab,0xdf,'6','J','R','!',228,151,210,131,'g',158,240,'e','Q',208,'^',135,
+    0xc7,'G',0xb1,'Y',0xf2,'W','G',155,0,2,147,'D',23,'i',219,'B',199,177,178,
+    ':',24,14,180,']',140,179,'f',']',161,'4',249,'6',',','I',219,243,'F',252,
+    0xb3,'D','i','D',0x13,'f',253,215,197,253,175,'6','M',206,3,'M',7,'q',207,
+    0xaf,'j',5,210,162,'C','Z',10,'R','o',1,3,'N',142,139,163,'B','0','@','0',
+    15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',14,6,3,'U',29,15,1,1,255,4,
+    4,3,2,1,6,'0',29,6,3,'U',29,14,4,22,4,20,1,185,'/',239,191,17,134,'`',242,
+    'O',208,'A','n',171,'s',31,231,210,'n','I','0',10,6,8,'*',134,'H',206,'=',
+    4,3,3,3,'i',0,'0','f',2,'1',0,0xae,'J',227,'+','@',195,'t',17,242,149,173,
+    22,'#',0xde,'N',12,26,230,']',165,'$','^','k','D','{',252,'8',226,'O',203,
+    0x9c,'E',23,17,'L',20,39,'&','U','9','u','J',3,204,19,144,159,146,2,'1',0,
+    0xfa,'J','l','`',0x88,'s',243,238,184,152,'b',169,206,'+',194,217,138,166,
+    'p','1',0x1d,0xaf,176,148,'L',235,'O',198,227,209,243,'b',167,'<',255,147,
+    '.',7,92,'I',1,'g','i',18,2,'r',191,231,
+]
+
 
 /**
 AC RAIZ FNMT-RCM SERVIDORES SEGUROS.
 SHA256 fingerprint: 55:41:53:b1:3d:2c:f9:dd:b7:53:bf:be:1a:4e:0a:e0:8d:0a:a4:18:70:58:fe:60:a2:b8:62:b2:e4:b8:7b:cb
 */
-AC_RAIZ_FNMT_RCM_SERVIDORES_SEGUROS ::= net.Certificate.parse AC_RAIZ_FNMT_RCM_SERVIDORES_SEGUROS_TEXT_
+AC_RAIZ_FNMT_RCM_SERVIDORES_SEGUROS ::= parse_ AC_RAIZ_FNMT_RCM_SERVIDORES_SEGUROS_BYTES_
 
-GLOBALSIGN_ROOT_R46_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIFWjCCA0KgAwIBAgISEdK7udcjGJ5AXwqdLdDfJWfRMA0GCSqGSIb3DQEBDAUA
-MEYxCzAJBgNVBAYTAkJFMRkwFwYDVQQKExBHbG9iYWxTaWduIG52LXNhMRwwGgYD
-VQQDExNHbG9iYWxTaWduIFJvb3QgUjQ2MB4XDTE5MDMyMDAwMDAwMFoXDTQ2MDMy
-MDAwMDAwMFowRjELMAkGA1UEBhMCQkUxGTAXBgNVBAoTEEdsb2JhbFNpZ24gbnYt
-c2ExHDAaBgNVBAMTE0dsb2JhbFNpZ24gUm9vdCBSNDYwggIiMA0GCSqGSIb3DQEB
-AQUAA4ICDwAwggIKAoICAQCsrHQy6LNl5brtQyYdpokNRbopiLKkHWPd08EsCVeJ
-OaFV6Wc0dwxu5FUdUiXSE2te4R2pt32JMl8Nnp8semNgQB+msLZ4j5lUlghYruQG
-vGIFAha/r6gjA7aUD7xubMLL1aa7DOn2wQL7Id5m3RerdELv8HQvJfTqa1VbkNud
-316HCkD7rRlr+/fKYIje2sGP1q7Vf9Q8g+7XFkyDRTNrJ9CG0Bwta/OrffGFqfUo
-0q3v84RLHIf8E6M6cqJaESvWJ3En7YEtbWaBkoe0G1h6zD8K+kZPTXhc+CtI4wSE
-y132tGqzZfxCnlEmIyDLPRT5ge1lFgBPGmSXZgjPjHvjK8Cd+RTyG/FWaha/LIWF
-zXg4mutCagI0GIMXTpRW+LaCtfOW3T3zvn8gdz57GSNrLNRyc0NXfeD412lPFzYE
-+cCQYDdF3uYM2HSNrpyibXRdQr4G9dlkbgIQrImwTDsHTUB+JMWKmIJ5jqSngiCN
-I/onccnfxkF0oE32kRbcRoxfKWMxWXEM2G/CtjJ9++ZdU6Z+Ffy7dXxd7Pj2Fxzs
-x2sZy/N78CsHpdlseVR2bJ0cpm4O6XkMqCNqo98bMDGfsVR7/mrLZqrcZdCinkqa
-ByFrgY/bxFn63iLABJzjqls2k+g9vXqhnQt2sQvHnf3PmKgGwvgqo6GDoLclcqUC
-4wIDAQABo0IwQDAOBgNVHQ8BAf8EBAMCAYYwDwYDVR0TAQH/BAUwAwEB/zAdBgNV
-HQ4EFgQUA1yrc4GHqMywptWU4jaWSf8FmSwwDQYJKoZIhvcNAQEMBQADggIBAHx4
-7PYCLLtbfpIrXTncvtgdokIzTfnvpCo7RGkerNlFo048p9gkUbJUHJNOxO97k4Vg
-JuoJSOD1u8fpaNK7ajFxzHmuEajwmf3lH7wvqMxX63bEIaZHU1VNaL8FpO7XJqti
-2kM3S+LGteWygxk6x9PbTZ4IevPuzz5i+6zoYMzRx6Fcg0XERczzF2sUyQQCPtIk
-pnnpHs6i58FZFZ8d4kuaPp92CC1r2LpXFNqD6v6MVenQTqnMdzGxRBF6XLE+0xRF
-FRhiJBPSy03OXIPBNvIQtQ6IbbjhVp+J3pZmOUdkLG5NrmJ7v2B0GbhWrJKsFjLt
-rWhV/pi60zTe9Mlhww6G9kuEYO4Ne7UyWHmRVSyBQ7N0H3qqJZ4d16GLuc1CLgSk
-ZoNNiTW2bKg2SnkheCLQQrzRQDGQob4Ez8pn7fXwgNNgyYMqIgXQBztSvwyeqiv5
-u+YfjyW6hY0XHgL+XVAEV8/+LbzvXMAaq7afJMbfc2hIkCwU9D9SGuTSyxTDYWnP
-4vkYxboznxSjBF25cfe1lNj2M8FawTSLfJvdkzrnE6JwYZ+vj+vYxXX4M2bUdGc6
-N3ec592kD3ZDZopD8p/7DEJ4Y9HiD2971KE9dJeFt0g5QdYg/NA6s/rob8SKunE3
-vouXsXgxT7PntgMTzlSdriVZzH81Xwj3QEUxeCp6
------END CERTIFICATE-----
-"""
+GLOBALSIGN_ROOT_R46_BYTES_ ::= #[
+    '0',0x82,0x5,'Z','0',130,3,'B',160,3,2,1,2,2,18,17,210,187,185,215,'#',24,
+    158,'@','_',10,157,'-',208,223,'%','g',209,'0',13,6,9,'*',134,'H',134,247,
+    13,1,1,12,5,0,'0','F','1',11,'0',9,6,3,'U',4,6,19,2,'B','E','1',25,'0',23,
+    0x06,3,'U',4,10,19,16,'G','l','o','b','a','l','S','i','g','n',' ','n','v',
+    '-','s','a','1',0x1c,'0',26,6,3,'U',4,3,19,19,'G','l','o','b','a','l','S',
+    'i','g','n',' ','R','o','o','t',' ','R','4','6','0',30,23,0xd,'1','9','0',
+    '3','2','0','0','0','0','0','0','0','Z',23,13,'4','6','0','3','2','0','0',
+    '0','0','0','0','0','Z','0','F','1',11,'0',9,6,3,'U',4,6,19,2,'B','E','1',
+    25,'0',23,6,3,'U',4,0xa,19,16,'G','l','o','b','a','l','S','i','g','n',' ',
+    'n','v','-','s','a','1',0x1c,'0',26,6,3,'U',4,3,19,19,'G','l','o','b','a',
+    'l','S','i','g','n',' ','R','o','o','t',' ','R','4','6','0',130,2,'"','0',
+    13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,2,15,0,'0',130,2,10,2,130,2,
+    1,0,172,172,'t','2',232,179,'e',229,186,237,'C','&',29,166,137,13,'E',186,
+    ')',0x88,178,164,29,'c',221,211,193,',',9,'W',137,'9',161,'U',233,'g','4',
+    'w',0x0c,'n',228,'U',29,'R','%',210,19,'k','^',225,29,169,183,'}',137,'2',
+    '_',0x0d,158,159,',','z','c','`','@',31,166,176,182,'x',143,153,'T',150,8,
+    'X',174,228,6,188,'b',5,2,22,191,175,168,'#',3,182,148,15,188,'n','l',194,
+    0xcb,0xd5,166,187,12,233,246,193,2,251,'!',222,'f',221,23,171,'t','B',239,
+    0xf0,'t','/','%',0xf4,0xea,'k','U','[',144,219,157,223,'^',135,10,'@',251,
+    0xad,0x19,'k',251,247,202,'`',136,222,218,193,143,214,174,213,127,212,'<',
+    0x83,238,215,22,'L',131,'E','3','k',39,208,134,208,28,'-','k',243,171,'}',
+    241,133,169,245,'(',210,173,239,243,132,'K',28,135,252,19,163,':','r',162,
+    'Z',0x11,'+',214,39,'q',39,237,129,'-','m','f',129,146,135,180,27,'X','z',
+    0xcc,'?',0xa,250,'F','O','M','x',92,248,'+','H',227,4,132,203,']',246,180,
+    'j',0xb3,'e',0xfc,'B',158,'Q','&','#',' ',203,'=',20,249,129,237,'e',22,0,
+    'O',0x1a,'d',0x97,'f',8,207,140,'{',227,'+',192,157,249,20,242,27,241,'V',
+    'j',0x16,0xbf,',',133,133,205,'x','8',154,235,'B','j',2,'4',24,131,23,'N',
+    0x94,'V',0xf8,0xb6,130,181,243,150,221,'=',243,190,127,' ','w','>','{',25,
+    '#','k',',',0xd4,'r','s','C','W','}',224,248,215,'i','O',23,'6',4,249,192,
+    0x90,'`','7','E',222,230,12,216,'t',141,174,156,162,'m','t',']','B',190,6,
+    0xf5,0xd9,'d','n',2,16,0xac,137,176,'L',';',7,'M','@','~','$',197,138,152,
+    0x82,'y',0x8e,0xa4,167,130,' ',141,'#',250,39,'q',201,223,198,'A','t',160,
+    'M',246,145,22,220,'F',140,'_',')','c','1','Y','q',12,216,'o',194,182,'2',
+    '}',0xfb,230,']','S',166,'~',21,252,187,'u','|',']',236,248,246,23,28,236,
+    0xc7,'k',25,0xcb,243,'{',240,'+',7,165,217,'l','y','T','v','l',157,28,166,
+    'n',0xe,233,'y',12,168,'#','j',163,223,27,'0','1',159,177,'T','{',254,'j',
+    203,'f',170,220,'e',208,162,158,'J',154,7,'!','k',129,143,219,196,'Y',250,
+    0xde,'"',192,4,156,227,170,'[','6',147,232,'=',189,'z',161,157,11,'v',177,
+    0xb,199,157,253,207,152,168,6,194,248,'*',163,161,131,160,183,'%','r',165,
+    0x02,227,2,3,1,0,1,163,'B','0','@','0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,
+    134,'0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',29,6,3,'U',29,14,4,
+    22,4,20,3,92,0xab,'s',129,135,168,204,176,166,213,148,226,'6',150,'I',255,
+    0x05,153,',','0',13,6,9,'*',134,'H',134,247,13,1,1,12,5,0,3,130,2,1,0,'|',
+    'x',0xec,246,2,',',187,'[','~',146,'+',']','9',220,190,216,29,162,'B','3',
+    'M',0xf9,0xef,0xa4,'*',';','D','i',30,172,217,'E',163,'N','<',167,216,'$',
+    'Q',0xb2,'T',28,147,'N',196,239,'{',147,133,'`','&',234,9,'H',224,245,187,
+    199,233,'h',210,187,'j','1','q',204,'y',174,17,168,240,153,253,229,31,188,
+    '/',168,204,'W',235,'v',196,'!',166,'G','S','U','M','h',191,5,164,238,215,
+    '&',0xab,'b',0xda,'C','7','K',0xe2,198,181,229,178,131,25,':',199,211,219,
+    'M',0x9e,8,'z',243,238,207,'>','b',251,172,232,'`',204,209,199,161,92,131,
+    'E',0xc4,'E',204,243,23,'k',20,201,4,2,'>',210,'$',166,'y',233,30,206,162,
+    0xe7,0xc1,'Y',21,0x9f,29,226,'K',154,'>',159,'v',8,'-','k',216,186,'W',20,
+    218,131,234,254,140,'U',233,208,'N',169,204,'w','1',177,'D',17,'z',92,177,
+    '>',211,20,'E',21,24,'b','$',19,210,203,'M',206,92,131,193,'6',242,16,181,
+    0x0e,0x88,'m',184,225,'V',159,137,222,150,'f','9','G','d',',','n','M',174,
+    'b','{',191,'`','t',25,184,'V',172,146,172,22,'2',237,173,'h','U',254,152,
+    186,211,'4',222,244,201,'a',195,14,134,246,'K',132,'`',238,13,'{',181,'2',
+    'X','y',145,'U',',',129,'C',179,'t',31,'z',170,'%',158,29,215,161,139,185,
+    205,'B','.',4,164,'f',131,'M',137,'5',182,'l',168,'6','J','y','!','x','"',
+    208,'B',188,209,'@','1',144,161,190,4,207,202,'g',237,245,240,128,211,'`',
+    201,131,'*','"',5,208,7,';','R',191,12,158,170,'+',249,187,230,31,143,'%',
+    0xba,0x85,141,23,30,2,254,']','P',4,'W',207,254,'-',188,239,92,192,26,171,
+    0xb6,159,'$',198,223,'s','h','H',144,',',20,244,'?','R',26,228,210,203,20,
+    0xc3,'a','i',0xcf,226,249,24,197,186,'3',159,20,163,4,']',185,'q',247,181,
+    0x94,0xd8,0xf6,'3',193,'Z',193,'4',139,'|',155,221,147,':',231,19,162,'p',
+    'a',0x9f,0xaf,143,235,216,197,'u',248,'3','f',212,'t','g',':','7','w',156,
+    0xe7,221,164,15,'v','C','f',138,'C',242,159,251,12,'B','x','c',209,226,15,
+    'o','{',0xd4,0xa1,'=','t',151,133,183,'H','9','A',214,' ',252,208,':',179,
+    250,232,'o',196,138,186,'q','7',190,139,151,177,'x','1','O',179,231,182,3,
+    19,0xce,'T',157,174,'%','Y',204,127,'5','_',8,247,'@','E','1','x','*','z',
+]
+
 
 /**
 GlobalSign Root R46.
 SHA256 fingerprint: 4f:a3:12:6d:8d:3a:11:d1:c4:85:5a:4f:80:7c:ba:d6:cf:91:9d:3a:5a:88:b0:3b:ea:2c:63:72:d9:3c:40:c9
 */
-GLOBALSIGN_ROOT_R46 ::= net.Certificate.parse GLOBALSIGN_ROOT_R46_TEXT_
+GLOBALSIGN_ROOT_R46 ::= parse_ GLOBALSIGN_ROOT_R46_BYTES_
 
-GLOBALSIGN_ROOT_E46_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIICCzCCAZGgAwIBAgISEdK7ujNu1LzmJGjFDYQdmOhDMAoGCCqGSM49BAMDMEYx
-CzAJBgNVBAYTAkJFMRkwFwYDVQQKExBHbG9iYWxTaWduIG52LXNhMRwwGgYDVQQD
-ExNHbG9iYWxTaWduIFJvb3QgRTQ2MB4XDTE5MDMyMDAwMDAwMFoXDTQ2MDMyMDAw
-MDAwMFowRjELMAkGA1UEBhMCQkUxGTAXBgNVBAoTEEdsb2JhbFNpZ24gbnYtc2Ex
-HDAaBgNVBAMTE0dsb2JhbFNpZ24gUm9vdCBFNDYwdjAQBgcqhkjOPQIBBgUrgQQA
-IgNiAAScDrHPt+ieUnd1NPqlRqetMhkytAepJ8qUuwzSChDH2omwlwxwEwkBjtjq
-R+q+soArzfwoDdusvKSGN+1wCAB16pMLey5SnCNoIwZD7JIvU4Tb+0cUB+hflGdd
-yXqBPCCjQjBAMA4GA1UdDwEB/wQEAwIBhjAPBgNVHRMBAf8EBTADAQH/MB0GA1Ud
-DgQWBBQxCpCPtsad0kRLgLWi5h+xEk8blTAKBggqhkjOPQQDAwNoADBlAjEA31SQ
-7Zvvi5QCkxeCmb6zniz2C5GMn0oUsfZkvLtoURMMA/cVi4RguYv/Uo7njLwcAjA8
-+RHUjE7AwWHCFUyqqx0LMV87HOIAl0Qx5v5zli/altP+CAezNIm8BZ/3Hobui3A=
------END CERTIFICATE-----
-"""
+GLOBALSIGN_ROOT_E46_BYTES_ ::= #[
+    '0',0x82,0x2,11,'0',130,1,145,160,3,2,1,2,2,18,17,210,187,186,'3','n',212,
+    0xbc,230,'$','h',197,13,132,29,152,232,'C','0',10,6,8,'*',134,'H',206,'=',
+    4,3,3,'0','F','1',11,'0',9,6,3,'U',4,6,19,2,'B','E','1',25,'0',23,6,3,'U',
+    0x04,10,19,16,'G','l','o','b','a','l','S','i','g','n',' ','n','v','-','s',
+    'a','1',0x1c,'0',26,6,3,'U',4,3,19,19,'G','l','o','b','a','l','S','i','g',
+    'n',' ','R','o','o','t',' ','E','4','6','0',30,23,0xd,'1','9','0','3','2',
+    '0','0','0','0','0','0','0','Z',23,13,'4','6','0','3','2','0','0','0','0',
+    '0','0','0','Z','0','F','1',0xb,'0',9,6,3,'U',4,6,19,2,'B','E','1',25,'0',
+    23,6,3,'U',4,10,19,16,'G','l','o','b','a','l','S','i','g','n',' ','n','v',
+    '-','s','a','1',0x1c,'0',26,6,3,'U',4,3,19,19,'G','l','o','b','a','l','S',
+    'i','g','n',' ','R','o','o','t',' ','E','4','6','0','v','0',0x10,6,7,'*',
+    0x86,'H',206,'=',2,1,6,5,'+',129,4,0,'"',3,'b',0,4,156,14,177,207,183,232,
+    0x9e,'R','w','u','4',0xfa,165,'F',167,173,'2',25,'2',180,7,169,39,202,148,
+    0xbb,0x0c,210,10,16,199,218,137,176,151,12,'p',19,9,1,142,216,234,'G',234,
+    0xbe,0xb2,0x80,'+',205,252,'(',13,219,172,188,164,134,'7',237,'p',8,0,'u',
+    0xea,147,11,'{','.','R',156,'#','h','#',6,'C',236,146,'/','S',132,219,251,
+    'G',20,7,232,'_',148,'g',']',201,'z',129,'<',' ',163,'B','0','@','0',14,6,
+    3,'U',29,0xf,1,1,255,4,4,3,2,1,134,'0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,
+    1,1,255,'0',29,6,3,'U',29,14,4,22,4,20,'1',10,144,143,182,198,157,210,'D',
+    'K',128,181,162,230,31,177,18,'O',27,149,'0',10,6,8,'*',134,'H',206,'=',4,
+    3,3,3,'h',0,'0','e',2,'1',0,0xdf,'T',144,237,155,239,139,148,2,147,23,130,
+    153,190,179,158,',',246,11,145,140,159,'J',20,177,246,'d',188,187,'h','Q',
+    0x13,12,3,247,21,139,132,'`',185,139,255,'R',142,231,140,188,28,2,'0','<',
+    0xf9,0x11,212,140,'N',192,193,'a',194,21,'L',170,171,29,11,'1','_',';',28,
+    226,0,151,'D','1',230,254,'s',150,'/',218,150,211,254,8,7,179,'4',137,188,
+    5,159,247,30,134,238,139,'p',
+]
+
 
 /**
 GlobalSign Root E46.
 SHA256 fingerprint: cb:b9:c4:4d:84:b8:04:3e:10:50:ea:31:a6:9f:51:49:55:d7:bf:d2:e2:c6:b4:93:01:01:9a:d6:1d:9f:50:58
 */
-GLOBALSIGN_ROOT_E46 ::= net.Certificate.parse GLOBALSIGN_ROOT_E46_TEXT_
+GLOBALSIGN_ROOT_E46 ::= parse_ GLOBALSIGN_ROOT_E46_BYTES_
 
-GLOBALTRUST_2020_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIFgjCCA2qgAwIBAgILWku9WvtPilv6ZeUwDQYJKoZIhvcNAQELBQAwTTELMAkG
-A1UEBhMCQVQxIzAhBgNVBAoTGmUtY29tbWVyY2UgbW9uaXRvcmluZyBHbWJIMRkw
-FwYDVQQDExBHTE9CQUxUUlVTVCAyMDIwMB4XDTIwMDIxMDAwMDAwMFoXDTQwMDYx
-MDAwMDAwMFowTTELMAkGA1UEBhMCQVQxIzAhBgNVBAoTGmUtY29tbWVyY2UgbW9u
-aXRvcmluZyBHbWJIMRkwFwYDVQQDExBHTE9CQUxUUlVTVCAyMDIwMIICIjANBgkq
-hkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAri5WrRsc7/aVj6B3GyvTY4+ETUWiD59b
-RatZe1E0+eyLinjF3WuvvcTfk0Uev5E4C64OFudBc/jbu9G4UeDLgztzOG53ig9Z
-YybNpyrOVPu44sB8R85gfD+yc/LAGbaKkoc1DZAoouQVBGM+uq/ufF7MpotQsjj3
-QWPKzv9pj2gOlTblzLmMCcpL3TGQlsjMH/1WljTbjhzqLL6FLmPdqqmV0/0plRPw
-yJiT2S0WR5ARg6I6IqIoV6Lr/sCMKKCmfecqQjuCgGOlYx8ZzHyyZqjC0203b+J+
-BlHZRYQfEs4kUmSFC0iAToexIiIwquuuvuAC4EDosEKAA1GqtH6qRNdDYfOiaxaJ
-SaSjpCuKAsR49GiKweR6NrFvG5Ybd0mN1MkGco/PU+PcF4UgStyYJ9ORJitHHmkH
-r96i5OTUawuzXnzUJIBHKWk7buis/UDr2O1xcSvy6Fgd60GXIsUf1DnQJ4+H4xj0
-4KlGDfV0OoIu0G4skaMxXDtG6nsEEFZegB31pWXogvziB4xiRfUg3kZwhqG8k9Me
-dKZssCz3AwyIDMvUclOGvGBG85hqwvG/Q/lwIHfKN0F5VVJjjVsSn8VoxIidrPIw
-q7ejMZdnrY8XD2zHc+0klGvIg5rQmjdJBKuxFshsSUktq6HQjJLyQUp5ISXbY9e2
-nKd+Qmn7OmMCAwEAAaNjMGEwDwYDVR0TAQH/BAUwAwEB/zAOBgNVHQ8BAf8EBAMC
-AQYwHQYDVR0OBBYEFNwuH9FhN3nkq9XVsxJxaD1qaJwiMB8GA1UdIwQYMBaAFNwu
-H9FhN3nkq9XVsxJxaD1qaJwiMA0GCSqGSIb3DQEBCwUAA4ICAQCR8EICaEDuw2jA
-VC/f7GLDw56KoDEoqoOOpFaWEhCGVrqXctJUMHytGdUdaG/7FELYjQ7ztdGl4wJC
-XtzoRlgHNQIw4Lx0SsFDKv/bGtCwr2zD/cuz9X9tAy5ZVp0tLTWMstZDFyySCstd
-6IwPS3BD0IL/qMy/pJTAvoe9iuOTe8aPmxadJ2W8esVCgmxcB9CpwYhgROmYhRZf
-+I/KARDOJcP5YBugxZfD0yyIMaK9MOzQ0MAS8cE54+X1+NZK3TTN+2/BT+MAi1bi
-kvcoskJ3ciNnxz8RFbLEAwW+uxF7Cr+obuf/WEPPm2eggAe2HcqtbepBEX4tdJP7
-wry+UUTF72glJ4DjyKDUEuzZpTcdN3y0kcra1LGWge9oXHYQSa9+pTeAsRxSvTOB
-TI/53WXZFM2KJVj04sWDpQmQ1GwUY7VA3+vA/MRYfg0UFodUJ25W5HCEuGwyEn6C
-MUO+1918oa2u1qsgEu8KwxCMSZY13At1XrFP1U80DhEgB3VDRemjEdqso5nCtnkn
-4rnvyOL2NSl6dPrFf4IFYqYK6miyeUcGbvJXqBUzxvd4Sj1Ce2t+/vdG6tHrju+I
-aFvowdlxfv1k7/9nR4hYJS8+hge9+6jlgqispdNpQ80xiEmEU5LAsTkbOYMBMMTy
-qfrQA71yN2BWHzZ8vTmR9W0Nv3vXkg==
------END CERTIFICATE-----
-"""
+GLOBALTRUST_2020_BYTES_ ::= #[
+    '0',0x82,5,130,'0',130,3,'j',160,3,2,1,2,2,11,'Z','K',189,'Z',251,'O',138,
+    '[',0xfa,'e',229,'0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,'0','M','1',
+    0xb,'0',9,6,3,'U',4,6,19,2,'A','T','1','#','0','!',6,3,'U',4,10,19,26,'e',
+    '-','c','o','m','m','e','r','c','e',' ','m','o','n','i','t','o','r','i',
+    'n','g',' ','G','m','b','H','1',0x19,'0',23,6,3,'U',4,3,19,16,'G','L','O',
+    'B','A','L','T','R','U','S','T',' ','2','0','2','0','0',30,23,0xd,'2','0',
+    '0','2','1','0','0','0','0','0','0','0','Z',23,13,'4','0','0','6','1','0',
+    '0','0','0','0','0','0','Z','0','M','1',11,'0',9,6,3,'U',4,6,19,2,'A','T',
+    '1','#','0','!',0x06,3,'U',4,10,19,26,'e','-','c','o','m','m','e','r','c',
+    'e',' ','m','o','n','i','t','o','r','i','n','g',' ','G','m','b','H','1',
+    0x19,'0',23,6,3,'U',4,3,19,16,'G','L','O','B','A','L','T','R','U','S','T',
+    ' ','2','0','2','0','0',130,2,'"','0',13,6,9,'*',134,'H',134,247,13,1,1,1,
+    0x5,0,3,130,2,15,0,'0',130,2,10,2,130,2,1,0,174,'.','V',173,27,28,239,246,
+    149,143,160,'w',27,'+',211,'c',143,132,'M','E',162,15,159,'[','E',171,'Y',
+    '{','Q','4',0xf9,0xec,0x8b,138,'x',197,221,'k',175,189,196,223,147,'E',30,
+    0xbf,145,'8',11,174,14,22,231,'A','s',248,219,187,209,184,'Q',224,203,131,
+    ';','s','8','n','w',0x8a,0x0f,'Y','c','&',205,167,'*',206,'T',251,184,226,
+    192,'|','G',206,'`','|','?',178,'s',242,192,25,182,138,146,135,'5',13,144,
+    '(',0xa2,228,21,4,'c','>',186,175,238,'|','^',204,166,139,'P',178,'8',247,
+    'A','c',0xca,206,255,'i',143,'h',14,149,'6',229,204,185,140,9,202,'K',221,
+    '1',144,150,200,204,31,253,'V',150,'4',219,142,28,234,',',190,133,'.','c',
+    0xdd,170,169,149,211,253,')',149,19,240,200,152,147,217,'-',22,'G',144,17,
+    0x83,0xa2,':','"',162,'(','W',162,235,254,192,140,'(',160,166,'}',231,'*',
+    'B',';',130,128,'c',165,'c',31,25,204,'|',178,'f',168,194,211,'m','7','o',
+    0xe2,'~',0x6,'Q',217,'E',132,31,18,206,'$','R','d',133,11,'H',128,'N',135,
+    0xb1,'"','"','0',0xaa,235,174,190,224,2,224,'@',232,176,'B',128,3,'Q',170,
+    0xb4,'~',170,'D',215,'C','a',243,162,'k',22,137,'I',164,163,164,'+',138,2,
+    196,'x',244,'h',138,193,228,'z','6',177,'o',27,150,27,'w','I',141,212,201,
+    0x6,'r',143,207,'S',227,220,23,133,' ','J',220,152,39,211,145,'&','+','G',
+    0x1e,'i',7,175,222,162,228,228,212,'k',11,179,'^','|',212,'$',128,'G',')',
+    'i',';','n',0xe8,0xac,0xfd,'@',235,216,237,'q','q','+',242,232,'X',29,235,
+    'A',0x97,'"',0xc5,31,212,'9',208,39,143,135,227,24,244,224,169,'F',13,245,
+    't',':',0x82,'.',0xd0,'n',',',145,163,'1',92,';','F',234,'{',4,16,'V','^',
+    0x80,29,245,165,'e',232,130,252,226,7,140,'b','E',245,' ',222,'F','p',134,
+    0xa1,0xbc,0x93,211,30,'t',166,'l',176,',',247,3,12,136,12,203,212,'r','S',
+    0x86,0xbc,'`','F',243,152,'j',194,241,191,'C',249,'p',' ','w',202,'7','A',
+    'y','U','R','c',0x8d,'[',0x12,159,197,'h',196,136,157,172,242,'0',171,183,
+    163,'1',151,'g',173,143,23,15,'l',199,'s',237,'$',148,'k',200,131,154,208,
+    0x9a,'7','I',4,171,177,22,200,'l','I','I','-',171,161,208,140,146,242,'A',
+    'J','y','!','%',219,'c',215,182,156,167,'~','B','i',251,':','c',2,3,1,0,1,
+    163,'c','0','a','0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',14,6,3,
+    'U',0x1d,15,1,1,255,4,4,3,2,1,6,'0',29,6,3,'U',29,14,4,22,4,20,220,'.',31,
+    209,'a','7','y',228,171,213,213,179,18,'q','h','=','j','h',156,'"','0',31,
+    6,3,'U',29,'#',4,24,'0',22,0x80,20,220,'.',31,209,'a','7','y',228,171,213,
+    0xd5,179,18,'q','h','=','j','h',156,'"','0',13,6,9,'*',134,'H',134,247,13,
+    1,1,0xb,5,0,3,130,2,1,0,145,240,'B',2,'h','@',238,195,'h',192,'T','/',223,
+    236,'b',195,195,158,138,160,'1','(',170,131,142,164,'V',150,18,16,134,'V',
+    0xba,0x97,'r',210,'T','0','|',173,25,213,29,'h','o',251,20,'B',216,141,14,
+    243,181,209,165,227,2,'B','^',220,232,'F','X',7,'5',2,'0',224,188,'t','J',
+    0xc1,'C','*',255,219,26,208,176,175,'l',195,253,203,179,245,127,'m',3,'.',
+    'Y','V',0x9d,'-','-','5',140,178,214,'C',23,',',146,10,203,']',232,140,15,
+    'K','p','C',0xd0,0x82,255,168,204,191,164,148,192,190,135,189,138,227,147,
+    '{',0xc6,0x8f,0x9b,22,157,39,'e',188,'z',197,'B',130,'l',92,7,208,169,193,
+    0x88,'`','D',0xe9,0x98,133,22,'_',248,143,202,1,16,206,'%',195,249,'`',27,
+    0xa0,0xc5,0x97,195,211,',',136,'1',162,189,'0',236,208,208,192,18,241,193,
+    '9',227,229,245,248,214,'J',221,'4',205,251,'o',193,'O',227,0,139,'V',226,
+    0x92,247,'(',178,'B','w','r','#','g',199,'?',17,21,178,196,3,5,190,187,17,
+    '{',0x0a,191,168,'n',231,255,'X','C',207,155,'g',160,128,7,182,29,202,173,
+    'm',234,'A',17,'~','-','t',147,251,194,188,190,'Q','D',197,239,'h','%',39,
+    128,227,200,160,212,18,236,217,165,'7',29,'7','|',180,145,202,218,212,177,
+    0x96,129,239,'h',92,'v',16,'I',175,'~',165,'7',128,177,28,'R',189,'3',129,
+    'L',0x8f,249,221,'e',217,20,205,138,'%','X',244,226,197,131,165,9,144,212,
+    'l',0x14,'c',0xb5,'@',223,235,192,252,196,'X','~',13,20,22,135,'T',39,'n',
+    'V',0xe4,'p',0x84,0xb8,'l','2',18,'~',130,'1','C',190,215,221,'|',161,173,
+    0xae,0xd6,171,' ',18,239,10,195,16,140,'I',150,'5',220,11,'u','^',177,'O',
+    0xd5,'O','4',0x0e,17,' ',7,'u','C','E',233,163,17,218,172,163,153,194,182,
+    'y',39,0xe2,185,239,200,226,246,'5',')','z','t',250,197,127,130,5,'b',166,
+    0x0a,234,'h',178,'y','G',6,'n',242,'W',168,21,'3',198,247,'x','J','=','B',
+    '{','k','~',0xfe,0xf7,'F',234,209,235,142,239,136,'h','[',232,193,217,'q',
+    '~',253,'d',239,255,'g','G',136,'X','%','/','>',134,7,189,251,168,229,130,
+    0xa8,0xac,0xa5,211,'i','C',205,'1',136,'I',132,'S',146,192,177,'9',27,'9',
+    0x83,0x1,'0',196,242,169,250,208,3,189,'r','7','`','V',31,'6','|',189,'9',
+    145,245,'m',13,191,'{',215,146,
+]
+
 
 /**
 GLOBALTRUST 2020.
 SHA256 fingerprint: 9a:29:6a:51:82:d1:d4:51:a2:e3:7f:43:9b:74:da:af:a2:67:52:33:29:f9:0f:9a:0d:20:07:c3:34:e2:3c:9a
 */
-GLOBALTRUST_2020 ::= net.Certificate.parse GLOBALTRUST_2020_TEXT_
+GLOBALTRUST_2020 ::= parse_ GLOBALTRUST_2020_BYTES_
 
-ANF_SECURE_SERVER_ROOT_CA_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIF7zCCA9egAwIBAgIIDdPjvGz5a7EwDQYJKoZIhvcNAQELBQAwgYQxEjAQBgNV
-BAUTCUc2MzI4NzUxMDELMAkGA1UEBhMCRVMxJzAlBgNVBAoTHkFORiBBdXRvcmlk
-YWQgZGUgQ2VydGlmaWNhY2lvbjEUMBIGA1UECxMLQU5GIENBIFJhaXoxIjAgBgNV
-BAMTGUFORiBTZWN1cmUgU2VydmVyIFJvb3QgQ0EwHhcNMTkwOTA0MTAwMDM4WhcN
-MzkwODMwMTAwMDM4WjCBhDESMBAGA1UEBRMJRzYzMjg3NTEwMQswCQYDVQQGEwJF
-UzEnMCUGA1UEChMeQU5GIEF1dG9yaWRhZCBkZSBDZXJ0aWZpY2FjaW9uMRQwEgYD
-VQQLEwtBTkYgQ0EgUmFpejEiMCAGA1UEAxMZQU5GIFNlY3VyZSBTZXJ2ZXIgUm9v
-dCBDQTCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBANvrayvmZFSVgpCj
-cqQZAZ2cC4Ffc0m6p6zzBE57lgvsEeBbphzOG9INgxwruJ4dfkUyYA8H6XdYfp9q
-yGFOtibBTI3/TO80sh9l2Ll49a2pcbnvT1gdpd50IJeh7WhM3pIXS7yr/2WanvtH
-2Vdy8wmhrnZEE26cLUQ5vPnHO6RYPUG9tMJJo8gN0pcvB2VSAKduyK9o7PQUlrZX
-H1bDOZ8rbeTzPvY1ZNoMHKGESy9LS+IsJJ1tk0DrtSOOMspvRdOoiXsezx76W0OL
-zc2oD2rKDF65nkeP8Nm2CgtYZRczuSPkdxl9y0oukntPLxB3sY0vaJxizOBQ+OyR
-p1RMVwnVdmPF6GUe7m1qzwmd+nxPrWAI/VaZDxUse6mAq4xhj0oHdkLePfTdsiQz
-W7i1o0TJrH93PB0j7IKppuLIBkwC/qxcmZkLLxCKpvR/1Yd0DVlJRfbwcVw5Kda/
-SiOL9V8BY9KHcyi1Swr1+KuCLH5zJTIdC2MKF4EA/7Z2Xue0sUDKIbvVgFHlSFJn
-LNJhiQcND85Cd8BEc5xEUKDbEAotlRyBr+Qc5RQe8TZBAQIvfXOn3kLMTOmJDVb3
-n5HUA8ZsyY/b2BzgQJhdZpmYgG4t/wHFzstGH6wCxkPmrqKEPMVOHj1tyRRM4y5B
-u8o5vzY8KhmqQYdOpc5LMnndkEl/AgMBAAGjYzBhMB8GA1UdIwQYMBaAFJxf0Gxj
-o1+TypOYCK2Mh6UsXME3MB0GA1UdDgQWBBScX9BsY6Nfk8qTmAitjIelLFzBNzAO
-BgNVHQ8BAf8EBAMCAYYwDwYDVR0TAQH/BAUwAwEB/zANBgkqhkiG9w0BAQsFAAOC
-AgEATh65isagmD9uw2nAalxJUqzLK114OMHVVISfk/CHGT0sZonrDUL8zPB1hT+L
-9IBdeeUXZ701guLyPI59WzbLWoAAKfLOKyzxj6ptBZNscsdW699QIyjlRRA96Gej
-rw5VD5AJYu9LWaL2U/HANeQvwSS9eS9OICI7/RogsKQOLHDtdD+4E5UGUcjohybK
-pFtqFiGS3XNgnhAY3jyB6ugYw3yJ8otQPr0R4hUDqDZ9MwFsSBXXiJCZBMXM5gf0
-vPSQ7RPi6ovDj6MzD8EpTBNO2hVWcXNyglD2mjN8orGoGjR0ZVzO0eurU+AagNjq
-OknkJjCb5RyKqKkVMoaZkgoQI1YS4PbOTOK7vtuNknMBZi9iPrJyJ0U27U1W45eZ
-/zo1PqVUSlJZS2Db7v54EX9K3BR5YLZrZAPbFYPhor72I5dQ8AkzNqdxliXzuUJ9
-2zg/LFis6ELhDtjTO0wugumDLmsx2d1Hhk9tl5EuT+IocTUW0fJz/iUrB0ckYyfI
-+PbZa/wSMVYIwFNCr5zQM378BvAxRAMU8Vjq8moNqRGyg77FGr8H6lnco4g175x2
-MjxNBiLOFeXdntiP2t7SxDnlF4HPOEfrf4htWRvfn0IUrn7PqLBmZdo3r5+qPeoo
-tt7VMVgWglvquxl1AnMaykgaIZOQCo6ThKd9OyMYkomgjaw=
------END CERTIFICATE-----
-"""
+ANF_SECURE_SERVER_ROOT_CA_BYTES_ ::= #[
+    '0',0x82,0x5,239,'0',130,3,215,160,3,2,1,2,2,8,13,211,227,188,'l',249,'k',
+    0xb1,'0',0xd,6,9,'*',134,'H',134,247,13,1,1,11,5,0,'0',129,132,'1',18,'0',
+    16,6,3,'U',4,5,19,9,'G','6','3','2','8','7','5','1','0','1',0xb,'0',9,6,3,
+    'U',0x04,6,19,2,'E','S','1',39,'0','%',6,3,'U',4,10,19,30,'A','N','F',' ',
+    'A','u','t','o','r','i','d','a','d',' ','d','e',' ','C','e','r','t','i',
+    'f','i','c','a','c','i','o','n','1',20,'0',18,6,3,'U',4,0xb,19,11,'A','N',
+    'F',' ','C','A',' ','R','a','i','z','1','"','0',' ',6,3,'U',4,3,19,25,'A',
+    'N','F',' ','S','e','c','u','r','e',' ','S','e','r','v','e','r',' ','R',
+    'o','o','t',' ','C','A','0',30,23,0xd,'1','9','0','9','0','4','1','0','0',
+    '0','3','8','Z',23,13,'3','9','0','8','3','0','1','0','0','0','3','8','Z',
+    '0',0x81,0x84,'1',18,'0',16,6,3,'U',4,5,19,9,'G','6','3','2','8','7','5',
+    '1','0','1',11,'0',9,6,3,'U',4,6,19,2,'E','S','1',39,'0','%',6,3,'U',4,10,
+    19,30,'A','N','F',' ','A','u','t','o','r','i','d','a','d',' ','d','e',' ',
+    'C','e','r','t','i','f','i','c','a','c','i','o','n','1',20,'0',18,6,3,'U',
+    4,0xb,19,11,'A','N','F',' ','C','A',' ','R','a','i','z','1','"','0',' ',6,
+    0x3,'U',4,3,19,25,'A','N','F',' ','S','e','c','u','r','e',' ','S','e','r',
+    'v','e','r',' ','R','o','o','t',' ','C','A','0',0x82,2,'"','0',13,6,9,'*',
+    0x86,'H',0x86,0xf7,13,1,1,1,5,0,3,130,2,15,0,'0',130,2,10,2,130,2,1,0,219,
+    0xeb,'k','+',0xe6,'d','T',149,130,144,163,'r',164,25,1,157,156,11,129,'_',
+    's','I',186,167,172,243,4,'N','{',150,11,236,17,224,'[',166,28,206,27,210,
+    13,131,28,'+',184,158,29,'~','E','2','`',15,7,233,'w','X','~',159,'j',200,
+    'a','N',0xb6,'&',0xc1,'L',0x8d,255,'L',239,'4',178,31,'e',216,185,'x',245,
+    0xad,0xa9,'q',0xb9,239,'O','X',29,165,222,'t',' ',151,161,237,'h','L',222,
+    0x92,23,'K',188,171,255,'e',154,158,251,'G',217,'W','r',243,9,161,174,'v',
+    'D',0x13,'n',0x9c,'-','D','9',188,249,199,';',164,'X','=','A',189,180,194,
+    'I',163,200,13,210,151,'/',7,'e','R',0,167,'n',200,175,'h',236,244,20,150,
+    0xb6,'W',31,'V',195,'9',159,'+','m',228,243,'>',246,'5','d',218,12,28,161,
+    0x84,'K','/','K','K',0xe2,',','$',157,'m',147,'@',235,181,'#',142,'2',202,
+    'o','E',0xd3,168,137,'{',30,207,30,250,'[','C',139,205,205,168,15,'j',202,
+    0x0c,'^',185,158,'G',143,240,217,182,10,11,'X','e',23,'3',185,'#',228,'w',
+    25,'}',203,'J','.',146,'{','O','/',16,'w',177,141,'/','h',156,'b',204,224,
+    'P',0xf8,236,145,167,'T','L','W',9,213,'v','c',197,232,'e',30,238,'m','j',
+    207,9,157,250,'|','O',173,'`',8,253,'V',153,15,21,',','{',169,128,171,140,
+    'a',143,'J',7,'v','B',222,'=',244,221,178,'$','3','[',184,181,163,'D',201,
+    172,127,'w','<',29,'#',236,130,169,166,226,200,6,'L',2,254,172,92,153,153,
+    0x0b,'/',16,138,166,244,127,213,135,'t',13,'Y','I','E',246,240,'q',92,'9',
+    ')',0xd6,191,'J','#',139,245,'_',1,'c',210,135,'s','(',181,'K',10,245,248,
+    171,130,',','~','s','%','2',29,11,'c',10,23,129,0,255,182,'v','^',231,180,
+    0xb1,'@',0xca,'!',187,213,128,'Q',229,'H','R','g',',',210,'a',137,7,13,15,
+    0xce,'B','w',192,'D','s',156,'D','P',160,219,16,10,'-',149,28,129,175,228,
+    0x1c,229,20,30,241,'6','A',1,2,'/','}','s',167,222,'B',204,'L',233,137,13,
+    'V',0xf7,159,145,212,3,198,'l',201,143,219,216,28,224,'@',152,']','f',153,
+    0x98,0x80,'n','-',0xff,1,197,206,203,'F',31,172,2,198,'C',230,174,162,132,
+    '<',197,'N',30,'=','m',201,20,'L',227,'.','A',187,202,'9',191,'6','<','*',
+    25,0xaa,'A',135,'N',165,206,'K','2','y',221,144,'I',127,2,3,1,0,1,163,'c',
+    '0','a','0',31,6,3,'U',29,'#',4,24,'0',22,0x80,20,156,'_',208,'l','c',163,
+    '_',147,202,147,152,8,173,140,135,165,',',92,193,'7','0',29,6,3,'U',29,14,
+    0x4,22,4,20,156,'_',208,'l','c',163,'_',147,202,147,152,8,173,140,135,165,
+    ',',92,0xc1,'7','0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,134,'0',15,6,3,'U',
+    29,19,1,1,0xff,4,5,'0',3,1,1,255,'0',13,6,9,'*',134,'H',134,247,13,1,1,11,
+    5,0,3,130,2,1,0,'N',30,185,138,198,160,152,'?','n',195,'i',192,'j',92,'I',
+    'R',0xac,0xcb,'+',']','x','8',0xc1,213,'T',132,159,147,240,135,25,'=',',',
+    'f',137,235,13,'B',252,204,240,'u',133,'?',139,244,128,']','y',229,23,'g',
+    189,'5',130,226,242,'<',142,'}','[','6',203,'Z',128,0,')',242,206,'+',',',
+    0xf1,143,170,'m',5,147,'l','r',199,'V',235,223,'P','#','(',229,'E',16,'=',
+    0xe8,'g',0xa3,175,14,'U',15,144,9,'b',239,'K','Y',162,246,'S',241,192,'5',
+    228,'/',193,'$',189,'y','/','N',' ','"',';',253,26,' ',176,164,14,',','p',
+    0xed,'t','?',0xb8,19,149,6,'Q',200,232,135,'&',202,164,'[','j',22,'!',146,
+    0xdd,'s','`',158,16,24,222,'<',129,234,232,24,195,'|',137,242,139,'P','>',
+    0xbd,0x11,226,21,3,168,'6','}','3',1,'l','H',21,215,136,144,153,4,197,204,
+    0xe6,7,0xf4,188,244,144,237,19,226,234,139,195,143,163,'3',15,193,')','L',
+    19,'N',0xda,21,'V','q','s','r',130,'P',246,154,'3','|',162,177,168,26,'4',
+    't','e',92,206,209,235,171,'S',224,26,128,216,234,':','I',228,'&','0',155,
+    0xe5,0x1c,138,168,169,21,'2',134,153,146,10,16,'#','V',18,224,246,206,'L',
+    0xe2,187,190,219,141,146,'s',1,'f','/','b','>',178,'r',39,'E','6',237,'M',
+    'V',0xe3,0x97,153,255,':','5','>',165,'T','J','R','Y','K','`',219,238,254,
+    'x',0x11,0x7f,'J',220,20,'y','`',182,'k','d',3,219,21,131,225,162,190,246,
+    '#',151,'P',240,9,'3','6',167,'q',150,'%',243,185,'B','}',219,'8','?',',',
+    'X',0xac,0xe8,'B',0xe1,14,216,211,';','L','.',130,233,131,'.','k','1',217,
+    0xdd,'G',0x86,'O','m',0x97,145,'.','O',226,'(','q','5',22,209,242,'s',254,
+    '%','+',7,'G','$','c',39,200,248,246,217,'k',252,18,'1','V',8,192,'S','B',
+    0xaf,156,208,'3','~',252,6,240,'1','D',3,20,241,'X',234,242,'j',13,169,17,
+    0xb2,131,190,197,26,191,7,234,'Y',220,163,136,'5',239,156,'v','2','<','M',
+    0x6,'"',206,21,229,221,158,216,143,218,222,210,196,'9',229,23,129,207,'8',
+    'G',235,127,136,'m','Y',27,223,159,'B',20,174,'~',207,168,176,'f','e',218,
+    '7',175,159,170,'=',234,'(',182,222,213,'1','X',22,130,'[',234,187,25,'u',
+    2,'s',26,202,'H',26,'!',147,144,10,142,147,132,167,'}',';','#',24,146,137,
+    160,141,172,
+]
+
 
 /**
 ANF Secure Server Root CA.
 SHA256 fingerprint: fb:8f:ec:75:91:69:b9:10:6b:1e:51:16:44:c6:18:c5:13:04:37:3f:6c:06:43:08:8d:8b:ef:fd:1b:99:75:99
 */
-ANF_SECURE_SERVER_ROOT_CA ::= net.Certificate.parse ANF_SECURE_SERVER_ROOT_CA_TEXT_
+ANF_SECURE_SERVER_ROOT_CA ::= parse_ ANF_SECURE_SERVER_ROOT_CA_BYTES_
 
-CERTUM_EC_384_CA_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIICZTCCAeugAwIBAgIQeI8nXIESUiClBNAt3bpz9DAKBggqhkjOPQQDAzB0MQsw
-CQYDVQQGEwJQTDEhMB8GA1UEChMYQXNzZWNvIERhdGEgU3lzdGVtcyBTLkEuMScw
-JQYDVQQLEx5DZXJ0dW0gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxGTAXBgNVBAMT
-EENlcnR1bSBFQy0zODQgQ0EwHhcNMTgwMzI2MDcyNDU0WhcNNDMwMzI2MDcyNDU0
-WjB0MQswCQYDVQQGEwJQTDEhMB8GA1UEChMYQXNzZWNvIERhdGEgU3lzdGVtcyBT
-LkEuMScwJQYDVQQLEx5DZXJ0dW0gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxGTAX
-BgNVBAMTEENlcnR1bSBFQy0zODQgQ0EwdjAQBgcqhkjOPQIBBgUrgQQAIgNiAATE
-KI6rGFtqvm5kN2PkzeyrOvfMobgOgknXhimfoZTy42B4mIF4Bk3y7JoOV2CDn7Tm
-Fy8as10CW4kjPMIRBSqniBMY81CE1700LCeJVf/OTOffph8oxPBUw7l8t1Ot68Kj
-QjBAMA8GA1UdEwEB/wQFMAMBAf8wHQYDVR0OBBYEFI0GZnQkdjrzife81r1HfS+8
-EF9LMA4GA1UdDwEB/wQEAwIBBjAKBggqhkjOPQQDAwNoADBlAjADVS2m5hjEfO/J
-UG7BJw+ch69u1RsIGL2SKcHvlJF40jocVYli5RsJHrpka/F2tNQCMQC0QoSZ/6vn
-nvuRlydd3LBbMHHOXjgaatkl5+r3YZJW+OraNsKHZZYuciUvf9/DE8k=
------END CERTIFICATE-----
-"""
+CERTUM_EC_384_CA_BYTES_ ::= #[
+    '0',130,2,'e','0',130,1,235,160,3,2,1,2,2,16,'x',143,39,92,129,18,'R',' ',
+    0xa5,0x4,208,'-',221,186,'s',244,'0',10,6,8,'*',134,'H',206,'=',4,3,3,'0',
+    't','1',0xb,'0',9,6,3,'U',4,6,19,2,'P','L','1','!','0',31,6,3,'U',4,10,19,
+    0x18,'A','s','s','e','c','o',' ','D','a','t','a',' ','S','y','s','t','e',
+    'm','s',' ','S','.','A','.','1',39,'0','%',6,3,'U',4,11,19,30,'C','e','r',
+    't','u','m',' ','C','e','r','t','i','f','i','c','a','t','i','o','n',' ',
+    'A','u','t','h','o','r','i','t','y','1',0x19,'0',23,6,3,'U',4,3,19,16,'C',
+    'e','r','t','u','m',' ','E','C','-','3','8','4',' ','C','A','0',30,23,0xd,
+    '1','8','0','3','2','6','0','7','2','4','5','4','Z',23,13,'4','3','0','3',
+    '2','6','0','7','2','4','5','4','Z','0','t','1',11,'0',9,6,3,'U',4,6,19,2,
+    'P','L','1','!','0',31,6,3,'U',4,10,19,24,'A','s','s','e','c','o',' ','D',
+    'a','t','a',' ','S','y','s','t','e','m','s',' ','S','.','A','.','1',0x27,
+    '0','%',0x06,3,'U',4,11,19,30,'C','e','r','t','u','m',' ','C','e','r','t',
+    'i','f','i','c','a','t','i','o','n',' ','A','u','t','h','o','r','i','t',
+    'y','1',0x19,'0',23,6,3,'U',4,3,19,16,'C','e','r','t','u','m',' ','E','C',
+    '-','3','8','4',' ','C','A','0','v','0',16,6,7,'*',0x86,'H',206,'=',2,1,6,
+    0x05,'+',129,4,0,'"',3,'b',0,4,196,'(',142,171,24,'[','j',190,'n','d','7',
+    'c',0xe4,0xcd,0xec,171,':',247,204,161,184,14,130,'I',215,134,')',159,161,
+    0x94,242,227,'`','x',152,129,'x',6,'M',242,236,154,14,'W','`',131,159,180,
+    0xe6,0x17,'/',26,179,']',2,'[',137,'#','<',194,17,5,'*',167,136,19,24,243,
+    'P',132,215,189,'4',',',39,137,'U',255,206,'L',231,223,166,31,'(',196,240,
+    'T',0xc3,185,'|',183,'S',173,235,194,163,'B','0','@','0',15,6,3,'U',29,19,
+    0x01,1,255,4,5,'0',3,1,1,255,'0',29,6,3,'U',29,14,4,22,4,20,141,6,'f','t',
+    '$','v',':',243,137,247,188,214,189,'G','}','/',188,16,'_','K','0',14,6,3,
+    'U',29,0xf,1,1,255,4,4,3,2,1,6,'0',10,6,8,'*',134,'H',206,'=',4,3,3,3,'h',
+    0x00,'0','e',2,'0',3,'U','-',166,230,24,196,'|',239,201,'P','n',193,39,15,
+    0x9c,0x87,0xaf,'n',213,27,8,24,189,146,')',193,239,148,145,'x',210,':',28,
+    'U',0x89,'b',0xe5,27,9,30,186,'d','k',241,'v',180,212,2,'1',0,180,'B',132,
+    153,255,171,231,158,251,145,151,39,']',220,176,'[','0','q',206,'^','8',26,
+    'j',0xd9,'%',0xe7,234,247,'a',146,'V',248,234,218,'6',194,135,'e',150,'.',
+    'r','%','/',127,223,195,19,201,
+]
+
 
 /**
 Certum EC-384 CA.
 SHA256 fingerprint: 6b:32:80:85:62:53:18:aa:50:d1:73:c9:8d:8b:da:09:d5:7e:27:41:3d:11:4c:f7:87:a0:f5:d0:6c:03:0c:f6
 */
-CERTUM_EC_384_CA ::= net.Certificate.parse CERTUM_EC_384_CA_TEXT_
+CERTUM_EC_384_CA ::= parse_ CERTUM_EC_384_CA_BYTES_
 
-CERTUM_TRUSTED_ROOT_CA_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIFwDCCA6igAwIBAgIQHr9ZULjJgDdMBvfrVU+17TANBgkqhkiG9w0BAQ0FADB6
-MQswCQYDVQQGEwJQTDEhMB8GA1UEChMYQXNzZWNvIERhdGEgU3lzdGVtcyBTLkEu
-MScwJQYDVQQLEx5DZXJ0dW0gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxHzAdBgNV
-BAMTFkNlcnR1bSBUcnVzdGVkIFJvb3QgQ0EwHhcNMTgwMzE2MTIxMDEzWhcNNDMw
-MzE2MTIxMDEzWjB6MQswCQYDVQQGEwJQTDEhMB8GA1UEChMYQXNzZWNvIERhdGEg
-U3lzdGVtcyBTLkEuMScwJQYDVQQLEx5DZXJ0dW0gQ2VydGlmaWNhdGlvbiBBdXRo
-b3JpdHkxHzAdBgNVBAMTFkNlcnR1bSBUcnVzdGVkIFJvb3QgQ0EwggIiMA0GCSqG
-SIb3DQEBAQUAA4ICDwAwggIKAoICAQDRLY67tzbqbTeRn06TpwXkKQMlzhyC93yZ
-n0EGze2jusDbCSzBfN8pfktlL5On1AFrAygYo9idBcEq2EXxkd7fO9CAAozPOA/q
-p1x4EaTByIVcJdPTsuclzxFUl6s1wB52HO8AU5853BSlLCIls3Jy/I2z5T4IHhQq
-NwuIPMqw9MjCoa68wb4pZ1Xi/K1ZXP69VyywkI3C7Te2fJmItdUDmj0VDT06qKhF
-8JVOJVkdzZhpu9PMMsmN74H+rX2Ju7pgE8pllWeg8xn2A1bUatMn4qGtg/BKEiJ3
-HAVz4hlxQsDsdUaakFjgao4rpUYwBI4Zshfjvqm6f1bxJAPXsiEodg42MEx51UGa
-mqi4NboMOvJEGyCI98Ul1z3G4z5D3Yf+xOr1Uz5MZf87Sst4WmsXXw3Hw09Omiqi
-7VdNIuJGmj8PkTQkfVXjjJU30xrwCSss0smNtA0Aq2cpKNgB9RkEth2+dv5yXMSF
-ytKAQd8FqKPVhJBPC/PgP5sZ0jeJP/J7UhyM9uH3PAeXjA6iWYEMspA90+NZRu0P
-qafegGtaqge2Gcu8V/OXIXoMsSt0Puvap2ctTMSYnjYJdmZm/Bo/6khUHL4wvYBQ
-v3y1zgD2DGHZ5yQD4OMBgQ692IU0iL2yNqh7XAjlRICMb/gv1SHKHRzQ+8S1h9E6
-Tsd2tTVItQIDAQABo0IwQDAPBgNVHRMBAf8EBTADAQH/MB0GA1UdDgQWBBSM+xx1
-vALTn04uSNn5YFSqxLNP+jAOBgNVHQ8BAf8EBAMCAQYwDQYJKoZIhvcNAQENBQAD
-ggIBAEii1QALLtA/vBzVtVRJHlpr9OTy4EA34MwUe7nJ+jW1dReTagVphZzNTxl4
-WxmB82M+w85bj/UvXgF2Ez8sALnNllI5SW0ETsXpD4YN4fqzX4IS8TrOZgYkNCvo
-zMrnadyHncI013nR03e4qllY/p0m+jiGPp2Kh2RX5Rc64vmNueMzeMGQ2Ljdt4NR
-5MTMI9UGfOZR0800McD2RrsLrfw9EAUqO0qRJe6M1ISHgCq8CYyqOhNf6DR5UMEQ
-GfnTKB7U0VEwKbOukGfWHwpjscWpxkIxYxeU72nLL/qMFH3EQxiJ2fAyQOaA4kZf
-5ePBAFmo+eggvIksDkc0C+pXwlM2/KfUrzHN/gLldfq5Jwn58/U7yn2fqSLLiMmq
-0Uc9NneoWWRrJ8/vJ8HjJLWG965+Mk2weWjROeiQWMODvA8s1pfrzgzhIMfatz7D
-P78v3DSk+yshzWePS/Tj6tQ/50+6uaWTRRxmHyH6ZF5v4HaUMst19W7l9o/HuKTM
-qJZ9ZPskWkoDbGs4xugDQ5r3V7mzKWmTOPQD8rv7gmsHINFSH5pkAnuYZttcTVoP
-0ISVoDwUQwbKytu4QTbaakRnh6+v40URFWkIsr4WOZckbxJF0WddCajJFdr60qZf
-E2Efv4WstK2tBZQIgx51F9NxO5NQI1mg7TyRVJ12AMXDuDjb
------END CERTIFICATE-----
-"""
+CERTUM_TRUSTED_ROOT_CA_BYTES_ ::= #[
+    '0',0x82,5,0xc0,'0',130,3,168,160,3,2,1,2,2,16,30,191,'Y','P',184,201,128,
+    '7','L',0x6,247,235,'U','O',181,237,'0',13,6,9,'*',134,'H',134,247,13,1,1,
+    0x0d,5,0,'0','z','1',11,'0',9,6,3,'U',4,6,19,2,'P','L','1','!','0',31,6,3,
+    'U',0x04,10,19,24,'A','s','s','e','c','o',' ','D','a','t','a',' ','S','y',
+    's','t','e','m','s',' ','S','.','A','.','1',39,'0','%',6,3,'U',4,11,19,30,
+    'C','e','r','t','u','m',' ','C','e','r','t','i','f','i','c','a','t','i',
+    'o','n',' ','A','u','t','h','o','r','i','t','y','1',31,'0',29,6,3,'U',4,3,
+    19,22,'C','e','r','t','u','m',' ','T','r','u','s','t','e','d',' ','R','o',
+    'o','t',' ','C','A','0',30,23,0xd,'1','8','0','3','1','6','1','2','1','0',
+    '1','3','Z',23,13,'4','3','0','3','1','6','1','2','1','0','1','3','Z','0',
+    'z','1',0xb,'0',9,6,3,'U',4,6,19,2,'P','L','1','!','0',31,6,3,'U',4,10,19,
+    0x18,'A','s','s','e','c','o',' ','D','a','t','a',' ','S','y','s','t','e',
+    'm','s',' ','S','.','A','.','1',39,'0','%',6,3,'U',4,11,19,30,'C','e','r',
+    't','u','m',' ','C','e','r','t','i','f','i','c','a','t','i','o','n',' ',
+    'A','u','t','h','o','r','i','t','y','1',0x1f,'0',29,6,3,'U',4,3,19,22,'C',
+    'e','r','t','u','m',' ','T','r','u','s','t','e','d',' ','R','o','o','t',
+    ' ','C','A','0',0x82,2,'"','0',0xd,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,
+    0x82,2,0xf,0,'0',130,2,10,2,130,2,1,0,209,'-',142,187,183,'6',234,'m','7',
+    0x91,159,'N',147,167,5,228,')',3,'%',206,28,130,247,'|',153,159,'A',6,205,
+    0xed,0xa3,186,192,219,9,',',193,'|',223,')','~','K','e','/',147,167,212,1,
+    'k',3,'(',24,0xa3,216,157,5,193,'*',216,'E',241,145,222,223,';',208,128,2,
+    0x8c,0xcf,'8',15,234,167,92,'x',17,164,193,200,133,92,'%',211,211,178,231,
+    '%',207,17,'T',151,171,'5',192,30,'v',28,239,0,'S',159,'9',220,20,165,',',
+    '"','%',0xb3,'r','r',0xfc,0x8d,179,229,'>',8,30,20,'*','7',11,136,'<',202,
+    0xb0,0xf4,0xc8,194,161,174,188,193,190,')','g','U',226,252,173,'Y',92,254,
+    0xbd,'W',',',176,144,141,194,237,'7',182,'|',153,136,181,213,3,154,'=',21,
+    13,'=',':',168,168,'E',240,149,'N','%','Y',29,205,152,'i',187,211,204,'2',
+    201,141,239,129,254,173,'}',137,187,186,'`',19,202,'e',149,'g',160,243,25,
+    0xf6,3,'V',212,'j',211,39,226,161,173,131,240,'J',18,'"','w',28,5,'s',226,
+    25,'q','B',0xc0,236,'u','F',154,144,'X',224,'j',142,'+',165,'F','0',4,142,
+    0x19,0xb2,23,227,190,169,186,127,'V',241,'$',3,215,178,'!','(','v',14,'6',
+    '0','L','y',213,'A',154,154,168,184,'5',186,12,':',242,'D',27,' ',136,247,
+    0xc5,'%',0xd7,'=',198,227,'>','C',221,135,254,196,234,245,'S','>','L','e',
+    255,';','J',203,'x','Z','k',23,'_',13,199,195,'O','N',154,'*',162,237,'W',
+    'M','"',226,'F',154,'?',15,145,'4','$','}','U',227,140,149,'7',211,26,240,
+    9,'+',',',0xd2,201,141,180,13,0,171,'g',')','(',216,1,245,25,4,182,29,190,
+    'v',0xfe,'r',92,0xc4,133,202,210,128,'A',223,5,168,163,213,132,144,'O',11,
+    0xf3,0xe0,'?',155,25,210,'7',137,'?',242,'{','R',28,140,246,225,247,'<',7,
+    0x97,140,14,162,'Y',129,12,178,144,'=',211,227,'Y','F',237,15,169,167,222,
+    0x80,'k','Z',0xaa,7,182,25,203,188,'W',243,151,'!','z',12,177,'+','t','>',
+    0xeb,218,167,'g','-','L',196,152,158,'6',9,'v','f','f',252,26,'?',234,'H',
+    'T',28,190,'0',189,128,'P',191,'|',181,206,0,246,12,'a',217,231,'$',3,224,
+    227,1,129,14,189,216,133,'4',136,189,178,'6',168,'{',92,8,229,'D',128,140,
+    'o',248,'/',213,'!',202,29,28,208,251,196,181,135,209,':','N',199,'v',181,
+    '5','H',0xb5,0x2,3,1,0,1,163,'B','0','@','0',15,6,3,'U',29,19,1,1,255,4,5,
+    '0',3,1,1,255,'0',29,6,3,'U',29,14,4,22,4,20,140,251,28,'u',188,2,211,159,
+    'N','.','H',0xd9,249,'`','T',170,196,179,'O',250,'0',14,6,3,'U',29,15,1,1,
+    0xff,4,4,3,2,1,6,'0',13,6,9,'*',134,'H',134,247,13,1,1,13,5,0,3,130,2,1,0,
+    'H',0xa2,0xd5,0,0xb,'.',208,'?',188,28,213,181,'T','I',30,'Z','k',244,228,
+    0xf2,0xe0,'@','7',224,204,20,'{',185,201,250,'5',181,'u',23,147,'j',5,'i',
+    133,156,205,'O',25,'x','[',25,129,243,'c','>',195,206,'[',143,245,'/','^',
+    0x01,'v',19,'?',',',0,185,205,150,'R','9','I','m',4,'N',197,233,15,134,13,
+    0xe1,250,179,'_',130,18,241,':',206,'f',6,'$','4','+',232,204,202,231,'i',
+    0xdc,0x87,157,194,'4',215,'y',209,211,'w',184,170,'Y','X',254,157,'&',250,
+    '8',0x86,'>',0x9d,0x8a,135,'d','W',229,23,':',226,249,141,185,227,'3','x',
+    193,144,216,184,221,183,131,'Q',228,196,204,'#',213,6,'|',230,'Q',211,205,
+    '4','1',0xc0,0xf6,'F',187,11,173,252,'=',16,5,'*',';','J',145,'%',238,140,
+    0xd4,0x84,0x87,128,'*',188,9,140,170,':',19,'_',232,'4','y','P',193,16,25,
+    0xf9,211,'(',30,212,209,'Q','0',')',179,174,144,'g',214,31,10,'c',177,197,
+    0xa9,198,'B','1','c',23,148,239,'i',203,'/',250,140,20,'}',196,'C',24,137,
+    217,240,'2','@',230,128,226,'F','_',229,227,193,0,'Y',168,249,232,' ',188,
+    0x89,',',0xe,'G','4',11,234,'W',194,'S','6',252,167,212,175,'1',205,254,2,
+    0xe5,'u',250,185,39,9,249,243,245,';',202,'}',159,169,'"',203,136,201,170,
+    209,'G','=','6','w',168,'Y','d','k',39,207,239,39,193,227,'$',181,134,247,
+    0xae,'~','2','M',0xb0,'y','h',0xd1,'9',232,144,'X',195,131,188,15,',',214,
+    0x97,0xeb,0xce,12,225,' ',199,218,183,'>',195,'?',191,'/',220,'4',164,251,
+    '+','!',0xcd,'g',0x8f,'K',244,227,234,212,'?',231,'O',186,185,165,147,'E',
+    28,'f',31,'!',250,'d','^','o',224,'v',148,'2',203,'u',245,'n',229,246,143,
+    0xc7,0xb8,164,204,168,150,'}','d',251,'$','Z','J',3,'l','k','8',198,232,3,
+    'C',0x9a,0xf7,'W',185,179,')','i',147,'8',244,3,242,187,251,130,'k',7,' ',
+    209,'R',31,154,'d',2,'{',152,'f',219,92,'M','Z',15,208,132,149,160,'<',20,
+    'C',0x6,202,202,219,184,'A','6',218,'j','D','g',135,175,175,227,'E',17,21,
+    'i',8,0xb2,190,22,'9',151,'$','o',18,'E',209,'g',']',9,168,201,21,218,250,
+    0xd2,0xa6,'_',19,'a',31,191,133,172,180,173,173,5,148,8,131,30,'u',23,211,
+    'q',';',147,'P','#','Y',160,237,'<',145,'T',157,'v',0,197,195,184,'8',219,
+]
+
 
 /**
 Certum Trusted Root CA.
 SHA256 fingerprint: fe:76:96:57:38:55:77:3e:37:a9:5e:7a:d4:d9:cc:96:c3:01:57:c1:5d:31:76:5b:a9:b1:57:04:e1:ae:78:fd
 */
-CERTUM_TRUSTED_ROOT_CA ::= net.Certificate.parse CERTUM_TRUSTED_ROOT_CA_TEXT_
+CERTUM_TRUSTED_ROOT_CA ::= parse_ CERTUM_TRUSTED_ROOT_CA_BYTES_
 
-TUNTRUST_ROOT_CA_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIFszCCA5ugAwIBAgIUEwLV4kBMkkaGFmddtLu7sms+/BMwDQYJKoZIhvcNAQEL
-BQAwYTELMAkGA1UEBhMCVE4xNzA1BgNVBAoMLkFnZW5jZSBOYXRpb25hbGUgZGUg
-Q2VydGlmaWNhdGlvbiBFbGVjdHJvbmlxdWUxGTAXBgNVBAMMEFR1blRydXN0IFJv
-b3QgQ0EwHhcNMTkwNDI2MDg1NzU2WhcNNDQwNDI2MDg1NzU2WjBhMQswCQYDVQQG
-EwJUTjE3MDUGA1UECgwuQWdlbmNlIE5hdGlvbmFsZSBkZSBDZXJ0aWZpY2F0aW9u
-IEVsZWN0cm9uaXF1ZTEZMBcGA1UEAwwQVHVuVHJ1c3QgUm9vdCBDQTCCAiIwDQYJ
-KoZIhvcNAQEBBQADggIPADCCAgoCggIBAMPN0/y9BFPdDCA61YguBUtB9YOCfvdZ
-n56eY+hz2vYGqU8ftPkLHzmMmiDQfgbU7DTZhrx1W4eI8NLZ1KMKsmwb60ksPqxd
-2JQDoOw05TDENX37Jk0bbjBU2PWARZw5rZzJJQRNmpA+TkBuimvNKWfGzC3gdOgF
-VwpIUPp6Q9p+7FuaDmJ2/uqdHYVy7BG7NegfJ7/Boce7SBbdVtfMTqDhuazb1YMZ
-GoXRlJfXyqNlC/M4+QKu3fZnz8k/9YosRxqZbwUN/dAdgjH8KcwAWJeRTIAAHDOF
-li/LQcKLEITDCSSJH7UP2dl3RxiSlGBcx5kDPP73lad9UKGAwqmDrViWVSHbhlnU
-r8a83YFuB9tgYv7sEG7aaAH0gxupPqJbI9dkxt/con3YS7qC0lH4Zr8GRuR5KiY2
-eY8fTpkdso8MDhz/yV3A/ZAQprE38806JG60hZC/gLkMjNWb1sjxVj8agIl6qeIb
-MlEsPvLfe/ZdeikZjuXIvTZxi11Mwh0/rViizz1wTaZQmCXcI/m4WEEIcb9PuISg
-jwBUFfyRbVinljvrS5YnzWuioYasDXxU5mZMZl+QviGaAkYt5IPCgLnPSz7ofzwB
-7I9ezX/SKEIBlYrilz0QIX32nRzFNKHsLA4KUiwSVXAkPcvCFDVDXSdOvsC9qnyW
-5/yeYa1E0wCXAgMBAAGjYzBhMB0GA1UdDgQWBBQGmpsfU33x9aTI04Y+oXNZtPdE
-ITAPBgNVHRMBAf8EBTADAQH/MB8GA1UdIwQYMBaAFAaamx9TffH1pMjThj6hc1m0
-90QhMA4GA1UdDwEB/wQEAwIBBjANBgkqhkiG9w0BAQsFAAOCAgEAqgVutt0Vyb+z
-xiD2BkewhpMl0425yAA/l/VSJ4hxyXT968pk21vvHl26v9Hr7lxpuhbI87mP0zYu
-QEkHDVneixCwSQXi/5E/S7fdAo74gShczNxtr18UnH1YeA32gAm56Q6XKRm4t+v4
-FstVEuTGfbvE7Pi1HE4+Z7/FXxttbUcoqgRYYdZ2vyJ/0Adqp2RT8JeNnYA/u8EH
-22Wv5psymsNUk8QcCMNE+3tjEUPRahphanltkE8pjkcFwRJpadbGNjHh/PqAulxP
-xOu3Mqz4dWEX1xAZufHSCe96Qp1bWgvUxpVOKs7/B9dPfhgGiPEZtdmYu65xxBzn
-dFlY7wyJz4sfdZMaBBSSSFCp61cpABbjNhzI+L/wM9VBD8TMPN3pM0MBkRArHtG5
-Xc0yGYuPjCB31yLEQtyEFpslbei0VXF/sHyz03FJuc9SpAQ/3D2gu68zngowYI7b
-nV2UqL1g52KAdoGDDIzMMEZJ4gzSqK/rYXHv5yJiqfdcZGyfFoxnNidF9Ql7v/YQ
-CvGwjVRDjAS6oz/v4jXH+XTgbzRB0L9zZVcg+ZtnemZoJE6AZb0QmQZZ8mWvuMZH
-u/2QeItBcy6vVR/cO5JyboTT0GFMDcx2V+IthSIVNg3rAZ3r2OvEhJn7wAzMMujj
-d9qDRIueVSjAi1jTkD5OGwDxFa2DK5o=
------END CERTIFICATE-----
-"""
+TUNTRUST_ROOT_CA_BYTES_ ::= #[
+    '0',130,5,179,'0',130,3,155,160,3,2,1,2,2,20,19,2,213,226,'@','L',146,'F',
+    0x86,22,'g',']',180,187,187,178,'k','>',252,19,'0',13,6,9,'*',134,'H',134,
+    0xf7,0xd,1,1,11,5,0,'0','a','1',11,'0',9,6,3,'U',4,6,19,2,'T','N','1','7',
+    '0','5',0x6,3,'U',4,10,12,'.','A','g','e','n','c','e',' ','N','a','t','i',
+    'o','n','a','l','e',' ','d','e',' ','C','e','r','t','i','f','i','c','a',
+    't','i','o','n',' ','E','l','e','c','t','r','o','n','i','q','u','e','1',
+    0x19,'0',23,6,3,'U',4,3,12,16,'T','u','n','T','r','u','s','t',' ','R','o',
+    'o','t',' ','C','A','0',30,23,0xd,'1','9','0','4','2','6','0','8','5','7',
+    '5','6','Z',23,13,'4','4','0','4','2','6','0','8','5','7','5','6','Z','0',
+    'a','1',11,'0',9,6,3,'U',4,6,19,2,'T','N','1','7','0','5',6,3,'U',4,10,12,
+    '.','A','g','e','n','c','e',' ','N','a','t','i','o','n','a','l','e',' ',
+    'd','e',' ','C','e','r','t','i','f','i','c','a','t','i','o','n',' ','E',
+    'l','e','c','t','r','o','n','i','q','u','e','1',25,'0',23,6,3,'U',4,3,0xc,
+    0x10,'T','u','n','T','r','u','s','t',' ','R','o','o','t',' ','C','A','0',
+    0x82,0x2,'"','0',13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,2,15,0,'0',
+    130,2,10,2,130,2,1,0,195,205,211,252,189,4,'S',221,12,' ',':',213,136,'.',
+    0x5,'K','A',245,131,130,'~',247,'Y',159,158,158,'c',232,'s',218,246,6,169,
+    'O',0x1f,0xb4,249,11,31,'9',140,154,' ',208,'~',6,212,236,'4',217,134,188,
+    'u','[',135,136,240,210,217,212,163,10,178,'l',27,235,'I',',','>',172,']',
+    0xd8,148,3,160,236,'4',229,'0',196,'5','}',251,'&','M',27,'n','0','T',216,
+    245,128,'E',156,'9',173,156,201,'%',4,'M',154,144,'>','N','@','n',138,'k',
+    0xcd,')','g',198,204,'-',224,'t',232,5,'W',10,'H','P',250,'z','C',218,'~',
+    0xec,'[',0x9a,0xe,'b','v',254,234,157,29,133,'r',236,17,187,'5',232,31,39,
+    0xbf,0xc1,0xa1,199,187,'H',22,221,'V',215,204,'N',160,225,185,172,219,213,
+    0x83,0x19,26,133,209,148,151,215,202,163,'e',11,243,'8',249,2,174,221,246,
+    'g',0xcf,0xc9,'?',0xf5,138,',','G',26,153,'o',5,13,253,208,29,130,'1',252,
+    ')',204,0,'X',151,145,'L',128,0,28,'3',133,150,'/',203,'A',194,139,16,132,
+    0xc3,9,'$',0x89,31,181,15,217,217,'w','G',24,146,148,'`',92,199,153,3,'<',
+    0xfe,0xf7,149,167,'}','P',161,128,194,169,131,173,'X',150,'U','!',219,134,
+    'Y',0xd4,0xaf,0xc6,188,221,129,'n',7,219,'`','b',254,236,16,'n',218,'h',1,
+    0xf4,0x83,27,0xa9,'>',162,'[','#',215,'d',198,223,220,162,'}',216,'K',186,
+    0x82,0xd2,'Q',248,'f',191,6,'F',228,'y','*','&','6','y',143,31,'N',153,29,
+    0xb2,0x8f,12,14,28,255,201,']',192,253,144,16,166,177,'7',243,205,':','$',
+    'n',180,133,144,191,128,185,12,140,213,155,214,200,241,'V','?',26,128,137,
+    'z',169,226,27,'2','Q',',','>',242,223,'{',246,']','z',')',25,142,229,200,
+    0xbd,'6','q',0x8b,']','L',0xc2,29,'?',173,'X',162,207,'=','p','M',166,'P',
+    0x98,'%',0xdc,'#',0xf9,184,'X','A',8,'q',191,'O',184,132,160,143,0,'T',21,
+    252,145,'m','X',167,150,';',235,'K',150,39,205,'k',162,161,134,172,13,'|',
+    'T',230,'f','L','f','_',144,190,'!',154,2,'F','-',228,131,194,128,185,207,
+    'K','>',0xe8,0x7f,'<',1,236,143,'^',205,127,210,'(','B',1,149,138,226,151,
+    '=',0x10,'!','}',0xf6,157,28,197,'4',161,236,',',14,10,'R',',',18,'U','p',
+    '$','=',203,194,20,'5','C',']',39,'N',190,192,189,170,'|',150,231,252,158,
+    'a',173,'D',211,0,151,2,3,1,0,1,163,'c','0','a','0',29,6,3,'U',29,14,4,22,
+    4,20,6,154,155,31,'S','}',241,245,164,200,211,134,'>',161,'s','Y',180,247,
+    'D','!','0',0xf,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',31,6,3,'U',29,
+    '#',0x4,24,'0',22,128,20,6,154,155,31,'S','}',241,245,164,200,211,134,'>',
+    0xa1,'s','Y',180,247,'D','!','0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',
+    13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,3,130,2,1,0,170,5,'n',182,221,21,
+    0xc9,0xbf,179,198,' ',246,6,'G',176,134,147,'%',211,141,185,200,0,'?',151,
+    245,'R',39,136,'q',201,'t',253,235,202,'d',219,'[',239,30,']',186,191,209,
+    0xeb,0xee,92,'i',0xba,22,200,243,185,143,211,'6','.','@','I',7,13,'Y',222,
+    139,16,176,'I',5,226,255,145,'?','K',183,221,2,142,248,129,'(',92,204,220,
+    'm',175,'_',20,156,'}','X','x',13,246,128,9,185,233,14,151,')',25,184,183,
+    0xeb,248,22,203,'U',18,228,198,'}',187,196,236,248,181,28,'N','>','g',191,
+    0xc5,'_',0x1b,'m','m','G','(',170,4,'X','a',214,'v',191,'"',127,208,7,'j',
+    167,'d','S',240,151,141,157,128,'?',187,193,7,219,'e',175,230,155,'2',154,
+    0xc3,'T',0x93,0xc4,28,8,195,'D',251,'{','c',17,'C',209,'j',26,'a','j','y',
+    'm',0x90,'O',')',142,'G',5,193,18,'i','i',214,198,'6','1',225,252,250,128,
+    186,92,'O',196,235,183,'2',172,248,'u','a',23,215,16,25,185,241,210,9,239,
+    'z','B',157,'[','Z',11,212,198,149,'N','*',206,255,7,215,'O','~',24,6,136,
+    0xf1,25,181,217,152,187,174,'q',196,28,231,'t','Y','X',239,12,137,207,139,
+    0x1f,'u',0x93,26,4,20,146,'H','P',169,235,'W',')',0,22,227,'6',28,200,248,
+    0xbf,0xf0,'3',0xd5,'A',15,196,204,'<',221,233,'3','C',1,145,16,'+',30,209,
+    185,']',205,'2',25,139,143,140,' ','w',215,'"',196,'B',220,132,22,155,'%',
+    'm',232,180,'U','q',127,176,'|',179,211,'q','I',185,207,'R',164,4,'?',220,
+    '=',0xa0,0xbb,0xaf,'3',158,10,'0','`',142,219,157,']',148,168,189,'`',231,
+    'b',128,'v',129,131,12,140,204,'0','F','I',226,12,210,168,175,235,'a','q',
+    0xef,0xe7,'"','b',0xa9,247,92,'d','l',159,22,140,'g','6',39,'E',245,9,'{',
+    0xbf,0xf6,16,10,241,176,141,'T','C',140,4,186,163,'?',239,226,'5',199,249,
+    't',0xe0,'o','4','A',0xd0,191,'s','e','W',' ',249,155,'g','z','f','h','$',
+    'N',0x80,'e',189,16,153,6,'Y',242,'e',175,184,198,'G',187,253,144,'x',139,
+    'A','s','.',175,'U',31,220,';',146,'r','n',132,211,208,'a','L',13,204,'v',
+    'W',0xe2,'-',0x85,'"',21,'6',13,235,1,157,235,216,235,196,132,153,251,192,
+    0x0c,0xcc,'2',232,227,'w',218,131,'D',139,158,'U','(',192,139,'X',211,144,
+    '>','N',27,0,241,21,173,131,'+',154,
+]
+
 
 /**
 TunTrust Root CA.
 SHA256 fingerprint: 2e:44:10:2a:b5:8c:b8:54:19:45:1c:8e:19:d9:ac:f3:66:2c:af:bc:61:4b:6a:53:96:0a:30:f7:d0:e2:eb:41
 */
-TUNTRUST_ROOT_CA ::= net.Certificate.parse TUNTRUST_ROOT_CA_TEXT_
+TUNTRUST_ROOT_CA ::= parse_ TUNTRUST_ROOT_CA_BYTES_
 
-HARICA_TLS_RSA_ROOT_CA_2021_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIFpDCCA4ygAwIBAgIQOcqTHO9D88aOk8f0ZIk4fjANBgkqhkiG9w0BAQsFADBs
-MQswCQYDVQQGEwJHUjE3MDUGA1UECgwuSGVsbGVuaWMgQWNhZGVtaWMgYW5kIFJl
-c2VhcmNoIEluc3RpdHV0aW9ucyBDQTEkMCIGA1UEAwwbSEFSSUNBIFRMUyBSU0Eg
-Um9vdCBDQSAyMDIxMB4XDTIxMDIxOTEwNTUzOFoXDTQ1MDIxMzEwNTUzN1owbDEL
-MAkGA1UEBhMCR1IxNzA1BgNVBAoMLkhlbGxlbmljIEFjYWRlbWljIGFuZCBSZXNl
-YXJjaCBJbnN0aXR1dGlvbnMgQ0ExJDAiBgNVBAMMG0hBUklDQSBUTFMgUlNBIFJv
-b3QgQ0EgMjAyMTCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAIvC569l
-mwVnlskNJLnQDmT8zuIkGCyEf3dRywQRNrhe7Wlxp57kJQmXZ8FHws+RFjZiPTgE
-4VGC/6zStGndLuwRo0Xua2s7TL+MjaQenRG56Tj5eg4MmOIjHdFOY9TnuEFE+2uv
-a9of08WRiFukiZLRgeaMOVig1mlDqa2YUlhu2wr7a89o+uOkXjpFc5gH6l8Cct4M
-pbOfrqkdtx2z/IpZ525yZa31MJQjB/OCFks1mJxTuy/K5FrZx40d/JiZ+yykgmvw
-Kh+OC19xXFyuQnspiYHLA6OZyoieC0AJQTPb5lh6/a6ZcMBaD9YThnEvdmn8kN3b
-LW7R8pv1GmuebxWMevBLKKAiOIAkbDakO/IwkfN4E8/BPzWr8R0RI7VDIp4BkrcY
-AuUR0YLbFQDMYTfBKnya4dC6s1BG7oKsnTH4+yPiAwBIcKMJJnkVU2DzOFytOOqB
-AGMUuTNe3QvboEUHGjMJ+E20pwKmafTCWQWIZYVWrkvL4N48fS0ayOn7H6NhStYq
-E613TBoYm5EPWNgGVMWX+Ko/IIqmhaZ39qb8HOLubpQzKoNQhArlT4b4UEV4AIHr
-W2jjJo3Me1xR9BQsQL4aYB16cmEdH2MtiKrOokWQCPxrvrNQKlr9qEgYRtaQQJKQ
-CoReaDH46+0N0x3GfZkYVVYnZS6NRcUk7M7jAgMBAAGjQjBAMA8GA1UdEwEB/wQF
-MAMBAf8wHQYDVR0OBBYEFApII6ZgpJIKM+qTW8VX6iVNvRLuMA4GA1UdDwEB/wQE
-AwIBhjANBgkqhkiG9w0BAQsFAAOCAgEAPpBIqm5iFSVmewzVjIuJndftTgfvnNAU
-X15QvWiWkKQUEapobQk1OUAJ2vQJLDSle1mESSmXdMgHHkdt8s4cUCbjnj1AUz/3
-f5Z2EMVGpdAgS1D0NTsY9FVqQRtHBmg8uwkIYtlfVUKqrFOFrJVWNlar5AWMxaja
-H6NpvVMPxP/cyuN+8kyIhkdGGvMA9YCRotxDQpSbIPDRzbLrLFPCU3hKTwSUQZqP
-JzLB5UkZv/HywouoCjkxKLR9YjYsTewfM7Z+d21+UPCfDtcRj88YxeMn/ibvBZ3P
-zzfF0HvaO7AWhAw6k9a+F9sPPg4ZeAnHqQJyIkv3N3a6dcSFA1pj1bF1BcK5vZSt
-jBWZp5N99sXzqnTPBIWUmAD04vnKJGW/4GKvyMX6ssmeVkjaef2WdhW+o45WxLM0
-/L5H9MG0qPzVMIho7suuyWPEdr6sOBjhXlzPrjoiUevRi7PzKzMHVIf6tLITe7pT
-BGIBnfHAT+7hOtSLIBD6Alfm78ELt5BGnBkpjNxvoEppaZS3JGWg/6w/zgH7IS79
-aPib8qXPMThcFarmlwDB31qlpzmq6YR/PFGoOtmUW4y/Twhx5duoXNTSpv4Ao8YW
-xw/ogM4cKGR0GQjTQuPOAF1/sdwTsOEFy9EgqoZ0njnnkf3/W9b3raYvAwtt41dU
-63ZTGI0RmLo=
------END CERTIFICATE-----
-"""
+HARICA_TLS_RSA_ROOT_CA_2021_BYTES_ ::= #[
+    '0',0x82,5,0xa4,'0',130,3,140,160,3,2,1,2,2,16,'9',202,147,28,239,'C',243,
+    198,142,147,199,244,'d',137,'8','~','0',13,6,9,'*',134,'H',134,247,13,1,1,
+    0xb,5,0,'0','l','1',11,'0',9,6,3,'U',4,6,19,2,'G','R','1','7','0','5',6,3,
+    'U',0x4,10,12,'.','H','e','l','l','e','n','i','c',' ','A','c','a','d','e',
+    'm','i','c',' ','a','n','d',' ','R','e','s','e','a','r','c','h',' ','I',
+    'n','s','t','i','t','u','t','i','o','n','s',' ','C','A','1','$','0','"',6,
+    0x3,'U',4,3,12,27,'H','A','R','I','C','A',' ','T','L','S',' ','R','S','A',
+    ' ','R','o','o','t',' ','C','A',' ','2','0','2','1','0',30,23,0xd,'2','1',
+    '0','2','1','9','1','0','5','5','3','8','Z',23,13,'4','5','0','2','1','3',
+    '1','0','5','5','3','7','Z','0','l','1',11,'0',9,6,3,'U',4,6,19,2,'G','R',
+    '1','7','0','5',0x6,3,'U',4,10,12,'.','H','e','l','l','e','n','i','c',' ',
+    'A','c','a','d','e','m','i','c',' ','a','n','d',' ','R','e','s','e','a',
+    'r','c','h',' ','I','n','s','t','i','t','u','t','i','o','n','s',' ','C',
+    'A','1','$','0','"',6,3,'U',4,3,12,27,'H','A','R','I','C','A',' ','T','L',
+    'S',' ','R','S','A',' ','R','o','o','t',' ','C','A',' ','2','0','2','1',
+    '0',0x82,0x2,'"','0',13,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,2,15,0,
+    '0',130,2,10,2,130,2,1,0,139,194,231,175,'e',155,5,'g',150,201,13,'$',185,
+    0xd0,0x0e,'d',252,206,226,'$',24,',',132,127,'w','Q',203,4,17,'6',184,'^',
+    0xed,'i','q',167,158,228,'%',9,151,'g',193,'G',194,207,145,22,'6','b','=',
+    '8',4,0xe1,'Q',130,255,172,210,180,'i',221,'.',236,17,163,'E',238,'k','k',
+    ';','L',0xbf,0x8c,141,164,30,157,17,185,233,'8',249,'z',14,12,152,226,'#',
+    29,209,'N','c',212,231,184,'A','D',251,'k',175,'k',218,31,211,197,145,136,
+    '[',0xa4,0x89,146,209,129,230,140,'9','X',160,214,'i','C',169,173,152,'R',
+    'X','n',0xdb,10,251,'k',207,'h',250,227,164,'^',':','E','s',152,7,234,'_',
+    0x02,'r',222,12,165,179,159,174,169,29,183,29,179,252,138,'Y',231,'n','r',
+    'e',0xad,245,'0',148,'#',7,243,130,22,'K','5',152,156,'S',187,'/',202,228,
+    'Z',0xd9,199,141,29,252,152,153,251,',',164,130,'k',240,'*',31,142,11,'_',
+    'q',92,92,0xae,'B','{',')',137,129,203,3,163,153,202,136,158,11,'@',9,'A',
+    '3',219,230,'X','z',253,174,153,'p',192,'Z',15,214,19,134,'q','/','v','i',
+    252,144,221,219,'-','n',209,242,155,245,26,'k',158,'o',21,140,'z',240,'K',
+    '(',0xa0,'"','8',0x80,'$','l','6',0xa4,';',242,'0',145,243,'x',19,207,193,
+    '?','5',0xab,0xf1,29,17,'#',181,'C','"',158,1,146,183,24,2,229,17,209,130,
+    0xdb,21,0,204,'a','7',193,'*','|',154,225,208,186,179,'P','F',238,130,172,
+    0x9d,'1',0xf8,251,'#',226,3,0,'H','p',163,9,'&','y',21,'S','`',243,'8',92,
+    0xad,'8',0xea,0x81,0,'c',20,185,'3','^',221,11,219,160,'E',7,26,'3',9,248,
+    'M',0xb4,0xa7,2,166,'i',244,194,'Y',5,136,'e',133,'V',174,'K',203,224,222,
+    '<','}','-',0x1a,0xc8,233,251,31,163,'a','J',214,'*',19,173,'w','L',26,24,
+    0x9b,145,15,'X',216,6,'T',197,151,248,170,'?',' ',138,166,133,166,'w',246,
+    166,252,28,226,238,'n',148,'3','*',131,'P',132,10,229,'O',134,248,'P','E',
+    'x',0x00,129,235,'[','h',227,'&',141,204,'{',92,'Q',244,20,',','@',190,26,
+    '`',0x1d,'z','r','a',29,31,'c','-',0x88,170,206,162,'E',144,8,252,'k',190,
+    179,'P','*','Z',253,168,'H',24,'F',214,144,'@',146,144,10,132,'^','h','1',
+    0xf8,0xeb,237,13,211,29,198,'}',153,24,'U','V',39,'e','.',141,'E',197,'$',
+    0xec,0xce,0xe3,2,3,1,0,1,163,'B','0','@','0',15,6,3,'U',29,19,1,1,255,4,5,
+    '0',0x3,1,1,255,'0',29,6,3,'U',29,14,4,22,4,20,10,'H','#',166,'`',164,146,
+    0xa,'3',234,147,'[',197,'W',234,'%','M',189,18,238,'0',14,6,3,'U',29,15,1,
+    1,0xff,4,4,3,2,1,134,'0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,3,130,2,
+    1,0,'>',144,'H',170,'n','b',21,'%','f','{',12,213,140,139,137,157,215,237,
+    'N',7,0xef,156,208,20,'_','^','P',189,'h',150,144,164,20,17,170,'h','m',9,
+    '5','9','@',9,0xda,244,9,',','4',165,'{','Y',132,'I',')',151,'t',200,7,30,
+    'G','m',242,206,28,'P','&',227,158,'=','@','S','?',247,127,150,'v',16,197,
+    'F',0xa5,0xd0,' ','K','P',244,'5',';',24,244,'U','j','A',27,'G',6,'h','<',
+    187,9,8,'b',217,'_','U','B',170,172,'S',133,172,149,'V','6','V',171,228,5,
+    140,197,168,218,31,163,'i',189,'S',15,196,255,220,202,227,'~',242,'L',136,
+    0x86,'G','F',26,243,0,245,128,145,162,220,'C','B',148,155,' ',240,209,205,
+    0xb2,235,',','S',194,'S','x','J','O',4,148,'A',154,143,39,'2',193,229,'I',
+    25,0xbf,241,242,194,139,168,10,'9','1','(',180,'}','b','6',',','M',236,31,
+    '3',0xb6,'~','w','m','~','P',0xf0,159,14,215,17,143,207,24,197,227,39,254,
+    '&',0xef,5,0x9d,207,207,'7',197,208,'{',218,';',176,22,132,12,':',147,214,
+    0xbe,23,0xdb,15,'>',14,25,'x',9,199,169,2,'r','"','K',247,'7','v',186,'u',
+    0xc4,0x85,3,'Z','c',0xd5,177,'u',5,194,185,189,148,173,140,21,153,167,147,
+    '}',0xf6,0xc5,243,170,'t',207,4,133,148,152,0,244,226,249,202,'$','e',191,
+    0xe0,'b',0xaf,0xc8,197,250,178,201,158,'V','H',218,'y',253,150,'v',21,190,
+    0xa3,0x8e,'V',196,179,'4',252,190,'G',244,193,180,168,252,213,'0',136,'h',
+    238,203,174,201,'c',196,'v',190,172,'8',24,225,'^',92,207,174,':','"','Q',
+    0xeb,209,139,179,243,'+','3',7,'T',135,250,180,178,19,'{',186,'S',4,'b',1,
+    0x9d,0xf1,192,'O',238,225,':',212,139,' ',16,250,2,'W',230,239,193,11,183,
+    0x90,'F',0x9c,25,')',0x8c,220,'o',160,'J','i','i',148,183,'$','e',160,255,
+    0xac,'?',0xce,1,251,'!','.',253,'h',248,155,242,165,207,'1','8',92,21,170,
+    230,151,0,193,223,'Z',165,167,'9',170,233,132,127,'<','Q',168,':',217,148,
+    '[',0x8c,191,'O',8,'q',229,219,168,92,212,210,166,254,0,163,198,22,199,15,
+    0xe8,128,206,28,'(','d','t',25,8,211,'B',227,206,0,']',127,177,220,19,176,
+    225,5,203,209,' ',170,134,'t',158,'9',231,145,253,255,'[',214,247,173,166,
+    '/',3,11,'m',227,'W','T',235,'v','S',24,141,17,152,186,
+]
+
 
 /**
 HARICA TLS RSA Root CA 2021.
 SHA256 fingerprint: d9:5d:0e:8e:da:79:52:5b:f9:be:b1:1b:14:d2:10:0d:32:94:98:5f:0c:62:d9:fa:bd:9c:d9:99:ec:cb:7b:1d
 */
-HARICA_TLS_RSA_ROOT_CA_2021 ::= net.Certificate.parse HARICA_TLS_RSA_ROOT_CA_2021_TEXT_
+HARICA_TLS_RSA_ROOT_CA_2021 ::= parse_ HARICA_TLS_RSA_ROOT_CA_2021_BYTES_
 
-HARICA_TLS_ECC_ROOT_CA_2021_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIICVDCCAdugAwIBAgIQZ3SdjXfYO2rbIvT/WeK/zjAKBggqhkjOPQQDAzBsMQsw
-CQYDVQQGEwJHUjE3MDUGA1UECgwuSGVsbGVuaWMgQWNhZGVtaWMgYW5kIFJlc2Vh
-cmNoIEluc3RpdHV0aW9ucyBDQTEkMCIGA1UEAwwbSEFSSUNBIFRMUyBFQ0MgUm9v
-dCBDQSAyMDIxMB4XDTIxMDIxOTExMDExMFoXDTQ1MDIxMzExMDEwOVowbDELMAkG
-A1UEBhMCR1IxNzA1BgNVBAoMLkhlbGxlbmljIEFjYWRlbWljIGFuZCBSZXNlYXJj
-aCBJbnN0aXR1dGlvbnMgQ0ExJDAiBgNVBAMMG0hBUklDQSBUTFMgRUNDIFJvb3Qg
-Q0EgMjAyMTB2MBAGByqGSM49AgEGBSuBBAAiA2IABDgI/rGgltJ6rK9JOtDA4MM7
-KKrxcm1lAEeIhPyaJmuqS7psBAqIXhfyVYf8MLA04jRYVxqEU+kw2anylnTDUR9Y
-STHMmE5gEYd103KUkE+bECUqqHgtvpBBWJAVcqeht6NCMEAwDwYDVR0TAQH/BAUw
-AwEB/zAdBgNVHQ4EFgQUyRtTgRL+BNUW0aq8mm+3oJUZbsowDgYDVR0PAQH/BAQD
-AgGGMAoGCCqGSM49BAMDA2cAMGQCMBHervjcToiwqfAircJRQO9gcS3ujwLEXQNw
-SaSS6sUUiHCm0w2wqsosQJz76YJumgIwK0eaB8bRwoF8yguWGEEbo/QwCZ61IygN
-nxS2PFOiTAZpffpskcYqSUXm7LcT4Tps
------END CERTIFICATE-----
-"""
+HARICA_TLS_ECC_ROOT_CA_2021_BYTES_ ::= #[
+    '0',0x82,2,'T','0',130,1,219,160,3,2,1,2,2,16,'g','t',157,141,'w',216,';',
+    'j',0xdb,'"',244,255,'Y',226,191,206,'0',10,6,8,'*',134,'H',206,'=',4,3,3,
+    '0','l','1',0x0b,'0',9,6,3,'U',4,6,19,2,'G','R','1','7','0','5',6,3,'U',4,
+    10,12,'.','H','e','l','l','e','n','i','c',' ','A','c','a','d','e','m','i',
+    'c',' ','a','n','d',' ','R','e','s','e','a','r','c','h',' ','I','n','s',
+    't','i','t','u','t','i','o','n','s',' ','C','A','1','$','0','"',6,3,'U',4,
+    0x3,12,27,'H','A','R','I','C','A',' ','T','L','S',' ','E','C','C',' ','R',
+    'o','o','t',' ','C','A',' ','2','0','2','1','0',30,23,0xd,'2','1','0','2',
+    '1','9','1','1','0','1','1','0','Z',23,13,'4','5','0','2','1','3','1','1',
+    '0','1','0','9','Z','0','l','1',11,'0',9,6,3,'U',4,6,19,2,'G','R','1','7',
+    '0','5',0x6,3,'U',4,10,12,'.','H','e','l','l','e','n','i','c',' ','A','c',
+    'a','d','e','m','i','c',' ','a','n','d',' ','R','e','s','e','a','r','c',
+    'h',' ','I','n','s','t','i','t','u','t','i','o','n','s',' ','C','A','1',
+    '$','0','"',6,3,'U',4,3,12,27,'H','A','R','I','C','A',' ','T','L','S',' ',
+    'E','C','C',' ','R','o','o','t',' ','C','A',' ','2','0','2','1','0','v',
+    '0',0x10,6,7,'*',0x86,'H',206,'=',2,1,6,5,'+',129,4,0,'"',3,'b',0,4,'8',8,
+    0xfe,0xb1,160,150,210,'z',172,175,'I',':',208,192,224,195,';','(',170,241,
+    'r','m','e',0,'G',136,132,252,154,'&','k',170,'K',186,'l',4,10,136,'^',23,
+    0xf2,'U',0x87,0xfc,'0',176,'4',226,'4','X','W',26,132,'S',233,'0',217,169,
+    242,150,'t',195,'Q',31,'X','I','1',204,152,'N','`',17,135,'u',211,'r',148,
+    144,'O',155,16,'%','*',168,'x','-',190,144,'A','X',144,21,'r',167,161,183,
+    163,'B','0','@','0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',29,6,3,
+    'U',0x1d,0xe,4,22,4,20,201,27,'S',129,18,254,4,213,22,209,170,188,154,'o',
+    0xb7,160,149,25,'n',202,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,134,'0',10,
+    0x06,8,'*',134,'H',206,'=',4,3,3,3,'g',0,'0','d',2,'0',17,222,174,248,220,
+    'N',136,176,169,240,'"',173,194,'Q','@',239,'`','q','-',238,143,2,196,']',
+    0x3,'p','I',164,146,234,197,20,136,'p',166,211,13,176,170,202,',','@',156,
+    251,233,130,'n',154,2,'0','+','G',154,7,198,209,194,129,'|',202,11,150,24,
+    'A',27,0xa3,244,'0',9,158,181,'#','(',13,159,20,182,'<','S',162,'L',6,'i',
+    '}',250,'l',145,198,'*','I','E',230,236,183,19,225,':','l',
+]
+
 
 /**
 HARICA TLS ECC Root CA 2021.
 SHA256 fingerprint: 3f:99:cc:47:4a:cf:ce:4d:fe:d5:87:94:66:5e:47:8d:15:47:73:9f:2e:78:0f:1b:b4:ca:9b:13:30:97:d4:01
 */
-HARICA_TLS_ECC_ROOT_CA_2021 ::= net.Certificate.parse HARICA_TLS_ECC_ROOT_CA_2021_TEXT_
+HARICA_TLS_ECC_ROOT_CA_2021 ::= parse_ HARICA_TLS_ECC_ROOT_CA_2021_BYTES_
 
-AUTORIDAD_DE_CERTIFICACION_FIRMAPROFESIONAL_CIF_A62634068_NEW_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIGFDCCA/ygAwIBAgIIG3Dp0v+ubHEwDQYJKoZIhvcNAQELBQAwUTELMAkGA1UE
-BhMCRVMxQjBABgNVBAMMOUF1dG9yaWRhZCBkZSBDZXJ0aWZpY2FjaW9uIEZpcm1h
-cHJvZmVzaW9uYWwgQ0lGIEE2MjYzNDA2ODAeFw0xNDA5MjMxNTIyMDdaFw0zNjA1
-MDUxNTIyMDdaMFExCzAJBgNVBAYTAkVTMUIwQAYDVQQDDDlBdXRvcmlkYWQgZGUg
-Q2VydGlmaWNhY2lvbiBGaXJtYXByb2Zlc2lvbmFsIENJRiBBNjI2MzQwNjgwggIi
-MA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQDKlmuO6vj78aI14H9M2uDDUtd9
-thDIAl6zQyrET2qyyhxdKJp4ERppWVevtSBC5IsP5t9bpgOSL/UR5GLXMnE42QQM
-cas9UX4PB99jBVzpv5RvwSmCwLTaUbDBPLutN0pcyvFLNg4kq7/DhHf9qFD0sefG
-L9ItWY16Ck6WaVICqjaY7Pz6FIMMNx/Jkjd/14Et5cS54D40/mf0PmbR0/RAz15i
-NA9wBj4gGFrO93IbJWyTdBSTo3OxDqqHECNZXyAFGUftaI6SEspd/NYrspI8IM/h
-X68gvqB2f3bl7BqGYTM+53u0P6APjqK5am+5hyZvQWyIplD9amML9ZMWGxmPsu2b
-m8mQ9QEM3xk9Dz44I8kvjwzRAv4bVdZO0I08r0+k8/6vKtMFnXkIoctXMbScyJCy
-Z/QYFpM6/EfY0XiWMR+6KwxfXZmtY4laJCB22N/9q06mIqqdXuYnin1oKaPnirja
-EbsXLZmdEyRG98Xi2J+Of8ePdG1asuhy9azuJBCtLxTa/y2aRnFHvkLfuwHb9H/T
-KI8xWVvTyQKmtFLKbpf7Q8UIJm+K9Lv9nyiqDdVF8xM6HdjAeI9BZzwelGSuewvF
-6NkBiDkal4ZkQdU7hwxu+g/GvUgUvzlN1J5Bto+WHWOWk9mVBngxaJ43BjuAiUVh
-OSPHG0SjFeUc+JIwuwIDAQABo4HvMIHsMB0GA1UdDgQWBBRlzeurNR4APn7VdMAc
-tHNHDhpkLzASBgNVHRMBAf8ECDAGAQH/AgEBMIGmBgNVHSAEgZ4wgZswgZgGBFUd
-IAAwgY8wLwYIKwYBBQUHAgEWI2h0dHA6Ly93d3cuZmlybWFwcm9mZXNpb25hbC5j
-b20vY3BzMFwGCCsGAQUFBwICMFAeTgBQAGEAcwBlAG8AIABkAGUAIABsAGEAIABC
-AG8AbgBhAG4AbwB2AGEAIAA0ADcAIABCAGEAcgBjAGUAbABvAG4AYQAgADAAOAAw
-ADEANzAOBgNVHQ8BAf8EBAMCAQYwDQYJKoZIhvcNAQELBQADggIBAHSHKAIrdx9m
-iWTtj3QuRhy7qPj4Cx2Dtjqn6EWKB7fgPiDL4QjbEwj4KKE1soCzC1HA01aajTNF
-Sa9J8OA9B3pFE1r/yJfY0xgsfZb43aJlQ3CTkBW6kN/oGbDbLIpgD7dvlAceHabJ
-hfa9NPhAeGIQcDq+fUs5gakQ1JZBu/hfHAsdCPKxsIl68veg4MSPi3i1O1ilI45P
-Vf42O+AMt8oqMEEgtIDNrvx2ZnOorm7hfNoD6JQg5iKj0B+QXSBTFCZX2lSX3xZE
-EAEeiGaPcjiT3SC3NL7X8e5jjkd5KAb881lFJWAiMxujX6i6KtoaPc1A6ozuBRWV
-1aUsIC+nmCjuRfzxuIgALI9C2lHVnOUTaHFFQ4ueCyE8S1wF3BqfmI7avSKecs2t
-CsvMo2ebKHTEm9caPARYpoKdrcd7b/+Alun4jWq9GJAd/0kakFI3ky88Al2CdgtR
-5xbHV/g4+afNmyJU72OwFW1TZQNKXkqgsqeOSQBZONXH9IBk9W6VULgRfhVwOEqw
-f9DEMnDAGf/JOC0ULGb0QkTmVXYbgBVX/8Cnp6o5qtjTcNAuuuuUavpfNIbnYrX9
-ivAwhZTJryQCL2/W3Wf+47BVTwSYT6RBVuKT0Gro1vP7ZeDOdcQxWQzugsgMYDNK
-GbqEZycPvEJdvSRUDewdcAZfpLz6IHxV
------END CERTIFICATE-----
-"""
+AUTORIDAD_DE_CERTIFICACION_FIRMAPROFESIONAL_CIF_A62634068_NEW_BYTES_ ::= #[
+    '0',130,6,20,'0',130,3,252,160,3,2,1,2,2,8,27,'p',233,210,255,174,'l','q',
+    '0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,'0','Q','1',11,'0',9,6,3,'U',
+    0x4,6,19,2,'E','S','1','B','0','@',6,3,'U',4,3,12,'9','A','u','t','o','r',
+    'i','d','a','d',' ','d','e',' ','C','e','r','t','i','f','i','c','a','c',
+    'i','o','n',' ','F','i','r','m','a','p','r','o','f','e','s','i','o','n',
+    'a','l',' ','C','I','F',' ','A','6','2','6','3','4','0','6','8','0',30,23,
+    0xd,'1','4','0','9','2','3','1','5','2','2','0','7','Z',23,13,'3','6','0',
+    '5','0','5','1','5','2','2','0','7','Z','0','Q','1',0xb,'0',9,6,3,'U',4,6,
+    0x13,2,'E','S','1','B','0','@',6,3,'U',4,3,12,'9','A','u','t','o','r','i',
+    'd','a','d',' ','d','e',' ','C','e','r','t','i','f','i','c','a','c','i',
+    'o','n',' ','F','i','r','m','a','p','r','o','f','e','s','i','o','n','a',
+    'l',' ','C','I','F',' ','A','6','2','6','3','4','0','6','8','0',130,2,'"',
+    '0',0x0d,6,9,'*',134,'H',134,247,13,1,1,1,5,0,3,130,2,15,0,'0',130,2,10,2,
+    130,2,1,0,202,150,'k',142,234,248,251,241,162,'5',224,127,'L',218,224,195,
+    'R',0xd7,'}',0xb6,16,200,2,'^',179,'C','*',196,'O','j',178,202,28,']','(',
+    0x9a,'x',0x11,26,'i','Y','W',175,181,' ','B',228,139,15,230,223,'[',166,3,
+    0x92,'/',245,17,228,'b',215,'2','q','8',217,4,12,'q',171,'=','Q','~',15,7,
+    0xdf,'c',5,92,233,191,148,'o',193,')',130,192,180,218,'Q',176,193,'<',187,
+    173,'7','J',92,202,241,'K','6',14,'$',171,191,195,132,'w',253,168,'P',244,
+    0xb1,231,198,'/',210,'-','Y',141,'z',10,'N',150,'i','R',2,170,'6',152,236,
+    0xfc,250,20,131,12,'7',31,201,146,'7',127,215,129,'-',229,196,185,224,'>',
+    '4',0xfe,'g',244,'>','f',209,211,244,'@',207,'^','b','4',15,'p',6,'>',' ',
+    0x18,'Z',0xce,247,'r',27,'%','l',147,'t',20,147,163,'s',177,14,170,135,16,
+    '#','Y','_',' ',0x5,25,'G',237,'h',142,146,18,202,']',252,214,'+',178,146,
+    '<',' ',0xcf,0xe1,'_',0xaf,' ',190,160,'v',127,'v',229,236,26,134,'a','3',
+    '>',0xe7,'{',0xb4,'?',0xa0,15,142,162,185,'j','o',185,135,'&','o','A','l',
+    0x88,0xa6,'P',253,'j','c',11,245,147,22,27,25,143,178,237,155,155,201,144,
+    0xf5,0x1,12,223,25,'=',15,'>','8','#',201,'/',143,12,209,2,254,27,'U',214,
+    'N',0xd0,0x8d,'<',175,'O',164,243,254,175,'*',211,5,157,'y',8,161,203,'W',
+    '1',180,156,200,144,178,'g',244,24,22,147,':',252,'G',216,209,'x',150,'1',
+    31,186,'+',12,'_',']',153,173,'c',137,'Z','$',' ','v',216,223,253,171,'N',
+    0xa6,'"',170,157,'^',230,39,138,'}','h',')',163,231,138,184,218,17,187,23,
+    '-',0x99,0x9d,19,'$','F',0xf7,197,226,216,159,142,127,199,143,'t','m','Z',
+    178,232,'r',245,172,238,'$',16,173,'/',20,218,255,'-',154,'F','q','G',190,
+    'B',0xdf,0xbb,1,219,244,127,211,'(',143,'1','Y','[',211,201,2,166,180,'R',
+    0xca,'n',151,251,'C',197,8,'&','o',138,244,187,253,159,'(',170,13,213,'E',
+    0xf3,19,':',29,0xd8,192,'x',143,'A','g','<',30,148,'d',174,'{',11,197,232,
+    217,1,136,'9',26,151,134,'d','A',213,';',135,12,'n',250,15,198,189,'H',20,
+    0xbf,'9','M',212,158,'A',182,143,150,29,'c',150,147,217,149,6,'x','1','h',
+    0x9e,'7',0x6,';',128,137,'E','a','9','#',199,27,'D',163,21,229,28,248,146,
+    '0',0xbb,2,3,1,0,1,163,129,239,'0',129,236,'0',29,6,3,'U',29,14,4,22,4,20,
+    'e',205,235,171,'5',30,0,'>','~',213,'t',192,28,180,'s','G',14,26,'d','/',
+    '0',18,6,3,'U',29,19,1,1,0xff,4,8,'0',6,1,1,255,2,1,1,'0',129,166,6,3,'U',
+    29,' ',4,129,158,'0',129,155,'0',129,152,6,4,'U',29,' ',0,'0',129,143,'0',
+    '/',6,8,'+',6,1,5,5,7,2,1,22,'#','h','t','t','p',':','/','/','w','w','w',
+    '.','f','i','r','m','a','p','r','o','f','e','s','i','o','n','a','l','.',
+    'c','o','m','/','c','p','s','0',92,6,8,'+',6,1,5,5,7,2,2,'0','P',30,'N',0,
+    'P',0x0,'a',0,'s',0,'e',0,'o',0,' ',0,'d',0,'e',0,' ',0,'l',0,'a',0,' ',0,
+    'B',0x0,'o',0,'n',0,'a',0,'n',0,'o',0,'v',0,'a',0,' ',0,'4',0,'7',0,' ',0,
+    'B',0x0,'a',0,'r',0,'c',0,'e',0,'l',0,'o',0,'n',0,'a',0,' ',0,'0',0,'8',0,
+    '0',0x0,'1',0,'7','0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',13,6,9,'*',
+    0x86,'H',0x86,0xf7,13,1,1,11,5,0,3,130,2,1,0,'t',135,'(',2,'+','w',31,'f',
+    0x89,'d',237,143,'t','.','F',28,187,168,248,248,11,29,131,182,':',167,232,
+    'E',0x8a,7,183,224,'>',' ',203,225,8,219,19,8,248,'(',161,'5',178,128,179,
+    0x0b,'Q',192,211,'V',154,141,'3','E','I',175,'I',240,224,'=',7,'z','E',19,
+    'Z',255,200,151,216,211,24,',','}',150,248,221,162,'e','C','p',147,144,21,
+    186,144,223,232,25,176,219,',',138,'`',15,183,'o',148,7,30,29,166,201,133,
+    246,189,'4',248,'@','x','b',16,'p',':',190,'}','K','9',129,169,16,212,150,
+    'A',0xbb,0xf8,'_',28,0xb,29,8,242,177,176,137,'z',242,247,160,224,196,143,
+    0x8b,'x',0xb5,';','X',0xa5,'#',142,'O','U',254,'6',';',224,12,183,202,'*',
+    '0','A',' ',180,128,205,174,252,'v','f','s',168,174,'n',225,'|',218,3,232,
+    0x94,' ',230,'"',163,208,31,144,']',' ','S',20,'&','W',218,'T',151,223,22,
+    'D',0x10,1,30,136,'f',143,'r','8',147,221,' ',183,'4',190,215,241,238,'c',
+    0x8e,'G','y','(',6,252,243,'Y','E','%','`','"','3',27,163,'_',168,186,'*',
+    0xda,26,'=',0xcd,'@',234,140,238,5,21,149,213,165,',',' ','/',167,152,'(',
+    0xee,'E',252,241,184,136,0,',',143,'B',218,'Q',213,156,229,19,'h','q','E',
+    'C',0x8b,0x9e,0xb,'!','<','K',92,5,220,26,159,152,142,218,189,'"',158,'r',
+    0xcd,0xad,10,203,204,163,'g',155,'(','t',196,155,215,26,'<',4,'X',166,130,
+    0x9d,173,199,'{','o',255,128,150,233,248,141,'j',189,24,144,29,255,'I',26,
+    0x90,'R','7',0x93,'/','<',2,']',130,'v',11,'Q',231,22,199,'W',248,'8',249,
+    0xa7,205,155,'"','T',239,'c',176,21,'m','S','e',3,'J','^','J',160,178,167,
+    0x8e,'I',0,'Y','8',0xd5,199,244,128,'d',245,'n',149,'P',184,17,'~',21,'p',
+    '8','J',176,127,208,196,'2','p',192,25,255,201,'8','-',20,',','f',244,'B',
+    'D',230,'U','v',27,128,21,'W',255,192,167,167,170,'9',170,216,211,'p',208,
+    '.',0xba,0xeb,148,'j',250,'_','4',134,231,'b',181,253,138,240,'0',133,148,
+    0xc9,0xaf,'$',2,'/','o',214,221,'g',254,227,176,'U','O',4,152,'O',164,'A',
+    'V',0xe2,0x93,0xd0,'j',232,214,243,251,'e',224,206,'u',196,'1','Y',12,238,
+    0x82,0xc8,0xc,'`','3','J',25,186,132,'g',39,15,188,'B',']',189,'$','T',13,
+    236,29,'p',6,'_',164,188,250,' ','|','U',
+]
+
 
 /**
 Autoridad de Certificacion Firmaprofesional CIF A62634068 new.
 SHA256 fingerprint: 57:de:05:83:ef:d2:b2:6e:03:61:da:99:da:9d:f4:64:8d:ef:7e:e8:44:1c:3b:72:8a:fa:9b:cd:e0:f9:b2:6a
 */
-AUTORIDAD_DE_CERTIFICACION_FIRMAPROFESIONAL_CIF_A62634068_NEW ::= net.Certificate.parse AUTORIDAD_DE_CERTIFICACION_FIRMAPROFESIONAL_CIF_A62634068_NEW_TEXT_
+AUTORIDAD_DE_CERTIFICACION_FIRMAPROFESIONAL_CIF_A62634068_NEW ::= parse_ AUTORIDAD_DE_CERTIFICACION_FIRMAPROFESIONAL_CIF_A62634068_NEW_BYTES_
 
-VTRUS_ECC_ROOT_CA_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIICDzCCAZWgAwIBAgIUbmq8WapTvpg5Z6LSa6Q75m0c1towCgYIKoZIzj0EAwMw
-RzELMAkGA1UEBhMCQ04xHDAaBgNVBAoTE2lUcnVzQ2hpbmEgQ28uLEx0ZC4xGjAY
-BgNVBAMTEXZUcnVzIEVDQyBSb290IENBMB4XDTE4MDczMTA3MjY0NFoXDTQzMDcz
-MTA3MjY0NFowRzELMAkGA1UEBhMCQ04xHDAaBgNVBAoTE2lUcnVzQ2hpbmEgQ28u
-LEx0ZC4xGjAYBgNVBAMTEXZUcnVzIEVDQyBSb290IENBMHYwEAYHKoZIzj0CAQYF
-K4EEACIDYgAEZVBKrox5lkqqHAjDo6LN/llWQXf9JpRCux3NCNtzslt188+cToL0
-v/hhJoVs1oVbcnDS/dtitN9Ti72xRFhiQgnH+n9bEOf+QP3A2MMrMudwpremIFUd
-e4BdS49nTPEQo0IwQDAdBgNVHQ4EFgQUmDnNvtiyjPeyq+GtJK97fKHbH88wDwYD
-VR0TAQH/BAUwAwEB/zAOBgNVHQ8BAf8EBAMCAQYwCgYIKoZIzj0EAwMDaAAwZQIw
-V53dVvHH4+m4SVBrm2nDb+zDfSXkV5UTQJtS0zvzQBm8JsctBp61ezaf9SXUY2sA
-AjEA6dPGnlaaKsyh2j/IZivTWJwghfqrkYpwcBE4YGQLYgmRWAD5Tfs0aNoJrSEG
-GJTO
------END CERTIFICATE-----
-"""
+VTRUS_ECC_ROOT_CA_BYTES_ ::= #[
+    '0',0x82,2,0xf,'0',130,1,149,160,3,2,1,2,2,20,'n','j',188,'Y',170,'S',190,
+    152,'9','g',162,210,'k',164,';',230,'m',28,214,218,'0',10,6,8,'*',134,'H',
+    206,'=',4,3,3,'0','G','1',11,'0',9,6,3,'U',4,6,19,2,'C','N','1',28,'0',26,
+    0x06,3,'U',4,10,19,19,'i','T','r','u','s','C','h','i','n','a',' ','C','o',
+    '.',',','L','t','d','.','1',0x1a,'0',24,6,3,'U',4,3,19,17,'v','T','r','u',
+    's',' ','E','C','C',' ','R','o','o','t',' ','C','A','0',30,23,0xd,'1','8',
+    '0','7','3','1','0','7','2','6','4','4','Z',23,13,'4','3','0','7','3','1',
+    '0','7','2','6','4','4','Z','0','G','1',11,'0',9,6,3,'U',4,6,19,2,'C','N',
+    '1',28,'0',26,6,3,'U',4,0xa,19,19,'i','T','r','u','s','C','h','i','n','a',
+    ' ','C','o','.',',','L','t','d','.','1',0x1a,'0',24,6,3,'U',4,3,19,17,'v',
+    'T','r','u','s',' ','E','C','C',' ','R','o','o','t',' ','C','A','0','v',
+    '0',16,6,7,'*',0x86,'H',206,'=',2,1,6,5,'+',129,4,0,'"',3,'b',0,4,'e','P',
+    'J',0xae,140,'y',150,'J',170,28,8,195,163,162,205,254,'Y','V','A','w',253,
+    '&',0x94,'B',187,29,205,8,219,'s',178,'[','u',243,207,156,'N',130,244,191,
+    0xf8,'a','&',0x85,'l',214,133,'[','r','p',210,253,219,'b',180,223,'S',139,
+    0xbd,177,'D','X','b','B',9,199,250,127,'[',16,231,254,'@',253,192,216,195,
+    '+','2',231,'p',166,183,166,' ','U',29,'{',128,']','K',143,'g','L',241,16,
+    0xa3,'B','0','@','0',0x1d,6,3,'U',29,14,4,22,4,20,152,'9',205,190,216,178,
+    0x8c,247,178,171,225,173,'$',175,'{','|',161,219,31,207,'0',15,6,3,'U',29,
+    19,1,1,255,4,5,'0',3,1,1,255,'0',14,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',
+    0x0a,6,8,'*',0x86,'H',206,'=',4,3,3,3,'h',0,'0','e',2,'0','W',157,221,'V',
+    0xf1,0xc7,227,233,184,'I','P','k',155,'i',195,'o',236,195,'}','%',228,'W',
+    0x95,19,'@',0x9b,'R',211,';',243,'@',25,188,'&',199,'-',6,158,181,'{','6',
+    159,245,'%',212,'c','k',0,2,'1',0,233,211,198,158,'V',154,'*',204,161,218,
+    '?',0xc8,'f','+',0xd3,'X',0x9c,' ',133,250,171,145,138,'p','p',17,'8','`',
+    'd',0x0b,'b',0x9,145,'X',0,249,'M',251,'4','h',218,9,173,'!',6,24,148,206,
+]
+
 
 /**
 vTrus ECC Root CA.
 SHA256 fingerprint: 30:fb:ba:2c:32:23:8e:2a:98:54:7a:f9:79:31:e5:50:42:8b:9b:3f:1c:8e:eb:66:33:dc:fa:86:c5:b2:7d:d3
 */
-VTRUS_ECC_ROOT_CA ::= net.Certificate.parse VTRUS_ECC_ROOT_CA_TEXT_
+VTRUS_ECC_ROOT_CA ::= parse_ VTRUS_ECC_ROOT_CA_BYTES_
 
-VTRUS_ROOT_CA_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIFVjCCAz6gAwIBAgIUQ+NxE9izWRRdt86M/TX9b7wFjUUwDQYJKoZIhvcNAQEL
-BQAwQzELMAkGA1UEBhMCQ04xHDAaBgNVBAoTE2lUcnVzQ2hpbmEgQ28uLEx0ZC4x
-FjAUBgNVBAMTDXZUcnVzIFJvb3QgQ0EwHhcNMTgwNzMxMDcyNDA1WhcNNDMwNzMx
-MDcyNDA1WjBDMQswCQYDVQQGEwJDTjEcMBoGA1UEChMTaVRydXNDaGluYSBDby4s
-THRkLjEWMBQGA1UEAxMNdlRydXMgUm9vdCBDQTCCAiIwDQYJKoZIhvcNAQEBBQAD
-ggIPADCCAgoCggIBAL1VfGHTuB0EYgWgrmy3cLRB6ksDXhA/kFocizuwZotsSKYc
-IrrVQJLuM7IjWcmOvFjai57QGfIvWcaMY1q6n6MLsLOaXLoRuBLpDLvPbmyAhykU
-AyyNJJrIZIO1aqwTLDPxn9wsYTwaP3BVm60AUn/PBLn+NvqcwBauYv6WTEN+VRS+
-GrPSbcKvdmaVayqwlHeFXgQPYh1jdfdr58tbmnDsPmcF8P4HCIDPKNsFxhQnL4Z9
-8Cfe/+Z+M0jnCx5Y0ScrUw5XSmXX+6KAYPxMvDVTAWqXcoKv8R1w6Jz1717CbMdH
-flqUhSZNO7rrTOiwCcJlwp2dCZtOtZcFrPUGoPc2BX70kLJrxLT5ZOrpGgrIDajt
-J8nU57O5q4IikCc9Kuh8kO+8T/3iCiSn3mUkpF3qwHYw03dQ+A0Em5Q2AXPKBlim
-0zvc+gRGE1WKyURHuFE5Gi7oNOJ5y1lKCn+8pu8fA2dqWSslYpPZUxlmPCdiKYZN
-pGvu/9ROutW04o5IWgAZCfEF2c6Rsffr6TlP9m8EQ5pV9T4FFL2/s1m02I4zhKOQ
-UqqzApVg+QxMaPnu1RcN+HFXtSXkKe5lXa/R7jwXC1pDxaWG6iSe4gUH3DRCEpHW
-OXSuTEGC2/KmSNGzm/MzqvOmwMVO9fSddmPmAsYiS8GVP1BkLFTltvA8Kc9XAgMB
-AAGjQjBAMB0GA1UdDgQWBBRUYnBj8XWEQ1iO0RYgscasGrz2iTAPBgNVHRMBAf8E
-BTADAQH/MA4GA1UdDwEB/wQEAwIBBjANBgkqhkiG9w0BAQsFAAOCAgEAKbqSSaet
-8PFww+SX8J+pJdVrnjT+5hpk9jprUrIQeBqfTNqK2uwcN1LgQkv7bHbKJAs5EhWd
-nxEt/Hlk3ODg9d3gV8mlsnZwUKT+twpw1aA08XXXTUm6EdGz2OyC/+sOxL9kLX1j
-bhd47F18iMjrjld22VkE+rxSH0Ws8HqA7Oxvdq6R2xCOBNyS36D25q5J08FsEhvM
-Kar5CKXiNxTKsbhm7xqC5PD48acWabfbqWE8n/Uxy+QARsIvdLGx14HuqCaVvIiv
-TDUHKgLKeBRtRytAVunLKmChZwOgzoy8sHJnxDHO2zTlJQNgJXtxmOTAGytfdELS
-S8VZCAeHvsXDf+eW2eHcKJfWjwXj9ZtOyh1QRwVTsMo554WgicEFOwE30z9J4nfr
-I8iIZjs9OXYhRvHsXyO466JmdXTBQPfYaJqT4i2pLr0cox7IdMakLXogqzu4sEb9
-b91fUlV1YvCXoHzXOP0l382gmxDPi7g4Xl7FtKYCNqEeXxzP4padKar9mK5S4fNB
-UvupLnKWnyfjqnN9+BojZns7q2WwMgFLFT49ok8MKzWixtlnEjUwzXYuFrOZnk1P
-Ti07NEPhmg4NpGaXutIcSkwsKouLgU9xGqndXHt7CMUADTdA43x7VF8vhV929ven
-sBxXVsFy6K2ir40zSbofitzmdHxghm+Hl3s=
------END CERTIFICATE-----
-"""
+VTRUS_ROOT_CA_BYTES_ ::= #[
+    '0',0x82,5,'V','0',0x82,3,'>',160,3,2,1,2,2,20,'C',227,'q',19,216,179,'Y',
+    0x14,']',183,206,140,253,'5',253,'o',188,5,141,'E','0',13,6,9,'*',134,'H',
+    0x86,0xf7,13,1,1,11,5,0,'0','C','1',11,'0',9,6,3,'U',4,6,19,2,'C','N','1',
+    28,'0',26,6,3,'U',4,0xa,19,19,'i','T','r','u','s','C','h','i','n','a',' ',
+    'C','o','.',',','L','t','d','.','1',0x16,'0',20,6,3,'U',4,3,19,13,'v','T',
+    'r','u','s',' ','R','o','o','t',' ','C','A','0',30,23,0xd,'1','8','0','7',
+    '3','1','0','7','2','4','0','5','Z',23,13,'4','3','0','7','3','1','0','7',
+    '2','4','0','5','Z','0','C','1',0xb,'0',9,6,3,'U',4,6,19,2,'C','N','1',28,
+    '0',26,6,3,'U',4,10,19,19,'i','T','r','u','s','C','h','i','n','a',' ','C',
+    'o','.',',','L','t','d','.','1',0x16,'0',20,6,3,'U',4,3,19,13,'v','T','r',
+    'u','s',' ','R','o','o','t',' ','C','A','0',0x82,2,'"','0',13,6,9,'*',134,
+    'H',0x86,0xf7,0xd,1,1,1,5,0,3,130,2,15,0,'0',130,2,10,2,130,2,1,0,189,'U',
+    '|','a',0xd3,0xb8,29,4,'b',5,160,174,'l',183,'p',180,'A',234,'K',3,'^',16,
+    '?',144,'Z',28,139,';',176,'f',139,'l','H',166,28,'"',186,213,'@',146,238,
+    '3',0xb2,'#','Y',0xc9,0x8e,188,'X',218,139,158,208,25,242,'/','Y',198,140,
+    'c','Z',0xba,0x9f,0xa3,11,176,179,154,92,186,17,184,18,233,12,187,207,'n',
+    'l',0x80,0x87,')',20,3,',',141,'$',154,200,'d',131,181,'j',172,19,',','3',
+    0xf1,0x9f,0xdc,',','a','<',26,'?','p','U',155,173,0,'R',127,207,4,185,254,
+    '6',0xfa,156,192,22,174,'b',254,150,'L','C','~','U',20,190,26,179,210,'m',
+    0xc2,0xaf,'v','f',149,'k','*',176,148,'w',133,'^',4,15,'b',29,'c','u',247,
+    'k',0xe7,0xcb,'[',154,'p',236,'>','g',5,240,254,7,8,128,207,'(',219,5,198,
+    20,39,'/',134,'}',240,39,222,255,230,'~','3','H',231,11,30,'X',209,39,'+',
+    'S',0xe,'W','J','e',215,251,162,128,'`',252,'L',188,'5','S',1,'j',151,'r',
+    0x82,0xaf,0xf1,29,'p',232,156,245,239,'^',194,'l',199,'G','~','Z',148,133,
+    '&','M',';',186,235,'L',232,176,9,194,'e',194,157,157,9,155,'N',181,151,5,
+    172,245,6,160,247,'6',5,'~',244,144,178,'k',196,180,249,'d',234,233,26,10,
+    0xc8,13,168,237,39,201,212,231,179,185,171,130,'"',144,39,'=','*',232,'|',
+    0x90,0xef,0xbc,'O',253,226,10,'$',167,222,'e','$',164,']',234,192,'v','0',
+    0xd3,'w','P',0xf8,0xd,4,155,148,'6',1,'s',202,6,'X',166,211,';',220,250,4,
+    'F',19,'U',138,201,'D','G',184,'Q','9',26,'.',232,'4',226,'y',203,'Y','J',
+    10,127,188,166,239,31,3,'g','j','Y','+','%','b',147,217,'S',25,'f','<',39,
+    'b',')',0x86,'M',164,'k',238,255,212,'N',186,213,180,226,142,'H','Z',0,25,
+    9,241,5,217,206,145,177,247,235,233,'9','O',246,'o',4,'C',154,'U',245,'>',
+    0x05,20,189,191,179,'Y',180,216,142,'3',132,163,144,'R',170,179,2,149,'`',
+    0xf9,12,'L','h',249,238,213,23,13,248,'q','W',181,'%',228,')',238,'e',']',
+    175,209,238,'<',23,11,'Z','C',197,165,134,234,'$',158,226,5,7,220,'4','B',
+    0x12,0x91,214,'9','t',174,'L','A',130,219,242,166,'H',209,179,155,243,'3',
+    170,243,166,192,197,'N',245,244,157,'v','c',230,2,198,'"','K',193,149,'?',
+    'P','d',',','T',229,182,240,'<',')',207,'W',2,3,1,0,1,163,'B','0','@','0',
+    29,6,3,'U',29,14,4,22,4,20,'T','b','p','c',241,'u',132,'C','X',142,209,22,
+    ' ',177,198,172,26,188,246,137,'0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,
+    0xff,'0',0xe,6,3,'U',29,15,1,1,255,4,4,3,2,1,6,'0',13,6,9,'*',134,'H',134,
+    247,13,1,1,11,5,0,3,130,2,1,0,')',186,146,'I',167,173,240,241,'p',195,228,
+    151,240,159,169,'%',213,'k',158,'4',254,230,26,'d',246,':','k','R',178,16,
+    'x',26,159,'L',218,138,218,236,28,'7','R',224,'B','K',251,'l','v',202,'$',
+    0x0b,'9',18,21,157,159,17,'-',252,'y','d',220,224,224,245,221,224,'W',201,
+    0xa5,0xb2,'v','p','P',0xa4,254,183,10,'p',213,160,'4',241,'u',215,'M','I',
+    0xba,17,209,179,216,236,130,255,235,14,196,191,'d','-','}','c','n',23,'x',
+    0xec,']','|',136,200,235,142,'W','v',217,'Y',4,250,188,'R',31,'E',172,240,
+    'z',0x80,236,236,'o','v',174,145,219,16,142,4,220,146,223,160,246,230,174,
+    'I',0xd3,0xc1,'l',18,27,0xcc,')',170,249,8,165,226,'7',20,202,177,184,'f',
+    239,26,130,228,240,248,241,167,22,'i',183,219,169,'a','<',159,245,'1',203,
+    228,0,'F',194,'/','t',177,177,215,129,238,168,'&',149,188,136,175,'L','5',
+    7,'*',2,0xca,'x',20,'m','G','+','@','V',233,203,'*','`',161,'g',3,160,206,
+    140,188,176,'r','g',196,'1',206,219,'4',229,'%',3,'`','%','{','q',152,228,
+    0xc0,0x1b,'+','_','t','B',210,'K',197,'Y',8,7,135,190,197,195,127,231,150,
+    0xd9,0xe1,0xdc,'(',151,214,143,5,227,245,155,'N',202,29,'P','G',5,'S',176,
+    0xca,'9',0xe7,133,160,137,193,5,';',1,'7',211,'?','I',226,'w',235,'#',200,
+    0x88,'f',';','=','9','v','!','F',0xf1,236,'_','#',184,235,162,'f','u','t',
+    193,'@',247,216,'h',154,147,226,'-',169,'.',189,28,163,30,200,'t',198,164,
+    '-','z',' ',0xab,';',0xb8,176,'F',253,'o',221,'_','R','U','u','b',240,151,
+    0xa0,'|',0xd7,'8',0xfd,'%',223,205,160,155,16,207,139,184,'8','^','^',197,
+    0xb4,0xa6,2,'6',161,30,'_',28,207,226,150,157,')',170,253,152,174,'R',225,
+    243,'A','R',251,169,'.','r',150,159,39,227,170,'s','}',248,26,'#','f','{',
+    ';',0xab,'e',0xb0,'2',1,'K',21,'>','=',162,'O',12,'+','5',162,198,217,'g',
+    18,'5','0',205,'v','.',22,179,153,158,'M','O','N','-',';','4','C',225,154,
+    0x0e,13,164,'f',151,186,210,28,'J','L',',','*',139,139,129,'O','q',26,169,
+    221,92,'{','{',8,197,0,13,'7','@',227,'|','{','T','_','/',133,'_','v',246,
+    247,167,176,28,'W','V',193,'r',232,173,162,175,141,'3','I',186,31,138,220,
+    230,'t','|','`',134,'o',135,151,'{',
+]
+
 
 /**
 vTrus Root CA.
 SHA256 fingerprint: 8a:71:de:65:59:33:6f:42:6c:26:e5:38:80:d0:0d:88:a1:8d:a4:c6:a9:1f:0d:cb:61:94:e2:06:c5:c9:63:87
 */
-VTRUS_ROOT_CA ::= net.Certificate.parse VTRUS_ROOT_CA_TEXT_
+VTRUS_ROOT_CA ::= parse_ VTRUS_ROOT_CA_BYTES_
 
-ISRG_ROOT_X2_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIICGzCCAaGgAwIBAgIQQdKd0XLq7qeAwSxs6S+HUjAKBggqhkjOPQQDAzBPMQsw
-CQYDVQQGEwJVUzEpMCcGA1UEChMgSW50ZXJuZXQgU2VjdXJpdHkgUmVzZWFyY2gg
-R3JvdXAxFTATBgNVBAMTDElTUkcgUm9vdCBYMjAeFw0yMDA5MDQwMDAwMDBaFw00
-MDA5MTcxNjAwMDBaME8xCzAJBgNVBAYTAlVTMSkwJwYDVQQKEyBJbnRlcm5ldCBT
-ZWN1cml0eSBSZXNlYXJjaCBHcm91cDEVMBMGA1UEAxMMSVNSRyBSb290IFgyMHYw
-EAYHKoZIzj0CAQYFK4EEACIDYgAEzZvVn4CDCuwJSvMWSj5cz3es3mcFDR0HttwW
-+1qLFNvicWDEukWVEYmO6gbf9yoWHKS5xcUy4APgHoIYOIvXRdgKam7mAHf7AlF9
-ItgKbppbd9/w+kHsOdx1ymgHDB/qo0IwQDAOBgNVHQ8BAf8EBAMCAQYwDwYDVR0T
-AQH/BAUwAwEB/zAdBgNVHQ4EFgQUfEKWrt5LSDv6kviejM9ti6lyN5UwCgYIKoZI
-zj0EAwMDaAAwZQIwe3lORlCEwkSHRhtFcP9Ymd70/aTSVaYgLXTWNLxBo1BfASdW
-tL4ndQavEi51mI38AjEAi/V3bNTIZargCyzuFJ0nN6T5U6VR5CmD1/iQMVtCnwr1
-/q4AaOeMSQ+2b1tbFfLn
------END CERTIFICATE-----
-"""
+ISRG_ROOT_X2_BYTES_ ::= #[
+    '0',0x82,2,27,'0',0x82,1,161,160,3,2,1,2,2,16,'A',210,157,209,'r',234,238,
+    0xa7,128,193,',','l',233,'/',135,'R','0',10,6,8,'*',134,'H',206,'=',4,3,3,
+    '0','O','1',11,'0',9,6,3,'U',4,6,19,2,'U','S','1',')','0',39,6,3,'U',4,10,
+    0x13,' ','I','n','t','e','r','n','e','t',' ','S','e','c','u','r','i','t',
+    'y',' ','R','e','s','e','a','r','c','h',' ','G','r','o','u','p','1',0x15,
+    '0',19,6,3,'U',4,3,19,0xc,'I','S','R','G',' ','R','o','o','t',' ','X','2',
+    '0',0x1e,23,0xd,'2','0','0','9','0','4','0','0','0','0','0','0','Z',23,13,
+    '4','0','0','9','1','7','1','6','0','0','0','0','Z','0','O','1',0xb,'0',9,
+    0x6,3,'U',4,6,19,2,'U','S','1',')','0',39,6,3,'U',4,10,19,' ','I','n','t',
+    'e','r','n','e','t',' ','S','e','c','u','r','i','t','y',' ','R','e','s',
+    'e','a','r','c','h',' ','G','r','o','u','p','1',21,'0',19,6,3,'U',4,3,19,
+    12,'I','S','R','G',' ','R','o','o','t',' ','X','2','0','v','0',16,6,7,'*',
+    134,'H',206,'=',2,1,6,5,'+',129,4,0,'"',3,'b',0,4,205,155,213,159,128,131,
+    0x0a,236,9,'J',243,22,'J','>',92,207,'w',172,222,'g',5,13,29,7,182,220,22,
+    0xfb,'Z',0x8b,20,219,226,'q','`',196,186,'E',149,17,137,142,234,6,223,247,
+    '*',22,28,0xa4,185,197,197,'2',224,3,224,30,130,24,'8',139,215,'E',216,10,
+    'j','n',0xe6,0x0,'w',251,2,'Q','}','"',216,10,'n',154,'[','w',223,240,250,
+    'A',236,'9',220,'u',202,'h',7,12,31,234,163,'B','0','@','0',14,6,3,'U',29,
+    15,1,1,255,4,4,3,2,1,6,'0',15,6,3,'U',29,19,1,1,255,4,5,'0',3,1,1,255,'0',
+    0x1d,6,3,'U',29,0xe,4,22,4,20,'|','B',150,174,222,'K','H',';',250,146,248,
+    0x9e,140,207,'m',139,169,'r','7',149,'0',10,6,8,'*',134,'H',206,'=',4,3,3,
+    3,'h',0,'0','e',2,'0','{','y','N','F','P',0x84,194,'D',135,'F',27,'E','p',
+    0xff,'X',0x99,222,244,253,164,210,'U',166,' ','-','t',214,'4',188,'A',163,
+    'P','_',1,39,'V',0xb4,190,39,'u',6,175,18,'.','u',152,141,252,2,'1',0,139,
+    0xf5,'w','l',212,200,'e',170,224,11,',',238,20,157,39,'7',164,249,'S',165,
+    'Q',0xe4,')',131,215,248,144,'1','[','B',159,10,245,254,174,0,'h',231,140,
+    'I',15,182,'o','[','[',21,242,231,
+]
+
 
 /**
 ISRG Root X2.
 SHA256 fingerprint: 69:72:9b:8e:15:a8:6e:fc:17:7a:57:af:b7:17:1d:fc:64:ad:d2:8c:2f:ca:8c:f1:50:7e:34:45:3c:cb:14:70
 */
-ISRG_ROOT_X2 ::= net.Certificate.parse ISRG_ROOT_X2_TEXT_
+ISRG_ROOT_X2 ::= parse_ ISRG_ROOT_X2_BYTES_
 
-HIPKI_ROOT_CA_G1_TEXT_ ::= """\
------BEGIN CERTIFICATE-----
-MIIFajCCA1KgAwIBAgIQLd2szmKXlKFD6LDNdmpeYDANBgkqhkiG9w0BAQsFADBP
-MQswCQYDVQQGEwJUVzEjMCEGA1UECgwaQ2h1bmdod2EgVGVsZWNvbSBDby4sIEx0
-ZC4xGzAZBgNVBAMMEkhpUEtJIFJvb3QgQ0EgLSBHMTAeFw0xOTAyMjIwOTQ2MDRa
-Fw0zNzEyMzExNTU5NTlaME8xCzAJBgNVBAYTAlRXMSMwIQYDVQQKDBpDaHVuZ2h3
-YSBUZWxlY29tIENvLiwgTHRkLjEbMBkGA1UEAwwSSGlQS0kgUm9vdCBDQSAtIEcx
-MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA9B5/UnMyDHPkvRN0o9Qw
-qNCuS9i233VHZvR85zkEHmpwINJaR3JnVfSl6J3VHiGh8Ge6zCFovkRTv4354twv
-Vcg3Px+kwJyz5HdcoEb+d/oaoDjq7Zpy3iu9lFc6uux55199QmQ5eiY29yTw1S+6
-lZgRZq2XNdZ1AYDgr/SEYYwNHl98h5ZeQa/rh+r4XfEuiAU+TCK72h8q3VJGZDnz
-Qs7ZngyzsHeXZJzA9KMuH5UHsBffMNsAGJZMoYFL3QRtU6M9/Aes1MU3guvklQgZ
-KILSQjqj2FPseYlgSGDIcpJQ3AOPgz+yQlda22rpEZfdhSi8MEyr48KxRURHH+CK
-FgeW0iEPU8DtqX7UTuybCeyvQqww1r/REEXgphaypcXTT3OUM3ECoWqj1jOXTyFj
-HluP2cFeRXF3D4FdXyGarYPM+l7WjSNfGz1BryB1ZlpK9p/7qxj3ccC2HTHsOyDr
-y+K49a6SsvfhhEvyovKTmiKe0xRvNlS9H15ZFblzqMF8b3ti6RZsR1pl8w4Rm0bZ
-/W3c1pzAtH2lsN0/Vm+h+fbkEkj9Bn8SV7apI09bA8PgcSojt/ewsTu8mL3WmKgM
-a/aOEmem8rJY5AIJEzypuxC00jBF8ez3ABHfZfjcK0NVvxaXxA/VLGGEqnKG/uY6
-fsI/fe78LxQ+5oXdUG+3Se0CAwEAAaNCMEAwDwYDVR0TAQH/BAUwAwEB/zAdBgNV
-HQ4EFgQU8ncX+l6o/vY9cdVouslGDDjYr7AwDgYDVR0PAQH/BAQDAgGGMA0GCSqG
-SIb3DQEBCwUAA4ICAQBQUfB13HAE4/+qddRxosuej6ip0691x1TPOhwEmSKsxBHi
-7zNKpiMdDg1H2DfHb680f0+BazVP6XKlMeJ45/dOlBhbQH3PayFUhuaVevvGyuqc
-SE5XCV0vrPSltJczWNWseanMX/mF+lLFjfiRFOs6DRfQUsJ748JzjkZ4Bjgs6Fza
-ZsT0pPBWGTMpWmWSBUdGSquEwx4noR8RkpkndZMPvDY7l1ePJlsMu5wP1G4wB9Tc
-XzZoZjmDlicmisjEOf6aIW/Vcobpf2Lll07QJNBAsNB1CI69aO4I1258EHBGG3zg
-iLKecoaZAeO/n0kZtCW+VmWuF2PlHt/o/0elv+EmBYTksMCv5wiZqAxeJoBF1Pho
-L5aPruJKHJwWDBNvOIf2u8g0X5IDUXlwpt/L9ZlNec1OvFefQ05rLisY+GpzjLrF
-Ne85akEez3GoorKGB1s6yeHvP2UEgEcyRHCVTjFnanRbEEV16rCf0OY1/k6fi8wr
-kkVbbiVghUbN0aqwdmaTd5a+g744tiROJgvM7XpWGuDpWsZkrUx6AEhEL7lAuxM+
-vhV4nYWBSipX3tUZQ9rbyltHhoMLP7YNdnhzeSJesYAfz77RP1YQmCuVh6EfnWQU
-YDksswBVLuT1sw5XxJFBAJw/6KXf6vb/yPCtbVKoF6ubYfwSUTXkJf2vqmqGOQ==
------END CERTIFICATE-----
-"""
+HIPKI_ROOT_CA_G1_BYTES_ ::= #[
+    '0',0x82,5,'j','0',130,3,'R',160,3,2,1,2,2,16,'-',221,172,206,'b',151,148,
+    161,'C',232,176,205,'v','j','^','`','0',13,6,9,'*',134,'H',134,247,13,1,1,
+    0xb,5,0,'0','O','1',11,'0',9,6,3,'U',4,6,19,2,'T','W','1','#','0','!',6,3,
+    'U',0x04,10,12,26,'C','h','u','n','g','h','w','a',' ','T','e','l','e','c',
+    'o','m',' ','C','o','.',',',' ','L','t','d','.','1',27,'0',25,6,3,'U',4,3,
+    12,18,'H','i','P','K','I',' ','R','o','o','t',' ','C','A',' ','-',' ','G',
+    '1','0',0x1e,23,13,'1','9','0','2','2','2','0','9','4','6','0','4','Z',23,
+    13,'3','7','1','2','3','1','1','5','5','9','5','9','Z','0','O','1',11,'0',
+    9,6,3,'U',4,6,19,2,'T','W','1','#','0','!',6,3,'U',4,10,12,26,'C','h','u',
+    'n','g','h','w','a',' ','T','e','l','e','c','o','m',' ','C','o','.',',',
+    ' ','L','t','d','.','1',0x1b,'0',25,6,3,'U',4,3,12,18,'H','i','P','K','I',
+    ' ','R','o','o','t',' ','C','A',' ','-',' ','G','1','0',0x82,2,'"','0',13,
+    6,9,'*',0x86,'H',134,247,13,1,1,1,5,0,3,130,2,15,0,'0',130,2,10,2,130,2,1,
+    0x00,244,30,127,'R','s','2',12,'s',228,189,19,'t',163,212,'0',168,208,174,
+    'K',0xd8,182,223,'u','G','f',244,'|',231,'9',4,30,'j','p',' ',210,'Z','G',
+    'r','g','U',0xf4,0xa5,0xe8,157,213,30,'!',161,240,'g',186,204,'!','h',190,
+    'D','S',0xbf,0x8d,0xf9,226,220,'/','U',200,'7','?',31,164,192,156,179,228,
+    'w',92,160,'F',254,'w',250,26,160,'8',234,237,154,'r',222,'+',189,148,'W',
+    ':',0xba,0xec,'y',231,'_','}','B','d','9','z','&','6',247,'$',240,213,'/',
+    0xba,0x95,152,17,'f',173,151,'5',214,'u',1,128,224,175,244,132,'a',140,13,
+    30,'_','|',0x87,150,'^','A',175,235,135,234,248,']',241,'.',136,5,'>','L',
+    '"',187,218,31,'*',221,'R','F','d','9',243,'B',206,217,158,12,179,176,'w',
+    0x97,'d',156,192,244,163,'.',31,149,7,176,23,223,'0',219,0,24,150,'L',161,
+    0x81,'K',221,4,'m','S',163,'=',252,7,172,212,197,'7',130,235,228,149,8,25,
+    '(',0x82,0xd2,'B',':',163,216,'S',236,'y',137,'`','H','`',200,'r',146,'P',
+    0xdc,3,143,131,'?',178,'B','W','Z',219,'j',233,17,151,221,133,'(',188,'0',
+    'L',0xab,0xe3,0xc2,177,'E','D','G',31,224,138,22,7,150,210,'!',15,'S',192,
+    0xed,169,'~',212,'N',236,155,9,236,175,'B',172,'0',214,191,209,16,'E',224,
+    0xa6,22,178,165,197,211,'O','s',148,'3','q',2,161,'j',163,214,'3',151,'O',
+    '!','c',30,'[',143,217,193,'^','E','q','w',15,129,']','_','!',154,173,131,
+    0xcc,0xfa,'^',0xd6,141,'#','_',27,'=','A',175,' ','u','f','Z','J',246,159,
+    251,171,24,247,'q',192,182,29,'1',236,';',' ',235,203,226,184,245,174,146,
+    178,247,225,132,'K',242,162,242,147,154,'"',158,211,20,'o','6','T',189,31,
+    '^','Y',21,0xb9,'s',168,193,'|','o','{','b',233,22,'l','G','Z','e',243,14,
+    0x11,0x9b,'F',217,253,'m',220,214,156,192,180,'}',165,176,221,'?','V','o',
+    161,249,246,228,18,'H',253,6,127,18,'W',182,169,'#','O','[',3,195,224,'q',
+    '*','#',183,247,176,177,';',188,152,189,214,152,168,12,'k',246,142,18,'g',
+    0xa6,0xf2,178,'X',228,2,9,19,'<',169,187,16,180,210,'0','E',241,236,247,0,
+    17,0xdf,'e',248,220,'+','C','U',191,22,151,196,15,213,',','a',132,170,'r',
+    0x86,0xfe,0xe6,':','~',194,'?','}',238,252,'/',20,'>',230,133,221,'P','o',
+    0xb7,'I',0xed,2,3,1,0,1,0xa3,'B','0','@','0',15,6,3,'U',29,19,1,1,255,4,5,
+    '0',0x3,1,1,255,'0',29,6,3,'U',29,14,4,22,4,20,242,'w',23,250,'^',168,254,
+    246,'=','q',213,'h',186,201,'F',12,'8',216,175,176,'0',14,6,3,'U',29,15,1,
+    1,0xff,4,4,3,2,1,134,'0',13,6,9,'*',134,'H',134,247,13,1,1,11,5,0,3,130,2,
+    1,0,'P','Q',240,'u',220,'p',4,227,255,170,'u',212,'q',162,203,158,143,168,
+    0xa9,0xd3,175,'u',199,'T',207,':',28,4,153,'"',172,196,17,226,239,'3','J',
+    0xa6,'#',29,14,13,'G',216,'7',199,'o',175,'4',127,'O',129,'k','5','O',233,
+    'r',0xa5,'1',0xe2,'x',0xe7,247,'N',148,24,'[','@','}',207,'k','!','T',134,
+    230,149,'z',251,198,202,234,156,'H','N','W',9,']','/',172,244,165,180,151,
+    '3','X',0xd5,0xac,'y',0xa9,204,'_',249,133,250,'R',197,141,248,145,20,235,
+    ':',0x0d,23,0xd0,'R',194,'{',227,194,'s',142,'F','x',6,'8',',',232,92,218,
+    'f',0xc4,244,164,240,'V',25,'3',')','Z','e',146,5,'G','F','J',171,132,195,
+    30,39,0xa1,31,17,146,153,39,'u',147,15,188,'6',';',151,'W',143,'&','[',12,
+    0xbb,0x9c,15,212,'n','0',7,212,220,'_','6','h','f','9',131,150,39,'&',138,
+    0xc8,0xc4,'9',254,154,'!','o',213,'r',134,233,127,'b',229,151,'N',208,'$',
+    208,'@',176,208,'u',8,142,189,'h',238,8,215,'n','|',16,'p','F',27,'|',224,
+    0x88,0xb2,158,'r',134,153,1,227,191,159,'I',25,180,'%',190,'V','e',174,23,
+    'c',0xe5,0x1e,223,232,255,'G',165,191,225,'&',5,132,228,176,192,175,231,8,
+    0x99,168,12,'^','&',128,'E',212,248,'h','/',150,143,174,226,'J',28,156,22,
+    0x0c,19,'o','8',135,246,187,200,'4','_',146,3,'Q','y','p',166,223,203,245,
+    0x99,'M','y',0xcd,'N',0xbc,'W',159,'C','N','k','.','+',24,248,'j','s',140,
+    0xba,197,'5',239,'9','j','A',30,207,'q',168,162,178,134,7,'[',':',201,225,
+    0xef,'?','e',4,128,'G','2','D','p',149,'N','1','g','j','t','[',16,'E','u',
+    0xea,0xb0,159,208,230,'5',254,'N',159,139,204,'+',146,'E','[','n','%','`',
+    0x85,'F',0xcd,209,170,176,'v','f',147,'w',150,190,131,190,'8',182,'$','N',
+    '&',0x0b,204,237,'z','V',26,224,233,'Z',198,'d',173,'L','z',0,'H','D','/',
+    0xb9,'@',187,19,'>',190,21,'x',157,133,129,'J','*','W',222,213,25,'C',218,
+    0xdb,202,'[','G',134,131,11,'?',182,13,'v','x','s','y','"','^',177,128,31,
+    0xcf,190,209,'?','V',16,152,'+',149,135,161,31,157,'d',20,'`','9',',',179,
+    0x00,'U','.',228,245,179,14,'W',196,145,'A',0,156,'?',232,165,223,234,246,
+    255,200,240,173,'m','R',168,23,171,155,'a',252,18,'Q','5',228,'%',253,175,
+    170,'j',134,'9',
+]
+
 
 /**
 HiPKI Root CA - G1.
 SHA256 fingerprint: f0:15:ce:3c:c2:39:bf:ef:06:4b:e9:f1:d2:c4:17:e1:a0:26:4a:0a:94:be:1f:0c:8d:12:18:64:eb:69:49:cc
 */
-HIPKI_ROOT_CA_G1 ::= net.Certificate.parse HIPKI_ROOT_CA_G1_TEXT_
+HIPKI_ROOT_CA_G1 ::= parse_ HIPKI_ROOT_CA_G1_BYTES_
 
 
 /**
-A map from certificate name to certificate in text form.
-The text forms must be parsed with net.Certificate.parse
+A map from certificate name to certificate in byte array form.
+The byte array forms must be parsed with net.Certificate.parse
   before they can be used as the --root_certificates argument
 */
 MAP ::= {
-  "GlobalSign Root CA": GLOBALSIGN_ROOT_CA_TEXT_,
-  "GlobalSign Root CA - R2": GLOBALSIGN_ROOT_CA_R2_TEXT_,
-  "Entrust.net Premium 2048 Secure Server CA": ENTRUST_NET_PREMIUM_2048_SECURE_SERVER_CA_TEXT_,
-  "Baltimore CyberTrust Root": BALTIMORE_CYBERTRUST_ROOT_TEXT_,
-  "Entrust Root Certification Authority": ENTRUST_ROOT_CERTIFICATION_AUTHORITY_TEXT_,
-  "Comodo AAA Services root": COMODO_AAA_SERVICES_ROOT_TEXT_,
-  "QuoVadis Root CA 2": QUOVADIS_ROOT_CA_2_TEXT_,
-  "QuoVadis Root CA 3": QUOVADIS_ROOT_CA_3_TEXT_,
-  "Security Communication Root CA": SECURITY_COMMUNICATION_ROOT_CA_TEXT_,
-  "XRamp Global CA Root": XRAMP_GLOBAL_CA_ROOT_TEXT_,
-  "Go Daddy Class 2 CA": GO_DADDY_CLASS_2_CA_TEXT_,
-  "Starfield Class 2 CA": STARFIELD_CLASS_2_CA_TEXT_,
-  "DigiCert Assured ID Root CA": DIGICERT_ASSURED_ID_ROOT_CA_TEXT_,
-  "DigiCert Global Root CA": DIGICERT_GLOBAL_ROOT_CA_TEXT_,
-  "DigiCert High Assurance EV Root CA": DIGICERT_HIGH_ASSURANCE_EV_ROOT_CA_TEXT_,
-  "DST Root CA X3": DST_ROOT_CA_X3_TEXT_,
-  "SwissSign Gold CA - G2": SWISSSIGN_GOLD_CA_G2_TEXT_,
-  "SwissSign Silver CA - G2": SWISSSIGN_SILVER_CA_G2_TEXT_,
-  "SecureTrust CA": SECURETRUST_CA_TEXT_,
-  "Secure Global CA": SECURE_GLOBAL_CA_TEXT_,
-  "COMODO Certification Authority": COMODO_CERTIFICATION_AUTHORITY_TEXT_,
-  "Network Solutions Certificate Authority": NETWORK_SOLUTIONS_CERTIFICATE_AUTHORITY_TEXT_,
-  "COMODO ECC Certification Authority": COMODO_ECC_CERTIFICATION_AUTHORITY_TEXT_,
-  "Certigna": CERTIGNA_TEXT_,
-  "Cybertrust Global Root": CYBERTRUST_GLOBAL_ROOT_TEXT_,
-  "ePKI Root Certification Authority": EPKI_ROOT_CERTIFICATION_AUTHORITY_TEXT_,
-  "certSIGN ROOT CA": CERTSIGN_ROOT_CA_TEXT_,
-  "NetLock Arany (Class Gold) Főtanúsítvány": NETLOCK_ARANY_TEXT_,
-  "Hongkong Post Root CA 1": HONGKONG_POST_ROOT_CA_1_TEXT_,
-  "SecureSign RootCA11": SECURESIGN_ROOTCA11_TEXT_,
-  "Microsec e-Szigno Root CA 2009": MICROSEC_E_SZIGNO_ROOT_CA_2009_TEXT_,
-  "GlobalSign Root CA - R3": GLOBALSIGN_ROOT_CA_R3_TEXT_,
-  "Autoridad de Certificacion Firmaprofesional CIF A62634068": AUTORIDAD_DE_CERTIFICACION_FIRMAPROFESIONAL_CIF_A62634068_TEXT_,
-  "Izenpe.com": IZENPE_COM_TEXT_,
-  "Go Daddy Root Certificate Authority - G2": GO_DADDY_ROOT_CERTIFICATE_AUTHORITY_G2_TEXT_,
-  "Starfield Root Certificate Authority - G2": STARFIELD_ROOT_CERTIFICATE_AUTHORITY_G2_TEXT_,
-  "Starfield Services Root Certificate Authority - G2": STARFIELD_SERVICES_ROOT_CERTIFICATE_AUTHORITY_G2_TEXT_,
-  "AffirmTrust Commercial": AFFIRMTRUST_COMMERCIAL_TEXT_,
-  "AffirmTrust Networking": AFFIRMTRUST_NETWORKING_TEXT_,
-  "AffirmTrust Premium": AFFIRMTRUST_PREMIUM_TEXT_,
-  "AffirmTrust Premium ECC": AFFIRMTRUST_PREMIUM_ECC_TEXT_,
-  "Certum Trusted Network CA": CERTUM_TRUSTED_NETWORK_CA_TEXT_,
-  "TWCA Root Certification Authority": TWCA_ROOT_CERTIFICATION_AUTHORITY_TEXT_,
-  "Security Communication RootCA2": SECURITY_COMMUNICATION_ROOTCA2_TEXT_,
-  "EC-ACC": EC_ACC_TEXT_,
-  "Hellenic Academic and Research Institutions RootCA 2011": HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2011_TEXT_,
-  "Actalis Authentication Root CA": ACTALIS_AUTHENTICATION_ROOT_CA_TEXT_,
-  "Buypass Class 2 Root CA": BUYPASS_CLASS_2_ROOT_CA_TEXT_,
-  "Buypass Class 3 Root CA": BUYPASS_CLASS_3_ROOT_CA_TEXT_,
-  "T-TeleSec GlobalRoot Class 3": T_TELESEC_GLOBALROOT_CLASS_3_TEXT_,
-  "D-TRUST Root Class 3 CA 2 2009": D_TRUST_ROOT_CLASS_3_CA_2_2009_TEXT_,
-  "D-TRUST Root Class 3 CA 2 EV 2009": D_TRUST_ROOT_CLASS_3_CA_2_EV_2009_TEXT_,
-  "CA Disig Root R2": CA_DISIG_ROOT_R2_TEXT_,
-  "ACCVRAIZ1": ACCVRAIZ1_TEXT_,
-  "TWCA Global Root CA": TWCA_GLOBAL_ROOT_CA_TEXT_,
-  "TeliaSonera Root CA v1": TELIASONERA_ROOT_CA_V1_TEXT_,
-  "E-Tugra Certification Authority": E_TUGRA_CERTIFICATION_AUTHORITY_TEXT_,
-  "T-TeleSec GlobalRoot Class 2": T_TELESEC_GLOBALROOT_CLASS_2_TEXT_,
-  "Atos TrustedRoot 2011": ATOS_TRUSTEDROOT_2011_TEXT_,
-  "QuoVadis Root CA 1 G3": QUOVADIS_ROOT_CA_1_G3_TEXT_,
-  "QuoVadis Root CA 2 G3": QUOVADIS_ROOT_CA_2_G3_TEXT_,
-  "QuoVadis Root CA 3 G3": QUOVADIS_ROOT_CA_3_G3_TEXT_,
-  "DigiCert Assured ID Root G2": DIGICERT_ASSURED_ID_ROOT_G2_TEXT_,
-  "DigiCert Assured ID Root G3": DIGICERT_ASSURED_ID_ROOT_G3_TEXT_,
-  "DigiCert Global Root G2": DIGICERT_GLOBAL_ROOT_G2_TEXT_,
-  "DigiCert Global Root G3": DIGICERT_GLOBAL_ROOT_G3_TEXT_,
-  "DigiCert Trusted Root G4": DIGICERT_TRUSTED_ROOT_G4_TEXT_,
-  "COMODO RSA Certification Authority": COMODO_RSA_CERTIFICATION_AUTHORITY_TEXT_,
-  "USERTrust RSA Certification Authority": USERTRUST_RSA_CERTIFICATION_AUTHORITY_TEXT_,
-  "USERTrust ECC Certification Authority": USERTRUST_ECC_CERTIFICATION_AUTHORITY_TEXT_,
-  "GlobalSign ECC Root CA - R4": GLOBALSIGN_ECC_ROOT_CA_R4_TEXT_,
-  "GlobalSign ECC Root CA - R5": GLOBALSIGN_ECC_ROOT_CA_R5_TEXT_,
-  "Staat der Nederlanden EV Root CA": STAAT_DER_NEDERLANDEN_EV_ROOT_CA_TEXT_,
-  "IdenTrust Commercial Root CA 1": IDENTRUST_COMMERCIAL_ROOT_CA_1_TEXT_,
-  "IdenTrust Public Sector Root CA 1": IDENTRUST_PUBLIC_SECTOR_ROOT_CA_1_TEXT_,
-  "Entrust Root Certification Authority - G2": ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G2_TEXT_,
-  "Entrust Root Certification Authority - EC1": ENTRUST_ROOT_CERTIFICATION_AUTHORITY_EC1_TEXT_,
-  "CFCA EV ROOT": CFCA_EV_ROOT_TEXT_,
-  "OISTE WISeKey Global Root GB CA": OISTE_WISEKEY_GLOBAL_ROOT_GB_CA_TEXT_,
-  "SZAFIR ROOT CA2": SZAFIR_ROOT_CA2_TEXT_,
-  "Certum Trusted Network CA 2": CERTUM_TRUSTED_NETWORK_CA_2_TEXT_,
-  "Hellenic Academic and Research Institutions RootCA 2015": HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2015_TEXT_,
-  "Hellenic Academic and Research Institutions ECC RootCA 2015": HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ECC_ROOTCA_2015_TEXT_,
-  "ISRG Root X1": ISRG_ROOT_X1_TEXT_,
-  "AC RAIZ FNMT-RCM": AC_RAIZ_FNMT_RCM_TEXT_,
-  "Amazon Root CA 1": AMAZON_ROOT_CA_1_TEXT_,
-  "Amazon Root CA 2": AMAZON_ROOT_CA_2_TEXT_,
-  "Amazon Root CA 3": AMAZON_ROOT_CA_3_TEXT_,
-  "Amazon Root CA 4": AMAZON_ROOT_CA_4_TEXT_,
-  "TUBITAK Kamu SM SSL Kok Sertifikasi - Surum 1": TUBITAK_KAMU_SM_SSL_KOK_SERTIFIKASI_SURUM_1_TEXT_,
-  "GDCA TrustAUTH R5 ROOT": GDCA_TRUSTAUTH_R5_ROOT_TEXT_,
-  "TrustCor RootCert CA-1": TRUSTCOR_ROOTCERT_CA_1_TEXT_,
-  "TrustCor RootCert CA-2": TRUSTCOR_ROOTCERT_CA_2_TEXT_,
-  "TrustCor ECA-1": TRUSTCOR_ECA_1_TEXT_,
-  "SSL.com Root Certification Authority RSA": SSL_COM_ROOT_CERTIFICATION_AUTHORITY_RSA_TEXT_,
-  "SSL.com Root Certification Authority ECC": SSL_COM_ROOT_CERTIFICATION_AUTHORITY_ECC_TEXT_,
-  "SSL.com EV Root Certification Authority RSA R2": SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_RSA_R2_TEXT_,
-  "SSL.com EV Root Certification Authority ECC": SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_ECC_TEXT_,
-  "GlobalSign Root CA - R6": GLOBALSIGN_ROOT_CA_R6_TEXT_,
-  "OISTE WISeKey Global Root GC CA": OISTE_WISEKEY_GLOBAL_ROOT_GC_CA_TEXT_,
-  "GTS Root R1": GTS_ROOT_R1_TEXT_,
-  "GTS Root R2": GTS_ROOT_R2_TEXT_,
-  "GTS Root R3": GTS_ROOT_R3_TEXT_,
-  "GTS Root R4": GTS_ROOT_R4_TEXT_,
-  "UCA Global G2 Root": UCA_GLOBAL_G2_ROOT_TEXT_,
-  "UCA Extended Validation Root": UCA_EXTENDED_VALIDATION_ROOT_TEXT_,
-  "Certigna Root CA": CERTIGNA_ROOT_CA_TEXT_,
-  "emSign Root CA - G1": EMSIGN_ROOT_CA_G1_TEXT_,
-  "emSign ECC Root CA - G3": EMSIGN_ECC_ROOT_CA_G3_TEXT_,
-  "emSign Root CA - C1": EMSIGN_ROOT_CA_C1_TEXT_,
-  "emSign ECC Root CA - C3": EMSIGN_ECC_ROOT_CA_C3_TEXT_,
-  "Hongkong Post Root CA 3": HONGKONG_POST_ROOT_CA_3_TEXT_,
-  "Entrust Root Certification Authority - G4": ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G4_TEXT_,
-  "Microsoft ECC Root Certificate Authority 2017": MICROSOFT_ECC_ROOT_CERTIFICATE_AUTHORITY_2017_TEXT_,
-  "Microsoft RSA Root Certificate Authority 2017": MICROSOFT_RSA_ROOT_CERTIFICATE_AUTHORITY_2017_TEXT_,
-  "e-Szigno Root CA 2017": E_SZIGNO_ROOT_CA_2017_TEXT_,
-  "certSIGN Root CA G2": CERTSIGN_ROOT_CA_G2_TEXT_,
-  "Trustwave Global Certification Authority": TRUSTWAVE_GLOBAL_CERTIFICATION_AUTHORITY_TEXT_,
-  "Trustwave Global ECC P256 Certification Authority": TRUSTWAVE_GLOBAL_ECC_P256_CERTIFICATION_AUTHORITY_TEXT_,
-  "Trustwave Global ECC P384 Certification Authority": TRUSTWAVE_GLOBAL_ECC_P384_CERTIFICATION_AUTHORITY_TEXT_,
-  "NAVER Global Root Certification Authority": NAVER_GLOBAL_ROOT_CERTIFICATION_AUTHORITY_TEXT_,
-  "AC RAIZ FNMT-RCM SERVIDORES SEGUROS": AC_RAIZ_FNMT_RCM_SERVIDORES_SEGUROS_TEXT_,
-  "GlobalSign Root R46": GLOBALSIGN_ROOT_R46_TEXT_,
-  "GlobalSign Root E46": GLOBALSIGN_ROOT_E46_TEXT_,
-  "GLOBALTRUST 2020": GLOBALTRUST_2020_TEXT_,
-  "ANF Secure Server Root CA": ANF_SECURE_SERVER_ROOT_CA_TEXT_,
-  "Certum EC-384 CA": CERTUM_EC_384_CA_TEXT_,
-  "Certum Trusted Root CA": CERTUM_TRUSTED_ROOT_CA_TEXT_,
-  "HARICA TLS RSA Root CA 2021": HARICA_TLS_RSA_ROOT_CA_2021_TEXT_,
-  "HARICA TLS ECC Root CA 2021": HARICA_TLS_ECC_ROOT_CA_2021_TEXT_,
-  "Autoridad de Certificacion Firmaprofesional CIF A62634068 new": AUTORIDAD_DE_CERTIFICACION_FIRMAPROFESIONAL_CIF_A62634068_NEW_TEXT_,
-  "vTrus ECC Root CA": VTRUS_ECC_ROOT_CA_TEXT_,
-  "vTrus Root CA": VTRUS_ROOT_CA_TEXT_,
-  "ISRG Root X2": ISRG_ROOT_X2_TEXT_,
-  "HiPKI Root CA - G1": HIPKI_ROOT_CA_G1_TEXT_,
-  "AAA Certificate Services": COMODO_AAA_SERVICES_ROOT_TEXT_,
+  "GlobalSign Root CA": GLOBALSIGN_ROOT_CA_BYTES_,
+  "GlobalSign Root CA - R2": GLOBALSIGN_ROOT_CA_R2_BYTES_,
+  "Entrust.net Premium 2048 Secure Server CA": ENTRUST_NET_PREMIUM_2048_SECURE_SERVER_CA_BYTES_,
+  "Baltimore CyberTrust Root": BALTIMORE_CYBERTRUST_ROOT_BYTES_,
+  "Entrust Root Certification Authority": ENTRUST_ROOT_CERTIFICATION_AUTHORITY_BYTES_,
+  "Comodo AAA Services root": COMODO_AAA_SERVICES_ROOT_BYTES_,
+  "QuoVadis Root CA 2": QUOVADIS_ROOT_CA_2_BYTES_,
+  "QuoVadis Root CA 3": QUOVADIS_ROOT_CA_3_BYTES_,
+  "Security Communication Root CA": SECURITY_COMMUNICATION_ROOT_CA_BYTES_,
+  "XRamp Global CA Root": XRAMP_GLOBAL_CA_ROOT_BYTES_,
+  "Go Daddy Class 2 CA": GO_DADDY_CLASS_2_CA_BYTES_,
+  "Starfield Class 2 CA": STARFIELD_CLASS_2_CA_BYTES_,
+  "DigiCert Assured ID Root CA": DIGICERT_ASSURED_ID_ROOT_CA_BYTES_,
+  "DigiCert Global Root CA": DIGICERT_GLOBAL_ROOT_CA_BYTES_,
+  "DigiCert High Assurance EV Root CA": DIGICERT_HIGH_ASSURANCE_EV_ROOT_CA_BYTES_,
+  "DST Root CA X3": DST_ROOT_CA_X3_BYTES_,
+  "SwissSign Gold CA - G2": SWISSSIGN_GOLD_CA_G2_BYTES_,
+  "SwissSign Silver CA - G2": SWISSSIGN_SILVER_CA_G2_BYTES_,
+  "SecureTrust CA": SECURETRUST_CA_BYTES_,
+  "Secure Global CA": SECURE_GLOBAL_CA_BYTES_,
+  "COMODO Certification Authority": COMODO_CERTIFICATION_AUTHORITY_BYTES_,
+  "Network Solutions Certificate Authority": NETWORK_SOLUTIONS_CERTIFICATE_AUTHORITY_BYTES_,
+  "COMODO ECC Certification Authority": COMODO_ECC_CERTIFICATION_AUTHORITY_BYTES_,
+  "Certigna": CERTIGNA_BYTES_,
+  "Cybertrust Global Root": CYBERTRUST_GLOBAL_ROOT_BYTES_,
+  "ePKI Root Certification Authority": EPKI_ROOT_CERTIFICATION_AUTHORITY_BYTES_,
+  "certSIGN ROOT CA": CERTSIGN_ROOT_CA_BYTES_,
+  "NetLock Arany (Class Gold) Főtanúsítvány": NETLOCK_ARANY_BYTES_,
+  "Hongkong Post Root CA 1": HONGKONG_POST_ROOT_CA_1_BYTES_,
+  "SecureSign RootCA11": SECURESIGN_ROOTCA11_BYTES_,
+  "Microsec e-Szigno Root CA 2009": MICROSEC_E_SZIGNO_ROOT_CA_2009_BYTES_,
+  "GlobalSign Root CA - R3": GLOBALSIGN_ROOT_CA_R3_BYTES_,
+  "Autoridad de Certificacion Firmaprofesional CIF A62634068": AUTORIDAD_DE_CERTIFICACION_FIRMAPROFESIONAL_CIF_A62634068_BYTES_,
+  "Izenpe.com": IZENPE_COM_BYTES_,
+  "Go Daddy Root Certificate Authority - G2": GO_DADDY_ROOT_CERTIFICATE_AUTHORITY_G2_BYTES_,
+  "Starfield Root Certificate Authority - G2": STARFIELD_ROOT_CERTIFICATE_AUTHORITY_G2_BYTES_,
+  "Starfield Services Root Certificate Authority - G2": STARFIELD_SERVICES_ROOT_CERTIFICATE_AUTHORITY_G2_BYTES_,
+  "AffirmTrust Commercial": AFFIRMTRUST_COMMERCIAL_BYTES_,
+  "AffirmTrust Networking": AFFIRMTRUST_NETWORKING_BYTES_,
+  "AffirmTrust Premium": AFFIRMTRUST_PREMIUM_BYTES_,
+  "AffirmTrust Premium ECC": AFFIRMTRUST_PREMIUM_ECC_BYTES_,
+  "Certum Trusted Network CA": CERTUM_TRUSTED_NETWORK_CA_BYTES_,
+  "TWCA Root Certification Authority": TWCA_ROOT_CERTIFICATION_AUTHORITY_BYTES_,
+  "Security Communication RootCA2": SECURITY_COMMUNICATION_ROOTCA2_BYTES_,
+  "EC-ACC": EC_ACC_BYTES_,
+  "Hellenic Academic and Research Institutions RootCA 2011": HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2011_BYTES_,
+  "Actalis Authentication Root CA": ACTALIS_AUTHENTICATION_ROOT_CA_BYTES_,
+  "Buypass Class 2 Root CA": BUYPASS_CLASS_2_ROOT_CA_BYTES_,
+  "Buypass Class 3 Root CA": BUYPASS_CLASS_3_ROOT_CA_BYTES_,
+  "T-TeleSec GlobalRoot Class 3": T_TELESEC_GLOBALROOT_CLASS_3_BYTES_,
+  "D-TRUST Root Class 3 CA 2 2009": D_TRUST_ROOT_CLASS_3_CA_2_2009_BYTES_,
+  "D-TRUST Root Class 3 CA 2 EV 2009": D_TRUST_ROOT_CLASS_3_CA_2_EV_2009_BYTES_,
+  "CA Disig Root R2": CA_DISIG_ROOT_R2_BYTES_,
+  "ACCVRAIZ1": ACCVRAIZ1_BYTES_,
+  "TWCA Global Root CA": TWCA_GLOBAL_ROOT_CA_BYTES_,
+  "TeliaSonera Root CA v1": TELIASONERA_ROOT_CA_V1_BYTES_,
+  "E-Tugra Certification Authority": E_TUGRA_CERTIFICATION_AUTHORITY_BYTES_,
+  "T-TeleSec GlobalRoot Class 2": T_TELESEC_GLOBALROOT_CLASS_2_BYTES_,
+  "Atos TrustedRoot 2011": ATOS_TRUSTEDROOT_2011_BYTES_,
+  "QuoVadis Root CA 1 G3": QUOVADIS_ROOT_CA_1_G3_BYTES_,
+  "QuoVadis Root CA 2 G3": QUOVADIS_ROOT_CA_2_G3_BYTES_,
+  "QuoVadis Root CA 3 G3": QUOVADIS_ROOT_CA_3_G3_BYTES_,
+  "DigiCert Assured ID Root G2": DIGICERT_ASSURED_ID_ROOT_G2_BYTES_,
+  "DigiCert Assured ID Root G3": DIGICERT_ASSURED_ID_ROOT_G3_BYTES_,
+  "DigiCert Global Root G2": DIGICERT_GLOBAL_ROOT_G2_BYTES_,
+  "DigiCert Global Root G3": DIGICERT_GLOBAL_ROOT_G3_BYTES_,
+  "DigiCert Trusted Root G4": DIGICERT_TRUSTED_ROOT_G4_BYTES_,
+  "COMODO RSA Certification Authority": COMODO_RSA_CERTIFICATION_AUTHORITY_BYTES_,
+  "USERTrust RSA Certification Authority": USERTRUST_RSA_CERTIFICATION_AUTHORITY_BYTES_,
+  "USERTrust ECC Certification Authority": USERTRUST_ECC_CERTIFICATION_AUTHORITY_BYTES_,
+  "GlobalSign ECC Root CA - R4": GLOBALSIGN_ECC_ROOT_CA_R4_BYTES_,
+  "GlobalSign ECC Root CA - R5": GLOBALSIGN_ECC_ROOT_CA_R5_BYTES_,
+  "Staat der Nederlanden EV Root CA": STAAT_DER_NEDERLANDEN_EV_ROOT_CA_BYTES_,
+  "IdenTrust Commercial Root CA 1": IDENTRUST_COMMERCIAL_ROOT_CA_1_BYTES_,
+  "IdenTrust Public Sector Root CA 1": IDENTRUST_PUBLIC_SECTOR_ROOT_CA_1_BYTES_,
+  "Entrust Root Certification Authority - G2": ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G2_BYTES_,
+  "Entrust Root Certification Authority - EC1": ENTRUST_ROOT_CERTIFICATION_AUTHORITY_EC1_BYTES_,
+  "CFCA EV ROOT": CFCA_EV_ROOT_BYTES_,
+  "OISTE WISeKey Global Root GB CA": OISTE_WISEKEY_GLOBAL_ROOT_GB_CA_BYTES_,
+  "SZAFIR ROOT CA2": SZAFIR_ROOT_CA2_BYTES_,
+  "Certum Trusted Network CA 2": CERTUM_TRUSTED_NETWORK_CA_2_BYTES_,
+  "Hellenic Academic and Research Institutions RootCA 2015": HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2015_BYTES_,
+  "Hellenic Academic and Research Institutions ECC RootCA 2015": HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ECC_ROOTCA_2015_BYTES_,
+  "ISRG Root X1": ISRG_ROOT_X1_BYTES_,
+  "AC RAIZ FNMT-RCM": AC_RAIZ_FNMT_RCM_BYTES_,
+  "Amazon Root CA 1": AMAZON_ROOT_CA_1_BYTES_,
+  "Amazon Root CA 2": AMAZON_ROOT_CA_2_BYTES_,
+  "Amazon Root CA 3": AMAZON_ROOT_CA_3_BYTES_,
+  "Amazon Root CA 4": AMAZON_ROOT_CA_4_BYTES_,
+  "TUBITAK Kamu SM SSL Kok Sertifikasi - Surum 1": TUBITAK_KAMU_SM_SSL_KOK_SERTIFIKASI_SURUM_1_BYTES_,
+  "GDCA TrustAUTH R5 ROOT": GDCA_TRUSTAUTH_R5_ROOT_BYTES_,
+  "TrustCor RootCert CA-1": TRUSTCOR_ROOTCERT_CA_1_BYTES_,
+  "TrustCor RootCert CA-2": TRUSTCOR_ROOTCERT_CA_2_BYTES_,
+  "TrustCor ECA-1": TRUSTCOR_ECA_1_BYTES_,
+  "SSL.com Root Certification Authority RSA": SSL_COM_ROOT_CERTIFICATION_AUTHORITY_RSA_BYTES_,
+  "SSL.com Root Certification Authority ECC": SSL_COM_ROOT_CERTIFICATION_AUTHORITY_ECC_BYTES_,
+  "SSL.com EV Root Certification Authority RSA R2": SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_RSA_R2_BYTES_,
+  "SSL.com EV Root Certification Authority ECC": SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_ECC_BYTES_,
+  "GlobalSign Root CA - R6": GLOBALSIGN_ROOT_CA_R6_BYTES_,
+  "OISTE WISeKey Global Root GC CA": OISTE_WISEKEY_GLOBAL_ROOT_GC_CA_BYTES_,
+  "GTS Root R1": GTS_ROOT_R1_BYTES_,
+  "GTS Root R2": GTS_ROOT_R2_BYTES_,
+  "GTS Root R3": GTS_ROOT_R3_BYTES_,
+  "GTS Root R4": GTS_ROOT_R4_BYTES_,
+  "UCA Global G2 Root": UCA_GLOBAL_G2_ROOT_BYTES_,
+  "UCA Extended Validation Root": UCA_EXTENDED_VALIDATION_ROOT_BYTES_,
+  "Certigna Root CA": CERTIGNA_ROOT_CA_BYTES_,
+  "emSign Root CA - G1": EMSIGN_ROOT_CA_G1_BYTES_,
+  "emSign ECC Root CA - G3": EMSIGN_ECC_ROOT_CA_G3_BYTES_,
+  "emSign Root CA - C1": EMSIGN_ROOT_CA_C1_BYTES_,
+  "emSign ECC Root CA - C3": EMSIGN_ECC_ROOT_CA_C3_BYTES_,
+  "Hongkong Post Root CA 3": HONGKONG_POST_ROOT_CA_3_BYTES_,
+  "Entrust Root Certification Authority - G4": ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G4_BYTES_,
+  "Microsoft ECC Root Certificate Authority 2017": MICROSOFT_ECC_ROOT_CERTIFICATE_AUTHORITY_2017_BYTES_,
+  "Microsoft RSA Root Certificate Authority 2017": MICROSOFT_RSA_ROOT_CERTIFICATE_AUTHORITY_2017_BYTES_,
+  "e-Szigno Root CA 2017": E_SZIGNO_ROOT_CA_2017_BYTES_,
+  "certSIGN Root CA G2": CERTSIGN_ROOT_CA_G2_BYTES_,
+  "Trustwave Global Certification Authority": TRUSTWAVE_GLOBAL_CERTIFICATION_AUTHORITY_BYTES_,
+  "Trustwave Global ECC P256 Certification Authority": TRUSTWAVE_GLOBAL_ECC_P256_CERTIFICATION_AUTHORITY_BYTES_,
+  "Trustwave Global ECC P384 Certification Authority": TRUSTWAVE_GLOBAL_ECC_P384_CERTIFICATION_AUTHORITY_BYTES_,
+  "NAVER Global Root Certification Authority": NAVER_GLOBAL_ROOT_CERTIFICATION_AUTHORITY_BYTES_,
+  "AC RAIZ FNMT-RCM SERVIDORES SEGUROS": AC_RAIZ_FNMT_RCM_SERVIDORES_SEGUROS_BYTES_,
+  "GlobalSign Root R46": GLOBALSIGN_ROOT_R46_BYTES_,
+  "GlobalSign Root E46": GLOBALSIGN_ROOT_E46_BYTES_,
+  "GLOBALTRUST 2020": GLOBALTRUST_2020_BYTES_,
+  "ANF Secure Server Root CA": ANF_SECURE_SERVER_ROOT_CA_BYTES_,
+  "Certum EC-384 CA": CERTUM_EC_384_CA_BYTES_,
+  "Certum Trusted Root CA": CERTUM_TRUSTED_ROOT_CA_BYTES_,
+  "HARICA TLS RSA Root CA 2021": HARICA_TLS_RSA_ROOT_CA_2021_BYTES_,
+  "HARICA TLS ECC Root CA 2021": HARICA_TLS_ECC_ROOT_CA_2021_BYTES_,
+  "Autoridad de Certificacion Firmaprofesional CIF A62634068 new": AUTORIDAD_DE_CERTIFICACION_FIRMAPROFESIONAL_CIF_A62634068_NEW_BYTES_,
+  "vTrus ECC Root CA": VTRUS_ECC_ROOT_CA_BYTES_,
+  "vTrus Root CA": VTRUS_ROOT_CA_BYTES_,
+  "ISRG Root X2": ISRG_ROOT_X2_BYTES_,
+  "HiPKI Root CA - G1": HIPKI_ROOT_CA_G1_BYTES_,
+  "AAA Certificate Services": COMODO_AAA_SERVICES_ROOT_BYTES_,
 }
 
 /**
@@ -4973,3 +9232,18 @@ ALL ::= [
   ISRG_ROOT_X2,
   HIPKI_ROOT_CA_G1,
 ]
+
+// Tries to parse a DER-encoded certificate in the most
+// memory-efficient way.  On older VMs, that that fails.
+// In that case, it re-encodes the certificate in PEM
+// format, and retries.
+parse_ der_encoded_cert/ByteArray -> net.Certificate:
+  catch:
+    return net.Certificate.parse der_encoded_cert
+  lines := ["-----BEGIN CERTIFICATE-----"]
+  List.chunk_up 0 der_encoded_cert.size 144: | from to |
+    encoded := base64.encode der_encoded_cert[from..to]
+    List.chunk_up 0 encoded.size 64: | f t |
+      lines.add encoded[f..t]
+  lines.add "-----END CERTIFICATE-----\n"
+  return net.Certificate.parse (lines.join "\n")

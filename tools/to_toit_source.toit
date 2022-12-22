@@ -19,25 +19,45 @@ class Cert:
   name/string  // Toit-ified const name.
   sha_fingerprint /string?  // SHA256 Fingerprint
   data /ByteArray  // DER-encoded raw data.
+  comment /string?
 
-  constructor .mixed_case_name .name .sha_fingerprint .data:
+  constructor .mixed_case_name .name .sha_fingerprint .data --.comment=null:
 
   print_on_stdout -> none:
-    print "$(name)_TEXT_ ::= \"\"\"\\"
-    print "-----BEGIN CERTIFICATE-----"
-    encoded := (base64.encode data)
-    List.chunk_up 0 encoded.size 64: | from to |
-      print encoded[from..to]
-    print "-----END CERTIFICATE-----"
-    print "\"\"\""
+    print "$(name)_BYTES_ ::= #["
+    i := 0
+    while i < data.size:
+      chunk_size := min 18 (data.size - i)
+      while chunk_size < data.size - i and (byte_array_encode_ data[i..i + chunk_size + 1]).size <= 78:
+        chunk_size++
+      section := data[i..i + chunk_size]
+      extra := 78 - (byte_array_encode_ section).size
+      print
+          byte_array_encode_ section --extra=(extra > 4 ? 0 : extra)
+      i += chunk_size
+    print "]\n"
     print ""
     print "/**"
     print "$(mixed_case_name)."
+    if comment: print comment
     if sha_fingerprint != null:
       print "SHA256 fingerprint: $sha_fingerprint"
     print "*/"
-    print "$name ::= net.Certificate.parse $(name)_TEXT_"
+    print "$name ::= parse_ $(name)_BYTES_"
     print ""
+
+byte_array_encode_ slice/ByteArray --extra/int=0 -> string:
+  list := List slice.size: slice[it]
+  return "    $((list.map: encode_byte_ it --extra=extra: extra -= it).join ","),"
+
+encode_byte_ byte/int --extra/int=0 [report_extra]-> string:
+  if ' ' <= byte <= '~' and byte != '\\' and byte != '\'': return "'$(%c byte)'"
+  min_size := "$byte".size
+  ["0x$(%02x byte)", "0x$(%x byte)", "$byte"].do: | alt |
+    if alt.size - min_size <= extra:
+      report_extra.call alt.size - min_size
+      return alt
+  unreachable
 
 main args/List:
   in_cert_data := false
@@ -56,6 +76,7 @@ main args/List:
   print "// License, v. 2.0. If a copy of the MPL was not distributed with this"
   print "// file, You can obtain one at http://mozilla.org/MPL/2.0/."
   print ""
+  print "import encoding.base64"
   print "import net.x509 as net"
   print ""
   print "import .get_root"
@@ -100,10 +121,20 @@ main args/List:
     if not constant_name.starts_with "GTS_ROOT_R" and constant_name != "GLOBALSIGN_ECC_ROOT_CA_R4":
       if mixed_case_name == "GlobalSign ECC Root CA - R5":
         legacy_order.add "GlobalSign ECC Root CA - R4"
+      else if mixed_case_name == "Entrust.net Premium 2048 Secure Server CA":
+        legacy_order.add GLOBALSIGN_CERT.mixed_case_name
+      else if mixed_case_name == "SwissSign Gold CA - G2":
+        legacy_order.add DST_CERT.mixed_case_name
+      else if mixed_case_name == "ePKI Root Certification Authority":
+        legacy_order.add CYBERTRUST_CERT.mixed_case_name
       else if mixed_case_name == "UCA Global G2 Root":
         4.repeat:
           legacy_order.add "GTS Root R$(it + 1)"
       legacy_order.add mixed_case_name
+
+  all_certs[GLOBALSIGN_CERT.mixed_case_name] = GLOBALSIGN_CERT
+  all_certs[DST_CERT.mixed_case_name] = DST_CERT
+  all_certs[CYBERTRUST_CERT.mixed_case_name] = CYBERTRUST_CERT
 
   legacy_order.do: | mixed_case_name |
     cert/Cert := all_certs[mixed_case_name]
@@ -111,16 +142,16 @@ main args/List:
 
   print ""
   print "/**"
-  print "A map from certificate name to certificate in text form."
-  print "The text forms must be parsed with net.Certificate.parse"
+  print "A map from certificate name to certificate in byte array form."
+  print "The byte array forms must be parsed with net.Certificate.parse"
   print "  before they can be used as the --root_certificates argument"
   print "*/"
   print "MAP ::= {"
   legacy_order.do: | mixed_case_name |
     cert := all_certs[mixed_case_name]
     if not cert.name.contains "TUNTRUST":
-      print "  \"$mixed_case_name\": $(cert.name)_TEXT_,"
-  print "  \"AAA Certificate Services\": COMODO_AAA_SERVICES_ROOT_TEXT_,"
+      print "  \"$mixed_case_name\": $(cert.name)_BYTES_,"
+  print "  \"AAA Certificate Services\": COMODO_AAA_SERVICES_ROOT_BYTES_,"
   print "}"
   print ""
   print "/**"
@@ -145,3 +176,112 @@ main args/List:
     if not cert.name.contains "TUNTRUST":
       print "  $cert.name,"
   print "]"
+  print ""
+  print "// Tries to parse a DER-encoded certificate in the most"
+  print "// memory-efficient way.  On older VMs, that that fails."
+  print "// In that case, it re-encodes the certificate in PEM"
+  print "// format, and retries."
+  print "parse_ der_encoded_cert/ByteArray -> net.Certificate:"
+  print "  catch:"
+  print "    return net.Certificate.parse der_encoded_cert"
+  print "  lines := [\"-----BEGIN CERTIFICATE-----\"]"
+  print "  List.chunk_up 0 der_encoded_cert.size 144: | from to |"
+  print "    encoded := base64.encode der_encoded_cert[from..to]"
+  print "    List.chunk_up 0 encoded.size 64: | f t |"
+  print "      lines.add encoded[f..t]"
+  print "  lines.add \"-----END CERTIFICATE-----\\n\""
+  print "  return net.Certificate.parse (lines.join \"\\n\")"
+
+GLOBALSIGN_PEM ::= """
+    MIIDujCCAqKgAwIBAgILBAAAAAABD4Ym5g0wDQYJKoZIhvcNAQEFBQAwTDEgMB4G
+    A1UECxMXR2xvYmFsU2lnbiBSb290IENBIC0gUjIxEzARBgNVBAoTCkdsb2JhbFNp
+    Z24xEzARBgNVBAMTCkdsb2JhbFNpZ24wHhcNMDYxMjE1MDgwMDAwWhcNMjExMjE1
+    MDgwMDAwWjBMMSAwHgYDVQQLExdHbG9iYWxTaWduIFJvb3QgQ0EgLSBSMjETMBEG
+    A1UEChMKR2xvYmFsU2lnbjETMBEGA1UEAxMKR2xvYmFsU2lnbjCCASIwDQYJKoZI
+    hvcNAQEBBQADggEPADCCAQoCggEBAKbPJA6+Lm8omUVCxKs+IVSbC9N/hHD6ErPL
+    v4dfxn+G07IwXNb9rfF73OX4YJYJkhD10FPe+3t+c4isUoh7SqbKSaZeqKeMWhG8
+    eoLrvozps6yWJQeXSpkqBy+0Hne/ig+1AnwblrjFuTosvNYSuetZfeLQBoZfXklq
+    tTleiDTsvHgMCJiEbKjNS7SgfQx5TfC4LcshytVsW33hoCmEofnTlEnLJGKRILzd
+    C9XZzPnqJworc5HGnRusyMvo4KD0L5CLTfuwNhv2GXqF4G3yYROIXJ/gkwpRl4pa
+    zq+r1feqCapgvdzZX99yqWATXgAByUr6P6TqBwMhAo6CygPCm48CAwEAAaOBnDCB
+    mTAOBgNVHQ8BAf8EBAMCAQYwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUm+IH
+    V2ccHsBqBt5ZtJot39wZhi4wNgYDVR0fBC8wLTAroCmgJ4YlaHR0cDovL2NybC5n
+    bG9iYWxzaWduLm5ldC9yb290LXIyLmNybDAfBgNVHSMEGDAWgBSb4gdXZxwewGoG
+    3lm0mi3f3BmGLjANBgkqhkiG9w0BAQUFAAOCAQEAmYFThxxol4aR7OBKuEQLq4Gs
+    J0/WwbgcQ3izDJr86iw8bmEbTUsp9Z8FHSbBuOmDAGJFtqkIk7mpM0sYmsL4h4hO
+    291xNBrBVNpGP+DTKqttVCL1OmLNIG+6KYnX3ZHu01yiPqFbQfXf5WRDLenVOavS
+    ot+3i9DAgBkcRcAtjOj4LaR0VknFBbVPFd5uRHg5h6h+u/N5GJG79G+dwfCMNYxd
+    AfvDbbnvRG15RjF+Cv6pgsH/76tuIMRQyV+dTZsXjAzlAcmgQWpzU/qlULRuJQ/7
+    TBj0/VLZjmmx6BEP3ojY+x1J96relc8geMJgEtslQIxq/H5COEBkEveegeGTLg==
+    """
+
+DST_PEM ::= """
+    MIIDSjCCAjKgAwIBAgIQRK+wgNajJ7qJMDmGLvhAazANBgkqhkiG9w0BAQUFADA/
+    MSQwIgYDVQQKExtEaWdpdGFsIFNpZ25hdHVyZSBUcnVzdCBDby4xFzAVBgNVBAMT
+    DkRTVCBSb290IENBIFgzMB4XDTAwMDkzMDIxMTIxOVoXDTIxMDkzMDE0MDExNVow
+    PzEkMCIGA1UEChMbRGlnaXRhbCBTaWduYXR1cmUgVHJ1c3QgQ28uMRcwFQYDVQQD
+    Ew5EU1QgUm9vdCBDQSBYMzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEB
+    AN+v6ZdQCINXtMxiZfaQguzH0yxrMMpb7NnDfcdAwRgUi+DoM3ZJKuM/IUmTrE4O
+    rz5Iy2Xu/NMhD2XSKtkyj4zl93ewEnu1lcCJo6m67XMuegwGMoOifooUMM0RoOEq
+    OLl5CjH9UL2AZd+3UWODyOKIYepLYYHsUmu5ouJLGiifSKOeDNoJjj4XLh7dIN9b
+    xiqKqy69cK3FCxolkHRyxXtqqzTWMIn/5WgTe1QLyNau7Fqckh49ZLOMxt+/yUFw
+    7BZy1SbsOFU5Q9D8/RhcQPGX69Wam40dutolucbY38EVAjqr2m7xPi71XAicPNaD
+    aeQQmxkqtilX4+U9m5/wAl0CAwEAAaNCMEAwDwYDVR0TAQH/BAUwAwEB/zAOBgNV
+    HQ8BAf8EBAMCAQYwHQYDVR0OBBYEFMSnsaR7LHH62+FLkHX/xBVghYkQMA0GCSqG
+    SIb3DQEBBQUAA4IBAQCjGiybFwBcqR7uKGY3Or+Dxz9LwwmglSBd49lZRNI+DT69
+    ikugdB/OEIKcdBodfpga3csTS7MgROSR6cz8faXbauX+5v3gTt23ADq1cEmv8uXr
+    AvHRAosZy5Q6XkjEGB5YGV8eAlrwDPGxrancWYaLbumR9YbK+rlmM6pZW87ipxZz
+    R8srzJmwN0jP41ZL9c8PDHIyh8bwRLtTcm1D9SZImlJnt1ir/md2cXjbDaJWFBM5
+    JDGFoqgCWjBH4d1QB7wCCZAA62RjYJsWvIjJEubSfZGL+T0yjWW06XyxV3bqxbYo
+    Ob8VZRzI9neWagqNdwvYkQsEjgfbKbYK7p2CNTUQ
+    """
+
+CYBERTRUST_PEM ::= """
+    MIIDoTCCAomgAwIBAgILBAAAAAABD4WqLUgwDQYJKoZIhvcNAQEFBQAwOzEYMBYG
+    A1UEChMPQ3liZXJ0cnVzdCwgSW5jMR8wHQYDVQQDExZDeWJlcnRydXN0IEdsb2Jh
+    bCBSb290MB4XDTA2MTIxNTA4MDAwMFoXDTIxMTIxNTA4MDAwMFowOzEYMBYGA1UE
+    ChMPQ3liZXJ0cnVzdCwgSW5jMR8wHQYDVQQDExZDeWJlcnRydXN0IEdsb2JhbCBS
+    b290MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA+Mi8vRRQZhP/8NN5
+    7CPytxrHjoXxEnOmGaoQ25yiZXRadz5RfVb23CO21O1fWLE3TdVJDm71aofW0ozS
+    J8bi/zafmGWgE07GKmSb1ZASzxQG9Dvj1Ci+6A74q05IlG2OlTEQXO2iLb3VOm2y
+    HLtgwEZLAfVJrn5GitB0jaEMAs7u/OePuGtm839EAL9mJRQr3RAwHQeWP032a7iP
+    t3sMpTjr3kfb1V05/Iin89cqdPHoWqI7n1C6poxFNcJQZZXcY4Lv3b93TZxiyWNz
+    FtApD0mpSPCzqrdsxacwOUBdrsTiXSZT8M4cIwhhqJQZugRiQOwfOHB3EgZxpzAY
+    XSUnpQIDAQABo4GlMIGiMA4GA1UdDwEB/wQEAwIBBjAPBgNVHRMBAf8EBTADAQH/
+    MB0GA1UdDgQWBBS2CHsNesysIEyGVjJez6tuhS1wVzA/BgNVHR8EODA2MDSgMqAw
+    hi5odHRwOi8vd3d3Mi5wdWJsaWMtdHJ1c3QuY29tL2NybC9jdC9jdHJvb3QuY3Js
+    MB8GA1UdIwQYMBaAFLYIew16zKwgTIZWMl7Pq26FLXBXMA0GCSqGSIb3DQEBBQUA
+    A4IBAQBW7wojoFROlZfJ+InaRcHUowAl9B8Tq7ejhVhpwjCt2BWKLePJzYFa+HMj
+    Wqd8BfP9IjsO0QbE2zZMcwSO5bAi5MXzLqXZI+O4Tkogp24CJJ8iYGd7ix1yCcUx
+    XOl5n4BHPa2hCwcUPUf/A2kaDAtE52Mlp3+yybh2hO0j9n0Hq0V+09+zv+mKts2o
+    omcrUtW3ZfA5TGOgkXmTUg9U3YO7n9GPp1Nzw8v/MOx8BLjYRB+TX3EJIrduPuoc
+    A06dGiBh+4E37F78CkWr1+cXVdCg6mCbpvbjjFspwgZgFJ0tl0ypkxWdYcQBX0jW
+    WL1WMRJOEcgh4LMRkWXbtKaIOM5V
+    """
+
+DST_BYTES ::= base64.decode ((DST_PEM.split "\n").join "")
+CYBERTRUST_BYTES ::= base64.decode ((CYBERTRUST_PEM.split "\n").join "")
+GLOBALSIGN_BYTES ::= base64.decode ((GLOBALSIGN_PEM.split "\n").join "")
+
+/// These certificates are no longer in Mozillas store because they
+/// expired, but we keep them in our package to keep it backwards
+/// compatible.  Because Toit does not normally check expiry dates
+/// on certificates they are likely to still work.
+GLOBALSIGN_CERT ::= Cert
+    "GlobalSign Root CA - R2"
+    "GLOBALSIGN_ROOT_CA_R2"
+    null
+    GLOBALSIGN_BYTES
+    --comment="Deprecated.  This certificate has expired."
+DST_CERT ::= Cert
+    "DST Root CA X3"
+    "DST_ROOT_CA_X3"
+    null
+    DST_BYTES
+    --comment="Deprecated.  This certificate has expired.  Usually the replacement\n  is \$ISRG_ROOT_X1."
+CYBERTRUST_CERT ::= Cert
+    "Cybertrust Global Root"
+    "CYBERTRUST_GLOBAL_ROOT"
+    null
+    CYBERTRUST_BYTES
+    --comment="Deprecated.  This certificate has expired."
