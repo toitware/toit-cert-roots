@@ -20,8 +20,9 @@ class Cert:
   sha_fingerprint /string?  // SHA256 Fingerprint
   data /ByteArray  // DER-encoded raw data.
   comment /string?
+  is_deprecated/bool
 
-  constructor .mixed_case_name .name .sha_fingerprint .data --.comment=null:
+  constructor .mixed_case_name .name .sha_fingerprint .data --.comment=null --.is_deprecated=false:
 
   print_on_stdout -> none:
     print "$(name)_BYTES_ ::= #["
@@ -43,7 +44,11 @@ class Cert:
     if sha_fingerprint != null:
       print "SHA256 fingerprint: $sha_fingerprint"
     print "*/"
-    print "$name ::= parse_ $(name)_BYTES_"
+    if is_deprecated:
+      print "$name ::= $(name)_"
+      print "$(name)_ ::= parse_ $(name)_BYTES_"
+    else:
+      print "$name ::= parse_ $(name)_BYTES_"
     print ""
 
 byte_array_encode_ slice/ByteArray --extra/int=0 -> string:
@@ -115,28 +120,11 @@ main args/List:
     else if in_cert_data:
       cert_code.add line
 
-  legacy_order := []
-  all_certs.do: | mixed_case_name cert |
-    constant_name := cert.name
-    if not constant_name.starts_with "GTS_ROOT_R" and constant_name != "GLOBALSIGN_ECC_ROOT_CA_R4":
-      if mixed_case_name == "GlobalSign ECC Root CA - R5":
-        legacy_order.add "GlobalSign ECC Root CA - R4"
-      else if mixed_case_name == "Entrust.net Premium 2048 Secure Server CA":
-        legacy_order.add GLOBALSIGN_CERT.mixed_case_name
-      else if mixed_case_name == "SwissSign Gold CA - G2":
-        legacy_order.add DST_CERT.mixed_case_name
-      else if mixed_case_name == "ePKI Root Certification Authority":
-        legacy_order.add CYBERTRUST_CERT.mixed_case_name
-      else if mixed_case_name == "UCA Global G2 Root":
-        4.repeat:
-          legacy_order.add "GTS Root R$(it + 1)"
-      legacy_order.add mixed_case_name
+  DEPRECATED_CERTS.do: | cert/Cert |
+    all_certs[cert.mixed_case_name] = cert
 
-  all_certs[GLOBALSIGN_CERT.mixed_case_name] = GLOBALSIGN_CERT
-  all_certs[DST_CERT.mixed_case_name] = DST_CERT
-  all_certs[CYBERTRUST_CERT.mixed_case_name] = CYBERTRUST_CERT
-
-  legacy_order.do: | mixed_case_name |
+  names := all_certs.keys.sort
+  names.do: | mixed_case_name |
     cert/Cert := all_certs[mixed_case_name]
     cert.print_on_stdout
 
@@ -147,7 +135,7 @@ main args/List:
   print "  before they can be used as the --root_certificates argument"
   print "*/"
   print "MAP ::= {"
-  legacy_order.do: | mixed_case_name |
+  names.do: | mixed_case_name |
     cert := all_certs[mixed_case_name]
     if not cert.name.contains "TUNTRUST":
       print "  \"$mixed_case_name\": $(cert.name)_BYTES_,"
@@ -171,10 +159,13 @@ main args/List:
   print "```"
   print "*/"
   print "ALL ::= ["
-  legacy_order.do: | mixed_case_name |
+  names.do: | mixed_case_name |
     cert := all_certs[mixed_case_name]
     if not cert.name.contains "TUNTRUST":
-      print "  $cert.name,"
+      if cert.is_deprecated:
+        print "  $(cert.name)_,"
+      else:
+        print "  $cert.name,"
   print "]"
   print ""
   print "// Tries to parse a DER-encoded certificate in the most"
@@ -259,29 +250,181 @@ CYBERTRUST_PEM ::= """
     WL1WMRJOEcgh4LMRkWXbtKaIOM5V
     """
 
+NETWORK_SOLUTIONS_CERTIFICATE_AUTHORITY_PEM ::= """
+    MIID5jCCAs6gAwIBAgIQV8szb8JcFuZHFhfjkDFo4DANBgkqhkiG9w0BAQUFADBi
+    MQswCQYDVQQGEwJVUzEhMB8GA1UEChMYTmV0d29yayBTb2x1dGlvbnMgTC5MLkMu
+    MTAwLgYDVQQDEydOZXR3b3JrIFNvbHV0aW9ucyBDZXJ0aWZpY2F0ZSBBdXRob3Jp
+    dHkwHhcNMDYxMjAxMDAwMDAwWhcNMjkxMjMxMjM1OTU5WjBiMQswCQYDVQQGEwJV
+    UzEhMB8GA1UEChMYTmV0d29yayBTb2x1dGlvbnMgTC5MLkMuMTAwLgYDVQQDEydO
+    ZXR3b3JrIFNvbHV0aW9ucyBDZXJ0aWZpY2F0ZSBBdXRob3JpdHkwggEiMA0GCSqG
+    SIb3DQEBAQUAA4IBDwAwggEKAoIBAQDkvH6SMG3G2I4rC7xGzuAnlt7e+foS0zwz
+    c7MEL7xxjOWftiJgPl9dzgn/ggwbmlFQGiaJ3dVhXRncEg8tCqJDXRfQNJIg6nPP
+    OCwGJgl6cvf6UDL4wpPTaaIjzkGxzOTVHzbRijr4jGPiFFlp7Q3Tf2vouAPlT2rl
+    mGNpSAW+Lv8ztumXWWn4Zxmuk2GWRBXTcrA/vGp97Eh/jcOrqnErU2lBUzS1sLnF
+    BgrEsEX1QV1uiUV7PTsmjHTC5dLRfbIR1PtYMiKagMnc/Qzpf14Dl847ABSHJ3A4
+    qY5usyd2mFHgBeMhqxrVhSI8KbWaFsWAqPS7azCPL0YCorEMIuDTAgMBAAGjgZcw
+    gZQwHQYDVR0OBBYEFCEwyfsA106Y2oeqKtCnLrFAMadMMA4GA1UdDwEB/wQEAwIB
+    BjAPBgNVHRMBAf8EBTADAQH/MFIGA1UdHwRLMEkwR6BFoEOGQWh0dHA6Ly9jcmwu
+    bmV0c29sc3NsLmNvbS9OZXR3b3JrU29sdXRpb25zQ2VydGlmaWNhdGVBdXRob3Jp
+    dHkuY3JsMA0GCSqGSIb3DQEBBQUAA4IBAQC7rkvnt1frf6ott3NHhWrB5KUd5Oc8
+    6fRZZXe1eltajSU24HqXLjjAV2CDmAaDn7l2em5Q4LqILPxFzBiwmZVRDuwduIj/
+    h1AcgsLj4DKAv6ALR8jDMe+ZZzKATxcheQxpXN5eNK4CtSbqUN9/GGUsyfJj4akH
+    /nxxH2szJGoeBfcFaMBqEssuXmHLrijTfsK0ZpEmXzwuJF/LWA/rKOyvEZbz3Htv
+    wKeI8lN3s2Berq4o2jUsbzRF0ybh3uxbTydrFny9RAQYgrOJeRcQcT16ohZO9QHN
+    pGxlaKFJdlxDydi8NmdspZS11My5vWo1ViHe2MPr+8ukYEywVaCge1ey
+    """
+
+EC_ACC_PEM ::= """
+    MIIFVjCCBD6gAwIBAgIQ7is969Qh3hSoYqwE893EATANBgkqhkiG9w0BAQUFADCB
+    8zELMAkGA1UEBhMCRVMxOzA5BgNVBAoTMkFnZW5jaWEgQ2F0YWxhbmEgZGUgQ2Vy
+    dGlmaWNhY2lvIChOSUYgUS0wODAxMTc2LUkpMSgwJgYDVQQLEx9TZXJ2ZWlzIFB1
+    YmxpY3MgZGUgQ2VydGlmaWNhY2lvMTUwMwYDVQQLEyxWZWdldSBodHRwczovL3d3
+    dy5jYXRjZXJ0Lm5ldC92ZXJhcnJlbCAoYykwMzE1MDMGA1UECxMsSmVyYXJxdWlh
+    IEVudGl0YXRzIGRlIENlcnRpZmljYWNpbyBDYXRhbGFuZXMxDzANBgNVBAMTBkVD
+    LUFDQzAeFw0wMzAxMDcyMzAwMDBaFw0zMTAxMDcyMjU5NTlaMIHzMQswCQYDVQQG
+    EwJFUzE7MDkGA1UEChMyQWdlbmNpYSBDYXRhbGFuYSBkZSBDZXJ0aWZpY2FjaW8g
+    KE5JRiBRLTA4MDExNzYtSSkxKDAmBgNVBAsTH1NlcnZlaXMgUHVibGljcyBkZSBD
+    ZXJ0aWZpY2FjaW8xNTAzBgNVBAsTLFZlZ2V1IGh0dHBzOi8vd3d3LmNhdGNlcnQu
+    bmV0L3ZlcmFycmVsIChjKTAzMTUwMwYDVQQLEyxKZXJhcnF1aWEgRW50aXRhdHMg
+    ZGUgQ2VydGlmaWNhY2lvIENhdGFsYW5lczEPMA0GA1UEAxMGRUMtQUNDMIIBIjAN
+    BgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsyLHT+KXQpWIR4NA9h0X84NzJB5R
+    85iKw5K4/0CQBXCHYMkAqbWUZRkiFRfCQ2xmRJoNBD45b6VLeqpjt4pEndljkYRm
+    4CgPukLjbo73FCeTae6RDqNfDrHrZqJyTxIThmV6PttPB/SnCWDaOkKZx7J/sxaV
+    HMf5NLWUhdWZXqBIoH7nF2W4onW4HvPlQn2v7fOKSGRdghST2MDk/7NQcvJ29rNd
+    QlB50JQ+awwAvthrDk4q7D7SzIKiGGUzE3eeml0aE9jD2z3Il3rucO2n5nzbcc8t
+    lGLfbdb1OL4/pYUKGbio2Al1QnDE6u/LDsg0qBIimAy4E5S2S+zw0JDnJwIDAQAB
+    o4HjMIHgMB0GA1UdEQQWMBSBEmVjX2FjY0BjYXRjZXJ0Lm5ldDAPBgNVHRMBAf8E
+    BTADAQH/MA4GA1UdDwEB/wQEAwIBBjAdBgNVHQ4EFgQUoMOLRKo3pUW/l4Ba0fF4
+    opvpXY0wfwYDVR0gBHgwdjB0BgsrBgEEAfV4AQMBCjBlMCwGCCsGAQUFBwIBFiBo
+    dHRwczovL3d3dy5jYXRjZXJ0Lm5ldC92ZXJhcnJlbDA1BggrBgEFBQcCAjApGidW
+    ZWdldSBodHRwczovL3d3dy5jYXRjZXJ0Lm5ldC92ZXJhcnJlbCAwDQYJKoZIhvcN
+    AQEFBQADggEBAKBIW4IB9k1IuDlVNZyAelOZ1Vr/sXE7zDkJlF7W2u++AVtd0x7Y
+    /X1PzaBB4DSTv8vihpw3kpBWHNzrKQXlxJ7HNd+KDM3FIUPpqojlNcAZQmNaAl6k
+    SBg6hW/cnbw/nZzBh7h6YQjpdwt/cKt63dmXLGQehb+8dJahw3oS7AwaboMMPOhy
+    Rp/7SNVel+axofjk70YllJyJ22k4vuxcDlbHZVHlUIiIv0LVKz3l+bqeLrPK9HOS
+    Agu+TGbrIP65y7WZf+a2E/rKS03Z7lNGBjvGTq2TWoF+bCpLagVFjPIhpDGQh2xl
+    nJ2lYJU6Un/10asIbvPuW/mIPX64b24D5EI=
+    """
+
+HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2011_PEM ::= """
+    MIIEMTCCAxmgAwIBAgIBADANBgkqhkiG9w0BAQUFADCBlTELMAkGA1UEBhMCR1Ix
+    RDBCBgNVBAoTO0hlbGxlbmljIEFjYWRlbWljIGFuZCBSZXNlYXJjaCBJbnN0aXR1
+    dGlvbnMgQ2VydC4gQXV0aG9yaXR5MUAwPgYDVQQDEzdIZWxsZW5pYyBBY2FkZW1p
+    YyBhbmQgUmVzZWFyY2ggSW5zdGl0dXRpb25zIFJvb3RDQSAyMDExMB4XDTExMTIw
+    NjEzNDk1MloXDTMxMTIwMTEzNDk1MlowgZUxCzAJBgNVBAYTAkdSMUQwQgYDVQQK
+    EztIZWxsZW5pYyBBY2FkZW1pYyBhbmQgUmVzZWFyY2ggSW5zdGl0dXRpb25zIENl
+    cnQuIEF1dGhvcml0eTFAMD4GA1UEAxM3SGVsbGVuaWMgQWNhZGVtaWMgYW5kIFJl
+    c2VhcmNoIEluc3RpdHV0aW9ucyBSb290Q0EgMjAxMTCCASIwDQYJKoZIhvcNAQEB
+    BQADggEPADCCAQoCggEBAKlTAOMupvaO+mDYLZU++CwqVE7NuYRhlFhPjz2L5EPz
+    dYmNUeTDN9KKiE15HrcS3UN4SoqS5tdI1Q+kOilENbgH9mgdVc04UfCMJDGFr4PJ
+    fel3r+0ae50X+bOdOFAPplp5kYCvN66m0zH7tSYJnTxa71HFK9+WXesyHgLacEns
+    bgzImjeN9/E2YEsmLIKe0HjzDQ9jpFEw4fkrJxIH2Oq9GGKYsFk3fb7u8yBRQlqD
+    75O6aRXxYp2fmTmCobd0LovUxQt7L/DICto9eQqakxylKHJzkUOap9FNhYS5qXSP
+    FEDH3N6sQWRstBmbAmNtJGSPRLIl6s5ddAxjMlyNh+UCAwEAAaOBiTCBhjAPBgNV
+    HRMBAf8EBTADAQH/MAsGA1UdDwQEAwIBBjAdBgNVHQ4EFgQUppFC/RNhSiOeCKQp
+    5dgTBCPuQSUwRwYDVR0eBEAwPqA8MAWCAy5ncjAFggMuZXUwBoIELmVkdTAGggQu
+    b3JnMAWBAy5ncjAFgQMuZXUwBoEELmVkdTAGgQQub3JnMA0GCSqGSIb3DQEBBQUA
+    A4IBAQAf73lB4XtuP7KMhjdCSk4cNx6NZrokgclPEg8hwAOXhiVtXdMiKahsog2p
+    6z0GW5k6x8zDmjR/qw7IThzh+uTczQ2+vyT+bOdrwg3IBp5OjWEopmr95fZi6hg8
+    TqBTnbI6nOulnJEWtk2C4AwFSKls9cz4y51JtPACpf1wA+2KIaWuE4ZJwzNzvoc7
+    dIsXRSZMFpGD/md9zU1jZ/rzAxKWeAaNsWftjj++n08C9bMJL/NMh98qy5V8Acys
+    Nnq/onN694/BtZqhFLKPM58N7yLcZnuEvUUXBj08yrl3NI/K6s8/MT7jiOOASSXI
+    l7WdmplNsDz4SgCbZN2fOUvRJ9e4
+    """
+
+STAAT_DER_NEDERLANDEN_EV_ROOT_CA_PEM ::= """
+    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
+    7uzXLg==
+    """
+
 DST_BYTES ::= base64.decode ((DST_PEM.split "\n").join "")
 CYBERTRUST_BYTES ::= base64.decode ((CYBERTRUST_PEM.split "\n").join "")
 GLOBALSIGN_BYTES ::= base64.decode ((GLOBALSIGN_PEM.split "\n").join "")
+NETWORK_SOLUTIONS_CERTIFICATE_AUTHORITY_BYTES ::= base64.decode ((NETWORK_SOLUTIONS_CERTIFICATE_AUTHORITY_PEM.split "\n").join "")
+EC_ACC_BYTES ::= base64.decode ((EC_ACC_PEM.split "\n").join "")
+HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2011_BYTES ::= base64.decode ((HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2011_PEM.split "\n").join "")
+STAAT_DER_NEDERLANDEN_EV_ROOT_CA_BYTES ::= base64.decode ((STAAT_DER_NEDERLANDEN_EV_ROOT_CA_PEM.split "\n").join "")
 
 /// These certificates are no longer in Mozillas store because they
 /// expired, but we keep them in our package to keep it backwards
 /// compatible.  Because Toit does not normally check expiry dates
 /// on certificates they are likely to still work.
-GLOBALSIGN_CERT ::= Cert
-    "GlobalSign Root CA - R2"
-    "GLOBALSIGN_ROOT_CA_R2"
-    null
-    GLOBALSIGN_BYTES
-    --comment="Deprecated.  This certificate has expired."
-DST_CERT ::= Cert
-    "DST Root CA X3"
-    "DST_ROOT_CA_X3"
-    null
-    DST_BYTES
-    --comment="Deprecated.  This certificate has expired.  Usually the replacement\n  is \$ISRG_ROOT_X1."
-CYBERTRUST_CERT ::= Cert
-    "Cybertrust Global Root"
-    "CYBERTRUST_GLOBAL_ROOT"
-    null
-    CYBERTRUST_BYTES
-    --comment="Deprecated.  This certificate has expired."
+DEPRECATED_CERTS ::= [
+  Cert
+      --is_deprecated
+      "GlobalSign Root CA - R2"
+      "GLOBALSIGN_ROOT_CA_R2"
+      null
+      GLOBALSIGN_BYTES
+      --comment="Deprecated.  This certificate has expired.",
+  Cert
+      --is_deprecated
+      "DST Root CA X3"
+      "DST_ROOT_CA_X3"
+      null
+      DST_BYTES
+      --comment="Deprecated.  This certificate has expired.  Usually the replacement\n  is \$ISRG_ROOT_X1.",
+  Cert
+      --is_deprecated
+      "Cybertrust Global Root"
+      "CYBERTRUST_GLOBAL_ROOT"
+      null
+      CYBERTRUST_BYTES
+      --comment="Deprecated.  This certificate has expired.",
+  Cert
+      --is_deprecated
+      "Network Solutions Certificate Authority"
+      "NETWORK_SOLUTIONS_CERTIFICATE_AUTHORITY"
+      null
+      NETWORK_SOLUTIONS_CERTIFICATE_AUTHORITY_BYTES
+      --comment="Deprecated.  This certificate has expired.",
+  Cert
+      --is_deprecated
+      "EC-ACC"
+      "EC_ACC"
+      null
+      EC_ACC_BYTES
+      --comment="Deprecated.  This certificate has expired.",
+  Cert
+      --is_deprecated
+      "Hellenic Academic and Research Institutions RootCA 2011"
+      "HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2011"
+      null
+      HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2011_BYTES
+      --comment="Deprecated.  This certificate has expired.",
+  Cert
+      --is_deprecated
+      "Staat der Nederlanden EV Root CA"
+      "STAAT_DER_NEDERLANDEN_EV_ROOT_CA"
+      null
+      STAAT_DER_NEDERLANDEN_EV_ROOT_CA_BYTES
+      --comment="Deprecated.  This certificate has expired.",
+]
