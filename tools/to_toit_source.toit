@@ -218,6 +218,18 @@ main args/List:
   print "      lines.add encoded[f..t]"
   print "  lines.add \"-----END CERTIFICATE-----\\n\""
   print "  return net.Certificate.parse (lines.join \"\\n\")"
+  print ""
+  print "/**"
+  print "Installs all certificate roots on this process so that they are used"
+  print "  for any TLS connections that do not have explicit root certificates."
+  print "This adds about 180k to the program size."
+  print "*/"
+  print "install_all_trusted_roots -> none:"
+  names.do: | mixed_case_name |
+    cert/Cert := all_certs[mixed_case_name]
+    hash := tls.add_global_root_certificate cert.data
+    print "  tls.add_global_root_certificate $(cert.name)_BYTES_ 0x$(%08x hash)"
+  print ""
   print "/**"
   print "Installs common certificate roots on this process so that they are used"
   print "  for any TLS connections that do not have explicit root certificates."
