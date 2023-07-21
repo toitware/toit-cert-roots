@@ -5,3 +5,4 @@
 import certificate_roots
 
 main:
+  certificate_roots.install_common_trusted_roots

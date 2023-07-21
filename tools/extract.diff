@@ -1,0 +1,12 @@
+diff --git a/convert_mozilla_certdata.go b/convert_mozilla_certdata.go
+index 9597998..bab2f74 100644
+--- a/convert_mozilla_certdata.go
++++ b/convert_mozilla_certdata.go
+@@ -325,6 +325,7 @@ func outputTrustedCerts(out *os.File, objects []*Object) {
+ 		out.WriteString("# MD5 Fingerprint: " + fingerprintString(crypto.MD5, x509.Raw) + "\n")
+ 		out.WriteString("# SHA1 Fingerprint: " + fingerprintString(crypto.SHA1, x509.Raw) + "\n")
+ 		out.WriteString("# SHA256 Fingerprint: " + fingerprintString(crypto.SHA256, x509.Raw) + "\n")
++		out.WriteString("# Expiry: " + x509.NotAfter.String() + "\n")
+ 		pem.Encode(out, block)
+ 	}
+ }

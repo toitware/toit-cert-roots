@@ -6,10 +6,15 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-# To be run in the tools directory.
+set -e
+if [ ! -f fetch.sh ]; then
+  echo "Run this script from the tools directory." 1>&2
+  exit 1
+fi
 
 rm -rf extract-nss-root-certs
 git clone https://github.com/agl/extract-nss-root-certs.git
+(cd extract-nss-root-certs && patch -p1) < extract.diff
 
 curl https://hg.mozilla.org/mozilla-central/raw-file/tip/security/nss/lib/ckfw/builtins/certdata.txt -o certdata.txt
 go run extract-nss-root-certs/convert_mozilla_certdata.go > certdata.new

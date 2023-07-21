@@ -3,12 +3,16 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import bitmap show blit
+import crypto.crc
 import encoding.base64
 import host.file
 import host.directory
+import tls
 import tr show Translator
 
 LABEL       ::= "# Label: \""
+EXPIRY      ::= "# Expiry: "
+SUBJECT     ::= "# Subject: "
 FINGERPRINT ::= "# SHA256 Fingerprint: "
 ARANY_START ::= "NETLOCK_ARANY"
 BEGIN       ::= "-----BEGIN"
@@ -21,8 +25,10 @@ class Cert:
   data /ByteArray  // DER-encoded raw data.
   comment /string?
   is_deprecated/bool
+  expiry/string?
+  subject/string?
 
-  constructor .mixed_case_name .name .sha_fingerprint .data --.comment=null --.is_deprecated=false:
+  constructor .mixed_case_name .name .sha_fingerprint .data --.expiry=null --.subject=null --.comment=null --.is_deprecated=false:
 
   print_on_stdout -> none:
     print "$(name)_BYTES_ ::= #["
@@ -43,12 +49,32 @@ class Cert:
     if comment: print comment
     if sha_fingerprint != null:
       print "SHA256 fingerprint: $sha_fingerprint"
+    if expiry != null:
+      print "Expiry: $expiry"
+    if subject != null:
+      print "Subject: $subject"
+    hash := tls.add_global_root_certificate data
+
     print "*/"
     if is_deprecated:
       print "$name ::= $(name)_"
       print "$(name)_ ::= parse_ $(name)_BYTES_"
     else:
       print "$name ::= parse_ $(name)_BYTES_"
+    print ""
+    print "/**"
+    print "Installs the \"$(mixed_case_name)\""
+    print "  root certificate on this process so that it is used for any"
+    print "  TLS connections that do not have explicit root certificates."
+    if sha_fingerprint != null:
+      print "SHA256 fingerprint: $sha_fingerprint"
+    if expiry != null:
+      print "Expiry: $expiry"
+    if subject != null:
+      print "Subject: $subject"
+    print "*/"
+    print "install_$name.to_ascii_lower -> none:"
+    print "  tls.add_global_root_certificate $(name)_BYTES_ 0x$(%08x hash)"
     print ""
 
 byte_array_encode_ slice/ByteArray --extra/int=0 -> string:
@@ -67,6 +93,8 @@ encode_byte_ byte/int --extra/int=0 [report_extra]-> string:
 main args/List:
   in_cert_data := false
   name := null
+  expiry := null
+  subject := null
   fingerprint := null
   mixed_case_name := null
   all_certs := {:}  // Mapping from name in the input to Cert object.
@@ -83,6 +111,7 @@ main args/List:
   print ""
   print "import encoding.base64"
   print "import net.x509 as net"
+  print "import tls"
   print ""
   print "import .get_root"
   print "export get_root_from_exception"
@@ -104,6 +133,10 @@ main args/List:
       if name.starts_with ARANY_START:
         name = "NETLOCK_ARANY"
       name = squeeze.tr name
+    if line.starts_with EXPIRY:
+      expiry = line[EXPIRY.size..EXPIRY.size + 10]
+    if line.starts_with SUBJECT:
+      subject = line[SUBJECT.size..]
     if line.starts_with BEGIN:
       in_cert_data = true
     else if line.starts_with END:
@@ -114,8 +147,11 @@ main args/List:
               name
               fingerprint
               data
+              --expiry=expiry
+              --subject=subject
       fingerprint = null
       in_cert_data = false
+      expiry = null
       cert_code = []
     else if in_cert_data:
       cert_code.add line
@@ -182,6 +218,36 @@ main args/List:
   print "      lines.add encoded[f..t]"
   print "  lines.add \"-----END CERTIFICATE-----\\n\""
   print "  return net.Certificate.parse (lines.join \"\\n\")"
+  print ""
+  print "/**"
+  print "Installs all certificate roots on this process so that they are used"
+  print "  for any TLS connections that do not have explicit root certificates."
+  print "This adds about 180k to the program size."
+  print "*/"
+  print "install_all_trusted_roots -> none:"
+  names.do: | mixed_case_name |
+    cert/Cert := all_certs[mixed_case_name]
+    hash := tls.add_global_root_certificate cert.data
+    print "  tls.add_global_root_certificate $(cert.name)_BYTES_ 0x$(%08x hash)"
+  print ""
+  print "/**"
+  print "Installs common certificate roots on this process so that they are used"
+  print "  for any TLS connections that do not have explicit root certificates."
+  print "This adds about 14k to the program size."
+  print "*/"
+  print "install_common_trusted_roots -> none:"
+  print "  tls.add_global_root_certificate DIGICERT_GLOBAL_ROOT_G2_BYTES_ 0x025449c2"
+  print "  tls.add_global_root_certificate DIGICERT_GLOBAL_ROOT_CA_BYTES_ 0x945a8c88"
+  print "  tls.add_global_root_certificate GLOBALSIGN_ROOT_CA_BYTES_ 0x361129dd"
+  print "  tls.add_global_root_certificate GLOBALSIGN_ROOT_CA_R3_BYTES_ 0x1f8bbbe2"
+  print "  tls.add_global_root_certificate COMODO_RSA_CERTIFICATION_AUTHORITY_BYTES_ 0x48ecb8af"
+  print "  tls.add_global_root_certificate BALTIMORE_CYBERTRUST_ROOT_BYTES_ 0x63203d15"
+  print "  tls.add_global_root_certificate USERTRUST_ECC_CERTIFICATION_AUTHORITY_BYTES_ 0xbadc5b59"
+  print "  tls.add_global_root_certificate USERTRUST_RSA_CERTIFICATION_AUTHORITY_BYTES_ 0x0c49cbaf"
+  print "  tls.add_global_root_certificate DIGICERT_HIGH_ASSURANCE_EV_ROOT_CA_BYTES_ 0x8ad27460"
+  print "  tls.add_global_root_certificate ISRG_ROOT_X1_BYTES_ 0x9b39b5ab"
+  print "  tls.add_global_root_certificate STARFIELD_CLASS_2_CA_BYTES_ 0x5ab324ab"
+
 
 GLOBALSIGN_PEM ::= """
     MIIDujCCAqKgAwIBAgILBAAAAAABD4Ym5g0wDQYJKoZIhvcNAQEFBQAwTDEgMB4G
