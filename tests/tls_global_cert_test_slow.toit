@@ -17,8 +17,8 @@ expect_error name [code]:
 monitor LimitLoad:
   current := 0
   has_test_failure := null
-  // FreeRTOS does not have enough memory to run 10 in parallel.
-  concurrent_processes ::= platform == "FreeRTOS" ? 1 : 2
+  // FreeRTOS does not have enough memory to run in parallel.
+  concurrent_processes ::= platform == "FreeRTOS" ? 1 : 4
 
   inc:
     await: current < concurrent_processes
@@ -73,12 +73,12 @@ run_tests:
 test_site url:
   host := url
   extra_info := null
-  if (host.index_of "/") != -1:
+  if host.contains "/":
     parts := host.split "/"
     host = parts[0]
     extra_info = parts[1]
   port := 443
-  if (url.index_of ":") != -1:
+  if url.contains ":":
     array := url.split ":"
     host = array[0]
     port = int.parse array[1]

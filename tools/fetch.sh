@@ -14,7 +14,7 @@ fi
 
 rm -rf extract-nss-root-certs
 git clone https://github.com/agl/extract-nss-root-certs.git
-cat extract.diff | (cd extract-nss-root-certs && patch -p1)
+(cd extract-nss-root-certs && patch -p1) < extract.diff
 
 curl https://hg.mozilla.org/mozilla-central/raw-file/tip/security/nss/lib/ckfw/builtins/certdata.txt -o certdata.txt
 go run extract-nss-root-certs/convert_mozilla_certdata.go > certdata.new
