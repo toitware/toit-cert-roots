@@ -92,22 +92,15 @@ AC_RAIZ_FNMT_RCM_BYTES_ ::= #[
 
 /**
 AC RAIZ FNMT-RCM.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: eb:c5:57:0c:29:01:8c:4d:67:b1:aa:12:7b:af:12:f7:03:b4:61:1e:bc:17:b7:da:b5:57:38:94:17:9b:93:fa
 Expiry: 2030-01-01
 Subject: O=FNMT-RCM OU=AC RAIZ FNMT-RCM
 */
-AC_RAIZ_FNMT_RCM ::= parse_ AC_RAIZ_FNMT_RCM_BYTES_
-
-/**
-Installs the "AC RAIZ FNMT-RCM"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: eb:c5:57:0c:29:01:8c:4d:67:b1:aa:12:7b:af:12:f7:03:b4:61:1e:bc:17:b7:da:b5:57:38:94:17:9b:93:fa
-Expiry: 2030-01-01
-Subject: O=FNMT-RCM OU=AC RAIZ FNMT-RCM
-*/
-install_ac_raiz_fnmt_rcm -> none:
-  tls.add_global_root_certificate AC_RAIZ_FNMT_RCM_BYTES_ 0x38a0d6b5
+AC_RAIZ_FNMT_RCM ::= tls.RootCertificate --fingerprint=0x38a0d6b5 AC_RAIZ_FNMT_RCM_BYTES_
 
 AC_RAIZ_FNMT_RCM_SERVIDORES_SEGUROS_BYTES_ ::= #[
     '0',0x82,2,'n','0',130,1,243,160,3,2,1,2,2,16,'b',246,'2','l',229,196,227,
@@ -146,22 +139,15 @@ AC_RAIZ_FNMT_RCM_SERVIDORES_SEGUROS_BYTES_ ::= #[
 
 /**
 AC RAIZ FNMT-RCM SERVIDORES SEGUROS.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 55:41:53:b1:3d:2c:f9:dd:b7:53:bf:be:1a:4e:0a:e0:8d:0a:a4:18:70:58:fe:60:a2:b8:62:b2:e4:b8:7b:cb
 Expiry: 2043-12-20
 Subject: CN=AC RAIZ FNMT-RCM SERVIDORES SEGUROS O=FNMT-RCM OU=Ceres
 */
-AC_RAIZ_FNMT_RCM_SERVIDORES_SEGUROS ::= parse_ AC_RAIZ_FNMT_RCM_SERVIDORES_SEGUROS_BYTES_
-
-/**
-Installs the "AC RAIZ FNMT-RCM SERVIDORES SEGUROS"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 55:41:53:b1:3d:2c:f9:dd:b7:53:bf:be:1a:4e:0a:e0:8d:0a:a4:18:70:58:fe:60:a2:b8:62:b2:e4:b8:7b:cb
-Expiry: 2043-12-20
-Subject: CN=AC RAIZ FNMT-RCM SERVIDORES SEGUROS O=FNMT-RCM OU=Ceres
-*/
-install_ac_raiz_fnmt_rcm_servidores_seguros -> none:
-  tls.add_global_root_certificate AC_RAIZ_FNMT_RCM_SERVIDORES_SEGUROS_BYTES_ 0x3d5374aa
+AC_RAIZ_FNMT_RCM_SERVIDORES_SEGUROS ::= tls.RootCertificate --fingerprint=0x3d5374aa AC_RAIZ_FNMT_RCM_SERVIDORES_SEGUROS_BYTES_
 
 ACCVRAIZ1_BYTES_ ::= #[
     '0',0x82,7,0xd3,'0',130,5,187,160,3,2,1,2,2,8,'^',195,183,166,'C',127,164,
@@ -268,22 +254,15 @@ ACCVRAIZ1_BYTES_ ::= #[
 
 /**
 ACCVRAIZ1.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 9a:6e:c0:12:e1:a7:da:9d:be:34:19:4d:47:8a:d7:c0:db:18:22:fb:07:1d:f1:29:81:49:6e:d1:04:38:41:13
 Expiry: 2030-12-31
 Subject: CN=ACCVRAIZ1 O=ACCV OU=PKIACCV
 */
-ACCVRAIZ1 ::= parse_ ACCVRAIZ1_BYTES_
-
-/**
-Installs the "ACCVRAIZ1"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 9a:6e:c0:12:e1:a7:da:9d:be:34:19:4d:47:8a:d7:c0:db:18:22:fb:07:1d:f1:29:81:49:6e:d1:04:38:41:13
-Expiry: 2030-12-31
-Subject: CN=ACCVRAIZ1 O=ACCV OU=PKIACCV
-*/
-install_accvraiz1 -> none:
-  tls.add_global_root_certificate ACCVRAIZ1_BYTES_ 0xb1976892
+ACCVRAIZ1 ::= tls.RootCertificate --fingerprint=0xb1976892 ACCVRAIZ1_BYTES_
 
 ANF_SECURE_SERVER_ROOT_CA_BYTES_ ::= #[
     '0',0x82,0x5,239,'0',130,3,215,160,3,2,1,2,2,8,13,211,227,188,'l',249,'k',
@@ -369,22 +348,15 @@ ANF_SECURE_SERVER_ROOT_CA_BYTES_ ::= #[
 
 /**
 ANF Secure Server Root CA.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: fb:8f:ec:75:91:69:b9:10:6b:1e:51:16:44:c6:18:c5:13:04:37:3f:6c:06:43:08:8d:8b:ef:fd:1b:99:75:99
 Expiry: 2039-08-30
 Subject: CN=ANF Secure Server Root CA O=ANF Autoridad de Certificacion OU=ANF CA Raiz
 */
-ANF_SECURE_SERVER_ROOT_CA ::= parse_ ANF_SECURE_SERVER_ROOT_CA_BYTES_
-
-/**
-Installs the "ANF Secure Server Root CA"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: fb:8f:ec:75:91:69:b9:10:6b:1e:51:16:44:c6:18:c5:13:04:37:3f:6c:06:43:08:8d:8b:ef:fd:1b:99:75:99
-Expiry: 2039-08-30
-Subject: CN=ANF Secure Server Root CA O=ANF Autoridad de Certificacion OU=ANF CA Raiz
-*/
-install_anf_secure_server_root_ca -> none:
-  tls.add_global_root_certificate ANF_SECURE_SERVER_ROOT_CA_BYTES_ 0x073fec93
+ANF_SECURE_SERVER_ROOT_CA ::= tls.RootCertificate --fingerprint=0x73fec93 ANF_SECURE_SERVER_ROOT_CA_BYTES_
 
 ACTALIS_AUTHENTICATION_ROOT_CA_BYTES_ ::= #[
     '0',130,5,187,'0',130,3,163,160,3,2,1,2,2,8,'W',10,17,151,'B',196,227,204,
@@ -467,22 +439,15 @@ ACTALIS_AUTHENTICATION_ROOT_CA_BYTES_ ::= #[
 
 /**
 Actalis Authentication Root CA.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 55:92:60:84:ec:96:3a:64:b9:6e:2a:be:01:ce:0b:a8:6a:64:fb:fe:bc:c7:aa:b5:af:c1:55:b3:7f:d7:60:66
 Expiry: 2030-09-22
 Subject: CN=Actalis Authentication Root CA O=Actalis S.p.A./03358520967
 */
-ACTALIS_AUTHENTICATION_ROOT_CA ::= parse_ ACTALIS_AUTHENTICATION_ROOT_CA_BYTES_
-
-/**
-Installs the "Actalis Authentication Root CA"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 55:92:60:84:ec:96:3a:64:b9:6e:2a:be:01:ce:0b:a8:6a:64:fb:fe:bc:c7:aa:b5:af:c1:55:b3:7f:d7:60:66
-Expiry: 2030-09-22
-Subject: CN=Actalis Authentication Root CA O=Actalis S.p.A./03358520967
-*/
-install_actalis_authentication_root_ca -> none:
-  tls.add_global_root_certificate ACTALIS_AUTHENTICATION_ROOT_CA_BYTES_ 0x479c6ea1
+ACTALIS_AUTHENTICATION_ROOT_CA ::= tls.RootCertificate --fingerprint=0x479c6ea1 ACTALIS_AUTHENTICATION_ROOT_CA_BYTES_
 
 AFFIRMTRUST_COMMERCIAL_BYTES_ ::= #[
     '0',0x82,3,'L','0',130,2,'4',160,3,2,1,2,2,8,'w','w',6,39,'&',169,177,'|',
@@ -533,22 +498,15 @@ AFFIRMTRUST_COMMERCIAL_BYTES_ ::= #[
 
 /**
 AffirmTrust Commercial.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 03:76:ab:1d:54:c5:f9:80:3c:e4:b2:e2:01:a0:ee:7e:ef:7b:57:b6:36:e8:a9:3c:9b:8d:48:60:c9:6f:5f:a7
 Expiry: 2030-12-31
 Subject: CN=AffirmTrust Commercial O=AffirmTrust
 */
-AFFIRMTRUST_COMMERCIAL ::= parse_ AFFIRMTRUST_COMMERCIAL_BYTES_
-
-/**
-Installs the "AffirmTrust Commercial"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 03:76:ab:1d:54:c5:f9:80:3c:e4:b2:e2:01:a0:ee:7e:ef:7b:57:b6:36:e8:a9:3c:9b:8d:48:60:c9:6f:5f:a7
-Expiry: 2030-12-31
-Subject: CN=AffirmTrust Commercial O=AffirmTrust
-*/
-install_affirmtrust_commercial -> none:
-  tls.add_global_root_certificate AFFIRMTRUST_COMMERCIAL_BYTES_ 0xd96e1399
+AFFIRMTRUST_COMMERCIAL ::= tls.RootCertificate --fingerprint=0xd96e1399 AFFIRMTRUST_COMMERCIAL_BYTES_
 
 AFFIRMTRUST_NETWORKING_BYTES_ ::= #[
     '0',0x82,3,'L','0',130,2,'4',160,3,2,1,2,2,8,'|','O',4,'9',28,212,153,'-',
@@ -599,22 +557,15 @@ AFFIRMTRUST_NETWORKING_BYTES_ ::= #[
 
 /**
 AffirmTrust Networking.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 0a:81:ec:5a:92:97:77:f1:45:90:4a:f3:8d:5d:50:9f:66:b5:e2:c5:8f:cd:b5:31:05:8b:0e:17:f3:f0:b4:1b
 Expiry: 2030-12-31
 Subject: CN=AffirmTrust Networking O=AffirmTrust
 */
-AFFIRMTRUST_NETWORKING ::= parse_ AFFIRMTRUST_NETWORKING_BYTES_
-
-/**
-Installs the "AffirmTrust Networking"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 0a:81:ec:5a:92:97:77:f1:45:90:4a:f3:8d:5d:50:9f:66:b5:e2:c5:8f:cd:b5:31:05:8b:0e:17:f3:f0:b4:1b
-Expiry: 2030-12-31
-Subject: CN=AffirmTrust Networking O=AffirmTrust
-*/
-install_affirmtrust_networking -> none:
-  tls.add_global_root_certificate AFFIRMTRUST_NETWORKING_BYTES_ 0x6d8135f9
+AFFIRMTRUST_NETWORKING ::= tls.RootCertificate --fingerprint=0x6d8135f9 AFFIRMTRUST_NETWORKING_BYTES_
 
 AFFIRMTRUST_PREMIUM_BYTES_ ::= #[
     '0',130,5,'F','0',130,3,'.',160,3,2,1,2,2,8,'m',140,20,'F',177,166,10,238,
@@ -691,22 +642,15 @@ AFFIRMTRUST_PREMIUM_BYTES_ ::= #[
 
 /**
 AffirmTrust Premium.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 70:a7:3f:7f:37:6b:60:07:42:48:90:45:34:b1:14:82:d5:bf:0e:69:8e:cc:49:8d:f5:25:77:eb:f2:e9:3b:9a
 Expiry: 2040-12-31
 Subject: CN=AffirmTrust Premium O=AffirmTrust
 */
-AFFIRMTRUST_PREMIUM ::= parse_ AFFIRMTRUST_PREMIUM_BYTES_
-
-/**
-Installs the "AffirmTrust Premium"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 70:a7:3f:7f:37:6b:60:07:42:48:90:45:34:b1:14:82:d5:bf:0e:69:8e:cc:49:8d:f5:25:77:eb:f2:e9:3b:9a
-Expiry: 2040-12-31
-Subject: CN=AffirmTrust Premium O=AffirmTrust
-*/
-install_affirmtrust_premium -> none:
-  tls.add_global_root_certificate AFFIRMTRUST_PREMIUM_BYTES_ 0x10034072
+AFFIRMTRUST_PREMIUM ::= tls.RootCertificate --fingerprint=0x10034072 AFFIRMTRUST_PREMIUM_BYTES_
 
 AFFIRMTRUST_PREMIUM_ECC_BYTES_ ::= #[
     '0',0x82,1,0xfe,'0',130,1,133,160,3,2,1,2,2,8,'t',151,'%',138,199,'?','z',
@@ -739,22 +683,15 @@ AFFIRMTRUST_PREMIUM_ECC_BYTES_ ::= #[
 
 /**
 AffirmTrust Premium ECC.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: bd:71:fd:f6:da:97:e4:cf:62:d1:64:7a:dd:25:81:b0:7d:79:ad:f8:39:7e:b4:ec:ba:9c:5e:84:88:82:14:23
 Expiry: 2040-12-31
 Subject: CN=AffirmTrust Premium ECC O=AffirmTrust
 */
-AFFIRMTRUST_PREMIUM_ECC ::= parse_ AFFIRMTRUST_PREMIUM_ECC_BYTES_
-
-/**
-Installs the "AffirmTrust Premium ECC"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: bd:71:fd:f6:da:97:e4:cf:62:d1:64:7a:dd:25:81:b0:7d:79:ad:f8:39:7e:b4:ec:ba:9c:5e:84:88:82:14:23
-Expiry: 2040-12-31
-Subject: CN=AffirmTrust Premium ECC O=AffirmTrust
-*/
-install_affirmtrust_premium_ecc -> none:
-  tls.add_global_root_certificate AFFIRMTRUST_PREMIUM_ECC_BYTES_ 0xd237d71f
+AFFIRMTRUST_PREMIUM_ECC ::= tls.RootCertificate --fingerprint=0xd237d71f AFFIRMTRUST_PREMIUM_ECC_BYTES_
 
 AMAZON_ROOT_CA_1_BYTES_ ::= #[
     '0',130,3,'A','0',130,2,')',160,3,2,1,2,2,19,6,'l',159,207,153,191,140,10,
@@ -804,22 +741,15 @@ AMAZON_ROOT_CA_1_BYTES_ ::= #[
 
 /**
 Amazon Root CA 1.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 8e:cd:e6:88:4f:3d:87:b1:12:5b:a3:1a:c3:fc:b1:3d:70:16:de:7f:57:cc:90:4f:e1:cb:97:c6:ae:98:19:6e
 Expiry: 2038-01-17
 Subject: CN=Amazon Root CA 1 O=Amazon
 */
-AMAZON_ROOT_CA_1 ::= parse_ AMAZON_ROOT_CA_1_BYTES_
-
-/**
-Installs the "Amazon Root CA 1"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 8e:cd:e6:88:4f:3d:87:b1:12:5b:a3:1a:c3:fc:b1:3d:70:16:de:7f:57:cc:90:4f:e1:cb:97:c6:ae:98:19:6e
-Expiry: 2038-01-17
-Subject: CN=Amazon Root CA 1 O=Amazon
-*/
-install_amazon_root_ca_1 -> none:
-  tls.add_global_root_certificate AMAZON_ROOT_CA_1_BYTES_ 0x2ffbc699
+AMAZON_ROOT_CA_1 ::= tls.RootCertificate --fingerprint=0x2ffbc699 AMAZON_ROOT_CA_1_BYTES_
 
 AMAZON_ROOT_CA_2_BYTES_ ::= #[
     '0',0x82,0x5,'A','0',130,3,')',160,3,2,1,2,2,19,6,'l',159,210,150,'5',134,
@@ -896,22 +826,15 @@ AMAZON_ROOT_CA_2_BYTES_ ::= #[
 
 /**
 Amazon Root CA 2.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 1b:a5:b2:aa:8c:65:40:1a:82:96:01:18:f8:0b:ec:4f:62:30:4d:83:ce:c4:71:3a:19:c3:9c:01:1e:a4:6d:b4
 Expiry: 2040-05-26
 Subject: CN=Amazon Root CA 2 O=Amazon
 */
-AMAZON_ROOT_CA_2 ::= parse_ AMAZON_ROOT_CA_2_BYTES_
-
-/**
-Installs the "Amazon Root CA 2"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 1b:a5:b2:aa:8c:65:40:1a:82:96:01:18:f8:0b:ec:4f:62:30:4d:83:ce:c4:71:3a:19:c3:9c:01:1e:a4:6d:b4
-Expiry: 2040-05-26
-Subject: CN=Amazon Root CA 2 O=Amazon
-*/
-install_amazon_root_ca_2 -> none:
-  tls.add_global_root_certificate AMAZON_ROOT_CA_2_BYTES_ 0xb6f29723
+AMAZON_ROOT_CA_2 ::= tls.RootCertificate --fingerprint=0xb6f29723 AMAZON_ROOT_CA_2_BYTES_
 
 AMAZON_ROOT_CA_3_BYTES_ ::= #[
     '0',0x82,0x1,182,'0',130,1,'[',160,3,2,1,2,2,19,6,'l',159,213,'t',151,'6',
@@ -941,22 +864,15 @@ AMAZON_ROOT_CA_3_BYTES_ ::= #[
 
 /**
 Amazon Root CA 3.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 18:ce:6c:fe:7b:f1:4e:60:b2:e3:47:b8:df:e8:68:cb:31:d0:2e:bb:3a:da:27:15:69:f5:03:43:b4:6d:b3:a4
 Expiry: 2040-05-26
 Subject: CN=Amazon Root CA 3 O=Amazon
 */
-AMAZON_ROOT_CA_3 ::= parse_ AMAZON_ROOT_CA_3_BYTES_
-
-/**
-Installs the "Amazon Root CA 3"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 18:ce:6c:fe:7b:f1:4e:60:b2:e3:47:b8:df:e8:68:cb:31:d0:2e:bb:3a:da:27:15:69:f5:03:43:b4:6d:b3:a4
-Expiry: 2040-05-26
-Subject: CN=Amazon Root CA 3 O=Amazon
-*/
-install_amazon_root_ca_3 -> none:
-  tls.add_global_root_certificate AMAZON_ROOT_CA_3_BYTES_ 0xc1f5a7b5
+AMAZON_ROOT_CA_3 ::= tls.RootCertificate --fingerprint=0xc1f5a7b5 AMAZON_ROOT_CA_3_BYTES_
 
 AMAZON_ROOT_CA_4_BYTES_ ::= #[
     '0',130,1,242,'0',130,1,'x',160,3,2,1,2,2,19,6,'l',159,215,193,187,16,'L',
@@ -989,22 +905,15 @@ AMAZON_ROOT_CA_4_BYTES_ ::= #[
 
 /**
 Amazon Root CA 4.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: e3:5d:28:41:9e:d0:20:25:cf:a6:90:38:cd:62:39:62:45:8d:a5:c6:95:fb:de:a3:c2:2b:0b:fb:25:89:70:92
 Expiry: 2040-05-26
 Subject: CN=Amazon Root CA 4 O=Amazon
 */
-AMAZON_ROOT_CA_4 ::= parse_ AMAZON_ROOT_CA_4_BYTES_
-
-/**
-Installs the "Amazon Root CA 4"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: e3:5d:28:41:9e:d0:20:25:cf:a6:90:38:cd:62:39:62:45:8d:a5:c6:95:fb:de:a3:c2:2b:0b:fb:25:89:70:92
-Expiry: 2040-05-26
-Subject: CN=Amazon Root CA 4 O=Amazon
-*/
-install_amazon_root_ca_4 -> none:
-  tls.add_global_root_certificate AMAZON_ROOT_CA_4_BYTES_ 0x5f913216
+AMAZON_ROOT_CA_4 ::= tls.RootCertificate --fingerprint=0x5f913216 AMAZON_ROOT_CA_4_BYTES_
 
 ATOS_TRUSTEDROOT_2011_BYTES_ ::= #[
     '0',0x82,0x3,'w','0',130,2,'_',160,3,2,1,2,2,8,92,'3',203,'b',',','_',179,
@@ -1056,22 +965,15 @@ ATOS_TRUSTEDROOT_2011_BYTES_ ::= #[
 
 /**
 Atos TrustedRoot 2011.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: f3:56:be:a2:44:b7:a9:1e:b3:5d:53:ca:9a:d7:86:4a:ce:01:8e:2d:35:d5:f8:f9:6d:df:68:a6:f4:1a:a4:74
 Expiry: 2030-12-31
 Subject: CN=Atos TrustedRoot 2011 O=Atos
 */
-ATOS_TRUSTEDROOT_2011 ::= parse_ ATOS_TRUSTEDROOT_2011_BYTES_
-
-/**
-Installs the "Atos TrustedRoot 2011"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: f3:56:be:a2:44:b7:a9:1e:b3:5d:53:ca:9a:d7:86:4a:ce:01:8e:2d:35:d5:f8:f9:6d:df:68:a6:f4:1a:a4:74
-Expiry: 2030-12-31
-Subject: CN=Atos TrustedRoot 2011 O=Atos
-*/
-install_atos_trustedroot_2011 -> none:
-  tls.add_global_root_certificate ATOS_TRUSTEDROOT_2011_BYTES_ 0xd8b31d4a
+ATOS_TRUSTEDROOT_2011 ::= tls.RootCertificate --fingerprint=0xd8b31d4a ATOS_TRUSTEDROOT_2011_BYTES_
 
 ATOS_TRUSTEDROOT_ROOT_CA_ECC_TLS_2021_BYTES_ ::= #[
     '0',0x82,2,21,'0',0x82,1,155,160,3,2,1,2,2,16,'=',152,';',166,'f','=',144,
@@ -1106,22 +1008,15 @@ ATOS_TRUSTEDROOT_ROOT_CA_ECC_TLS_2021_BYTES_ ::= #[
 
 /**
 Atos TrustedRoot Root CA ECC TLS 2021.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: b2:fa:e5:3e:14:cc:d7:ab:92:12:06:47:01:ae:27:9c:1d:89:88:fa:cb:77:5f:a8:a0:08:91:4e:66:39:88:a8
 Expiry: 2041-04-17
 Subject: CN=Atos TrustedRoot Root CA ECC TLS 2021 O=Atos
 */
-ATOS_TRUSTEDROOT_ROOT_CA_ECC_TLS_2021 ::= parse_ ATOS_TRUSTEDROOT_ROOT_CA_ECC_TLS_2021_BYTES_
-
-/**
-Installs the "Atos TrustedRoot Root CA ECC TLS 2021"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: b2:fa:e5:3e:14:cc:d7:ab:92:12:06:47:01:ae:27:9c:1d:89:88:fa:cb:77:5f:a8:a0:08:91:4e:66:39:88:a8
-Expiry: 2041-04-17
-Subject: CN=Atos TrustedRoot Root CA ECC TLS 2021 O=Atos
-*/
-install_atos_trustedroot_root_ca_ecc_tls_2021 -> none:
-  tls.add_global_root_certificate ATOS_TRUSTEDROOT_ROOT_CA_ECC_TLS_2021_BYTES_ 0x8fbee9b0
+ATOS_TRUSTEDROOT_ROOT_CA_ECC_TLS_2021 ::= tls.RootCertificate --fingerprint=0x8fbee9b0 ATOS_TRUSTEDROOT_ROOT_CA_ECC_TLS_2021_BYTES_
 
 ATOS_TRUSTEDROOT_ROOT_CA_RSA_TLS_2021_BYTES_ ::= #[
     '0',0x82,0x5,'d','0',130,3,'L',160,3,2,1,2,2,16,'S',213,207,230,25,147,11,
@@ -1200,22 +1095,15 @@ ATOS_TRUSTEDROOT_ROOT_CA_RSA_TLS_2021_BYTES_ ::= #[
 
 /**
 Atos TrustedRoot Root CA RSA TLS 2021.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 81:a9:08:8e:a5:9f:b3:64:c5:48:a6:f8:55:59:09:9b:6f:04:05:ef:bf:18:e5:32:4e:c9:f4:57:ba:00:11:2f
 Expiry: 2041-04-17
 Subject: CN=Atos TrustedRoot Root CA RSA TLS 2021 O=Atos
 */
-ATOS_TRUSTEDROOT_ROOT_CA_RSA_TLS_2021 ::= parse_ ATOS_TRUSTEDROOT_ROOT_CA_RSA_TLS_2021_BYTES_
-
-/**
-Installs the "Atos TrustedRoot Root CA RSA TLS 2021"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 81:a9:08:8e:a5:9f:b3:64:c5:48:a6:f8:55:59:09:9b:6f:04:05:ef:bf:18:e5:32:4e:c9:f4:57:ba:00:11:2f
-Expiry: 2041-04-17
-Subject: CN=Atos TrustedRoot Root CA RSA TLS 2021 O=Atos
-*/
-install_atos_trustedroot_root_ca_rsa_tls_2021 -> none:
-  tls.add_global_root_certificate ATOS_TRUSTEDROOT_ROOT_CA_RSA_TLS_2021_BYTES_ 0x7c03228f
+ATOS_TRUSTEDROOT_ROOT_CA_RSA_TLS_2021 ::= tls.RootCertificate --fingerprint=0x7c03228f ATOS_TRUSTEDROOT_ROOT_CA_RSA_TLS_2021_BYTES_
 
 AUTORIDAD_DE_CERTIFICACION_FIRMAPROFESIONAL_CIF_A62634068_BYTES_ ::= #[
     '0',0x82,0x6,20,'0',130,3,252,160,3,2,1,2,2,8,'S',236,';',238,251,178,'H',
@@ -1302,22 +1190,15 @@ AUTORIDAD_DE_CERTIFICACION_FIRMAPROFESIONAL_CIF_A62634068_BYTES_ ::= #[
 
 /**
 Autoridad de Certificacion Firmaprofesional CIF A62634068.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 04:04:80:28:bf:1f:28:64:d4:8f:9a:d4:d8:32:94:36:6a:82:88:56:55:3f:3b:14:30:3f:90:14:7f:5d:40:ef
 Expiry: 2030-12-31
 Subject: CN=Autoridad de Certificacion Firmaprofesional CIF A62634068
 */
-AUTORIDAD_DE_CERTIFICACION_FIRMAPROFESIONAL_CIF_A62634068 ::= parse_ AUTORIDAD_DE_CERTIFICACION_FIRMAPROFESIONAL_CIF_A62634068_BYTES_
-
-/**
-Installs the "Autoridad de Certificacion Firmaprofesional CIF A62634068"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 04:04:80:28:bf:1f:28:64:d4:8f:9a:d4:d8:32:94:36:6a:82:88:56:55:3f:3b:14:30:3f:90:14:7f:5d:40:ef
-Expiry: 2030-12-31
-Subject: CN=Autoridad de Certificacion Firmaprofesional CIF A62634068
-*/
-install_autoridad_de_certificacion_firmaprofesional_cif_a62634068 -> none:
-  tls.add_global_root_certificate AUTORIDAD_DE_CERTIFICACION_FIRMAPROFESIONAL_CIF_A62634068_BYTES_ 0x5e8d2b67
+AUTORIDAD_DE_CERTIFICACION_FIRMAPROFESIONAL_CIF_A62634068 ::= tls.RootCertificate --fingerprint=0x5e8d2b67 AUTORIDAD_DE_CERTIFICACION_FIRMAPROFESIONAL_CIF_A62634068_BYTES_
 
 AUTORIDAD_DE_CERTIFICACION_FIRMAPROFESIONAL_CIF_A62634068_NEW_BYTES_ ::= #[
     '0',130,6,20,'0',130,3,252,160,3,2,1,2,2,8,27,'p',233,210,255,174,'l','q',
@@ -1404,22 +1285,15 @@ AUTORIDAD_DE_CERTIFICACION_FIRMAPROFESIONAL_CIF_A62634068_NEW_BYTES_ ::= #[
 
 /**
 Autoridad de Certificacion Firmaprofesional CIF A62634068 new.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 57:de:05:83:ef:d2:b2:6e:03:61:da:99:da:9d:f4:64:8d:ef:7e:e8:44:1c:3b:72:8a:fa:9b:cd:e0:f9:b2:6a
 Expiry: 2036-05-05
 Subject: CN=Autoridad de Certificacion Firmaprofesional CIF A62634068
 */
-AUTORIDAD_DE_CERTIFICACION_FIRMAPROFESIONAL_CIF_A62634068_NEW ::= parse_ AUTORIDAD_DE_CERTIFICACION_FIRMAPROFESIONAL_CIF_A62634068_NEW_BYTES_
-
-/**
-Installs the "Autoridad de Certificacion Firmaprofesional CIF A62634068 new"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 57:de:05:83:ef:d2:b2:6e:03:61:da:99:da:9d:f4:64:8d:ef:7e:e8:44:1c:3b:72:8a:fa:9b:cd:e0:f9:b2:6a
-Expiry: 2036-05-05
-Subject: CN=Autoridad de Certificacion Firmaprofesional CIF A62634068
-*/
-install_autoridad_de_certificacion_firmaprofesional_cif_a62634068_new -> none:
-  tls.add_global_root_certificate AUTORIDAD_DE_CERTIFICACION_FIRMAPROFESIONAL_CIF_A62634068_NEW_BYTES_ 0x5e8d2b67
+AUTORIDAD_DE_CERTIFICACION_FIRMAPROFESIONAL_CIF_A62634068_NEW ::= tls.RootCertificate --fingerprint=0x5e8d2b67 AUTORIDAD_DE_CERTIFICACION_FIRMAPROFESIONAL_CIF_A62634068_NEW_BYTES_
 
 BJCA_GLOBAL_ROOT_CA1_BYTES_ ::= #[
     '0',0x82,5,'t','0',0x82,3,92,160,3,2,1,2,2,16,'U','o','e',227,180,217,144,
@@ -1499,22 +1373,15 @@ BJCA_GLOBAL_ROOT_CA1_BYTES_ ::= #[
 
 /**
 BJCA Global Root CA1.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: f3:89:6f:88:fe:7c:0a:88:27:66:a7:fa:6a:d2:74:9f:b5:7a:7f:3e:98:fb:76:9c:1f:a7:b0:9c:2c:44:d5:ae
 Expiry: 2044-12-12
 Subject: CN=BJCA Global Root CA1 O=BEIJING CERTIFICATE AUTHORITY
 */
-BJCA_GLOBAL_ROOT_CA1 ::= parse_ BJCA_GLOBAL_ROOT_CA1_BYTES_
-
-/**
-Installs the "BJCA Global Root CA1"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: f3:89:6f:88:fe:7c:0a:88:27:66:a7:fa:6a:d2:74:9f:b5:7a:7f:3e:98:fb:76:9c:1f:a7:b0:9c:2c:44:d5:ae
-Expiry: 2044-12-12
-Subject: CN=BJCA Global Root CA1 O=BEIJING CERTIFICATE AUTHORITY
-*/
-install_bjca_global_root_ca1 -> none:
-  tls.add_global_root_certificate BJCA_GLOBAL_ROOT_CA1_BYTES_ 0xb0593165
+BJCA_GLOBAL_ROOT_CA1 ::= tls.RootCertificate --fingerprint=0xb0593165 BJCA_GLOBAL_ROOT_CA1_BYTES_
 
 BJCA_GLOBAL_ROOT_CA2_BYTES_ ::= #[
     '0',130,2,'%','0',130,1,171,160,3,2,1,2,2,16,',',23,8,'}','d','*',192,254,
@@ -1550,22 +1417,15 @@ BJCA_GLOBAL_ROOT_CA2_BYTES_ ::= #[
 
 /**
 BJCA Global Root CA2.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 57:4d:f6:93:1e:27:80:39:66:7b:72:0a:fd:c1:60:0f:c2:7e:b6:6d:d3:09:29:79:fb:73:85:64:87:21:28:82
 Expiry: 2044-12-12
 Subject: CN=BJCA Global Root CA2 O=BEIJING CERTIFICATE AUTHORITY
 */
-BJCA_GLOBAL_ROOT_CA2 ::= parse_ BJCA_GLOBAL_ROOT_CA2_BYTES_
-
-/**
-Installs the "BJCA Global Root CA2"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 57:4d:f6:93:1e:27:80:39:66:7b:72:0a:fd:c1:60:0f:c2:7e:b6:6d:d3:09:29:79:fb:73:85:64:87:21:28:82
-Expiry: 2044-12-12
-Subject: CN=BJCA Global Root CA2 O=BEIJING CERTIFICATE AUTHORITY
-*/
-install_bjca_global_root_ca2 -> none:
-  tls.add_global_root_certificate BJCA_GLOBAL_ROOT_CA2_BYTES_ 0x295060df
+BJCA_GLOBAL_ROOT_CA2 ::= tls.RootCertificate --fingerprint=0x295060df BJCA_GLOBAL_ROOT_CA2_BYTES_
 
 BALTIMORE_CYBERTRUST_ROOT_BYTES_ ::= #[
     '0',0x82,3,'w','0',130,2,'_',160,3,2,1,2,2,4,2,0,0,185,'0',13,6,9,'*',134,
@@ -1618,22 +1478,15 @@ BALTIMORE_CYBERTRUST_ROOT_BYTES_ ::= #[
 
 /**
 Baltimore CyberTrust Root.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 16:af:57:a9:f6:76:b0:ab:12:60:95:aa:5e:ba:de:f2:2a:b3:11:19:d6:44:ac:95:cd:4b:93:db:f3:f2:6a:eb
 Expiry: 2025-05-12
 Subject: CN=Baltimore CyberTrust Root O=Baltimore OU=CyberTrust
 */
-BALTIMORE_CYBERTRUST_ROOT ::= parse_ BALTIMORE_CYBERTRUST_ROOT_BYTES_
-
-/**
-Installs the "Baltimore CyberTrust Root"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 16:af:57:a9:f6:76:b0:ab:12:60:95:aa:5e:ba:de:f2:2a:b3:11:19:d6:44:ac:95:cd:4b:93:db:f3:f2:6a:eb
-Expiry: 2025-05-12
-Subject: CN=Baltimore CyberTrust Root O=Baltimore OU=CyberTrust
-*/
-install_baltimore_cybertrust_root -> none:
-  tls.add_global_root_certificate BALTIMORE_CYBERTRUST_ROOT_BYTES_ 0x63203d15
+BALTIMORE_CYBERTRUST_ROOT ::= tls.RootCertificate --fingerprint=0x63203d15 BALTIMORE_CYBERTRUST_ROOT_BYTES_
 
 BUYPASS_CLASS_2_ROOT_CA_BYTES_ ::= #[
     '0',0x82,5,'Y','0',130,3,'A',160,3,2,1,2,2,1,2,'0',13,6,9,'*',134,'H',134,
@@ -1712,22 +1565,15 @@ BUYPASS_CLASS_2_ROOT_CA_BYTES_ ::= #[
 
 /**
 Buypass Class 2 Root CA.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 9a:11:40:25:19:7c:5b:b9:5d:94:e6:3d:55:cd:43:79:08:47:b6:46:b2:3c:df:11:ad:a4:a0:0e:ff:15:fb:48
 Expiry: 2040-10-26
 Subject: CN=Buypass Class 2 Root CA O=Buypass AS-983163327
 */
-BUYPASS_CLASS_2_ROOT_CA ::= parse_ BUYPASS_CLASS_2_ROOT_CA_BYTES_
-
-/**
-Installs the "Buypass Class 2 Root CA"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 9a:11:40:25:19:7c:5b:b9:5d:94:e6:3d:55:cd:43:79:08:47:b6:46:b2:3c:df:11:ad:a4:a0:0e:ff:15:fb:48
-Expiry: 2040-10-26
-Subject: CN=Buypass Class 2 Root CA O=Buypass AS-983163327
-*/
-install_buypass_class_2_root_ca -> none:
-  tls.add_global_root_certificate BUYPASS_CLASS_2_ROOT_CA_BYTES_ 0x7052f040
+BUYPASS_CLASS_2_ROOT_CA ::= tls.RootCertificate --fingerprint=0x7052f040 BUYPASS_CLASS_2_ROOT_CA_BYTES_
 
 BUYPASS_CLASS_3_ROOT_CA_BYTES_ ::= #[
     '0',0x82,5,'Y','0',130,3,'A',160,3,2,1,2,2,1,2,'0',13,6,9,'*',134,'H',134,
@@ -1805,22 +1651,15 @@ BUYPASS_CLASS_3_ROOT_CA_BYTES_ ::= #[
 
 /**
 Buypass Class 3 Root CA.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: ed:f7:eb:bc:a2:7a:2a:38:4d:38:7b:7d:40:10:c6:66:e2:ed:b4:84:3e:4c:29:b4:ae:1d:5b:93:32:e6:b2:4d
 Expiry: 2040-10-26
 Subject: CN=Buypass Class 3 Root CA O=Buypass AS-983163327
 */
-BUYPASS_CLASS_3_ROOT_CA ::= parse_ BUYPASS_CLASS_3_ROOT_CA_BYTES_
-
-/**
-Installs the "Buypass Class 3 Root CA"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: ed:f7:eb:bc:a2:7a:2a:38:4d:38:7b:7d:40:10:c6:66:e2:ed:b4:84:3e:4c:29:b4:ae:1d:5b:93:32:e6:b2:4d
-Expiry: 2040-10-26
-Subject: CN=Buypass Class 3 Root CA O=Buypass AS-983163327
-*/
-install_buypass_class_3_root_ca -> none:
-  tls.add_global_root_certificate BUYPASS_CLASS_3_ROOT_CA_BYTES_ 0x6729e403
+BUYPASS_CLASS_3_ROOT_CA ::= tls.RootCertificate --fingerprint=0x6729e403 BUYPASS_CLASS_3_ROOT_CA_BYTES_
 
 CA_DISIG_ROOT_R2_BYTES_ ::= #[
     '0',130,5,'i','0',130,3,'Q',160,3,2,1,2,2,9,0,146,184,136,219,176,138,193,
@@ -1899,22 +1738,15 @@ CA_DISIG_ROOT_R2_BYTES_ ::= #[
 
 /**
 CA Disig Root R2.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: e2:3d:4a:03:6d:7b:70:e9:f5:95:b1:42:20:79:d2:b9:1e:df:bb:1f:b6:51:a0:63:3e:aa:8a:9d:c5:f8:07:03
 Expiry: 2042-07-19
 Subject: CN=CA Disig Root R2 O=Disig a.s.
 */
-CA_DISIG_ROOT_R2 ::= parse_ CA_DISIG_ROOT_R2_BYTES_
-
-/**
-Installs the "CA Disig Root R2"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: e2:3d:4a:03:6d:7b:70:e9:f5:95:b1:42:20:79:d2:b9:1e:df:bb:1f:b6:51:a0:63:3e:aa:8a:9d:c5:f8:07:03
-Expiry: 2042-07-19
-Subject: CN=CA Disig Root R2 O=Disig a.s.
-*/
-install_ca_disig_root_r2 -> none:
-  tls.add_global_root_certificate CA_DISIG_ROOT_R2_BYTES_ 0xc9a736cc
+CA_DISIG_ROOT_R2 ::= tls.RootCertificate --fingerprint=0xc9a736cc CA_DISIG_ROOT_R2_BYTES_
 
 CFCA_EV_ROOT_BYTES_ ::= #[
     '0',130,5,141,'0',130,3,'u',160,3,2,1,2,2,4,24,'J',204,214,'0',13,6,9,'*',
@@ -1995,22 +1827,15 @@ CFCA_EV_ROOT_BYTES_ ::= #[
 
 /**
 CFCA EV ROOT.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 5c:c3:d7:8e:4e:1d:5e:45:54:7a:04:e6:87:3e:64:f9:0c:f9:53:6d:1c:cc:2e:f8:00:f3:55:c4:c5:fd:70:fd
 Expiry: 2029-12-31
 Subject: CN=CFCA EV ROOT O=China Financial Certification Authority
 */
-CFCA_EV_ROOT ::= parse_ CFCA_EV_ROOT_BYTES_
-
-/**
-Installs the "CFCA EV ROOT"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 5c:c3:d7:8e:4e:1d:5e:45:54:7a:04:e6:87:3e:64:f9:0c:f9:53:6d:1c:cc:2e:f8:00:f3:55:c4:c5:fd:70:fd
-Expiry: 2029-12-31
-Subject: CN=CFCA EV ROOT O=China Financial Certification Authority
-*/
-install_cfca_ev_root -> none:
-  tls.add_global_root_certificate CFCA_EV_ROOT_BYTES_ 0x75b96163
+CFCA_EV_ROOT ::= tls.RootCertificate --fingerprint=0x75b96163 CFCA_EV_ROOT_BYTES_
 
 COMODO_CERTIFICATION_AUTHORITY_BYTES_ ::= #[
     '0',0x82,4,29,'0',130,3,5,160,3,2,1,2,2,16,'N',129,'-',138,130,'e',224,11,
@@ -2071,22 +1896,15 @@ COMODO_CERTIFICATION_AUTHORITY_BYTES_ ::= #[
 
 /**
 COMODO Certification Authority.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 0c:2c:d6:3d:f7:80:6f:a3:99:ed:e8:09:11:6b:57:5b:f8:79:89:f0:65:18:f9:80:8c:86:05:03:17:8b:af:66
 Expiry: 2029-12-31
 Subject: CN=COMODO Certification Authority O=COMODO CA Limited
 */
-COMODO_CERTIFICATION_AUTHORITY ::= parse_ COMODO_CERTIFICATION_AUTHORITY_BYTES_
-
-/**
-Installs the "COMODO Certification Authority"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 0c:2c:d6:3d:f7:80:6f:a3:99:ed:e8:09:11:6b:57:5b:f8:79:89:f0:65:18:f9:80:8c:86:05:03:17:8b:af:66
-Expiry: 2029-12-31
-Subject: CN=COMODO Certification Authority O=COMODO CA Limited
-*/
-install_comodo_certification_authority -> none:
-  tls.add_global_root_certificate COMODO_CERTIFICATION_AUTHORITY_BYTES_ 0x83f2d420
+COMODO_CERTIFICATION_AUTHORITY ::= tls.RootCertificate --fingerprint=0x83f2d420 COMODO_CERTIFICATION_AUTHORITY_BYTES_
 
 COMODO_ECC_CERTIFICATION_AUTHORITY_BYTES_ ::= #[
     '0',0x82,2,137,'0',130,2,15,160,3,2,1,2,2,16,31,'G',175,170,'b',0,'p','P',
@@ -2126,22 +1944,15 @@ COMODO_ECC_CERTIFICATION_AUTHORITY_BYTES_ ::= #[
 
 /**
 COMODO ECC Certification Authority.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 17:93:92:7a:06:14:54:97:89:ad:ce:2f:8f:34:f7:f0:b6:6d:0f:3a:e3:a3:b8:4d:21:ec:15:db:ba:4f:ad:c7
 Expiry: 2038-01-18
 Subject: CN=COMODO ECC Certification Authority O=COMODO CA Limited
 */
-COMODO_ECC_CERTIFICATION_AUTHORITY ::= parse_ COMODO_ECC_CERTIFICATION_AUTHORITY_BYTES_
-
-/**
-Installs the "COMODO ECC Certification Authority"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 17:93:92:7a:06:14:54:97:89:ad:ce:2f:8f:34:f7:f0:b6:6d:0f:3a:e3:a3:b8:4d:21:ec:15:db:ba:4f:ad:c7
-Expiry: 2038-01-18
-Subject: CN=COMODO ECC Certification Authority O=COMODO CA Limited
-*/
-install_comodo_ecc_certification_authority -> none:
-  tls.add_global_root_certificate COMODO_ECC_CERTIFICATION_AUTHORITY_BYTES_ 0xfe792859
+COMODO_ECC_CERTIFICATION_AUTHORITY ::= tls.RootCertificate --fingerprint=0xfe792859 COMODO_ECC_CERTIFICATION_AUTHORITY_BYTES_
 
 COMODO_RSA_CERTIFICATION_AUTHORITY_BYTES_ ::= #[
     '0',0x82,5,216,'0',130,3,192,160,3,2,1,2,2,16,'L',170,249,202,219,'c','o',
@@ -2226,22 +2037,15 @@ COMODO_RSA_CERTIFICATION_AUTHORITY_BYTES_ ::= #[
 
 /**
 COMODO RSA Certification Authority.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 52:f0:e1:c4:e5:8e:c6:29:29:1b:60:31:7f:07:46:71:b8:5d:7e:a8:0d:5b:07:27:34:63:53:4b:32:b4:02:34
 Expiry: 2038-01-18
 Subject: CN=COMODO RSA Certification Authority O=COMODO CA Limited
 */
-COMODO_RSA_CERTIFICATION_AUTHORITY ::= parse_ COMODO_RSA_CERTIFICATION_AUTHORITY_BYTES_
-
-/**
-Installs the "COMODO RSA Certification Authority"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 52:f0:e1:c4:e5:8e:c6:29:29:1b:60:31:7f:07:46:71:b8:5d:7e:a8:0d:5b:07:27:34:63:53:4b:32:b4:02:34
-Expiry: 2038-01-18
-Subject: CN=COMODO RSA Certification Authority O=COMODO CA Limited
-*/
-install_comodo_rsa_certification_authority -> none:
-  tls.add_global_root_certificate COMODO_RSA_CERTIFICATION_AUTHORITY_BYTES_ 0x48ecb8af
+COMODO_RSA_CERTIFICATION_AUTHORITY ::= tls.RootCertificate --fingerprint=0x48ecb8af COMODO_RSA_CERTIFICATION_AUTHORITY_BYTES_
 
 CERTAINLY_ROOT_E1_BYTES_ ::= #[
     '0',0x82,1,0xf7,'0',130,1,'}',160,3,2,1,2,2,16,6,'%','3',177,'G',3,'3',39,
@@ -2274,22 +2078,15 @@ CERTAINLY_ROOT_E1_BYTES_ ::= #[
 
 /**
 Certainly Root E1.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: b4:58:5f:22:e4:ac:75:6a:4e:86:12:a1:36:1c:5d:9d:03:1a:93:fd:84:fe:bb:77:8f:a3:06:8b:0f:c4:2d:c2
 Expiry: 2046-04-01
 Subject: CN=Certainly Root E1 O=Certainly
 */
-CERTAINLY_ROOT_E1 ::= parse_ CERTAINLY_ROOT_E1_BYTES_
-
-/**
-Installs the "Certainly Root E1"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: b4:58:5f:22:e4:ac:75:6a:4e:86:12:a1:36:1c:5d:9d:03:1a:93:fd:84:fe:bb:77:8f:a3:06:8b:0f:c4:2d:c2
-Expiry: 2046-04-01
-Subject: CN=Certainly Root E1 O=Certainly
-*/
-install_certainly_root_e1 -> none:
-  tls.add_global_root_certificate CERTAINLY_ROOT_E1_BYTES_ 0x51bfb62d
+CERTAINLY_ROOT_E1 ::= tls.RootCertificate --fingerprint=0x51bfb62d CERTAINLY_ROOT_E1_BYTES_
 
 CERTAINLY_ROOT_R1_BYTES_ ::= #[
     '0',130,5,'G','0',130,3,'/',160,3,2,1,2,2,17,0,142,15,249,'K',144,'q','h',
@@ -2366,22 +2163,15 @@ CERTAINLY_ROOT_R1_BYTES_ ::= #[
 
 /**
 Certainly Root R1.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 77:b8:2c:d8:64:4c:43:05:f7:ac:c5:cb:15:6b:45:67:50:04:03:3d:51:c6:0c:62:02:a8:e0:c3:34:67:d3:a0
 Expiry: 2046-04-01
 Subject: CN=Certainly Root R1 O=Certainly
 */
-CERTAINLY_ROOT_R1 ::= parse_ CERTAINLY_ROOT_R1_BYTES_
-
-/**
-Installs the "Certainly Root R1"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 77:b8:2c:d8:64:4c:43:05:f7:ac:c5:cb:15:6b:45:67:50:04:03:3d:51:c6:0c:62:02:a8:e0:c3:34:67:d3:a0
-Expiry: 2046-04-01
-Subject: CN=Certainly Root R1 O=Certainly
-*/
-install_certainly_root_r1 -> none:
-  tls.add_global_root_certificate CERTAINLY_ROOT_R1_BYTES_ 0x543c32bb
+CERTAINLY_ROOT_R1 ::= tls.RootCertificate --fingerprint=0x543c32bb CERTAINLY_ROOT_R1_BYTES_
 
 CERTIGNA_BYTES_ ::= #[
     '0',0x82,0x3,168,'0',130,2,144,160,3,2,1,2,2,9,0,254,220,227,1,15,201,'H',
@@ -2435,22 +2225,15 @@ CERTIGNA_BYTES_ ::= #[
 
 /**
 Certigna.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: e3:b6:a2:db:2e:d7:ce:48:84:2f:7a:c5:32:41:c7:b7:1d:54:14:4b:fb:40:c1:1f:3f:1d:0b:42:f5:ee:a1:2d
 Expiry: 2027-06-29
 Subject: CN=Certigna O=Dhimyotis
 */
-CERTIGNA ::= parse_ CERTIGNA_BYTES_
-
-/**
-Installs the "Certigna"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: e3:b6:a2:db:2e:d7:ce:48:84:2f:7a:c5:32:41:c7:b7:1d:54:14:4b:fb:40:c1:1f:3f:1d:0b:42:f5:ee:a1:2d
-Expiry: 2027-06-29
-Subject: CN=Certigna O=Dhimyotis
-*/
-install_certigna -> none:
-  tls.add_global_root_certificate CERTIGNA_BYTES_ 0x7620e4c4
+CERTIGNA ::= tls.RootCertificate --fingerprint=0x7620e4c4 CERTIGNA_BYTES_
 
 CERTIGNA_ROOT_CA_BYTES_ ::= #[
     '0',0x82,6,'[','0',0x82,4,'C',160,3,2,1,2,2,17,0,202,233,27,137,241,'U',3,
@@ -2542,22 +2325,15 @@ CERTIGNA_ROOT_CA_BYTES_ ::= #[
 
 /**
 Certigna Root CA.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: d4:8d:3d:23:ee:db:50:a4:59:e5:51:97:60:1c:27:77:4b:9d:7b:18:c9:4d:5a:05:95:11:a1:02:50:b9:31:68
 Expiry: 2033-10-01
 Subject: CN=Certigna Root CA O=Dhimyotis OU=0002 48146308100036
 */
-CERTIGNA_ROOT_CA ::= parse_ CERTIGNA_ROOT_CA_BYTES_
-
-/**
-Installs the "Certigna Root CA"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: d4:8d:3d:23:ee:db:50:a4:59:e5:51:97:60:1c:27:77:4b:9d:7b:18:c9:4d:5a:05:95:11:a1:02:50:b9:31:68
-Expiry: 2033-10-01
-Subject: CN=Certigna Root CA O=Dhimyotis OU=0002 48146308100036
-*/
-install_certigna_root_ca -> none:
-  tls.add_global_root_certificate CERTIGNA_ROOT_CA_BYTES_ 0x3273124b
+CERTIGNA_ROOT_CA ::= tls.RootCertificate --fingerprint=0x3273124b CERTIGNA_ROOT_CA_BYTES_
 
 CERTUM_EC_384_CA_BYTES_ ::= #[
     '0',130,2,'e','0',130,1,235,160,3,2,1,2,2,16,'x',143,39,92,129,18,'R',' ',
@@ -2596,22 +2372,15 @@ CERTUM_EC_384_CA_BYTES_ ::= #[
 
 /**
 Certum EC-384 CA.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 6b:32:80:85:62:53:18:aa:50:d1:73:c9:8d:8b:da:09:d5:7e:27:41:3d:11:4c:f7:87:a0:f5:d0:6c:03:0c:f6
 Expiry: 2043-03-26
 Subject: CN=Certum EC-384 CA O=Asseco Data Systems S.A. OU=Certum Certification Authority
 */
-CERTUM_EC_384_CA ::= parse_ CERTUM_EC_384_CA_BYTES_
-
-/**
-Installs the "Certum EC-384 CA"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 6b:32:80:85:62:53:18:aa:50:d1:73:c9:8d:8b:da:09:d5:7e:27:41:3d:11:4c:f7:87:a0:f5:d0:6c:03:0c:f6
-Expiry: 2043-03-26
-Subject: CN=Certum EC-384 CA O=Asseco Data Systems S.A. OU=Certum Certification Authority
-*/
-install_certum_ec_384_ca -> none:
-  tls.add_global_root_certificate CERTUM_EC_384_CA_BYTES_ 0x10f8ffd3
+CERTUM_EC_384_CA ::= tls.RootCertificate --fingerprint=0x10f8ffd3 CERTUM_EC_384_CA_BYTES_
 
 CERTUM_TRUSTED_NETWORK_CA_BYTES_ ::= #[
     '0',0x82,3,187,'0',130,2,163,160,3,2,1,2,2,3,4,'D',192,'0',13,6,9,'*',134,
@@ -2668,22 +2437,15 @@ CERTUM_TRUSTED_NETWORK_CA_BYTES_ ::= #[
 
 /**
 Certum Trusted Network CA.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 5c:58:46:8d:55:f5:8e:49:7e:74:39:82:d2:b5:00:10:b6:d1:65:37:4a:cf:83:a7:d4:a3:2d:b7:68:c4:40:8e
 Expiry: 2029-12-31
 Subject: CN=Certum Trusted Network CA O=Unizeto Technologies S.A. OU=Certum Certification Authority
 */
-CERTUM_TRUSTED_NETWORK_CA ::= parse_ CERTUM_TRUSTED_NETWORK_CA_BYTES_
-
-/**
-Installs the "Certum Trusted Network CA"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 5c:58:46:8d:55:f5:8e:49:7e:74:39:82:d2:b5:00:10:b6:d1:65:37:4a:cf:83:a7:d4:a3:2d:b7:68:c4:40:8e
-Expiry: 2029-12-31
-Subject: CN=Certum Trusted Network CA O=Unizeto Technologies S.A. OU=Certum Certification Authority
-*/
-install_certum_trusted_network_ca -> none:
-  tls.add_global_root_certificate CERTUM_TRUSTED_NETWORK_CA_BYTES_ 0xf6e2676c
+CERTUM_TRUSTED_NETWORK_CA ::= tls.RootCertificate --fingerprint=0xf6e2676c CERTUM_TRUSTED_NETWORK_CA_BYTES_
 
 CERTUM_TRUSTED_NETWORK_CA_2_BYTES_ ::= #[
     '0',0x82,5,0xd2,'0',130,3,186,160,3,2,1,2,2,16,'!',214,208,'J','O','%',15,
@@ -2768,22 +2530,15 @@ CERTUM_TRUSTED_NETWORK_CA_2_BYTES_ ::= #[
 
 /**
 Certum Trusted Network CA 2.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: b6:76:f2:ed:da:e8:77:5c:d3:6c:b0:f6:3c:d1:d4:60:39:61:f4:9e:62:65:ba:01:3a:2f:03:07:b6:d0:b8:04
 Expiry: 2046-10-06
 Subject: CN=Certum Trusted Network CA 2 O=Unizeto Technologies S.A. OU=Certum Certification Authority
 */
-CERTUM_TRUSTED_NETWORK_CA_2 ::= parse_ CERTUM_TRUSTED_NETWORK_CA_2_BYTES_
-
-/**
-Installs the "Certum Trusted Network CA 2"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: b6:76:f2:ed:da:e8:77:5c:d3:6c:b0:f6:3c:d1:d4:60:39:61:f4:9e:62:65:ba:01:3a:2f:03:07:b6:d0:b8:04
-Expiry: 2046-10-06
-Subject: CN=Certum Trusted Network CA 2 O=Unizeto Technologies S.A. OU=Certum Certification Authority
-*/
-install_certum_trusted_network_ca_2 -> none:
-  tls.add_global_root_certificate CERTUM_TRUSTED_NETWORK_CA_2_BYTES_ 0x0614416f
+CERTUM_TRUSTED_NETWORK_CA_2 ::= tls.RootCertificate --fingerprint=0x614416f CERTUM_TRUSTED_NETWORK_CA_2_BYTES_
 
 CERTUM_TRUSTED_ROOT_CA_BYTES_ ::= #[
     '0',0x82,5,0xc0,'0',130,3,168,160,3,2,1,2,2,16,30,191,'Y','P',184,201,128,
@@ -2866,22 +2621,15 @@ CERTUM_TRUSTED_ROOT_CA_BYTES_ ::= #[
 
 /**
 Certum Trusted Root CA.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: fe:76:96:57:38:55:77:3e:37:a9:5e:7a:d4:d9:cc:96:c3:01:57:c1:5d:31:76:5b:a9:b1:57:04:e1:ae:78:fd
 Expiry: 2043-03-16
 Subject: CN=Certum Trusted Root CA O=Asseco Data Systems S.A. OU=Certum Certification Authority
 */
-CERTUM_TRUSTED_ROOT_CA ::= parse_ CERTUM_TRUSTED_ROOT_CA_BYTES_
-
-/**
-Installs the "Certum Trusted Root CA"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: fe:76:96:57:38:55:77:3e:37:a9:5e:7a:d4:d9:cc:96:c3:01:57:c1:5d:31:76:5b:a9:b1:57:04:e1:ae:78:fd
-Expiry: 2043-03-16
-Subject: CN=Certum Trusted Root CA O=Asseco Data Systems S.A. OU=Certum Certification Authority
-*/
-install_certum_trusted_root_ca -> none:
-  tls.add_global_root_certificate CERTUM_TRUSTED_ROOT_CA_BYTES_ 0x675d6d5d
+CERTUM_TRUSTED_ROOT_CA ::= tls.RootCertificate --fingerprint=0x675d6d5d CERTUM_TRUSTED_ROOT_CA_BYTES_
 
 COMODO_AAA_SERVICES_ROOT_BYTES_ ::= #[
     '0',0x82,4,'2','0',0x82,3,26,160,3,2,1,2,2,1,1,'0',13,6,9,'*',134,'H',134,
@@ -2944,22 +2692,15 @@ COMODO_AAA_SERVICES_ROOT_BYTES_ ::= #[
 
 /**
 Comodo AAA Services root.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: d7:a7:a0:fb:5d:7e:27:31:d7:71:e9:48:4e:bc:de:f7:1d:5f:0c:3e:0a:29:48:78:2b:c8:3e:e0:ea:69:9e:f4
 Expiry: 2028-12-31
 Subject: CN=AAA Certificate Services O=Comodo CA Limited
 */
-COMODO_AAA_SERVICES_ROOT ::= parse_ COMODO_AAA_SERVICES_ROOT_BYTES_
-
-/**
-Installs the "Comodo AAA Services root"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: d7:a7:a0:fb:5d:7e:27:31:d7:71:e9:48:4e:bc:de:f7:1d:5f:0c:3e:0a:29:48:78:2b:c8:3e:e0:ea:69:9e:f4
-Expiry: 2028-12-31
-Subject: CN=AAA Certificate Services O=Comodo CA Limited
-*/
-install_comodo_aaa_services_root -> none:
-  tls.add_global_root_certificate COMODO_AAA_SERVICES_ROOT_BYTES_ 0x41187e1e
+COMODO_AAA_SERVICES_ROOT ::= tls.RootCertificate --fingerprint=0x41187e1e COMODO_AAA_SERVICES_ROOT_BYTES_
 
 CYBERTRUST_GLOBAL_ROOT_BYTES_ ::= #[
     '0',0x82,3,0xa1,'0',130,2,137,160,3,2,1,2,2,11,4,0,0,0,0,1,15,133,170,'-',
@@ -3014,18 +2755,14 @@ CYBERTRUST_GLOBAL_ROOT_BYTES_ ::= #[
 
 /**
 Cybertrust Global Root.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 Deprecated.  This certificate has expired.
 */
 CYBERTRUST_GLOBAL_ROOT ::= CYBERTRUST_GLOBAL_ROOT_
-CYBERTRUST_GLOBAL_ROOT_ ::= parse_ CYBERTRUST_GLOBAL_ROOT_BYTES_
-
-/**
-Installs the "Cybertrust Global Root"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-*/
-install_cybertrust_global_root -> none:
-  tls.add_global_root_certificate CYBERTRUST_GLOBAL_ROOT_BYTES_ 0x008dbc35
+CYBERTRUST_GLOBAL_ROOT_ ::= tls.RootCertificate --fingerprint=0x8dbc35 CYBERTRUST_GLOBAL_ROOT_BYTES_
 
 D_TRUST_BR_ROOT_CA_1_2020_BYTES_ ::= #[
     '0',0x82,2,219,'0',130,2,'`',160,3,2,1,2,2,16,'|',201,143,'+',132,215,223,
@@ -3070,22 +2807,15 @@ D_TRUST_BR_ROOT_CA_1_2020_BYTES_ ::= #[
 
 /**
 D-TRUST BR Root CA 1 2020.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: e5:9a:aa:81:60:09:c2:2b:ff:5b:25:ba:d3:7d:f3:06:f0:49:79:7c:1f:81:d8:5a:b0:89:e6:57:bd:8f:00:44
 Expiry: 2035-02-11
 Subject: CN=D-TRUST BR Root CA 1 2020 O=D-Trust GmbH
 */
-D_TRUST_BR_ROOT_CA_1_2020 ::= parse_ D_TRUST_BR_ROOT_CA_1_2020_BYTES_
-
-/**
-Installs the "D-TRUST BR Root CA 1 2020"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: e5:9a:aa:81:60:09:c2:2b:ff:5b:25:ba:d3:7d:f3:06:f0:49:79:7c:1f:81:d8:5a:b0:89:e6:57:bd:8f:00:44
-Expiry: 2035-02-11
-Subject: CN=D-TRUST BR Root CA 1 2020 O=D-Trust GmbH
-*/
-install_d_trust_br_root_ca_1_2020 -> none:
-  tls.add_global_root_certificate D_TRUST_BR_ROOT_CA_1_2020_BYTES_ 0x9b764e22
+D_TRUST_BR_ROOT_CA_1_2020 ::= tls.RootCertificate --fingerprint=0x9b764e22 D_TRUST_BR_ROOT_CA_1_2020_BYTES_
 
 D_TRUST_EV_ROOT_CA_1_2020_BYTES_ ::= #[
     '0',0x82,0x2,219,'0',130,2,'`',160,3,2,1,2,2,16,'_',2,'A',215,'z',135,'|',
@@ -3130,22 +2860,15 @@ D_TRUST_EV_ROOT_CA_1_2020_BYTES_ ::= #[
 
 /**
 D-TRUST EV Root CA 1 2020.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 08:17:0d:1a:a3:64:53:90:1a:2f:95:92:45:e3:47:db:0c:8d:37:ab:aa:bc:56:b8:1a:a1:00:dc:95:89:70:db
 Expiry: 2035-02-11
 Subject: CN=D-TRUST EV Root CA 1 2020 O=D-Trust GmbH
 */
-D_TRUST_EV_ROOT_CA_1_2020 ::= parse_ D_TRUST_EV_ROOT_CA_1_2020_BYTES_
-
-/**
-Installs the "D-TRUST EV Root CA 1 2020"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 08:17:0d:1a:a3:64:53:90:1a:2f:95:92:45:e3:47:db:0c:8d:37:ab:aa:bc:56:b8:1a:a1:00:dc:95:89:70:db
-Expiry: 2035-02-11
-Subject: CN=D-TRUST EV Root CA 1 2020 O=D-Trust GmbH
-*/
-install_d_trust_ev_root_ca_1_2020 -> none:
-  tls.add_global_root_certificate D_TRUST_EV_ROOT_CA_1_2020_BYTES_ 0x6fd57eee
+D_TRUST_EV_ROOT_CA_1_2020 ::= tls.RootCertificate --fingerprint=0x6fd57eee D_TRUST_EV_ROOT_CA_1_2020_BYTES_
 
 D_TRUST_ROOT_CLASS_3_CA_2_2009_BYTES_ ::= #[
     '0',0x82,4,'3','0',0x82,3,27,160,3,2,1,2,2,3,9,131,243,'0',13,6,9,'*',134,
@@ -3208,22 +2931,15 @@ D_TRUST_ROOT_CLASS_3_CA_2_2009_BYTES_ ::= #[
 
 /**
 D-TRUST Root Class 3 CA 2 2009.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 49:e7:a4:42:ac:f0:ea:62:87:05:00:54:b5:25:64:b6:50:e4:f4:9e:42:e3:48:d6:aa:38:e0:39:e9:57:b1:c1
 Expiry: 2029-11-05
 Subject: CN=D-TRUST Root Class 3 CA 2 2009 O=D-Trust GmbH
 */
-D_TRUST_ROOT_CLASS_3_CA_2_2009 ::= parse_ D_TRUST_ROOT_CLASS_3_CA_2_2009_BYTES_
-
-/**
-Installs the "D-TRUST Root Class 3 CA 2 2009"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 49:e7:a4:42:ac:f0:ea:62:87:05:00:54:b5:25:64:b6:50:e4:f4:9e:42:e3:48:d6:aa:38:e0:39:e9:57:b1:c1
-Expiry: 2029-11-05
-Subject: CN=D-TRUST Root Class 3 CA 2 2009 O=D-Trust GmbH
-*/
-install_d_trust_root_class_3_ca_2_2009 -> none:
-  tls.add_global_root_certificate D_TRUST_ROOT_CLASS_3_CA_2_2009_BYTES_ 0xf1e40b7b
+D_TRUST_ROOT_CLASS_3_CA_2_2009 ::= tls.RootCertificate --fingerprint=0xf1e40b7b D_TRUST_ROOT_CLASS_3_CA_2_2009_BYTES_
 
 D_TRUST_ROOT_CLASS_3_CA_2_EV_2009_BYTES_ ::= #[
     '0',0x82,4,'C','0',130,3,'+',160,3,2,1,2,2,3,9,131,244,'0',13,6,9,'*',134,
@@ -3287,22 +3003,15 @@ D_TRUST_ROOT_CLASS_3_CA_2_EV_2009_BYTES_ ::= #[
 
 /**
 D-TRUST Root Class 3 CA 2 EV 2009.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: ee:c5:49:6b:98:8c:e9:86:25:b9:34:09:2e:ec:29:08:be:d0:b0:f3:16:c2:d4:73:0c:84:ea:f1:f3:d3:48:81
 Expiry: 2029-11-05
 Subject: CN=D-TRUST Root Class 3 CA 2 EV 2009 O=D-Trust GmbH
 */
-D_TRUST_ROOT_CLASS_3_CA_2_EV_2009 ::= parse_ D_TRUST_ROOT_CLASS_3_CA_2_EV_2009_BYTES_
-
-/**
-Installs the "D-TRUST Root Class 3 CA 2 EV 2009"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: ee:c5:49:6b:98:8c:e9:86:25:b9:34:09:2e:ec:29:08:be:d0:b0:f3:16:c2:d4:73:0c:84:ea:f1:f3:d3:48:81
-Expiry: 2029-11-05
-Subject: CN=D-TRUST Root Class 3 CA 2 EV 2009 O=D-Trust GmbH
-*/
-install_d_trust_root_class_3_ca_2_ev_2009 -> none:
-  tls.add_global_root_certificate D_TRUST_ROOT_CLASS_3_CA_2_EV_2009_BYTES_ 0xcfccd458
+D_TRUST_ROOT_CLASS_3_CA_2_EV_2009 ::= tls.RootCertificate --fingerprint=0xcfccd458 D_TRUST_ROOT_CLASS_3_CA_2_EV_2009_BYTES_
 
 DST_ROOT_CA_X3_BYTES_ ::= #[
     '0',0x82,3,'J','0',0x82,2,'2',160,3,2,1,2,2,16,'D',175,176,128,214,163,39,
@@ -3353,19 +3062,15 @@ DST_ROOT_CA_X3_BYTES_ ::= #[
 
 /**
 DST Root CA X3.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 Deprecated.  This certificate has expired.  Usually the replacement
   is $ISRG_ROOT_X1.
 */
 DST_ROOT_CA_X3 ::= DST_ROOT_CA_X3_
-DST_ROOT_CA_X3_ ::= parse_ DST_ROOT_CA_X3_BYTES_
-
-/**
-Installs the "DST Root CA X3"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-*/
-install_dst_root_ca_x3 -> none:
-  tls.add_global_root_certificate DST_ROOT_CA_X3_BYTES_ 0x597f5e5c
+DST_ROOT_CA_X3_ ::= tls.RootCertificate --fingerprint=0x597f5e5c DST_ROOT_CA_X3_BYTES_
 
 DIGICERT_ASSURED_ID_ROOT_CA_BYTES_ ::= #[
     '0',0x82,0x3,183,'0',130,2,159,160,3,2,1,2,2,16,12,231,224,229,23,216,'F',
@@ -3421,22 +3126,15 @@ DIGICERT_ASSURED_ID_ROOT_CA_BYTES_ ::= #[
 
 /**
 DigiCert Assured ID Root CA.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 3e:90:99:b5:01:5e:8f:48:6c:00:bc:ea:9d:11:1e:e7:21:fa:ba:35:5a:89:bc:f1:df:69:56:1e:3d:c6:32:5c
 Expiry: 2031-11-10
 Subject: CN=DigiCert Assured ID Root CA O=DigiCert Inc OU=www.digicert.com
 */
-DIGICERT_ASSURED_ID_ROOT_CA ::= parse_ DIGICERT_ASSURED_ID_ROOT_CA_BYTES_
-
-/**
-Installs the "DigiCert Assured ID Root CA"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 3e:90:99:b5:01:5e:8f:48:6c:00:bc:ea:9d:11:1e:e7:21:fa:ba:35:5a:89:bc:f1:df:69:56:1e:3d:c6:32:5c
-Expiry: 2031-11-10
-Subject: CN=DigiCert Assured ID Root CA O=DigiCert Inc OU=www.digicert.com
-*/
-install_digicert_assured_id_root_ca -> none:
-  tls.add_global_root_certificate DIGICERT_ASSURED_ID_ROOT_CA_BYTES_ 0x13625c17
+DIGICERT_ASSURED_ID_ROOT_CA ::= tls.RootCertificate --fingerprint=0x13625c17 DIGICERT_ASSURED_ID_ROOT_CA_BYTES_
 
 DIGICERT_ASSURED_ID_ROOT_G2_BYTES_ ::= #[
     '0',0x82,0x3,150,'0',130,2,'~',160,3,2,1,2,2,16,11,147,28,':',214,'9','g',
@@ -3490,22 +3188,15 @@ DIGICERT_ASSURED_ID_ROOT_G2_BYTES_ ::= #[
 
 /**
 DigiCert Assured ID Root G2.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 7d:05:eb:b6:82:33:9f:8c:94:51:ee:09:4e:eb:fe:fa:79:53:a1:14:ed:b2:f4:49:49:45:2f:ab:7d:2f:c1:85
 Expiry: 2038-01-15
 Subject: CN=DigiCert Assured ID Root G2 O=DigiCert Inc OU=www.digicert.com
 */
-DIGICERT_ASSURED_ID_ROOT_G2 ::= parse_ DIGICERT_ASSURED_ID_ROOT_G2_BYTES_
-
-/**
-Installs the "DigiCert Assured ID Root G2"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 7d:05:eb:b6:82:33:9f:8c:94:51:ee:09:4e:eb:fe:fa:79:53:a1:14:ed:b2:f4:49:49:45:2f:ab:7d:2f:c1:85
-Expiry: 2038-01-15
-Subject: CN=DigiCert Assured ID Root G2 O=DigiCert Inc OU=www.digicert.com
-*/
-install_digicert_assured_id_root_g2 -> none:
-  tls.add_global_root_certificate DIGICERT_ASSURED_ID_ROOT_G2_BYTES_ 0x856c995d
+DIGICERT_ASSURED_ID_ROOT_G2 ::= tls.RootCertificate --fingerprint=0x856c995d DIGICERT_ASSURED_ID_ROOT_G2_BYTES_
 
 DIGICERT_ASSURED_ID_ROOT_G3_BYTES_ ::= #[
     '0',0x82,0x2,'F','0',130,1,205,160,3,2,1,2,2,16,11,161,'Z',250,29,223,160,
@@ -3542,22 +3233,15 @@ DIGICERT_ASSURED_ID_ROOT_G3_BYTES_ ::= #[
 
 /**
 DigiCert Assured ID Root G3.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 7e:37:cb:8b:4c:47:09:0c:ab:36:55:1b:a6:f4:5d:b8:40:68:0f:ba:16:6a:95:2d:b1:00:71:7f:43:05:3f:c2
 Expiry: 2038-01-15
 Subject: CN=DigiCert Assured ID Root G3 O=DigiCert Inc OU=www.digicert.com
 */
-DIGICERT_ASSURED_ID_ROOT_G3 ::= parse_ DIGICERT_ASSURED_ID_ROOT_G3_BYTES_
-
-/**
-Installs the "DigiCert Assured ID Root G3"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 7e:37:cb:8b:4c:47:09:0c:ab:36:55:1b:a6:f4:5d:b8:40:68:0f:ba:16:6a:95:2d:b1:00:71:7f:43:05:3f:c2
-Expiry: 2038-01-15
-Subject: CN=DigiCert Assured ID Root G3 O=DigiCert Inc OU=www.digicert.com
-*/
-install_digicert_assured_id_root_g3 -> none:
-  tls.add_global_root_certificate DIGICERT_ASSURED_ID_ROOT_G3_BYTES_ 0xf26ba9cb
+DIGICERT_ASSURED_ID_ROOT_G3 ::= tls.RootCertificate --fingerprint=0xf26ba9cb DIGICERT_ASSURED_ID_ROOT_G3_BYTES_
 
 DIGICERT_GLOBAL_ROOT_CA_BYTES_ ::= #[
     '0',0x82,0x3,175,'0',130,2,151,160,3,2,1,2,2,16,8,';',224,'V',144,'B','F',
@@ -3613,22 +3297,15 @@ DIGICERT_GLOBAL_ROOT_CA_BYTES_ ::= #[
 
 /**
 DigiCert Global Root CA.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 43:48:a0:e9:44:4c:78:cb:26:5e:05:8d:5e:89:44:b4:d8:4f:96:62:bd:26:db:25:7f:89:34:a4:43:c7:01:61
 Expiry: 2031-11-10
 Subject: CN=DigiCert Global Root CA O=DigiCert Inc OU=www.digicert.com
 */
-DIGICERT_GLOBAL_ROOT_CA ::= parse_ DIGICERT_GLOBAL_ROOT_CA_BYTES_
-
-/**
-Installs the "DigiCert Global Root CA"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 43:48:a0:e9:44:4c:78:cb:26:5e:05:8d:5e:89:44:b4:d8:4f:96:62:bd:26:db:25:7f:89:34:a4:43:c7:01:61
-Expiry: 2031-11-10
-Subject: CN=DigiCert Global Root CA O=DigiCert Inc OU=www.digicert.com
-*/
-install_digicert_global_root_ca -> none:
-  tls.add_global_root_certificate DIGICERT_GLOBAL_ROOT_CA_BYTES_ 0x945a8c88
+DIGICERT_GLOBAL_ROOT_CA ::= tls.RootCertificate --fingerprint=0x945a8c88 DIGICERT_GLOBAL_ROOT_CA_BYTES_
 
 DIGICERT_GLOBAL_ROOT_G2_BYTES_ ::= #[
     '0',130,3,142,'0',130,2,'v',160,3,2,1,2,2,16,3,':',241,230,167,17,169,160,
@@ -3682,22 +3359,15 @@ DIGICERT_GLOBAL_ROOT_G2_BYTES_ ::= #[
 
 /**
 DigiCert Global Root G2.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: cb:3c:cb:b7:60:31:e5:e0:13:8f:8d:d3:9a:23:f9:de:47:ff:c3:5e:43:c1:14:4c:ea:27:d4:6a:5a:b1:cb:5f
 Expiry: 2038-01-15
 Subject: CN=DigiCert Global Root G2 O=DigiCert Inc OU=www.digicert.com
 */
-DIGICERT_GLOBAL_ROOT_G2 ::= parse_ DIGICERT_GLOBAL_ROOT_G2_BYTES_
-
-/**
-Installs the "DigiCert Global Root G2"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: cb:3c:cb:b7:60:31:e5:e0:13:8f:8d:d3:9a:23:f9:de:47:ff:c3:5e:43:c1:14:4c:ea:27:d4:6a:5a:b1:cb:5f
-Expiry: 2038-01-15
-Subject: CN=DigiCert Global Root G2 O=DigiCert Inc OU=www.digicert.com
-*/
-install_digicert_global_root_g2 -> none:
-  tls.add_global_root_certificate DIGICERT_GLOBAL_ROOT_G2_BYTES_ 0x025449c2
+DIGICERT_GLOBAL_ROOT_G2 ::= tls.RootCertificate --fingerprint=0x25449c2 DIGICERT_GLOBAL_ROOT_G2_BYTES_
 
 DIGICERT_GLOBAL_ROOT_G3_BYTES_ ::= #[
     '0',0x82,0x2,'?','0',130,1,197,160,3,2,1,2,2,16,5,'U','V',188,242,'^',164,
@@ -3734,22 +3404,15 @@ DIGICERT_GLOBAL_ROOT_G3_BYTES_ ::= #[
 
 /**
 DigiCert Global Root G3.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 31:ad:66:48:f8:10:41:38:c7:38:f3:9e:a4:32:01:33:39:3e:3a:18:cc:02:29:6e:f9:7c:2a:c9:ef:67:31:d0
 Expiry: 2038-01-15
 Subject: CN=DigiCert Global Root G3 O=DigiCert Inc OU=www.digicert.com
 */
-DIGICERT_GLOBAL_ROOT_G3 ::= parse_ DIGICERT_GLOBAL_ROOT_G3_BYTES_
-
-/**
-Installs the "DigiCert Global Root G3"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 31:ad:66:48:f8:10:41:38:c7:38:f3:9e:a4:32:01:33:39:3e:3a:18:cc:02:29:6e:f9:7c:2a:c9:ef:67:31:d0
-Expiry: 2038-01-15
-Subject: CN=DigiCert Global Root G3 O=DigiCert Inc OU=www.digicert.com
-*/
-install_digicert_global_root_g3 -> none:
-  tls.add_global_root_certificate DIGICERT_GLOBAL_ROOT_G3_BYTES_ 0x75537954
+DIGICERT_GLOBAL_ROOT_G3 ::= tls.RootCertificate --fingerprint=0x75537954 DIGICERT_GLOBAL_ROOT_G3_BYTES_
 
 DIGICERT_HIGH_ASSURANCE_EV_ROOT_CA_BYTES_ ::= #[
     '0',0x82,3,197,'0',130,2,173,160,3,2,1,2,2,16,2,172,92,'&','j',11,'@',155,
@@ -3806,22 +3469,15 @@ DIGICERT_HIGH_ASSURANCE_EV_ROOT_CA_BYTES_ ::= #[
 
 /**
 DigiCert High Assurance EV Root CA.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 74:31:e5:f4:c3:c1:ce:46:90:77:4f:0b:61:e0:54:40:88:3b:a9:a0:1e:d0:0b:a6:ab:d7:80:6e:d3:b1:18:cf
 Expiry: 2031-11-10
 Subject: CN=DigiCert High Assurance EV Root CA O=DigiCert Inc OU=www.digicert.com
 */
-DIGICERT_HIGH_ASSURANCE_EV_ROOT_CA ::= parse_ DIGICERT_HIGH_ASSURANCE_EV_ROOT_CA_BYTES_
-
-/**
-Installs the "DigiCert High Assurance EV Root CA"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 74:31:e5:f4:c3:c1:ce:46:90:77:4f:0b:61:e0:54:40:88:3b:a9:a0:1e:d0:0b:a6:ab:d7:80:6e:d3:b1:18:cf
-Expiry: 2031-11-10
-Subject: CN=DigiCert High Assurance EV Root CA O=DigiCert Inc OU=www.digicert.com
-*/
-install_digicert_high_assurance_ev_root_ca -> none:
-  tls.add_global_root_certificate DIGICERT_HIGH_ASSURANCE_EV_ROOT_CA_BYTES_ 0x8ad27460
+DIGICERT_HIGH_ASSURANCE_EV_ROOT_CA ::= tls.RootCertificate --fingerprint=0x8ad27460 DIGICERT_HIGH_ASSURANCE_EV_ROOT_CA_BYTES_
 
 DIGICERT_TLS_ECC_P384_ROOT_G5_BYTES_ ::= #[
     '0',130,2,25,'0',130,1,159,160,3,2,1,2,2,16,9,224,147,'e',172,247,217,200,
@@ -3856,22 +3512,15 @@ DIGICERT_TLS_ECC_P384_ROOT_G5_BYTES_ ::= #[
 
 /**
 DigiCert TLS ECC P384 Root G5.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 01:8e:13:f0:77:25:32:cf:80:9b:d1:b1:72:81:86:72:83:fc:48:c6:e1:3b:e9:c6:98:12:85:4a:49:0c:1b:05
 Expiry: 2046-01-14
 Subject: CN=DigiCert TLS ECC P384 Root G5 O=DigiCert, Inc.
 */
-DIGICERT_TLS_ECC_P384_ROOT_G5 ::= parse_ DIGICERT_TLS_ECC_P384_ROOT_G5_BYTES_
-
-/**
-Installs the "DigiCert TLS ECC P384 Root G5"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 01:8e:13:f0:77:25:32:cf:80:9b:d1:b1:72:81:86:72:83:fc:48:c6:e1:3b:e9:c6:98:12:85:4a:49:0c:1b:05
-Expiry: 2046-01-14
-Subject: CN=DigiCert TLS ECC P384 Root G5 O=DigiCert, Inc.
-*/
-install_digicert_tls_ecc_p384_root_g5 -> none:
-  tls.add_global_root_certificate DIGICERT_TLS_ECC_P384_ROOT_G5_BYTES_ 0x7124464e
+DIGICERT_TLS_ECC_P384_ROOT_G5 ::= tls.RootCertificate --fingerprint=0x7124464e DIGICERT_TLS_ECC_P384_ROOT_G5_BYTES_
 
 DIGICERT_TLS_RSA4096_ROOT_G5_BYTES_ ::= #[
     '0',0x82,0x5,'f','0',130,3,'N',160,3,2,1,2,2,16,8,249,180,'x',168,250,'~',
@@ -3950,22 +3599,15 @@ DIGICERT_TLS_RSA4096_ROOT_G5_BYTES_ ::= #[
 
 /**
 DigiCert TLS RSA4096 Root G5.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 37:1a:00:dc:05:33:b3:72:1a:7e:eb:40:e8:41:9e:70:79:9d:2b:0a:0f:2c:1d:80:69:31:65:f7:ce:c4:ad:75
 Expiry: 2046-01-14
 Subject: CN=DigiCert TLS RSA4096 Root G5 O=DigiCert, Inc.
 */
-DIGICERT_TLS_RSA4096_ROOT_G5 ::= parse_ DIGICERT_TLS_RSA4096_ROOT_G5_BYTES_
-
-/**
-Installs the "DigiCert TLS RSA4096 Root G5"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 37:1a:00:dc:05:33:b3:72:1a:7e:eb:40:e8:41:9e:70:79:9d:2b:0a:0f:2c:1d:80:69:31:65:f7:ce:c4:ad:75
-Expiry: 2046-01-14
-Subject: CN=DigiCert TLS RSA4096 Root G5 O=DigiCert, Inc.
-*/
-install_digicert_tls_rsa4096_root_g5 -> none:
-  tls.add_global_root_certificate DIGICERT_TLS_RSA4096_ROOT_G5_BYTES_ 0x609143f0
+DIGICERT_TLS_RSA4096_ROOT_G5 ::= tls.RootCertificate --fingerprint=0x609143f0 DIGICERT_TLS_RSA4096_ROOT_G5_BYTES_
 
 DIGICERT_TRUSTED_ROOT_G4_BYTES_ ::= #[
     '0',130,5,144,'0',130,3,'x',160,3,2,1,2,2,16,5,155,27,'W',158,142,'!','2',
@@ -4046,22 +3688,15 @@ DIGICERT_TRUSTED_ROOT_G4_BYTES_ ::= #[
 
 /**
 DigiCert Trusted Root G4.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 55:2f:7b:dc:f1:a7:af:9e:6c:e6:72:01:7f:4f:12:ab:f7:72:40:c7:8e:76:1a:c2:03:d1:d9:d2:0a:c8:99:88
 Expiry: 2038-01-15
 Subject: CN=DigiCert Trusted Root G4 O=DigiCert Inc OU=www.digicert.com
 */
-DIGICERT_TRUSTED_ROOT_G4 ::= parse_ DIGICERT_TRUSTED_ROOT_G4_BYTES_
-
-/**
-Installs the "DigiCert Trusted Root G4"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 55:2f:7b:dc:f1:a7:af:9e:6c:e6:72:01:7f:4f:12:ab:f7:72:40:c7:8e:76:1a:c2:03:d1:d9:d2:0a:c8:99:88
-Expiry: 2038-01-15
-Subject: CN=DigiCert Trusted Root G4 O=DigiCert Inc OU=www.digicert.com
-*/
-install_digicert_trusted_root_g4 -> none:
-  tls.add_global_root_certificate DIGICERT_TRUSTED_ROOT_G4_BYTES_ 0x378b0597
+DIGICERT_TRUSTED_ROOT_G4 ::= tls.RootCertificate --fingerprint=0x378b0597 DIGICERT_TRUSTED_ROOT_G4_BYTES_
 
 EC_ACC_BYTES_ ::= #[
     '0',0x82,5,'V','0',130,4,'>',160,3,2,1,2,2,16,238,'+','=',235,212,'!',222,
@@ -4139,18 +3774,14 @@ EC_ACC_BYTES_ ::= #[
 
 /**
 EC-ACC.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 Deprecated.  This certificate has expired.
 */
 EC_ACC ::= EC_ACC_
-EC_ACC_ ::= parse_ EC_ACC_BYTES_
-
-/**
-Installs the "EC-ACC"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-*/
-install_ec_acc -> none:
-  tls.add_global_root_certificate EC_ACC_BYTES_ 0xde33eb19
+EC_ACC_ ::= tls.RootCertificate --fingerprint=0xde33eb19 EC_ACC_BYTES_
 
 ENTRUST_ROOT_CERTIFICATION_AUTHORITY_BYTES_ ::= #[
     '0',0x82,0x4,145,'0',130,3,'y',160,3,2,1,2,2,4,'E','k','P','T','0',13,6,9,
@@ -4218,22 +3849,15 @@ ENTRUST_ROOT_CERTIFICATION_AUTHORITY_BYTES_ ::= #[
 
 /**
 Entrust Root Certification Authority.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 73:c1:76:43:4f:1b:c6:d5:ad:f4:5b:0e:76:e7:27:28:7c:8d:e5:76:16:c1:e6:e6:14:1a:2b:2c:bc:7d:8e:4c
 Expiry: 2026-11-27
 Subject: CN=Entrust Root Certification Authority O=Entrust, Inc. OU=www.entrust.net/CPS is incorporated by reference/(c) 2006 Entrust, Inc.
 */
-ENTRUST_ROOT_CERTIFICATION_AUTHORITY ::= parse_ ENTRUST_ROOT_CERTIFICATION_AUTHORITY_BYTES_
-
-/**
-Installs the "Entrust Root Certification Authority"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 73:c1:76:43:4f:1b:c6:d5:ad:f4:5b:0e:76:e7:27:28:7c:8d:e5:76:16:c1:e6:e6:14:1a:2b:2c:bc:7d:8e:4c
-Expiry: 2026-11-27
-Subject: CN=Entrust Root Certification Authority O=Entrust, Inc. OU=www.entrust.net/CPS is incorporated by reference/(c) 2006 Entrust, Inc.
-*/
-install_entrust_root_certification_authority -> none:
-  tls.add_global_root_certificate ENTRUST_ROOT_CERTIFICATION_AUTHORITY_BYTES_ 0x05e32892
+ENTRUST_ROOT_CERTIFICATION_AUTHORITY ::= tls.RootCertificate --fingerprint=0x5e32892 ENTRUST_ROOT_CERTIFICATION_AUTHORITY_BYTES_
 
 ENTRUST_ROOT_CERTIFICATION_AUTHORITY_EC1_BYTES_ ::= #[
     '0',0x82,0x2,249,'0',130,2,128,160,3,2,1,2,2,13,0,166,139,'y',')',0,0,0,0,
@@ -4280,22 +3904,15 @@ ENTRUST_ROOT_CERTIFICATION_AUTHORITY_EC1_BYTES_ ::= #[
 
 /**
 Entrust Root Certification Authority - EC1.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 02:ed:0e:b2:8c:14:da:45:16:5c:56:67:91:70:0d:64:51:d7:fb:56:f0:b2:ab:1d:3b:8e:b0:70:e5:6e:df:f5
 Expiry: 2037-12-18
 Subject: CN=Entrust Root Certification Authority - EC1 O=Entrust, Inc. OU=See www.entrust.net/legal-terms/(c) 2012 Entrust, Inc. - for authorized use only
 */
-ENTRUST_ROOT_CERTIFICATION_AUTHORITY_EC1 ::= parse_ ENTRUST_ROOT_CERTIFICATION_AUTHORITY_EC1_BYTES_
-
-/**
-Installs the "Entrust Root Certification Authority - EC1"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 02:ed:0e:b2:8c:14:da:45:16:5c:56:67:91:70:0d:64:51:d7:fb:56:f0:b2:ab:1d:3b:8e:b0:70:e5:6e:df:f5
-Expiry: 2037-12-18
-Subject: CN=Entrust Root Certification Authority - EC1 O=Entrust, Inc. OU=See www.entrust.net/legal-terms/(c) 2012 Entrust, Inc. - for authorized use only
-*/
-install_entrust_root_certification_authority_ec1 -> none:
-  tls.add_global_root_certificate ENTRUST_ROOT_CERTIFICATION_AUTHORITY_EC1_BYTES_ 0x36e6c384
+ENTRUST_ROOT_CERTIFICATION_AUTHORITY_EC1 ::= tls.RootCertificate --fingerprint=0x36e6c384 ENTRUST_ROOT_CERTIFICATION_AUTHORITY_EC1_BYTES_
 
 ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G2_BYTES_ ::= #[
     '0',0x82,0x4,'>','0',130,3,'&',160,3,2,1,2,2,4,'J','S',140,'(','0',13,6,9,
@@ -4359,22 +3976,15 @@ ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G2_BYTES_ ::= #[
 
 /**
 Entrust Root Certification Authority - G2.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 43:df:57:74:b0:3e:7f:ef:5f:e4:0d:93:1a:7b:ed:f1:bb:2e:6b:42:73:8c:4e:6d:38:41:10:3d:3a:a7:f3:39
 Expiry: 2030-12-07
 Subject: CN=Entrust Root Certification Authority - G2 O=Entrust, Inc. OU=See www.entrust.net/legal-terms/(c) 2009 Entrust, Inc. - for authorized use only
 */
-ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G2 ::= parse_ ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G2_BYTES_
-
-/**
-Installs the "Entrust Root Certification Authority - G2"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 43:df:57:74:b0:3e:7f:ef:5f:e4:0d:93:1a:7b:ed:f1:bb:2e:6b:42:73:8c:4e:6d:38:41:10:3d:3a:a7:f3:39
-Expiry: 2030-12-07
-Subject: CN=Entrust Root Certification Authority - G2 O=Entrust, Inc. OU=See www.entrust.net/legal-terms/(c) 2009 Entrust, Inc. - for authorized use only
-*/
-install_entrust_root_certification_authority_g2 -> none:
-  tls.add_global_root_certificate ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G2_BYTES_ 0x8b73fef5
+ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G2 ::= tls.RootCertificate --fingerprint=0x8b73fef5 ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G2_BYTES_
 
 ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G4_BYTES_ ::= #[
     '0',0x82,0x6,'K','0',130,4,'3',160,3,2,1,2,2,17,0,217,181,'C',127,175,169,
@@ -4466,22 +4076,15 @@ ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G4_BYTES_ ::= #[
 
 /**
 Entrust Root Certification Authority - G4.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: db:35:17:d1:f6:73:2a:2d:5a:b9:7c:53:3e:c7:07:79:ee:32:70:a6:2f:b4:ac:42:38:37:24:60:e6:f0:1e:88
 Expiry: 2037-12-27
 Subject: CN=Entrust Root Certification Authority - G4 O=Entrust, Inc. OU=See www.entrust.net/legal-terms/(c) 2015 Entrust, Inc. - for authorized use only
 */
-ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G4 ::= parse_ ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G4_BYTES_
-
-/**
-Installs the "Entrust Root Certification Authority - G4"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: db:35:17:d1:f6:73:2a:2d:5a:b9:7c:53:3e:c7:07:79:ee:32:70:a6:2f:b4:ac:42:38:37:24:60:e6:f0:1e:88
-Expiry: 2037-12-27
-Subject: CN=Entrust Root Certification Authority - G4 O=Entrust, Inc. OU=See www.entrust.net/legal-terms/(c) 2015 Entrust, Inc. - for authorized use only
-*/
-install_entrust_root_certification_authority_g4 -> none:
-  tls.add_global_root_certificate ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G4_BYTES_ 0x51f15a66
+ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G4 ::= tls.RootCertificate --fingerprint=0x51f15a66 ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G4_BYTES_
 
 ENTRUST_NET_PREMIUM_2048_SECURE_SERVER_CA_BYTES_ ::= #[
     '0',130,4,'*','0',130,3,18,160,3,2,1,2,2,4,'8','c',222,248,'0',13,6,9,'*',
@@ -4544,22 +4147,15 @@ ENTRUST_NET_PREMIUM_2048_SECURE_SERVER_CA_BYTES_ ::= #[
 
 /**
 Entrust.net Premium 2048 Secure Server CA.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 6d:c4:71:72:e0:1c:bc:b0:bf:62:58:0d:89:5f:e2:b8:ac:9a:d4:f8:73:80:1e:0c:10:b9:c8:37:d2:1e:b1:77
 Expiry: 2029-07-24
 Subject: CN=Entrust.net Certification Authority (2048) O=Entrust.net OU=www.entrust.net/CPS_2048 incorp. by ref. (limits liab.)/(c) 1999 Entrust.net Limited
 */
-ENTRUST_NET_PREMIUM_2048_SECURE_SERVER_CA ::= parse_ ENTRUST_NET_PREMIUM_2048_SECURE_SERVER_CA_BYTES_
-
-/**
-Installs the "Entrust.net Premium 2048 Secure Server CA"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 6d:c4:71:72:e0:1c:bc:b0:bf:62:58:0d:89:5f:e2:b8:ac:9a:d4:f8:73:80:1e:0c:10:b9:c8:37:d2:1e:b1:77
-Expiry: 2029-07-24
-Subject: CN=Entrust.net Certification Authority (2048) O=Entrust.net OU=www.entrust.net/CPS_2048 incorp. by ref. (limits liab.)/(c) 1999 Entrust.net Limited
-*/
-install_entrust_net_premium_2048_secure_server_ca -> none:
-  tls.add_global_root_certificate ENTRUST_NET_PREMIUM_2048_SECURE_SERVER_CA_BYTES_ 0x97cfcbea
+ENTRUST_NET_PREMIUM_2048_SECURE_SERVER_CA ::= tls.RootCertificate --fingerprint=0x97cfcbea ENTRUST_NET_PREMIUM_2048_SECURE_SERVER_CA_BYTES_
 
 GDCA_TRUSTAUTH_R5_ROOT_BYTES_ ::= #[
     '0',130,5,136,'0',130,3,'p',160,3,2,1,2,2,8,'}',9,151,254,240,'G',234,'z',
@@ -4640,22 +4236,15 @@ GDCA_TRUSTAUTH_R5_ROOT_BYTES_ ::= #[
 
 /**
 GDCA TrustAUTH R5 ROOT.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: bf:ff:8f:d0:44:33:48:7d:6a:8a:a6:0c:1a:29:76:7a:9f:c2:bb:b0:5e:42:0f:71:3a:13:b9:92:89:1d:38:93
 Expiry: 2040-12-31
 Subject: CN=GDCA TrustAUTH R5 ROOT O=GUANG DONG CERTIFICATE AUTHORITY CO.,LTD.
 */
-GDCA_TRUSTAUTH_R5_ROOT ::= parse_ GDCA_TRUSTAUTH_R5_ROOT_BYTES_
-
-/**
-Installs the "GDCA TrustAUTH R5 ROOT"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: bf:ff:8f:d0:44:33:48:7d:6a:8a:a6:0c:1a:29:76:7a:9f:c2:bb:b0:5e:42:0f:71:3a:13:b9:92:89:1d:38:93
-Expiry: 2040-12-31
-Subject: CN=GDCA TrustAUTH R5 ROOT O=GUANG DONG CERTIFICATE AUTHORITY CO.,LTD.
-*/
-install_gdca_trustauth_r5_root -> none:
-  tls.add_global_root_certificate GDCA_TRUSTAUTH_R5_ROOT_BYTES_ 0x4cd0f762
+GDCA_TRUSTAUTH_R5_ROOT ::= tls.RootCertificate --fingerprint=0x4cd0f762 GDCA_TRUSTAUTH_R5_ROOT_BYTES_
 
 GLOBALTRUST_2020_BYTES_ ::= #[
     '0',0x82,5,130,'0',130,3,'j',160,3,2,1,2,2,11,'Z','K',189,'Z',251,'O',138,
@@ -4736,22 +4325,15 @@ GLOBALTRUST_2020_BYTES_ ::= #[
 
 /**
 GLOBALTRUST 2020.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 9a:29:6a:51:82:d1:d4:51:a2:e3:7f:43:9b:74:da:af:a2:67:52:33:29:f9:0f:9a:0d:20:07:c3:34:e2:3c:9a
 Expiry: 2040-06-10
 Subject: CN=GLOBALTRUST 2020 O=e-commerce monitoring GmbH
 */
-GLOBALTRUST_2020 ::= parse_ GLOBALTRUST_2020_BYTES_
-
-/**
-Installs the "GLOBALTRUST 2020"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 9a:29:6a:51:82:d1:d4:51:a2:e3:7f:43:9b:74:da:af:a2:67:52:33:29:f9:0f:9a:0d:20:07:c3:34:e2:3c:9a
-Expiry: 2040-06-10
-Subject: CN=GLOBALTRUST 2020 O=e-commerce monitoring GmbH
-*/
-install_globaltrust_2020 -> none:
-  tls.add_global_root_certificate GLOBALTRUST_2020_BYTES_ 0xe1810643
+GLOBALTRUST_2020 ::= tls.RootCertificate --fingerprint=0xe1810643 GLOBALTRUST_2020_BYTES_
 
 GTS_ROOT_R1_BYTES_ ::= #[
     '0',0x82,5,'W','0',0x82,3,'?',160,3,2,1,2,2,13,2,3,229,147,'o','1',176,19,
@@ -4830,22 +4412,15 @@ GTS_ROOT_R1_BYTES_ ::= #[
 
 /**
 GTS Root R1.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: d9:47:43:2a:bd:e7:b7:fa:90:fc:2e:6b:59:10:1b:12:80:e0:e1:c7:e4:e4:0f:a3:c6:88:7f:ff:57:a7:f4:cf
 Expiry: 2036-06-22
 Subject: CN=GTS Root R1 O=Google Trust Services LLC
 */
-GTS_ROOT_R1 ::= parse_ GTS_ROOT_R1_BYTES_
-
-/**
-Installs the "GTS Root R1"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: d9:47:43:2a:bd:e7:b7:fa:90:fc:2e:6b:59:10:1b:12:80:e0:e1:c7:e4:e4:0f:a3:c6:88:7f:ff:57:a7:f4:cf
-Expiry: 2036-06-22
-Subject: CN=GTS Root R1 O=Google Trust Services LLC
-*/
-install_gts_root_r1 -> none:
-  tls.add_global_root_certificate GTS_ROOT_R1_BYTES_ 0xbf6623e8
+GTS_ROOT_R1 ::= tls.RootCertificate --fingerprint=0xbf6623e8 GTS_ROOT_R1_BYTES_
 
 GTS_ROOT_R2_BYTES_ ::= #[
     '0',130,5,'W','0',130,3,'?',160,3,2,1,2,2,13,2,3,229,174,197,141,4,'%',26,
@@ -4923,22 +4498,15 @@ GTS_ROOT_R2_BYTES_ ::= #[
 
 /**
 GTS Root R2.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 8d:25:cd:97:22:9d:bf:70:35:6b:da:4e:b3:cc:73:40:31:e2:4c:f0:0f:af:cf:d3:2d:c7:6e:b5:84:1c:7e:a8
 Expiry: 2036-06-22
 Subject: CN=GTS Root R2 O=Google Trust Services LLC
 */
-GTS_ROOT_R2 ::= parse_ GTS_ROOT_R2_BYTES_
-
-/**
-Installs the "GTS Root R2"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 8d:25:cd:97:22:9d:bf:70:35:6b:da:4e:b3:cc:73:40:31:e2:4c:f0:0f:af:cf:d3:2d:c7:6e:b5:84:1c:7e:a8
-Expiry: 2036-06-22
-Subject: CN=GTS Root R2 O=Google Trust Services LLC
-*/
-install_gts_root_r2 -> none:
-  tls.add_global_root_certificate GTS_ROOT_R2_BYTES_ 0x266f7252
+GTS_ROOT_R2 ::= tls.RootCertificate --fingerprint=0x266f7252 GTS_ROOT_R2_BYTES_
 
 GTS_ROOT_R3_BYTES_ ::= #[
     '0',0x82,0x2,9,'0',130,1,142,160,3,2,1,2,2,13,2,3,229,184,130,235,' ',248,
@@ -4972,22 +4540,15 @@ GTS_ROOT_R3_BYTES_ ::= #[
 
 /**
 GTS Root R3.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 34:d8:a7:3e:e2:08:d9:bc:db:0d:95:65:20:93:4b:4e:40:e6:94:82:59:6e:8b:6f:73:c8:42:6b:01:0a:6f:48
 Expiry: 2036-06-22
 Subject: CN=GTS Root R3 O=Google Trust Services LLC
 */
-GTS_ROOT_R3 ::= parse_ GTS_ROOT_R3_BYTES_
-
-/**
-Installs the "GTS Root R3"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 34:d8:a7:3e:e2:08:d9:bc:db:0d:95:65:20:93:4b:4e:40:e6:94:82:59:6e:8b:6f:73:c8:42:6b:01:0a:6f:48
-Expiry: 2036-06-22
-Subject: CN=GTS Root R3 O=Google Trust Services LLC
-*/
-install_gts_root_r3 -> none:
-  tls.add_global_root_certificate GTS_ROOT_R3_BYTES_ 0x516842c4
+GTS_ROOT_R3 ::= tls.RootCertificate --fingerprint=0x516842c4 GTS_ROOT_R3_BYTES_
 
 GTS_ROOT_R4_BYTES_ ::= #[
     '0',130,2,9,'0',130,1,142,160,3,2,1,2,2,13,2,3,229,192,'h',239,'c',26,156,
@@ -5021,22 +4582,15 @@ GTS_ROOT_R4_BYTES_ ::= #[
 
 /**
 GTS Root R4.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 34:9d:fa:40:58:c5:e2:63:12:3b:39:8a:e7:95:57:3c:4e:13:13:c8:3f:e6:8f:93:55:6c:d5:e8:03:1b:3c:7d
 Expiry: 2036-06-22
 Subject: CN=GTS Root R4 O=Google Trust Services LLC
 */
-GTS_ROOT_R4 ::= parse_ GTS_ROOT_R4_BYTES_
-
-/**
-Installs the "GTS Root R4"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 34:9d:fa:40:58:c5:e2:63:12:3b:39:8a:e7:95:57:3c:4e:13:13:c8:3f:e6:8f:93:55:6c:d5:e8:03:1b:3c:7d
-Expiry: 2036-06-22
-Subject: CN=GTS Root R4 O=Google Trust Services LLC
-*/
-install_gts_root_r4 -> none:
-  tls.add_global_root_certificate GTS_ROOT_R4_BYTES_ 0xcf0cd767
+GTS_ROOT_R4 ::= tls.RootCertificate --fingerprint=0xcf0cd767 GTS_ROOT_R4_BYTES_
 
 GLOBALSIGN_ECC_ROOT_CA_R4_BYTES_ ::= #[
     '0',0x82,1,220,'0',130,1,131,160,3,2,1,2,2,13,2,3,229,'~',245,'?',147,253,
@@ -5068,22 +4622,15 @@ GLOBALSIGN_ECC_ROOT_CA_R4_BYTES_ ::= #[
 
 /**
 GlobalSign ECC Root CA - R4.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: b0:85:d7:0b:96:4f:19:1a:73:e4:af:0d:54:ae:7a:0e:07:aa:fd:af:9b:71:dd:08:62:13:8a:b7:32:5a:24:a2
 Expiry: 2038-01-19
 Subject: CN=GlobalSign O=GlobalSign OU=GlobalSign ECC Root CA - R4
 */
-GLOBALSIGN_ECC_ROOT_CA_R4 ::= parse_ GLOBALSIGN_ECC_ROOT_CA_R4_BYTES_
-
-/**
-Installs the "GlobalSign ECC Root CA - R4"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: b0:85:d7:0b:96:4f:19:1a:73:e4:af:0d:54:ae:7a:0e:07:aa:fd:af:9b:71:dd:08:62:13:8a:b7:32:5a:24:a2
-Expiry: 2038-01-19
-Subject: CN=GlobalSign O=GlobalSign OU=GlobalSign ECC Root CA - R4
-*/
-install_globalsign_ecc_root_ca_r4 -> none:
-  tls.add_global_root_certificate GLOBALSIGN_ECC_ROOT_CA_R4_BYTES_ 0x945d11af
+GLOBALSIGN_ECC_ROOT_CA_R4 ::= tls.RootCertificate --fingerprint=0x945d11af GLOBALSIGN_ECC_ROOT_CA_R4_BYTES_
 
 GLOBALSIGN_ECC_ROOT_CA_R5_BYTES_ ::= #[
     '0',0x82,2,30,'0',0x82,1,164,160,3,2,1,2,2,17,'`','Y','I',224,'&','.',187,
@@ -5118,22 +4665,15 @@ GLOBALSIGN_ECC_ROOT_CA_R5_BYTES_ ::= #[
 
 /**
 GlobalSign ECC Root CA - R5.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 17:9f:bc:14:8a:3d:d0:0f:d2:4e:a1:34:58:cc:43:bf:a7:f5:9c:81:82:d7:83:a5:13:f6:eb:ec:10:0c:89:24
 Expiry: 2038-01-19
 Subject: CN=GlobalSign O=GlobalSign OU=GlobalSign ECC Root CA - R5
 */
-GLOBALSIGN_ECC_ROOT_CA_R5 ::= parse_ GLOBALSIGN_ECC_ROOT_CA_R5_BYTES_
-
-/**
-Installs the "GlobalSign ECC Root CA - R5"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 17:9f:bc:14:8a:3d:d0:0f:d2:4e:a1:34:58:cc:43:bf:a7:f5:9c:81:82:d7:83:a5:13:f6:eb:ec:10:0c:89:24
-Expiry: 2038-01-19
-Subject: CN=GlobalSign O=GlobalSign OU=GlobalSign ECC Root CA - R5
-*/
-install_globalsign_ecc_root_ca_r5 -> none:
-  tls.add_global_root_certificate GLOBALSIGN_ECC_ROOT_CA_R5_BYTES_ 0xa83df2a7
+GLOBALSIGN_ECC_ROOT_CA_R5 ::= tls.RootCertificate --fingerprint=0xa83df2a7 GLOBALSIGN_ECC_ROOT_CA_R5_BYTES_
 
 GLOBALSIGN_ROOT_CA_BYTES_ ::= #[
     '0',0x82,3,'u','0',0x82,2,']',160,3,2,1,2,2,11,4,0,0,0,0,1,21,'K','Z',195,
@@ -5185,22 +4725,15 @@ GLOBALSIGN_ROOT_CA_BYTES_ ::= #[
 
 /**
 GlobalSign Root CA.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: eb:d4:10:40:e4:bb:3e:c7:42:c9:e3:81:d3:1e:f2:a4:1a:48:b6:68:5c:96:e7:ce:f3:c1:df:6c:d4:33:1c:99
 Expiry: 2028-01-28
 Subject: CN=GlobalSign Root CA O=GlobalSign nv-sa OU=Root CA
 */
-GLOBALSIGN_ROOT_CA ::= parse_ GLOBALSIGN_ROOT_CA_BYTES_
-
-/**
-Installs the "GlobalSign Root CA"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: eb:d4:10:40:e4:bb:3e:c7:42:c9:e3:81:d3:1e:f2:a4:1a:48:b6:68:5c:96:e7:ce:f3:c1:df:6c:d4:33:1c:99
-Expiry: 2028-01-28
-Subject: CN=GlobalSign Root CA O=GlobalSign nv-sa OU=Root CA
-*/
-install_globalsign_root_ca -> none:
-  tls.add_global_root_certificate GLOBALSIGN_ROOT_CA_BYTES_ 0x361129dd
+GLOBALSIGN_ROOT_CA ::= tls.RootCertificate --fingerprint=0x361129dd GLOBALSIGN_ROOT_CA_BYTES_
 
 GLOBALSIGN_ROOT_CA_R2_BYTES_ ::= #[
     '0',0x82,3,0xba,'0',130,2,162,160,3,2,1,2,2,11,4,0,0,0,0,1,15,134,'&',230,
@@ -5256,18 +4789,14 @@ GLOBALSIGN_ROOT_CA_R2_BYTES_ ::= #[
 
 /**
 GlobalSign Root CA - R2.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 Deprecated.  This certificate has expired.
 */
 GLOBALSIGN_ROOT_CA_R2 ::= GLOBALSIGN_ROOT_CA_R2_
-GLOBALSIGN_ROOT_CA_R2_ ::= parse_ GLOBALSIGN_ROOT_CA_R2_BYTES_
-
-/**
-Installs the "GlobalSign Root CA - R2"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-*/
-install_globalsign_root_ca_r2 -> none:
-  tls.add_global_root_certificate GLOBALSIGN_ROOT_CA_R2_BYTES_ 0x23eb58ea
+GLOBALSIGN_ROOT_CA_R2_ ::= tls.RootCertificate --fingerprint=0x23eb58ea GLOBALSIGN_ROOT_CA_R2_BYTES_
 
 GLOBALSIGN_ROOT_CA_R3_BYTES_ ::= #[
     '0',0x82,0x3,'_','0',130,2,'G',160,3,2,1,2,2,11,4,0,0,0,0,1,'!','X','S',8,
@@ -5319,22 +4848,15 @@ GLOBALSIGN_ROOT_CA_R3_BYTES_ ::= #[
 
 /**
 GlobalSign Root CA - R3.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: cb:b5:22:d7:b7:f1:27:ad:6a:01:13:86:5b:df:1c:d4:10:2e:7d:07:59:af:63:5a:7c:f4:72:0d:c9:63:c5:3b
 Expiry: 2029-03-18
 Subject: CN=GlobalSign O=GlobalSign OU=GlobalSign Root CA - R3
 */
-GLOBALSIGN_ROOT_CA_R3 ::= parse_ GLOBALSIGN_ROOT_CA_R3_BYTES_
-
-/**
-Installs the "GlobalSign Root CA - R3"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: cb:b5:22:d7:b7:f1:27:ad:6a:01:13:86:5b:df:1c:d4:10:2e:7d:07:59:af:63:5a:7c:f4:72:0d:c9:63:c5:3b
-Expiry: 2029-03-18
-Subject: CN=GlobalSign O=GlobalSign OU=GlobalSign Root CA - R3
-*/
-install_globalsign_root_ca_r3 -> none:
-  tls.add_global_root_certificate GLOBALSIGN_ROOT_CA_R3_BYTES_ 0x1f8bbbe2
+GLOBALSIGN_ROOT_CA_R3 ::= tls.RootCertificate --fingerprint=0x1f8bbbe2 GLOBALSIGN_ROOT_CA_R3_BYTES_
 
 GLOBALSIGN_ROOT_CA_R6_BYTES_ ::= #[
     '0',0x82,0x5,131,'0',130,3,'k',160,3,2,1,2,2,14,'E',230,187,3,131,'3',195,
@@ -5414,22 +4936,15 @@ GLOBALSIGN_ROOT_CA_R6_BYTES_ ::= #[
 
 /**
 GlobalSign Root CA - R6.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 2c:ab:ea:fe:37:d0:6c:a2:2a:ba:73:91:c0:03:3d:25:98:29:52:c4:53:64:73:49:76:3a:3a:b5:ad:6c:cf:69
 Expiry: 2034-12-10
 Subject: CN=GlobalSign O=GlobalSign OU=GlobalSign Root CA - R6
 */
-GLOBALSIGN_ROOT_CA_R6 ::= parse_ GLOBALSIGN_ROOT_CA_R6_BYTES_
-
-/**
-Installs the "GlobalSign Root CA - R6"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 2c:ab:ea:fe:37:d0:6c:a2:2a:ba:73:91:c0:03:3d:25:98:29:52:c4:53:64:73:49:76:3a:3a:b5:ad:6c:cf:69
-Expiry: 2034-12-10
-Subject: CN=GlobalSign O=GlobalSign OU=GlobalSign Root CA - R6
-*/
-install_globalsign_root_ca_r6 -> none:
-  tls.add_global_root_certificate GLOBALSIGN_ROOT_CA_R6_BYTES_ 0xd268d4ca
+GLOBALSIGN_ROOT_CA_R6 ::= tls.RootCertificate --fingerprint=0xd268d4ca GLOBALSIGN_ROOT_CA_R6_BYTES_
 
 GLOBALSIGN_ROOT_E46_BYTES_ ::= #[
     '0',0x82,0x2,11,'0',130,1,145,160,3,2,1,2,2,18,17,210,187,186,'3','n',212,
@@ -5463,22 +4978,15 @@ GLOBALSIGN_ROOT_E46_BYTES_ ::= #[
 
 /**
 GlobalSign Root E46.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: cb:b9:c4:4d:84:b8:04:3e:10:50:ea:31:a6:9f:51:49:55:d7:bf:d2:e2:c6:b4:93:01:01:9a:d6:1d:9f:50:58
 Expiry: 2046-03-20
 Subject: CN=GlobalSign Root E46 O=GlobalSign nv-sa
 */
-GLOBALSIGN_ROOT_E46 ::= parse_ GLOBALSIGN_ROOT_E46_BYTES_
-
-/**
-Installs the "GlobalSign Root E46"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: cb:b9:c4:4d:84:b8:04:3e:10:50:ea:31:a6:9f:51:49:55:d7:bf:d2:e2:c6:b4:93:01:01:9a:d6:1d:9f:50:58
-Expiry: 2046-03-20
-Subject: CN=GlobalSign Root E46 O=GlobalSign nv-sa
-*/
-install_globalsign_root_e46 -> none:
-  tls.add_global_root_certificate GLOBALSIGN_ROOT_E46_BYTES_ 0xb286dae7
+GLOBALSIGN_ROOT_E46 ::= tls.RootCertificate --fingerprint=0xb286dae7 GLOBALSIGN_ROOT_E46_BYTES_
 
 GLOBALSIGN_ROOT_R46_BYTES_ ::= #[
     '0',0x82,0x5,'Z','0',130,3,'B',160,3,2,1,2,2,18,17,210,187,185,215,'#',24,
@@ -5556,22 +5064,15 @@ GLOBALSIGN_ROOT_R46_BYTES_ ::= #[
 
 /**
 GlobalSign Root R46.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 4f:a3:12:6d:8d:3a:11:d1:c4:85:5a:4f:80:7c:ba:d6:cf:91:9d:3a:5a:88:b0:3b:ea:2c:63:72:d9:3c:40:c9
 Expiry: 2046-03-20
 Subject: CN=GlobalSign Root R46 O=GlobalSign nv-sa
 */
-GLOBALSIGN_ROOT_R46 ::= parse_ GLOBALSIGN_ROOT_R46_BYTES_
-
-/**
-Installs the "GlobalSign Root R46"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 4f:a3:12:6d:8d:3a:11:d1:c4:85:5a:4f:80:7c:ba:d6:cf:91:9d:3a:5a:88:b0:3b:ea:2c:63:72:d9:3c:40:c9
-Expiry: 2046-03-20
-Subject: CN=GlobalSign Root R46 O=GlobalSign nv-sa
-*/
-install_globalsign_root_r46 -> none:
-  tls.add_global_root_certificate GLOBALSIGN_ROOT_R46_BYTES_ 0xabef6f12
+GLOBALSIGN_ROOT_R46 ::= tls.RootCertificate --fingerprint=0xabef6f12 GLOBALSIGN_ROOT_R46_BYTES_
 
 GO_DADDY_CLASS_2_CA_BYTES_ ::= #[
     '0',0x82,0x4,0,'0',130,2,232,160,3,2,1,2,2,1,0,'0',13,6,9,'*',134,'H',134,
@@ -5631,22 +5132,15 @@ GO_DADDY_CLASS_2_CA_BYTES_ ::= #[
 
 /**
 Go Daddy Class 2 CA.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: c3:84:6b:f2:4b:9e:93:ca:64:27:4c:0e:c6:7c:1e:cc:5e:02:4f:fc:ac:d2:d7:40:19:35:0e:81:fe:54:6a:e4
 Expiry: 2034-06-29
 Subject: O=The Go Daddy Group, Inc. OU=Go Daddy Class 2 Certification Authority
 */
-GO_DADDY_CLASS_2_CA ::= parse_ GO_DADDY_CLASS_2_CA_BYTES_
-
-/**
-Installs the "Go Daddy Class 2 CA"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: c3:84:6b:f2:4b:9e:93:ca:64:27:4c:0e:c6:7c:1e:cc:5e:02:4f:fc:ac:d2:d7:40:19:35:0e:81:fe:54:6a:e4
-Expiry: 2034-06-29
-Subject: O=The Go Daddy Group, Inc. OU=Go Daddy Class 2 Certification Authority
-*/
-install_go_daddy_class_2_ca -> none:
-  tls.add_global_root_certificate GO_DADDY_CLASS_2_CA_BYTES_ 0xacfbbb83
+GO_DADDY_CLASS_2_CA ::= tls.RootCertificate --fingerprint=0xacfbbb83 GO_DADDY_CLASS_2_CA_BYTES_
 
 GO_DADDY_ROOT_CERTIFICATE_AUTHORITY_G2_BYTES_ ::= #[
     '0',0x82,3,197,'0',130,2,173,160,3,2,1,2,2,1,0,'0',13,6,9,'*',134,'H',134,
@@ -5702,22 +5196,15 @@ GO_DADDY_ROOT_CERTIFICATE_AUTHORITY_G2_BYTES_ ::= #[
 
 /**
 Go Daddy Root Certificate Authority - G2.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 45:14:0b:32:47:eb:9c:c8:c5:b4:f0:d7:b5:30:91:f7:32:92:08:9e:6e:5a:63:e2:74:9d:d3:ac:a9:19:8e:da
 Expiry: 2037-12-31
 Subject: CN=Go Daddy Root Certificate Authority - G2 O=GoDaddy.com, Inc.
 */
-GO_DADDY_ROOT_CERTIFICATE_AUTHORITY_G2 ::= parse_ GO_DADDY_ROOT_CERTIFICATE_AUTHORITY_G2_BYTES_
-
-/**
-Installs the "Go Daddy Root Certificate Authority - G2"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 45:14:0b:32:47:eb:9c:c8:c5:b4:f0:d7:b5:30:91:f7:32:92:08:9e:6e:5a:63:e2:74:9d:d3:ac:a9:19:8e:da
-Expiry: 2037-12-31
-Subject: CN=Go Daddy Root Certificate Authority - G2 O=GoDaddy.com, Inc.
-*/
-install_go_daddy_root_certificate_authority_g2 -> none:
-  tls.add_global_root_certificate GO_DADDY_ROOT_CERTIFICATE_AUTHORITY_G2_BYTES_ 0x1786d5c5
+GO_DADDY_ROOT_CERTIFICATE_AUTHORITY_G2 ::= tls.RootCertificate --fingerprint=0x1786d5c5 GO_DADDY_ROOT_CERTIFICATE_AUTHORITY_G2_BYTES_
 
 HARICA_TLS_ECC_ROOT_CA_2021_BYTES_ ::= #[
     '0',0x82,2,'T','0',130,1,219,160,3,2,1,2,2,16,'g','t',157,141,'w',216,';',
@@ -5755,22 +5242,15 @@ HARICA_TLS_ECC_ROOT_CA_2021_BYTES_ ::= #[
 
 /**
 HARICA TLS ECC Root CA 2021.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 3f:99:cc:47:4a:cf:ce:4d:fe:d5:87:94:66:5e:47:8d:15:47:73:9f:2e:78:0f:1b:b4:ca:9b:13:30:97:d4:01
 Expiry: 2045-02-13
 Subject: CN=HARICA TLS ECC Root CA 2021 O=Hellenic Academic and Research Institutions CA
 */
-HARICA_TLS_ECC_ROOT_CA_2021 ::= parse_ HARICA_TLS_ECC_ROOT_CA_2021_BYTES_
-
-/**
-Installs the "HARICA TLS ECC Root CA 2021"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 3f:99:cc:47:4a:cf:ce:4d:fe:d5:87:94:66:5e:47:8d:15:47:73:9f:2e:78:0f:1b:b4:ca:9b:13:30:97:d4:01
-Expiry: 2045-02-13
-Subject: CN=HARICA TLS ECC Root CA 2021 O=Hellenic Academic and Research Institutions CA
-*/
-install_harica_tls_ecc_root_ca_2021 -> none:
-  tls.add_global_root_certificate HARICA_TLS_ECC_ROOT_CA_2021_BYTES_ 0xb28f5c42
+HARICA_TLS_ECC_ROOT_CA_2021 ::= tls.RootCertificate --fingerprint=0xb28f5c42 HARICA_TLS_ECC_ROOT_CA_2021_BYTES_
 
 HARICA_TLS_RSA_ROOT_CA_2021_BYTES_ ::= #[
     '0',0x82,5,0xa4,'0',130,3,140,160,3,2,1,2,2,16,'9',202,147,28,239,'C',243,
@@ -5852,22 +5332,15 @@ HARICA_TLS_RSA_ROOT_CA_2021_BYTES_ ::= #[
 
 /**
 HARICA TLS RSA Root CA 2021.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: d9:5d:0e:8e:da:79:52:5b:f9:be:b1:1b:14:d2:10:0d:32:94:98:5f:0c:62:d9:fa:bd:9c:d9:99:ec:cb:7b:1d
 Expiry: 2045-02-13
 Subject: CN=HARICA TLS RSA Root CA 2021 O=Hellenic Academic and Research Institutions CA
 */
-HARICA_TLS_RSA_ROOT_CA_2021 ::= parse_ HARICA_TLS_RSA_ROOT_CA_2021_BYTES_
-
-/**
-Installs the "HARICA TLS RSA Root CA 2021"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: d9:5d:0e:8e:da:79:52:5b:f9:be:b1:1b:14:d2:10:0d:32:94:98:5f:0c:62:d9:fa:bd:9c:d9:99:ec:cb:7b:1d
-Expiry: 2045-02-13
-Subject: CN=HARICA TLS RSA Root CA 2021 O=Hellenic Academic and Research Institutions CA
-*/
-install_harica_tls_rsa_root_ca_2021 -> none:
-  tls.add_global_root_certificate HARICA_TLS_RSA_ROOT_CA_2021_BYTES_ 0x0c5dc14b
+HARICA_TLS_RSA_ROOT_CA_2021 ::= tls.RootCertificate --fingerprint=0xc5dc14b HARICA_TLS_RSA_ROOT_CA_2021_BYTES_
 
 HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ECC_ROOTCA_2015_BYTES_ ::= #[
     '0',0x82,2,195,'0',130,2,'J',160,3,2,1,2,2,1,0,'0',10,6,8,'*',134,'H',206,
@@ -5911,22 +5384,15 @@ HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ECC_ROOTCA_2015_BYTES_ ::= #[
 
 /**
 Hellenic Academic and Research Institutions ECC RootCA 2015.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 44:b5:45:aa:8a:25:e6:5a:73:ca:15:dc:27:fc:36:d2:4c:1c:b9:95:3a:06:65:39:b1:15:82:dc:48:7b:48:33
 Expiry: 2040-06-30
 Subject: CN=Hellenic Academic and Research Institutions ECC RootCA 2015 O=Hellenic Academic and Research Institutions Cert. Authority
 */
-HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ECC_ROOTCA_2015 ::= parse_ HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ECC_ROOTCA_2015_BYTES_
-
-/**
-Installs the "Hellenic Academic and Research Institutions ECC RootCA 2015"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 44:b5:45:aa:8a:25:e6:5a:73:ca:15:dc:27:fc:36:d2:4c:1c:b9:95:3a:06:65:39:b1:15:82:dc:48:7b:48:33
-Expiry: 2040-06-30
-Subject: CN=Hellenic Academic and Research Institutions ECC RootCA 2015 O=Hellenic Academic and Research Institutions Cert. Authority
-*/
-install_hellenic_academic_and_research_institutions_ecc_rootca_2015 -> none:
-  tls.add_global_root_certificate HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ECC_ROOTCA_2015_BYTES_ 0x29d4953d
+HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ECC_ROOTCA_2015 ::= tls.RootCertificate --fingerprint=0x29d4953d HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ECC_ROOTCA_2015_BYTES_
 
 HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2011_BYTES_ ::= #[
     '0',0x82,4,'1','0',0x82,3,25,160,3,2,1,2,2,1,0,'0',13,6,9,'*',134,'H',134,
@@ -5989,18 +5455,14 @@ HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2011_BYTES_ ::= #[
 
 /**
 Hellenic Academic and Research Institutions RootCA 2011.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 Deprecated.  This certificate has expired.
 */
 HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2011 ::= HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2011_
-HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2011_ ::= parse_ HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2011_BYTES_
-
-/**
-Installs the "Hellenic Academic and Research Institutions RootCA 2011"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-*/
-install_hellenic_academic_and_research_institutions_rootca_2011 -> none:
-  tls.add_global_root_certificate HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2011_BYTES_ 0x686c10e4
+HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2011_ ::= tls.RootCertificate --fingerprint=0x686c10e4 HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2011_BYTES_
 
 HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2015_BYTES_ ::= #[
     '0',0x82,6,0xb,'0',130,3,243,160,3,2,1,2,2,1,0,'0',13,6,9,'*',134,'H',134,
@@ -6088,22 +5550,15 @@ HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2015_BYTES_ ::= #[
 
 /**
 Hellenic Academic and Research Institutions RootCA 2015.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: a0:40:92:9a:02:ce:53:b4:ac:f4:f2:ff:c6:98:1c:e4:49:6f:75:5e:6d:45:fe:0b:2a:69:2b:cd:52:52:3f:36
 Expiry: 2040-06-30
 Subject: CN=Hellenic Academic and Research Institutions RootCA 2015 O=Hellenic Academic and Research Institutions Cert. Authority
 */
-HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2015 ::= parse_ HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2015_BYTES_
-
-/**
-Installs the "Hellenic Academic and Research Institutions RootCA 2015"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: a0:40:92:9a:02:ce:53:b4:ac:f4:f2:ff:c6:98:1c:e4:49:6f:75:5e:6d:45:fe:0b:2a:69:2b:cd:52:52:3f:36
-Expiry: 2040-06-30
-Subject: CN=Hellenic Academic and Research Institutions RootCA 2015 O=Hellenic Academic and Research Institutions Cert. Authority
-*/
-install_hellenic_academic_and_research_institutions_rootca_2015 -> none:
-  tls.add_global_root_certificate HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2015_BYTES_ 0xcc54c2c5
+HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2015 ::= tls.RootCertificate --fingerprint=0xcc54c2c5 HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2015_BYTES_
 
 HIPKI_ROOT_CA_G1_BYTES_ ::= #[
     '0',0x82,5,'j','0',130,3,'R',160,3,2,1,2,2,16,'-',221,172,206,'b',151,148,
@@ -6183,22 +5638,15 @@ HIPKI_ROOT_CA_G1_BYTES_ ::= #[
 
 /**
 HiPKI Root CA - G1.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: f0:15:ce:3c:c2:39:bf:ef:06:4b:e9:f1:d2:c4:17:e1:a0:26:4a:0a:94:be:1f:0c:8d:12:18:64:eb:69:49:cc
 Expiry: 2037-12-31
 Subject: CN=HiPKI Root CA - G1 O=Chunghwa Telecom Co., Ltd.
 */
-HIPKI_ROOT_CA_G1 ::= parse_ HIPKI_ROOT_CA_G1_BYTES_
-
-/**
-Installs the "HiPKI Root CA - G1"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: f0:15:ce:3c:c2:39:bf:ef:06:4b:e9:f1:d2:c4:17:e1:a0:26:4a:0a:94:be:1f:0c:8d:12:18:64:eb:69:49:cc
-Expiry: 2037-12-31
-Subject: CN=HiPKI Root CA - G1 O=Chunghwa Telecom Co., Ltd.
-*/
-install_hipki_root_ca_g1 -> none:
-  tls.add_global_root_certificate HIPKI_ROOT_CA_G1_BYTES_ 0x99400911
+HIPKI_ROOT_CA_G1 ::= tls.RootCertificate --fingerprint=0x99400911 HIPKI_ROOT_CA_G1_BYTES_
 
 HONGKONG_POST_ROOT_CA_3_BYTES_ ::= #[
     '0',0x82,5,0xcf,'0',130,3,183,160,3,2,1,2,2,20,8,22,'_',138,'L',165,236,0,
@@ -6282,22 +5730,15 @@ HONGKONG_POST_ROOT_CA_3_BYTES_ ::= #[
 
 /**
 Hongkong Post Root CA 3.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 5a:2f:c0:3f:0c:83:b0:90:bb:fa:40:60:4b:09:88:44:6c:76:36:18:3d:f9:84:6e:17:10:1a:44:7f:b8:ef:d6
 Expiry: 2042-06-03
 Subject: CN=Hongkong Post Root CA 3 O=Hongkong Post
 */
-HONGKONG_POST_ROOT_CA_3 ::= parse_ HONGKONG_POST_ROOT_CA_3_BYTES_
-
-/**
-Installs the "Hongkong Post Root CA 3"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 5a:2f:c0:3f:0c:83:b0:90:bb:fa:40:60:4b:09:88:44:6c:76:36:18:3d:f9:84:6e:17:10:1a:44:7f:b8:ef:d6
-Expiry: 2042-06-03
-Subject: CN=Hongkong Post Root CA 3 O=Hongkong Post
-*/
-install_hongkong_post_root_ca_3 -> none:
-  tls.add_global_root_certificate HONGKONG_POST_ROOT_CA_3_BYTES_ 0x648ac2df
+HONGKONG_POST_ROOT_CA_3 ::= tls.RootCertificate --fingerprint=0x648ac2df HONGKONG_POST_ROOT_CA_3_BYTES_
 
 ISRG_ROOT_X1_BYTES_ ::= #[
     '0',130,5,'k','0',130,3,'S',160,3,2,1,2,2,17,0,130,16,207,176,210,'@',227,
@@ -6376,22 +5817,15 @@ ISRG_ROOT_X1_BYTES_ ::= #[
 
 /**
 ISRG Root X1.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 96:bc:ec:06:26:49:76:f3:74:60:77:9a:cf:28:c5:a7:cf:e8:a3:c0:aa:e1:1a:8f:fc:ee:05:c0:bd:df:08:c6
 Expiry: 2035-06-04
 Subject: CN=ISRG Root X1 O=Internet Security Research Group
 */
-ISRG_ROOT_X1 ::= parse_ ISRG_ROOT_X1_BYTES_
-
-/**
-Installs the "ISRG Root X1"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 96:bc:ec:06:26:49:76:f3:74:60:77:9a:cf:28:c5:a7:cf:e8:a3:c0:aa:e1:1a:8f:fc:ee:05:c0:bd:df:08:c6
-Expiry: 2035-06-04
-Subject: CN=ISRG Root X1 O=Internet Security Research Group
-*/
-install_isrg_root_x1 -> none:
-  tls.add_global_root_certificate ISRG_ROOT_X1_BYTES_ 0x9b39b5ab
+ISRG_ROOT_X1 ::= tls.RootCertificate --fingerprint=0x9b39b5ab ISRG_ROOT_X1_BYTES_
 
 ISRG_ROOT_X2_BYTES_ ::= #[
     '0',0x82,2,27,'0',0x82,1,161,160,3,2,1,2,2,16,'A',210,157,209,'r',234,238,
@@ -6426,22 +5860,15 @@ ISRG_ROOT_X2_BYTES_ ::= #[
 
 /**
 ISRG Root X2.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 69:72:9b:8e:15:a8:6e:fc:17:7a:57:af:b7:17:1d:fc:64:ad:d2:8c:2f:ca:8c:f1:50:7e:34:45:3c:cb:14:70
 Expiry: 2040-09-17
 Subject: CN=ISRG Root X2 O=Internet Security Research Group
 */
-ISRG_ROOT_X2 ::= parse_ ISRG_ROOT_X2_BYTES_
-
-/**
-Installs the "ISRG Root X2"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 69:72:9b:8e:15:a8:6e:fc:17:7a:57:af:b7:17:1d:fc:64:ad:d2:8c:2f:ca:8c:f1:50:7e:34:45:3c:cb:14:70
-Expiry: 2040-09-17
-Subject: CN=ISRG Root X2 O=Internet Security Research Group
-*/
-install_isrg_root_x2 -> none:
-  tls.add_global_root_certificate ISRG_ROOT_X2_BYTES_ 0x0230e411
+ISRG_ROOT_X2 ::= tls.RootCertificate --fingerprint=0x230e411 ISRG_ROOT_X2_BYTES_
 
 IDENTRUST_COMMERCIAL_ROOT_CA_1_BYTES_ ::= #[
     '0',0x82,5,'`','0',0x82,3,'H',160,3,2,1,2,2,16,10,1,'B',128,0,0,1,'E','#',
@@ -6520,22 +5947,15 @@ IDENTRUST_COMMERCIAL_ROOT_CA_1_BYTES_ ::= #[
 
 /**
 IdenTrust Commercial Root CA 1.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 5d:56:49:9b:e4:d2:e0:8b:cf:ca:d0:8a:3e:38:72:3d:50:50:3b:de:70:69:48:e4:2f:55:60:30:19:e5:28:ae
 Expiry: 2034-01-16
 Subject: CN=IdenTrust Commercial Root CA 1 O=IdenTrust
 */
-IDENTRUST_COMMERCIAL_ROOT_CA_1 ::= parse_ IDENTRUST_COMMERCIAL_ROOT_CA_1_BYTES_
-
-/**
-Installs the "IdenTrust Commercial Root CA 1"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 5d:56:49:9b:e4:d2:e0:8b:cf:ca:d0:8a:3e:38:72:3d:50:50:3b:de:70:69:48:e4:2f:55:60:30:19:e5:28:ae
-Expiry: 2034-01-16
-Subject: CN=IdenTrust Commercial Root CA 1 O=IdenTrust
-*/
-install_identrust_commercial_root_ca_1 -> none:
-  tls.add_global_root_certificate IDENTRUST_COMMERCIAL_ROOT_CA_1_BYTES_ 0x57d64dbc
+IDENTRUST_COMMERCIAL_ROOT_CA_1 ::= tls.RootCertificate --fingerprint=0x57d64dbc IDENTRUST_COMMERCIAL_ROOT_CA_1_BYTES_
 
 IDENTRUST_PUBLIC_SECTOR_ROOT_CA_1_BYTES_ ::= #[
     '0',0x82,5,'f','0',0x82,3,'N',160,3,2,1,2,2,16,10,1,'B',128,0,0,1,'E','#',
@@ -6614,22 +6034,15 @@ IDENTRUST_PUBLIC_SECTOR_ROOT_CA_1_BYTES_ ::= #[
 
 /**
 IdenTrust Public Sector Root CA 1.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 30:d0:89:5a:9a:44:8a:26:20:91:63:55:22:d1:f5:20:10:b5:86:7a:ca:e1:2c:78:ef:95:8f:d4:f4:38:9f:2f
 Expiry: 2034-01-16
 Subject: CN=IdenTrust Public Sector Root CA 1 O=IdenTrust
 */
-IDENTRUST_PUBLIC_SECTOR_ROOT_CA_1 ::= parse_ IDENTRUST_PUBLIC_SECTOR_ROOT_CA_1_BYTES_
-
-/**
-Installs the "IdenTrust Public Sector Root CA 1"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 30:d0:89:5a:9a:44:8a:26:20:91:63:55:22:d1:f5:20:10:b5:86:7a:ca:e1:2c:78:ef:95:8f:d4:f4:38:9f:2f
-Expiry: 2034-01-16
-Subject: CN=IdenTrust Public Sector Root CA 1 O=IdenTrust
-*/
-install_identrust_public_sector_root_ca_1 -> none:
-  tls.add_global_root_certificate IDENTRUST_PUBLIC_SECTOR_ROOT_CA_1_BYTES_ 0x32fbd1ac
+IDENTRUST_PUBLIC_SECTOR_ROOT_CA_1 ::= tls.RootCertificate --fingerprint=0x32fbd1ac IDENTRUST_PUBLIC_SECTOR_ROOT_CA_1_BYTES_
 
 IZENPE_COM_BYTES_ ::= #[
     '0',130,5,241,'0',130,3,217,160,3,2,1,2,2,16,0,176,183,'Z',22,'H','_',191,
@@ -6716,22 +6129,15 @@ IZENPE_COM_BYTES_ ::= #[
 
 /**
 Izenpe.com.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 25:30:cc:8e:98:32:15:02:ba:d9:6f:9b:1f:ba:1b:09:9e:2d:29:9e:0f:45:48:bb:91:4f:36:3b:c0:d4:53:1f
 Expiry: 2037-12-13
 Subject: CN=Izenpe.com O=IZENPE S.A.
 */
-IZENPE_COM ::= parse_ IZENPE_COM_BYTES_
-
-/**
-Installs the "Izenpe.com"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 25:30:cc:8e:98:32:15:02:ba:d9:6f:9b:1f:ba:1b:09:9e:2d:29:9e:0f:45:48:bb:91:4f:36:3b:c0:d4:53:1f
-Expiry: 2037-12-13
-Subject: CN=Izenpe.com O=IZENPE S.A.
-*/
-install_izenpe_com -> none:
-  tls.add_global_root_certificate IZENPE_COM_BYTES_ 0xeb91fff3
+IZENPE_COM ::= tls.RootCertificate --fingerprint=0xeb91fff3 IZENPE_COM_BYTES_
 
 MICROSEC_E_SZIGNO_ROOT_CA_2009_BYTES_ ::= #[
     '0',130,4,10,'0',130,2,242,160,3,2,1,2,2,9,0,194,'~','C',4,'N','G','?',25,
@@ -6791,22 +6197,15 @@ MICROSEC_E_SZIGNO_ROOT_CA_2009_BYTES_ ::= #[
 
 /**
 Microsec e-Szigno Root CA 2009.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 3c:5f:81:fe:a5:fa:b8:2c:64:bf:a2:ea:ec:af:cd:e8:e0:77:fc:86:20:a7:ca:e5:37:16:3d:f3:6e:db:f3:78
 Expiry: 2029-12-30
 Subject: CN=Microsec e-Szigno Root CA 2009 O=Microsec Ltd.
 */
-MICROSEC_E_SZIGNO_ROOT_CA_2009 ::= parse_ MICROSEC_E_SZIGNO_ROOT_CA_2009_BYTES_
-
-/**
-Installs the "Microsec e-Szigno Root CA 2009"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 3c:5f:81:fe:a5:fa:b8:2c:64:bf:a2:ea:ec:af:cd:e8:e0:77:fc:86:20:a7:ca:e5:37:16:3d:f3:6e:db:f3:78
-Expiry: 2029-12-30
-Subject: CN=Microsec e-Szigno Root CA 2009 O=Microsec Ltd.
-*/
-install_microsec_e_szigno_root_ca_2009 -> none:
-  tls.add_global_root_certificate MICROSEC_E_SZIGNO_ROOT_CA_2009_BYTES_ 0x021f2c0d
+MICROSEC_E_SZIGNO_ROOT_CA_2009 ::= tls.RootCertificate --fingerprint=0x21f2c0d MICROSEC_E_SZIGNO_ROOT_CA_2009_BYTES_
 
 MICROSOFT_ECC_ROOT_CERTIFICATE_AUTHORITY_2017_BYTES_ ::= #[
     '0',0x82,2,'Y','0',130,1,223,160,3,2,1,2,2,16,'f',242,'=',175,135,222,139,
@@ -6844,22 +6243,15 @@ MICROSOFT_ECC_ROOT_CERTIFICATE_AUTHORITY_2017_BYTES_ ::= #[
 
 /**
 Microsoft ECC Root Certificate Authority 2017.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 35:8d:f3:9d:76:4a:f9:e1:b7:66:e9:c9:72:df:35:2e:e1:5c:fa:c2:27:af:6a:d1:d7:0e:8e:4a:6e:dc:ba:02
 Expiry: 2042-07-18
 Subject: CN=Microsoft ECC Root Certificate Authority 2017 O=Microsoft Corporation
 */
-MICROSOFT_ECC_ROOT_CERTIFICATE_AUTHORITY_2017 ::= parse_ MICROSOFT_ECC_ROOT_CERTIFICATE_AUTHORITY_2017_BYTES_
-
-/**
-Installs the "Microsoft ECC Root Certificate Authority 2017"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 35:8d:f3:9d:76:4a:f9:e1:b7:66:e9:c9:72:df:35:2e:e1:5c:fa:c2:27:af:6a:d1:d7:0e:8e:4a:6e:dc:ba:02
-Expiry: 2042-07-18
-Subject: CN=Microsoft ECC Root Certificate Authority 2017 O=Microsoft Corporation
-*/
-install_microsoft_ecc_root_certificate_authority_2017 -> none:
-  tls.add_global_root_certificate MICROSOFT_ECC_ROOT_CERTIFICATE_AUTHORITY_2017_BYTES_ 0x2de2d637
+MICROSOFT_ECC_ROOT_CERTIFICATE_AUTHORITY_2017 ::= tls.RootCertificate --fingerprint=0x2de2d637 MICROSOFT_ECC_ROOT_CERTIFICATE_AUTHORITY_2017_BYTES_
 
 MICROSOFT_RSA_ROOT_CERTIFICATE_AUTHORITY_2017_BYTES_ ::= #[
     '0',130,5,168,'0',130,3,144,160,3,2,1,2,2,16,30,211,151,9,'_',216,180,179,
@@ -6942,22 +6334,15 @@ MICROSOFT_RSA_ROOT_CERTIFICATE_AUTHORITY_2017_BYTES_ ::= #[
 
 /**
 Microsoft RSA Root Certificate Authority 2017.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: c7:41:f7:0f:4b:2a:8d:88:bf:2e:71:c1:41:22:ef:53:ef:10:eb:a0:cf:a5:e6:4c:fa:20:f4:18:85:30:73:e0
 Expiry: 2042-07-18
 Subject: CN=Microsoft RSA Root Certificate Authority 2017 O=Microsoft Corporation
 */
-MICROSOFT_RSA_ROOT_CERTIFICATE_AUTHORITY_2017 ::= parse_ MICROSOFT_RSA_ROOT_CERTIFICATE_AUTHORITY_2017_BYTES_
-
-/**
-Installs the "Microsoft RSA Root Certificate Authority 2017"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: c7:41:f7:0f:4b:2a:8d:88:bf:2e:71:c1:41:22:ef:53:ef:10:eb:a0:cf:a5:e6:4c:fa:20:f4:18:85:30:73:e0
-Expiry: 2042-07-18
-Subject: CN=Microsoft RSA Root Certificate Authority 2017 O=Microsoft Corporation
-*/
-install_microsoft_rsa_root_certificate_authority_2017 -> none:
-  tls.add_global_root_certificate MICROSOFT_RSA_ROOT_CERTIFICATE_AUTHORITY_2017_BYTES_ 0x2902c782
+MICROSOFT_RSA_ROOT_CERTIFICATE_AUTHORITY_2017 ::= tls.RootCertificate --fingerprint=0x2902c782 MICROSOFT_RSA_ROOT_CERTIFICATE_AUTHORITY_2017_BYTES_
 
 NAVER_GLOBAL_ROOT_CERTIFICATION_AUTHORITY_BYTES_ ::= #[
     '0',0x82,5,162,'0',130,3,138,160,3,2,1,2,2,20,1,148,'0',30,162,11,221,245,
@@ -7040,22 +6425,15 @@ NAVER_GLOBAL_ROOT_CERTIFICATION_AUTHORITY_BYTES_ ::= #[
 
 /**
 NAVER Global Root Certification Authority.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 88:f4:38:dc:f8:ff:d1:fa:8f:42:91:15:ff:e5:f8:2a:e1:e0:6e:0c:70:c3:75:fa:ad:71:7b:34:a4:9e:72:65
 Expiry: 2037-08-18
 Subject: CN=NAVER Global Root Certification Authority O=NAVER BUSINESS PLATFORM Corp.
 */
-NAVER_GLOBAL_ROOT_CERTIFICATION_AUTHORITY ::= parse_ NAVER_GLOBAL_ROOT_CERTIFICATION_AUTHORITY_BYTES_
-
-/**
-Installs the "NAVER Global Root Certification Authority"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 88:f4:38:dc:f8:ff:d1:fa:8f:42:91:15:ff:e5:f8:2a:e1:e0:6e:0c:70:c3:75:fa:ad:71:7b:34:a4:9e:72:65
-Expiry: 2037-08-18
-Subject: CN=NAVER Global Root Certification Authority O=NAVER BUSINESS PLATFORM Corp.
-*/
-install_naver_global_root_certification_authority -> none:
-  tls.add_global_root_certificate NAVER_GLOBAL_ROOT_CERTIFICATION_AUTHORITY_BYTES_ 0x5fc6d805
+NAVER_GLOBAL_ROOT_CERTIFICATION_AUTHORITY ::= tls.RootCertificate --fingerprint=0x5fc6d805 NAVER_GLOBAL_ROOT_CERTIFICATION_AUTHORITY_BYTES_
 
 NETLOCK_ARANY_BYTES_ ::= #[
     '0',0x82,4,21,'0',130,2,253,160,3,2,1,2,2,6,'I','A',',',228,0,16,'0',13,6,
@@ -7116,22 +6494,15 @@ NETLOCK_ARANY_BYTES_ ::= #[
 
 /**
 NetLock Arany (Class Gold) Főtanúsítvány.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 6c:61:da:c3:a2:de:f0:31:50:6b:e0:36:d2:a6:fe:40:19:94:fb:d1:3d:f9:c8:d4:66:59:92:74:c4:46:ec:98
 Expiry: 2028-12-06
 Subject: CN=NetLock Arany (Class Gold) Főtanúsítvány O=NetLock Kft. OU=Tanúsítványkiadók (Certification Services)
 */
-NETLOCK_ARANY ::= parse_ NETLOCK_ARANY_BYTES_
-
-/**
-Installs the "NetLock Arany (Class Gold) Főtanúsítvány"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 6c:61:da:c3:a2:de:f0:31:50:6b:e0:36:d2:a6:fe:40:19:94:fb:d1:3d:f9:c8:d4:66:59:92:74:c4:46:ec:98
-Expiry: 2028-12-06
-Subject: CN=NetLock Arany (Class Gold) Főtanúsítvány O=NetLock Kft. OU=Tanúsítványkiadók (Certification Services)
-*/
-install_netlock_arany -> none:
-  tls.add_global_root_certificate NETLOCK_ARANY_BYTES_ 0xf448da4c
+NETLOCK_ARANY ::= tls.RootCertificate --fingerprint=0xf448da4c NETLOCK_ARANY_BYTES_
 
 NETWORK_SOLUTIONS_CERTIFICATE_AUTHORITY_BYTES_ ::= #[
     '0',0x82,0x3,230,'0',130,2,206,160,3,2,1,2,2,16,'W',203,'3','o',194,92,22,
@@ -7190,18 +6561,14 @@ NETWORK_SOLUTIONS_CERTIFICATE_AUTHORITY_BYTES_ ::= #[
 
 /**
 Network Solutions Certificate Authority.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 Deprecated.  This certificate has expired.
 */
 NETWORK_SOLUTIONS_CERTIFICATE_AUTHORITY ::= NETWORK_SOLUTIONS_CERTIFICATE_AUTHORITY_
-NETWORK_SOLUTIONS_CERTIFICATE_AUTHORITY_ ::= parse_ NETWORK_SOLUTIONS_CERTIFICATE_AUTHORITY_BYTES_
-
-/**
-Installs the "Network Solutions Certificate Authority"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-*/
-install_network_solutions_certificate_authority -> none:
-  tls.add_global_root_certificate NETWORK_SOLUTIONS_CERTIFICATE_AUTHORITY_BYTES_ 0x9f855a43
+NETWORK_SOLUTIONS_CERTIFICATE_AUTHORITY_ ::= tls.RootCertificate --fingerprint=0x9f855a43 NETWORK_SOLUTIONS_CERTIFICATE_AUTHORITY_BYTES_
 
 OISTE_WISEKEY_GLOBAL_ROOT_GB_CA_BYTES_ ::= #[
     '0',0x82,3,181,'0',130,2,157,160,3,2,1,2,2,16,'v',177,' ','R','t',240,133,
@@ -7257,22 +6624,15 @@ OISTE_WISEKEY_GLOBAL_ROOT_GB_CA_BYTES_ ::= #[
 
 /**
 OISTE WISeKey Global Root GB CA.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 6b:9c:08:e8:6e:b0:f7:67:cf:ad:65:cd:98:b6:21:49:e5:49:4a:67:f5:84:5e:7b:d1:ed:01:9f:27:b8:6b:d6
 Expiry: 2039-12-01
 Subject: CN=OISTE WISeKey Global Root GB CA O=WISeKey OU=OISTE Foundation Endorsed
 */
-OISTE_WISEKEY_GLOBAL_ROOT_GB_CA ::= parse_ OISTE_WISEKEY_GLOBAL_ROOT_GB_CA_BYTES_
-
-/**
-Installs the "OISTE WISeKey Global Root GB CA"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 6b:9c:08:e8:6e:b0:f7:67:cf:ad:65:cd:98:b6:21:49:e5:49:4a:67:f5:84:5e:7b:d1:ed:01:9f:27:b8:6b:d6
-Expiry: 2039-12-01
-Subject: CN=OISTE WISeKey Global Root GB CA O=WISeKey OU=OISTE Foundation Endorsed
-*/
-install_oiste_wisekey_global_root_gb_ca -> none:
-  tls.add_global_root_certificate OISTE_WISEKEY_GLOBAL_ROOT_GB_CA_BYTES_ 0x130146a4
+OISTE_WISEKEY_GLOBAL_ROOT_GB_CA ::= tls.RootCertificate --fingerprint=0x130146a4 OISTE_WISEKEY_GLOBAL_ROOT_GB_CA_BYTES_
 
 OISTE_WISEKEY_GLOBAL_ROOT_GC_CA_BYTES_ ::= #[
     '0',0x82,0x2,'i','0',130,1,239,160,3,2,1,2,2,16,'!','*','V',12,174,218,12,
@@ -7311,22 +6671,15 @@ OISTE_WISEKEY_GLOBAL_ROOT_GC_CA_BYTES_ ::= #[
 
 /**
 OISTE WISeKey Global Root GC CA.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 85:60:f9:1c:36:24:da:ba:95:70:b5:fe:a0:db:e3:6f:f1:1a:83:23:be:94:86:85:4f:b3:f3:4a:55:71:19:8d
 Expiry: 2042-05-09
 Subject: CN=OISTE WISeKey Global Root GC CA O=WISeKey OU=OISTE Foundation Endorsed
 */
-OISTE_WISEKEY_GLOBAL_ROOT_GC_CA ::= parse_ OISTE_WISEKEY_GLOBAL_ROOT_GC_CA_BYTES_
-
-/**
-Installs the "OISTE WISeKey Global Root GC CA"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 85:60:f9:1c:36:24:da:ba:95:70:b5:fe:a0:db:e3:6f:f1:1a:83:23:be:94:86:85:4f:b3:f3:4a:55:71:19:8d
-Expiry: 2042-05-09
-Subject: CN=OISTE WISeKey Global Root GC CA O=WISeKey OU=OISTE Foundation Endorsed
-*/
-install_oiste_wisekey_global_root_gc_ca -> none:
-  tls.add_global_root_certificate OISTE_WISEKEY_GLOBAL_ROOT_GC_CA_BYTES_ 0xabbd21c1
+OISTE_WISEKEY_GLOBAL_ROOT_GC_CA ::= tls.RootCertificate --fingerprint=0xabbd21c1 OISTE_WISEKEY_GLOBAL_ROOT_GC_CA_BYTES_
 
 QUOVADIS_ROOT_CA_1_G3_BYTES_ ::= #[
     '0',0x82,5,'`','0',0x82,3,'H',160,3,2,1,2,2,20,'x','X','_','.',173,',',25,
@@ -7405,22 +6758,15 @@ QUOVADIS_ROOT_CA_1_G3_BYTES_ ::= #[
 
 /**
 QuoVadis Root CA 1 G3.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 8a:86:6f:d1:b2:76:b5:7e:57:8e:92:1c:65:82:8a:2b:ed:58:e9:f2:f2:88:05:41:34:b7:f1:f4:bf:c9:cc:74
 Expiry: 2042-01-12
 Subject: CN=QuoVadis Root CA 1 G3 O=QuoVadis Limited
 */
-QUOVADIS_ROOT_CA_1_G3 ::= parse_ QUOVADIS_ROOT_CA_1_G3_BYTES_
-
-/**
-Installs the "QuoVadis Root CA 1 G3"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 8a:86:6f:d1:b2:76:b5:7e:57:8e:92:1c:65:82:8a:2b:ed:58:e9:f2:f2:88:05:41:34:b7:f1:f4:bf:c9:cc:74
-Expiry: 2042-01-12
-Subject: CN=QuoVadis Root CA 1 G3 O=QuoVadis Limited
-*/
-install_quovadis_root_ca_1_g3 -> none:
-  tls.add_global_root_certificate QUOVADIS_ROOT_CA_1_G3_BYTES_ 0x91d63210
+QUOVADIS_ROOT_CA_1_G3 ::= tls.RootCertificate --fingerprint=0x91d63210 QUOVADIS_ROOT_CA_1_G3_BYTES_
 
 QUOVADIS_ROOT_CA_2_BYTES_ ::= #[
     '0',0x82,0x5,183,'0',130,3,159,160,3,2,1,2,2,2,5,9,'0',13,6,9,'*',134,'H',
@@ -7503,22 +6849,15 @@ QUOVADIS_ROOT_CA_2_BYTES_ ::= #[
 
 /**
 QuoVadis Root CA 2.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 85:a0:dd:7d:d7:20:ad:b7:ff:05:f8:3d:54:2b:20:9d:c7:ff:45:28:f7:d6:77:b1:83:89:fe:a5:e5:c4:9e:86
 Expiry: 2031-11-24
 Subject: CN=QuoVadis Root CA 2 O=QuoVadis Limited
 */
-QUOVADIS_ROOT_CA_2 ::= parse_ QUOVADIS_ROOT_CA_2_BYTES_
-
-/**
-Installs the "QuoVadis Root CA 2"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 85:a0:dd:7d:d7:20:ad:b7:ff:05:f8:3d:54:2b:20:9d:c7:ff:45:28:f7:d6:77:b1:83:89:fe:a5:e5:c4:9e:86
-Expiry: 2031-11-24
-Subject: CN=QuoVadis Root CA 2 O=QuoVadis Limited
-*/
-install_quovadis_root_ca_2 -> none:
-  tls.add_global_root_certificate QUOVADIS_ROOT_CA_2_BYTES_ 0x2a86446c
+QUOVADIS_ROOT_CA_2 ::= tls.RootCertificate --fingerprint=0x2a86446c QUOVADIS_ROOT_CA_2_BYTES_
 
 QUOVADIS_ROOT_CA_2_G3_BYTES_ ::= #[
     '0',0x82,5,'`','0',130,3,'H',160,3,2,1,2,2,20,'D','W','4','$','[',129,137,
@@ -7597,22 +6936,15 @@ QUOVADIS_ROOT_CA_2_G3_BYTES_ ::= #[
 
 /**
 QuoVadis Root CA 2 G3.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 8f:e4:fb:0a:f9:3a:4d:0d:67:db:0b:eb:b2:3e:37:c7:1b:f3:25:dc:bc:dd:24:0e:a0:4d:af:58:b4:7e:18:40
 Expiry: 2042-01-12
 Subject: CN=QuoVadis Root CA 2 G3 O=QuoVadis Limited
 */
-QUOVADIS_ROOT_CA_2_G3 ::= parse_ QUOVADIS_ROOT_CA_2_G3_BYTES_
-
-/**
-Installs the "QuoVadis Root CA 2 G3"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 8f:e4:fb:0a:f9:3a:4d:0d:67:db:0b:eb:b2:3e:37:c7:1b:f3:25:dc:bc:dd:24:0e:a0:4d:af:58:b4:7e:18:40
-Expiry: 2042-01-12
-Subject: CN=QuoVadis Root CA 2 G3 O=QuoVadis Limited
-*/
-install_quovadis_root_ca_2_g3 -> none:
-  tls.add_global_root_certificate QUOVADIS_ROOT_CA_2_G3_BYTES_ 0x83639dfe
+QUOVADIS_ROOT_CA_2_G3 ::= tls.RootCertificate --fingerprint=0x83639dfe QUOVADIS_ROOT_CA_2_G3_BYTES_
 
 QUOVADIS_ROOT_CA_3_BYTES_ ::= #[
     '0',0x82,6,157,'0',130,4,133,160,3,2,1,2,2,2,5,198,'0',13,6,9,'*',134,'H',
@@ -7707,22 +7039,15 @@ QUOVADIS_ROOT_CA_3_BYTES_ ::= #[
 
 /**
 QuoVadis Root CA 3.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 18:f1:fc:7f:20:5d:f8:ad:dd:eb:7f:e0:07:dd:57:e3:af:37:5a:9c:4d:8d:73:54:6b:f4:f1:fe:d1:e1:8d:35
 Expiry: 2031-11-24
 Subject: CN=QuoVadis Root CA 3 O=QuoVadis Limited
 */
-QUOVADIS_ROOT_CA_3 ::= parse_ QUOVADIS_ROOT_CA_3_BYTES_
-
-/**
-Installs the "QuoVadis Root CA 3"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 18:f1:fc:7f:20:5d:f8:ad:dd:eb:7f:e0:07:dd:57:e3:af:37:5a:9c:4d:8d:73:54:6b:f4:f1:fe:d1:e1:8d:35
-Expiry: 2031-11-24
-Subject: CN=QuoVadis Root CA 3 O=QuoVadis Limited
-*/
-install_quovadis_root_ca_3 -> none:
-  tls.add_global_root_certificate QUOVADIS_ROOT_CA_3_BYTES_ 0x5d8174fa
+QUOVADIS_ROOT_CA_3 ::= tls.RootCertificate --fingerprint=0x5d8174fa QUOVADIS_ROOT_CA_3_BYTES_
 
 QUOVADIS_ROOT_CA_3_G3_BYTES_ ::= #[
     '0',0x82,0x5,'`','0',130,3,'H',160,3,2,1,2,2,20,'.',245,155,2,'(',167,219,
@@ -7801,22 +7126,15 @@ QUOVADIS_ROOT_CA_3_G3_BYTES_ ::= #[
 
 /**
 QuoVadis Root CA 3 G3.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 88:ef:81:de:20:2e:b0:18:45:2e:43:f8:64:72:5c:ea:5f:bd:1f:c2:d9:d2:05:73:07:09:c5:d8:b8:69:0f:46
 Expiry: 2042-01-12
 Subject: CN=QuoVadis Root CA 3 G3 O=QuoVadis Limited
 */
-QUOVADIS_ROOT_CA_3_G3 ::= parse_ QUOVADIS_ROOT_CA_3_G3_BYTES_
-
-/**
-Installs the "QuoVadis Root CA 3 G3"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 88:ef:81:de:20:2e:b0:18:45:2e:43:f8:64:72:5c:ea:5f:bd:1f:c2:d9:d2:05:73:07:09:c5:d8:b8:69:0f:46
-Expiry: 2042-01-12
-Subject: CN=QuoVadis Root CA 3 G3 O=QuoVadis Limited
-*/
-install_quovadis_root_ca_3_g3 -> none:
-  tls.add_global_root_certificate QUOVADIS_ROOT_CA_3_G3_BYTES_ 0x3bdffa9b
+QUOVADIS_ROOT_CA_3_G3 ::= tls.RootCertificate --fingerprint=0x3bdffa9b QUOVADIS_ROOT_CA_3_G3_BYTES_
 
 SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_ECC_BYTES_ ::= #[
     '0',0x82,2,0x94,'0',130,2,26,160,3,2,1,2,2,8,',',')',156,'[',22,237,5,149,
@@ -7857,22 +7175,15 @@ SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_ECC_BYTES_ ::= #[
 
 /**
 SSL.com EV Root Certification Authority ECC.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 22:a2:c1:f7:bd:ed:70:4c:c1:e7:01:b5:f4:08:c3:10:88:0f:e9:56:b5:de:2a:4a:44:f9:9c:87:3a:25:a7:c8
 Expiry: 2041-02-12
 Subject: CN=SSL.com EV Root Certification Authority ECC O=SSL Corporation
 */
-SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_ECC ::= parse_ SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_ECC_BYTES_
-
-/**
-Installs the "SSL.com EV Root Certification Authority ECC"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 22:a2:c1:f7:bd:ed:70:4c:c1:e7:01:b5:f4:08:c3:10:88:0f:e9:56:b5:de:2a:4a:44:f9:9c:87:3a:25:a7:c8
-Expiry: 2041-02-12
-Subject: CN=SSL.com EV Root Certification Authority ECC O=SSL Corporation
-*/
-install_ssl_com_ev_root_certification_authority_ecc -> none:
-  tls.add_global_root_certificate SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_ECC_BYTES_ 0xcb57c474
+SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_ECC ::= tls.RootCertificate --fingerprint=0xcb57c474 SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_ECC_BYTES_
 
 SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_RSA_R2_BYTES_ ::= #[
     '0',0x82,5,0xeb,'0',130,3,211,160,3,2,1,2,2,8,'V',182,')',205,'4',188,'x',
@@ -7957,22 +7268,15 @@ SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_RSA_R2_BYTES_ ::= #[
 
 /**
 SSL.com EV Root Certification Authority RSA R2.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 2e:7b:f1:6c:c2:24:85:a7:bb:e2:aa:86:96:75:07:61:b0:ae:39:be:3b:2f:e9:d0:cc:6d:4e:f7:34:91:42:5c
 Expiry: 2042-05-30
 Subject: CN=SSL.com EV Root Certification Authority RSA R2 O=SSL Corporation
 */
-SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_RSA_R2 ::= parse_ SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_RSA_R2_BYTES_
-
-/**
-Installs the "SSL.com EV Root Certification Authority RSA R2"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 2e:7b:f1:6c:c2:24:85:a7:bb:e2:aa:86:96:75:07:61:b0:ae:39:be:3b:2f:e9:d0:cc:6d:4e:f7:34:91:42:5c
-Expiry: 2042-05-30
-Subject: CN=SSL.com EV Root Certification Authority RSA R2 O=SSL Corporation
-*/
-install_ssl_com_ev_root_certification_authority_rsa_r2 -> none:
-  tls.add_global_root_certificate SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_RSA_R2_BYTES_ 0xcf89ae76
+SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_RSA_R2 ::= tls.RootCertificate --fingerprint=0xcf89ae76 SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_RSA_R2_BYTES_
 
 SSL_COM_ROOT_CERTIFICATION_AUTHORITY_ECC_BYTES_ ::= #[
     '0',0x82,0x2,141,'0',130,2,20,160,3,2,1,2,2,8,'u',230,223,203,193,'h','[',
@@ -8012,22 +7316,15 @@ SSL_COM_ROOT_CERTIFICATION_AUTHORITY_ECC_BYTES_ ::= #[
 
 /**
 SSL.com Root Certification Authority ECC.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 34:17:bb:06:cc:60:07:da:1b:96:1c:92:0b:8a:b4:ce:3f:ad:82:0e:4a:a3:0b:9a:cb:c4:a7:4e:bd:ce:bc:65
 Expiry: 2041-02-12
 Subject: CN=SSL.com Root Certification Authority ECC O=SSL Corporation
 */
-SSL_COM_ROOT_CERTIFICATION_AUTHORITY_ECC ::= parse_ SSL_COM_ROOT_CERTIFICATION_AUTHORITY_ECC_BYTES_
-
-/**
-Installs the "SSL.com Root Certification Authority ECC"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 34:17:bb:06:cc:60:07:da:1b:96:1c:92:0b:8a:b4:ce:3f:ad:82:0e:4a:a3:0b:9a:cb:c4:a7:4e:bd:ce:bc:65
-Expiry: 2041-02-12
-Subject: CN=SSL.com Root Certification Authority ECC O=SSL Corporation
-*/
-install_ssl_com_root_certification_authority_ecc -> none:
-  tls.add_global_root_certificate SSL_COM_ROOT_CERTIFICATION_AUTHORITY_ECC_BYTES_ 0x8662ab72
+SSL_COM_ROOT_CERTIFICATION_AUTHORITY_ECC ::= tls.RootCertificate --fingerprint=0x8662ab72 SSL_COM_ROOT_CERTIFICATION_AUTHORITY_ECC_BYTES_
 
 SSL_COM_ROOT_CERTIFICATION_AUTHORITY_RSA_BYTES_ ::= #[
     '0',0x82,0x5,221,'0',130,3,197,160,3,2,1,2,2,8,'{',',',155,211,22,128,'2',
@@ -8112,22 +7409,15 @@ SSL_COM_ROOT_CERTIFICATION_AUTHORITY_RSA_BYTES_ ::= #[
 
 /**
 SSL.com Root Certification Authority RSA.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 85:66:6a:56:2e:e0:be:5c:e9:25:c1:d8:89:0a:6f:76:a8:7e:c1:6d:4d:7d:5f:29:ea:74:19:cf:20:12:3b:69
 Expiry: 2041-02-12
 Subject: CN=SSL.com Root Certification Authority RSA O=SSL Corporation
 */
-SSL_COM_ROOT_CERTIFICATION_AUTHORITY_RSA ::= parse_ SSL_COM_ROOT_CERTIFICATION_AUTHORITY_RSA_BYTES_
-
-/**
-Installs the "SSL.com Root Certification Authority RSA"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 85:66:6a:56:2e:e0:be:5c:e9:25:c1:d8:89:0a:6f:76:a8:7e:c1:6d:4d:7d:5f:29:ea:74:19:cf:20:12:3b:69
-Expiry: 2041-02-12
-Subject: CN=SSL.com Root Certification Authority RSA O=SSL Corporation
-*/
-install_ssl_com_root_certification_authority_rsa -> none:
-  tls.add_global_root_certificate SSL_COM_ROOT_CERTIFICATION_AUTHORITY_RSA_BYTES_ 0x3bc76dfa
+SSL_COM_ROOT_CERTIFICATION_AUTHORITY_RSA ::= tls.RootCertificate --fingerprint=0x3bc76dfa SSL_COM_ROOT_CERTIFICATION_AUTHORITY_RSA_BYTES_
 
 SSL_COM_TLS_ECC_ROOT_CA_2022_BYTES_ ::= #[
     '0',0x82,2,':','0',130,1,192,160,3,2,1,2,2,16,20,3,245,171,251,'7',139,23,
@@ -8164,22 +7454,15 @@ SSL_COM_TLS_ECC_ROOT_CA_2022_BYTES_ ::= #[
 
 /**
 SSL.com TLS ECC Root CA 2022.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: c3:2f:fd:9f:46:f9:36:d1:6c:36:73:99:09:59:43:4b:9a:d6:0a:af:bb:9e:7c:f3:36:54:f1:44:cc:1b:a1:43
 Expiry: 2046-08-19
 Subject: CN=SSL.com TLS ECC Root CA 2022 O=SSL Corporation
 */
-SSL_COM_TLS_ECC_ROOT_CA_2022 ::= parse_ SSL_COM_TLS_ECC_ROOT_CA_2022_BYTES_
-
-/**
-Installs the "SSL.com TLS ECC Root CA 2022"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: c3:2f:fd:9f:46:f9:36:d1:6c:36:73:99:09:59:43:4b:9a:d6:0a:af:bb:9e:7c:f3:36:54:f1:44:cc:1b:a1:43
-Expiry: 2046-08-19
-Subject: CN=SSL.com TLS ECC Root CA 2022 O=SSL Corporation
-*/
-install_ssl_com_tls_ecc_root_ca_2022 -> none:
-  tls.add_global_root_certificate SSL_COM_TLS_ECC_ROOT_CA_2022_BYTES_ 0xbaa51d0b
+SSL_COM_TLS_ECC_ROOT_CA_2022 ::= tls.RootCertificate --fingerprint=0xbaa51d0b SSL_COM_TLS_ECC_ROOT_CA_2022_BYTES_
 
 SSL_COM_TLS_RSA_ROOT_CA_2022_BYTES_ ::= #[
     '0',0x82,0x5,137,'0',130,3,'q',160,3,2,1,2,2,16,'o',190,218,173,'s',189,8,
@@ -8260,22 +7543,15 @@ SSL_COM_TLS_RSA_ROOT_CA_2022_BYTES_ ::= #[
 
 /**
 SSL.com TLS RSA Root CA 2022.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 8f:af:7d:2e:2c:b4:70:9b:b8:e0:b3:36:66:bf:75:a5:dd:45:b5:de:48:0f:8e:a8:d4:bf:e6:be:bc:17:f2:ed
 Expiry: 2046-08-19
 Subject: CN=SSL.com TLS RSA Root CA 2022 O=SSL Corporation
 */
-SSL_COM_TLS_RSA_ROOT_CA_2022 ::= parse_ SSL_COM_TLS_RSA_ROOT_CA_2022_BYTES_
-
-/**
-Installs the "SSL.com TLS RSA Root CA 2022"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 8f:af:7d:2e:2c:b4:70:9b:b8:e0:b3:36:66:bf:75:a5:dd:45:b5:de:48:0f:8e:a8:d4:bf:e6:be:bc:17:f2:ed
-Expiry: 2046-08-19
-Subject: CN=SSL.com TLS RSA Root CA 2022 O=SSL Corporation
-*/
-install_ssl_com_tls_rsa_root_ca_2022 -> none:
-  tls.add_global_root_certificate SSL_COM_TLS_RSA_ROOT_CA_2022_BYTES_ 0x04778002
+SSL_COM_TLS_RSA_ROOT_CA_2022 ::= tls.RootCertificate --fingerprint=0x4778002 SSL_COM_TLS_RSA_ROOT_CA_2022_BYTES_
 
 SZAFIR_ROOT_CA2_BYTES_ ::= #[
     '0',0x82,0x3,'r','0',130,2,'Z',160,3,2,1,2,2,20,'>',138,']',7,236,'U',210,
@@ -8328,22 +7604,15 @@ SZAFIR_ROOT_CA2_BYTES_ ::= #[
 
 /**
 SZAFIR ROOT CA2.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: a1:33:9d:33:28:1a:0b:56:e5:57:d3:d3:2b:1c:e7:f9:36:7e:b0:94:bd:5f:a7:2a:7e:50:04:c8:de:d7:ca:fe
 Expiry: 2035-10-19
 Subject: CN=SZAFIR ROOT CA2 O=Krajowa Izba Rozliczeniowa S.A.
 */
-SZAFIR_ROOT_CA2 ::= parse_ SZAFIR_ROOT_CA2_BYTES_
-
-/**
-Installs the "SZAFIR ROOT CA2"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: a1:33:9d:33:28:1a:0b:56:e5:57:d3:d3:2b:1c:e7:f9:36:7e:b0:94:bd:5f:a7:2a:7e:50:04:c8:de:d7:ca:fe
-Expiry: 2035-10-19
-Subject: CN=SZAFIR ROOT CA2 O=Krajowa Izba Rozliczeniowa S.A.
-*/
-install_szafir_root_ca2 -> none:
-  tls.add_global_root_certificate SZAFIR_ROOT_CA2_BYTES_ 0xb38c14e9
+SZAFIR_ROOT_CA2 ::= tls.RootCertificate --fingerprint=0xb38c14e9 SZAFIR_ROOT_CA2_BYTES_
 
 SECTIGO_PUBLIC_SERVER_AUTHENTICATION_ROOT_E46_BYTES_ ::= #[
     '0',0x82,2,':','0',0x82,1,193,160,3,2,1,2,2,16,'B',242,204,218,27,'i','7',
@@ -8380,22 +7649,15 @@ SECTIGO_PUBLIC_SERVER_AUTHENTICATION_ROOT_E46_BYTES_ ::= #[
 
 /**
 Sectigo Public Server Authentication Root E46.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: c9:0f:26:f0:fb:1b:40:18:b2:22:27:51:9b:5c:a2:b5:3e:2c:a5:b3:be:5c:f1:8e:fe:1b:ef:47:38:0c:53:83
 Expiry: 2046-03-21
 Subject: CN=Sectigo Public Server Authentication Root E46 O=Sectigo Limited
 */
-SECTIGO_PUBLIC_SERVER_AUTHENTICATION_ROOT_E46 ::= parse_ SECTIGO_PUBLIC_SERVER_AUTHENTICATION_ROOT_E46_BYTES_
-
-/**
-Installs the "Sectigo Public Server Authentication Root E46"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: c9:0f:26:f0:fb:1b:40:18:b2:22:27:51:9b:5c:a2:b5:3e:2c:a5:b3:be:5c:f1:8e:fe:1b:ef:47:38:0c:53:83
-Expiry: 2046-03-21
-Subject: CN=Sectigo Public Server Authentication Root E46 O=Sectigo Limited
-*/
-install_sectigo_public_server_authentication_root_e46 -> none:
-  tls.add_global_root_certificate SECTIGO_PUBLIC_SERVER_AUTHENTICATION_ROOT_E46_BYTES_ 0x72788986
+SECTIGO_PUBLIC_SERVER_AUTHENTICATION_ROOT_E46 ::= tls.RootCertificate --fingerprint=0x72788986 SECTIGO_PUBLIC_SERVER_AUTHENTICATION_ROOT_E46_BYTES_
 
 SECTIGO_PUBLIC_SERVER_AUTHENTICATION_ROOT_R46_BYTES_ ::= #[
     '0',0x82,5,138,'0',130,3,'r',160,3,2,1,2,2,16,'u',141,253,139,174,'|',7,0,
@@ -8476,22 +7738,15 @@ SECTIGO_PUBLIC_SERVER_AUTHENTICATION_ROOT_R46_BYTES_ ::= #[
 
 /**
 Sectigo Public Server Authentication Root R46.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 7b:b6:47:a6:2a:ee:ac:88:bf:25:7a:a5:22:d0:1f:fe:a3:95:e0:ab:45:c7:3f:93:f6:56:54:ec:38:f2:5a:06
 Expiry: 2046-03-21
 Subject: CN=Sectigo Public Server Authentication Root R46 O=Sectigo Limited
 */
-SECTIGO_PUBLIC_SERVER_AUTHENTICATION_ROOT_R46 ::= parse_ SECTIGO_PUBLIC_SERVER_AUTHENTICATION_ROOT_R46_BYTES_
-
-/**
-Installs the "Sectigo Public Server Authentication Root R46"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 7b:b6:47:a6:2a:ee:ac:88:bf:25:7a:a5:22:d0:1f:fe:a3:95:e0:ab:45:c7:3f:93:f6:56:54:ec:38:f2:5a:06
-Expiry: 2046-03-21
-Subject: CN=Sectigo Public Server Authentication Root R46 O=Sectigo Limited
-*/
-install_sectigo_public_server_authentication_root_r46 -> none:
-  tls.add_global_root_certificate SECTIGO_PUBLIC_SERVER_AUTHENTICATION_ROOT_R46_BYTES_ 0x6b113c73
+SECTIGO_PUBLIC_SERVER_AUTHENTICATION_ROOT_R46 ::= tls.RootCertificate --fingerprint=0x6b113c73 SECTIGO_PUBLIC_SERVER_AUTHENTICATION_ROOT_R46_BYTES_
 
 SECURE_GLOBAL_CA_BYTES_ ::= #[
     '0',0x82,0x3,188,'0',130,2,164,160,3,2,1,2,2,16,7,'V','"',164,232,212,138,
@@ -8547,22 +7802,15 @@ SECURE_GLOBAL_CA_BYTES_ ::= #[
 
 /**
 Secure Global CA.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 42:00:f5:04:3a:c8:59:0e:bb:52:7d:20:9e:d1:50:30:29:fb:cb:d4:1c:a1:b5:06:ec:27:f1:5a:de:7d:ac:69
 Expiry: 2029-12-31
 Subject: CN=Secure Global CA O=SecureTrust Corporation
 */
-SECURE_GLOBAL_CA ::= parse_ SECURE_GLOBAL_CA_BYTES_
-
-/**
-Installs the "Secure Global CA"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 42:00:f5:04:3a:c8:59:0e:bb:52:7d:20:9e:d1:50:30:29:fb:cb:d4:1c:a1:b5:06:ec:27:f1:5a:de:7d:ac:69
-Expiry: 2029-12-31
-Subject: CN=Secure Global CA O=SecureTrust Corporation
-*/
-install_secure_global_ca -> none:
-  tls.add_global_root_certificate SECURE_GLOBAL_CA_BYTES_ 0x4eaace5a
+SECURE_GLOBAL_CA ::= tls.RootCertificate --fingerprint=0x4eaace5a SECURE_GLOBAL_CA_BYTES_
 
 SECURESIGN_ROOTCA11_BYTES_ ::= #[
     '0',0x82,3,'m','0',130,2,'U',160,3,2,1,2,2,1,1,'0',13,6,9,'*',134,'H',134,
@@ -8614,22 +7862,15 @@ SECURESIGN_ROOTCA11_BYTES_ ::= #[
 
 /**
 SecureSign RootCA11.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: bf:0f:ee:fb:9e:3a:58:1a:d5:f9:e9:db:75:89:98:57:43:d2:61:08:5c:4d:31:4f:6f:5d:72:59:aa:42:16:12
 Expiry: 2029-04-08
 Subject: CN=SecureSign RootCA11 O=Japan Certification Services, Inc.
 */
-SECURESIGN_ROOTCA11 ::= parse_ SECURESIGN_ROOTCA11_BYTES_
-
-/**
-Installs the "SecureSign RootCA11"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: bf:0f:ee:fb:9e:3a:58:1a:d5:f9:e9:db:75:89:98:57:43:d2:61:08:5c:4d:31:4f:6f:5d:72:59:aa:42:16:12
-Expiry: 2029-04-08
-Subject: CN=SecureSign RootCA11 O=Japan Certification Services, Inc.
-*/
-install_securesign_rootca11 -> none:
-  tls.add_global_root_certificate SECURESIGN_ROOTCA11_BYTES_ 0x04d42f05
+SECURESIGN_ROOTCA11 ::= tls.RootCertificate --fingerprint=0x4d42f05 SECURESIGN_ROOTCA11_BYTES_
 
 SECURETRUST_CA_BYTES_ ::= #[
     '0',0x82,3,0xb8,'0',130,2,160,160,3,2,1,2,2,16,12,240,142,92,8,22,165,173,
@@ -8685,22 +7926,15 @@ SECURETRUST_CA_BYTES_ ::= #[
 
 /**
 SecureTrust CA.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: f1:c1:b5:0a:e5:a2:0d:d8:03:0e:c9:f6:bc:24:82:3d:d3:67:b5:25:57:59:b4:e7:1b:61:fc:e9:f7:37:5d:73
 Expiry: 2029-12-31
 Subject: CN=SecureTrust CA O=SecureTrust Corporation
 */
-SECURETRUST_CA ::= parse_ SECURETRUST_CA_BYTES_
-
-/**
-Installs the "SecureTrust CA"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: f1:c1:b5:0a:e5:a2:0d:d8:03:0e:c9:f6:bc:24:82:3d:d3:67:b5:25:57:59:b4:e7:1b:61:fc:e9:f7:37:5d:73
-Expiry: 2029-12-31
-Subject: CN=SecureTrust CA O=SecureTrust Corporation
-*/
-install_securetrust_ca -> none:
-  tls.add_global_root_certificate SECURETRUST_CA_BYTES_ 0x1ead4e1c
+SECURETRUST_CA ::= tls.RootCertificate --fingerprint=0x1ead4e1c SECURETRUST_CA_BYTES_
 
 SECURITY_COMMUNICATION_ECC_ROOTCA1_BYTES_ ::= #[
     '0',130,2,'8','0',130,1,190,160,3,2,1,2,2,9,0,214,']',155,179,'x',129,'.',
@@ -8737,22 +7971,15 @@ SECURITY_COMMUNICATION_ECC_ROOTCA1_BYTES_ ::= #[
 
 /**
 Security Communication ECC RootCA1.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: e7:4f:bd:a5:5b:d5:64:c4:73:a3:6b:44:1a:a7:99:c8:a6:8e:07:74:40:e8:28:8b:9f:a1:e5:0e:4b:ba:ca:11
 Expiry: 2038-01-18
 Subject: CN=Security Communication ECC RootCA1 O=SECOM Trust Systems CO.,LTD.
 */
-SECURITY_COMMUNICATION_ECC_ROOTCA1 ::= parse_ SECURITY_COMMUNICATION_ECC_ROOTCA1_BYTES_
-
-/**
-Installs the "Security Communication ECC RootCA1"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: e7:4f:bd:a5:5b:d5:64:c4:73:a3:6b:44:1a:a7:99:c8:a6:8e:07:74:40:e8:28:8b:9f:a1:e5:0e:4b:ba:ca:11
-Expiry: 2038-01-18
-Subject: CN=Security Communication ECC RootCA1 O=SECOM Trust Systems CO.,LTD.
-*/
-install_security_communication_ecc_rootca1 -> none:
-  tls.add_global_root_certificate SECURITY_COMMUNICATION_ECC_ROOTCA1_BYTES_ 0xfe5dcb32
+SECURITY_COMMUNICATION_ECC_ROOTCA1 ::= tls.RootCertificate --fingerprint=0xfe5dcb32 SECURITY_COMMUNICATION_ECC_ROOTCA1_BYTES_
 
 SECURITY_COMMUNICATION_ROOT_CA_BYTES_ ::= #[
     '0',0x82,3,'Z','0',130,2,'B',160,3,2,1,2,2,1,0,'0',13,6,9,'*',134,'H',134,
@@ -8804,22 +8031,15 @@ SECURITY_COMMUNICATION_ROOT_CA_BYTES_ ::= #[
 
 /**
 Security Communication Root CA.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: e7:5e:72:ed:9f:56:0e:ec:6e:b4:80:00:73:a4:3f:c3:ad:19:19:5a:39:22:82:01:78:95:97:4a:99:02:6b:6c
 Expiry: 2023-09-30
 Subject: O=SECOM Trust.net OU=Security Communication RootCA1
 */
-SECURITY_COMMUNICATION_ROOT_CA ::= parse_ SECURITY_COMMUNICATION_ROOT_CA_BYTES_
-
-/**
-Installs the "Security Communication Root CA"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: e7:5e:72:ed:9f:56:0e:ec:6e:b4:80:00:73:a4:3f:c3:ad:19:19:5a:39:22:82:01:78:95:97:4a:99:02:6b:6c
-Expiry: 2023-09-30
-Subject: O=SECOM Trust.net OU=Security Communication RootCA1
-*/
-install_security_communication_root_ca -> none:
-  tls.add_global_root_certificate SECURITY_COMMUNICATION_ROOT_CA_BYTES_ 0x8da5edb1
+SECURITY_COMMUNICATION_ROOT_CA ::= tls.RootCertificate --fingerprint=0x8da5edb1 SECURITY_COMMUNICATION_ROOT_CA_BYTES_
 
 SECURITY_COMMUNICATION_ROOTCA2_BYTES_ ::= #[
     '0',0x82,3,'w','0',130,2,'_',160,3,2,1,2,2,1,0,'0',13,6,9,'*',134,'H',134,
@@ -8872,22 +8092,15 @@ SECURITY_COMMUNICATION_ROOTCA2_BYTES_ ::= #[
 
 /**
 Security Communication RootCA2.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 51:3b:2c:ec:b8:10:d4:cd:e5:dd:85:39:1a:df:c6:c2:dd:60:d8:7b:b7:36:d2:b5:21:48:4a:a4:7a:0e:be:f6
 Expiry: 2029-05-29
 Subject: O=SECOM Trust Systems CO.,LTD. OU=Security Communication RootCA2
 */
-SECURITY_COMMUNICATION_ROOTCA2 ::= parse_ SECURITY_COMMUNICATION_ROOTCA2_BYTES_
-
-/**
-Installs the "Security Communication RootCA2"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 51:3b:2c:ec:b8:10:d4:cd:e5:dd:85:39:1a:df:c6:c2:dd:60:d8:7b:b7:36:d2:b5:21:48:4a:a4:7a:0e:be:f6
-Expiry: 2029-05-29
-Subject: O=SECOM Trust Systems CO.,LTD. OU=Security Communication RootCA2
-*/
-install_security_communication_rootca2 -> none:
-  tls.add_global_root_certificate SECURITY_COMMUNICATION_ROOTCA2_BYTES_ 0x52937958
+SECURITY_COMMUNICATION_ROOTCA2 ::= tls.RootCertificate --fingerprint=0x52937958 SECURITY_COMMUNICATION_ROOTCA2_BYTES_
 
 SECURITY_COMMUNICATION_ROOTCA3_BYTES_ ::= #[
     '0',0x82,5,127,'0',130,3,'g',160,3,2,1,2,2,9,0,225,'|','7','@',253,27,254,
@@ -8967,22 +8180,15 @@ SECURITY_COMMUNICATION_ROOTCA3_BYTES_ ::= #[
 
 /**
 Security Communication RootCA3.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 24:a5:5c:2a:b0:51:44:2d:06:17:76:65:41:23:9a:4a:d0:32:d7:c5:51:75:aa:34:ff:de:2f:bc:4f:5c:52:94
 Expiry: 2038-01-18
 Subject: CN=Security Communication RootCA3 O=SECOM Trust Systems CO.,LTD.
 */
-SECURITY_COMMUNICATION_ROOTCA3 ::= parse_ SECURITY_COMMUNICATION_ROOTCA3_BYTES_
-
-/**
-Installs the "Security Communication RootCA3"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 24:a5:5c:2a:b0:51:44:2d:06:17:76:65:41:23:9a:4a:d0:32:d7:c5:51:75:aa:34:ff:de:2f:bc:4f:5c:52:94
-Expiry: 2038-01-18
-Subject: CN=Security Communication RootCA3 O=SECOM Trust Systems CO.,LTD.
-*/
-install_security_communication_rootca3 -> none:
-  tls.add_global_root_certificate SECURITY_COMMUNICATION_ROOTCA3_BYTES_ 0xa5e9d9d9
+SECURITY_COMMUNICATION_ROOTCA3 ::= tls.RootCertificate --fingerprint=0xa5e9d9d9 SECURITY_COMMUNICATION_ROOTCA3_BYTES_
 
 STAAT_DER_NEDERLANDEN_EV_ROOT_CA_BYTES_ ::= #[
     '0',0x82,5,'p','0',130,3,'X',160,3,2,1,2,2,4,0,152,150,141,'0',13,6,9,'*',
@@ -9062,18 +8268,14 @@ STAAT_DER_NEDERLANDEN_EV_ROOT_CA_BYTES_ ::= #[
 
 /**
 Staat der Nederlanden EV Root CA.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 Deprecated.  This certificate has expired.
 */
 STAAT_DER_NEDERLANDEN_EV_ROOT_CA ::= STAAT_DER_NEDERLANDEN_EV_ROOT_CA_
-STAAT_DER_NEDERLANDEN_EV_ROOT_CA_ ::= parse_ STAAT_DER_NEDERLANDEN_EV_ROOT_CA_BYTES_
-
-/**
-Installs the "Staat der Nederlanden EV Root CA"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-*/
-install_staat_der_nederlanden_ev_root_ca -> none:
-  tls.add_global_root_certificate STAAT_DER_NEDERLANDEN_EV_ROOT_CA_BYTES_ 0xd87d40f7
+STAAT_DER_NEDERLANDEN_EV_ROOT_CA_ ::= tls.RootCertificate --fingerprint=0xd87d40f7 STAAT_DER_NEDERLANDEN_EV_ROOT_CA_BYTES_
 
 STARFIELD_CLASS_2_CA_BYTES_ ::= #[
     '0',0x82,4,0xf,'0',130,2,247,160,3,2,1,2,2,1,0,'0',13,6,9,'*',134,'H',134,
@@ -9134,22 +8336,15 @@ STARFIELD_CLASS_2_CA_BYTES_ ::= #[
 
 /**
 Starfield Class 2 CA.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 14:65:fa:20:53:97:b8:76:fa:a6:f0:a9:95:8e:55:90:e4:0f:cc:7f:aa:4f:b7:c2:c8:67:75:21:fb:5f:b6:58
 Expiry: 2034-06-29
 Subject: O=Starfield Technologies, Inc. OU=Starfield Class 2 Certification Authority
 */
-STARFIELD_CLASS_2_CA ::= parse_ STARFIELD_CLASS_2_CA_BYTES_
-
-/**
-Installs the "Starfield Class 2 CA"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 14:65:fa:20:53:97:b8:76:fa:a6:f0:a9:95:8e:55:90:e4:0f:cc:7f:aa:4f:b7:c2:c8:67:75:21:fb:5f:b6:58
-Expiry: 2034-06-29
-Subject: O=Starfield Technologies, Inc. OU=Starfield Class 2 Certification Authority
-*/
-install_starfield_class_2_ca -> none:
-  tls.add_global_root_certificate STARFIELD_CLASS_2_CA_BYTES_ 0x5ab324ab
+STARFIELD_CLASS_2_CA ::= tls.RootCertificate --fingerprint=0x5ab324ab STARFIELD_CLASS_2_CA_BYTES_
 
 STARFIELD_ROOT_CERTIFICATE_AUTHORITY_G2_BYTES_ ::= #[
     '0',0x82,3,221,'0',130,2,197,160,3,2,1,2,2,1,0,'0',13,6,9,'*',134,'H',134,
@@ -9207,22 +8402,15 @@ STARFIELD_ROOT_CERTIFICATE_AUTHORITY_G2_BYTES_ ::= #[
 
 /**
 Starfield Root Certificate Authority - G2.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 2c:e1:cb:0b:f9:d2:f9:e1:02:99:3f:be:21:51:52:c3:b2:dd:0c:ab:de:1c:68:e5:31:9b:83:91:54:db:b7:f5
 Expiry: 2037-12-31
 Subject: CN=Starfield Root Certificate Authority - G2 O=Starfield Technologies, Inc.
 */
-STARFIELD_ROOT_CERTIFICATE_AUTHORITY_G2 ::= parse_ STARFIELD_ROOT_CERTIFICATE_AUTHORITY_G2_BYTES_
-
-/**
-Installs the "Starfield Root Certificate Authority - G2"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 2c:e1:cb:0b:f9:d2:f9:e1:02:99:3f:be:21:51:52:c3:b2:dd:0c:ab:de:1c:68:e5:31:9b:83:91:54:db:b7:f5
-Expiry: 2037-12-31
-Subject: CN=Starfield Root Certificate Authority - G2 O=Starfield Technologies, Inc.
-*/
-install_starfield_root_certificate_authority_g2 -> none:
-  tls.add_global_root_certificate STARFIELD_ROOT_CERTIFICATE_AUTHORITY_G2_BYTES_ 0x7201e433
+STARFIELD_ROOT_CERTIFICATE_AUTHORITY_G2 ::= tls.RootCertificate --fingerprint=0x7201e433 STARFIELD_ROOT_CERTIFICATE_AUTHORITY_G2_BYTES_
 
 STARFIELD_SERVICES_ROOT_CERTIFICATE_AUTHORITY_G2_BYTES_ ::= #[
     '0',0x82,3,239,'0',130,2,215,160,3,2,1,2,2,1,0,'0',13,6,9,'*',134,'H',134,
@@ -9281,22 +8469,15 @@ STARFIELD_SERVICES_ROOT_CERTIFICATE_AUTHORITY_G2_BYTES_ ::= #[
 
 /**
 Starfield Services Root Certificate Authority - G2.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 56:8d:69:05:a2:c8:87:08:a4:b3:02:51:90:ed:cf:ed:b1:97:4a:60:6a:13:c6:e5:29:0f:cb:2a:e6:3e:da:b5
 Expiry: 2037-12-31
 Subject: CN=Starfield Services Root Certificate Authority - G2 O=Starfield Technologies, Inc.
 */
-STARFIELD_SERVICES_ROOT_CERTIFICATE_AUTHORITY_G2 ::= parse_ STARFIELD_SERVICES_ROOT_CERTIFICATE_AUTHORITY_G2_BYTES_
-
-/**
-Installs the "Starfield Services Root Certificate Authority - G2"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 56:8d:69:05:a2:c8:87:08:a4:b3:02:51:90:ed:cf:ed:b1:97:4a:60:6a:13:c6:e5:29:0f:cb:2a:e6:3e:da:b5
-Expiry: 2037-12-31
-Subject: CN=Starfield Services Root Certificate Authority - G2 O=Starfield Technologies, Inc.
-*/
-install_starfield_services_root_certificate_authority_g2 -> none:
-  tls.add_global_root_certificate STARFIELD_SERVICES_ROOT_CERTIFICATE_AUTHORITY_G2_BYTES_ 0x7af0c139
+STARFIELD_SERVICES_ROOT_CERTIFICATE_AUTHORITY_G2 ::= tls.RootCertificate --fingerprint=0x7af0c139 STARFIELD_SERVICES_ROOT_CERTIFICATE_AUTHORITY_G2_BYTES_
 
 SWISSSIGN_GOLD_CA_G2_BYTES_ ::= #[
     '0',0x82,5,186,'0',130,3,162,160,3,2,1,2,2,9,0,187,'@',28,'C',245,'^','O',
@@ -9379,22 +8560,15 @@ SWISSSIGN_GOLD_CA_G2_BYTES_ ::= #[
 
 /**
 SwissSign Gold CA - G2.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 62:dd:0b:e9:b9:f5:0a:16:3e:a0:f8:e7:5c:05:3b:1e:ca:57:ea:55:c8:68:8f:64:7c:68:81:f2:c8:35:7b:95
 Expiry: 2036-10-25
 Subject: CN=SwissSign Gold CA - G2 O=SwissSign AG
 */
-SWISSSIGN_GOLD_CA_G2 ::= parse_ SWISSSIGN_GOLD_CA_G2_BYTES_
-
-/**
-Installs the "SwissSign Gold CA - G2"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 62:dd:0b:e9:b9:f5:0a:16:3e:a0:f8:e7:5c:05:3b:1e:ca:57:ea:55:c8:68:8f:64:7c:68:81:f2:c8:35:7b:95
-Expiry: 2036-10-25
-Subject: CN=SwissSign Gold CA - G2 O=SwissSign AG
-*/
-install_swisssign_gold_ca_g2 -> none:
-  tls.add_global_root_certificate SWISSSIGN_GOLD_CA_G2_BYTES_ 0x15197556
+SWISSSIGN_GOLD_CA_G2 ::= tls.RootCertificate --fingerprint=0x15197556 SWISSSIGN_GOLD_CA_G2_BYTES_
 
 SWISSSIGN_SILVER_CA_G2_BYTES_ ::= #[
     '0',0x82,0x5,189,'0',130,3,165,160,3,2,1,2,2,8,'O',27,212,'/','T',187,'/',
@@ -9477,22 +8651,15 @@ SWISSSIGN_SILVER_CA_G2_BYTES_ ::= #[
 
 /**
 SwissSign Silver CA - G2.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: be:6c:4d:a2:bb:b9:ba:59:b6:f3:93:97:68:37:42:46:c3:c0:05:99:3f:a9:8f:02:0d:1d:ed:be:d4:8a:81:d5
 Expiry: 2036-10-25
 Subject: CN=SwissSign Silver CA - G2 O=SwissSign AG
 */
-SWISSSIGN_SILVER_CA_G2 ::= parse_ SWISSSIGN_SILVER_CA_G2_BYTES_
-
-/**
-Installs the "SwissSign Silver CA - G2"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: be:6c:4d:a2:bb:b9:ba:59:b6:f3:93:97:68:37:42:46:c3:c0:05:99:3f:a9:8f:02:0d:1d:ed:be:d4:8a:81:d5
-Expiry: 2036-10-25
-Subject: CN=SwissSign Silver CA - G2 O=SwissSign AG
-*/
-install_swisssign_silver_ca_g2 -> none:
-  tls.add_global_root_certificate SWISSSIGN_SILVER_CA_G2_BYTES_ 0x8630f7d6
+SWISSSIGN_SILVER_CA_G2 ::= tls.RootCertificate --fingerprint=0x8630f7d6 SWISSSIGN_SILVER_CA_G2_BYTES_
 
 T_TELESEC_GLOBALROOT_CLASS_2_BYTES_ ::= #[
     '0',0x82,3,195,'0',130,2,171,160,3,2,1,2,2,1,1,'0',13,6,9,'*',134,'H',134,
@@ -9549,22 +8716,15 @@ T_TELESEC_GLOBALROOT_CLASS_2_BYTES_ ::= #[
 
 /**
 T-TeleSec GlobalRoot Class 2.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 91:e2:f5:78:8d:58:10:eb:a7:ba:58:73:7d:e1:54:8a:8e:ca:cd:01:45:98:bc:0b:14:3e:04:1b:17:05:25:52
 Expiry: 2033-10-01
 Subject: CN=T-TeleSec GlobalRoot Class 2 O=T-Systems Enterprise Services GmbH OU=T-Systems Trust Center
 */
-T_TELESEC_GLOBALROOT_CLASS_2 ::= parse_ T_TELESEC_GLOBALROOT_CLASS_2_BYTES_
-
-/**
-Installs the "T-TeleSec GlobalRoot Class 2"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 91:e2:f5:78:8d:58:10:eb:a7:ba:58:73:7d:e1:54:8a:8e:ca:cd:01:45:98:bc:0b:14:3e:04:1b:17:05:25:52
-Expiry: 2033-10-01
-Subject: CN=T-TeleSec GlobalRoot Class 2 O=T-Systems Enterprise Services GmbH OU=T-Systems Trust Center
-*/
-install_t_telesec_globalroot_class_2 -> none:
-  tls.add_global_root_certificate T_TELESEC_GLOBALROOT_CLASS_2_BYTES_ 0x19c2709a
+T_TELESEC_GLOBALROOT_CLASS_2 ::= tls.RootCertificate --fingerprint=0x19c2709a T_TELESEC_GLOBALROOT_CLASS_2_BYTES_
 
 T_TELESEC_GLOBALROOT_CLASS_3_BYTES_ ::= #[
     '0',0x82,3,195,'0',130,2,171,160,3,2,1,2,2,1,1,'0',13,6,9,'*',134,'H',134,
@@ -9621,22 +8781,15 @@ T_TELESEC_GLOBALROOT_CLASS_3_BYTES_ ::= #[
 
 /**
 T-TeleSec GlobalRoot Class 3.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: fd:73:da:d3:1c:64:4f:f1:b4:3b:ef:0c:cd:da:96:71:0b:9c:d9:87:5e:ca:7e:31:70:7a:f3:e9:6d:52:2b:bd
 Expiry: 2033-10-01
 Subject: CN=T-TeleSec GlobalRoot Class 3 O=T-Systems Enterprise Services GmbH OU=T-Systems Trust Center
 */
-T_TELESEC_GLOBALROOT_CLASS_3 ::= parse_ T_TELESEC_GLOBALROOT_CLASS_3_BYTES_
-
-/**
-Installs the "T-TeleSec GlobalRoot Class 3"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: fd:73:da:d3:1c:64:4f:f1:b4:3b:ef:0c:cd:da:96:71:0b:9c:d9:87:5e:ca:7e:31:70:7a:f3:e9:6d:52:2b:bd
-Expiry: 2033-10-01
-Subject: CN=T-TeleSec GlobalRoot Class 3 O=T-Systems Enterprise Services GmbH OU=T-Systems Trust Center
-*/
-install_t_telesec_globalroot_class_3 -> none:
-  tls.add_global_root_certificate T_TELESEC_GLOBALROOT_CLASS_3_BYTES_ 0x6ec5400c
+T_TELESEC_GLOBALROOT_CLASS_3 ::= tls.RootCertificate --fingerprint=0x6ec5400c T_TELESEC_GLOBALROOT_CLASS_3_BYTES_
 
 TUBITAK_KAMU_SM_SSL_KOK_SERTIFIKASI_SURUM_1_BYTES_ ::= #[
     '0',0x82,4,'c','0',130,3,'K',160,3,2,1,2,2,1,1,'0',13,6,9,'*',134,'H',134,
@@ -9702,22 +8855,15 @@ TUBITAK_KAMU_SM_SSL_KOK_SERTIFIKASI_SURUM_1_BYTES_ ::= #[
 
 /**
 TUBITAK Kamu SM SSL Kok Sertifikasi - Surum 1.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 46:ed:c3:68:90:46:d5:3a:45:3f:b3:10:4a:b8:0d:ca:ec:65:8b:26:60:ea:16:29:dd:7e:86:79:90:64:87:16
 Expiry: 2043-10-25
 Subject: CN=TUBITAK Kamu SM SSL Kok Sertifikasi - Surum 1 O=Turkiye Bilimsel ve Teknolojik Arastirma Kurumu - TUBITAK OU=Kamu Sertifikasyon Merkezi - Kamu SM
 */
-TUBITAK_KAMU_SM_SSL_KOK_SERTIFIKASI_SURUM_1 ::= parse_ TUBITAK_KAMU_SM_SSL_KOK_SERTIFIKASI_SURUM_1_BYTES_
-
-/**
-Installs the "TUBITAK Kamu SM SSL Kok Sertifikasi - Surum 1"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 46:ed:c3:68:90:46:d5:3a:45:3f:b3:10:4a:b8:0d:ca:ec:65:8b:26:60:ea:16:29:dd:7e:86:79:90:64:87:16
-Expiry: 2043-10-25
-Subject: CN=TUBITAK Kamu SM SSL Kok Sertifikasi - Surum 1 O=Turkiye Bilimsel ve Teknolojik Arastirma Kurumu - TUBITAK OU=Kamu Sertifikasyon Merkezi - Kamu SM
-*/
-install_tubitak_kamu_sm_ssl_kok_sertifikasi_surum_1 -> none:
-  tls.add_global_root_certificate TUBITAK_KAMU_SM_SSL_KOK_SERTIFIKASI_SURUM_1_BYTES_ 0x5976e320
+TUBITAK_KAMU_SM_SSL_KOK_SERTIFIKASI_SURUM_1 ::= tls.RootCertificate --fingerprint=0x5976e320 TUBITAK_KAMU_SM_SSL_KOK_SERTIFIKASI_SURUM_1_BYTES_
 
 TWCA_GLOBAL_ROOT_CA_BYTES_ ::= #[
     '0',130,5,'A','0',130,3,')',160,3,2,1,2,2,2,12,190,'0',13,6,9,'*',134,'H',
@@ -9794,22 +8940,15 @@ TWCA_GLOBAL_ROOT_CA_BYTES_ ::= #[
 
 /**
 TWCA Global Root CA.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 59:76:90:07:f7:68:5d:0f:cd:50:87:2f:9f:95:d5:75:5a:5b:2b:45:7d:81:f3:69:2b:61:0a:98:67:2f:0e:1b
 Expiry: 2030-12-31
 Subject: CN=TWCA Global Root CA O=TAIWAN-CA OU=Root CA
 */
-TWCA_GLOBAL_ROOT_CA ::= parse_ TWCA_GLOBAL_ROOT_CA_BYTES_
-
-/**
-Installs the "TWCA Global Root CA"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 59:76:90:07:f7:68:5d:0f:cd:50:87:2f:9f:95:d5:75:5a:5b:2b:45:7d:81:f3:69:2b:61:0a:98:67:2f:0e:1b
-Expiry: 2030-12-31
-Subject: CN=TWCA Global Root CA O=TAIWAN-CA OU=Root CA
-*/
-install_twca_global_root_ca -> none:
-  tls.add_global_root_certificate TWCA_GLOBAL_ROOT_CA_BYTES_ 0x70ef5cb5
+TWCA_GLOBAL_ROOT_CA ::= tls.RootCertificate --fingerprint=0x70ef5cb5 TWCA_GLOBAL_ROOT_CA_BYTES_
 
 TWCA_ROOT_CERTIFICATION_AUTHORITY_BYTES_ ::= #[
     '0',0x82,3,'{','0',130,2,'c',160,3,2,1,2,2,1,1,'0',13,6,9,'*',134,'H',134,
@@ -9862,22 +9001,15 @@ TWCA_ROOT_CERTIFICATION_AUTHORITY_BYTES_ ::= #[
 
 /**
 TWCA Root Certification Authority.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: bf:d8:8f:e1:10:1c:41:ae:3e:80:1b:f8:be:56:35:0e:e9:ba:d1:a6:b9:bd:51:5e:dc:5c:6d:5b:87:11:ac:44
 Expiry: 2030-12-31
 Subject: CN=TWCA Root Certification Authority O=TAIWAN-CA OU=Root CA
 */
-TWCA_ROOT_CERTIFICATION_AUTHORITY ::= parse_ TWCA_ROOT_CERTIFICATION_AUTHORITY_BYTES_
-
-/**
-Installs the "TWCA Root Certification Authority"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: bf:d8:8f:e1:10:1c:41:ae:3e:80:1b:f8:be:56:35:0e:e9:ba:d1:a6:b9:bd:51:5e:dc:5c:6d:5b:87:11:ac:44
-Expiry: 2030-12-31
-Subject: CN=TWCA Root Certification Authority O=TAIWAN-CA OU=Root CA
-*/
-install_twca_root_certification_authority -> none:
-  tls.add_global_root_certificate TWCA_ROOT_CERTIFICATION_AUTHORITY_BYTES_ 0x7f76e062
+TWCA_ROOT_CERTIFICATION_AUTHORITY ::= tls.RootCertificate --fingerprint=0x7f76e062 TWCA_ROOT_CERTIFICATION_AUTHORITY_BYTES_
 
 TELIA_ROOT_CA_V2_BYTES_ ::= #[
     '0',0x82,5,'t','0',130,3,92,160,3,2,1,2,2,15,1,'g','_',39,214,254,'z',227,
@@ -9957,22 +9089,15 @@ TELIA_ROOT_CA_V2_BYTES_ ::= #[
 
 /**
 Telia Root CA v2.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 24:2b:69:74:2f:cb:1e:5b:2a:bf:98:89:8b:94:57:21:87:54:4e:5b:4d:99:11:78:65:73:62:1f:6a:74:b8:2c
 Expiry: 2043-11-29
 Subject: CN=Telia Root CA v2 O=Telia Finland Oyj
 */
-TELIA_ROOT_CA_V2 ::= parse_ TELIA_ROOT_CA_V2_BYTES_
-
-/**
-Installs the "Telia Root CA v2"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 24:2b:69:74:2f:cb:1e:5b:2a:bf:98:89:8b:94:57:21:87:54:4e:5b:4d:99:11:78:65:73:62:1f:6a:74:b8:2c
-Expiry: 2043-11-29
-Subject: CN=Telia Root CA v2 O=Telia Finland Oyj
-*/
-install_telia_root_ca_v2 -> none:
-  tls.add_global_root_certificate TELIA_ROOT_CA_V2_BYTES_ 0x6dc8a95d
+TELIA_ROOT_CA_V2 ::= tls.RootCertificate --fingerprint=0x6dc8a95d TELIA_ROOT_CA_V2_BYTES_
 
 TELIASONERA_ROOT_CA_V1_BYTES_ ::= #[
     '0',130,5,'8','0',130,3,' ',160,3,2,1,2,2,17,0,149,190,22,160,247,'.','F',
@@ -10049,22 +9174,15 @@ TELIASONERA_ROOT_CA_V1_BYTES_ ::= #[
 
 /**
 TeliaSonera Root CA v1.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: dd:69:36:fe:21:f8:f0:77:c1:23:a1:a5:21:c1:22:24:f7:22:55:b7:3e:03:a7:26:06:93:e8:a2:4b:0f:a3:89
 Expiry: 2032-10-18
 Subject: CN=TeliaSonera Root CA v1 O=TeliaSonera
 */
-TELIASONERA_ROOT_CA_V1 ::= parse_ TELIASONERA_ROOT_CA_V1_BYTES_
-
-/**
-Installs the "TeliaSonera Root CA v1"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: dd:69:36:fe:21:f8:f0:77:c1:23:a1:a5:21:c1:22:24:f7:22:55:b7:3e:03:a7:26:06:93:e8:a2:4b:0f:a3:89
-Expiry: 2032-10-18
-Subject: CN=TeliaSonera Root CA v1 O=TeliaSonera
-*/
-install_teliasonera_root_ca_v1 -> none:
-  tls.add_global_root_certificate TELIASONERA_ROOT_CA_V1_BYTES_ 0xc92b259b
+TELIASONERA_ROOT_CA_V1 ::= tls.RootCertificate --fingerprint=0xc92b259b TELIASONERA_ROOT_CA_V1_BYTES_
 
 TRUSTCOR_ECA_1_BYTES_ ::= #[
     '0',0x82,0x4,' ','0',130,3,8,160,3,2,1,2,2,9,0,132,130,',','_',28,'b',208,
@@ -10125,22 +9243,15 @@ TRUSTCOR_ECA_1_BYTES_ ::= #[
 
 /**
 TrustCor ECA-1.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 5a:88:5d:b1:9c:01:d9:12:c5:75:93:88:93:8c:af:bb:df:03:1a:b2:d4:8e:91:ee:15:58:9b:42:97:1d:03:9c
 Expiry: 2029-12-31
 Subject: CN=TrustCor ECA-1 O=TrustCor Systems S. de R.L. OU=TrustCor Certificate Authority
 */
-TRUSTCOR_ECA_1 ::= parse_ TRUSTCOR_ECA_1_BYTES_
-
-/**
-Installs the "TrustCor ECA-1"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 5a:88:5d:b1:9c:01:d9:12:c5:75:93:88:93:8c:af:bb:df:03:1a:b2:d4:8e:91:ee:15:58:9b:42:97:1d:03:9c
-Expiry: 2029-12-31
-Subject: CN=TrustCor ECA-1 O=TrustCor Systems S. de R.L. OU=TrustCor Certificate Authority
-*/
-install_trustcor_eca_1 -> none:
-  tls.add_global_root_certificate TRUSTCOR_ECA_1_BYTES_ 0xca873c9d
+TRUSTCOR_ECA_1 ::= tls.RootCertificate --fingerprint=0xca873c9d TRUSTCOR_ECA_1_BYTES_
 
 TRUSTCOR_ROOTCERT_CA_1_BYTES_ ::= #[
     '0',130,4,'0','0',130,3,24,160,3,2,1,2,2,9,0,218,155,236,'q',243,3,176,25,
@@ -10202,22 +9313,15 @@ TRUSTCOR_ROOTCERT_CA_1_BYTES_ ::= #[
 
 /**
 TrustCor RootCert CA-1.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: d4:0e:9c:86:cd:8f:e4:68:c1:77:69:59:f4:9e:a7:74:fa:54:86:84:b6:c4:06:f3:90:92:61:f4:dc:e2:57:5c
 Expiry: 2029-12-31
 Subject: CN=TrustCor RootCert CA-1 O=TrustCor Systems S. de R.L. OU=TrustCor Certificate Authority
 */
-TRUSTCOR_ROOTCERT_CA_1 ::= parse_ TRUSTCOR_ROOTCERT_CA_1_BYTES_
-
-/**
-Installs the "TrustCor RootCert CA-1"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: d4:0e:9c:86:cd:8f:e4:68:c1:77:69:59:f4:9e:a7:74:fa:54:86:84:b6:c4:06:f3:90:92:61:f4:dc:e2:57:5c
-Expiry: 2029-12-31
-Subject: CN=TrustCor RootCert CA-1 O=TrustCor Systems S. de R.L. OU=TrustCor Certificate Authority
-*/
-install_trustcor_rootcert_ca_1 -> none:
-  tls.add_global_root_certificate TRUSTCOR_ROOTCERT_CA_1_BYTES_ 0x3a25cb23
+TRUSTCOR_ROOTCERT_CA_1 ::= tls.RootCertificate --fingerprint=0x3a25cb23 TRUSTCOR_ROOTCERT_CA_1_BYTES_
 
 TRUSTCOR_ROOTCERT_CA_2_BYTES_ ::= #[
     '0',0x82,6,'/','0',130,4,23,160,3,2,1,2,2,8,'%',161,223,202,'3',203,'Y',2,
@@ -10306,22 +9410,15 @@ TRUSTCOR_ROOTCERT_CA_2_BYTES_ ::= #[
 
 /**
 TrustCor RootCert CA-2.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 07:53:e9:40:37:8c:1b:d5:e3:83:6e:39:5d:ae:a5:cb:83:9e:50:46:f1:bd:0e:ae:19:51:cf:10:fe:c7:c9:65
 Expiry: 2034-12-31
 Subject: CN=TrustCor RootCert CA-2 O=TrustCor Systems S. de R.L. OU=TrustCor Certificate Authority
 */
-TRUSTCOR_ROOTCERT_CA_2 ::= parse_ TRUSTCOR_ROOTCERT_CA_2_BYTES_
-
-/**
-Installs the "TrustCor RootCert CA-2"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 07:53:e9:40:37:8c:1b:d5:e3:83:6e:39:5d:ae:a5:cb:83:9e:50:46:f1:bd:0e:ae:19:51:cf:10:fe:c7:c9:65
-Expiry: 2034-12-31
-Subject: CN=TrustCor RootCert CA-2 O=TrustCor Systems S. de R.L. OU=TrustCor Certificate Authority
-*/
-install_trustcor_rootcert_ca_2 -> none:
-  tls.add_global_root_certificate TRUSTCOR_ROOTCERT_CA_2_BYTES_ 0xa32c9a99
+TRUSTCOR_ROOTCERT_CA_2 ::= tls.RootCertificate --fingerprint=0xa32c9a99 TRUSTCOR_ROOTCERT_CA_2_BYTES_
 
 TRUSTWAVE_GLOBAL_CERTIFICATION_AUTHORITY_BYTES_ ::= #[
     '0',130,5,218,'0',130,3,194,160,3,2,1,2,2,12,5,247,14,134,218,'I',243,'F',
@@ -10405,22 +9502,15 @@ TRUSTWAVE_GLOBAL_CERTIFICATION_AUTHORITY_BYTES_ ::= #[
 
 /**
 Trustwave Global Certification Authority.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 97:55:20:15:f5:dd:fc:3c:87:88:c0:06:94:45:55:40:88:94:45:00:84:f1:00:86:70:86:bc:1a:2b:b5:8d:c8
 Expiry: 2042-08-23
 Subject: CN=Trustwave Global Certification Authority O=Trustwave Holdings, Inc.
 */
-TRUSTWAVE_GLOBAL_CERTIFICATION_AUTHORITY ::= parse_ TRUSTWAVE_GLOBAL_CERTIFICATION_AUTHORITY_BYTES_
-
-/**
-Installs the "Trustwave Global Certification Authority"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 97:55:20:15:f5:dd:fc:3c:87:88:c0:06:94:45:55:40:88:94:45:00:84:f1:00:86:70:86:bc:1a:2b:b5:8d:c8
-Expiry: 2042-08-23
-Subject: CN=Trustwave Global Certification Authority O=Trustwave Holdings, Inc.
-*/
-install_trustwave_global_certification_authority -> none:
-  tls.add_global_root_certificate TRUSTWAVE_GLOBAL_CERTIFICATION_AUTHORITY_BYTES_ 0x6d6f8e1a
+TRUSTWAVE_GLOBAL_CERTIFICATION_AUTHORITY ::= tls.RootCertificate --fingerprint=0x6d6f8e1a TRUSTWAVE_GLOBAL_CERTIFICATION_AUTHORITY_BYTES_
 
 TRUSTWAVE_GLOBAL_ECC_P256_CERTIFICATION_AUTHORITY_BYTES_ ::= #[
     '0',0x82,0x2,'`','0',130,2,7,160,3,2,1,2,2,12,13,'j','_',8,'?','(',92,'>',
@@ -10458,22 +9548,15 @@ TRUSTWAVE_GLOBAL_ECC_P256_CERTIFICATION_AUTHORITY_BYTES_ ::= #[
 
 /**
 Trustwave Global ECC P256 Certification Authority.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 94:5b:bc:82:5e:a5:54:f4:89:d1:fd:51:a7:3d:df:2e:a6:24:ac:70:19:a0:52:05:22:5c:22:a7:8c:cf:a8:b4
 Expiry: 2042-08-23
 Subject: CN=Trustwave Global ECC P256 Certification Authority O=Trustwave Holdings, Inc.
 */
-TRUSTWAVE_GLOBAL_ECC_P256_CERTIFICATION_AUTHORITY ::= parse_ TRUSTWAVE_GLOBAL_ECC_P256_CERTIFICATION_AUTHORITY_BYTES_
-
-/**
-Installs the "Trustwave Global ECC P256 Certification Authority"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 94:5b:bc:82:5e:a5:54:f4:89:d1:fd:51:a7:3d:df:2e:a6:24:ac:70:19:a0:52:05:22:5c:22:a7:8c:cf:a8:b4
-Expiry: 2042-08-23
-Subject: CN=Trustwave Global ECC P256 Certification Authority O=Trustwave Holdings, Inc.
-*/
-install_trustwave_global_ecc_p256_certification_authority -> none:
-  tls.add_global_root_certificate TRUSTWAVE_GLOBAL_ECC_P256_CERTIFICATION_AUTHORITY_BYTES_ 0x3ecb42e0
+TRUSTWAVE_GLOBAL_ECC_P256_CERTIFICATION_AUTHORITY ::= tls.RootCertificate --fingerprint=0x3ecb42e0 TRUSTWAVE_GLOBAL_ECC_P256_CERTIFICATION_AUTHORITY_BYTES_
 
 TRUSTWAVE_GLOBAL_ECC_P384_CERTIFICATION_AUTHORITY_BYTES_ ::= #[
     '0',130,2,157,'0',130,2,'$',160,3,2,1,2,2,12,8,189,133,151,'l',153,39,164,
@@ -10515,22 +9598,15 @@ TRUSTWAVE_GLOBAL_ECC_P384_CERTIFICATION_AUTHORITY_BYTES_ ::= #[
 
 /**
 Trustwave Global ECC P384 Certification Authority.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 55:90:38:59:c8:c0:c3:eb:b8:75:9e:ce:4e:25:57:22:5f:f5:75:8b:bd:38:eb:d4:82:76:60:1e:1b:d5:80:97
 Expiry: 2042-08-23
 Subject: CN=Trustwave Global ECC P384 Certification Authority O=Trustwave Holdings, Inc.
 */
-TRUSTWAVE_GLOBAL_ECC_P384_CERTIFICATION_AUTHORITY ::= parse_ TRUSTWAVE_GLOBAL_ECC_P384_CERTIFICATION_AUTHORITY_BYTES_
-
-/**
-Installs the "Trustwave Global ECC P384 Certification Authority"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 55:90:38:59:c8:c0:c3:eb:b8:75:9e:ce:4e:25:57:22:5f:f5:75:8b:bd:38:eb:d4:82:76:60:1e:1b:d5:80:97
-Expiry: 2042-08-23
-Subject: CN=Trustwave Global ECC P384 Certification Authority O=Trustwave Holdings, Inc.
-*/
-install_trustwave_global_ecc_p384_certification_authority -> none:
-  tls.add_global_root_certificate TRUSTWAVE_GLOBAL_ECC_P384_CERTIFICATION_AUTHORITY_BYTES_ 0x58816209
+TRUSTWAVE_GLOBAL_ECC_P384_CERTIFICATION_AUTHORITY ::= tls.RootCertificate --fingerprint=0x58816209 TRUSTWAVE_GLOBAL_ECC_P384_CERTIFICATION_AUTHORITY_BYTES_
 
 TUNTRUST_ROOT_CA_BYTES_ ::= #[
     '0',130,5,179,'0',130,3,155,160,3,2,1,2,2,20,19,2,213,226,'@','L',146,'F',
@@ -10613,22 +9689,15 @@ TUNTRUST_ROOT_CA_BYTES_ ::= #[
 
 /**
 TunTrust Root CA.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 2e:44:10:2a:b5:8c:b8:54:19:45:1c:8e:19:d9:ac:f3:66:2c:af:bc:61:4b:6a:53:96:0a:30:f7:d0:e2:eb:41
 Expiry: 2044-04-26
 Subject: CN=TunTrust Root CA O=Agence Nationale de Certification Electronique
 */
-TUNTRUST_ROOT_CA ::= parse_ TUNTRUST_ROOT_CA_BYTES_
-
-/**
-Installs the "TunTrust Root CA"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 2e:44:10:2a:b5:8c:b8:54:19:45:1c:8e:19:d9:ac:f3:66:2c:af:bc:61:4b:6a:53:96:0a:30:f7:d0:e2:eb:41
-Expiry: 2044-04-26
-Subject: CN=TunTrust Root CA O=Agence Nationale de Certification Electronique
-*/
-install_tuntrust_root_ca -> none:
-  tls.add_global_root_certificate TUNTRUST_ROOT_CA_BYTES_ 0xae869e70
+TUNTRUST_ROOT_CA ::= tls.RootCertificate --fingerprint=0xae869e70 TUNTRUST_ROOT_CA_BYTES_
 
 UCA_EXTENDED_VALIDATION_ROOT_BYTES_ ::= #[
     '0',0x82,5,'Z','0',130,3,'B',160,3,2,1,2,2,16,'O',210,'+',143,245,'d',200,
@@ -10706,22 +9775,15 @@ UCA_EXTENDED_VALIDATION_ROOT_BYTES_ ::= #[
 
 /**
 UCA Extended Validation Root.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: d4:3a:f9:b3:54:73:75:5c:96:84:fc:06:d7:d8:cb:70:ee:5c:28:e7:73:fb:29:4e:b4:1e:e7:17:22:92:4d:24
 Expiry: 2038-12-31
 Subject: CN=UCA Extended Validation Root O=UniTrust
 */
-UCA_EXTENDED_VALIDATION_ROOT ::= parse_ UCA_EXTENDED_VALIDATION_ROOT_BYTES_
-
-/**
-Installs the "UCA Extended Validation Root"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: d4:3a:f9:b3:54:73:75:5c:96:84:fc:06:d7:d8:cb:70:ee:5c:28:e7:73:fb:29:4e:b4:1e:e7:17:22:92:4d:24
-Expiry: 2038-12-31
-Subject: CN=UCA Extended Validation Root O=UniTrust
-*/
-install_uca_extended_validation_root -> none:
-  tls.add_global_root_certificate UCA_EXTENDED_VALIDATION_ROOT_BYTES_ 0xada7411d
+UCA_EXTENDED_VALIDATION_ROOT ::= tls.RootCertificate --fingerprint=0xada7411d UCA_EXTENDED_VALIDATION_ROOT_BYTES_
 
 UCA_GLOBAL_G2_ROOT_BYTES_ ::= #[
     '0',0x82,5,'F','0',130,3,'.',160,3,2,1,2,2,16,']',223,177,218,'Z',163,237,
@@ -10799,22 +9861,15 @@ UCA_GLOBAL_G2_ROOT_BYTES_ ::= #[
 
 /**
 UCA Global G2 Root.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 9b:ea:11:c9:76:fe:01:47:64:c1:be:56:a6:f9:14:b5:a5:60:31:7a:bd:99:88:39:33:82:e5:16:1a:a0:49:3c
 Expiry: 2040-12-31
 Subject: CN=UCA Global G2 Root O=UniTrust
 */
-UCA_GLOBAL_G2_ROOT ::= parse_ UCA_GLOBAL_G2_ROOT_BYTES_
-
-/**
-Installs the "UCA Global G2 Root"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 9b:ea:11:c9:76:fe:01:47:64:c1:be:56:a6:f9:14:b5:a5:60:31:7a:bd:99:88:39:33:82:e5:16:1a:a0:49:3c
-Expiry: 2040-12-31
-Subject: CN=UCA Global G2 Root O=UniTrust
-*/
-install_uca_global_g2_root -> none:
-  tls.add_global_root_certificate UCA_GLOBAL_G2_ROOT_BYTES_ 0x8ac3346c
+UCA_GLOBAL_G2_ROOT ::= tls.RootCertificate --fingerprint=0x8ac3346c UCA_GLOBAL_G2_ROOT_BYTES_
 
 USERTRUST_ECC_CERTIFICATION_AUTHORITY_BYTES_ ::= #[
     '0',0x82,0x2,143,'0',130,2,21,160,3,2,1,2,2,16,92,139,153,197,'Z',148,197,
@@ -10855,22 +9910,15 @@ USERTRUST_ECC_CERTIFICATION_AUTHORITY_BYTES_ ::= #[
 
 /**
 USERTrust ECC Certification Authority.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 4f:f4:60:d5:4b:9c:86:da:bf:bc:fc:57:12:e0:40:0d:2b:ed:3f:bc:4d:4f:bd:aa:86:e0:6a:dc:d2:a9:ad:7a
 Expiry: 2038-01-18
 Subject: CN=USERTrust ECC Certification Authority O=The USERTRUST Network
 */
-USERTRUST_ECC_CERTIFICATION_AUTHORITY ::= parse_ USERTRUST_ECC_CERTIFICATION_AUTHORITY_BYTES_
-
-/**
-Installs the "USERTrust ECC Certification Authority"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 4f:f4:60:d5:4b:9c:86:da:bf:bc:fc:57:12:e0:40:0d:2b:ed:3f:bc:4d:4f:bd:aa:86:e0:6a:dc:d2:a9:ad:7a
-Expiry: 2038-01-18
-Subject: CN=USERTrust ECC Certification Authority O=The USERTRUST Network
-*/
-install_usertrust_ecc_certification_authority -> none:
-  tls.add_global_root_certificate USERTRUST_ECC_CERTIFICATION_AUTHORITY_BYTES_ 0xbadc5b59
+USERTRUST_ECC_CERTIFICATION_AUTHORITY ::= tls.RootCertificate --fingerprint=0xbadc5b59 USERTRUST_ECC_CERTIFICATION_AUTHORITY_BYTES_
 
 USERTRUST_RSA_CERTIFICATION_AUTHORITY_BYTES_ ::= #[
     '0',0x82,0x5,222,'0',130,3,198,160,3,2,1,2,2,16,1,253,'m','0',252,163,202,
@@ -10955,22 +10003,15 @@ USERTRUST_RSA_CERTIFICATION_AUTHORITY_BYTES_ ::= #[
 
 /**
 USERTrust RSA Certification Authority.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: e7:93:c9:b0:2f:d8:aa:13:e2:1c:31:22:8a:cc:b0:81:19:64:3b:74:9c:89:89:64:b1:74:6d:46:c3:d4:cb:d2
 Expiry: 2038-01-18
 Subject: CN=USERTrust RSA Certification Authority O=The USERTRUST Network
 */
-USERTRUST_RSA_CERTIFICATION_AUTHORITY ::= parse_ USERTRUST_RSA_CERTIFICATION_AUTHORITY_BYTES_
-
-/**
-Installs the "USERTrust RSA Certification Authority"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: e7:93:c9:b0:2f:d8:aa:13:e2:1c:31:22:8a:cc:b0:81:19:64:3b:74:9c:89:89:64:b1:74:6d:46:c3:d4:cb:d2
-Expiry: 2038-01-18
-Subject: CN=USERTrust RSA Certification Authority O=The USERTRUST Network
-*/
-install_usertrust_rsa_certification_authority -> none:
-  tls.add_global_root_certificate USERTRUST_RSA_CERTIFICATION_AUTHORITY_BYTES_ 0x0c49cbaf
+USERTRUST_RSA_CERTIFICATION_AUTHORITY ::= tls.RootCertificate --fingerprint=0xc49cbaf USERTRUST_RSA_CERTIFICATION_AUTHORITY_BYTES_
 
 XRAMP_GLOBAL_CA_ROOT_BYTES_ ::= #[
     '0',0x82,0x4,'0','0',130,3,24,160,3,2,1,2,2,16,'P',148,'l',236,24,234,213,
@@ -11032,22 +10073,15 @@ XRAMP_GLOBAL_CA_ROOT_BYTES_ ::= #[
 
 /**
 XRamp Global CA Root.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: ce:cd:dc:90:50:99:d8:da:df:c5:b1:d2:09:b7:37:cb:e2:c1:8c:fb:2c:10:c0:ff:0b:cf:0d:32:86:fc:1a:a2
 Expiry: 2035-01-01
 Subject: CN=XRamp Global Certification Authority O=XRamp Security Services Inc OU=www.xrampsecurity.com
 */
-XRAMP_GLOBAL_CA_ROOT ::= parse_ XRAMP_GLOBAL_CA_ROOT_BYTES_
-
-/**
-Installs the "XRamp Global CA Root"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: ce:cd:dc:90:50:99:d8:da:df:c5:b1:d2:09:b7:37:cb:e2:c1:8c:fb:2c:10:c0:ff:0b:cf:0d:32:86:fc:1a:a2
-Expiry: 2035-01-01
-Subject: CN=XRamp Global Certification Authority O=XRamp Security Services Inc OU=www.xrampsecurity.com
-*/
-install_xramp_global_ca_root -> none:
-  tls.add_global_root_certificate XRAMP_GLOBAL_CA_ROOT_BYTES_ 0xc193b732
+XRAMP_GLOBAL_CA_ROOT ::= tls.RootCertificate --fingerprint=0xc193b732 XRAMP_GLOBAL_CA_ROOT_BYTES_
 
 CERTSIGN_ROOT_CA_BYTES_ ::= #[
     '0',0x82,3,'8','0',0x82,2,' ',160,3,2,1,2,2,6,' ',6,5,22,'p',2,'0',13,6,9,
@@ -11096,22 +10130,15 @@ CERTSIGN_ROOT_CA_BYTES_ ::= #[
 
 /**
 certSIGN ROOT CA.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: ea:a9:62:c4:fa:4a:6b:af:eb:e4:15:19:6d:35:1c:cd:88:8d:4f:53:f3:fa:8a:e6:d7:c4:66:a9:4e:60:42:bb
 Expiry: 2031-07-04
 Subject: O=certSIGN OU=certSIGN ROOT CA
 */
-CERTSIGN_ROOT_CA ::= parse_ CERTSIGN_ROOT_CA_BYTES_
-
-/**
-Installs the "certSIGN ROOT CA"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: ea:a9:62:c4:fa:4a:6b:af:eb:e4:15:19:6d:35:1c:cd:88:8d:4f:53:f3:fa:8a:e6:d7:c4:66:a9:4e:60:42:bb
-Expiry: 2031-07-04
-Subject: O=certSIGN OU=certSIGN ROOT CA
-*/
-install_certsign_root_ca -> none:
-  tls.add_global_root_certificate CERTSIGN_ROOT_CA_BYTES_ 0x0344ab15
+CERTSIGN_ROOT_CA ::= tls.RootCertificate --fingerprint=0x344ab15 CERTSIGN_ROOT_CA_BYTES_
 
 CERTSIGN_ROOT_CA_G2_BYTES_ ::= #[
     '0',0x82,5,'G','0',130,3,'/',160,3,2,1,2,2,9,17,0,'4',182,'N',198,'6','-',
@@ -11188,22 +10215,15 @@ CERTSIGN_ROOT_CA_G2_BYTES_ ::= #[
 
 /**
 certSIGN Root CA G2.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 65:7c:fe:2f:a7:3f:aa:38:46:25:71:f3:32:a2:36:3a:46:fc:e7:02:09:51:71:07:02:cd:fb:b6:ee:da:33:05
 Expiry: 2042-02-06
 Subject: O=CERTSIGN SA OU=certSIGN ROOT CA G2
 */
-CERTSIGN_ROOT_CA_G2 ::= parse_ CERTSIGN_ROOT_CA_G2_BYTES_
-
-/**
-Installs the "certSIGN Root CA G2"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 65:7c:fe:2f:a7:3f:aa:38:46:25:71:f3:32:a2:36:3a:46:fc:e7:02:09:51:71:07:02:cd:fb:b6:ee:da:33:05
-Expiry: 2042-02-06
-Subject: O=CERTSIGN SA OU=certSIGN ROOT CA G2
-*/
-install_certsign_root_ca_g2 -> none:
-  tls.add_global_root_certificate CERTSIGN_ROOT_CA_G2_BYTES_ 0x261f3575
+CERTSIGN_ROOT_CA_G2 ::= tls.RootCertificate --fingerprint=0x261f3575 CERTSIGN_ROOT_CA_G2_BYTES_
 
 E_SZIGNO_ROOT_CA_2017_BYTES_ ::= #[
     '0',0x82,0x2,'@','0',130,1,229,160,3,2,1,2,2,12,1,'T','H',239,'!',253,151,
@@ -11239,22 +10259,15 @@ E_SZIGNO_ROOT_CA_2017_BYTES_ ::= #[
 
 /**
 e-Szigno Root CA 2017.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: be:b0:0b:30:83:9b:9b:c3:2c:32:e4:44:79:05:95:06:41:f2:64:21:b1:5e:d0:89:19:8b:51:8a:e2:ea:1b:99
 Expiry: 2042-08-22
 Subject: CN=e-Szigno Root CA 2017 O=Microsec Ltd.
 */
-E_SZIGNO_ROOT_CA_2017 ::= parse_ E_SZIGNO_ROOT_CA_2017_BYTES_
-
-/**
-Installs the "e-Szigno Root CA 2017"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: be:b0:0b:30:83:9b:9b:c3:2c:32:e4:44:79:05:95:06:41:f2:64:21:b1:5e:d0:89:19:8b:51:8a:e2:ea:1b:99
-Expiry: 2042-08-22
-Subject: CN=e-Szigno Root CA 2017 O=Microsec Ltd.
-*/
-install_e_szigno_root_ca_2017 -> none:
-  tls.add_global_root_certificate E_SZIGNO_ROOT_CA_2017_BYTES_ 0x16820df7
+E_SZIGNO_ROOT_CA_2017 ::= tls.RootCertificate --fingerprint=0x16820df7 E_SZIGNO_ROOT_CA_2017_BYTES_
 
 EPKI_ROOT_CERTIFICATION_AUTHORITY_BYTES_ ::= #[
     '0',0x82,0x5,176,'0',130,3,152,160,3,2,1,2,2,16,21,200,189,'e','G',92,175,
@@ -11337,22 +10350,15 @@ EPKI_ROOT_CERTIFICATION_AUTHORITY_BYTES_ ::= #[
 
 /**
 ePKI Root Certification Authority.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: c0:a6:f4:dc:63:a2:4b:fd:cf:54:ef:2a:6a:08:2a:0a:72:de:35:80:3e:2f:f5:ff:52:7a:e5:d8:72:06:df:d5
 Expiry: 2034-12-20
 Subject: O=Chunghwa Telecom Co., Ltd. OU=ePKI Root Certification Authority
 */
-EPKI_ROOT_CERTIFICATION_AUTHORITY ::= parse_ EPKI_ROOT_CERTIFICATION_AUTHORITY_BYTES_
-
-/**
-Installs the "ePKI Root Certification Authority"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: c0:a6:f4:dc:63:a2:4b:fd:cf:54:ef:2a:6a:08:2a:0a:72:de:35:80:3e:2f:f5:ff:52:7a:e5:d8:72:06:df:d5
-Expiry: 2034-12-20
-Subject: O=Chunghwa Telecom Co., Ltd. OU=ePKI Root Certification Authority
-*/
-install_epki_root_certification_authority -> none:
-  tls.add_global_root_certificate EPKI_ROOT_CERTIFICATION_AUTHORITY_BYTES_ 0x50d1b3cf
+EPKI_ROOT_CERTIFICATION_AUTHORITY ::= tls.RootCertificate --fingerprint=0x50d1b3cf EPKI_ROOT_CERTIFICATION_AUTHORITY_BYTES_
 
 EMSIGN_ECC_ROOT_CA_C3_BYTES_ ::= #[
     '0',0x82,2,'+','0',0x82,1,177,160,3,2,1,2,2,10,'{','q',182,130,'V',184,18,
@@ -11388,22 +10394,15 @@ EMSIGN_ECC_ROOT_CA_C3_BYTES_ ::= #[
 
 /**
 emSign ECC Root CA - C3.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: bc:4d:80:9b:15:18:9d:78:db:3e:1d:8c:f4:f9:72:6a:79:5d:a1:64:3c:a5:f1:35:8e:1d:db:0e:dc:0d:7e:b3
 Expiry: 2043-02-18
 Subject: CN=emSign ECC Root CA - C3 O=eMudhra Inc OU=emSign PKI
 */
-EMSIGN_ECC_ROOT_CA_C3 ::= parse_ EMSIGN_ECC_ROOT_CA_C3_BYTES_
-
-/**
-Installs the "emSign ECC Root CA - C3"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: bc:4d:80:9b:15:18:9d:78:db:3e:1d:8c:f4:f9:72:6a:79:5d:a1:64:3c:a5:f1:35:8e:1d:db:0e:dc:0d:7e:b3
-Expiry: 2043-02-18
-Subject: CN=emSign ECC Root CA - C3 O=eMudhra Inc OU=emSign PKI
-*/
-install_emsign_ecc_root_ca_c3 -> none:
-  tls.add_global_root_certificate EMSIGN_ECC_ROOT_CA_C3_BYTES_ 0xef878fd1
+EMSIGN_ECC_ROOT_CA_C3 ::= tls.RootCertificate --fingerprint=0xef878fd1 EMSIGN_ECC_ROOT_CA_C3_BYTES_
 
 EMSIGN_ECC_ROOT_CA_G3_BYTES_ ::= #[
     '0',130,2,'N','0',130,1,211,160,3,2,1,2,2,10,'<',246,7,169,'h','p',14,218,
@@ -11440,22 +10439,15 @@ EMSIGN_ECC_ROOT_CA_G3_BYTES_ ::= #[
 
 /**
 emSign ECC Root CA - G3.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 86:a1:ec:ba:08:9c:4a:8d:3b:be:27:34:c6:12:ba:34:1d:81:3e:04:3c:f9:e8:a8:62:cd:5c:57:a3:6b:be:6b
 Expiry: 2043-02-18
 Subject: CN=emSign ECC Root CA - G3 O=eMudhra Technologies Limited OU=emSign PKI
 */
-EMSIGN_ECC_ROOT_CA_G3 ::= parse_ EMSIGN_ECC_ROOT_CA_G3_BYTES_
-
-/**
-Installs the "emSign ECC Root CA - G3"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 86:a1:ec:ba:08:9c:4a:8d:3b:be:27:34:c6:12:ba:34:1d:81:3e:04:3c:f9:e8:a8:62:cd:5c:57:a3:6b:be:6b
-Expiry: 2043-02-18
-Subject: CN=emSign ECC Root CA - G3 O=eMudhra Technologies Limited OU=emSign PKI
-*/
-install_emsign_ecc_root_ca_g3 -> none:
-  tls.add_global_root_certificate EMSIGN_ECC_ROOT_CA_G3_BYTES_ 0xbff73d11
+EMSIGN_ECC_ROOT_CA_G3 ::= tls.RootCertificate --fingerprint=0xbff73d11 EMSIGN_ECC_ROOT_CA_G3_BYTES_
 
 EMSIGN_ROOT_CA_C1_BYTES_ ::= #[
     '0',0x82,3,'s','0',130,2,'[',160,3,2,1,2,2,11,0,174,207,0,186,196,207,'2',
@@ -11508,22 +10500,15 @@ EMSIGN_ROOT_CA_C1_BYTES_ ::= #[
 
 /**
 emSign Root CA - C1.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 12:56:09:aa:30:1d:a0:a2:49:b9:7a:82:39:cb:6a:34:21:6f:44:dc:ac:9f:39:54:b1:42:92:f2:e8:c8:60:8f
 Expiry: 2043-02-18
 Subject: CN=emSign Root CA - C1 O=eMudhra Inc OU=emSign PKI
 */
-EMSIGN_ROOT_CA_C1 ::= parse_ EMSIGN_ROOT_CA_C1_BYTES_
-
-/**
-Installs the "emSign Root CA - C1"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 12:56:09:aa:30:1d:a0:a2:49:b9:7a:82:39:cb:6a:34:21:6f:44:dc:ac:9f:39:54:b1:42:92:f2:e8:c8:60:8f
-Expiry: 2043-02-18
-Subject: CN=emSign Root CA - C1 O=eMudhra Inc OU=emSign PKI
-*/
-install_emsign_root_ca_c1 -> none:
-  tls.add_global_root_certificate EMSIGN_ROOT_CA_C1_BYTES_ 0x756d49ba
+EMSIGN_ROOT_CA_C1 ::= tls.RootCertificate --fingerprint=0x756d49ba EMSIGN_ROOT_CA_C1_BYTES_
 
 EMSIGN_ROOT_CA_G1_BYTES_ ::= #[
     '0',0x82,3,0x94,'0',130,2,'|',160,3,2,1,2,2,10,'1',245,228,'b',12,'l','X',
@@ -11578,22 +10563,15 @@ EMSIGN_ROOT_CA_G1_BYTES_ ::= #[
 
 /**
 emSign Root CA - G1.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 40:f6:af:03:46:a9:9a:a1:cd:1d:55:5a:4e:9c:ce:62:c7:f9:63:46:03:ee:40:66:15:83:3d:c8:c8:d0:03:67
 Expiry: 2043-02-18
 Subject: CN=emSign Root CA - G1 O=eMudhra Technologies Limited OU=emSign PKI
 */
-EMSIGN_ROOT_CA_G1 ::= parse_ EMSIGN_ROOT_CA_G1_BYTES_
-
-/**
-Installs the "emSign Root CA - G1"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 40:f6:af:03:46:a9:9a:a1:cd:1d:55:5a:4e:9c:ce:62:c7:f9:63:46:03:ee:40:66:15:83:3d:c8:c8:d0:03:67
-Expiry: 2043-02-18
-Subject: CN=emSign Root CA - G1 O=eMudhra Technologies Limited OU=emSign PKI
-*/
-install_emsign_root_ca_g1 -> none:
-  tls.add_global_root_certificate EMSIGN_ROOT_CA_G1_BYTES_ 0x309f7236
+EMSIGN_ROOT_CA_G1 ::= tls.RootCertificate --fingerprint=0x309f7236 EMSIGN_ROOT_CA_G1_BYTES_
 
 VTRUS_ECC_ROOT_CA_BYTES_ ::= #[
     '0',0x82,2,0xf,'0',130,1,149,160,3,2,1,2,2,20,'n','j',188,'Y',170,'S',190,
@@ -11627,22 +10605,15 @@ VTRUS_ECC_ROOT_CA_BYTES_ ::= #[
 
 /**
 vTrus ECC Root CA.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 30:fb:ba:2c:32:23:8e:2a:98:54:7a:f9:79:31:e5:50:42:8b:9b:3f:1c:8e:eb:66:33:dc:fa:86:c5:b2:7d:d3
 Expiry: 2043-07-31
 Subject: CN=vTrus ECC Root CA O=iTrusChina Co.,Ltd.
 */
-VTRUS_ECC_ROOT_CA ::= parse_ VTRUS_ECC_ROOT_CA_BYTES_
-
-/**
-Installs the "vTrus ECC Root CA"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 30:fb:ba:2c:32:23:8e:2a:98:54:7a:f9:79:31:e5:50:42:8b:9b:3f:1c:8e:eb:66:33:dc:fa:86:c5:b2:7d:d3
-Expiry: 2043-07-31
-Subject: CN=vTrus ECC Root CA O=iTrusChina Co.,Ltd.
-*/
-install_vtrus_ecc_root_ca -> none:
-  tls.add_global_root_certificate VTRUS_ECC_ROOT_CA_BYTES_ 0xb84ed731
+VTRUS_ECC_ROOT_CA ::= tls.RootCertificate --fingerprint=0xb84ed731 VTRUS_ECC_ROOT_CA_BYTES_
 
 VTRUS_ROOT_CA_BYTES_ ::= #[
     '0',0x82,5,'V','0',0x82,3,'>',160,3,2,1,2,2,20,'C',227,'q',19,216,179,'Y',
@@ -11720,180 +10691,175 @@ VTRUS_ROOT_CA_BYTES_ ::= #[
 
 /**
 vTrus Root CA.
+This certificate can be added to an HTTP client or a TLS socket with
+  the --root_certificates argument.
+It can also be installed on the Toit process, to be used by all TLS
+  sockets that do not have explicit roots, using its install method.
 SHA256 fingerprint: 8a:71:de:65:59:33:6f:42:6c:26:e5:38:80:d0:0d:88:a1:8d:a4:c6:a9:1f:0d:cb:61:94:e2:06:c5:c9:63:87
 Expiry: 2043-07-31
 Subject: CN=vTrus Root CA O=iTrusChina Co.,Ltd.
 */
-VTRUS_ROOT_CA ::= parse_ VTRUS_ROOT_CA_BYTES_
-
-/**
-Installs the "vTrus Root CA"
-  root certificate on this process so that it is used for any
-  TLS connections that do not have explicit root certificates.
-SHA256 fingerprint: 8a:71:de:65:59:33:6f:42:6c:26:e5:38:80:d0:0d:88:a1:8d:a4:c6:a9:1f:0d:cb:61:94:e2:06:c5:c9:63:87
-Expiry: 2043-07-31
-Subject: CN=vTrus Root CA O=iTrusChina Co.,Ltd.
-*/
-install_vtrus_root_ca -> none:
-  tls.add_global_root_certificate VTRUS_ROOT_CA_BYTES_ 0x0438948e
+VTRUS_ROOT_CA ::= tls.RootCertificate --fingerprint=0x438948e VTRUS_ROOT_CA_BYTES_
 
 
 /**
-A map from certificate name to certificate in byte array form.
-The byte array forms must be parsed with net.Certificate.parse
-  before they can be used as the --root_certificates argument
+A map from certificate name to $tls.RootCertificate objects.
+The certificates can be used for the --root_certificates
+  argument of TLS sockets.
+The certificates can also be installed as globally trusted
+  roots using their install method.
 */
 MAP ::= {
-  "AC RAIZ FNMT-RCM": AC_RAIZ_FNMT_RCM_BYTES_,
-  "AC RAIZ FNMT-RCM SERVIDORES SEGUROS": AC_RAIZ_FNMT_RCM_SERVIDORES_SEGUROS_BYTES_,
-  "ACCVRAIZ1": ACCVRAIZ1_BYTES_,
-  "ANF Secure Server Root CA": ANF_SECURE_SERVER_ROOT_CA_BYTES_,
-  "Actalis Authentication Root CA": ACTALIS_AUTHENTICATION_ROOT_CA_BYTES_,
-  "AffirmTrust Commercial": AFFIRMTRUST_COMMERCIAL_BYTES_,
-  "AffirmTrust Networking": AFFIRMTRUST_NETWORKING_BYTES_,
-  "AffirmTrust Premium": AFFIRMTRUST_PREMIUM_BYTES_,
-  "AffirmTrust Premium ECC": AFFIRMTRUST_PREMIUM_ECC_BYTES_,
-  "Amazon Root CA 1": AMAZON_ROOT_CA_1_BYTES_,
-  "Amazon Root CA 2": AMAZON_ROOT_CA_2_BYTES_,
-  "Amazon Root CA 3": AMAZON_ROOT_CA_3_BYTES_,
-  "Amazon Root CA 4": AMAZON_ROOT_CA_4_BYTES_,
-  "Atos TrustedRoot 2011": ATOS_TRUSTEDROOT_2011_BYTES_,
-  "Atos TrustedRoot Root CA ECC TLS 2021": ATOS_TRUSTEDROOT_ROOT_CA_ECC_TLS_2021_BYTES_,
-  "Atos TrustedRoot Root CA RSA TLS 2021": ATOS_TRUSTEDROOT_ROOT_CA_RSA_TLS_2021_BYTES_,
-  "Autoridad de Certificacion Firmaprofesional CIF A62634068": AUTORIDAD_DE_CERTIFICACION_FIRMAPROFESIONAL_CIF_A62634068_BYTES_,
-  "Autoridad de Certificacion Firmaprofesional CIF A62634068 new": AUTORIDAD_DE_CERTIFICACION_FIRMAPROFESIONAL_CIF_A62634068_NEW_BYTES_,
-  "BJCA Global Root CA1": BJCA_GLOBAL_ROOT_CA1_BYTES_,
-  "BJCA Global Root CA2": BJCA_GLOBAL_ROOT_CA2_BYTES_,
-  "Baltimore CyberTrust Root": BALTIMORE_CYBERTRUST_ROOT_BYTES_,
-  "Buypass Class 2 Root CA": BUYPASS_CLASS_2_ROOT_CA_BYTES_,
-  "Buypass Class 3 Root CA": BUYPASS_CLASS_3_ROOT_CA_BYTES_,
-  "CA Disig Root R2": CA_DISIG_ROOT_R2_BYTES_,
-  "CFCA EV ROOT": CFCA_EV_ROOT_BYTES_,
-  "COMODO Certification Authority": COMODO_CERTIFICATION_AUTHORITY_BYTES_,
-  "COMODO ECC Certification Authority": COMODO_ECC_CERTIFICATION_AUTHORITY_BYTES_,
-  "COMODO RSA Certification Authority": COMODO_RSA_CERTIFICATION_AUTHORITY_BYTES_,
-  "Certainly Root E1": CERTAINLY_ROOT_E1_BYTES_,
-  "Certainly Root R1": CERTAINLY_ROOT_R1_BYTES_,
-  "Certigna": CERTIGNA_BYTES_,
-  "Certigna Root CA": CERTIGNA_ROOT_CA_BYTES_,
-  "Certum EC-384 CA": CERTUM_EC_384_CA_BYTES_,
-  "Certum Trusted Network CA": CERTUM_TRUSTED_NETWORK_CA_BYTES_,
-  "Certum Trusted Network CA 2": CERTUM_TRUSTED_NETWORK_CA_2_BYTES_,
-  "Certum Trusted Root CA": CERTUM_TRUSTED_ROOT_CA_BYTES_,
-  "Comodo AAA Services root": COMODO_AAA_SERVICES_ROOT_BYTES_,
-  "Cybertrust Global Root": CYBERTRUST_GLOBAL_ROOT_BYTES_,
-  "D-TRUST BR Root CA 1 2020": D_TRUST_BR_ROOT_CA_1_2020_BYTES_,
-  "D-TRUST EV Root CA 1 2020": D_TRUST_EV_ROOT_CA_1_2020_BYTES_,
-  "D-TRUST Root Class 3 CA 2 2009": D_TRUST_ROOT_CLASS_3_CA_2_2009_BYTES_,
-  "D-TRUST Root Class 3 CA 2 EV 2009": D_TRUST_ROOT_CLASS_3_CA_2_EV_2009_BYTES_,
-  "DST Root CA X3": DST_ROOT_CA_X3_BYTES_,
-  "DigiCert Assured ID Root CA": DIGICERT_ASSURED_ID_ROOT_CA_BYTES_,
-  "DigiCert Assured ID Root G2": DIGICERT_ASSURED_ID_ROOT_G2_BYTES_,
-  "DigiCert Assured ID Root G3": DIGICERT_ASSURED_ID_ROOT_G3_BYTES_,
-  "DigiCert Global Root CA": DIGICERT_GLOBAL_ROOT_CA_BYTES_,
-  "DigiCert Global Root G2": DIGICERT_GLOBAL_ROOT_G2_BYTES_,
-  "DigiCert Global Root G3": DIGICERT_GLOBAL_ROOT_G3_BYTES_,
-  "DigiCert High Assurance EV Root CA": DIGICERT_HIGH_ASSURANCE_EV_ROOT_CA_BYTES_,
-  "DigiCert TLS ECC P384 Root G5": DIGICERT_TLS_ECC_P384_ROOT_G5_BYTES_,
-  "DigiCert TLS RSA4096 Root G5": DIGICERT_TLS_RSA4096_ROOT_G5_BYTES_,
-  "DigiCert Trusted Root G4": DIGICERT_TRUSTED_ROOT_G4_BYTES_,
-  "EC-ACC": EC_ACC_BYTES_,
-  "Entrust Root Certification Authority": ENTRUST_ROOT_CERTIFICATION_AUTHORITY_BYTES_,
-  "Entrust Root Certification Authority - EC1": ENTRUST_ROOT_CERTIFICATION_AUTHORITY_EC1_BYTES_,
-  "Entrust Root Certification Authority - G2": ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G2_BYTES_,
-  "Entrust Root Certification Authority - G4": ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G4_BYTES_,
-  "Entrust.net Premium 2048 Secure Server CA": ENTRUST_NET_PREMIUM_2048_SECURE_SERVER_CA_BYTES_,
-  "GDCA TrustAUTH R5 ROOT": GDCA_TRUSTAUTH_R5_ROOT_BYTES_,
-  "GLOBALTRUST 2020": GLOBALTRUST_2020_BYTES_,
-  "GTS Root R1": GTS_ROOT_R1_BYTES_,
-  "GTS Root R2": GTS_ROOT_R2_BYTES_,
-  "GTS Root R3": GTS_ROOT_R3_BYTES_,
-  "GTS Root R4": GTS_ROOT_R4_BYTES_,
-  "GlobalSign ECC Root CA - R4": GLOBALSIGN_ECC_ROOT_CA_R4_BYTES_,
-  "GlobalSign ECC Root CA - R5": GLOBALSIGN_ECC_ROOT_CA_R5_BYTES_,
-  "GlobalSign Root CA": GLOBALSIGN_ROOT_CA_BYTES_,
-  "GlobalSign Root CA - R2": GLOBALSIGN_ROOT_CA_R2_BYTES_,
-  "GlobalSign Root CA - R3": GLOBALSIGN_ROOT_CA_R3_BYTES_,
-  "GlobalSign Root CA - R6": GLOBALSIGN_ROOT_CA_R6_BYTES_,
-  "GlobalSign Root E46": GLOBALSIGN_ROOT_E46_BYTES_,
-  "GlobalSign Root R46": GLOBALSIGN_ROOT_R46_BYTES_,
-  "Go Daddy Class 2 CA": GO_DADDY_CLASS_2_CA_BYTES_,
-  "Go Daddy Root Certificate Authority - G2": GO_DADDY_ROOT_CERTIFICATE_AUTHORITY_G2_BYTES_,
-  "HARICA TLS ECC Root CA 2021": HARICA_TLS_ECC_ROOT_CA_2021_BYTES_,
-  "HARICA TLS RSA Root CA 2021": HARICA_TLS_RSA_ROOT_CA_2021_BYTES_,
-  "Hellenic Academic and Research Institutions ECC RootCA 2015": HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ECC_ROOTCA_2015_BYTES_,
-  "Hellenic Academic and Research Institutions RootCA 2011": HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2011_BYTES_,
-  "Hellenic Academic and Research Institutions RootCA 2015": HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2015_BYTES_,
-  "HiPKI Root CA - G1": HIPKI_ROOT_CA_G1_BYTES_,
-  "Hongkong Post Root CA 3": HONGKONG_POST_ROOT_CA_3_BYTES_,
-  "ISRG Root X1": ISRG_ROOT_X1_BYTES_,
-  "ISRG Root X2": ISRG_ROOT_X2_BYTES_,
-  "IdenTrust Commercial Root CA 1": IDENTRUST_COMMERCIAL_ROOT_CA_1_BYTES_,
-  "IdenTrust Public Sector Root CA 1": IDENTRUST_PUBLIC_SECTOR_ROOT_CA_1_BYTES_,
-  "Izenpe.com": IZENPE_COM_BYTES_,
-  "Microsec e-Szigno Root CA 2009": MICROSEC_E_SZIGNO_ROOT_CA_2009_BYTES_,
-  "Microsoft ECC Root Certificate Authority 2017": MICROSOFT_ECC_ROOT_CERTIFICATE_AUTHORITY_2017_BYTES_,
-  "Microsoft RSA Root Certificate Authority 2017": MICROSOFT_RSA_ROOT_CERTIFICATE_AUTHORITY_2017_BYTES_,
-  "NAVER Global Root Certification Authority": NAVER_GLOBAL_ROOT_CERTIFICATION_AUTHORITY_BYTES_,
-  "NetLock Arany (Class Gold) Főtanúsítvány": NETLOCK_ARANY_BYTES_,
-  "Network Solutions Certificate Authority": NETWORK_SOLUTIONS_CERTIFICATE_AUTHORITY_BYTES_,
-  "OISTE WISeKey Global Root GB CA": OISTE_WISEKEY_GLOBAL_ROOT_GB_CA_BYTES_,
-  "OISTE WISeKey Global Root GC CA": OISTE_WISEKEY_GLOBAL_ROOT_GC_CA_BYTES_,
-  "QuoVadis Root CA 1 G3": QUOVADIS_ROOT_CA_1_G3_BYTES_,
-  "QuoVadis Root CA 2": QUOVADIS_ROOT_CA_2_BYTES_,
-  "QuoVadis Root CA 2 G3": QUOVADIS_ROOT_CA_2_G3_BYTES_,
-  "QuoVadis Root CA 3": QUOVADIS_ROOT_CA_3_BYTES_,
-  "QuoVadis Root CA 3 G3": QUOVADIS_ROOT_CA_3_G3_BYTES_,
-  "SSL.com EV Root Certification Authority ECC": SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_ECC_BYTES_,
-  "SSL.com EV Root Certification Authority RSA R2": SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_RSA_R2_BYTES_,
-  "SSL.com Root Certification Authority ECC": SSL_COM_ROOT_CERTIFICATION_AUTHORITY_ECC_BYTES_,
-  "SSL.com Root Certification Authority RSA": SSL_COM_ROOT_CERTIFICATION_AUTHORITY_RSA_BYTES_,
-  "SSL.com TLS ECC Root CA 2022": SSL_COM_TLS_ECC_ROOT_CA_2022_BYTES_,
-  "SSL.com TLS RSA Root CA 2022": SSL_COM_TLS_RSA_ROOT_CA_2022_BYTES_,
-  "SZAFIR ROOT CA2": SZAFIR_ROOT_CA2_BYTES_,
-  "Sectigo Public Server Authentication Root E46": SECTIGO_PUBLIC_SERVER_AUTHENTICATION_ROOT_E46_BYTES_,
-  "Sectigo Public Server Authentication Root R46": SECTIGO_PUBLIC_SERVER_AUTHENTICATION_ROOT_R46_BYTES_,
-  "Secure Global CA": SECURE_GLOBAL_CA_BYTES_,
-  "SecureSign RootCA11": SECURESIGN_ROOTCA11_BYTES_,
-  "SecureTrust CA": SECURETRUST_CA_BYTES_,
-  "Security Communication ECC RootCA1": SECURITY_COMMUNICATION_ECC_ROOTCA1_BYTES_,
-  "Security Communication Root CA": SECURITY_COMMUNICATION_ROOT_CA_BYTES_,
-  "Security Communication RootCA2": SECURITY_COMMUNICATION_ROOTCA2_BYTES_,
-  "Security Communication RootCA3": SECURITY_COMMUNICATION_ROOTCA3_BYTES_,
-  "Staat der Nederlanden EV Root CA": STAAT_DER_NEDERLANDEN_EV_ROOT_CA_BYTES_,
-  "Starfield Class 2 CA": STARFIELD_CLASS_2_CA_BYTES_,
-  "Starfield Root Certificate Authority - G2": STARFIELD_ROOT_CERTIFICATE_AUTHORITY_G2_BYTES_,
-  "Starfield Services Root Certificate Authority - G2": STARFIELD_SERVICES_ROOT_CERTIFICATE_AUTHORITY_G2_BYTES_,
-  "SwissSign Gold CA - G2": SWISSSIGN_GOLD_CA_G2_BYTES_,
-  "SwissSign Silver CA - G2": SWISSSIGN_SILVER_CA_G2_BYTES_,
-  "T-TeleSec GlobalRoot Class 2": T_TELESEC_GLOBALROOT_CLASS_2_BYTES_,
-  "T-TeleSec GlobalRoot Class 3": T_TELESEC_GLOBALROOT_CLASS_3_BYTES_,
-  "TUBITAK Kamu SM SSL Kok Sertifikasi - Surum 1": TUBITAK_KAMU_SM_SSL_KOK_SERTIFIKASI_SURUM_1_BYTES_,
-  "TWCA Global Root CA": TWCA_GLOBAL_ROOT_CA_BYTES_,
-  "TWCA Root Certification Authority": TWCA_ROOT_CERTIFICATION_AUTHORITY_BYTES_,
-  "Telia Root CA v2": TELIA_ROOT_CA_V2_BYTES_,
-  "TeliaSonera Root CA v1": TELIASONERA_ROOT_CA_V1_BYTES_,
-  "TrustCor ECA-1": TRUSTCOR_ECA_1_BYTES_,
-  "TrustCor RootCert CA-1": TRUSTCOR_ROOTCERT_CA_1_BYTES_,
-  "TrustCor RootCert CA-2": TRUSTCOR_ROOTCERT_CA_2_BYTES_,
-  "Trustwave Global Certification Authority": TRUSTWAVE_GLOBAL_CERTIFICATION_AUTHORITY_BYTES_,
-  "Trustwave Global ECC P256 Certification Authority": TRUSTWAVE_GLOBAL_ECC_P256_CERTIFICATION_AUTHORITY_BYTES_,
-  "Trustwave Global ECC P384 Certification Authority": TRUSTWAVE_GLOBAL_ECC_P384_CERTIFICATION_AUTHORITY_BYTES_,
-  "UCA Extended Validation Root": UCA_EXTENDED_VALIDATION_ROOT_BYTES_,
-  "UCA Global G2 Root": UCA_GLOBAL_G2_ROOT_BYTES_,
-  "USERTrust ECC Certification Authority": USERTRUST_ECC_CERTIFICATION_AUTHORITY_BYTES_,
-  "USERTrust RSA Certification Authority": USERTRUST_RSA_CERTIFICATION_AUTHORITY_BYTES_,
-  "XRamp Global CA Root": XRAMP_GLOBAL_CA_ROOT_BYTES_,
-  "certSIGN ROOT CA": CERTSIGN_ROOT_CA_BYTES_,
-  "certSIGN Root CA G2": CERTSIGN_ROOT_CA_G2_BYTES_,
-  "e-Szigno Root CA 2017": E_SZIGNO_ROOT_CA_2017_BYTES_,
-  "ePKI Root Certification Authority": EPKI_ROOT_CERTIFICATION_AUTHORITY_BYTES_,
-  "emSign ECC Root CA - C3": EMSIGN_ECC_ROOT_CA_C3_BYTES_,
-  "emSign ECC Root CA - G3": EMSIGN_ECC_ROOT_CA_G3_BYTES_,
-  "emSign Root CA - C1": EMSIGN_ROOT_CA_C1_BYTES_,
-  "emSign Root CA - G1": EMSIGN_ROOT_CA_G1_BYTES_,
-  "vTrus ECC Root CA": VTRUS_ECC_ROOT_CA_BYTES_,
-  "vTrus Root CA": VTRUS_ROOT_CA_BYTES_,
+  "AC RAIZ FNMT-RCM": AC_RAIZ_FNMT_RCM,
+  "AC RAIZ FNMT-RCM SERVIDORES SEGUROS": AC_RAIZ_FNMT_RCM_SERVIDORES_SEGUROS,
+  "ACCVRAIZ1": ACCVRAIZ1,
+  "ANF Secure Server Root CA": ANF_SECURE_SERVER_ROOT_CA,
+  "Actalis Authentication Root CA": ACTALIS_AUTHENTICATION_ROOT_CA,
+  "AffirmTrust Commercial": AFFIRMTRUST_COMMERCIAL,
+  "AffirmTrust Networking": AFFIRMTRUST_NETWORKING,
+  "AffirmTrust Premium": AFFIRMTRUST_PREMIUM,
+  "AffirmTrust Premium ECC": AFFIRMTRUST_PREMIUM_ECC,
+  "Amazon Root CA 1": AMAZON_ROOT_CA_1,
+  "Amazon Root CA 2": AMAZON_ROOT_CA_2,
+  "Amazon Root CA 3": AMAZON_ROOT_CA_3,
+  "Amazon Root CA 4": AMAZON_ROOT_CA_4,
+  "Atos TrustedRoot 2011": ATOS_TRUSTEDROOT_2011,
+  "Atos TrustedRoot Root CA ECC TLS 2021": ATOS_TRUSTEDROOT_ROOT_CA_ECC_TLS_2021,
+  "Atos TrustedRoot Root CA RSA TLS 2021": ATOS_TRUSTEDROOT_ROOT_CA_RSA_TLS_2021,
+  "Autoridad de Certificacion Firmaprofesional CIF A62634068": AUTORIDAD_DE_CERTIFICACION_FIRMAPROFESIONAL_CIF_A62634068,
+  "Autoridad de Certificacion Firmaprofesional CIF A62634068 new": AUTORIDAD_DE_CERTIFICACION_FIRMAPROFESIONAL_CIF_A62634068_NEW,
+  "BJCA Global Root CA1": BJCA_GLOBAL_ROOT_CA1,
+  "BJCA Global Root CA2": BJCA_GLOBAL_ROOT_CA2,
+  "Baltimore CyberTrust Root": BALTIMORE_CYBERTRUST_ROOT,
+  "Buypass Class 2 Root CA": BUYPASS_CLASS_2_ROOT_CA,
+  "Buypass Class 3 Root CA": BUYPASS_CLASS_3_ROOT_CA,
+  "CA Disig Root R2": CA_DISIG_ROOT_R2,
+  "CFCA EV ROOT": CFCA_EV_ROOT,
+  "COMODO Certification Authority": COMODO_CERTIFICATION_AUTHORITY,
+  "COMODO ECC Certification Authority": COMODO_ECC_CERTIFICATION_AUTHORITY,
+  "COMODO RSA Certification Authority": COMODO_RSA_CERTIFICATION_AUTHORITY,
+  "Certainly Root E1": CERTAINLY_ROOT_E1,
+  "Certainly Root R1": CERTAINLY_ROOT_R1,
+  "Certigna": CERTIGNA,
+  "Certigna Root CA": CERTIGNA_ROOT_CA,
+  "Certum EC-384 CA": CERTUM_EC_384_CA,
+  "Certum Trusted Network CA": CERTUM_TRUSTED_NETWORK_CA,
+  "Certum Trusted Network CA 2": CERTUM_TRUSTED_NETWORK_CA_2,
+  "Certum Trusted Root CA": CERTUM_TRUSTED_ROOT_CA,
+  "Comodo AAA Services root": COMODO_AAA_SERVICES_ROOT,
+  "Cybertrust Global Root": CYBERTRUST_GLOBAL_ROOT,
+  "D-TRUST BR Root CA 1 2020": D_TRUST_BR_ROOT_CA_1_2020,
+  "D-TRUST EV Root CA 1 2020": D_TRUST_EV_ROOT_CA_1_2020,
+  "D-TRUST Root Class 3 CA 2 2009": D_TRUST_ROOT_CLASS_3_CA_2_2009,
+  "D-TRUST Root Class 3 CA 2 EV 2009": D_TRUST_ROOT_CLASS_3_CA_2_EV_2009,
+  "DST Root CA X3": DST_ROOT_CA_X3,
+  "DigiCert Assured ID Root CA": DIGICERT_ASSURED_ID_ROOT_CA,
+  "DigiCert Assured ID Root G2": DIGICERT_ASSURED_ID_ROOT_G2,
+  "DigiCert Assured ID Root G3": DIGICERT_ASSURED_ID_ROOT_G3,
+  "DigiCert Global Root CA": DIGICERT_GLOBAL_ROOT_CA,
+  "DigiCert Global Root G2": DIGICERT_GLOBAL_ROOT_G2,
+  "DigiCert Global Root G3": DIGICERT_GLOBAL_ROOT_G3,
+  "DigiCert High Assurance EV Root CA": DIGICERT_HIGH_ASSURANCE_EV_ROOT_CA,
+  "DigiCert TLS ECC P384 Root G5": DIGICERT_TLS_ECC_P384_ROOT_G5,
+  "DigiCert TLS RSA4096 Root G5": DIGICERT_TLS_RSA4096_ROOT_G5,
+  "DigiCert Trusted Root G4": DIGICERT_TRUSTED_ROOT_G4,
+  "EC-ACC": EC_ACC,
+  "Entrust Root Certification Authority": ENTRUST_ROOT_CERTIFICATION_AUTHORITY,
+  "Entrust Root Certification Authority - EC1": ENTRUST_ROOT_CERTIFICATION_AUTHORITY_EC1,
+  "Entrust Root Certification Authority - G2": ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G2,
+  "Entrust Root Certification Authority - G4": ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G4,
+  "Entrust.net Premium 2048 Secure Server CA": ENTRUST_NET_PREMIUM_2048_SECURE_SERVER_CA,
+  "GDCA TrustAUTH R5 ROOT": GDCA_TRUSTAUTH_R5_ROOT,
+  "GLOBALTRUST 2020": GLOBALTRUST_2020,
+  "GTS Root R1": GTS_ROOT_R1,
+  "GTS Root R2": GTS_ROOT_R2,
+  "GTS Root R3": GTS_ROOT_R3,
+  "GTS Root R4": GTS_ROOT_R4,
+  "GlobalSign ECC Root CA - R4": GLOBALSIGN_ECC_ROOT_CA_R4,
+  "GlobalSign ECC Root CA - R5": GLOBALSIGN_ECC_ROOT_CA_R5,
+  "GlobalSign Root CA": GLOBALSIGN_ROOT_CA,
+  "GlobalSign Root CA - R2": GLOBALSIGN_ROOT_CA_R2,
+  "GlobalSign Root CA - R3": GLOBALSIGN_ROOT_CA_R3,
+  "GlobalSign Root CA - R6": GLOBALSIGN_ROOT_CA_R6,
+  "GlobalSign Root E46": GLOBALSIGN_ROOT_E46,
+  "GlobalSign Root R46": GLOBALSIGN_ROOT_R46,
+  "Go Daddy Class 2 CA": GO_DADDY_CLASS_2_CA,
+  "Go Daddy Root Certificate Authority - G2": GO_DADDY_ROOT_CERTIFICATE_AUTHORITY_G2,
+  "HARICA TLS ECC Root CA 2021": HARICA_TLS_ECC_ROOT_CA_2021,
+  "HARICA TLS RSA Root CA 2021": HARICA_TLS_RSA_ROOT_CA_2021,
+  "Hellenic Academic and Research Institutions ECC RootCA 2015": HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ECC_ROOTCA_2015,
+  "Hellenic Academic and Research Institutions RootCA 2011": HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2011,
+  "Hellenic Academic and Research Institutions RootCA 2015": HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2015,
+  "HiPKI Root CA - G1": HIPKI_ROOT_CA_G1,
+  "Hongkong Post Root CA 3": HONGKONG_POST_ROOT_CA_3,
+  "ISRG Root X1": ISRG_ROOT_X1,
+  "ISRG Root X2": ISRG_ROOT_X2,
+  "IdenTrust Commercial Root CA 1": IDENTRUST_COMMERCIAL_ROOT_CA_1,
+  "IdenTrust Public Sector Root CA 1": IDENTRUST_PUBLIC_SECTOR_ROOT_CA_1,
+  "Izenpe.com": IZENPE_COM,
+  "Microsec e-Szigno Root CA 2009": MICROSEC_E_SZIGNO_ROOT_CA_2009,
+  "Microsoft ECC Root Certificate Authority 2017": MICROSOFT_ECC_ROOT_CERTIFICATE_AUTHORITY_2017,
+  "Microsoft RSA Root Certificate Authority 2017": MICROSOFT_RSA_ROOT_CERTIFICATE_AUTHORITY_2017,
+  "NAVER Global Root Certification Authority": NAVER_GLOBAL_ROOT_CERTIFICATION_AUTHORITY,
+  "NetLock Arany (Class Gold) Főtanúsítvány": NETLOCK_ARANY,
+  "Network Solutions Certificate Authority": NETWORK_SOLUTIONS_CERTIFICATE_AUTHORITY,
+  "OISTE WISeKey Global Root GB CA": OISTE_WISEKEY_GLOBAL_ROOT_GB_CA,
+  "OISTE WISeKey Global Root GC CA": OISTE_WISEKEY_GLOBAL_ROOT_GC_CA,
+  "QuoVadis Root CA 1 G3": QUOVADIS_ROOT_CA_1_G3,
+  "QuoVadis Root CA 2": QUOVADIS_ROOT_CA_2,
+  "QuoVadis Root CA 2 G3": QUOVADIS_ROOT_CA_2_G3,
+  "QuoVadis Root CA 3": QUOVADIS_ROOT_CA_3,
+  "QuoVadis Root CA 3 G3": QUOVADIS_ROOT_CA_3_G3,
+  "SSL.com EV Root Certification Authority ECC": SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_ECC,
+  "SSL.com EV Root Certification Authority RSA R2": SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_RSA_R2,
+  "SSL.com Root Certification Authority ECC": SSL_COM_ROOT_CERTIFICATION_AUTHORITY_ECC,
+  "SSL.com Root Certification Authority RSA": SSL_COM_ROOT_CERTIFICATION_AUTHORITY_RSA,
+  "SSL.com TLS ECC Root CA 2022": SSL_COM_TLS_ECC_ROOT_CA_2022,
+  "SSL.com TLS RSA Root CA 2022": SSL_COM_TLS_RSA_ROOT_CA_2022,
+  "SZAFIR ROOT CA2": SZAFIR_ROOT_CA2,
+  "Sectigo Public Server Authentication Root E46": SECTIGO_PUBLIC_SERVER_AUTHENTICATION_ROOT_E46,
+  "Sectigo Public Server Authentication Root R46": SECTIGO_PUBLIC_SERVER_AUTHENTICATION_ROOT_R46,
+  "Secure Global CA": SECURE_GLOBAL_CA,
+  "SecureSign RootCA11": SECURESIGN_ROOTCA11,
+  "SecureTrust CA": SECURETRUST_CA,
+  "Security Communication ECC RootCA1": SECURITY_COMMUNICATION_ECC_ROOTCA1,
+  "Security Communication Root CA": SECURITY_COMMUNICATION_ROOT_CA,
+  "Security Communication RootCA2": SECURITY_COMMUNICATION_ROOTCA2,
+  "Security Communication RootCA3": SECURITY_COMMUNICATION_ROOTCA3,
+  "Staat der Nederlanden EV Root CA": STAAT_DER_NEDERLANDEN_EV_ROOT_CA,
+  "Starfield Class 2 CA": STARFIELD_CLASS_2_CA,
+  "Starfield Root Certificate Authority - G2": STARFIELD_ROOT_CERTIFICATE_AUTHORITY_G2,
+  "Starfield Services Root Certificate Authority - G2": STARFIELD_SERVICES_ROOT_CERTIFICATE_AUTHORITY_G2,
+  "SwissSign Gold CA - G2": SWISSSIGN_GOLD_CA_G2,
+  "SwissSign Silver CA - G2": SWISSSIGN_SILVER_CA_G2,
+  "T-TeleSec GlobalRoot Class 2": T_TELESEC_GLOBALROOT_CLASS_2,
+  "T-TeleSec GlobalRoot Class 3": T_TELESEC_GLOBALROOT_CLASS_3,
+  "TUBITAK Kamu SM SSL Kok Sertifikasi - Surum 1": TUBITAK_KAMU_SM_SSL_KOK_SERTIFIKASI_SURUM_1,
+  "TWCA Global Root CA": TWCA_GLOBAL_ROOT_CA,
+  "TWCA Root Certification Authority": TWCA_ROOT_CERTIFICATION_AUTHORITY,
+  "Telia Root CA v2": TELIA_ROOT_CA_V2,
+  "TeliaSonera Root CA v1": TELIASONERA_ROOT_CA_V1,
+  "TrustCor ECA-1": TRUSTCOR_ECA_1,
+  "TrustCor RootCert CA-1": TRUSTCOR_ROOTCERT_CA_1,
+  "TrustCor RootCert CA-2": TRUSTCOR_ROOTCERT_CA_2,
+  "Trustwave Global Certification Authority": TRUSTWAVE_GLOBAL_CERTIFICATION_AUTHORITY,
+  "Trustwave Global ECC P256 Certification Authority": TRUSTWAVE_GLOBAL_ECC_P256_CERTIFICATION_AUTHORITY,
+  "Trustwave Global ECC P384 Certification Authority": TRUSTWAVE_GLOBAL_ECC_P384_CERTIFICATION_AUTHORITY,
+  "UCA Extended Validation Root": UCA_EXTENDED_VALIDATION_ROOT,
+  "UCA Global G2 Root": UCA_GLOBAL_G2_ROOT,
+  "USERTrust ECC Certification Authority": USERTRUST_ECC_CERTIFICATION_AUTHORITY,
+  "USERTrust RSA Certification Authority": USERTRUST_RSA_CERTIFICATION_AUTHORITY,
+  "XRamp Global CA Root": XRAMP_GLOBAL_CA_ROOT,
+  "certSIGN ROOT CA": CERTSIGN_ROOT_CA,
+  "certSIGN Root CA G2": CERTSIGN_ROOT_CA_G2,
+  "e-Szigno Root CA 2017": E_SZIGNO_ROOT_CA_2017,
+  "ePKI Root Certification Authority": EPKI_ROOT_CERTIFICATION_AUTHORITY,
+  "emSign ECC Root CA - C3": EMSIGN_ECC_ROOT_CA_C3,
+  "emSign ECC Root CA - G3": EMSIGN_ECC_ROOT_CA_G3,
+  "emSign Root CA - C1": EMSIGN_ROOT_CA_C1,
+  "emSign Root CA - G1": EMSIGN_ROOT_CA_G1,
+  "vTrus ECC Root CA": VTRUS_ECC_ROOT_CA,
+  "vTrus Root CA": VTRUS_ROOT_CA,
   "AAA Certificate Services": COMODO_AAA_SERVICES_ROOT_BYTES_,
 }
 
@@ -12087,157 +11053,174 @@ Installs all certificate roots on this process so that they are used
 This adds about 180k to the program size.
 */
 install_all_trusted_roots -> none:
-  tls.add_global_root_certificate AC_RAIZ_FNMT_RCM_BYTES_ 0x38a0d6b5
-  tls.add_global_root_certificate AC_RAIZ_FNMT_RCM_SERVIDORES_SEGUROS_BYTES_ 0x3d5374aa
-  tls.add_global_root_certificate ACCVRAIZ1_BYTES_ 0xb1976892
-  tls.add_global_root_certificate ANF_SECURE_SERVER_ROOT_CA_BYTES_ 0x073fec93
-  tls.add_global_root_certificate ACTALIS_AUTHENTICATION_ROOT_CA_BYTES_ 0x479c6ea1
-  tls.add_global_root_certificate AFFIRMTRUST_COMMERCIAL_BYTES_ 0xd96e1399
-  tls.add_global_root_certificate AFFIRMTRUST_NETWORKING_BYTES_ 0x6d8135f9
-  tls.add_global_root_certificate AFFIRMTRUST_PREMIUM_BYTES_ 0x10034072
-  tls.add_global_root_certificate AFFIRMTRUST_PREMIUM_ECC_BYTES_ 0xd237d71f
-  tls.add_global_root_certificate AMAZON_ROOT_CA_1_BYTES_ 0x2ffbc699
-  tls.add_global_root_certificate AMAZON_ROOT_CA_2_BYTES_ 0xb6f29723
-  tls.add_global_root_certificate AMAZON_ROOT_CA_3_BYTES_ 0xc1f5a7b5
-  tls.add_global_root_certificate AMAZON_ROOT_CA_4_BYTES_ 0x5f913216
-  tls.add_global_root_certificate ATOS_TRUSTEDROOT_2011_BYTES_ 0xd8b31d4a
-  tls.add_global_root_certificate ATOS_TRUSTEDROOT_ROOT_CA_ECC_TLS_2021_BYTES_ 0x8fbee9b0
-  tls.add_global_root_certificate ATOS_TRUSTEDROOT_ROOT_CA_RSA_TLS_2021_BYTES_ 0x7c03228f
-  tls.add_global_root_certificate AUTORIDAD_DE_CERTIFICACION_FIRMAPROFESIONAL_CIF_A62634068_BYTES_ 0x5e8d2b67
-  tls.add_global_root_certificate AUTORIDAD_DE_CERTIFICACION_FIRMAPROFESIONAL_CIF_A62634068_NEW_BYTES_ 0x5e8d2b67
-  tls.add_global_root_certificate BJCA_GLOBAL_ROOT_CA1_BYTES_ 0xb0593165
-  tls.add_global_root_certificate BJCA_GLOBAL_ROOT_CA2_BYTES_ 0x295060df
-  tls.add_global_root_certificate BALTIMORE_CYBERTRUST_ROOT_BYTES_ 0x63203d15
-  tls.add_global_root_certificate BUYPASS_CLASS_2_ROOT_CA_BYTES_ 0x7052f040
-  tls.add_global_root_certificate BUYPASS_CLASS_3_ROOT_CA_BYTES_ 0x6729e403
-  tls.add_global_root_certificate CA_DISIG_ROOT_R2_BYTES_ 0xc9a736cc
-  tls.add_global_root_certificate CFCA_EV_ROOT_BYTES_ 0x75b96163
-  tls.add_global_root_certificate COMODO_CERTIFICATION_AUTHORITY_BYTES_ 0x83f2d420
-  tls.add_global_root_certificate COMODO_ECC_CERTIFICATION_AUTHORITY_BYTES_ 0xfe792859
-  tls.add_global_root_certificate COMODO_RSA_CERTIFICATION_AUTHORITY_BYTES_ 0x48ecb8af
-  tls.add_global_root_certificate CERTAINLY_ROOT_E1_BYTES_ 0x51bfb62d
-  tls.add_global_root_certificate CERTAINLY_ROOT_R1_BYTES_ 0x543c32bb
-  tls.add_global_root_certificate CERTIGNA_BYTES_ 0x7620e4c4
-  tls.add_global_root_certificate CERTIGNA_ROOT_CA_BYTES_ 0x3273124b
-  tls.add_global_root_certificate CERTUM_EC_384_CA_BYTES_ 0x10f8ffd3
-  tls.add_global_root_certificate CERTUM_TRUSTED_NETWORK_CA_BYTES_ 0xf6e2676c
-  tls.add_global_root_certificate CERTUM_TRUSTED_NETWORK_CA_2_BYTES_ 0x0614416f
-  tls.add_global_root_certificate CERTUM_TRUSTED_ROOT_CA_BYTES_ 0x675d6d5d
-  tls.add_global_root_certificate COMODO_AAA_SERVICES_ROOT_BYTES_ 0x41187e1e
-  tls.add_global_root_certificate CYBERTRUST_GLOBAL_ROOT_BYTES_ 0x008dbc35
-  tls.add_global_root_certificate D_TRUST_BR_ROOT_CA_1_2020_BYTES_ 0x9b764e22
-  tls.add_global_root_certificate D_TRUST_EV_ROOT_CA_1_2020_BYTES_ 0x6fd57eee
-  tls.add_global_root_certificate D_TRUST_ROOT_CLASS_3_CA_2_2009_BYTES_ 0xf1e40b7b
-  tls.add_global_root_certificate D_TRUST_ROOT_CLASS_3_CA_2_EV_2009_BYTES_ 0xcfccd458
-  tls.add_global_root_certificate DST_ROOT_CA_X3_BYTES_ 0x597f5e5c
-  tls.add_global_root_certificate DIGICERT_ASSURED_ID_ROOT_CA_BYTES_ 0x13625c17
-  tls.add_global_root_certificate DIGICERT_ASSURED_ID_ROOT_G2_BYTES_ 0x856c995d
-  tls.add_global_root_certificate DIGICERT_ASSURED_ID_ROOT_G3_BYTES_ 0xf26ba9cb
-  tls.add_global_root_certificate DIGICERT_GLOBAL_ROOT_CA_BYTES_ 0x945a8c88
-  tls.add_global_root_certificate DIGICERT_GLOBAL_ROOT_G2_BYTES_ 0x025449c2
-  tls.add_global_root_certificate DIGICERT_GLOBAL_ROOT_G3_BYTES_ 0x75537954
-  tls.add_global_root_certificate DIGICERT_HIGH_ASSURANCE_EV_ROOT_CA_BYTES_ 0x8ad27460
-  tls.add_global_root_certificate DIGICERT_TLS_ECC_P384_ROOT_G5_BYTES_ 0x7124464e
-  tls.add_global_root_certificate DIGICERT_TLS_RSA4096_ROOT_G5_BYTES_ 0x609143f0
-  tls.add_global_root_certificate DIGICERT_TRUSTED_ROOT_G4_BYTES_ 0x378b0597
-  tls.add_global_root_certificate EC_ACC_BYTES_ 0xde33eb19
-  tls.add_global_root_certificate ENTRUST_ROOT_CERTIFICATION_AUTHORITY_BYTES_ 0x05e32892
-  tls.add_global_root_certificate ENTRUST_ROOT_CERTIFICATION_AUTHORITY_EC1_BYTES_ 0x36e6c384
-  tls.add_global_root_certificate ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G2_BYTES_ 0x8b73fef5
-  tls.add_global_root_certificate ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G4_BYTES_ 0x51f15a66
-  tls.add_global_root_certificate ENTRUST_NET_PREMIUM_2048_SECURE_SERVER_CA_BYTES_ 0x97cfcbea
-  tls.add_global_root_certificate GDCA_TRUSTAUTH_R5_ROOT_BYTES_ 0x4cd0f762
-  tls.add_global_root_certificate GLOBALTRUST_2020_BYTES_ 0xe1810643
-  tls.add_global_root_certificate GTS_ROOT_R1_BYTES_ 0xbf6623e8
-  tls.add_global_root_certificate GTS_ROOT_R2_BYTES_ 0x266f7252
-  tls.add_global_root_certificate GTS_ROOT_R3_BYTES_ 0x516842c4
-  tls.add_global_root_certificate GTS_ROOT_R4_BYTES_ 0xcf0cd767
-  tls.add_global_root_certificate GLOBALSIGN_ECC_ROOT_CA_R4_BYTES_ 0x945d11af
-  tls.add_global_root_certificate GLOBALSIGN_ECC_ROOT_CA_R5_BYTES_ 0xa83df2a7
-  tls.add_global_root_certificate GLOBALSIGN_ROOT_CA_BYTES_ 0x361129dd
-  tls.add_global_root_certificate GLOBALSIGN_ROOT_CA_R2_BYTES_ 0x23eb58ea
-  tls.add_global_root_certificate GLOBALSIGN_ROOT_CA_R3_BYTES_ 0x1f8bbbe2
-  tls.add_global_root_certificate GLOBALSIGN_ROOT_CA_R6_BYTES_ 0xd268d4ca
-  tls.add_global_root_certificate GLOBALSIGN_ROOT_E46_BYTES_ 0xb286dae7
-  tls.add_global_root_certificate GLOBALSIGN_ROOT_R46_BYTES_ 0xabef6f12
-  tls.add_global_root_certificate GO_DADDY_CLASS_2_CA_BYTES_ 0xacfbbb83
-  tls.add_global_root_certificate GO_DADDY_ROOT_CERTIFICATE_AUTHORITY_G2_BYTES_ 0x1786d5c5
-  tls.add_global_root_certificate HARICA_TLS_ECC_ROOT_CA_2021_BYTES_ 0xb28f5c42
-  tls.add_global_root_certificate HARICA_TLS_RSA_ROOT_CA_2021_BYTES_ 0x0c5dc14b
-  tls.add_global_root_certificate HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ECC_ROOTCA_2015_BYTES_ 0x29d4953d
-  tls.add_global_root_certificate HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2011_BYTES_ 0x686c10e4
-  tls.add_global_root_certificate HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2015_BYTES_ 0xcc54c2c5
-  tls.add_global_root_certificate HIPKI_ROOT_CA_G1_BYTES_ 0x99400911
-  tls.add_global_root_certificate HONGKONG_POST_ROOT_CA_3_BYTES_ 0x648ac2df
-  tls.add_global_root_certificate ISRG_ROOT_X1_BYTES_ 0x9b39b5ab
-  tls.add_global_root_certificate ISRG_ROOT_X2_BYTES_ 0x0230e411
-  tls.add_global_root_certificate IDENTRUST_COMMERCIAL_ROOT_CA_1_BYTES_ 0x57d64dbc
-  tls.add_global_root_certificate IDENTRUST_PUBLIC_SECTOR_ROOT_CA_1_BYTES_ 0x32fbd1ac
-  tls.add_global_root_certificate IZENPE_COM_BYTES_ 0xeb91fff3
-  tls.add_global_root_certificate MICROSEC_E_SZIGNO_ROOT_CA_2009_BYTES_ 0x021f2c0d
-  tls.add_global_root_certificate MICROSOFT_ECC_ROOT_CERTIFICATE_AUTHORITY_2017_BYTES_ 0x2de2d637
-  tls.add_global_root_certificate MICROSOFT_RSA_ROOT_CERTIFICATE_AUTHORITY_2017_BYTES_ 0x2902c782
-  tls.add_global_root_certificate NAVER_GLOBAL_ROOT_CERTIFICATION_AUTHORITY_BYTES_ 0x5fc6d805
-  tls.add_global_root_certificate NETLOCK_ARANY_BYTES_ 0xf448da4c
-  tls.add_global_root_certificate NETWORK_SOLUTIONS_CERTIFICATE_AUTHORITY_BYTES_ 0x9f855a43
-  tls.add_global_root_certificate OISTE_WISEKEY_GLOBAL_ROOT_GB_CA_BYTES_ 0x130146a4
-  tls.add_global_root_certificate OISTE_WISEKEY_GLOBAL_ROOT_GC_CA_BYTES_ 0xabbd21c1
-  tls.add_global_root_certificate QUOVADIS_ROOT_CA_1_G3_BYTES_ 0x91d63210
-  tls.add_global_root_certificate QUOVADIS_ROOT_CA_2_BYTES_ 0x2a86446c
-  tls.add_global_root_certificate QUOVADIS_ROOT_CA_2_G3_BYTES_ 0x83639dfe
-  tls.add_global_root_certificate QUOVADIS_ROOT_CA_3_BYTES_ 0x5d8174fa
-  tls.add_global_root_certificate QUOVADIS_ROOT_CA_3_G3_BYTES_ 0x3bdffa9b
-  tls.add_global_root_certificate SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_ECC_BYTES_ 0xcb57c474
-  tls.add_global_root_certificate SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_RSA_R2_BYTES_ 0xcf89ae76
-  tls.add_global_root_certificate SSL_COM_ROOT_CERTIFICATION_AUTHORITY_ECC_BYTES_ 0x8662ab72
-  tls.add_global_root_certificate SSL_COM_ROOT_CERTIFICATION_AUTHORITY_RSA_BYTES_ 0x3bc76dfa
-  tls.add_global_root_certificate SSL_COM_TLS_ECC_ROOT_CA_2022_BYTES_ 0xbaa51d0b
-  tls.add_global_root_certificate SSL_COM_TLS_RSA_ROOT_CA_2022_BYTES_ 0x04778002
-  tls.add_global_root_certificate SZAFIR_ROOT_CA2_BYTES_ 0xb38c14e9
-  tls.add_global_root_certificate SECTIGO_PUBLIC_SERVER_AUTHENTICATION_ROOT_E46_BYTES_ 0x72788986
-  tls.add_global_root_certificate SECTIGO_PUBLIC_SERVER_AUTHENTICATION_ROOT_R46_BYTES_ 0x6b113c73
-  tls.add_global_root_certificate SECURE_GLOBAL_CA_BYTES_ 0x4eaace5a
-  tls.add_global_root_certificate SECURESIGN_ROOTCA11_BYTES_ 0x04d42f05
-  tls.add_global_root_certificate SECURETRUST_CA_BYTES_ 0x1ead4e1c
-  tls.add_global_root_certificate SECURITY_COMMUNICATION_ECC_ROOTCA1_BYTES_ 0xfe5dcb32
-  tls.add_global_root_certificate SECURITY_COMMUNICATION_ROOT_CA_BYTES_ 0x8da5edb1
-  tls.add_global_root_certificate SECURITY_COMMUNICATION_ROOTCA2_BYTES_ 0x52937958
-  tls.add_global_root_certificate SECURITY_COMMUNICATION_ROOTCA3_BYTES_ 0xa5e9d9d9
-  tls.add_global_root_certificate STAAT_DER_NEDERLANDEN_EV_ROOT_CA_BYTES_ 0xd87d40f7
-  tls.add_global_root_certificate STARFIELD_CLASS_2_CA_BYTES_ 0x5ab324ab
-  tls.add_global_root_certificate STARFIELD_ROOT_CERTIFICATE_AUTHORITY_G2_BYTES_ 0x7201e433
-  tls.add_global_root_certificate STARFIELD_SERVICES_ROOT_CERTIFICATE_AUTHORITY_G2_BYTES_ 0x7af0c139
-  tls.add_global_root_certificate SWISSSIGN_GOLD_CA_G2_BYTES_ 0x15197556
-  tls.add_global_root_certificate SWISSSIGN_SILVER_CA_G2_BYTES_ 0x8630f7d6
-  tls.add_global_root_certificate T_TELESEC_GLOBALROOT_CLASS_2_BYTES_ 0x19c2709a
-  tls.add_global_root_certificate T_TELESEC_GLOBALROOT_CLASS_3_BYTES_ 0x6ec5400c
-  tls.add_global_root_certificate TUBITAK_KAMU_SM_SSL_KOK_SERTIFIKASI_SURUM_1_BYTES_ 0x5976e320
-  tls.add_global_root_certificate TWCA_GLOBAL_ROOT_CA_BYTES_ 0x70ef5cb5
-  tls.add_global_root_certificate TWCA_ROOT_CERTIFICATION_AUTHORITY_BYTES_ 0x7f76e062
-  tls.add_global_root_certificate TELIA_ROOT_CA_V2_BYTES_ 0x6dc8a95d
-  tls.add_global_root_certificate TELIASONERA_ROOT_CA_V1_BYTES_ 0xc92b259b
-  tls.add_global_root_certificate TRUSTCOR_ECA_1_BYTES_ 0xca873c9d
-  tls.add_global_root_certificate TRUSTCOR_ROOTCERT_CA_1_BYTES_ 0x3a25cb23
-  tls.add_global_root_certificate TRUSTCOR_ROOTCERT_CA_2_BYTES_ 0xa32c9a99
-  tls.add_global_root_certificate TRUSTWAVE_GLOBAL_CERTIFICATION_AUTHORITY_BYTES_ 0x6d6f8e1a
-  tls.add_global_root_certificate TRUSTWAVE_GLOBAL_ECC_P256_CERTIFICATION_AUTHORITY_BYTES_ 0x3ecb42e0
-  tls.add_global_root_certificate TRUSTWAVE_GLOBAL_ECC_P384_CERTIFICATION_AUTHORITY_BYTES_ 0x58816209
-  tls.add_global_root_certificate TUNTRUST_ROOT_CA_BYTES_ 0xae869e70
-  tls.add_global_root_certificate UCA_EXTENDED_VALIDATION_ROOT_BYTES_ 0xada7411d
-  tls.add_global_root_certificate UCA_GLOBAL_G2_ROOT_BYTES_ 0x8ac3346c
-  tls.add_global_root_certificate USERTRUST_ECC_CERTIFICATION_AUTHORITY_BYTES_ 0xbadc5b59
-  tls.add_global_root_certificate USERTRUST_RSA_CERTIFICATION_AUTHORITY_BYTES_ 0x0c49cbaf
-  tls.add_global_root_certificate XRAMP_GLOBAL_CA_ROOT_BYTES_ 0xc193b732
-  tls.add_global_root_certificate CERTSIGN_ROOT_CA_BYTES_ 0x0344ab15
-  tls.add_global_root_certificate CERTSIGN_ROOT_CA_G2_BYTES_ 0x261f3575
-  tls.add_global_root_certificate E_SZIGNO_ROOT_CA_2017_BYTES_ 0x16820df7
-  tls.add_global_root_certificate EPKI_ROOT_CERTIFICATION_AUTHORITY_BYTES_ 0x50d1b3cf
-  tls.add_global_root_certificate EMSIGN_ECC_ROOT_CA_C3_BYTES_ 0xef878fd1
-  tls.add_global_root_certificate EMSIGN_ECC_ROOT_CA_G3_BYTES_ 0xbff73d11
-  tls.add_global_root_certificate EMSIGN_ROOT_CA_C1_BYTES_ 0x756d49ba
-  tls.add_global_root_certificate EMSIGN_ROOT_CA_G1_BYTES_ 0x309f7236
-  tls.add_global_root_certificate VTRUS_ECC_ROOT_CA_BYTES_ 0xb84ed731
-  tls.add_global_root_certificate VTRUS_ROOT_CA_BYTES_ 0x0438948e
+  AC_RAIZ_FNMT_RCM.install
+  AC_RAIZ_FNMT_RCM_SERVIDORES_SEGUROS.install
+  ACCVRAIZ1.install
+  ANF_SECURE_SERVER_ROOT_CA.install
+  ACTALIS_AUTHENTICATION_ROOT_CA.install
+  AFFIRMTRUST_COMMERCIAL.install
+  AFFIRMTRUST_NETWORKING.install
+  AFFIRMTRUST_PREMIUM.install
+  AFFIRMTRUST_PREMIUM_ECC.install
+  AMAZON_ROOT_CA_1.install
+  AMAZON_ROOT_CA_2.install
+  AMAZON_ROOT_CA_3.install
+  AMAZON_ROOT_CA_4.install
+  ATOS_TRUSTEDROOT_2011.install
+  ATOS_TRUSTEDROOT_ROOT_CA_ECC_TLS_2021.install
+  ATOS_TRUSTEDROOT_ROOT_CA_RSA_TLS_2021.install
+  AUTORIDAD_DE_CERTIFICACION_FIRMAPROFESIONAL_CIF_A62634068.install
+  AUTORIDAD_DE_CERTIFICACION_FIRMAPROFESIONAL_CIF_A62634068_NEW.install
+  BJCA_GLOBAL_ROOT_CA1.install
+  BJCA_GLOBAL_ROOT_CA2.install
+  BALTIMORE_CYBERTRUST_ROOT.install
+  BUYPASS_CLASS_2_ROOT_CA.install
+  BUYPASS_CLASS_3_ROOT_CA.install
+  CA_DISIG_ROOT_R2.install
+  CFCA_EV_ROOT.install
+  COMODO_CERTIFICATION_AUTHORITY.install
+  COMODO_ECC_CERTIFICATION_AUTHORITY.install
+  COMODO_RSA_CERTIFICATION_AUTHORITY.install
+  CERTAINLY_ROOT_E1.install
+  CERTAINLY_ROOT_R1.install
+  CERTIGNA.install
+  CERTIGNA_ROOT_CA.install
+  CERTUM_EC_384_CA.install
+  CERTUM_TRUSTED_NETWORK_CA.install
+  CERTUM_TRUSTED_NETWORK_CA_2.install
+  CERTUM_TRUSTED_ROOT_CA.install
+  COMODO_AAA_SERVICES_ROOT.install
+  CYBERTRUST_GLOBAL_ROOT.install
+  D_TRUST_BR_ROOT_CA_1_2020.install
+  D_TRUST_EV_ROOT_CA_1_2020.install
+  D_TRUST_ROOT_CLASS_3_CA_2_2009.install
+  D_TRUST_ROOT_CLASS_3_CA_2_EV_2009.install
+  DST_ROOT_CA_X3.install
+  DIGICERT_ASSURED_ID_ROOT_CA.install
+  DIGICERT_ASSURED_ID_ROOT_G2.install
+  DIGICERT_ASSURED_ID_ROOT_G3.install
+  DIGICERT_GLOBAL_ROOT_CA.install
+  DIGICERT_GLOBAL_ROOT_G2.install
+  DIGICERT_GLOBAL_ROOT_G3.install
+  DIGICERT_HIGH_ASSURANCE_EV_ROOT_CA.install
+  DIGICERT_TLS_ECC_P384_ROOT_G5.install
+  DIGICERT_TLS_RSA4096_ROOT_G5.install
+  DIGICERT_TRUSTED_ROOT_G4.install
+  EC_ACC.install
+  ENTRUST_ROOT_CERTIFICATION_AUTHORITY.install
+  ENTRUST_ROOT_CERTIFICATION_AUTHORITY_EC1.install
+  ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G2.install
+  ENTRUST_ROOT_CERTIFICATION_AUTHORITY_G4.install
+  ENTRUST_NET_PREMIUM_2048_SECURE_SERVER_CA.install
+  GDCA_TRUSTAUTH_R5_ROOT.install
+  GLOBALTRUST_2020.install
+  GTS_ROOT_R1.install
+  GTS_ROOT_R2.install
+  GTS_ROOT_R3.install
+  GTS_ROOT_R4.install
+  GLOBALSIGN_ECC_ROOT_CA_R4.install
+  GLOBALSIGN_ECC_ROOT_CA_R5.install
+  GLOBALSIGN_ROOT_CA.install
+  GLOBALSIGN_ROOT_CA_R2.install
+  GLOBALSIGN_ROOT_CA_R3.install
+  GLOBALSIGN_ROOT_CA_R6.install
+  GLOBALSIGN_ROOT_E46.install
+  GLOBALSIGN_ROOT_R46.install
+  GO_DADDY_CLASS_2_CA.install
+  GO_DADDY_ROOT_CERTIFICATE_AUTHORITY_G2.install
+  HARICA_TLS_ECC_ROOT_CA_2021.install
+  HARICA_TLS_RSA_ROOT_CA_2021.install
+  HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ECC_ROOTCA_2015.install
+  HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2011.install
+  HELLENIC_ACADEMIC_AND_RESEARCH_INSTITUTIONS_ROOTCA_2015.install
+  HIPKI_ROOT_CA_G1.install
+  HONGKONG_POST_ROOT_CA_3.install
+  ISRG_ROOT_X1.install
+  ISRG_ROOT_X2.install
+  IDENTRUST_COMMERCIAL_ROOT_CA_1.install
+  IDENTRUST_PUBLIC_SECTOR_ROOT_CA_1.install
+  IZENPE_COM.install
+  MICROSEC_E_SZIGNO_ROOT_CA_2009.install
+  MICROSOFT_ECC_ROOT_CERTIFICATE_AUTHORITY_2017.install
+  MICROSOFT_RSA_ROOT_CERTIFICATE_AUTHORITY_2017.install
+  NAVER_GLOBAL_ROOT_CERTIFICATION_AUTHORITY.install
+  NETLOCK_ARANY.install
+  NETWORK_SOLUTIONS_CERTIFICATE_AUTHORITY.install
+  OISTE_WISEKEY_GLOBAL_ROOT_GB_CA.install
+  OISTE_WISEKEY_GLOBAL_ROOT_GC_CA.install
+  QUOVADIS_ROOT_CA_1_G3.install
+  QUOVADIS_ROOT_CA_2.install
+  QUOVADIS_ROOT_CA_2_G3.install
+  QUOVADIS_ROOT_CA_3.install
+  QUOVADIS_ROOT_CA_3_G3.install
+  SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_ECC.install
+  SSL_COM_EV_ROOT_CERTIFICATION_AUTHORITY_RSA_R2.install
+  SSL_COM_ROOT_CERTIFICATION_AUTHORITY_ECC.install
+  SSL_COM_ROOT_CERTIFICATION_AUTHORITY_RSA.install
+  SSL_COM_TLS_ECC_ROOT_CA_2022.install
+  SSL_COM_TLS_RSA_ROOT_CA_2022.install
+  SZAFIR_ROOT_CA2.install
+  SECTIGO_PUBLIC_SERVER_AUTHENTICATION_ROOT_E46.install
+  SECTIGO_PUBLIC_SERVER_AUTHENTICATION_ROOT_R46.install
+  SECURE_GLOBAL_CA.install
+  SECURESIGN_ROOTCA11.install
+  SECURETRUST_CA.install
+  SECURITY_COMMUNICATION_ECC_ROOTCA1.install
+  SECURITY_COMMUNICATION_ROOT_CA.install
+  SECURITY_COMMUNICATION_ROOTCA2.install
+  SECURITY_COMMUNICATION_ROOTCA3.install
+  STAAT_DER_NEDERLANDEN_EV_ROOT_CA.install
+  STARFIELD_CLASS_2_CA.install
+  STARFIELD_ROOT_CERTIFICATE_AUTHORITY_G2.install
+  STARFIELD_SERVICES_ROOT_CERTIFICATE_AUTHORITY_G2.install
+  SWISSSIGN_GOLD_CA_G2.install
+  SWISSSIGN_SILVER_CA_G2.install
+  T_TELESEC_GLOBALROOT_CLASS_2.install
+  T_TELESEC_GLOBALROOT_CLASS_3.install
+  TUBITAK_KAMU_SM_SSL_KOK_SERTIFIKASI_SURUM_1.install
+  TWCA_GLOBAL_ROOT_CA.install
+  TWCA_ROOT_CERTIFICATION_AUTHORITY.install
+  TELIA_ROOT_CA_V2.install
+  TELIASONERA_ROOT_CA_V1.install
+  TRUSTCOR_ECA_1.install
+  TRUSTCOR_ROOTCERT_CA_1.install
+  TRUSTCOR_ROOTCERT_CA_2.install
+  TRUSTWAVE_GLOBAL_CERTIFICATION_AUTHORITY.install
+  TRUSTWAVE_GLOBAL_ECC_P256_CERTIFICATION_AUTHORITY.install
+  TRUSTWAVE_GLOBAL_ECC_P384_CERTIFICATION_AUTHORITY.install
+  TUNTRUST_ROOT_CA.install
+  UCA_EXTENDED_VALIDATION_ROOT.install
+  UCA_GLOBAL_G2_ROOT.install
+  USERTRUST_ECC_CERTIFICATION_AUTHORITY.install
+  USERTRUST_RSA_CERTIFICATION_AUTHORITY.install
+  XRAMP_GLOBAL_CA_ROOT.install
+  CERTSIGN_ROOT_CA.install
+  CERTSIGN_ROOT_CA_G2.install
+  E_SZIGNO_ROOT_CA_2017.install
+  EPKI_ROOT_CERTIFICATION_AUTHORITY.install
+  EMSIGN_ECC_ROOT_CA_C3.install
+  EMSIGN_ECC_ROOT_CA_G3.install
+  EMSIGN_ROOT_CA_C1.install
+  EMSIGN_ROOT_CA_G1.install
+  VTRUS_ECC_ROOT_CA.install
+  VTRUS_ROOT_CA.install
+
+/**
+Common certificate roots.
+*/
+COMMON_TRUSTED_ROOTS ::= [
+  DIGICERT_GLOBAL_ROOT_G2,
+  DIGICERT_GLOBAL_ROOT_CA,
+  GLOBALSIGN_ROOT_CA,
+  GLOBALSIGN_ROOT_CA_R3,
+  COMODO_RSA_CERTIFICATION_AUTHORITY,
+  BALTIMORE_CYBERTRUST_ROOT,
+  USERTRUST_ECC_CERTIFICATION_AUTHORITY,
+  USERTRUST_RSA_CERTIFICATION_AUTHORITY,
+  DIGICERT_HIGH_ASSURANCE_EV_ROOT_CA,
+  ISRG_ROOT_X1,
+  STARFIELD_CLASS_2_CA,
+]
 
 /**
 Installs common certificate roots on this process so that they are used
@@ -12245,14 +11228,4 @@ Installs common certificate roots on this process so that they are used
 This adds about 14k to the program size.
 */
 install_common_trusted_roots -> none:
-  tls.add_global_root_certificate DIGICERT_GLOBAL_ROOT_G2_BYTES_ 0x025449c2
-  tls.add_global_root_certificate DIGICERT_GLOBAL_ROOT_CA_BYTES_ 0x945a8c88
-  tls.add_global_root_certificate GLOBALSIGN_ROOT_CA_BYTES_ 0x361129dd
-  tls.add_global_root_certificate GLOBALSIGN_ROOT_CA_R3_BYTES_ 0x1f8bbbe2
-  tls.add_global_root_certificate COMODO_RSA_CERTIFICATION_AUTHORITY_BYTES_ 0x48ecb8af
-  tls.add_global_root_certificate BALTIMORE_CYBERTRUST_ROOT_BYTES_ 0x63203d15
-  tls.add_global_root_certificate USERTRUST_ECC_CERTIFICATION_AUTHORITY_BYTES_ 0xbadc5b59
-  tls.add_global_root_certificate USERTRUST_RSA_CERTIFICATION_AUTHORITY_BYTES_ 0x0c49cbaf
-  tls.add_global_root_certificate DIGICERT_HIGH_ASSURANCE_EV_ROOT_CA_BYTES_ 0x8ad27460
-  tls.add_global_root_certificate ISRG_ROOT_X1_BYTES_ 0x9b39b5ab
-  tls.add_global_root_certificate STARFIELD_CLASS_2_CA_BYTES_ 0x5ab324ab
+  COMMON_TRUSTED_ROOTS.do: it.install
