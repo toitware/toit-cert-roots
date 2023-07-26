@@ -6,7 +6,9 @@
 An example that shows how to find out which root certificate
   a host uses.  This enables you to pick the right root, rather
   than putting all the roots in your program, which would explode
-  the size.
+  the size. You can run a modified version of this on your host
+  workstation (eg with `jag -d host discover_root.toit`), and use
+  the output to pick the right root for your device.
 */
 
 import net
@@ -23,17 +25,16 @@ found_one_that_worked := false
 
 main:
   names := []
-  cert_texts := []
+  certs := []
 
   certificate_roots.MAP.do: | name cert |
     names.add name
-    cert_texts.add cert
+    certs.add cert
 
-  // We can't parse up all certs at once, so do them 12 at a time and avoid
-  // running out of memory.
-  List.chunk_up 0 names.size 12: | from to size |
-    certs := cert_texts[from..to].map: net.Certificate.parse it
-    binary_split names[from..to] certs
+  // This will not work on small devices since it parses all certificates
+  // at once.  Once parsed, the memory is not freed, so there's no easy
+  // way around this.
+  binary_split names certs
 
   if not found_one_that_worked:
     print "None of the certificate roots was suitable for connecting to $HOST"

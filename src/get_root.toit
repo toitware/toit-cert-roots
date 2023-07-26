@@ -2,7 +2,7 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-import net.x509 as net
+import tls
 
 import .certificate_roots
 
@@ -20,7 +20,7 @@ Due to memory limitations it is not normally possible to add
   and then use this to parse the exception and get the correct
   root for a second attempt.
 */
-get_root_from_exception exception/string -> net.Certificate?:
+get_root_from_exception exception/string -> tls.RootCertificate?:
   INTRO ::= "Site relies on unknown root certificate: '"
   if not exception.starts_with INTRO: return null
   cn_index := exception.index_of "CN="
@@ -31,7 +31,7 @@ get_root_from_exception exception/string -> net.Certificate?:
     cn_end_index = exception[cn_index..].index_of "'"
   if cn_end_index == -1: return null
   common_name := exception[cn_index..][..cn_end_index]
-  cert_text := MAP.get common_name
-  if cert_text == null: return null
+  cert := MAP.get common_name
+  if cert == null: return null
   print "Found cert $common_name"
-  return net.Certificate.parse cert_text
+  return cert

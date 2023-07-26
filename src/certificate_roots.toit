@@ -10860,7 +10860,7 @@ MAP ::= {
   "emSign Root CA - G1": EMSIGN_ROOT_CA_G1,
   "vTrus ECC Root CA": VTRUS_ECC_ROOT_CA,
   "vTrus Root CA": VTRUS_ROOT_CA,
-  "AAA Certificate Services": COMODO_AAA_SERVICES_ROOT_BYTES_,
+  "AAA Certificate Services": COMODO_AAA_SERVICES_ROOT,
 }
 
 /**
