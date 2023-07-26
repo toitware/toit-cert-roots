@@ -167,7 +167,7 @@ main args/List:
     cert := all_certs[mixed_case_name]
     if not cert.name.contains "TUNTRUST":
       print "  \"$mixed_case_name\": $(cert.name),"
-  print "  \"AAA Certificate Services\": COMODO_AAA_SERVICES_ROOT_BYTES_,"
+  print "  \"AAA Certificate Services\": COMODO_AAA_SERVICES_ROOT,"
   print "}"
   print ""
   print "/**"

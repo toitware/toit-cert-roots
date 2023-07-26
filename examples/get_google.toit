@@ -13,7 +13,6 @@ main:
 
   host := "www.google.com"
   root_certificates := [
-    certificate_roots.GLOBALSIGN_ROOT_CA_R2,
     certificate_roots.GLOBALSIGN_ROOT_CA,
   ]
   client := http.Client.tls network_interface

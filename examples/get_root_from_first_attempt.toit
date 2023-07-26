@@ -29,7 +29,7 @@ main:
   if exception:
     print "Failed to connect: $exception"
 
-try_with_root cert/net.Certificate -> string?:
+try_with_root cert/tls.RootCertificate -> string?:
   exception := catch:
     client := http.Client.tls network_interface --root_certificates=[cert]
     response := client.get HOST PATH
