@@ -1,3 +1,5 @@
 # Toit Package.
 license: MPL-2.0
-sdk: ^2.0.0-alpha.91
+
+environment:
+  sdk: ^2.0.0-alpha.91
