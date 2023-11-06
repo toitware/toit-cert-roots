@@ -3,3 +3,5 @@ license: MPL-2.0
 
 environment:
   sdk: ^2.0.0-alpha.91
+name:
+description:
