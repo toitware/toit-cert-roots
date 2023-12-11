@@ -54,6 +54,8 @@ run_tests:
     "pravda.ru",
     "elpriser.nu",
     "coinbase.com",
+    "appspot.com",
+    "s3-us-west-1.amazonaws.com",
     "helsinki.fi",
     "lund.se",
     "web.whatsapp.com",
