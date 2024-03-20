@@ -6,5 +6,6 @@ packages:
     path: ..
   pkg-http:
     url: github.com/toitlang/pkg-http
-    version: 1.9.1
-    hash: fc9a7ba4bda43ffe0c644ff378afda7aca5757de
+    name: http
+    version: 1.9.3
+    hash: 108c436cc990535f5d70c380ef68081c38840f4c
