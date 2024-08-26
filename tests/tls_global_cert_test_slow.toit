@@ -2,13 +2,15 @@
 // Use of this source code is governed by a Zero-Clause BSD license that can
 // be found in the tests/LICENSE file.
 
-import net.modules.dns show *
-import net.modules.tcp show *
-import expect show *
-import writer
-import tls
-import net.x509 as net
 import certificate_roots show *
+import expect show *
+import net
+import net.tcp
+import net.x509 as net
+import system
+import system show platform
+import tls
+import writer
 
 expect_error name [code]:
   error := catch code
@@ -18,7 +20,7 @@ monitor LimitLoad:
   current := 0
   has_test_failure := null
   // FreeRTOS does not have enough memory to run in parallel.
-  concurrent_processes ::= platform == "FreeRTOS" ? 1 : 4
+  concurrent_processes ::= platform == system.PLATFORM-FREERTOS ? 1 : 4
 
   inc:
     await: current < concurrent_processes
@@ -41,13 +43,21 @@ load_limiter := LimitLoad
 
 main:
   install_common_trusted_roots
-  run_tests
+  network := net.open
+  try:
+    run_tests network
+  finally:
+    network.close
 
-run_tests:
+run_tests network/net.Client:
+  amazon-ip := (network.resolve "amazon.com").first
+
   working := [
     "amazon.com",
     "adafruit.com",
-    "$(dns_lookup "amazon.com")/amazon.com",  // Connect to the IP address at the TCP level, but verify the cert name.
+
+    // Connect to the IP address at the TCP level, but verify the cert name.
+    "$amazon-ip/amazon.com",
 
     "dkhostmaster.dk",
     "dmi.dk",
@@ -67,12 +77,12 @@ run_tests:
     "signal.org",  // Starfield root.
     ]
   working.do: | site |
-    test_site site
+    test_site network site
     if load_limiter.has_test_failure: throw load_limiter.has_test_failure  // End early if we have a test failure.
   if load_limiter.test_failures:
     throw load_limiter.has_test_failure
 
-test_site url:
+test_site network/net.Client url:
   host := url
   extra_info := null
   if host.contains "/":
@@ -85,41 +95,41 @@ test_site url:
     host = array[0]
     port = int.parse array[1]
   load_limiter.inc
-  task:: working_site host port extra_info
+  task:: working_site network host port extra_info
 
-working_site host port expected_certificate_name:
+working_site network/net.Client host port expected_certificate_name:
   error := true
   try:
-    connect_to_site host port expected_certificate_name
+    connect_to_site network host port expected_certificate_name
     error = false
   finally:
     if error:
       load_limiter.log_test_failure "*** Incorrectly failed to connect to $host ***"
     load_limiter.dec
 
-connect_to_site host port expected_certificate_name:
+connect_to_site network/net.Client host port expected_certificate_name:
   bytes := 0
   connection := null
 
-  raw := TcpSocket
+  raw/tcp.Socket? := null
   try:
-    raw.connect host port
+    raw = network.tcp-connect host port
 
     socket := tls.Socket.client raw
       --server_name=expected_certificate_name or host
 
     try:
-      writer := writer.Writer socket
+      writer := socket.out
       writer.write """GET / HTTP/1.1\r\nHost: $host\r\nConnection: close\r\n\r\n"""
       print "$host: $((socket as any).session_.mode == tls.SESSION_MODE_TOIT ? "Toit mode" : "MbedTLS mode")"
 
-      while data := socket.read:
+      while data := socket.in.read:
         bytes += data.size
 
     finally:
       socket.close
   finally:
-    raw.close
+    if raw: raw.close
     if connection: connection.close
 
     print "Read $bytes bytes from https://$host$(port == 443 ? "" : ":$port")/"
