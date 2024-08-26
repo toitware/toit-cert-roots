@@ -10,7 +10,6 @@ import net.x509 as net
 import system
 import system show platform
 import tls
-import writer
 
 expect_error name [code]:
   error := catch code
