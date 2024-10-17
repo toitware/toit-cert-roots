@@ -31,19 +31,6 @@ class Cert:
   constructor .mixed-case-name .name .sha-fingerprint .data --.expiry=null --.subject=null --.comment=null --.is-deprecated=false:
 
   print-on-stdout -> none:
-    print "$(name)_BYTES_ ::= #["
-    i := 0
-    while i < data.size:
-      chunk-size := min 18 (data.size - i)
-      while chunk-size < data.size - i and (byte-array-encode_ data[i..i + chunk-size + 1]).size <= 78:
-        chunk-size++
-      section := data[i..i + chunk-size]
-      extra := 78 - (byte-array-encode_ section).size
-      print
-          byte-array-encode_ section --extra=(extra > 4 ? 0 : extra)
-      i += chunk-size
-    print "]\n"
-    print ""
     print "/**"
     print "$(mixed-case-name)."
     print "This certificate can be added to an HTTP client or a TLS socket with"
@@ -65,6 +52,19 @@ class Cert:
       print "$(name)_ ::= tls.RootCertificate --fingerprint=0x$(%x hash) $(name)_BYTES_"
     else:
       print "$name ::= tls.RootCertificate --fingerprint=0x$(%x hash) $(name)_BYTES_"
+    print ""
+    print "$(name)_BYTES_ ::= #["
+    i := 0
+    while i < data.size:
+      chunk-size := min 18 (data.size - i)
+      while chunk-size < data.size - i and (byte-array-encode_ data[i..i + chunk-size + 1]).size <= 78:
+        chunk-size++
+      section := data[i..i + chunk-size]
+      extra := 78 - (byte-array-encode_ section).size
+      print
+          byte-array-encode_ section --extra=(extra > 4 ? 0 : extra)
+      i += chunk-size
+    print "]\n"
     print ""
 
 byte-array-encode_ slice/ByteArray --extra/int=0 -> string:
