@@ -237,6 +237,7 @@ main args/List:
   print "  DIGICERT_HIGH_ASSURANCE_EV_ROOT_CA,"
   print "  ISRG_ROOT_X1,"
   print "  STARFIELD_CLASS_2_CA,"
+  print "  COMODO_AAA_SERVICES_ROOT,"
   print "]"
   print ""
   print "/**"
