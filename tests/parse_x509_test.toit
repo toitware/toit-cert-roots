@@ -6,9 +6,9 @@ import certificate_roots
 import expect show *
 
 main:
-  dst := certificate_roots.DST_ROOT_CA_X3
-  cyber := certificate_roots.CYBERTRUST_GLOBAL_ROOT
-  globalsign := certificate_roots.GLOBALSIGN_ROOT_CA_R2
-  expect_not_equals dst cyber
-  expect_not_equals dst globalsign
-  expect_not_equals cyber globalsign
+  baltimore := certificate_roots.BALTIMORE-CYBERTRUST-ROOT
+  amazon-1 := certificate_roots.AMAZON-ROOT-CA-1
+  comodo := certificate_roots.COMODO-AAA-SERVICES-ROOT
+  expect_not_equals baltimore amazon-1
+  expect_not_equals amazon-1 comodo
+  expect_not_equals comodo baltimore
