@@ -1,4 +1,4 @@
-name: certificate_roots
+name: certificate-roots
 description: The root certificates needed to connect to HTTPS servers on the public web.
 license: MPL-2.0
 environment:

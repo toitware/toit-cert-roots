@@ -19,4 +19,4 @@ git clone https://github.com/agl/extract-nss-root-certs.git
 curl https://hg.mozilla.org/mozilla-central/raw-file/tip/security/nss/lib/ckfw/builtins/certdata.txt -o certdata.txt
 go run extract-nss-root-certs/convert_mozilla_certdata.go > certdata.new
 
-toit.run to_toit_source.toit certdata.new > ../src/certificate_roots.toit
+toit.run to_toit_source.toit certdata.new > ../src/certificate-roots.toit
