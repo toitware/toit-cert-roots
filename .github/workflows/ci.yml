@@ -5,6 +5,13 @@ on:
   release:
     types: [published]
 
+env:
+  TOIT_VERSION: v2.0.0-alpha.100
+  # Will be set in the 'Setup constants' step
+  TOIT_URL:
+  # Will be set in the 'Setup constants' step
+  DOWNLOAD_DIR:
+
 jobs:
   build:
     strategy:
@@ -19,8 +26,6 @@ jobs:
       - name: Setup constants
         shell: bash
         run: |
-          TOIT_VERSION=v2.0.0-alpha.91
-          echo "TOIT_VERSION=$TOIT_VERSION" >> $GITHUB_ENV
           export DOWNLOAD_DIR="${{ github.workspace }}/downloads"
           echo "DOWNLOAD_DIR=$DOWNLOAD_DIR" >> $GITHUB_ENV
           if [[ "$RUNNER_OS" = "Linux" ]]; then
