@@ -10692,6 +10692,7 @@ The certificates can also be used for the --root-certificates
   argument of TLS sockets.
 */
 MAP ::= {
+  "AAA Certificate Services": COMODO-AAA-SERVICES-ROOT,
   "AC RAIZ FNMT-RCM": AC-RAIZ-FNMT-RCM,
   "AC RAIZ FNMT-RCM SERVIDORES SEGUROS": AC-RAIZ-FNMT-RCM-SERVIDORES-SEGUROS,
   "ACCVRAIZ1": ACCVRAIZ1,
@@ -10843,7 +10844,6 @@ MAP ::= {
   "emSign Root CA - G1": EMSIGN-ROOT-CA-G1,
   "vTrus ECC Root CA": VTRUS-ECC-ROOT-CA,
   "vTrus Root CA": VTRUS-ROOT-CA,
-  "AAA Certificate Services": COMODO-AAA-SERVICES-ROOT,
 }
 
 /**
@@ -11017,7 +11017,7 @@ ALL ::= [
   EMSIGN-ROOT-CA-C1,
   EMSIGN-ROOT-CA-G1,
   VTRUS-ECC-ROOT-CA,
-  VTRUS-ROOT-CA,
+  VTRUS-ROOT-CA
 ]
 
 /**
