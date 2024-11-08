@@ -14,81 +14,81 @@ LABEL       ::= "# Label: \""
 EXPIRY      ::= "# Expiry: "
 SUBJECT     ::= "# Subject: "
 FINGERPRINT ::= "# SHA256 Fingerprint: "
-ARANY_START ::= "NETLOCK_ARANY"
+ARANY-START ::= "NETLOCK_ARANY"
 BEGIN       ::= "-----BEGIN"
 END         ::= "-----END"
 
 class Cert:
-  mixed_case_name /string
+  mixed-case-name /string
   name/string  // Toit-ified const name.
-  sha_fingerprint /string?  // SHA256 Fingerprint
+  sha-fingerprint /string?  // SHA256 Fingerprint
   data /ByteArray  // DER-encoded raw data.
   comment /string?
-  is_deprecated/bool
+  is-deprecated/bool
   expiry/string?
   subject/string?
 
-  constructor .mixed_case_name .name .sha_fingerprint .data --.expiry=null --.subject=null --.comment=null --.is_deprecated=false:
+  constructor .mixed-case-name .name .sha-fingerprint .data --.expiry=null --.subject=null --.comment=null --.is-deprecated=false:
 
-  print_on_stdout -> none:
+  print-on-stdout -> none:
     print "$(name)_BYTES_ ::= #["
     i := 0
     while i < data.size:
-      chunk_size := min 18 (data.size - i)
-      while chunk_size < data.size - i and (byte_array_encode_ data[i..i + chunk_size + 1]).size <= 78:
-        chunk_size++
-      section := data[i..i + chunk_size]
-      extra := 78 - (byte_array_encode_ section).size
+      chunk-size := min 18 (data.size - i)
+      while chunk-size < data.size - i and (byte-array-encode_ data[i..i + chunk-size + 1]).size <= 78:
+        chunk-size++
+      section := data[i..i + chunk-size]
+      extra := 78 - (byte-array-encode_ section).size
       print
-          byte_array_encode_ section --extra=(extra > 4 ? 0 : extra)
-      i += chunk_size
+          byte-array-encode_ section --extra=(extra > 4 ? 0 : extra)
+      i += chunk-size
     print "]\n"
     print ""
     print "/**"
-    print "$(mixed_case_name)."
+    print "$(mixed-case-name)."
     print "This certificate can be added to an HTTP client or a TLS socket with"
     print "  the --root_certificates argument."
     print "It can also be installed on the Toit process, to be used by all TLS"
     print "  sockets that do not have explicit roots, using its install method."
     if comment: print comment
-    if sha_fingerprint != null:
-      print "SHA256 fingerprint: $sha_fingerprint"
+    if sha-fingerprint != null:
+      print "SHA256 fingerprint: $sha-fingerprint"
     if expiry != null:
       print "Expiry: $expiry"
     if subject != null:
       print "Subject: $subject"
-    hash := tls.add_global_root_certificate_ data
+    hash := tls.add-global-root-certificate_ data
 
     print "*/"
-    if is_deprecated:
+    if is-deprecated:
       print "$name ::= $(name)_"
       print "$(name)_ ::= tls.RootCertificate --fingerprint=0x$(%x hash) $(name)_BYTES_"
     else:
       print "$name ::= tls.RootCertificate --fingerprint=0x$(%x hash) $(name)_BYTES_"
     print ""
 
-byte_array_encode_ slice/ByteArray --extra/int=0 -> string:
+byte-array-encode_ slice/ByteArray --extra/int=0 -> string:
   list := List slice.size: slice[it]
-  return "    $((list.map: encode_byte_ it --extra=extra: extra -= it).join ","),"
+  return "    $((list.map: encode-byte_ it --extra=extra: extra -= it).join ","),"
 
-encode_byte_ byte/int --extra/int=0 [report_extra]-> string:
+encode-byte_ byte/int --extra/int=0 [report-extra]-> string:
   if ' ' <= byte <= '~' and byte != '\\' and byte != '\'': return "'$(%c byte)'"
-  min_size := "$byte".size
+  min-size := "$byte".size
   ["0x$(%02x byte)", "0x$(%x byte)", "$byte"].do: | alt |
-    if alt.size - min_size <= extra:
-      report_extra.call alt.size - min_size
+    if alt.size - min-size <= extra:
+      report-extra.call alt.size - min-size
       return alt
   unreachable
 
 main args/List:
-  in_cert_data := false
+  in-cert-data := false
   name := null
   expiry := null
   subject := null
   fingerprint := null
-  mixed_case_name := null
-  all_certs := {:}  // Mapping from name in the input to Cert object.
-  cert_code := []
+  mixed-case-name := null
+  all-certs := {:}  // Mapping from name in the input to Cert object.
+  cert-code := []
 
   print "/// Root certificates, automatically extracted from Mozilla's NSS"
   print ""
@@ -110,46 +110,46 @@ main args/List:
   tr := Translator "a-z .-" "A-Z_"
   squeeze := Translator --squeeze "_" "_"
 
-  (file.read_content args[0]).to_string.trim.split "\n": | line |
+  (file.read-content args[0]).to-string.trim.split "\n": | line |
     line = line.trim
-    if line.starts_with FINGERPRINT:
+    if line.starts-with FINGERPRINT:
       fingerprint = line[FINGERPRINT.size..]
 
-    if line.starts_with LABEL:
-      mixed_case_name = line[LABEL.size..line.size - 1]
-      while all_certs.contains mixed_case_name:
-        mixed_case_name += " new"
-      name = tr.tr mixed_case_name
-      if name.starts_with ARANY_START:
+    if line.starts-with LABEL:
+      mixed-case-name = line[LABEL.size..line.size - 1]
+      while all-certs.contains mixed-case-name:
+        mixed-case-name += " new"
+      name = tr.tr mixed-case-name
+      if name.starts-with ARANY-START:
         name = "NETLOCK_ARANY"
       name = squeeze.tr name
-    if line.starts_with EXPIRY:
+    if line.starts-with EXPIRY:
       expiry = line[EXPIRY.size..EXPIRY.size + 10]
-    if line.starts_with SUBJECT:
+    if line.starts-with SUBJECT:
       subject = line[SUBJECT.size..]
-    if line.starts_with BEGIN:
-      in_cert_data = true
-    else if line.starts_with END:
-      data := base64.decode (cert_code.join "")
-      all_certs[mixed_case_name] =
+    if line.starts-with BEGIN:
+      in-cert-data = true
+    else if line.starts-with END:
+      data := base64.decode (cert-code.join "")
+      all-certs[mixed-case-name] =
           Cert
-              mixed_case_name
+              mixed-case-name
               name
               fingerprint
               data
               --expiry=expiry
               --subject=subject
       fingerprint = null
-      in_cert_data = false
+      in-cert-data = false
       expiry = null
-      cert_code = []
-    else if in_cert_data:
-      cert_code.add line
+      cert-code = []
+    else if in-cert-data:
+      cert-code.add line
 
-  names := all_certs.keys.sort
-  names.do: | mixed_case_name |
-    cert/Cert := all_certs[mixed_case_name]
-    cert.print_on_stdout
+  names := all-certs.keys.sort
+  names.do: | mixed-case-name |
+    cert/Cert := all-certs[mixed-case-name]
+    cert.print-on-stdout
 
   print ""
   print "/**"
@@ -160,10 +160,10 @@ main args/List:
   print "  roots using their install method."
   print "*/"
   print "MAP ::= {"
-  names.do: | mixed_case_name |
-    cert := all_certs[mixed_case_name]
+  names.do: | mixed-case-name |
+    cert := all-certs[mixed-case-name]
     if not cert.name.contains "TUNTRUST":
-      print "  \"$mixed_case_name\": $(cert.name),"
+      print "  \"$mixed-case-name\": $(cert.name),"
   print "  \"AAA Certificate Services\": COMODO_AAA_SERVICES_ROOT,"
   print "}"
   print ""
@@ -184,10 +184,10 @@ main args/List:
   print "```"
   print "*/"
   print "ALL ::= ["
-  names.do: | mixed_case_name |
-    cert := all_certs[mixed_case_name]
+  names.do: | mixed-case-name |
+    cert := all-certs[mixed-case-name]
     if not cert.name.contains "TUNTRUST":
-      if cert.is_deprecated:
+      if cert.is-deprecated:
         print "  $(cert.name)_,"
       else:
         print "  $cert.name,"
@@ -214,9 +214,9 @@ main args/List:
   print "This adds about 180k to the program size."
   print "*/"
   print "install_all_trusted_roots -> none:"
-  names.do: | mixed_case_name |
-    cert/Cert := all_certs[mixed_case_name]
-    hash := tls.add_global_root_certificate_ cert.data
+  names.do: | mixed-case-name |
+    cert/Cert := all-certs[mixed-case-name]
+    hash := tls.add-global-root-certificate_ cert.data
     print "  $(cert.name).install"
   print ""
   print "/**"
