@@ -4,7 +4,7 @@
 
 import tls
 
-import .certificate_roots
+import .certificate-roots
 
 /**
 Takes an exception caused by trying to connect to an HTTPS
@@ -16,22 +16,22 @@ Due to memory limitations it is not normally possible to add
   all known root certificates to a socket.  Therefore you
   will normally add the one root certificate that you need.
   If you want to be able to connect to arbitrary HTTPS servers
-  you can make an attempt with one root (eg $GLOBALSIGN_ROOT_CA)
+  you can make an attempt with one root (eg $GLOBALSIGN-ROOT-CA)
   and then use this to parse the exception and get the correct
   root for a second attempt.
 */
-get_root_from_exception exception/string -> tls.RootCertificate?:
+get-root-from-exception exception/string -> tls.RootCertificate?:
   INTRO ::= "Site relies on unknown root certificate: '"
-  if not exception.starts_with INTRO: return null
-  cn_index := exception.index_of "CN="
-  if cn_index == -1: return null
-  cn_index += 3
-  cn_end_index := exception[cn_index..].index_of ","
-  if cn_end_index == -1:
-    cn_end_index = exception[cn_index..].index_of "'"
-  if cn_end_index == -1: return null
-  common_name := exception[cn_index..][..cn_end_index]
-  cert := MAP.get common_name
+  if not exception.starts-with INTRO: return null
+  cn-index := exception.index-of "CN="
+  if cn-index == -1: return null
+  cn-index += 3
+  cn-end-index := exception[cn-index..].index-of ","
+  if cn-end-index == -1:
+    cn-end-index = exception[cn-index..].index-of "'"
+  if cn-end-index == -1: return null
+  common-name := exception[cn-index..][..cn-end-index]
+  cert := MAP.get common-name
   if cert == null: return null
-  print "Found cert $common_name"
+  print "Found cert $common-name"
   return cert
