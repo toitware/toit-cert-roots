@@ -54,6 +54,8 @@ binary_split names/List certs/List -> none:
       return
     if exception.to_string.starts_with "X509 - Certificate verification failed":
       return
+    if exception.to_string.starts_with "Unknown root certificate":
+      return
     throw exception
 
   if names.size == 1:
