@@ -1,5 +1,12 @@
+sdk: ^2.0.0-alpha.145
 prefixes:
   certificate_roots: ..
+  http: pkg-http
 packages:
   ..:
     path: ..
+  pkg-http:
+    url: github.com/toitlang/pkg-http
+    name: http
+    version: 2.8.0
+    hash: 81754d64fe466cd00cc494ec515da8749bf04975
