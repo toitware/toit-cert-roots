@@ -17,13 +17,20 @@ import http
 import tls
 import certificate_roots
 
-HOST ::= "ecc256.badssl.com"  // Replace with the host you want to connect to.
-PATH ::= "/"            // Replace with the path part after the domain.
-
 network_interface ::= net.open
-found_one_that_worked := false
 
 main:
+
+main args:
+  if args.size != 1:
+    print "Usage: discover_root.toit <uri>"
+    return
+
+  uri := args[0]
+
+  discover-root --uri=uri
+
+discover-root --uri/string -> string?:
   names := []
   certs := []
 
@@ -34,34 +41,35 @@ main:
   // This will not work on small devices since it parses all certificates
   // at once.  Once parsed, the memory is not freed, so there's no easy
   // way around this.
-  binary_split names certs
+  result := binary_split names certs --uri=uri
 
-  if not found_one_that_worked:
-    print "None of the certificate roots was suitable for connecting to $HOST"
+  if not result:
+    print "None of the certificate roots was suitable for connecting to $uri"
+  return result
 
-binary_split names/List certs/List -> none:
+binary_split names/List certs/List --uri/string -> string?:
 
   print "."
 
   exception := catch:
     client := http.Client.tls network_interface --root_certificates=certs
-    response := client.get HOST PATH
-    // TODO(florian): Don't reach into private variables of response.
-    response.connection_.close
+    try:
+      response := client.get --uri=uri
+    finally:
+      client.close
 
   if exception:
     if exception.to_string.starts_with "Site relies on unknown root":
-      return
+      return null
     if exception.to_string.starts_with "X509 - Certificate verification failed":
-      return
+      return null
     if exception.to_string.starts_with "Unknown root certificate":
-      return
+      return null
     throw exception
 
   if names.size == 1:
-    print "Successful connection to https://$HOST$PATH with $names[0]"
-    found_one_that_worked = true
-    return
+    print "Successful connection to $uri with $names[0]"
+    return names[0]
 
   else:
     // names.size >= 2.
@@ -70,5 +78,5 @@ binary_split names/List certs/List -> none:
     l_certs := certs[..certs.size / 2]
     r_certs := certs[certs.size / 2..]
 
-    binary_split l_names l_certs
-    binary_split r_names r_certs
+    return binary_split l_names l_certs --uri=uri or
+        binary_split r_names r_certs --uri=uri
