@@ -20,8 +20,6 @@ test: install-pkgs rebuild-cmake
 # It takes <1s on Linux to run cmake, so it doesn't hurt to run it frequently.
 rebuild-cmake:
 	mkdir -p build
-	# We need to set a build type, as otherwise cmake won't run nicely on Windows.
-	# The build-type is unused.
-	cmake -B build -DCMAKE_BUILD_TYPE=Debug
+	cmake -B build
 
 .PHONY: all test rebuild-cmake install-pkgs
