@@ -69,11 +69,11 @@ run-tests network/net.Client:
     "lund.se",
     "web.whatsapp.com",
     "digimedia.com",
-    "european-union.europa.eu",  // Starfield root.
+    "european-union.europa.eu",
     "elpais.es",  // Starfield root.
-    "vw.de",  // Starfield root.
-    "moxie.org",  // Starfield root.
-    "signal.org",  // Starfield root.
+    "vw.de",
+    "moxie.org",
+    "signal.org",
     ]
   working.do: | site |
     test-site network site
@@ -106,6 +106,8 @@ working-site network/net.Client host port expected-certificate-name:
       load-limiter.log-test-failure "*** Incorrectly failed to connect to $host ***"
     load-limiter.dec
 
+reported-error := false
+
 connect-to-site network/net.Client host port expected-certificate-name:
   bytes := 0
   connection := null
@@ -127,8 +129,11 @@ connect-to-site network/net.Client host port expected-certificate-name:
 
     finally:
       socket.close
-  finally:
+  finally: | is-exception _ |
     if raw: raw.close
     if connection: connection.close
 
     print "Read $bytes bytes from https://$host$(port == 443 ? "" : ":$port")/"
+    if is-exception and not reported-error:
+      print "** ERROR: $host"
+      reported-error = true
