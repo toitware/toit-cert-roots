@@ -21,10 +21,10 @@ The most common use-case is to install the common trusted roots
   the $install-all-trusted-roots method.
 
 If you want to minimize the size of the program and memory, you can also
-  selectively install individual roots by calling `install` on them.
+  selectively install individual roots by calling 'install' on them.
 
 Some APIs also accept a list of root certificates, but installing roots
-  globally is typically more convenient.
+  for the whole process is typically more convenient.
 
 # Examples
 Install all common trusted roots when the program starts:
