@@ -60,6 +60,7 @@ run-tests network/net.Client:
 
     "dkhostmaster.dk",
     "dmi.dk",
+    "example.com",
     "pravda.ru",
     "elpriser.nu",
     "coinbase.com",
