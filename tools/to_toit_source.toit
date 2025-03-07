@@ -160,7 +160,7 @@ main args/List:
   tr := Translator "a-z ._" "A-Z-"
   squeeze := Translator --squeeze "-" "-"
 
-  (file.read-content args[0]).to-string.trim.split "\n": | line |
+  (file.read-contents args[0]).to-string.trim.split "\n": | line |
     line = line.trim
     if line.starts-with FINGERPRINT:
       fingerprint = line[FINGERPRINT.size..]
