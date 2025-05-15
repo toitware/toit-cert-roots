@@ -16,7 +16,7 @@ Due to memory limitations it is not normally possible to add
   all known root certificates to a socket.  Therefore you
   will normally add the one root certificate that you need.
   If you want to be able to connect to arbitrary HTTPS servers
-  you can make an attempt with one root (eg $GLOBALSIGN-ROOT-CA)
+  you can make an attempt with one root (eg $GTS-ROOT-R1)
   and then use this to parse the exception and get the correct
   root for a second attempt.
 */

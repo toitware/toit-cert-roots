@@ -6,9 +6,9 @@ import certificate-roots
 import expect show *
 
 main:
-  baltimore := certificate-roots.BALTIMORE-CYBERTRUST-ROOT
+  digicert := certificate-roots.DIGICERT-GLOBAL-ROOT-G2
   amazon-1 := certificate-roots.AMAZON-ROOT-CA-1
-  comodo := certificate-roots.COMODO-AAA-SERVICES-ROOT
-  expect-not-equals baltimore amazon-1
+  comodo := certificate-roots.COMODO-RSA-CERTIFICATION-AUTHORITY
+  expect-not-equals digicert amazon-1
   expect-not-equals amazon-1 comodo
-  expect-not-equals comodo baltimore
+  expect-not-equals comodo digicert

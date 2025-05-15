@@ -75,6 +75,8 @@ run-tests network/net.Client:
     "vw.de",
     "moxie.org",
     "signal.org",
+    "supabase.com",
+    "github.com",
     ]
   working.do: | site |
     test-site network site
