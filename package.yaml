@@ -1,5 +1,6 @@
 name: certificate-roots
-description: The root certificates needed to connect to HTTPS servers on the public web.
+description: The root certificates needed to connect to HTTPS servers on the public
+  web.
 license: MPL-2.0
 environment:
   sdk: ^2.0.0-alpha.150

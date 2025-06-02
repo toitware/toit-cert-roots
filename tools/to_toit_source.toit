@@ -206,7 +206,6 @@ main args/List:
     cert/Cert := all-certs[mixed-case-name]
     if not cert.name.contains "TUNTRUST":
       out-map[mixed-case-name] = cert.name
-  out-map["AAA Certificate Services"] = "COMODO-AAA-SERVICES-ROOT"
 
   out-list := []
   names.do: | mixed-case-name |
@@ -266,17 +265,25 @@ main args/List:
       */
       COMMON-TRUSTED-ROOTS ::= [
         DIGICERT-GLOBAL-ROOT-G2,
+        DIGICERT-GLOBAL-ROOT-G3,
         DIGICERT-GLOBAL-ROOT-CA,
-        GLOBALSIGN-ROOT-CA,
         GLOBALSIGN-ROOT-CA-R3,
-        COMODO-AAA-SERVICES-ROOT,
+        GLOBALSIGN-ROOT-CA-R6,
+        GLOBALSIGN-ECC-ROOT-CA-R4,
+        GLOBALSIGN-ECC-ROOT-CA-R5,
+        GTS-ROOT-R1,
+        GTS-ROOT-R2,
+        GTS-ROOT-R3,
+        GTS-ROOT-R4,
         COMODO-RSA-CERTIFICATION-AUTHORITY,
-        BALTIMORE-CYBERTRUST-ROOT,
         USERTRUST-ECC-CERTIFICATION-AUTHORITY,
         USERTRUST-RSA-CERTIFICATION-AUTHORITY,
         DIGICERT-HIGH-ASSURANCE-EV-ROOT-CA,
         ISRG-ROOT-X1,
-        STARFIELD-CLASS-2-CA,
+        STARFIELD-ROOT-CERTIFICATE-AUTHORITY-G2,
+        STARFIELD-SERVICES-ROOT-CERTIFICATE-AUTHORITY-G2,
+        ENTRUST-ROOT-CERTIFICATION-AUTHORITY,
+        GO-DADDY-ROOT-CERTIFICATE-AUTHORITY-G2,
       ]
 
       /**
