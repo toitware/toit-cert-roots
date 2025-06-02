@@ -12,11 +12,8 @@ main:
   network-interface := net.open
 
   host := "www.google.com"
-  root-certificates := [
-    certificate-roots.GLOBALSIGN-ROOT-CA,
-  ]
+  certificate-roots.GTS-ROOT-R1.install
   client := http.Client.tls network-interface
-      --root-certificates=root-certificates
   response := client.get host "/"
 
   bytes := 0
