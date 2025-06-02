@@ -6,17 +6,17 @@ import net
 import net.x509 as net
 import http
 import tls
-import certificate_roots
+import certificate-roots
 
 main:
-  network_interface := net.open
+  network-interface := net.open
 
   host := "www.google.com"
-  root_certificates := [
-    certificate_roots.GLOBALSIGN_ROOT_CA,
+  root-certificates := [
+    certificate-roots.GLOBALSIGN-ROOT-CA,
   ]
-  client := http.Client.tls network_interface
-      --root_certificates=root_certificates
+  client := http.Client.tls network-interface
+      --root-certificates=root-certificates
   response := client.get host "/"
 
   bytes := 0

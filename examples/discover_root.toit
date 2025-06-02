@@ -15,9 +15,9 @@ import net
 import net.x509 as net
 import http
 import tls
-import certificate_roots
+import certificate-roots
 
-network_interface ::= net.open
+network-interface ::= net.open
 
 main:
 
@@ -34,36 +34,36 @@ discover-root --uri/string -> string?:
   names := []
   certs := []
 
-  certificate_roots.MAP.do: | name cert |
+  certificate-roots.MAP.do: | name cert |
     names.add name
     certs.add cert
 
   // This will not work on small devices since it parses all certificates
   // at once.  Once parsed, the memory is not freed, so there's no easy
   // way around this.
-  result := binary_split names certs --uri=uri
+  result := binary-split names certs --uri=uri
 
   if not result:
     print "None of the certificate roots was suitable for connecting to $uri"
   return result
 
-binary_split names/List certs/List --uri/string -> string?:
+binary-split names/List certs/List --uri/string -> string?:
 
   print "."
 
   exception := catch:
-    client := http.Client.tls network_interface --root_certificates=certs
+    client := http.Client.tls network-interface --root-certificates=certs
     try:
       response := client.get --uri=uri
     finally:
       client.close
 
   if exception:
-    if exception.to_string.starts_with "Site relies on unknown root":
+    if exception.to-string.starts-with "Site relies on unknown root":
       return null
-    if exception.to_string.starts_with "X509 - Certificate verification failed":
+    if exception.to-string.starts-with "X509 - Certificate verification failed":
       return null
-    if exception.to_string.starts_with "Unknown root certificate":
+    if exception.to-string.starts-with "Unknown root certificate":
       return null
     throw exception
 
@@ -73,10 +73,10 @@ binary_split names/List certs/List --uri/string -> string?:
 
   else:
     // names.size >= 2.
-    l_names := names[..names.size / 2]
-    r_names := names[names.size / 2..]
-    l_certs := certs[..certs.size / 2]
-    r_certs := certs[certs.size / 2..]
+    l-names := names[..names.size / 2]
+    r-names := names[names.size / 2..]
+    l-certs := certs[..certs.size / 2]
+    r-certs := certs[certs.size / 2..]
 
-    return binary_split l_names l_certs --uri=uri or
-        binary_split r_names r_certs --uri=uri
+    return binary-split l-names l-certs --uri=uri or
+        binary-split r-names r-certs --uri=uri
