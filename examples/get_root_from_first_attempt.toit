@@ -21,17 +21,19 @@ PATH ::= "/"              // Replace with the path part after the domain.
 network_interface ::= net.open
 
 main:
-  exception := try_with_root certificate_roots.GLOBALSIGN_ROOT_CA
+  certificate_roots.AMAZON-ROOT-CA-1.install
+  exception := catch: try-server
   if exception:
     root := certificate_roots.get_root_from_exception exception
     if root:
-      exception = try_with_root root
+      root.install
+      exception = try_server
   if exception:
     print "Failed to connect: $exception"
 
-try_with_root cert/tls.RootCertificate -> string?:
+try_server -> string?:
   exception := catch:
-    client := http.Client.tls network_interface --root_certificates=[cert]
+    client := http.Client.tls network_interface
     response := client.get HOST PATH
     bytes := 0
     while data := response.body.read:
