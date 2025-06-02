@@ -13,27 +13,27 @@ import net
 import net.x509 as net
 import http
 import tls
-import certificate_roots
+import certificate-roots
 
 HOST ::= "www.yahoo.com"  // Replace with the host you want to connect to.
 PATH ::= "/"              // Replace with the path part after the domain.
 
-network_interface ::= net.open
+network-interface ::= net.open
 
 main:
-  certificate_roots.AMAZON-ROOT-CA-1.install
+  certificate-roots.AMAZON-ROOT-CA-1.install
   exception := catch: try-server
   if exception:
-    root := certificate_roots.get_root_from_exception exception
+    root := certificate-roots.get-root-from-exception exception
     if root:
       root.install
-      exception = try_server
+      exception = try-server
   if exception:
     print "Failed to connect: $exception"
 
-try_server -> string?:
+try-server -> string?:
   exception := catch:
-    client := http.Client.tls network_interface
+    client := http.Client.tls network-interface
     response := client.get HOST PATH
     bytes := 0
     while data := response.body.read:
