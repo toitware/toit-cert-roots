@@ -6,6 +6,9 @@
 # Subject: CN=Entrust Root Certification Authority O=Entrust, Inc. OU=www.entrust.net/CPS is incorporated by reference/(c) 2006 Entrust, Inc.
 # Label: "Entrust Root Certification Authority"
 # Serial: 1164660820
+# Server Distrust After: 2024-11-30T23:59:59Z
+#   (Mozilla rejects server certificates issued by this root after that
+#   date. This cannot be expressed in a PEM bundle.)
 # MD5 Fingerprint: d6:a5:c3:ed:5d:dd:3e:00:c1:3d:87:92:1f:1d:3f:e4
 # SHA1 Fingerprint: b3:1e:b1:b7:40:e3:6c:84:02:da:dc:37:d4:4d:f5:d4:67:49:52:f9
 # SHA256 Fingerprint: 73:c1:76:43:4f:1b:c6:d5:ad:f4:5b:0e:76:e7:27:28:7c:8d:e5:76:16:c1:e6:e6:14:1a:2b:2c:bc:7d:8e:4c
@@ -419,6 +422,9 @@ WyH8EZE0vkHve52Xdf+XlcCWWC/qu0bXu+TZLg==
 # Subject: O=Chunghwa Telecom Co., Ltd. OU=ePKI Root Certification Authority
 # Label: "ePKI Root Certification Authority"
 # Serial: 28956088682735189655030529057352760477
+# Server Distrust After: 2025-04-15T23:59:59Z
+#   (Mozilla rejects server certificates issued by this root after that
+#   date. This cannot be expressed in a PEM bundle.)
 # MD5 Fingerprint: 1b:2e:00:ca:26:06:90:3d:ad:fe:6f:15:68:d3:6b:b3
 # SHA1 Fingerprint: 67:65:0d:f1:7e:8e:7e:5b:82:40:a4:f4:56:4b:cf:e2:3d:69:c6:f0
 # SHA256 Fingerprint: c0:a6:f4:dc:63:a2:4b:fd:cf:54:ef:2a:6a:08:2a:0a:72:de:35:80:3e:2f:f5:ff:52:7a:e5:d8:72:06:df:d5
@@ -726,6 +732,9 @@ sSi6
 # Subject: CN=AffirmTrust Commercial O=AffirmTrust
 # Label: "AffirmTrust Commercial"
 # Serial: 8608355977964138876
+# Server Distrust After: 2024-11-30T23:59:59Z
+#   (Mozilla rejects server certificates issued by this root after that
+#   date. This cannot be expressed in a PEM bundle.)
 # MD5 Fingerprint: 82:92:ba:5b:ef:cd:8a:6f:a6:3d:55:f9:84:f6:d6:b7
 # SHA1 Fingerprint: f9:b5:b6:32:45:5f:9c:be:ec:57:5f:80:dc:e9:6e:2c:c7:b2:78:b7
 # SHA256 Fingerprint: 03:76:ab:1d:54:c5:f9:80:3c:e4:b2:e2:01:a0:ee:7e:ef:7b:57:b6:36:e8:a9:3c:9b:8d:48:60:c9:6f:5f:a7
@@ -755,6 +764,9 @@ nlpOZbWUrhvfKbAW8b8Angc6F2S1BLUjIZkKlTuXfO8=
 # Subject: CN=AffirmTrust Networking O=AffirmTrust
 # Label: "AffirmTrust Networking"
 # Serial: 8957382827206547757
+# Server Distrust After: 2024-11-30T23:59:59Z
+#   (Mozilla rejects server certificates issued by this root after that
+#   date. This cannot be expressed in a PEM bundle.)
 # MD5 Fingerprint: 42:65:ca:be:01:9a:9a:4c:a9:8c:41:49:cd:c0:d5:7f
 # SHA1 Fingerprint: 29:36:21:02:8b:20:ed:02:f5:66:c5:32:d1:d6:ed:90:9f:45:00:2f
 # SHA256 Fingerprint: 0a:81:ec:5a:92:97:77:f1:45:90:4a:f3:8d:5d:50:9f:66:b5:e2:c5:8f:cd:b5:31:05:8b:0e:17:f3:f0:b4:1b
@@ -784,6 +796,9 @@ x3evZKiT3/Zpg4Jg8klCNO1aAFSFHBY2kgxc+qatv9s=
 # Subject: CN=AffirmTrust Premium O=AffirmTrust
 # Label: "AffirmTrust Premium"
 # Serial: 7893706540734352110
+# Server Distrust After: 2024-11-30T23:59:59Z
+#   (Mozilla rejects server certificates issued by this root after that
+#   date. This cannot be expressed in a PEM bundle.)
 # MD5 Fingerprint: c4:5d:0e:48:b6:ac:28:30:4e:0a:bc:f9:38:16:87:57
 # SHA1 Fingerprint: d8:a6:33:2c:e0:03:6f:b1:85:f6:63:4f:7d:6a:06:65:26:32:28:27
 # SHA256 Fingerprint: 70:a7:3f:7f:37:6b:60:07:42:48:90:45:34:b1:14:82:d5:bf:0e:69:8e:cc:49:8d:f5:25:77:eb:f2:e9:3b:9a
@@ -824,6 +839,9 @@ KeC2uAloGRwYQw==
 # Subject: CN=AffirmTrust Premium ECC O=AffirmTrust
 # Label: "AffirmTrust Premium ECC"
 # Serial: 8401224907861490260
+# Server Distrust After: 2024-11-30T23:59:59Z
+#   (Mozilla rejects server certificates issued by this root after that
+#   date. This cannot be expressed in a PEM bundle.)
 # MD5 Fingerprint: 64:b0:09:55:cf:b1:d5:99:e2:be:13:ab:a6:5d:ea:4d
 # SHA1 Fingerprint: b8:23:6b:00:2f:1d:16:86:53:01:55:6c:11:a4:37:ca:eb:ff:c3:bb
 # SHA256 Fingerprint: bd:71:fd:f6:da:97:e4:cf:62:d1:64:7a:dd:25:81:b0:7d:79:ad:f8:39:7e:b4:ec:ba:9c:5e:84:88:82:14:23
@@ -1878,6 +1896,9 @@ GaQdp/lLQzfcaFpPz+vCZHTetBXZ9FRUGi8c15dxVJCO2SCdUyt/q4/i6jC8UDfv
 # Subject: CN=Entrust Root Certification Authority - G2 O=Entrust, Inc. OU=See www.entrust.net/legal-terms/(c) 2009 Entrust, Inc. - for authorized use only
 # Label: "Entrust Root Certification Authority - G2"
 # Serial: 1246989352
+# Server Distrust After: 2024-11-30T23:59:59Z
+#   (Mozilla rejects server certificates issued by this root after that
+#   date. This cannot be expressed in a PEM bundle.)
 # MD5 Fingerprint: 4b:e2:c9:91:96:65:0c:f4:0e:5a:93:92:a0:0a:fe:b2
 # SHA1 Fingerprint: 8c:f4:27:fd:79:0c:3a:d1:66:06:8d:e8:1e:57:ef:bb:93:22:72:d4
 # SHA256 Fingerprint: 43:df:57:74:b0:3e:7f:ef:5f:e4:0d:93:1a:7b:ed:f1:bb:2e:6b:42:73:8c:4e:6d:38:41:10:3d:3a:a7:f3:39
@@ -1912,6 +1933,9 @@ VHOkc8KT/1EQrBVUAdj8BbGJoX90g5pJ19xOe4pIb4tF9g==
 # Subject: CN=Entrust Root Certification Authority - EC1 O=Entrust, Inc. OU=See www.entrust.net/legal-terms/(c) 2012 Entrust, Inc. - for authorized use only
 # Label: "Entrust Root Certification Authority - EC1"
 # Serial: 51543124481930649114116133369
+# Server Distrust After: 2024-11-30T23:59:59Z
+#   (Mozilla rejects server certificates issued by this root after that
+#   date. This cannot be expressed in a PEM bundle.)
 # MD5 Fingerprint: b6:7e:1d:f0:58:c5:49:6c:24:3b:3d:ed:98:18:ed:bc
 # SHA1 Fingerprint: 20:d8:06:40:df:9b:25:f5:12:25:3a:11:ea:f7:59:8a:eb:14:b5:47
 # SHA256 Fingerprint: 02:ed:0e:b2:8c:14:da:45:16:5c:56:67:91:70:0d:64:51:d7:fb:56:f0:b2:ab:1d:3b:8e:b0:70:e5:6e:df:f5
@@ -3252,6 +3276,10 @@ DgQWBBQxCpCPtsad0kRLgLWi5h+xEk8blTAKBggqhkjOPQQDAwNoADBlAjEA31SQ
 # Subject: CN=GLOBALTRUST 2020 O=e-commerce monitoring GmbH
 # Label: "GLOBALTRUST 2020"
 # Serial: 109160994242082918454945253
+# Server Distrust After: 2024-06-30T00:00:00Z
+#   (Mozilla rejects server certificates issued by this root after that
+#   date. This cannot be expressed in a PEM bundle.)
+# Email Distrust After: 2024-06-30T00:00:00Z
 # MD5 Fingerprint: 8a:c7:6f:cb:6d:e3:cc:a2:f1:7c:83:fa:0e:78:d7:e8
 # SHA1 Fingerprint: d0:67:c1:13:51:01:0c:aa:d0:c7:6a:65:37:31:16:26:4f:53:71:a2
 # SHA256 Fingerprint: 9a:29:6a:51:82:d1:d4:51:a2:e3:7f:43:9b:74:da:af:a2:67:52:33:29:f9:0f:9a:0d:20:07:c3:34:e2:3c:9a
