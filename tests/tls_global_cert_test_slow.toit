@@ -66,6 +66,7 @@ run-tests network/net.Client:
     "appspot.com",
     "s3-us-west-1.amazonaws.com",
     "helsinki.fi",
+    "valid.r3.roots.globalsign.com",
     "web.whatsapp.com",
     "european-union.europa.eu",
     "elpais.es",  // Starfield root.
@@ -75,9 +76,8 @@ run-tests network/net.Client:
     "supabase.com",
     "github.com",
     ]
-  // These hosts are consistently unreachable from GitHub's Windows runners.
+  // This host is consistently unreachable from GitHub's Windows runners.
   if platform != system.PLATFORM-WINDOWS:
-    working.add "lund.se"
     working.add "digimedia.com"
   working.do: | site |
     test-site network site
